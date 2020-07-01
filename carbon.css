@@ -283,7 +283,7 @@ footer {
     right: 0;
     background: #d8d8d8;
     padding: 5px;
-    box-shadow: 0 0 2px gray;
+    border-top: 1px solid #b1b1b1;
 }
 
 .available-slot {
