@@ -562,6 +562,24 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const SATURDAY = 6;
 
     /**
+     * The month constants.
+     * These aren't used by Carbon itself but exist for
+     * convenience sake alone.
+     */
+    public const JANUARY = 1;
+    public const FEBRUARY = 2;
+    public const MARCH = 3;
+    public const APRIL = 4;
+    public const MAY = 5;
+    public const JUNE = 6;
+    public const JULY = 7;
+    public const AUGUST = 8;
+    public const SEPTEMBER = 9;
+    public const OCTOBER = 10;
+    public const NOVEMBER = 11;
+    public const DECEMBER = 12;
+
+    /**
      * Number of X in Y.
      */
     public const YEARS_PER_MILLENNIUM = 1000;
