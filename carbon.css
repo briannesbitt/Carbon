@@ -282,12 +282,12 @@ footer {
     left: 0;
     right: 0;
     background: #d8d8d8;
-    padding: 2px 0;
     border-top: 1px solid #b1b1b1;
 }
 
 .available-slot {
     line-height: 2em;
+    padding: 2px 15px;
 }
 
 footer .help-translate {
@@ -303,14 +303,16 @@ footer .close {
     text-decoration: none;
     cursor: pointer;
     transition: .2s background;
-    line-height: 32px;
-    width: 40px;
+    line-height: 24px;
+    font-size: 16px;
+    width: 32px;
     border-radius: 50%;
     box-sizing: border-box;
+    text-align: center;
 }
 
 footer .close:hover {
-    background: #50c04a;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 footer .help-translate {
