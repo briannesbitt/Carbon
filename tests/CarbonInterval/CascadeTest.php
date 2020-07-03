@@ -147,6 +147,14 @@ class CascadeTest extends AbstractTestCase
                 'P1M18DT20H',
                 0,
             ],
+            [
+                [
+                    'hours' => 1,
+                    'seconds' => -59,
+                ],
+                'PT59M1S',
+                0,
+            ],
         ];
     }
 
