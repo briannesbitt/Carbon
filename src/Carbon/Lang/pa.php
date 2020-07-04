@@ -72,4 +72,5 @@ return [
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' ਅਤੇ '],
     'weekend' => [0, 0],
+    'alt_numbers' => ['੦', '੧', '੨', '੩', '੪', '੫', '੬', '੭', '੮', '੯'],
 ];
