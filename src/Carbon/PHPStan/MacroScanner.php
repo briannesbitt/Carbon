@@ -20,19 +20,9 @@ final class MacroScanner
      */
     public function hasMethod(string $className, string $methodName): bool
     {
-        $reflectionClass = new ReflectionClass($className);
-
-        if (!$reflectionClass->implementsInterface(CarbonInterface::class)) {
-            return false;
-        }
-
-        $hasMacroMethod = $reflectionClass->getMethod('hasMacro');
-
-        if ($hasMacroMethod->isAbstract()) {
-            return false;
-        }
-
-        return $className::hasMacro($methodName);
+        return is_a($className, CarbonInterface::class, true) &&
+            is_callable([$className, 'hasMacro']) &&
+            $className::hasMacro($methodName);
     }
 
     /**
