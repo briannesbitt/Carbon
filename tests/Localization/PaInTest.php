@@ -119,73 +119,73 @@ class PaInTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ਕੁਝ ਸਕਿੰਟ ਪਿਛਲੇ',
+        'ਕੁਝ ਸਕਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ਕੁਝ ਸਕਿੰਟ ਪਿਛਲੇ',
+        'ਕੁਝ ਸਕਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ਸਕਿੰਟ ਪਿਛਲੇ',
+        '2 ਸਕਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ਸਕਿੰਟ ਪਿਛਲੇ',
+        '2 ਸਕਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ਇਕ ਮਿੰਟ ਪਿਛਲੇ',
+        'ਇਕ ਮਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ਇਕ ਮਿੰਟ ਪਿਛਲੇ',
+        'ਇਕ ਮਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 ਮਿੰਟ ਪਿਛਲੇ',
+        '2 ਮਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 ਮਿੰਟ ਪਿਛਲੇ',
+        '2 ਮਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ਇੱਕ ਘੰਟਾ ਪਿਛਲੇ',
+        'ਇੱਕ ਘੰਟਾ ਪਹਿਲਾਂ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ਇੱਕ ਘੰਟਾ ਪਿਛਲੇ',
+        'ਇੱਕ ਘੰਟਾ ਪਹਿਲਾਂ',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ਘੰਟੇ ਪਿਛਲੇ',
+        '2 ਘੰਟੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ਘੰਟੇ ਪਿਛਲੇ',
+        '2 ਘੰਟੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ਇੱਕ ਦਿਨ ਪਿਛਲੇ',
+        'ਇੱਕ ਦਿਨ ਪਹਿਲਾਂ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ਇੱਕ ਦਿਨ ਪਿਛਲੇ',
+        'ਇੱਕ ਦਿਨ ਪਹਿਲਾਂ',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 ਦਿਨ ਪਿਛਲੇ',
+        '2 ਦਿਨ ਪਹਿਲਾਂ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ਦਿਨ ਪਿਛਲੇ',
+        '2 ਦਿਨ ਪਹਿਲਾਂ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ਹਫਤਾ ਪਿਛਲੇ',
+        'ਹਫਤਾ ਪਹਿਲਾਂ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ਹਫਤਾ ਪਿਛਲੇ',
+        'ਹਫਤਾ ਪਹਿਲਾਂ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 ਹਫ਼ਤੇ ਪਿਛਲੇ',
+        '2 ਹਫ਼ਤੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 ਹਫ਼ਤੇ ਪਿਛਲੇ',
+        '2 ਹਫ਼ਤੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ਇੱਕ ਮਹੀਨਾ ਪਿਛਲੇ',
+        'ਇੱਕ ਮਹੀਨਾ ਪਹਿਲਾਂ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ਇੱਕ ਮਹੀਨਾ ਪਿਛਲੇ',
+        'ਇੱਕ ਮਹੀਨਾ ਪਹਿਲਾਂ',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 ਮਹੀਨੇ ਪਿਛਲੇ',
+        '2 ਮਹੀਨੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 ਮਹੀਨੇ ਪਿਛਲੇ',
+        '2 ਮਹੀਨੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ਇੱਕ ਸਾਲ ਪਿਛਲੇ',
+        'ਇੱਕ ਸਾਲ ਪਹਿਲਾਂ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ਇੱਕ ਸਾਲ ਪਿਛਲੇ',
+        'ਇੱਕ ਸਾਲ ਪਹਿਲਾਂ',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 ਸਾਲ ਪਿਛਲੇ',
+        '2 ਸਾਲ ਪਹਿਲਾਂ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ਸਾਲ ਪਿਛਲੇ',
+        '2 ਸਾਲ ਪਹਿਲਾਂ',
         // Carbon::now()->addSecond()->diffForHumans()
         'ਕੁਝ ਸਕਿੰਟ ਵਿੱਚ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'ਕੁਝ ਸਕਿੰਟ ਵਿੱਚ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        'ਕੁਝ ਸਕਿੰਟ ਤੋਂ ਬਾਅਦ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        'ਕੁਝ ਸਕਿੰਟ ਤੋਂ ਬਾਅਦ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        'ਕੁਝ ਸਕਿੰਟ ਤੋਂ ਪਹਿਲਾਂ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        'ਕੁਝ ਸਕਿੰਟ ਤੋਂ ਪਹਿਲਾਂ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ਕੁਝ ਸਕਿੰਟ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
@@ -203,9 +203,9 @@ class PaInTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ਸਾਲ ਵਿੱਚ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 ਮਹੀਨੇ ਪਿਛਲੇ',
+        '5 ਮਹੀਨੇ ਪਹਿਲਾਂ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ਸਾਲ 3 ਮਹੀਨੇ ਇੱਕ ਦਿਨ ਕੁਝ ਸਕਿੰਟ ਪਿਛਲੇ',
+        '2 ਸਾਲ 3 ਮਹੀਨੇ ਇੱਕ ਦਿਨ ਕੁਝ ਸਕਿੰਟ ਪਹਿਲਾਂ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ਹਫਤਾ 10 ਘੰਟੇ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
