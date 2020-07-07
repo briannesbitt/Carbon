@@ -321,6 +321,17 @@ footer .help-translate {
     text-align: center;
 }
 
+footer [data-ea-type="text"].loaded .ea-content {
+    margin: 5px 0 -10px;
+    padding: 0;
+    box-shadow: none;
+    background: none;
+}
+
+footer [data-ea-type="text"].loaded .ea-callout {
+    margin-bottom: -2px;
+}
+
 .height-squeezed {
     height: 0;
     overflow: hidden;
