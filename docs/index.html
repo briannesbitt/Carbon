@@ -562,7 +562,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -9263,12 +9263,6 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
         <div class="available-slot container">
             <a href="#" class="close" data-session-close="footer .available-slot">✖</a>
             <div data-ea-publisher="carbon" data-ea-type="text"></div>
-            <div class="country-language fr-country-only">
-                <a target="_blank" href="https://www.ovnicap.com/blog/limoges-developpeur-se-full-stack-php-limoges">
-                    <span style="background: #7AC35F; padding: 2px 4px; margin-right: 8px;">Offre d'emploi</span>
-                    Limoges : Développeur PHP - R&D
-                </a>
-            </div>
         </div>
     </footer>
 
