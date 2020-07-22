@@ -1017,7 +1017,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return static|false
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
@@ -3714,7 +3714,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param Closure|static|string|null $testNow real or mock Carbon instance
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null);
 
