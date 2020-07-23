@@ -2421,7 +2421,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function roundUnit($unit, $precision = 1, $function = 'round')
     {
-        $negated = !!$this->invert;
+        $negated = $this->invert;
 
         if ($negated) {
             $this->invert();
