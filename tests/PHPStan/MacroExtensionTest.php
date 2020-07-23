@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\PHPStan;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\PHPStan\MacroScanner;
 use Tests\AbstractTestCase;
@@ -22,6 +23,7 @@ class MacroExtensionTest extends AbstractTestCase
 
         $this->assertTrue($scanner->hasMethod(Carbon::class, 'foo'));
         $this->assertFalse($scanner->hasMethod(CarbonInterval::class, 'foo'));
+        $this->assertFalse($scanner->hasMethod(CarbonInterface::class, 'foo'));
     }
 
     public function testGetMacro()

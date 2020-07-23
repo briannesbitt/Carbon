@@ -562,6 +562,24 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const SATURDAY = 6;
 
     /**
+     * The month constants.
+     * These aren't used by Carbon itself but exist for
+     * convenience sake alone.
+     */
+    public const JANUARY = 1;
+    public const FEBRUARY = 2;
+    public const MARCH = 3;
+    public const APRIL = 4;
+    public const MAY = 5;
+    public const JUNE = 6;
+    public const JULY = 7;
+    public const AUGUST = 8;
+    public const SEPTEMBER = 9;
+    public const OCTOBER = 10;
+    public const NOVEMBER = 11;
+    public const DECEMBER = 12;
+
+    /**
      * Number of X in Y.
      */
     public const YEARS_PER_MILLENNIUM = 1000;
@@ -999,7 +1017,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return static|false
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
@@ -3696,7 +3714,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param Closure|static|string|null $testNow real or mock Carbon instance
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null);
 

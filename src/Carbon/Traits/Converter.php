@@ -28,7 +28,7 @@ use DateTimeImmutable;
  *
  * Depends on the following methods:
  *
- * @method Carbon|CarbonImmutable copy()
+ * @method static copy()
  */
 trait Converter
 {

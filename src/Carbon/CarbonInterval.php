@@ -2429,14 +2429,26 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function roundUnit($unit, $precision = 1, $function = 'round')
     {
+        $negated = $this->invert;
+
+        if ($negated) {
+            $this->invert();
+        }
+
         $base = CarbonImmutable::parse('2000-01-01 00:00:00', 'UTC')
             ->roundUnit($unit, $precision, $function);
 
-        return $this->copyProperties(
+        $this->copyProperties(
             $base->add($this)
                 ->roundUnit($unit, $precision, $function)
                 ->diffAsCarbonInterval($base)
         );
+
+        if ($negated) {
+            $this->invert();
+        }
+
+        return $this;
     }
 
     /**
