@@ -16,6 +16,19 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
+    public function testSet()
+    {
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $ci->set('seconds', 34);
+        $this->assertSame(34, $ci->seconds);
+        $ci->set([
+            'seconds' => 59,
+            'minutes' => 33,
+        ]);
+        $this->assertSame(59, $ci->seconds);
+        $this->assertSame(33, $ci->minutes);
+    }
+
     public function testYearsSetter()
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
