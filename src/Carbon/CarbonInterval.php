@@ -2090,8 +2090,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function cascade()
     {
+        $newData = $this->toArray();
+
         do {
-            $data = $this->toArray();
+            $data = $newData;
             $nonZeroValues = $this->getNonZeroValues();
             $biggestUnit = key($nonZeroValues);
 
@@ -2118,7 +2120,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     $this->$target++;
                 }
             }
-        } while ($this->hasNegativeValues() && $this->hasPositiveValues());
+        } while ($this->hasNegativeValues() && $this->hasPositiveValues() && ($newData = $this->toArray()) !== $data);
 
         return $this->solveNegativeInterval();
     }
