@@ -312,4 +312,16 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame(28, CarbonInterval::getFactor('day', 'month'));
         $this->assertSame(28, CarbonInterval::getFactor('dayz', 'months'));
     }
+
+    public function testComplexInterval()
+    {
+        $this->markTestIncomplete('To be fixed in 2.37.x');
+
+        $interval = CarbonInterval::create()
+            ->years(-714)->months(-101)->days(-737)
+            ->seconds(442)->microseconds(-19);
+
+        $this->assertFalse($interval->cascade()->hasNegativeValues());
+        $this->assertTrue($interval->cascade()->hasPositiveValues());
+    }
 }
