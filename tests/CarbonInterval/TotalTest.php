@@ -71,6 +71,36 @@ class TotalTest extends AbstractTestCase
 
         $this->assertSame(12312000, $interval->totalMicroseconds);
         $this->assertSame(12312, $interval->totalMilliseconds);
+
+        $interval = CarbonInterval::milliseconds(-12312);
+
+        $this->assertSame(-12312000, $interval->totalMicroseconds);
+        $this->assertSame(-12312, $interval->totalMilliseconds);
+    }
+
+    public function getNegativeIntervals()
+    {
+        return [
+            [-1, CarbonInterval::hours(0)->hours(-150)],
+            [-1, CarbonInterval::hours(150)->invert()],
+            [1, CarbonInterval::hours(0)->hours(-150)->invert()],
+        ];
+    }
+
+    /**
+     * @dataProvider getNegativeIntervals
+     */
+    public function testGetNegativeTotalsViaGetters($factor, $interval)
+    {
+        $this->assertSame($factor * 150 * 60 * 60 * 1000 * 1000, $interval->totalMicroseconds);
+        $this->assertSame($factor * 150 * 60 * 60 * 1000, $interval->totalMilliseconds);
+        $this->assertSame($factor * 150 * 60 * 60, $interval->totalSeconds);
+        $this->assertSame($factor * 150 * 60, $interval->totalMinutes);
+        $this->assertSame($factor * 150, $interval->totalHours);
+        $this->assertSame($factor * 150 / 24, $interval->totalDays);
+        $this->assertSame($factor * 150 / 24 / 7, $interval->totalWeeks);
+        $this->assertSame($factor * 150 / 24 / 7 / 4, $interval->totalMonths);
+        $this->assertSame($factor * 150 / 24 / 7 / 4 / 12, $interval->totalYears);
     }
 
     public function testTotalsWithCustomFactors()

@@ -1982,7 +1982,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         return $this->copyProperties(
             static::__callStatic('years', [$yearPart])
-                ->microseconds($this->totalMicroseconds * $factor)
+                ->microseconds(abs($this->totalMicroseconds) * $factor)
                 ->cascade(),
             true
         );
@@ -2228,6 +2228,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         if (!$unitFound) {
             throw new UnitNotConfiguredException($unit);
+        }
+
+        if ($this->invert) {
+            $result *= -1;
         }
 
         if ($unit === 'weeks') {
@@ -2502,26 +2506,22 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function roundUnit($unit, $precision = 1, $function = 'round')
     {
-        $negated = $this->invert;
-
-        if ($negated) {
-            $this->invert();
-        }
-
         $base = CarbonImmutable::parse('2000-01-01 00:00:00', 'UTC')
             ->roundUnit($unit, $precision, $function);
+        $next = $base->add($this);
+        $inverted = $next < $base;
+
+        if ($inverted) {
+            $next = $base->sub($this);
+        }
 
         $this->copyProperties(
-            $base->add($this)
+            $next
                 ->roundUnit($unit, $precision, $function)
                 ->diffAsCarbonInterval($base)
         );
 
-        if ($negated) {
-            $this->invert();
-        }
-
-        return $this;
+        return $this->invert($inverted);
     }
 
     /**
