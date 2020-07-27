@@ -3347,8 +3347,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param string|DateTimeInterface|null $time
+     * @param DateTimeZone|string|null      $tz
      *
      * @throws InvalidFormatException
      *
@@ -3454,8 +3454,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param string|DateTimeInterface|null $time
+     * @param DateTimeZone|string|null      $tz
      *
      * @throws InvalidFormatException
      *
