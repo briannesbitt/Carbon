@@ -10,17 +10,28 @@ use Tests\AbstractTestCase;
 class CascadeTest extends AbstractTestCase
 {
     /**
+     * @param CarbonInterval $interval
+     * @param string         $spec
+     * @param bool|int       $inverted
+     */
+    protected function assertIntervalSpec(CarbonInterval $interval, string $spec, $inverted = false)
+    {
+        $this->assertSame(
+            ($inverted ? '- ' : '+ ').$spec,
+            ($interval->invert ? '- ' : '+ ').$interval->spec()
+        );
+    }
+
+    /**
      * @dataProvider provideIntervalSpecs
      */
     public function testCascadesOverflowedValues($spec, $expected)
     {
         $interval = CarbonInterval::fromString($spec)->cascade();
-        $this->assertSame(0, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected);
 
         $interval = CarbonInterval::fromString($spec)->invert()->cascade();
-        $this->assertSame(1, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected, true);
     }
 
     public function provideIntervalSpecs()
@@ -46,16 +57,14 @@ class CascadeTest extends AbstractTestCase
             $interval->$unit($value);
         }
         $interval->cascade();
-        $this->assertSame($expectingInversion, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected, $expectingInversion);
 
         $interval = new CarbonInterval(0);
         foreach ($units as $unit => $value) {
             $interval->$unit($value);
         }
         $interval->invert()->cascade();
-        $this->assertSame(1 - $expectingInversion, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected, 1 - $expectingInversion);
     }
 
     public function provideMixedSignsIntervalSpecs()
@@ -145,6 +154,22 @@ class CascadeTest extends AbstractTestCase
                     'hours' => -28,
                 ],
                 'P1M18DT20H',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'seconds' => -3615,
+                ],
+                'PT15S',
+                1,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'seconds' => 3615,
+                ],
+                'PT15S',
                 0,
             ],
             [

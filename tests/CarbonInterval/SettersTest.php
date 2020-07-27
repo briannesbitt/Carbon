@@ -149,6 +149,18 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame($ci, $ci->invert());
         $this->assertSame(0, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(true));
+        $this->assertSame(1, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(true));
+        $this->assertSame(1, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(false));
+        $this->assertSame(0, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(false));
+        $this->assertSame(0, $ci->invert);
     }
 
     public function testInvalidSetter()

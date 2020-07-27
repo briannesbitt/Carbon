@@ -265,6 +265,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         ];
     }
 
+    private static function areSameUnit($a, $b)
+    {
+        return self::standardizeUnit($a) === self::standardizeUnit($b);
+    }
+
     private static function standardizeUnit($unit)
     {
         $unit = rtrim($unit, 'sz').'s';
@@ -972,7 +977,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return int|float|string
      */
-    public function __get($name)
+    public function get($name)
     {
         if (substr($name, 0, 5) === 'total') {
             return $this->total(substr($name, 5));
@@ -1024,6 +1029,95 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     }
 
     /**
+     * Get a part of the CarbonInterval object.
+     *
+     * @param string $name
+     *
+     * @throws UnknownGetterException
+     *
+     * @return int|float|string
+     */
+    public function __get($name)
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * Set a part of the CarbonInterval object.
+     *
+     * @param string|array $name
+     * @param int          $value
+     *
+     * @throws UnknownSetterException
+     *
+     * @return $this
+     */
+    public function set($name, $value = null)
+    {
+        $properties = is_array($name) ? $name : [$name => $value];
+
+        foreach ($properties as $key => $value) {
+            switch (Carbon::singularUnit(rtrim($key, 'z'))) {
+                case 'year':
+                    $this->y = $value;
+
+                    break;
+
+                case 'month':
+                    $this->m = $value;
+
+                    break;
+
+                case 'week':
+                    $this->d = $value * static::getDaysPerWeek();
+
+                    break;
+
+                case 'day':
+                    $this->d = $value;
+
+                    break;
+
+                case 'hour':
+                    $this->h = $value;
+
+                    break;
+
+                case 'minute':
+                    $this->i = $value;
+
+                    break;
+
+                case 'second':
+                    $this->s = $value;
+
+                    break;
+
+                case 'milli':
+                case 'millisecond':
+                    $this->microseconds = $value * Carbon::MICROSECONDS_PER_MILLISECOND + $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND;
+
+                    break;
+
+                case 'micro':
+                case 'microsecond':
+                    $this->f = $value / Carbon::MICROSECONDS_PER_SECOND;
+
+                    break;
+
+                default:
+                    if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
+                        throw new UnknownSetterException($key);
+                    }
+
+                    $this->$key = $value;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Set a part of the CarbonInterval object.
      *
      * @param string $name
@@ -1033,61 +1127,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function __set($name, $value)
     {
-        switch (Carbon::singularUnit(rtrim($name, 'z'))) {
-            case 'year':
-                $this->y = $value;
-
-                break;
-
-            case 'month':
-                $this->m = $value;
-
-                break;
-
-            case 'week':
-                $this->d = $value * static::getDaysPerWeek();
-
-                break;
-
-            case 'day':
-                $this->d = $value;
-
-                break;
-
-            case 'hour':
-                $this->h = $value;
-
-                break;
-
-            case 'minute':
-                $this->i = $value;
-
-                break;
-
-            case 'second':
-                $this->s = $value;
-
-                break;
-
-            case 'milli':
-            case 'millisecond':
-                $this->microseconds = $value * Carbon::MICROSECONDS_PER_MILLISECOND + $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND;
-
-                break;
-
-            case 'micro':
-            case 'microsecond':
-                $this->f = $value / Carbon::MICROSECONDS_PER_SECOND;
-
-                break;
-
-            default:
-                if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
-                    throw new UnknownSetterException($name);
-                }
-
-                $this->$name = $value;
-        }
+        $this->set($name, $value);
     }
 
     /**
@@ -1749,11 +1789,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Invert the interval.
      *
+     * @param bool|int $inverted if a parameter is passed, the passed value casted as 1 or 0 is used
+     *                           as the new value of the ->invert property.
+     *
      * @return $this
      */
-    public function invert()
+    public function invert($inverted = null)
     {
-        $this->invert = $this->invert ? 0 : 1;
+        $this->invert = (func_num_args() === 0 ? !$this->invert : $inverted) ? 1 : 0;
 
         return $this;
     }
@@ -2047,24 +2090,59 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function cascade()
     {
-        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
-            if ($source === 'dayz' && $target === 'weeks') {
-                continue;
+        do {
+            $data = $this->toArray();
+            $nonZeroValues = $this->getNonZeroValues();
+            $biggestUnit = key($nonZeroValues);
+
+            foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
+                if ($source === 'dayz' && $target === 'weeks') {
+                    continue;
+                }
+
+                $targetZero = !$this->$target;
+                $value = $this->$source;
+                $modulo = ($factor + ($value % $factor)) % $factor;
+                $this->$source = $modulo;
+
+                if ($targetZero && $modulo > $value && self::areSameUnit($source, $biggestUnit)) {
+                    return $this->set(array_map(function ($originalValue) {
+                        return -$originalValue;
+                    }, $data))->cascade()->invert();
+                }
+
+                $this->$target += ($value - $modulo) / $factor;
+
+                if (!$targetZero && $this->$source > 0 && $this->$target < 0) {
+                    $this->$source -= $factor;
+                    $this->$target++;
+                }
             }
+        } while ($this->hasNegativeValues() && $this->hasPositiveValues());
 
-            $targetZero = !$this->$target;
-            $value = $this->$source;
-            $modulo = ($factor + ($value % $factor)) % $factor;
-            $this->$source = $modulo;
-            $this->$target += ($value - $modulo) / $factor;
+        return $this->solveNegativeInterval();
+    }
 
-            if (!$targetZero && $this->$source > 0 && $this->$target < 0) {
-                $this->$source -= $factor;
-                $this->$target++;
+    public function hasNegativeValues(): bool
+    {
+        foreach ($this->toArray() as $value) {
+            if ($value < 0) {
+                return true;
             }
         }
 
-        return $this->solveNegativeInterval();
+        return false;
+    }
+
+    public function hasPositiveValues(): bool
+    {
+        foreach ($this->toArray() as $value) {
+            if ($value > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
