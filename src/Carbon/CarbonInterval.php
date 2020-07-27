@@ -2052,18 +2052,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 continue;
             }
 
+            $targetZero = !$this->$target;
             $value = $this->$source;
             $modulo = ($factor + ($value % $factor)) % $factor;
             $this->$source = $modulo;
             $this->$target += ($value - $modulo) / $factor;
 
-            /*
-             * @TODO The code below fails with intervals like (1 hour -59 seconds)
-             * => Find a way to make the test CascadeTest::testMixedSignsCascadesOverflowedValues
-             *    for the complete list of case in provideMixedSignsIntervalSpecs
-             * @see https://github.com/briannesbitt/Carbon/issues/2127
-             */
-            if ($this->$source > 0 && $this->$target < 0) {
+            if (!$targetZero && $this->$source > 0 && $this->$target < 0) {
                 $this->$source -= $factor;
                 $this->$target++;
             }
