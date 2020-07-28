@@ -547,9 +547,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function copy()
     {
-        $date = new static($this->spec());
-        $date->invert = $this->invert;
-        $date->f = $this->f;
+        $date = new static(0);
+        $date->copyProperties($this);
         $date->step = $this->step;
 
         return $date;
@@ -2090,7 +2089,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function cascade()
     {
-        $newData = $this->toArray();
+        $originalData = $this->toArray();
+        $newData = $originalData;
 
         do {
             $data = $newData;
@@ -2110,7 +2110,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 if ($targetZero && $modulo > $value && self::areSameUnit($source, $biggestUnit)) {
                     return $this->set(array_map(function ($originalValue) {
                         return -$originalValue;
-                    }, $data))->cascade()->invert();
+                    }, $originalData))->cascade()->invert();
                 }
 
                 $this->$target += ($value - $modulo) / $factor;
@@ -2120,7 +2120,19 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     $this->$target++;
                 }
             }
-        } while ($this->hasNegativeValues() && $this->hasPositiveValues() && ($newData = $this->toArray()) !== $data);
+
+            if (!$this->hasNegativeValues() || !$this->hasPositiveValues()) {
+                break;
+            }
+
+            $newData = $this->toArray();
+
+            if ($newData === $data) {
+                return $this->set(array_map(function ($originalValue) {
+                    return -$originalValue;
+                }, $originalData))->cascade()->invert();
+            }
+        } while (true);
 
         return $this->solveNegativeInterval();
     }
