@@ -4386,12 +4386,28 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
     <table class='info-table method-history'><tr><td>Method added</td><td>1.18.0</td><td><code>$time</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-get">
+    <h2><span class="class-name">CarbonInterval::</span>get</h2>
+    <code>$name</code>
+    <div class="doc-return">returns <code>int|float|string</code></div>
+    <p class="doc-description">Get a part of the CarbonInterval object.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.37.0</td><td><code>$name</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-__get">
     <h2><span class="class-name">CarbonInterval::</span>__get</h2>
     <code>$name</code>
     <div class="doc-return">returns <code>int|float|string</code></div>
     <p class="doc-description">Get a part of the CarbonInterval object.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.18.0</td><td><code>$name</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-set">
+    <h2><span class="class-name">CarbonInterval::</span>set</h2>
+    <code>$name, $value = null</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Set a part of the CarbonInterval object.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.37.0</td><td><code>$name, $value = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-__set">
@@ -4521,10 +4537,10 @@ echo CarbonInterval::fromString('1d 24h')->forHumans(['minimumUnit' => 'hour']) 
 
 <div class="doc-method " id="doc-method-CarbonInterval-invert">
     <h2><span class="class-name">CarbonInterval::</span>invert</h2>
-    <em>no arguments</em>
+    <code>$inverted = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Invert the interval.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.37.0</td><td><code>$inverted = null</code></td></tr><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-add">
@@ -4625,6 +4641,22 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Convert overflowed values into bigger units.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-hasNegativeValues">
+    <h2><span class="class-name">CarbonInterval::</span>hasNegativeValues</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description"></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.37.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-hasPositiveValues">
+    <h2><span class="class-name">CarbonInterval::</span>hasPositiveValues</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description"></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.37.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-total">
