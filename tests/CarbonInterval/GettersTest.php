@@ -29,6 +29,12 @@ class GettersTest extends AbstractTestCase
         $interval->doesNotExit;
     }
 
+    public function testGet()
+    {
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(4, $ci->get('years'));
+    }
+
     public function testYearsGetter()
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);

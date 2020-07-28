@@ -2,7 +2,6 @@ preset: psr2
 
 enabled:
   - concat_without_spaces
-  - ereg_to_preg
   - extra_empty_lines
   - short_array_syntax
   - method_separation
@@ -10,7 +9,7 @@ enabled:
   - no_empty_lines_after_phpdocs
   - operators_spaces
   - ordered_use
-  - phpdoc_align
+  # - phpdoc_align
   - phpdoc_indent
   - phpdoc_inline_tag
   - phpdoc_no_access
@@ -24,7 +23,6 @@ enabled:
   - phpdoc_types
   - phpdoc_var_without_name
   - return
-  - self_accessor
   - short_bool_cast
   - single_quote
   - spaces_after_semicolon

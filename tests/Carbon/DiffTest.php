@@ -550,6 +550,20 @@ class DiffTest extends AbstractTestCase
         });
     }
 
+    /**
+     * @see https://github.com/briannesbitt/Carbon/issues/2136
+     */
+    public function testDiffInTheFuture()
+    {
+        Carbon::setTestNow('2020-07-22 09:15');
+
+        $this->assertSame(
+            '1 week from now',
+            Carbon::parse('2020-07-30 13:51:15')
+                ->diffForHumans(['options' => CarbonInterface::ROUND])
+        );
+    }
+
     public function testDiffForHumansNowAndSecondWithTimezone()
     {
         $vanNow = Carbon::now('America/Vancouver');

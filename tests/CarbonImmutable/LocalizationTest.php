@@ -724,9 +724,10 @@ class LocalizationTest extends AbstractTestCase
         );
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
-        $date->setLocalTranslator(class_exists(MessageSelector::class)
-            ? new IdentityTranslator(new MessageSelector())
-            : new IdentityTranslator()
+        $date->setLocalTranslator(
+            class_exists(MessageSelector::class)
+                ? new IdentityTranslator(new MessageSelector())
+                : new IdentityTranslator()
         );
 
         $date->getTranslationMessage('foo');
