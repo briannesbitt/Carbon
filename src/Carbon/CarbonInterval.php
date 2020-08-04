@@ -66,6 +66,8 @@ use Throwable;
  * @method static CarbonInterval week($weeks = 1) Alias for weeks()
  * @method static CarbonInterval days($days = 1) Create instance specifying a number of days or modify the number of days if called on an instance.
  * @method static CarbonInterval dayz($days = 1) Alias for days()
+ * @method static CarbonInterval daysExcludeWeeks($days = 1) Create instance specifying a number of days or modify the number of days (keeping the current number of weeks) if called on an instance.
+ * @method static CarbonInterval dayzExcludeWeeks($days = 1) Alias for daysExcludeWeeks()
  * @method static CarbonInterval day($days = 1) Alias for days()
  * @method static CarbonInterval hours($hours = 1) Create instance specifying a number of hours or modify the number of hours if called on an instance.
  * @method static CarbonInterval hour($hours = 1) Alias for hours()
@@ -260,7 +262,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
             'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
             'dayz' => [Carbon::HOURS_PER_DAY, 'hours'],
-            'months' => [Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH, 'dayz'],
+            'weeks' => [Carbon::DAYS_PER_WEEK, 'dayz'],
+            'months' => [Carbon::WEEKS_PER_MONTH, 'weeks'],
             'years' => [Carbon::MONTHS_PER_YEAR, 'months'],
         ];
     }
@@ -577,48 +580,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public static function __callStatic($method, $parameters)
     {
-        $arg = count($parameters) === 0 ? 1 : $parameters[0];
-
-        switch (Carbon::singularUnit(rtrim($method, 'z'))) {
-            case 'year':
-                return new static($arg);
-
-            case 'month':
-                return new static(null, $arg);
-
-            case 'week':
-                return new static(null, null, $arg);
-
-            case 'day':
-                return new static(null, null, null, $arg);
-
-            case 'hour':
-                return new static(null, null, null, null, $arg);
-
-            case 'minute':
-                return new static(null, null, null, null, null, $arg);
-
-            case 'second':
-                return new static(null, null, null, null, null, null, $arg);
-
-            case 'millisecond':
-            case 'milli':
-                return new static(null, null, null, null, null, null, null, $arg * Carbon::MICROSECONDS_PER_MILLISECOND);
-
-            case 'microsecond':
-            case 'micro':
-                return new static(null, null, null, null, null, null, null, $arg);
-        }
-
-        if (static::hasMacro($method)) {
+        try {
             return (new static(0))->$method(...$parameters);
-        }
+        } catch (BadFluentSetterException $exception) {
+            if (Carbon::isStrictModeEnabled()) {
+                throw new BadFluentConstructorException($method, 0, $exception);
+            }
 
-        if (Carbon::isStrictModeEnabled()) {
-            throw new BadFluentConstructorException($method);
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -1286,60 +1256,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return $roundedValue;
         }
 
-        $arg = count($parameters) === 0 ? 1 : $parameters[0];
-
-        switch (Carbon::singularUnit(rtrim($method, 'z'))) {
-            case 'year':
-                $this->years = $arg;
-
-                break;
-
-            case 'month':
-                $this->months = $arg;
-
-                break;
-
-            case 'week':
-                $this->dayz = $arg * static::getDaysPerWeek();
-
-                break;
-
-            case 'day':
-                $this->dayz = $arg;
-
-                break;
-
-            case 'hour':
-                $this->hours = $arg;
-
-                break;
-
-            case 'minute':
-                $this->minutes = $arg;
-
-                break;
-
-            case 'second':
-                $this->seconds = $arg;
-
-                break;
-
-            case 'milli':
-            case 'millisecond':
-                $this->milliseconds = $arg;
-
-                break;
-
-            case 'micro':
-            case 'microsecond':
-                $this->microseconds = $arg;
-
-                break;
-
-            default:
-                if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
-                    throw new BadFluentSetterException($method);
-                }
+        try {
+            $this->set($method, count($parameters) === 0 ? 1 : $parameters[0]);
+        } catch (UnknownSetterException $exception) {
+            if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
+                throw new BadFluentSetterException($method, 0, $exception);
+            }
         }
 
         return $this;
@@ -1986,7 +1908,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         return $this->copyProperties(
-            static::__callStatic('years', [$yearPart])
+            static::create($yearPart)
                 ->microseconds(abs($this->totalMicroseconds) * $factor)
                 ->cascade(),
             true
@@ -2092,15 +2014,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         return $this->set(array_map(function ($value) {
             return -$value;
-        }, $values))->cascade(true)->invert();
+        }, $values))->doCascade(true)->invert();
     }
 
-    /**
-     * Convert overflowed values into bigger units.
-     *
-     * @return $this
-     */
-    public function cascade($deep = false)
+    private function doCascade(bool $deep)
     {
         $originalData = $this->toArray();
         $originalData['milliseconds'] = (int) ($originalData['microseconds'] / static::getMicrosecondsPerMillisecond());
@@ -2124,27 +2041,35 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $positive = null;
 
-        foreach ($newData as $value) {
-            if ($value) {
-                if ($positive === null) {
-                    $positive = ($value > 0);
+        if (!$deep) {
+            foreach ($newData as $value) {
+                if ($value) {
+                    if ($positive === null) {
+                        $positive = ($value > 0);
 
-                    continue;
-                }
-
-                if (($value > 0) !== $positive) {
-                    if ($deep) {
-                        var_dump($originalData);
-                        exit;
+                        continue;
                     }
-                    return $this->invertCascade($originalData)
-                        ->solveNegativeInterval();
+
+                    if (($value > 0) !== $positive) {
+                        return $this->invertCascade($originalData)
+                            ->solveNegativeInterval();
+                    }
                 }
             }
         }
 
         return $this->set($newData)
             ->solveNegativeInterval();
+    }
+
+    /**
+     * Convert overflowed values into bigger units.
+     *
+     * @return $this
+     */
+    public function cascade()
+    {
+        return $this->doCascade(false);
     }
 
     public function hasNegativeValues(): bool
@@ -2197,12 +2122,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $values = [
             'years' => $this->years,
             'months' => $this->months,
-            'weeks' => (int) floor($this->d / $daysPerWeek),
+            'weeks' => (int) ($this->d / $daysPerWeek),
             'dayz' => (int) ($this->d % $daysPerWeek),
             'hours' => $this->hours,
             'minutes' => $this->minutes,
             'seconds' => $this->seconds,
-            'milliseconds' => (int) floor($this->microseconds / Carbon::MICROSECONDS_PER_MILLISECOND),
+            'milliseconds' => (int) ($this->microseconds / Carbon::MICROSECONDS_PER_MILLISECOND),
             'microseconds' => (int) ($this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND),
         ];
 
