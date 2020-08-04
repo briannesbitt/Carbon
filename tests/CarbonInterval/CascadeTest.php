@@ -10,17 +10,28 @@ use Tests\AbstractTestCase;
 class CascadeTest extends AbstractTestCase
 {
     /**
+     * @param CarbonInterval $interval
+     * @param string         $spec
+     * @param bool|int       $inverted
+     */
+    protected function assertIntervalSpec(CarbonInterval $interval, string $spec, $inverted = false)
+    {
+        $this->assertSame(
+            ($inverted ? '- ' : '+ ').$spec,
+            ($interval->invert ? '- ' : '+ ').$interval->spec()
+        );
+    }
+
+    /**
      * @dataProvider provideIntervalSpecs
      */
     public function testCascadesOverflowedValues($spec, $expected)
     {
         $interval = CarbonInterval::fromString($spec)->cascade();
-        $this->assertSame(0, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected);
 
         $interval = CarbonInterval::fromString($spec)->invert()->cascade();
-        $this->assertSame(1, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected, true);
     }
 
     public function provideIntervalSpecs()
@@ -46,16 +57,14 @@ class CascadeTest extends AbstractTestCase
             $interval->$unit($value);
         }
         $interval->cascade();
-        $this->assertSame($expectingInversion, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected, $expectingInversion);
 
         $interval = new CarbonInterval(0);
         foreach ($units as $unit => $value) {
             $interval->$unit($value);
         }
         $interval->invert()->cascade();
-        $this->assertSame(1 - $expectingInversion, $interval->invert);
-        $this->assertSame($expected, $interval->spec());
+        $this->assertIntervalSpec($interval, $expected, 1 - $expectingInversion);
     }
 
     public function provideMixedSignsIntervalSpecs()
@@ -145,6 +154,49 @@ class CascadeTest extends AbstractTestCase
                     'hours' => -28,
                 ],
                 'P1M18DT20H',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'seconds' => -3615,
+                ],
+                'PT15S',
+                1,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'seconds' => 3615,
+                ],
+                'PT15S',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'seconds' => -59,
+                ],
+                'PT59M1S',
+                0,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'seconds' => 59,
+                ],
+                'PT59M1S',
+                1,
+            ],
+            [
+                [
+                    'years' => 94,
+                    'months' => 11,
+                    'days' => 24,
+                    'hours' => 3848,
+                    'microseconds' => 7991,
+                ],
+                'P95Y5M16DT8H',
                 0,
             ],
         ];
@@ -259,5 +311,33 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame(28, CarbonInterval::getFactor('days', 'month'));
         $this->assertSame(28, CarbonInterval::getFactor('day', 'month'));
         $this->assertSame(28, CarbonInterval::getFactor('dayz', 'months'));
+    }
+
+    public function testComplexInterval()
+    {
+        $interval = CarbonInterval::create(0);
+        $this->assertFalse($interval->hasNegativeValues());
+        $this->assertFalse($interval->hasPositiveValues());
+        $interval->days = -6;
+        $this->assertTrue($interval->hasNegativeValues());
+        $this->assertFalse($interval->hasPositiveValues());
+        $interval->days = 6;
+        $this->assertFalse($interval->hasNegativeValues());
+        $this->assertTrue($interval->hasPositiveValues());
+        $interval->hours = -40;
+        $this->assertTrue($interval->hasNegativeValues());
+        $this->assertTrue($interval->hasPositiveValues());
+
+        $interval = CarbonInterval::create()
+            ->years(-714)->months(-101)->days(-737)
+            ->seconds(442)->microseconds(-19)
+            ->cascade();
+
+        $this->assertFalse($interval->hasNegativeValues());
+        $this->assertTrue($interval->hasPositiveValues());
+
+        $interval = CarbonInterval::create(0)->hours(-7024)->cascade();
+
+        $this->assertLessThan(0, $interval->totalDays);
     }
 }

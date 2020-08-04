@@ -26,6 +26,7 @@ sudo: false
 services:
   - memcached
   - mysql
+  - redis
 
 before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini || true; fi
@@ -38,7 +39,7 @@ install:
   - composer remove --no-update friendsofphp/php-cs-fixer
   - composer remove --no-update phpmd/phpmd
   - composer remove --no-update squizlabs/php_codesniffer
-  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev; fi
+  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev; fi
   - if [[ $laravel != 'true' ]]; then travis_retry composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev; fi
   - if [[ $setup = 'nightly'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
@@ -90,15 +91,12 @@ matrix:
       env:
         - setup=stable
         - laravel=true
+        - REDIS_HOST=127.0.0.1
+        - REDIS_PORT=6379
     - php: 7.3
       env:
         - setup=stable
         - style_check=true
-  allow_failures:
-    - php: 7.3
-      env:
-        - setup=stable
-        - laravel=true
 
 notifications:
   slack:

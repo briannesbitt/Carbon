@@ -13,6 +13,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterval;
+use DateTimeImmutable;
 use Tests\AbstractTestCase;
 
 class AddTest extends AbstractTestCase
@@ -22,6 +23,27 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add('year', 2)->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add('2 years')->year);
+        $lastNegated = null;
+        $date = Carbon::createFromDate(1975)->add(
+            function (DateTimeImmutable $date, bool $negated = false) use (&$lastNegated): DateTimeImmutable {
+                $lastNegated = $negated;
+
+                return new DateTimeImmutable($date->format('Y-m-d H:i:s').' + 2 years');
+            }
+        );
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame(1977, $date->year);
+        $this->assertFalse($lastNegated);
+        /** @var CarbonInterval $interval */
+        $interval = include __DIR__.'/../Fixtures/dynamicInterval.php';
+        $originalDate = Carbon::parse('2020-06-04');
+        $date = $originalDate->add($interval);
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame('2020-06-08', $date->format('Y-m-d'));
+        $this->assertNotSame($date, $originalDate);
+        $date = Carbon::parse('2020-06-23')->add($interval);
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame('2020-07-16', $date->format('Y-m-d'));
     }
 
     public function testAddYearsPositive()

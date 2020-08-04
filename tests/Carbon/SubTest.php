@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateTime;
 use Tests\AbstractTestCase;
 
 class SubTest extends AbstractTestCase
@@ -22,9 +23,37 @@ class SubTest extends AbstractTestCase
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub('year', 2)->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub('2 years')->year);
+        $lastNegated = null;
+        $date = Carbon::createFromDate(1975)->sub(
+            function (DateTime $date, bool $negated = false) use (&$lastNegated): DateTime {
+                $lastNegated = $negated;
+
+                return new DateTime($date->format('Y-m-d H:i:s').' - 2 years');
+            }
+        );
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame(1973, $date->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'year')->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('year', 2)->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('2 years')->year);
+        $lastNegated = null;
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(
+            function (DateTime $date, bool $negated = false) use (&$lastNegated): DateTime {
+                $lastNegated = $negated;
+
+                return new DateTime($date->format('Y-m-d H:i:s').' - 2 years');
+            }
+        )->year);
+        /** @var CarbonInterval $interval */
+        $interval = include __DIR__.'/../Fixtures/dynamicInterval.php';
+        $originalDate = Carbon::parse('2020-06-08');
+        $date = $originalDate->sub($interval);
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame('2020-05-31', $date->format('Y-m-d'));
+        $this->assertSame($originalDate, $date);
+        $date = Carbon::parse('2020-07-16')->subtract($interval);
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame('2020-06-30', $date->format('Y-m-d'));
     }
 
     public function testSubYearsPositive()
