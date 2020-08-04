@@ -384,11 +384,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $source = self::standardizeUnit($source);
         $target = self::standardizeUnit($target);
         $factors = static::getFlipCascadeFactors();
+
         if (isset($factors[$source])) {
             [$to, $factor] = $factors[$source];
+
             if ($to === $target) {
                 return $factor;
             }
+
+            return $factor * static::getFactor($to, $target);
         }
 
         return null;
