@@ -268,11 +268,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         ];
     }
 
-    private static function areSameUnit($first, $second)
-    {
-        return self::standardizeUnit($first) === self::standardizeUnit($second);
-    }
-
     private static function standardizeUnit($unit)
     {
         $unit = rtrim($unit, 'sz').'s';
