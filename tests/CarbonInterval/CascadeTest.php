@@ -315,13 +315,29 @@ class CascadeTest extends AbstractTestCase
 
     public function testComplexInterval()
     {
-        $this->markTestIncomplete('To be fixed in 2.37.x');
+        $interval = CarbonInterval::create(0);
+        $this->assertFalse($interval->hasNegativeValues());
+        $this->assertFalse($interval->hasPositiveValues());
+        $interval->days = -6;
+        $this->assertTrue($interval->hasNegativeValues());
+        $this->assertFalse($interval->hasPositiveValues());
+        $interval->days = 6;
+        $this->assertFalse($interval->hasNegativeValues());
+        $this->assertTrue($interval->hasPositiveValues());
+        $interval->hours = -40;
+        $this->assertTrue($interval->hasNegativeValues());
+        $this->assertTrue($interval->hasPositiveValues());
 
         $interval = CarbonInterval::create()
             ->years(-714)->months(-101)->days(-737)
-            ->seconds(442)->microseconds(-19);
+            ->seconds(442)->microseconds(-19)
+            ->cascade();
 
-        $this->assertFalse($interval->cascade()->hasNegativeValues());
-        $this->assertTrue($interval->cascade()->hasPositiveValues());
+        $this->assertFalse($interval->hasNegativeValues());
+        $this->assertTrue($interval->hasPositiveValues());
+
+        $interval = CarbonInterval::create(0)->hours(-7024)->cascade();
+
+        $this->assertLessThan(0, $interval->totalDays);
     }
 }
