@@ -1,15 +1,28 @@
 parameters:
+    level: 3
+    paths:
+        - src
+        - tests
+    parallel:
+        processTimeout: 300.0
     ignoreErrors:
         - '#^Call to an undefined static method#'
-        - '#^Static call to instance method#'
+        - '#^Call to an undefined method .*::(foo|foobar|this)\(\)\.$#'
+        - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-        - '#^Using \$this in static method Carbon\\Carbon(Interface|Immutable|Interval|Period)?::loadMixinTrait\(\)\.$#'
-        - '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
+        - '#^Variable \$this in isset\(\) (always exists and is not nullable|is never defined)\.$#'
+        - '#^Unary operation "\~" on mixed results in an error\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
-        - '#Call to static method set\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
+        - '#should return (\S*)static\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
+        - '#should return (\S*)static\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
+        - '#should return (\S*)static\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
+        - '*/tests/Carbon/SerializationTest.php'
+        - '*/tests/CarbonImmutable/SerializationTest.php'
         - '*/tests/Laravel/*.php'
         - '*/tests/Cli/*.php'
         - '*/tests/CarbonPeriod/Fixtures/filters.php'
+        - '*/tests/Fixtures/dynamicInterval.php'
+        - '*/tests/PHPStan/*.php'

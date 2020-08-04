@@ -41,6 +41,9 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(28, CarbonInterval::days(25)->roundWeeks()->totalDays);
         $this->assertSame(28, CarbonInterval::days(27)->roundWeeks()->totalDays);
         $this->assertSame(28, CarbonInterval::days(28)->roundWeeks()->totalDays);
+        $this->assertSame(-7, CarbonInterval::make('7 days 23 hours 34 minutes')->invert()->roundWeeks()->totalDays);
+        $this->assertSame(-7, CarbonInterval::make('-7 days 23 hours 34 minutes')->roundWeeks()->totalDays);
+        $this->assertSame(7, CarbonInterval::make('-7 days 23 hours 34 minutes')->invert()->roundWeeks()->totalDays);
 
         $this->assertSame(1000, CarbonInterval::milliseconds(1234)->round()->totalMilliseconds);
         $this->assertSame(2000, CarbonInterval::milliseconds(1834)->round()->totalMilliseconds);

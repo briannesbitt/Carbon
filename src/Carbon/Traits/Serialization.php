@@ -26,7 +26,7 @@ use Carbon\Exceptions\InvalidFormatException;
  *
  * Depends on the following methods:
  *
- * @method string|static locale(string $locale = null)
+ * @method string|static locale(string $locale = null, string ...$fallbackLocales)
  * @method string        toJSON()
  */
 trait Serialization

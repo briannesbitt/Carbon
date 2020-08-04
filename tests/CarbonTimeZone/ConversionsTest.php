@@ -37,6 +37,8 @@ class ConversionsTest extends AbstractTestCase
         $this->assertFalse((new CarbonTimeZone(-15))->toRegionName());
         $date = Carbon::parse('2018-12-20');
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionName($date));
+        $date = Carbon::parse('2020-06-11T12:30:00-02:30');
+        $this->assertSame('America/St_Johns', $date->getTimezone()->toRegionName($date));
     }
 
     public function testToRegionTimeZone()

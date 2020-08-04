@@ -16,6 +16,19 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
+    public function testSet()
+    {
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $ci->set('seconds', 34);
+        $this->assertSame(34, $ci->seconds);
+        $ci->set([
+            'seconds' => 59,
+            'minutes' => 33,
+        ]);
+        $this->assertSame(59, $ci->seconds);
+        $this->assertSame(33, $ci->minutes);
+    }
+
     public function testYearsSetter()
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
@@ -149,6 +162,18 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame($ci, $ci->invert());
         $this->assertSame(0, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(true));
+        $this->assertSame(1, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(true));
+        $this->assertSame(1, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(false));
+        $this->assertSame(0, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert(false));
+        $this->assertSame(0, $ci->invert);
     }
 
     public function testInvalidSetter()
@@ -195,7 +220,7 @@ class SettersTest extends AbstractTestCase
 
     public function testTimezone()
     {
-        /** @var CarbonInterval $period */
+        /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->shiftTimezone('America/Toronto');
 
         $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
