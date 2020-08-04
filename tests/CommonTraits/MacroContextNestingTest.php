@@ -38,12 +38,12 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
      */
     public function testMacroContextNesting($class, $sample, $reference)
     {
-        $macro1 = 'macro'.mt_rand(100, 999999);
+        $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
         $class::macro($macro1, static function () {
             return self::this()->__toString();
         });
 
-        $macro2 = 'macro'.mt_rand(100, 999999);
+        $macro2 = 'macro'.(mt_rand(100, 999999) * 2 + 1);
         $class::macro($macro2, static function () use ($macro1, $sample) {
             $dates = [self::this()->$macro1()];
 

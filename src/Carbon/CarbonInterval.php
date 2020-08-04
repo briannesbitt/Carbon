@@ -585,7 +585,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public static function __callStatic($method, $parameters)
     {
         try {
-            return (new static(0))->$method(...$parameters);
+            $interval = new static(0);
+            $localStrictModeEnabled = $interval->localStrictModeEnabled;
+            $interval->localStrictModeEnabled = true;
+            $result = $interval->$method(...$parameters);
+            $interval->localStrictModeEnabled = $localStrictModeEnabled;
+
+            return $result;
         } catch (BadFluentSetterException $exception) {
             if (Carbon::isStrictModeEnabled()) {
                 throw new BadFluentConstructorException($method, 0, $exception);
