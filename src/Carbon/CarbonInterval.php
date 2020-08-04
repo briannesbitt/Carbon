@@ -44,8 +44,8 @@ use Throwable;
  * @property int $microseconds Total microseconds of the current interval.
  * @property int $milliseconds Total microseconds of the current interval.
  * @property int $microExcludeMilli Remaining microseconds without the milliseconds.
- * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
- * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
+ * @property int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
+ * @property int $daysExcludeWeeks alias of dayzExcludeWeeks
  * @property-read float $totalYears Number of years equivalent to the interval.
  * @property-read float $totalMonths Number of months equivalent to the interval.
  * @property-read float $totalWeeks Number of weeks equivalent to the interval.
@@ -1003,7 +1003,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
             case 'milli':
             case 'milliseconds':
-                return (int) floor(round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
+                return (int) (round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
 
             case 'micro':
             case 'microseconds':
@@ -1013,7 +1013,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND) % Carbon::MICROSECONDS_PER_MILLISECOND;
 
             case 'weeks':
-                return (int) floor($this->d / static::getDaysPerWeek());
+                return (int) ($this->d / static::getDaysPerWeek());
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
@@ -1074,6 +1074,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
                 case 'day':
                     $this->d = $value;
+
+                    break;
+
+                case 'daysexcludeweek':
+                case 'dayzexcludeweek':
+                    $this->d = $this->weeks * static::getDaysPerWeek() + $value;
 
                     break;
 
@@ -2082,59 +2088,63 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         return static::compareDateIntervals($this, $interval);
     }
 
+    private function invertCascade(array $values)
+    {
+        return $this->set(array_map(function ($value) {
+            return -$value;
+        }, $values))->cascade(true)->invert();
+    }
+
     /**
      * Convert overflowed values into bigger units.
      *
      * @return $this
      */
-    public function cascade()
+    public function cascade($deep = false)
     {
         $originalData = $this->toArray();
+        $originalData['milliseconds'] = (int) ($originalData['microseconds'] / static::getMicrosecondsPerMillisecond());
+        $originalData['microseconds'] = $originalData['microseconds'] % static::getMicrosecondsPerMillisecond();
+        $originalData['daysExcludeWeeks'] = $originalData['days'];
+        unset($originalData['days']);
         $newData = $originalData;
 
-        do {
-            $data = $newData;
-            $nonZeroValues = $this->getNonZeroValues();
-            $biggestUnit = key($nonZeroValues);
+        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
+            foreach (['source', 'target'] as $key) {
+                if ($$key === 'dayz') {
+                    $$key = 'daysExcludeWeeks';
+                }
+            }
 
-            foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
-                if ($source === 'dayz' && $target === 'weeks') {
+            $value = $newData[$source];
+            $modulo = ($factor + ($value % $factor)) % $factor;
+            $newData[$source] = $modulo;
+            $newData[$target] += ($value - $modulo) / $factor;
+        }
+
+        $positive = null;
+
+        foreach ($newData as $value) {
+            if ($value) {
+                if ($positive === null) {
+                    $positive = ($value > 0);
+
                     continue;
                 }
 
-                $targetZero = !$this->$target;
-                $value = $this->$source;
-                $modulo = ($factor + ($value % $factor)) % $factor;
-                $this->$source = $modulo;
-
-                if ($targetZero && $modulo > $value && self::areSameUnit($source, $biggestUnit)) {
-                    return $this->set(array_map(function ($originalValue) {
-                        return -$originalValue;
-                    }, $originalData))->cascade()->invert();
-                }
-
-                $this->$target += ($value - $modulo) / $factor;
-
-                if (!$targetZero && $this->$source > 0 && $this->$target < 0) {
-                    $this->$source -= $factor;
-                    $this->$target++;
+                if (($value > 0) !== $positive) {
+                    if ($deep) {
+                        var_dump($originalData);
+                        exit;
+                    }
+                    return $this->invertCascade($originalData)
+                        ->solveNegativeInterval();
                 }
             }
+        }
 
-            if (!$this->hasNegativeValues() || !$this->hasPositiveValues()) {
-                break;
-            }
-
-            $newData = $this->toArray();
-
-            if ($newData === $data) {
-                return $this->set(array_map(function ($originalValue) {
-                    return -$originalValue;
-                }, $originalData))->cascade()->invert();
-            }
-        } while (true);
-
-        return $this->solveNegativeInterval();
+        return $this->set($newData)
+            ->solveNegativeInterval();
     }
 
     public function hasNegativeValues(): bool
