@@ -352,7 +352,7 @@ trait Modifiers
      */
     public function closest($date1, $date2)
     {
-        return $this->diffInMicroseconds($date1) < $this->diffInMicroseconds($date2) ? $date1 : $date2;
+        return $this->diffInMicroseconds($date1, true) < $this->diffInMicroseconds($date2, true) ? $date1 : $date2;
     }
 
     /**
@@ -365,7 +365,7 @@ trait Modifiers
      */
     public function farthest($date1, $date2)
     {
-        return $this->diffInMicroseconds($date1) > $this->diffInMicroseconds($date2) ? $date1 : $date2;
+        return $this->diffInMicroseconds($date1, true) > $this->diffInMicroseconds($date2, true) ? $date1 : $date2;
     }
 
     /**
