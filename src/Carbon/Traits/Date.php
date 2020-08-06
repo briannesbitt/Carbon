@@ -933,7 +933,7 @@ trait Date
 
             // @property int does a diffInYears() with default parameters
             case $name === 'age':
-                return $this->diffInYears();
+                return (int) $this->diffInYears();
 
             // @property-read int the quarter of this instance, 1 - 4
             // @call isSameUnit

@@ -110,30 +110,20 @@ trait Difference
 
     /**
      * Get the difference as a DateInterval instance.
-     * Return relative interval (negative if
+     * Return relative interval (negative if $absolute flag is not set to true and the given date is before
+     * current one).
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
      *
      * @return DateInterval
      */
-    public function diff($date = null, $absolute = false)
+    public function diff($date = null, $absolute = false): CarbonInterval
     {
-        return parent::diff($this->resolveCarbon($date), (bool) $absolute);
-    }
+        $interval = static::fixDiffInterval(parent::diff($this->resolveCarbon($date), (bool) $absolute), $absolute);
+        $interval->setLocalTranslator($this->getLocalTranslator());
 
-    /**
-     * Get the difference as a CarbonInterval instance.
-     * Return absolute interval (always positive) unless you pass false to the second argument.
-     *
-     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
-     * @param bool                                                   $absolute Get the absolute of the difference
-     *
-     * @return CarbonInterval
-     */
-    public function diffAsCarbonInterval($date = null, $absolute = true)
-    {
-        return static::fixDiffInterval($this->diff($this->resolveCarbon($date), $absolute), $absolute);
+        return $interval;
     }
 
     /**
@@ -144,7 +134,7 @@ trait Difference
      *
      * @return float
      */
-    public function diffInYears($date = null, $absolute = true)
+    public function diffInYears($date = null, $absolute = true): float
     {
         $start = $this;
         $end = $this->resolveCarbon($date);
@@ -153,7 +143,7 @@ trait Difference
         if (!$ascending) {
             [$start, $end] = [$end, $start];
         }
-        $yearsDiff = $start->diffInYears($end);
+        $yearsDiff = (int) $start->diff($end, $absolute)->format('%r%y');
         /** @var Carbon|CarbonImmutable $floorEnd */
         $floorEnd = $start->copy()->addYears($yearsDiff);
 
@@ -198,10 +188,15 @@ trait Difference
         $end = $this->resolveCarbon($date);
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
+
         if (!$ascending) {
             [$start, $end] = [$end, $start];
         }
-        $monthsDiff = $start->diffInMonths($end);
+
+        $monthsDiff =
+            (int) ($start->diff($end, $absolute)->format('%r%y') * static::MONTHS_PER_YEAR) +
+            (int) $start->diff($end, $absolute)->format('%r%m');
+
         /** @var Carbon|CarbonImmutable $floorEnd */
         $floorEnd = $start->copy()->addMonths($monthsDiff);
 
@@ -242,10 +237,10 @@ trait Difference
      */
     public function diffInDays($date = null, $absolute = true): float
     {
-        $daysDiff = (int) $this->diff($this->resolveCarbon($date), $absolute)->format('%r%a');
+        $daysDiff = (int) parent::diff($this->resolveCarbon($date), $absolute)->format('%r%a');
         $hoursDiff = $this->diffInHours($date, $absolute);
 
-        return ($hoursDiff < 0 ? -1 : 1) * $daysDiff + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+        return $daysDiff + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
     }
 
     /**
@@ -407,7 +402,7 @@ trait Difference
     /**
      * The number of seconds since midnight.
      *
-     * @return int
+     * @return float
      */
     public function secondsSinceMidnight()
     {
@@ -417,7 +412,7 @@ trait Difference
     /**
      * The number of seconds until 23:59:59.
      *
-     * @return int
+     * @return float
      */
     public function secondsUntilEndOfDay()
     {
@@ -484,8 +479,7 @@ trait Difference
 
         $parts = min(7, max(1, (int) $parts));
 
-        return $this->diffAsCarbonInterval($other, false)
-            ->setLocalTranslator($this->getLocalTranslator())
+        return $this->diff($other, false)
             ->forHumans($syntax, (bool) $short, $parts, $options ?? $this->localHumanDiffOptions ?? static::getHumanDiffOptions());
     }
 

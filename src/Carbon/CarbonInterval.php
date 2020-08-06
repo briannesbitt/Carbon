@@ -2473,7 +2473,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $this->copyProperties(
             $next
                 ->roundUnit($unit, $precision, $function)
-                ->diffAsCarbonInterval($base)
+                ->diff($base)
         );
 
         return $this->invert($inverted);

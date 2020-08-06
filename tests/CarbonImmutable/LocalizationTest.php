@@ -694,7 +694,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
+            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
             'Symfony\Component\Translation\IdentityTranslator has been given.'
         );

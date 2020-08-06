@@ -1200,17 +1200,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function dayOfYear($value = null);
 
     /**
-     * Get the difference as a CarbonInterval instance.
-     * Return absolute interval (always positive) unless you pass false to the second argument.
-     *
-     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
-     * @param bool                                                   $absolute Get the absolute of the difference
-     *
-     * @return CarbonInterval
-     */
-    public function diffAsCarbonInterval($date = null, $absolute = true);
-
-    /**
      * Get the difference by the given interval using a filter closure.
      *
      * @param CarbonInterval                                         $ci       An interval to traverse by

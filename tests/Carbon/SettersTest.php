@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTimeZone;
+use Exception;
 use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
@@ -567,7 +568,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
-                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
+                $$valueUnit - ((int) $date->{"diffIn$unit"}($original, false)) === $value
             ) {
                 $results['current']++;
 
@@ -586,7 +587,7 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result for: '.
+            throw new Exception('Unhandled result for: '.
                 'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
                 var_export($original->timezoneName, true).
                 ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
@@ -675,7 +676,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
-                -$date->{"diffIn$unit"}($original, false) === $value
+                -((int) $date->{"diffIn$unit"}($original, false)) === $value
             ) {
                 $results['current']++;
 
@@ -694,7 +695,7 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result for: '.
+            throw new Exception('Unhandled result for: '.
                 'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
                 var_export($original->timezoneName, true).
                 ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
@@ -763,7 +764,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
-                $date->{"diffIn$unit"}($original, false) === $value
+                ((int) $date->{"diffIn$unit"}($original, false)) === $value
             ) {
                 $results['current']++;
 
@@ -782,7 +783,7 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result for: '.
+            throw new Exception('Unhandled result for: '.
                 'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
                 var_export($original->timezoneName, true).
                 ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {

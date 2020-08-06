@@ -21,7 +21,7 @@ class ModifyTest extends AbstractTestCase
         $a = new Carbon('2014-03-30 00:00:00');
         $b = $a->copy();
         $b->addHours(24);
-        $this->assertSame(24, $a->diffInHours($b));
+        $this->assertSame(24.0, $a->diffInHours($b));
     }
 
     public function testTimezoneModify()
