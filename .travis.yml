@@ -67,37 +67,37 @@ branches:
 matrix:
   include:
     - php: 7.2.5
-    - php: 7.2.15
-    - php: 7.2
-    - php: 7.2
-      env: setup=lowest
-    - php: 7.2
-      env: setup=stable
-
-    - php: 7.3.0
-    - php: 7.3.5
-    - php: 7.3
-    - php: 7.3
-      env: setup=lowest
-    - php: 7.3
-      env:
-        - setup=stable
-        - coverage=true
-    - php: 7.4
-      env: setup=lowest
-    - php: 7.4
-    - php: nightly
-      env: setup=nightly
-    - php: 7.3
-      env:
-        - setup=stable
-        - laravel=true
-        - REDIS_HOST=127.0.0.1
-        - REDIS_PORT=6379
-    - php: 7.3
-      env:
-        - setup=stable
-        - style_check=true
+#    - php: 7.2.15
+#    - php: 7.2
+#    - php: 7.2
+#      env: setup=lowest
+#    - php: 7.2
+#      env: setup=stable
+#
+#    - php: 7.3.0
+#    - php: 7.3.5
+#    - php: 7.3
+#    - php: 7.3
+#      env: setup=lowest
+#    - php: 7.3
+#      env:
+#        - setup=stable
+#        - coverage=true
+#    - php: 7.4
+#      env: setup=lowest
+#    - php: 7.4
+#    - php: nightly
+#      env: setup=nightly
+#    - php: 7.3
+#      env:
+#        - setup=stable
+#        - laravel=true
+#        - REDIS_HOST=127.0.0.1
+#        - REDIS_PORT=6379
+#    - php: 7.3
+#      env:
+#        - setup=stable
+#        - style_check=true
 
 notifications:
   slack:
