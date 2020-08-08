@@ -404,6 +404,7 @@ trait Converter
         if ($extended) {
             $format = DateTime::RFC3339_EXTENDED;
         }
+
         return $this->rawFormat($format);
     }
 
