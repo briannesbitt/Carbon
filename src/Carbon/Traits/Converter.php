@@ -389,6 +389,7 @@ trait Converter
      * Format the instance as RFC3339
      *
      * @param bool $extended
+     *
      * @example
      * ```
      * echo Carbon::now()->toRfc3339String() . "\n";
