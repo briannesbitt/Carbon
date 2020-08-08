@@ -4524,14 +4524,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as RFC3339
      *
+     * @param bool $extended
      * @example
      * ```
      * echo Carbon::now()->toRfc3339String();
+     * echo Carbon::now()->toRfc3339String(true);
      * ```
      *
      * @return string
      */
-    public function toRfc3339String();
+    public function toRfc3339String($extended = false);
 
     /**
      * Format the instance as RFC7231

@@ -258,6 +258,9 @@ class StringsTest extends AbstractTestCase
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toRfc3339String());
+
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T14:15:16.000-05:00', $d->toRfc3339String(true));
     }
 
     public function testToRssString()
