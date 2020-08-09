@@ -25,6 +25,7 @@ use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
+use DateTimeInterface;
 use Exception;
 use ReflectionException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -235,6 +236,27 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected $tzName;
 
     /**
+     * The input used to create the interval.
+     *
+     * @var mixed
+     */
+    protected $originalInput;
+
+    /**
+     * Start date if interval was created from a difference between 2 dates.
+     *
+     * @var DateTimeInterface
+     */
+    protected $startDate;
+
+    /**
+     * End date if interval was created from a difference between 2 dates.
+     *
+     * @var DateTimeInterface
+     */
+    protected $endDate;
+
+    /**
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
      * @param \DateTimeZone|string $tzName
@@ -320,6 +342,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function __construct($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
+        $this->originalInput = func_num_args() === 1 ? $years : func_get_args();
+
         if ($years instanceof Closure) {
             $this->step = $years;
             $years = null;
@@ -541,6 +565,50 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         return $instance;
+    }
+
+    /**
+     * Return the original source used to create the current interval.
+     *
+     * @return array|int|string|DateInterval|mixed|null
+     */
+    public function original()
+    {
+        return $this->originalInput;
+    }
+
+    /**
+     * Return the start date if interval was created from a difference between 2 dates.
+     *
+     * @return DateTimeInterface
+     */
+    public function start(): DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * Return the end date if interval was created from a difference between 2 dates.
+     *
+     * @return DateTimeInterface
+     */
+    public function end(): DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * Get rid of the original input, start date and end date that may be kept in memory.
+     *
+     * @return $this
+     */
+    public function optimize(): self
+    {
+        $this->originalInput = null;
+        $this->startDate = null;
+        $this->endDate = null;
+
+        return $this;
     }
 
     /**
@@ -807,6 +875,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $microseconds = $interval->f;
         $instance = new $className(static::getDateIntervalSpec($interval));
 
+        if ($instance instanceof self) {
+            $instance->originalInput = $interval;
+        }
+
         if ($microseconds) {
             $instance->f = $microseconds;
         }
@@ -958,41 +1030,41 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return $this->total(substr($name, 5));
         }
 
-        switch ($name) {
-            case 'years':
+        switch (Carbon::singularUnit(rtrim($name, 'z'))) {
+            case 'year':
                 return $this->y;
 
-            case 'months':
+            case 'month':
                 return $this->m;
 
-            case 'dayz':
+            case 'day':
                 return $this->d;
 
-            case 'hours':
+            case 'hour':
                 return $this->h;
 
-            case 'minutes':
+            case 'minute':
                 return $this->i;
 
-            case 'seconds':
+            case 'second':
                 return $this->s;
 
             case 'milli':
-            case 'milliseconds':
+            case 'millisecond':
                 return (int) (round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
 
             case 'micro':
-            case 'microseconds':
+            case 'microsecond':
                 return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND);
 
-            case 'microExcludeMilli':
+            case 'microexcludemilli':
                 return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND) % Carbon::MICROSECONDS_PER_MILLISECOND;
 
-            case 'weeks':
+            case 'week':
                 return (int) ($this->d / static::getDaysPerWeek());
 
-            case 'daysExcludeWeeks':
-            case 'dayzExcludeWeeks':
+            case 'daysexcludeweek':
+            case 'dayzexcludeweek':
                 return $this->d % static::getDaysPerWeek();
 
             case 'locale':
@@ -1246,7 +1318,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @throws BadFluentSetterException|Throwable
      *
-     * @return static
+     * @return static|int|float|string
      */
     public function __call($method, $parameters)
     {

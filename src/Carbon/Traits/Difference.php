@@ -110,6 +110,37 @@ trait Difference
 
     /**
      * Get the difference as a DateInterval instance.
+     * Return relative interval (negative if
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return DateInterval
+     */
+    public function diffAsDateInterval($date = null, $absolute = false): DateInterval
+    {
+        return parent::diff($this->resolveCarbon($date), (bool) $absolute);
+    }
+
+    /**
+     * Get the difference as a CarbonInterval instance.
+     * Return absolute interval (always positive) unless you pass false to the second argument.
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return CarbonInterval
+     */
+    public function diffAsCarbonInterval($date = null, $absolute = true)
+    {
+        $interval = static::fixDiffInterval($this->diffAsDateInterval($date, $absolute), $absolute);
+        $interval->setLocalTranslator($this->getLocalTranslator());
+
+        return $interval;
+    }
+
+    /**
+     * Get the difference as a DateInterval instance.
      * Return relative interval (negative if $absolute flag is not set to true and the given date is before
      * current one).
      *
@@ -123,7 +154,7 @@ trait Difference
         $interval = static::fixDiffInterval(parent::diff($this->resolveCarbon($date), (bool) $absolute), $absolute);
         $interval->setLocalTranslator($this->getLocalTranslator());
 
-        return $interval;
+        return $this->diffAsCarbonInterval($date, $absolute);
     }
 
     /**
