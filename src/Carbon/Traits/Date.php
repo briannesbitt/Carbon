@@ -2445,7 +2445,11 @@ trait Date
     public function __call($method, $parameters)
     {
         if (preg_match('/^(?:diff|floatDiff)In(?:Real)?(.+)$/', $method, $match)) {
-            return $this->{'diffIn'.$match[1]}(...$parameters);
+            $method = 'diffIn'.$match[1];
+
+            if (method_exists($this, $method)) {
+                return $this->$method(...$parameters);
+            }
         }
 
         $diffSizes = [
