@@ -31,13 +31,13 @@ class ModifyTest extends AbstractTestCase
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
         $b->addHours(24);
-        $this->assertSame(23.0, $a->diffInHours($b, false));
-        $this->assertSame(23.0, $b->diffInHours($a));
-        $this->assertSame(-23.0, $b->diffInHours($a, false));
-        $this->assertSame(-23.0 * 60, $b->diffInMinutes($a, false));
-        $this->assertSame(-23.0 * 60 * 60, $b->diffInSeconds($a, false));
-        $this->assertSame(-23.0 * 60 * 60 * 1000, $b->diffInMilliseconds($a, false));
-        $this->assertSame(-23.0 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(23.0, $a->diffInRealHours($b, false));
+        $this->assertSame(23.0, $b->diffInRealHours($a));
+        $this->assertSame(-23.0, $b->diffInRealHours($a, false));
+        $this->assertSame(-23.0 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-23.0 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-23.0 * 60 * 60 * 1000, $b->diffInRealMilliseconds($a, false));
+        $this->assertSame(-23.0 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
