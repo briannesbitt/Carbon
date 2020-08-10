@@ -245,14 +245,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Start date if interval was created from a difference between 2 dates.
      *
-     * @var DateTimeInterface
+     * @var DateTimeInterface|null
      */
     protected $startDate;
 
     /**
      * End date if interval was created from a difference between 2 dates.
      *
-     * @var DateTimeInterface
+     * @var DateTimeInterface|null
      */
     protected $endDate;
 

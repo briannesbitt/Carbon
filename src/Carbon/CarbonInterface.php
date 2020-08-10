@@ -1382,7 +1382,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
      *
-     * @return int
+     * @return float
      */
     public function diffInWeeks($date = null, $absolute = true): float;
 
@@ -3363,16 +3363,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * The number of seconds since midnight.
      *
-     * @return int
+     * @return float
      */
-    public function secondsSinceMidnight();
+    public function secondsSinceMidnight(): float;
 
     /**
      * The number of seconds until 23:59:59.
      *
-     * @return int
+     * @return float
      */
-    public function secondsUntilEndOfDay();
+    public function secondsUntilEndOfDay(): float;
 
     /**
      * Return a serialized string of the instance.

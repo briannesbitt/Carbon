@@ -147,11 +147,11 @@ trait Difference
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
      *
-     * @return DateInterval
+     * @return CarbonInterval
      */
     public function diff($date = null, $absolute = false): CarbonInterval
     {
-        $interval = static::fixDiffInterval(parent::diff($this->resolveCarbon($date), (bool) $absolute), $absolute);
+        $interval = static::fixDiffInterval($this->diffAsDateInterval($date, $absolute), $absolute);
         $interval->setLocalTranslator($this->getLocalTranslator());
 
         return $this->diffAsCarbonInterval($date, $absolute);
@@ -251,7 +251,7 @@ trait Difference
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
      *
-     * @return int
+     * @return float
      */
     public function diffInWeeks($date = null, $absolute = true): float
     {
@@ -435,7 +435,7 @@ trait Difference
      *
      * @return float
      */
-    public function secondsSinceMidnight()
+    public function secondsSinceMidnight(): float
     {
         return $this->diffInSeconds($this->copy()->startOfDay());
     }
@@ -445,7 +445,7 @@ trait Difference
      *
      * @return float
      */
-    public function secondsUntilEndOfDay()
+    public function secondsUntilEndOfDay(): float
     {
         return $this->diffInSeconds($this->copy()->endOfDay());
     }
