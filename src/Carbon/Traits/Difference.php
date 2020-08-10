@@ -99,11 +99,11 @@ trait Difference
         } elseif ($diff->f < 0) {
             static::fixNegativeMicroseconds($diff);
         }
-        // @codeCoverageIgnoreEnd
 
         if ($absolute && $diff->invert) {
             $diff->invert();
         }
+        // @codeCoverageIgnoreEnd
 
         return $diff;
     }
@@ -268,7 +268,7 @@ trait Difference
      */
     public function diffInDays($date = null, $absolute = true): float
     {
-        $daysDiff = (int) parent::diff($this->resolveCarbon($date), $absolute)->format('%r%a');
+        $daysDiff = (int) $this->diffAsDateInterval($date, $absolute)->format('%r%a');
         $hoursDiff = $this->diffInHours($date, $absolute);
 
         return $daysDiff + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;

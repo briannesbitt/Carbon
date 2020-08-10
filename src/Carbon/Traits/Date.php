@@ -1329,8 +1329,9 @@ trait Date
             $original = $this->copy();
             /** @var static $date */
             $date = $this->$valueUnit($value);
-            $end = $original->copy()->endOf($overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
             if ($date < $start) {
                 $date = $date->setDateTimeFrom($start);
             } elseif ($date > $end) {
