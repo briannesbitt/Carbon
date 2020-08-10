@@ -205,4 +205,9 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(10, $interval->totalMinutes);
         $this->assertSame(1 / 6, $interval->totalHours);
     }
+
+    public function testWithDiffInterval()
+    {
+        $this->assertSame(51, Carbon::parse('2020-08-10')->diff('2020-09-30')->totalDays);
+    }
 }

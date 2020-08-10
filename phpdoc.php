@@ -521,8 +521,9 @@ $staticImmutableMethods = [];
 $methods = '';
 $carbonMethods = get_class_methods(\Carbon\Carbon::class);
 sort($carbonMethods);
+
 foreach ($carbonMethods as $method) {
-    if (method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
+    if ($method === 'diff' || method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
         $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
         $static = $function->isStatic() ? ' static' : '';
         $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
@@ -565,7 +566,9 @@ foreach ($carbonMethods as $method) {
             }
         }
 
-        $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
+        $return = $function->getReturnType()
+            ? ': '.preg_replace('/^Carbon\\\\/', '', $function->getReturnType()->getName())
+            : '';
 
         if (!empty($methodDocBlock)) {
             $methodDocBlock = "\n    $methodDocBlock";

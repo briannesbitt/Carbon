@@ -245,14 +245,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Start date if interval was created from a difference between 2 dates.
      *
-     * @var DateTimeInterface|null
+     * @var CarbonInterface|null
      */
     protected $startDate;
 
     /**
      * End date if interval was created from a difference between 2 dates.
      *
-     * @var DateTimeInterface|null
+     * @var CarbonInterface|null
      */
     protected $endDate;
 
@@ -580,9 +580,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Return the start date if interval was created from a difference between 2 dates.
      *
-     * @return DateTimeInterface
+     * @return CarbonInterface|null
      */
-    public function start(): DateTimeInterface
+    public function start(): ?CarbonInterface
     {
         return $this->startDate;
     }
@@ -590,9 +590,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Return the end date if interval was created from a difference between 2 dates.
      *
-     * @return DateTimeInterface
+     * @return CarbonInterface|null
      */
-    public function end(): DateTimeInterface
+    public function end(): ?CarbonInterface
     {
         return $this->endDate;
     }
@@ -862,6 +862,118 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public static function parseFromLocale($interval, $locale = null)
     {
         return static::fromString(Carbon::translateTimeString($interval, $locale ?: static::getLocale(), 'en'));
+    }
+
+    /**
+     * Create an interval from the difference between 2 dates.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $start
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $end
+     *
+     * @return static
+     */
+    public static function diff($start, $end = null, bool $absolute = false)
+    {
+        $start = $start instanceof CarbonInterface ? $start : Carbon::make($start);
+        $end = $end instanceof CarbonInterface ? $end : Carbon::make($end);
+        $interval = static::instance($start->diffAsDateInterval($end, $absolute));
+        $interval->fixDiffInterval();
+        $interval->startDate = $start;
+        $interval->endDate = $end;
+
+        return $interval;
+    }
+
+    /**
+     * Invert the interval if it's inverted.
+     *
+     * @param bool $absolute do nothing if set to false
+     *
+     * @return $this
+     */
+    public function abs(bool $absolute = false)
+    {
+        if ($absolute && $this->invert) {
+            $this->invert();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @alias abs
+     *
+     * Invert the interval if it's inverted.
+     *
+     * @param bool $absolute do nothing if set to false
+     *
+     * @return $this
+     */
+    public function absolute(bool $absolute = false)
+    {
+        return $this->abs($absolute);
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    private function fixNegativeMicroseconds()
+    {
+        if ($this->s !== 0 || $this->i !== 0 || $this->h !== 0 || $this->d !== 0 || $this->m !== 0 || $this->y !== 0) {
+            $this->f = (round($this->f * 1000000) + 1000000) / 1000000;
+            $this->s--;
+
+            if ($this->s < 0) {
+                $this->s += 60;
+                $this->i--;
+
+                if ($this->i < 0) {
+                    $this->i += 60;
+                    $this->h--;
+
+                    if ($this->h < 0) {
+                        $this->h += 24;
+                        $this->d--;
+
+                        if ($this->d < 0) {
+                            $this->d += 30;
+                            $this->m--;
+
+                            if ($this->m < 0) {
+                                $this->m += 12;
+                                $this->y--;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return;
+        }
+
+        $this->f *= -1;
+        $this->invert();
+    }
+
+    /**
+     * Work-around for https://bugs.php.net/bug.php?id=77145
+     *
+     * @codeCoverageIgnore
+     */
+    private function fixDiffInterval()
+    {
+        if ($this->f > 0 && $this->y === -1 && $this->m === 11 && $this->d >= 27 && $this->h === 23 && $this->i === 59 && $this->s === 59) {
+            $this->y = 0;
+            $this->m = 0;
+            $this->d = 0;
+            $this->h = 0;
+            $this->i = 0;
+            $this->s = 0;
+            $this->f = (1000000 - round($this->f * 1000000)) / 1000000;
+            $this->invert();
+        } elseif ($this->f < 0) {
+            $this->fixNegativeMicroseconds();
+        }
     }
 
     private static function castIntervalToClass(DateInterval $interval, string $className)
@@ -1792,6 +1904,22 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     }
 
     /**
+     * Decompose the current interval into
+     *
+     * @param mixed|int|DateInterval|string|Closure|null $interval interval or number of the given $unit
+     * @param string|null                                $unit     if specified, $interval must be an integer
+     *
+     * @return CarbonPeriod
+     */
+    public function stepBy($interval, $unit = null)
+    {
+        $start = $this->startDate ?: Carbon::make($this->startDate);
+        $end = $this->endDate ?: $start->copy()->add($this);
+
+        return CarbonPeriod::create(static::make($interval, $unit), $start, $end);
+    }
+
+    /**
      * Invert the interval.
      *
      * @param bool|int $inverted if a parameter is passed, the passed value casted as 1 or 0 is used
@@ -2181,7 +2309,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return float
      */
-    public function total($unit)
+    public function total($unit): float
     {
         $realUnit = $unit = strtolower($unit);
 
@@ -2189,6 +2317,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $realUnit = 'dayz';
         } elseif (!in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
             throw new UnknownUnitException($unit);
+        }
+
+        if ($this->startDate && $this->endDate) {
+            return $this->startDate->diffInUnit($unit, $this->endDate);
         }
 
         $result = 0;

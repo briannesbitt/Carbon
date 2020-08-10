@@ -702,6 +702,7 @@ trait Date
     protected static function expectDateTime($date, $other = [])
     {
         $message = 'Expected ';
+
         foreach ((array) $other as $expect) {
             $message .= "$expect, ";
         }
