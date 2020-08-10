@@ -2444,6 +2444,10 @@ trait Date
      */
     public function __call($method, $parameters)
     {
+        if (preg_match('/^(?:diff|floatDiff)In(?:Real)?(.+)$/', $method, $match)) {
+            return $this->{'diffIn'.$match[1]}(...$parameters);
+        }
+
         $diffSizes = [
             // @mode diffForHumans
             'short' => true,
