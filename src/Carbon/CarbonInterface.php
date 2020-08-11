@@ -1393,9 +1393,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInSeconds($date = null, bool $absolute = true): float;
 
     /**
-     * @param string $unit
-     * @param null   $date
-     * @param false  $absolute
+     * @param string                                                 $unit microsecond, millisecond, second, minute,
+     *                                                                     hour, day, week, months, quarter, years,
+     *                                                                     century, millennium
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -1947,7 +1949,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function getLocale();
+    public static function getLocale(): string;
 
     /**
      * Get the raw callable macro registered globally for a given name.
@@ -3503,7 +3505,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $locale
      */
-    public static function setFallbackLocale($locale);
+    public static function setFallbackLocale(string $locale): void;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -3544,7 +3546,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function setLocale($locale);
+    public static function setLocale(string $locale): bool;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4548,7 +4550,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function translateTimeString($timeString, $from = null, $to = null, $mode = self::TRANSLATE_ALL);
+    public static function translateTimeString(string $timeString, string $from = null, string $to = null, int $mode = self::TRANSLATE_ALL): string;
 
     /**
      * Translate a time string from the current locale (`$date->locale()`) to an other.
@@ -4558,7 +4560,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public function translateTimeStringTo($timeString, $to = null);
+    public function translateTimeStringTo(string $timeString, string $to = null): string;
 
     /**
      * Translate using translation string or callback available.
