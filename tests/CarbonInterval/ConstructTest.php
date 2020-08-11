@@ -303,13 +303,13 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::make(new CarbonInterval('P2M')), 0, 2, 0, 0, 0, 0);
         $this->assertNull(CarbonInterval::make(3));
 
-        $this->assertSame(3, CarbonInterval::make('3 milliseconds')->totalMilliseconds);
-        $this->assertSame(3, CarbonInterval::make('3 microseconds')->totalMicroseconds);
-        $this->assertSame(21, CarbonInterval::make('3 weeks')->totalDays);
-        $this->assertSame(9, CarbonInterval::make('3 quarters')->totalMonths);
-        $this->assertSame(30, CarbonInterval::make('3 decades')->totalYears);
-        $this->assertSame(300, CarbonInterval::make('3 centuries')->totalYears);
-        $this->assertSame(3000, CarbonInterval::make('3 millennia')->totalYears);
+        $this->assertSame(3.0, CarbonInterval::make('3 milliseconds')->totalMilliseconds);
+        $this->assertSame(3.0, CarbonInterval::make('3 microseconds')->totalMicroseconds);
+        $this->assertSame(21.0, CarbonInterval::make('3 weeks')->totalDays);
+        $this->assertSame(9.0, CarbonInterval::make('3 quarters')->totalMonths);
+        $this->assertSame(30.0, CarbonInterval::make('3 decades')->totalYears);
+        $this->assertSame(300.0, CarbonInterval::make('3 centuries')->totalYears);
+        $this->assertSame(3000.0, CarbonInterval::make('3 millennia')->totalYears);
     }
 
     public function testCallInvalidStaticMethod()

@@ -25,7 +25,6 @@ use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
-use DateTimeInterface;
 use Exception;
 use ReflectionException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -2425,7 +2424,25 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $interval = $this->resolveInterval($interval);
 
-        return $interval !== null && $this->totalMicroseconds === $interval->totalMicroseconds;
+        if ($interval === null) {
+            return false;
+        }
+
+        $step = $this->getStep();
+
+        if ($step) {
+            return $step === $interval->getStep();
+        }
+
+        if ($this->isEmpty()) {
+            return $interval->isEmpty();
+        }
+
+        $cascadedInterval = $this->copy()->cascade();
+        $cascadedComparedInterval = $interval->copy()->cascade();
+
+        return $cascadedInterval->invert === $cascadedComparedInterval->invert &&
+            $cascadedInterval->getNonZeroValues() === $cascadedComparedInterval->getNonZeroValues();
     }
 
     /**
