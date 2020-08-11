@@ -961,6 +961,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Work-around for https://bugs.php.net/bug.php?id=77145
      *
+     * @SuppressWarnings(UnusedPrivateMethod)
+     *
      * @codeCoverageIgnore
      */
     private function fixDiffInterval()
