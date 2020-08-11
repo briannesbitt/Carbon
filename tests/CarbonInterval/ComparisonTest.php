@@ -31,8 +31,10 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->eq('P1D'));
         $this->assertTrue(CarbonInterval::day()->invert()->eq(CarbonInterval::days(-1)));
         $this->assertTrue(CarbonInterval::day()->sub('1 day')->eq(CarbonInterval::create()));
-        $step = function () {};
-        $this->assertTrue(CarbonInterval::create($step)->eq(CarbonInterval::create($step)));
+        $nextWeekday = function (CarbonInterface $date) {
+            return $date->nextWeekday();
+        };
+        $this->assertTrue(CarbonInterval::create($nextWeekday)->eq(CarbonInterval::create($nextWeekday)));
     }
 
     public function testEqualToFalse()
