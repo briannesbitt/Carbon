@@ -10,6 +10,8 @@
  */
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
+
 /**
  * Trait Week.
  *
@@ -29,7 +31,7 @@ namespace Carbon\Traits;
  * @method static dayOfYear(int $dayOfYear)
  * @method string getTranslationMessage(string $key, string $locale = null, string $default = null, $translator = null)
  * @method static next(int|string $day = null)
- * @method static startOfWeek(int $day = 1)
+ * @method CarbonInterface startOfWeek(int $day = null)
  * @method static subWeeks(int $weeks = 1)
  * @method static year(int $year = null)
  */

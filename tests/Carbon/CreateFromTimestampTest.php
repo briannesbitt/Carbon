@@ -86,7 +86,7 @@ class CreateFromTimestampTest extends AbstractTestCase
 
     public function testCreateFromTimestampWithTimezone()
     {
-        $carbon = Carbon::createFromTimestamp('468370800', '+0100');
+        $carbon = Carbon::createFromTimestamp((int) '468370800', '+0100');
 
         $this->assertSame(468370800, $carbon->getTimestamp());
         $this->assertSame('+01:00', $carbon->tzName);

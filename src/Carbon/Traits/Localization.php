@@ -54,7 +54,7 @@ trait Localization
      *
      * @var int
      */
-    protected static $humanDiffOptions = CarbonInterface::NO_ZERO_DIFF;
+    protected static $humanDiffOptions = 0;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -321,7 +321,7 @@ trait Localization
      *
      * @return string
      */
-    public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
+    public static function translateTimeString(string $timeString, string $from = null, string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL): string
     {
         // Fallback source and destination locales
         $from = $from ?: static::getLocale();
@@ -417,7 +417,7 @@ trait Localization
      *
      * @return string
      */
-    public function translateTimeStringTo($timeString, $to = null)
+    public function translateTimeStringTo(string $timeString, string $to = null): string
     {
         return static::translateTimeString($timeString, $this->getTranslatorLocale(), $to);
     }
@@ -462,7 +462,7 @@ trait Localization
      *
      * @return string
      */
-    public static function getLocale()
+    public static function getLocale(): string
     {
         return static::getLocaleAwareTranslator()->getLocale();
     }
@@ -475,7 +475,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function setLocale($locale)
+    public static function setLocale(string $locale): bool
     {
         return static::getLocaleAwareTranslator()->setLocale($locale) !== false;
     }
@@ -487,7 +487,7 @@ trait Localization
      *
      * @param string $locale
      */
-    public static function setFallbackLocale($locale)
+    public static function setFallbackLocale(string $locale): void
     {
         $translator = static::getTranslator();
 

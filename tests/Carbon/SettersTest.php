@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTimeZone;
+use Exception;
 use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
@@ -547,7 +548,7 @@ class SettersTest extends AbstractTestCase
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
 
-            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000, 'UTC');
             $original = $date->copy();
             $date->setUnitNoOverflow($valueUnit, $value, $overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
@@ -561,13 +562,16 @@ class SettersTest extends AbstractTestCase
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
             $modulo = $value % $units[$valueUnit];
+
             if ($modulo < 0) {
                 $modulo += $units[$valueUnit];
             }
+
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
-                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
+                $$valueUnit - ((int) $date->{"diffIn$unit"}($original, false)) === $value ||
+                ($valueUnit === 'day' &&
+                    $date->format('Y-m-d H:i:s.u') === $original->copy()->modify(($original->day + $value).' days'))
             ) {
                 $results['current']++;
 
@@ -586,7 +590,7 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result for: '.
+            throw new Exception('Unhandled result for: '.
                 'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
                 var_export($original->timezoneName, true).
                 ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
@@ -675,7 +679,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
-                -$date->{"diffIn$unit"}($original, false) === $value
+                -((int) $date->{"diffIn$unit"}($original, false)) === $value
             ) {
                 $results['current']++;
 
@@ -694,7 +698,7 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result for: '.
+            throw new Exception('Unhandled result for: '.
                 'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
                 var_export($original->timezoneName, true).
                 ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
@@ -763,7 +767,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
-                $date->{"diffIn$unit"}($original, false) === $value
+                ((int) $date->{"diffIn$unit"}($original, false)) === $value
             ) {
                 $results['current']++;
 
@@ -782,7 +786,7 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result for: '.
+            throw new Exception('Unhandled result for: '.
                 'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
                 var_export($original->timezoneName, true).
                 ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {

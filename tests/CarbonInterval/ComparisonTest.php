@@ -11,6 +11,7 @@ declare(strict_types = 1);
  */
 namespace Tests\CarbonInterval;
 
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use DateInterval;
 use Tests\AbstractTestCase;
@@ -28,14 +29,28 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->eq(CarbonInterval::hours(23)->minutes(60)));
         $this->assertTrue($oneDay->eq('24 hours'));
         $this->assertTrue($oneDay->eq('P1D'));
+        $this->assertTrue(CarbonInterval::day()->invert()->eq(CarbonInterval::days(-1)));
+        $this->assertTrue(CarbonInterval::day()->sub('1 day')->eq(CarbonInterval::create()));
+        $nextWeekday = function (CarbonInterface $date) {
+            return $date->nextWeekday();
+        };
+        $this->assertTrue(CarbonInterval::create($nextWeekday)->eq(CarbonInterval::create($nextWeekday)));
     }
 
     public function testEqualToFalse()
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->equalTo(CarbonInterval::hours(24)->microsecond(1)));
+        $this->assertFalse($oneDay->equalTo(['not-valid']));
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(24)->microsecond(1)));
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+        $nextWeekday = function (CarbonInterface $date) {
+            return $date->nextWeekday();
+        };
+        $nextWeekendDay = function (CarbonInterface $date) {
+            return $date->nextWeekendDay();
+        };
+        $this->assertFalse(CarbonInterval::create($nextWeekday)->eq(CarbonInterval::create($nextWeekendDay)));
     }
 
     public function testNotEqualToTrue()

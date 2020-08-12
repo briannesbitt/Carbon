@@ -515,7 +515,7 @@ class CreateTest extends AbstractTestCase
     {
         $period = Carbon::create('2019-01-02')->toPeriod(7);
 
-        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertSame(24.0, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertNull($period->getEndDate());
@@ -527,7 +527,7 @@ class CreateTest extends AbstractTestCase
         $period = Carbon::create('2019-01-02')->toPeriod('2019-02-05');
 
         $this->assertNull($period->getRecurrences());
-        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertSame(24.0, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertInstanceOf(Carbon::class, $period->getEndDate());
@@ -542,7 +542,7 @@ class CreateTest extends AbstractTestCase
 
         $period = Carbon::create('2019-01-02')->daysUntil('2019-02-05');
 
-        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertSame(24.0, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertInstanceOf(Carbon::class, $period->getEndDate());
@@ -564,14 +564,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
 
         $period = Carbon::create('2019-01-02')->hoursUntil('2019-02-05');
-        $this->assertSame(1, $period->getDateInterval()->totalHours);
+        $this->assertSame(1.0, $period->getDateInterval()->totalHours);
 
         $this->assertSame('1 minute', Carbon::create('2019-01-02')->minutesUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('3 minutes', Carbon::create('2019-01-02')->minutesUntil('2019-02-05', 3)->getDateInterval()->forHumans());
         $this->assertSame('3 seconds', Carbon::create('2019-01-02')->range('2019-02-05', 3, 'seconds')->getDateInterval()->forHumans());
         $this->assertSame('1 second', Carbon::create('2019-01-02')->secondsUntil('2019-02-05')->getDateInterval()->forHumans());
-        $this->assertSame(1, Carbon::create('2019-01-02')->millisecondsUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
-        $this->assertSame(1, Carbon::create('2019-01-02')->microsecondsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
+        $this->assertSame(1.0, Carbon::create('2019-01-02')->millisecondsUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
+        $this->assertSame(1.0, Carbon::create('2019-01-02')->microsecondsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
         $this->assertSame('1 week', Carbon::create('2019-01-02')->weeksUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('1 month', Carbon::create('2019-01-02')->monthsUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('3 months', Carbon::create('2019-01-02')->quartersUntil('2019-02-05')->getDateInterval()->forHumans());

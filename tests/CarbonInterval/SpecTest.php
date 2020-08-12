@@ -92,6 +92,6 @@ class SpecTest extends AbstractTestCase
     public function testCreatingInstanceEquals()
     {
         $ci = new CarbonInterval(1, 2, 0, 3, 4, 5, 6);
-        $this->assertEquals($ci, CarbonInterval::instance(new DateInterval($ci->spec())));
+        $this->assertEquals($ci->optimize(), CarbonInterval::instance(new DateInterval($ci->spec()))->optimize());
     }
 }

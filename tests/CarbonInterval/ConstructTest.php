@@ -303,13 +303,13 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::make(new CarbonInterval('P2M')), 0, 2, 0, 0, 0, 0);
         $this->assertNull(CarbonInterval::make(3));
 
-        $this->assertSame(3, CarbonInterval::make('3 milliseconds')->totalMilliseconds);
-        $this->assertSame(3, CarbonInterval::make('3 microseconds')->totalMicroseconds);
-        $this->assertSame(21, CarbonInterval::make('3 weeks')->totalDays);
-        $this->assertSame(9, CarbonInterval::make('3 quarters')->totalMonths);
-        $this->assertSame(30, CarbonInterval::make('3 decades')->totalYears);
-        $this->assertSame(300, CarbonInterval::make('3 centuries')->totalYears);
-        $this->assertSame(3000, CarbonInterval::make('3 millennia')->totalYears);
+        $this->assertSame(3.0, CarbonInterval::make('3 milliseconds')->totalMilliseconds);
+        $this->assertSame(3.0, CarbonInterval::make('3 microseconds')->totalMicroseconds);
+        $this->assertSame(21.0, CarbonInterval::make('3 weeks')->totalDays);
+        $this->assertSame(9.0, CarbonInterval::make('3 quarters')->totalMonths);
+        $this->assertSame(30.0, CarbonInterval::make('3 decades')->totalYears);
+        $this->assertSame(300.0, CarbonInterval::make('3 centuries')->totalYears);
+        $this->assertSame(3000.0, CarbonInterval::make('3 millennia')->totalYears);
     }
 
     public function testCallInvalidStaticMethod()
@@ -320,5 +320,27 @@ class ConstructTest extends AbstractTestCase
         );
 
         CarbonInterval::anything();
+    }
+
+    public function testOriginal()
+    {
+        $this->assertSame('3 hours', CarbonInterval::make(3, 'hours')->original());
+        $this->assertSame('3 hours 30 m', CarbonInterval::make('3 hours 30 m')->original());
+        $this->assertSame('PT5H', CarbonInterval::make('PT5H')->original());
+        $interval = new DateInterval('P1D');
+        $this->assertSame($interval, CarbonInterval::make($interval)->original());
+        $interval = new CarbonInterval('P2M');
+        $this->assertSame($interval, CarbonInterval::make($interval)->original());
+    }
+
+    public function testCreateFromDateString()
+    {
+        // Before PHP 7.2.17 and from 7.3.0 to 7.3.3, createFromDateString() returned an empty interval
+        // when passing incorrect strings, after that, it returns false ("Bad format" warning of the
+        // native DateInterval method is muted, when Carbon will drop PHP <= 7.3.3, this warning will
+        // no longer be muted.
+        $this->assertCarbonInterval(CarbonInterval::createFromDateString('foo bar') ?: CarbonInterval::create(), 0, 0, 0, 0, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::createFromDateString('3 hours'), 0, 0, 0, 3, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::createFromDateString('46 days, 43 hours and 57 minutes'), 0, 0, 46, 43, 57, 0);
     }
 }

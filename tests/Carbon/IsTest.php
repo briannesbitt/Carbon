@@ -615,7 +615,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isNextMicrosecond());
         $this->assertTrue(Carbon::now()->addMicrosecond()->isNextMicrosecond());
         $this->assertTrue(Carbon::now()->subMicroseconds(Carbon::MICROSECONDS_PER_SECOND)->isLastSecond());
-        $this->assertSame(4, Carbon::now()->subMicroseconds(4 * Carbon::MICROSECONDS_PER_SECOND)->diffInSeconds(Carbon::now()));
+        $this->assertSame(4.0, Carbon::now()->subMicroseconds(4 * Carbon::MICROSECONDS_PER_SECOND)->diffInSeconds(Carbon::now()));
     }
 
     public function testIsDayOfWeek()
