@@ -332,4 +332,11 @@ class ConstructTest extends AbstractTestCase
         $interval = new CarbonInterval('P2M');
         $this->assertSame($interval, CarbonInterval::make($interval)->original());
     }
+
+    public function testCreateFromDateString()
+    {
+        $this->assertFalse(CarbonInterval::createFromDateString('foo bar'));
+        $this->assertCarbonInterval(CarbonInterval::createFromDateString('3 hours'), 0, 0, 0, 3, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::createFromDateString('46 days, 43 hours and 57 minutes'), 0, 0, 46, 43, 57, 0);
+    }
 }

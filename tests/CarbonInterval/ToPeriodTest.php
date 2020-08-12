@@ -92,5 +92,25 @@ class ToPeriodTest extends AbstractTestCase
             '2020-08-31 00:00:00',
             '2020-09-01 00:00:00',
         ], $days);
+
+        Carbon::setTestNow('2020-08-12 06:00:50');
+        $days = [];
+
+        foreach (CarbonInterval::week()->stepBy('day') as $day) {
+            $days[] = "$day";
+        }
+
+        $this->assertSame([
+            '2020-08-12 06:00:50',
+            '2020-08-13 06:00:50',
+            '2020-08-14 06:00:50',
+            '2020-08-15 06:00:50',
+            '2020-08-16 06:00:50',
+            '2020-08-17 06:00:50',
+            '2020-08-18 06:00:50',
+            '2020-08-19 06:00:50',
+        ], $days);
+
+        Carbon::setTestNow(null);
     }
 }

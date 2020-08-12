@@ -1798,7 +1798,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function stepBy($interval, $unit = null)
     {
-        $start = $this->startDate ?: Carbon::make($this->startDate);
+        $start = $this->startDate ?: Carbon::make($this->startDate ?: 'now');
         $end = $this->endDate ?: $start->copy()->add($this);
 
         return CarbonPeriod::create(static::make($interval, $unit), $start, $end);
@@ -2607,9 +2607,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         return $this->round($precision, 'ceil');
     }
 
-    private static function withOriginal(self $interval, $original): self
+    private static function withOriginal($interval, $original)
     {
-        $interval->originalInput = $original;
+        if ($interval instanceof self) {
+            $interval->originalInput = $original;
+        }
 
         return $interval;
     }
