@@ -56,7 +56,7 @@ trait Difference
      *
      * @return CarbonInterval
      */
-    public function diffAsCarbonInterval($date = null, bool $absolute = true): CarbonInterval
+    public function diffAsCarbonInterval($date = null, bool $absolute = false): CarbonInterval
     {
         return CarbonInterval::diff($this, $date, $absolute)
             ->setLocalTranslator($this->getLocalTranslator());

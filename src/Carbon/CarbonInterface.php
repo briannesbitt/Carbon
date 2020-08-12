@@ -1222,7 +1222,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return CarbonInterval
      */
-    public function diffAsCarbonInterval($date = null, bool $absolute = true): CarbonInterval;
+    public function diffAsCarbonInterval($date = null, bool $absolute = false): CarbonInterval;
 
     /**
      * Get the difference as a DateInterval instance.
