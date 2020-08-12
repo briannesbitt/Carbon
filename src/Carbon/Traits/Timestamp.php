@@ -58,7 +58,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampUTC($timestamp)
+    public static function createFromTimestampUTC(int $timestamp): self
     {
         return new static('@'.$timestamp);
     }
