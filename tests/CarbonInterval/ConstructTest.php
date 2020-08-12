@@ -321,4 +321,15 @@ class ConstructTest extends AbstractTestCase
 
         CarbonInterval::anything();
     }
+
+    public function testOriginal()
+    {
+        $this->assertSame('3 hours', CarbonInterval::make(3, 'hours')->original());
+        $this->assertSame('3 hours 30 m', CarbonInterval::make('3 hours 30 m')->original());
+        $this->assertSame('PT5H', CarbonInterval::make('PT5H')->original());
+        $interval = new DateInterval('P1D');
+        $this->assertSame($interval, CarbonInterval::make($interval)->original());
+        $interval = new CarbonInterval('P2M');
+        $this->assertSame($interval, CarbonInterval::make($interval)->original());
+    }
 }

@@ -25,9 +25,9 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestamp($timestamp, $tz = null)
+    public static function createFromTimestamp(int $timestamp, $tz = null): self
     {
-        $date = new DateTime('@'.((int) $timestamp));
+        $date = new DateTime('@'.$timestamp);
         $tz = static::safeCreateDateTimeZone($tz);
 
         if ($tz) {
@@ -45,7 +45,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampMs($timestamp, $tz = null)
+    public static function createFromTimestampMs(float $timestamp, $tz = null): self
     {
         return static::rawCreateFromFormat('U.u', sprintf('%F', $timestamp / 1000))
             ->setTimezone($tz);

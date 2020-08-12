@@ -5,6 +5,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class ToPeriodTest extends AbstractTestCase
@@ -45,5 +46,51 @@ class ToPeriodTest extends AbstractTestCase
                 '2018-05-14T17:30:00+00:00/PT30M/2018-05-14T18:00:00+02:00',
             ],
         ];
+    }
+
+    public function testStepBy()
+    {
+        $days = [];
+
+        foreach (Carbon::parse('2020-08-29')->diff('2020-09-02')->stepBy('day') as $day) {
+            $days[] = "$day";
+        }
+
+        $this->assertSame([
+            '2020-08-29 00:00:00',
+            '2020-08-30 00:00:00',
+            '2020-08-31 00:00:00',
+            '2020-09-01 00:00:00',
+            '2020-09-02 00:00:00',
+        ], $days);
+
+        $times = [];
+
+        foreach (Carbon::parse('2020-08-29')->diff('2020-08-31')->stepBy('12 hours') as $time) {
+            $times[] = "$time";
+        }
+
+        $this->assertSame([
+            '2020-08-29 00:00:00',
+            '2020-08-29 12:00:00',
+            '2020-08-30 00:00:00',
+            '2020-08-30 12:00:00',
+            '2020-08-31 00:00:00',
+        ], $times);
+
+        $days = [];
+        /** @var CarbonPeriod $period */
+        $period = Carbon::parse('2020-08-29')->diff('2020-09-02')->stepBy('day');
+
+        foreach ($period->excludeEndDate() as $day) {
+            $days[] = "$day";
+        }
+
+        $this->assertSame([
+            '2020-08-29 00:00:00',
+            '2020-08-30 00:00:00',
+            '2020-08-31 00:00:00',
+            '2020-09-01 00:00:00',
+        ], $days);
     }
 }
