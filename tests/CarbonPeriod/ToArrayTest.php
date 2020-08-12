@@ -169,7 +169,7 @@ class ToArrayTest extends AbstractTestCase
 
         $expected = [
             'dateClass' => Carbon::class,
-            'dateInterval' => CarbonInterval::hour(),
+            'dateInterval' => CarbonInterval::hour()->optimize(),
             'filters' => [
                 [
                     'Carbon\CarbonPeriod::filterRecurrences',
@@ -179,7 +179,9 @@ class ToArrayTest extends AbstractTestCase
             'startDate' => Carbon::parse('2018-05-13 12:00 Asia/Kabul'),
             'recurrences' => 3,
         ];
+        $actual = $period->__debugInfo();
+        $actual['dateInterval']->optimize();
 
-        $this->assertEquals($expected, $period->__debugInfo());
+        $this->assertEquals($expected, $actual);
     }
 }

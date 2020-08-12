@@ -117,13 +117,13 @@ class AliasTest extends AbstractTestCase
     public function testManageInterval()
     {
         $period = CarbonPeriod::interval('PT6H');
-        $this->assertEquals(CarbonInterval::create('PT6H'), $period->getDateInterval());
+        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->getDateInterval()->optimize());
     }
 
     public function testInvertInterval()
     {
         $period = CarbonPeriod::invert();
-        $this->assertEquals(CarbonInterval::create('P1D')->invert(), $period->getDateInterval());
+        $this->assertEquals(CarbonInterval::create('P1D')->invert()->optimize(), $period->getDateInterval()->optimize());
     }
 
     public function testModifyIntervalPlural()

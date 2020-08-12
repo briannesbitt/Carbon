@@ -461,6 +461,7 @@ function compileDoc($autoDocLines, $file)
 
     $autoDoc = '';
     $columnsMaxLengths = [];
+
     foreach ($autoDocLines as &$editableLine) {
         if (is_array($editableLine)) {
             if (($editableLine[1] ?? '') === 'self') {
@@ -521,8 +522,20 @@ $staticImmutableMethods = [];
 $methods = '';
 $carbonMethods = get_class_methods(\Carbon\Carbon::class);
 sort($carbonMethods);
+
+function getMethodReturnType(ReflectionMethod $method)
+{
+    $type = $method->getReturnType();
+
+    if (!$type || $type->getName() === 'self') {
+        return '';
+    }
+
+    return ': '.preg_replace('/^Carbon\\\\/', '', $type->getName());
+}
+
 foreach ($carbonMethods as $method) {
-    if (method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
+    if ($method === 'diff' || method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
         $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
         $static = $function->isStatic() ? ' static' : '';
         $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
@@ -548,13 +561,13 @@ foreach ($carbonMethods as $method) {
             $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
             $staticMethods[] = [
                 '@method',
-                str_replace('static', 'Carbon', $returnType),
+                str_replace(['self', 'static'], 'Carbon', $returnType),
                 "$method($parameters)",
                 $doc[0],
             ];
             $staticImmutableMethods[] = [
                 '@method',
-                str_replace('static', 'CarbonImmutable', $returnType),
+                str_replace(['self', 'static'], 'CarbonImmutable', $returnType),
                 "$method($parameters)",
                 $doc[0],
             ];
@@ -565,7 +578,7 @@ foreach ($carbonMethods as $method) {
             }
         }
 
-        $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
+        $return = getMethodReturnType($function);
 
         if (!empty($methodDocBlock)) {
             $methodDocBlock = "\n    $methodDocBlock";

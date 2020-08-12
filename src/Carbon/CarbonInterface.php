@@ -1126,7 +1126,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestamp($timestamp, $tz = null);
+    public static function createFromTimestamp(int $timestamp, $tz = null);
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
@@ -1136,7 +1136,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestampMs($timestamp, $tz = null);
+    public static function createFromTimestampMs(float $timestamp, $tz = null);
 
     /**
      * Create a Carbon instance from an UTC timestamp.
@@ -1145,7 +1145,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestampUTC($timestamp);
+    public static function createFromTimestampUTC(int $timestamp);
 
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.
@@ -1200,6 +1200,42 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function dayOfYear($value = null);
 
     /**
+     * @alias diffAsCarbonInterval
+     *
+     * Get the difference as a DateInterval instance.
+     * Return relative interval (negative if $absolute flag is not set to true and the given date is before
+     * current one).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return CarbonInterval
+     */
+    public function diff($date = null, $absolute = false): CarbonInterval;
+
+    /**
+     * Get the difference as a CarbonInterval instance.
+     * Return absolute interval (always positive) unless you pass false to the second argument.
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return CarbonInterval
+     */
+    public function diffAsCarbonInterval($date = null, bool $absolute = true): CarbonInterval;
+
+    /**
+     * Get the difference as a DateInterval instance.
+     * Return relative interval (negative if
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return DateInterval
+     */
+    public function diffAsDateInterval($date = null, bool $absolute = false): DateInterval;
+
+    /**
      * Get the difference by the given interval using a filter closure.
      *
      * @param CarbonInterval                                         $ci       An interval to traverse by
@@ -1209,7 +1245,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, Closure $callback, $date = null, $absolute = false): int;
+    public function diffFiltered(CarbonInterval $ci, Closure $callback, $date = null, bool $absolute = false): int;
 
     /**
      * Get the difference in a human readable format in the current locale from current instance to an other
@@ -1262,7 +1298,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInDays($date = null, $absolute = false): float;
+    public function diffInDays($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in days using a filter closure rounded down.
@@ -1273,7 +1309,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function diffInDaysFiltered(Closure $callback, $date = null, $absolute = false): int;
+    public function diffInDaysFiltered(Closure $callback, $date = null, bool $absolute = false): int;
 
     /**
      * Get the difference in hours rounded down.
@@ -1283,7 +1319,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInHours($date = null, $absolute = false): float;
+    public function diffInHours($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in hours using a filter closure rounded down.
@@ -1294,7 +1330,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function diffInHoursFiltered(Closure $callback, $date = null, $absolute = false): int;
+    public function diffInHoursFiltered(Closure $callback, $date = null, bool $absolute = false): int;
 
     /**
      * Get the difference in microseconds.
@@ -1304,7 +1340,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInMicroseconds($date = null, $absolute = false): float;
+    public function diffInMicroseconds($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in milliseconds rounded down.
@@ -1314,7 +1350,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInMilliseconds($date = null, $absolute = false): float;
+    public function diffInMilliseconds($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in minutes rounded down.
@@ -1324,7 +1360,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInMinutes($date = null, $absolute = false): float;
+    public function diffInMinutes($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in months rounded down.
@@ -1334,7 +1370,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInMonths($date = null, $absolute = false): float;
+    public function diffInMonths($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in quarters rounded down.
@@ -1344,7 +1380,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInQuarters($date = null, $absolute = false): float;
+    public function diffInQuarters($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in seconds rounded down.
@@ -1354,7 +1390,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInSeconds($date = null, $absolute = false): float;
+    public function diffInSeconds($date = null, bool $absolute = false): float;
+
+    /**
+     * @param string                                                 $unit microsecond, millisecond, second, minute,
+     *                                                                     hour, day, week, months, quarter, years,
+     *                                                                     century, millennium
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function diffInUnit(string $unit, $date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in weekdays rounded down.
@@ -1364,7 +1411,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function diffInWeekdays($date = null, $absolute = false): int;
+    public function diffInWeekdays($date = null, bool $absolute = false): int;
 
     /**
      * Get the difference in weekend days using a filter rounded down.
@@ -1374,7 +1421,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function diffInWeekendDays($date = null, $absolute = false): int;
+    public function diffInWeekendDays($date = null, bool $absolute = false): int;
 
     /**
      * Get the difference in weeks rounded down.
@@ -1382,9 +1429,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
      *
-     * @return int
+     * @return float
      */
-    public function diffInWeeks($date = null, $absolute = false): float;
+    public function diffInWeeks($date = null, bool $absolute = false): float;
 
     /**
      * Get the difference in years
@@ -1394,7 +1441,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function diffInYears($date = null, $absolute = false);
+    public function diffInYears($date = null, bool $absolute = false): float;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -1902,7 +1949,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function getLocale();
+    public static function getLocale(): string;
 
     /**
      * Get the raw callable macro registered globally for a given name.
@@ -3363,16 +3410,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * The number of seconds since midnight.
      *
-     * @return int
+     * @return float
      */
-    public function secondsSinceMidnight();
+    public function secondsSinceMidnight(): float;
 
     /**
      * The number of seconds until 23:59:59.
      *
-     * @return int
+     * @return float
      */
-    public function secondsUntilEndOfDay();
+    public function secondsUntilEndOfDay(): float;
 
     /**
      * Return a serialized string of the instance.
@@ -3458,7 +3505,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $locale
      */
-    public static function setFallbackLocale($locale);
+    public static function setFallbackLocale(string $locale): void;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -3499,7 +3546,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function setLocale($locale);
+    public static function setLocale(string $locale): bool;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -3931,6 +3978,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public function sub($unit, $value = 1, $overflow = null);
 
+    /**
+     * Subtract seconds to the instance using timestamp. Positive $value travels
+     * into the past while negative $value travels forward.
+     *
+     * @param string $unit
+     * @param int    $value
+     *
+     * @return static
+     */
     public function subRealUnit($unit, $value = 1);
 
     /**
@@ -4494,7 +4550,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function translateTimeString($timeString, $from = null, $to = null, $mode = self::TRANSLATE_ALL);
+    public static function translateTimeString(string $timeString, string $from = null, string $to = null, int $mode = self::TRANSLATE_ALL): string;
 
     /**
      * Translate a time string from the current locale (`$date->locale()`) to an other.
@@ -4504,7 +4560,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public function translateTimeStringTo($timeString, $to = null);
+    public function translateTimeStringTo(string $timeString, string $to = null): string;
 
     /**
      * Translate using translation string or callback available.
