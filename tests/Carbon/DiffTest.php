@@ -14,6 +14,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\UnknownUnitException;
 use Closure;
 use DateTime;
 use Exception;
@@ -1717,5 +1718,17 @@ class DiffTest extends AbstractTestCase
         $d2 = Carbon::make('2019-02-23 12:00:00');
 
         $this->assertSame(2678400.0, $d2->diffInSeconds($d1));
+    }
+
+    public function testDiffInUnit()
+    {
+        $this->assertSame(5.5, Carbon::make('2020-08-13 05:00')->diffInUnit('hour', '2020-08-13 10:30'));
+    }
+
+    public function testDiffInUnitException()
+    {
+        $this->expectException(UnknownUnitException::class);
+        $this->expectExceptionMessage("Unknown unit 'moons'.");
+        $this->assertSame(5.5, Carbon::make('2020-08-13 05:00')->diffInUnit('moon', '2020-08-13 10:30'));
     }
 }

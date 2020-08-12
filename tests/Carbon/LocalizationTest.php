@@ -21,6 +21,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
+use Tests\Carbon\Fixtures\NoLocaleTranslator;
 
 class LocalizationTest extends AbstractTestCase
 {
@@ -732,6 +733,20 @@ class LocalizationTest extends AbstractTestCase
         $date->setLocalTranslator(new IdentityTranslator());
 
         $date->getTranslationMessage('foo');
+    }
+
+    public function testNoLocaleTranslator()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Tests\Carbon\Fixtures\NoLocaleTranslator does neither implements '.
+            'Symfony\Contracts\Translation\LocaleAwareInterface nor getLocale() method.'
+        );
+
+        $date = Carbon::create(2018, 1, 1, 0, 0, 0);
+        $date->setLocalTranslator(new NoLocaleTranslator());
+
+        $date->locale;
     }
 
     public function testTranslateTimeStringTo()
