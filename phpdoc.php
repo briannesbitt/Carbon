@@ -523,18 +523,15 @@ $methods = '';
 $carbonMethods = get_class_methods(\Carbon\Carbon::class);
 sort($carbonMethods);
 
-function getMethodReturnType(ReflectionMethod $method) {
+function getMethodReturnType(ReflectionMethod $method)
+{
     $type = $method->getReturnType();
 
-    if (!$type) {
+    if (!$type || $type->getName() === 'self') {
         return '';
     }
 
-    $type = $type->getName();
-    $type = preg_replace('/^Carbon\\\\/', '', $type);
-    $type = preg_replace('/^self$/', 'CarbonInterface', $type);
-
-    return ": $type";
+    return ': '.preg_replace('/^Carbon\\\\/', '', $type->getName());
 }
 
 foreach ($carbonMethods as $method) {

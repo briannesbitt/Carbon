@@ -1126,7 +1126,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestamp(int $timestamp, $tz = null): CarbonInterface;
+    public static function createFromTimestamp(int $timestamp, $tz = null);
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
@@ -1136,7 +1136,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestampMs(float $timestamp, $tz = null): CarbonInterface;
+    public static function createFromTimestampMs(float $timestamp, $tz = null);
 
     /**
      * Create a Carbon instance from an UTC timestamp.
@@ -1145,7 +1145,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestampUTC(int $timestamp): CarbonInterface;
+    public static function createFromTimestampUTC(int $timestamp);
 
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.
