@@ -380,7 +380,7 @@ trait Difference
      */
     public function secondsSinceMidnight(): float
     {
-        return $this->diffInSeconds($this->copy()->startOfDay());
+        return $this->diffInSeconds($this->copy()->startOfDay(), true);
     }
 
     /**
@@ -390,7 +390,7 @@ trait Difference
      */
     public function secondsUntilEndOfDay(): float
     {
-        return $this->diffInSeconds($this->copy()->endOfDay());
+        return $this->diffInSeconds($this->copy()->endOfDay(), true);
     }
 
     /**
