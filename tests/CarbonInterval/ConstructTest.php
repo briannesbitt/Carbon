@@ -335,7 +335,11 @@ class ConstructTest extends AbstractTestCase
 
     public function testCreateFromDateString()
     {
-        $this->assertFalse(CarbonInterval::createFromDateString('foo bar'));
+        // Before PHP 7.2.17 and from 7.3.0 to 7.3.3, createFromDateString() returned an empty interval
+        // when passing incorrect strings, after that, it returns false ("Bad format" warning of the
+        // native DateInterval method is muted, when Carbon will drop PHP <= 7.3.3, this warning will
+        // no longer be muted.
+        $this->assertCarbonInterval(CarbonInterval::createFromDateString('foo bar') ?: CarbonInterval::create(), 0, 0, 0, 0, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::createFromDateString('3 hours'), 0, 0, 0, 3, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::createFromDateString('46 days, 43 hours and 57 minutes'), 0, 0, 46, 43, 57, 0);
     }
