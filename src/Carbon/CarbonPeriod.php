@@ -726,15 +726,16 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Change the period date interval.
      *
-     * @param DateInterval|string $interval
+     * @param DateInterval|string|int $interval
+     * @param string                  $unit     the unit of $interval if it's a number
      *
      * @throws InvalidIntervalException
      *
      * @return $this
      */
-    public function setDateInterval($interval)
+    public function setDateInterval($interval, $unit = null)
     {
-        if (!$interval = CarbonInterval::make($interval)) {
+        if (!$interval = CarbonInterval::make($interval, $unit)) {
             throw new InvalidIntervalException('Invalid interval.');
         }
 
@@ -1784,7 +1785,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             case 'every':
             case 'step':
             case 'stepBy':
-                return $this->setDateInterval($first);
+                return $this->setDateInterval($first, $second);
 
             case 'invert':
                 return $this->invertDateInterval();

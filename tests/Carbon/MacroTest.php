@@ -59,7 +59,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
             /** @var CarbonInterface $date */
             $date = $this;
 
-            return $date->diff(
+            return $date->toDateTime()->diff(
                 Carbon::create($year, 3, 21)
                     ->setTimezone($date->getTimezone())
                     ->addDays(easter_days($year))

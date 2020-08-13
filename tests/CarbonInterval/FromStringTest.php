@@ -18,7 +18,7 @@ class FromStringTest extends AbstractTestCase
     {
         $result = CarbonInterval::fromString($string);
 
-        $this->assertEquals($expected, $result, "'$string' does not return expected interval.");
+        $this->assertEquals($expected->optimize(), $result->optimize(), "'$string' does not return expected interval.");
     }
 
     public function provideValidStrings()

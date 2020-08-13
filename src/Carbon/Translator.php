@@ -311,7 +311,7 @@ class Translator extends Translation\Translator
      *
      * @return bool
      */
-    public function setLocale(string $locale)
+    public function setLocale(string $locale): bool
     {
         $locale = preg_replace_callback('/[-_]([a-z]{2,})/', function ($matches) {
             // _2-letters or YUE is a region, _3+-letters is a variant

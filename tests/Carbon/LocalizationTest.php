@@ -21,6 +21,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
+use Tests\Carbon\Fixtures\NoLocaleTranslator;
 
 class LocalizationTest extends AbstractTestCase
 {
@@ -156,10 +157,8 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocale
      * @see \Tests\Carbon\LocalizationTest::testSetTranslator
-     *
-     * @return array
      */
-    public function providerLocales()
+    public function providerLocales(): array
     {
         return [
             ['af'],
@@ -303,10 +302,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
-     *
-     * @param string $locale
      */
-    public function testSetLocale($locale)
+    public function testSetLocale(string $locale)
     {
         $this->assertTrue(Carbon::setLocale($locale));
         $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
@@ -314,10 +311,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
-     *
-     * @param string $locale
      */
-    public function testSetTranslator($locale)
+    public function testSetTranslator(string $locale)
     {
         $ori = Carbon::getTranslator();
         $t = new Translator($locale);
@@ -339,10 +334,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
-     *
-     * @return array
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale()
+    public function dataProviderTestSetLocaleWithMalformedLocale(): array
     {
         return [
             ['DE'],
@@ -358,10 +351,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
-     *
-     * @param string $malformedLocale
      */
-    public function testSetLocaleWithMalformedLocale($malformedLocale)
+    public function testSetLocaleWithMalformedLocale(string $malformedLocale)
     {
         $this->assertTrue(Carbon::setLocale($malformedLocale));
     }
@@ -727,7 +718,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
+            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
             'Symfony\Component\Translation\IdentityTranslator has been given.'
         );
@@ -736,6 +727,20 @@ class LocalizationTest extends AbstractTestCase
         $date->setLocalTranslator(new IdentityTranslator());
 
         $date->getTranslationMessage('foo');
+    }
+
+    public function testNoLocaleTranslator()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Tests\Carbon\Fixtures\NoLocaleTranslator does neither implements '.
+            'Symfony\Contracts\Translation\LocaleAwareInterface nor getLocale() method.'
+        );
+
+        $date = Carbon::create(2018, 1, 1, 0, 0, 0);
+        $date->setLocalTranslator(new NoLocaleTranslator());
+
+        $date->locale;
     }
 
     public function testTranslateTimeStringTo()

@@ -136,6 +136,15 @@ trait Units
         return $this->setTimestamp((int) ($this->getTimestamp() + $value));
     }
 
+    /**
+     * Subtract seconds to the instance using timestamp. Positive $value travels
+     * into the past while negative $value travels forward.
+     *
+     * @param string $unit
+     * @param int    $value
+     *
+     * @return static
+     */
     public function subRealUnit($unit, $value = 1)
     {
         return $this->addRealUnit($unit, -$value);
