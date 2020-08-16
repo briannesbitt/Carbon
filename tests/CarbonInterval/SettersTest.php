@@ -176,6 +176,20 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(0, $ci->invert);
     }
 
+    public function testAbsolute()
+    {
+        $ci = CarbonInterval::day();
+
+        $this->assertSame($ci, $ci->absolute());
+        $this->assertSame(1.0, $ci->totalDays);
+
+        $this->assertSame(1.0, $ci->invert()->absolute()->totalDays);
+        $this->assertSame(-1.0, $ci->invert()->absolute(false)->totalDays);
+
+        $this->assertSame(1.0, $ci->invert()->abs(true)->totalDays);
+        $this->assertSame(-1.0, $ci->invert()->abs(false)->totalDays);
+    }
+
     public function testInvalidSetter()
     {
         $this->expectException(\InvalidArgumentException::class);

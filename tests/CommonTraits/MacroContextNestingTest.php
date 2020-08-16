@@ -24,7 +24,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
         return [
             [Carbon::class, Carbon::parse('2010-05-23'), null],
             [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null],
-            [CarbonInterval::class, CarbonInterval::make('P1M6D'), strval(CarbonInterval::second())],
+            [CarbonInterval::class, CarbonInterval::make('P1M6D'), strval(CarbonInterval::seconds(0))],
             [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null],
         ];
     }

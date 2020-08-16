@@ -13,14 +13,11 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterval;
-use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\MessageSelector;
-use Symfony\Component\Translation\TranslatorInterface;
 use Tests\AbstractTestCase;
 use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
@@ -164,10 +161,8 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocale
      * @see \Tests\Carbon\LocalizationTest::testSetTranslator
-     *
-     * @return array
      */
-    public function providerLocales()
+    public function providerLocales(): array
     {
         return [
             ['af'],
@@ -311,10 +306,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
-     *
-     * @param string $locale
      */
-    public function testSetLocale($locale)
+    public function testSetLocale(string $locale)
     {
         $this->assertTrue(Carbon::setLocale($locale));
         $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
@@ -322,10 +315,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
-     *
-     * @param string $locale
      */
-    public function testSetTranslator($locale)
+    public function testSetTranslator(string $locale)
     {
         $ori = Carbon::getTranslator();
         $t = new Translator($locale);
@@ -346,10 +337,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
-     *
-     * @return array
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale()
+    public function dataProviderTestSetLocaleWithMalformedLocale(): array
     {
         return [
             ['DE'],
@@ -365,10 +354,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
-     *
-     * @param string $malformedLocale
      */
-    public function testSetLocaleWithMalformedLocale($malformedLocale)
+    public function testSetLocaleWithMalformedLocale(string $malformedLocale)
     {
         $this->assertTrue(Carbon::setLocale($malformedLocale));
     }
@@ -661,27 +648,6 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 
-    public function testNotLocaleAwareException()
-    {
-        if (method_exists(TranslatorInterface::class, 'getLocale')) {
-            $this->markTestSkipped('In Symfony < 5, NotLocaleAwareException will never been thrown.');
-        }
-
-        $translator = new class implements TranslatorInterface {
-            public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
-            {
-                return 'x';
-            }
-        };
-
-        Carbon::setTranslator($translator);
-
-        $this->expectException(NotLocaleAwareException::class);
-        $this->expectExceptionMessage(get_class($translator).' does neither implements Symfony\\Contracts\\Translation\\LocaleAwareInterface nor getLocale() method.');
-
-        Carbon::now()->locale();
-    }
-
     public function testGetAvailableLocalesInfo()
     {
         $infos = Carbon::getAvailableLocalesInfo();
@@ -724,11 +690,7 @@ class LocalizationTest extends AbstractTestCase
         );
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
-        $date->setLocalTranslator(
-            class_exists(MessageSelector::class)
-                ? new IdentityTranslator(new MessageSelector())
-                : new IdentityTranslator()
-        );
+        $date->setLocalTranslator(new IdentityTranslator());
 
         $date->getTranslationMessage('foo');
     }

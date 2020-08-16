@@ -611,13 +611,13 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         // Parse and assign arguments one by one. First argument may be an ISO 8601 spec,
         // which will be first parsed into parts and then processed the same way.
 
-        $agumentsCount = count($arguments);
+        $argumentsCount = count($arguments);
 
-        if ($agumentsCount && static::isIso8601($iso = $arguments[0])) {
+        if ($argumentsCount && static::isIso8601($iso = $arguments[0])) {
             array_splice($arguments, 0, 1, static::parseIso8601($iso));
         }
 
-        if ($agumentsCount === 1) {
+        if ($argumentsCount === 1) {
             if ($arguments[0] instanceof DatePeriod) {
                 $arguments = [
                     $arguments[0]->start,
@@ -726,15 +726,16 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Change the period date interval.
      *
-     * @param DateInterval|string $interval
+     * @param DateInterval|string|int $interval
+     * @param string                  $unit     the unit of $interval if it's a number
      *
      * @throws InvalidIntervalException
      *
      * @return $this
      */
-    public function setDateInterval($interval)
+    public function setDateInterval($interval, $unit = null)
     {
-        if (!$interval = CarbonInterval::make($interval)) {
+        if (!$interval = CarbonInterval::make($interval, $unit)) {
             throw new InvalidIntervalException('Invalid interval.');
         }
 
@@ -1784,7 +1785,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             case 'every':
             case 'step':
             case 'stepBy':
-                return $this->setDateInterval($first);
+                return $this->setDateInterval($first, $second);
 
             case 'invert':
                 return $this->invertDateInterval();

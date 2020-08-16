@@ -702,6 +702,7 @@ trait Date
     protected static function expectDateTime($date, $other = [])
     {
         $message = 'Expected ';
+
         foreach ((array) $other as $expect) {
             $message .= "$expect, ";
         }
@@ -933,7 +934,7 @@ trait Date
 
             // @property int does a diffInYears() with default parameters
             case $name === 'age':
-                return $this->diffInYears();
+                return (int) $this->diffInYears();
 
             // @property-read int the quarter of this instance, 1 - 4
             // @call isSameUnit
@@ -1329,8 +1330,9 @@ trait Date
             $original = $this->copy();
             /** @var static $date */
             $date = $this->$valueUnit($value);
-            $end = $original->copy()->endOf($overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
             if ($date < $start) {
                 $date = $date->setDateTimeFrom($start);
             } elseif ($date > $end) {
@@ -2444,6 +2446,14 @@ trait Date
      */
     public function __call($method, $parameters)
     {
+        if (preg_match('/^(?:diff|floatDiff)In(?:Real)?(.+)$/', $method, $match)) {
+            $method = 'diffIn'.$match[1];
+
+            if (method_exists($this, $method)) {
+                return $this->$method(...$parameters);
+            }
+        }
+
         $diffSizes = [
             // @mode diffForHumans
             'short' => true,
