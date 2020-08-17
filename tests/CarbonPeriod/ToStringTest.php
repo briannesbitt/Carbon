@@ -105,14 +105,14 @@ class ToStringTest extends AbstractTestCase
         return [
             [
                 CarbonPeriod::create('R4/2012-07-01T00:00:00-04:00/P7D'),
-                'R4/2012-07-01T00:00:00-04:00/P7D',
+                'R4/2012-07-01T00:00:00-0400/P7D',
             ],
             [
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30', 'America/Toronto'),
                     Carbon::parse('2015-10-03', 'America/Toronto')
                 ),
-                '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00',
+                '2015-09-30T00:00:00-0400/P1D/2015-10-03T00:00:00-0400',
             ],
             [
                 CarbonPeriod::create(
@@ -120,18 +120,18 @@ class ToStringTest extends AbstractTestCase
                     CarbonInterval::days(3)->hours(5),
                     Carbon::parse('2015-10-03 19:00', 'America/Toronto')
                 ),
-                '2015-09-30T12:50:00-04:00/P3DT5H/2015-10-03T19:00:00-04:00',
+                '2015-09-30T12:50:00-0400/P3DT5H/2015-10-03T19:00:00-0400',
             ],
             [
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30 12:50', 'America/Toronto'),
                     CarbonInterval::days(3)
                 ),
-                '2015-09-30T12:50:00-04:00/P3D',
+                '2015-09-30T12:50:00-0400/P3D',
             ],
             [
                 CarbonPeriod::create(),
-                '2015-09-01T00:00:00-04:00/P1D',
+                '2015-09-01T00:00:00-0400/P1D',
             ],
         ];
     }
@@ -145,7 +145,7 @@ class ToStringTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            '2015-09-30T00:00:00-04:00/P3DT5H/2015-10-03T00:00:00-04:00',
+            '2015-09-30T00:00:00-0400/P3DT5H/2015-10-03T00:00:00-0400',
             $period->spec()
         );
     }
