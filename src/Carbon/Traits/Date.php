@@ -1230,7 +1230,7 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = static::weekRotate($this->dayOfWeek, -$this->getTranslationMessage('first_day_of_week'));
+        $dayOfWeek = static::weekRotate($this->dayOfWeek, -((int) $this->getTranslationMessage('first_day_of_week')));
 
         return is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
