@@ -5429,4 +5429,25 @@ class WeekTest extends AbstractTestCase
         $this->assertSame(CarbonInterface::MONDAY, $date->weekday());
         $this->assertSame(CarbonInterface::MONDAY, $date->isoWeekday());
     }
+
+    public function testWeekStartAndEnd()
+    {
+        $this->assertSame(CarbonInterface::MONDAY, Carbon::getWeekStartsAt());
+        $this->assertSame(CarbonInterface::SUNDAY, Carbon::getWeekEndsAt());
+        Carbon::setLocale('en_US');
+        $this->assertSame(CarbonInterface::SUNDAY, Carbon::getWeekStartsAt());
+        $this->assertSame(CarbonInterface::SATURDAY, Carbon::getWeekEndsAt());
+        Carbon::setLocale('ar_AR');
+        $this->assertSame(CarbonInterface::SATURDAY, Carbon::getWeekStartsAt());
+        $this->assertSame(CarbonInterface::FRIDAY, Carbon::getWeekEndsAt());
+        Carbon::setLocale('fr_FR');
+        $this->assertSame(CarbonInterface::MONDAY, Carbon::getWeekStartsAt());
+        $this->assertSame(CarbonInterface::SUNDAY, Carbon::getWeekEndsAt());
+        $this->assertSame(CarbonInterface::SUNDAY, Carbon::getWeekStartsAt('en_US'));
+        $this->assertSame(CarbonInterface::SATURDAY, Carbon::getWeekEndsAt('en_US'));
+        $this->assertSame(CarbonInterface::SATURDAY, Carbon::getWeekStartsAt('ar_AR'));
+        $this->assertSame(CarbonInterface::FRIDAY, Carbon::getWeekEndsAt('ar_AR'));
+        $this->assertSame(CarbonInterface::MONDAY, Carbon::getWeekStartsAt('fr_FR'));
+        $this->assertSame(CarbonInterface::SUNDAY, Carbon::getWeekEndsAt('fr_FR'));
+    }
 }
