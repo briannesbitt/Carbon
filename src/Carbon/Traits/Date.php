@@ -1541,14 +1541,6 @@ trait Date
     /////////////////////// WEEK SPECIAL DAYS /////////////////////////
     ///////////////////////////////////////////////////////////////////
 
-    private static function getFirstDayOfWeek(): int
-    {
-        return (int) static::getTranslationMessageWith(
-            static::getTranslator(),
-            'first_day_of_week'
-        );
-    }
-
     /**
      * Get the first day of week.
      *
