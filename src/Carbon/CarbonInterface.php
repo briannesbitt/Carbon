@@ -632,6 +632,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public const ISO_FORMAT_REGEXP = '(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)';
 
+    /**
+     * Default locale (language and region).
+     *
+     * @var string
+     */
+    public const DEFAULT_LOCALE = 'en';
+
     // <methods>
 
     /**
@@ -1940,7 +1947,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the translator of the current instance or the default if none set.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     public function getLocalTranslator();
 
@@ -2087,10 +2094,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
+     * @param string              $key        key to find
+     * @param string|null         $locale     current locale used if null
+     * @param string|null         $default    default value if translation returns the key
+     * @param TranslatorInterface $translator an optional translator to use
      *
      * @return string
      */
@@ -2099,35 +2106,37 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns raw translation message for a given key.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
+     * @param TranslatorInterface $translator the translator to use
+     * @param string              $key        key to find
+     * @param string|null         $locale     current locale used if null
+     * @param string|null         $default    default value if translation returns the key
      *
-     * @return string
+     * @return string|Closure|null
      */
     public static function getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null);
 
     /**
      * Get the default translator instance in use.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     public static function getTranslator();
 
     /**
-     * Get the last day of week
+     * Get the last day of week.
+     *
+     * @param string $locale local to consider the last day of week.
      *
      * @return int
      */
-    public static function getWeekEndsAt();
+    public static function getWeekEndsAt(string $locale = null): int;
 
     /**
-     * Get the first day of week
+     * Get the first day of week.
      *
      * @return int
      */
-    public static function getWeekStartsAt();
+    public static function getWeekStartsAt(string $locale = null): int;
 
     /**
      * Get weekend days
@@ -3532,11 +3541,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the translator for the current instance.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
      * @return $this
      */
-    public function setLocalTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+    public function setLocalTranslator(TranslatorInterface $translator);
 
     /**
      * Set the current translator locale and indicate if the source locale file exists.
@@ -3654,11 +3663,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the default translator instance to use.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
      * @return void
      */
-    public static function setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+    public static function setTranslator(TranslatorInterface $translator);
 
     /**
      * Set specified unit to new given value.
@@ -3690,35 +3699,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param bool $utf8
      */
     public static function setUtf8($utf8);
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekStartsAt optional parameter instead when using startOfWeek, floorWeek, ceilWeek
-     *             or roundWeek method. You can also use the 'first_day_of_week' locale setting to change the
-     *             start of week according to current locale selected and implicitly the end of week.
-     *
-     * Set the last day of week
-     *
-     * @param int|string $day week end day (or 'auto' to get the day before the first day of week
-     *                        from Carbon::getLocale() culture).
-     *
-     * @return void
-     */
-    public static function setWeekEndsAt($day);
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekEndsAt optional parameter instead when using endOfWeek method. You can also use the
-     *             'first_day_of_week' locale setting to change the start of week according to current locale
-     *             selected and implicitly the end of week.
-     *
-     * Set the first day of week
-     *
-     * @param int|string $day week start day (or 'auto' to get the first day of week from Carbon::getLocale() culture).
-     *
-     * @return void
-     */
-    public static function setWeekStartsAt($day);
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4519,14 +4499,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param string              $key        key to find
+     * @param array               $parameters replacement parameters
+     * @param int|float|null      $number     number if plural
+     * @param TranslatorInterface $translator an optional translator to use
+     * @param bool                $altNumbers pass true to use alternative numbers
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false): string;
+    public function translate(string $key, array $parameters = [], $number = null, TranslatorInterface $translator = null, bool $altNumbers = false): string;
 
     /**
      * Returns the alternative number for a given integer if available in the current locale.
@@ -4568,14 +4549,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
+     * @param TranslatorInterface $translator an optional translator to use
+     * @param string              $key        key to find
+     * @param array               $parameters replacement parameters
+     * @param int|float|null      $number     number if plural
      *
      * @return string
      */
-    public static function translateWith(\Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
+    public static function translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
 
     /**
      * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)

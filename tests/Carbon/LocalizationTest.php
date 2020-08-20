@@ -25,12 +25,6 @@ use Tests\Carbon\Fixtures\NoLocaleTranslator;
 
 class LocalizationTest extends AbstractTestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Carbon::setLocale('en');
-    }
-
     public function testGetTranslator()
     {
         /** @var Translator $t */
@@ -724,7 +718,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
+            'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
             'Symfony\Component\Translation\IdentityTranslator has been given.'
         );

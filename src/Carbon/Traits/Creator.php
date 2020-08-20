@@ -236,7 +236,7 @@ trait Creator
      */
     public static function parseFromLocale($time, $locale = null, $tz = null)
     {
-        return static::rawParse(static::translateTimeString($time, $locale, 'en'), $tz);
+        return static::rawParse(static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
 
     /**
@@ -683,7 +683,7 @@ trait Creator
      *
      * @return static|false
      */
-    public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null)
+    public static function createFromIsoFormat($format, $time, $tz = null, $locale = self::DEFAULT_LOCALE, $translator = null)
     {
         $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
             [$code] = $match;
@@ -694,12 +694,12 @@ trait Creator
                 $translator = $translator ?: Translator::get($locale);
 
                 $formats = [
-                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale, 'h:mm A'),
-                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale, 'h:mm:ss A'),
-                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale, 'MM/DD/YYYY'),
-                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale, 'MMMM D, YYYY'),
-                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
-                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),
+                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale),
+                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale),
+                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale),
+                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale),
+                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale),
                 ];
             }
 
@@ -826,7 +826,7 @@ trait Creator
      */
     public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
     {
-        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, 'en'), $tz);
+        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
 
     /**
@@ -843,7 +843,7 @@ trait Creator
      */
     public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null)
     {
-        $time = static::translateTimeString($time, $locale, 'en', CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+        $time = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
 
         return static::createFromIsoFormat($format, $time, $tz, $locale);
     }

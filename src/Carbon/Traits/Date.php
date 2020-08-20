@@ -23,6 +23,7 @@ use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -692,53 +693,6 @@ trait Date
     }
 
     /**
-     * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface.
-     *
-     * @param mixed        $date
-     * @param string|array $other
-     *
-     * @throws InvalidTypeException
-     */
-    protected static function expectDateTime($date, $other = [])
-    {
-        $message = 'Expected ';
-
-        foreach ((array) $other as $expect) {
-            $message .= "$expect, ";
-        }
-
-        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
-            throw new InvalidTypeException(
-                $message.'DateTime or DateTimeInterface, '.
-                (is_object($date) ? get_class($date) : gettype($date)).' given'
-            );
-        }
-    }
-
-    /**
-     * Return the Carbon instance passed through, a now instance in the same timezone
-     * if null given or parse the input if string given.
-     *
-     * @param Carbon|DateTimeInterface|string|null $date
-     *
-     * @return static
-     */
-    protected function resolveCarbon($date = null)
-    {
-        if (!$date) {
-            return $this->nowWithSameTz();
-        }
-
-        if (is_string($date)) {
-            return static::parse($date, $this->getTimezone());
-        }
-
-        static::expectDateTime($date, ['null', 'string']);
-
-        return $date instanceof self ? $date : static::instance($date);
-    }
-
-    /**
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
@@ -918,11 +872,11 @@ trait Date
 
             // @property-read int 0 through 6
             case $name === 'firstWeekDay':
-                return $this->localTranslator ? ($this->getTranslationMessage('first_day_of_week') ?? 0) : static::getWeekStartsAt();
+                return (int) $this->getTranslationMessage('first_day_of_week');
 
             // @property-read int 0 through 6
             case $name === 'lastWeekDay':
-                return $this->localTranslator ? (($this->getTranslationMessage('first_day_of_week') ?? 0) + static::DAYS_PER_WEEK - 1) % static::DAYS_PER_WEEK : static::getWeekEndsAt();
+                return (int) static::weekRotate($this->getTranslationMessage('first_day_of_week'), -1);
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
@@ -1189,26 +1143,6 @@ trait Date
         return $this;
     }
 
-    protected function getTranslatedFormByRegExp($baseKey, $keySuffix, $context, $subKey, $defaultValue)
-    {
-        $key = $baseKey.$keySuffix;
-        $standaloneKey = "${key}_standalone";
-        $baseTranslation = $this->getTranslationMessage($key);
-
-        if ($baseTranslation instanceof Closure) {
-            return $baseTranslation($this, $context, $subKey) ?: $defaultValue;
-        }
-
-        if (
-            $this->getTranslationMessage("$standaloneKey.$subKey") &&
-            (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))
-        ) {
-            $key = $standaloneKey;
-        }
-
-        return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
-    }
-
     /**
      * Get the translation of the current week day name (with context for languages with multiple forms).
      *
@@ -1296,7 +1230,7 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = ($this->dayOfWeek + 7 - intval($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
+        $dayOfWeek = static::weekRotate($this->dayOfWeek, -((int) $this->getTranslationMessage('first_day_of_week')));
 
         return is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
@@ -1607,75 +1541,29 @@ trait Date
     /////////////////////// WEEK SPECIAL DAYS /////////////////////////
     ///////////////////////////////////////////////////////////////////
 
-    private static function getFirstDayOfWeek(): int
+    /**
+     * Get the first day of week.
+     *
+     * @return int
+     */
+    public static function getWeekStartsAt(?string $locale = null): int
     {
         return (int) static::getTranslationMessageWith(
-            static::getTranslator(),
+            $locale ? Translator::get($locale) : static::getTranslator(),
             'first_day_of_week'
         );
     }
 
     /**
-     * Get the first day of week
+     * Get the last day of week.
+     *
+     * @param string $locale local to consider the last day of week.
      *
      * @return int
      */
-    public static function getWeekStartsAt()
+    public static function getWeekEndsAt(?string $locale = null): int
     {
-        if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
-            return static::getFirstDayOfWeek();
-        }
-
-        return static::$weekStartsAt;
-    }
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekEndsAt optional parameter instead when using endOfWeek method. You can also use the
-     *             'first_day_of_week' locale setting to change the start of week according to current locale
-     *             selected and implicitly the end of week.
-     *
-     * Set the first day of week
-     *
-     * @param int|string $day week start day (or 'auto' to get the first day of week from Carbon::getLocale() culture).
-     *
-     * @return void
-     */
-    public static function setWeekStartsAt($day)
-    {
-        static::$weekStartsAt = $day === static::WEEK_DAY_AUTO ? $day : max(0, (7 + $day) % 7);
-    }
-
-    /**
-     * Get the last day of week
-     *
-     * @return int
-     */
-    public static function getWeekEndsAt()
-    {
-        if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
-            return (int) (static::DAYS_PER_WEEK - 1 + static::getFirstDayOfWeek()) % static::DAYS_PER_WEEK;
-        }
-
-        return static::$weekEndsAt;
-    }
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekStartsAt optional parameter instead when using startOfWeek, floorWeek, ceilWeek
-     *             or roundWeek method. You can also use the 'first_day_of_week' locale setting to change the
-     *             start of week according to current locale selected and implicitly the end of week.
-     *
-     * Set the last day of week
-     *
-     * @param int|string $day week end day (or 'auto' to get the day before the first day of week
-     *                        from Carbon::getLocale() culture).
-     *
-     * @return void
-     */
-    public static function setWeekEndsAt($day)
-    {
-        static::$weekEndsAt = $day === static::WEEK_DAY_AUTO ? $day : max(0, (7 + $day) % 7);
+        return static::weekRotate(static::getWeekStartsAt($locale), -1);
     }
 
     /**
@@ -1788,12 +1676,12 @@ trait Date
     public function getIsoFormats($locale = null)
     {
         return [
-            'LT' => $this->getTranslationMessage('formats.LT', $locale, 'h:mm A'),
-            'LTS' => $this->getTranslationMessage('formats.LTS', $locale, 'h:mm:ss A'),
-            'L' => $this->getTranslationMessage('formats.L', $locale, 'MM/DD/YYYY'),
-            'LL' => $this->getTranslationMessage('formats.LL', $locale, 'MMMM D, YYYY'),
-            'LLL' => $this->getTranslationMessage('formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
-            'LLLL' => $this->getTranslationMessage('formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+            'LT' => $this->getTranslationMessage('formats.LT', $locale),
+            'LTS' => $this->getTranslationMessage('formats.LTS', $locale),
+            'L' => $this->getTranslationMessage('formats.L', $locale),
+            'LL' => $this->getTranslationMessage('formats.LL', $locale),
+            'LLL' => $this->getTranslationMessage('formats.LLL', $locale),
+            'LLLL' => $this->getTranslationMessage('formats.LLLL', $locale),
         ];
     }
 
@@ -2289,19 +2177,6 @@ trait Date
         return "$symbol$hour$separator$minute";
     }
 
-    protected static function executeStaticCallable($macro, ...$parameters)
-    {
-        return static::bindMacroContext(null, function () use (&$macro, &$parameters) {
-            if ($macro instanceof Closure) {
-                $boundMacro = @Closure::bind($macro, null, static::class);
-
-                return call_user_func_array($boundMacro ?: $macro, $parameters);
-            }
-
-            return call_user_func_array($macro, $parameters);
-        });
-    }
-
     /**
      * Dynamically handle calls to the class.
      *
@@ -2405,33 +2280,6 @@ trait Date
         }
 
         return "${unit}s";
-    }
-
-    protected function executeCallable($macro, ...$parameters)
-    {
-        if ($macro instanceof Closure) {
-            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
-
-            return call_user_func_array($boundMacro ?: $macro, $parameters);
-        }
-
-        return call_user_func_array($macro, $parameters);
-    }
-
-    protected function executeCallableWithContext($macro, ...$parameters)
-    {
-        return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
-            return $this->executeCallable($macro, ...$parameters);
-        });
-    }
-
-    protected static function getGenericMacros()
-    {
-        foreach (static::$globalGenericMacros as $list) {
-            foreach ($list as $macro) {
-                yield $macro;
-            }
-        }
     }
 
     /**
@@ -2617,5 +2465,116 @@ trait Date
 
             return $this->executeCallable($macro, ...$parameters);
         });
+    }
+
+    /**
+     * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface.
+     *
+     * @param mixed        $date
+     * @param string|array $other
+     *
+     * @throws InvalidTypeException
+     */
+    protected static function expectDateTime($date, $other = [])
+    {
+        $message = 'Expected ';
+        foreach ((array) $other as $expect) {
+            $message .= "$expect, ";
+        }
+
+        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
+            throw new InvalidTypeException(
+                $message.'DateTime or DateTimeInterface, '.
+                (is_object($date) ? get_class($date) : gettype($date)).' given'
+            );
+        }
+    }
+
+    /**
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
+     *
+     * @param Carbon|DateTimeInterface|string|null $date
+     *
+     * @return static
+     */
+    protected function resolveCarbon($date = null)
+    {
+        if (!$date) {
+            return $this->nowWithSameTz();
+        }
+
+        if (is_string($date)) {
+            return static::parse($date, $this->getTimezone());
+        }
+
+        static::expectDateTime($date, ['null', 'string']);
+
+        return $date instanceof self ? $date : static::instance($date);
+    }
+
+    protected static function weekRotate(int $day, int $rotation): int
+    {
+        return (static::DAYS_PER_WEEK + $rotation % static::DAYS_PER_WEEK + $day) % static::DAYS_PER_WEEK;
+    }
+
+    protected function executeCallable($macro, ...$parameters)
+    {
+        if ($macro instanceof Closure) {
+            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
+
+            return call_user_func_array($boundMacro ?: $macro, $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
+    }
+
+    protected function executeCallableWithContext($macro, ...$parameters)
+    {
+        return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
+            return $this->executeCallable($macro, ...$parameters);
+        });
+    }
+
+    protected static function getGenericMacros()
+    {
+        foreach (static::$globalGenericMacros as $list) {
+            foreach ($list as $macro) {
+                yield $macro;
+            }
+        }
+    }
+
+    protected static function executeStaticCallable($macro, ...$parameters)
+    {
+        return static::bindMacroContext(null, function () use (&$macro, &$parameters) {
+            if ($macro instanceof Closure) {
+                $boundMacro = @Closure::bind($macro, null, static::class);
+
+                return call_user_func_array($boundMacro ?: $macro, $parameters);
+            }
+
+            return call_user_func_array($macro, $parameters);
+        });
+    }
+
+    protected function getTranslatedFormByRegExp($baseKey, $keySuffix, $context, $subKey, $defaultValue)
+    {
+        $key = $baseKey.$keySuffix;
+        $standaloneKey = "${key}_standalone";
+        $baseTranslation = $this->getTranslationMessage($key);
+
+        if ($baseTranslation instanceof Closure) {
+            return $baseTranslation($this, $context, $subKey) ?: $defaultValue;
+        }
+
+        if (
+            $this->getTranslationMessage("$standaloneKey.$subKey") &&
+            (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))
+        ) {
+            $key = $standaloneKey;
+        }
+
+        return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
     }
 }

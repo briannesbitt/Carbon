@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
 
     'minute' => ':count هنر', // less reliable
     'min' => ':count هنر', // less reliable

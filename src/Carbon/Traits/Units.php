@@ -262,7 +262,7 @@ trait Units
             if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
                 $absoluteValue = abs($value);
                 $sign = $value / max(1, $absoluteValue);
-                $weekDaysCount = 7 - min(6, count(array_unique($weekendDays)));
+                $weekDaysCount = static::DAYS_PER_WEEK - min(static::DAYS_PER_WEEK - 1, count(array_unique($weekendDays)));
                 $weeks = floor($absoluteValue / $weekDaysCount);
 
                 for ($diff = $absoluteValue % $weekDaysCount; $diff; $diff--) {

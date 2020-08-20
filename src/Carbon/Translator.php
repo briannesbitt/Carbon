@@ -64,10 +64,10 @@ class Translator extends Translation\Translator
      */
     public static function get($locale = null)
     {
-        $locale = $locale ?: 'en';
+        $locale = $locale ?: CarbonInterface::DEFAULT_LOCALE;
 
         if (!isset(static::$singletons[$locale])) {
-            static::$singletons[$locale] = new static($locale ?: 'en');
+            static::$singletons[$locale] = new static($locale);
         }
 
         return static::$singletons[$locale];
@@ -146,7 +146,7 @@ class Translator extends Translation\Translator
      *
      * @return string
      */
-    public function trans($id, array $parameters = [], $domain = null, $locale = null)
+    public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null)
     {
         if (null === $domain) {
             $domain = 'messages';

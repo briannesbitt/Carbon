@@ -22,5 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['sönda', 'mönda', 'sinda', 'mitiwö', 'sogipbono', 'nenggo', 'söndanggie'],
     'weekdays_short' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'weekdays_min' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 ]);

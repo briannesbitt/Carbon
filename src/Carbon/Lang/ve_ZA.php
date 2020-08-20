@@ -22,6 +22,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Swondaha', 'Musumbuluwo', 'Ḽavhuvhili', 'Ḽavhuraru', 'Ḽavhuṋa', 'Ḽavhuṱanu', 'Mugivhela'],
     'weekdays_short' => ['Swo', 'Mus', 'Vhi', 'Rar', 'ṋa', 'Ṱan', 'Mug'],
     'weekdays_min' => ['Swo', 'Mus', 'Vhi', 'Rar', 'ṋa', 'Ṱan', 'Mug'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     // Too unreliable

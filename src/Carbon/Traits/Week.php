@@ -164,7 +164,7 @@ trait Week
             $endDay += $this->daysInYear;
         }
 
-        return (int) round(($endDay - $startDay) / 7);
+        return (int) round(($endDay - $startDay) / static::DAYS_PER_WEEK);
     }
 
     /**
@@ -190,10 +190,12 @@ trait Week
 
         $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
         $end = $date->copy()->startOfWeek($dayOfWeek);
+
         if ($start > $end) {
-            $start = $start->subWeeks(26)->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+            $start = $start->subWeeks(static::WEEKS_PER_YEAR / 2)->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
         }
-        $week = (int) ($start->diffInDays($end) / 7 + 1);
+
+        $week = (int) ($start->diffInDays($end) / static::DAYS_PER_WEEK + 1);
 
         return $week > $end->weeksInYear($dayOfWeek, $dayOfYear) ? 1 : $week;
     }

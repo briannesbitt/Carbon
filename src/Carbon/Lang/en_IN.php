@@ -22,5 +22,4 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'DD MMM HH:mm',
         'LLLL' => 'MMMM DD, YYYY HH:mm',
     ],
-    'day_of_first_week_of_year' => 1,
 ]);
