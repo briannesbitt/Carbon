@@ -30,6 +30,7 @@
  * - Zahhar Kirillov
  * - João Magalhães
  * - Ingmar
+ * - Illimar Tambek
  */
 return [
     'year' => ':count aasta|:count aastat',
@@ -68,10 +69,10 @@ return [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
-        'L' => 'DD/MM/YYYY',
-        'LL' => 'DD. MMMM YYYY',
-        'LLL' => 'DD. MMMM YYYY HH:mm',
-        'LLLL' => 'dddd, DD. MMMM YYYY HH:mm',
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'D. MMMM YYYY',
+        'LLL' => 'D. MMMM YYYY HH:mm',
+        'LLLL' => 'dddd, D. MMMM YYYY HH:mm',
     ],
     'calendar' => [
         'sameDay' => '[täna] LT',
