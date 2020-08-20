@@ -1556,7 +1556,7 @@ trait Date
      */
     public static function getWeekStartsAt(?string $locale = null): int
     {
-        return static::getTranslationMessageWith(
+        return (int) static::getTranslationMessageWith(
             $locale ? Translator::get($locale) : static::getTranslator(),
             'first_day_of_week'
         );
