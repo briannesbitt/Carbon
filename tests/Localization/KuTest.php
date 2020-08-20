@@ -134,47 +134,47 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         // '1st 1st 1st 1st 1st'
-        '1st 1st 1st 1st 1st',
+        'ەم1 ەم1 ەم1 ەم1 ەم1',
 
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         // '2nd 1st'
-        '2nd 1st',
+        'ەم2 ەم1',
 
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
         // '3rd 1st'
-        '3rd 1st',
+        'ەم3 ەم1',
 
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
         // '4th 1st'
-        '4th 1st',
+        'ەم4 ەم1',
 
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
         // '5th 1st'
-        '5th 1st',
+        'ەم5 ەم1',
 
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         // '6th 1st'
-        '6th 2nd',
+        'ەم6 ەم2',
 
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
         // '7th 1st'
-        '7th 2nd',
+        'ەم7 ەم2',
 
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         // '11th 2nd'
-        '11th 2nd',
+        'ەم11 ەم2',
 
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
         // '40th'
-        '40th',
+        'ەم40',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         // '41st'
-        '41st',
+        'ەم41',
 
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         // '100th'
-        '100th',
+        'ەم100',
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         // '12:00 am CET'
@@ -218,7 +218,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         // '0th'
-        '0th',
+        'ەم0',
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago'
@@ -226,7 +226,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        'پێش 1s',
+        'پێش چرکەیەک',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
@@ -234,7 +234,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
-        'پێش 2s',
+        'پێش ٢ چرکە',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
@@ -242,7 +242,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        'پێش 1m',
+        'پێش خولەکێک',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
@@ -250,7 +250,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
-        'پێش 2m',
+        'پێش ٢ خولەک',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
@@ -258,7 +258,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        'پێش 1h',
+        'پێش کاتژمێرێک',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
@@ -266,7 +266,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
-        'پێش 2h',
+        'پێش ٢ کاتژمێر',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
@@ -274,7 +274,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago'
-        'پێش 1d',
+        'پێش ڕۆژێک',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
@@ -282,7 +282,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago'
-        'پێش 2d',
+        'پێش ٢ ڕۆژ',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago'
@@ -290,7 +290,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         // '1w ago'
-        'پێش 1w',
+        'پێش هەفتەیەک',
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago'
@@ -298,7 +298,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago'
-        'پێش 2w',
+        'پێش ٢ هەفتە',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago'
@@ -306,7 +306,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        'پێش 1mo',
+        'پێش مانگێک',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
@@ -314,7 +314,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
-        'پێش 2mos',
+        'پێش ٢ مانگ',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
@@ -322,7 +322,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago'
-        'پێش 1yr',
+        'پێش ساڵێک',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago'
@@ -330,7 +330,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago'
-        'پێش 2yrs',
+        'پێش ٢ ساڵ',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
@@ -338,7 +338,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        '1s لە ئێستاوە',
+        'چرکەیەک لە ئێستاوە',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
@@ -346,7 +346,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        'دوای 1s',
+        'دوای چرکەیەک',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
@@ -354,7 +354,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        'پێش 1s',
+        'پێش چرکەیەک',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
@@ -362,7 +362,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1s',
+        'چرکەیەک',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
@@ -370,11 +370,11 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2s',
+        '٢ چرکە',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        '1s لە ئێستاوە',
+        'چرکەیەک لە ئێستاوە',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
@@ -382,7 +382,7 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2yrs 3mos 1d 1s',
+        '٢ ساڵ 3 مانگ ڕۆژێک چرکەیەک',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -390,11 +390,11 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        'پێش 5mos',
+        'پێش 5 مانگ',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'پێش 2yrs 3mos 1d 1s',
+        'پێش ٢ ساڵ 3 مانگ ڕۆژێک چرکەیەک',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -426,6 +426,6 @@ class KuTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1d 3h',
+        'ڕۆژێک 3 کاتژمێر',
     ];
 }

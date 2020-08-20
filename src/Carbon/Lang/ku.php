@@ -37,6 +37,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'h' => '{0}کاتژمێر|{1}کاتژمێرێک|{2}٢ کاتژمێر|[3,10]:count کاتژمێر|[11,Inf]:count کاتژمێر',
     'min' => '{0}خولەک|{1}خولەکێک|{2}٢ خولەک|[3,10]:count خولەک|[11,Inf]:count خولەک',
     's' => '{0}چرکە|{1}چرکەیەک|{2}٢ چرکە|[3,10]:count چرکە|[11,Inf]:count چرکە',
+    'ordinal' => 'ەم'.':number',
     'months' => $months,
     'months_standalone' => $months,
     'months_short' => $months,
