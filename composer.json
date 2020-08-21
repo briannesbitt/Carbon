@@ -31,7 +31,7 @@
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
         "symfony/polyfill-mbstring": "^1.0",
-        "symfony/translation": "^5.0"
+        "symfony/symfony": "^4.4 || ^5.0"
     },
     "require-dev": {
         "doctrine/orm": "^2.7",
