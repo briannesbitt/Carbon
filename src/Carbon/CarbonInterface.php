@@ -4528,8 +4528,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc3339String();
-     * echo Carbon::now()->toRfc3339String(true);
+     * echo Carbon::now()->toRfc3339String() . "\n";
+     * echo Carbon::now()->toRfc3339String(true) . "\n";
      * ```
      *
      * @return string

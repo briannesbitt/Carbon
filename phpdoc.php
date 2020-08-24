@@ -464,7 +464,7 @@ function compileDoc($autoDocLines, $file)
     foreach ($autoDocLines as &$editableLine) {
         if (is_array($editableLine)) {
             if (($editableLine[1] ?? '') === 'self') {
-                $editableLine[1] = $class;
+                $editableLine[1] = $class === 'Carbon' ? '$this' : $class;
             }
 
             foreach ($editableLine as $column => $text) {

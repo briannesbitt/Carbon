@@ -147,353 +147,353 @@ use DateTimeZone;
  * @method        bool           isCurrentMillennium()                                                                Checks if the instance is in the same millennium as the current moment.
  * @method        bool           isNextMillennium()                                                                   Checks if the instance is in the same millennium as the current moment next millennium.
  * @method        bool           isLastMillennium()                                                                   Checks if the instance is in the same millennium as the current moment last millennium.
- * @method        Carbon         years(int $value)                                                                    Set current instance year to the given value.
- * @method        Carbon         year(int $value)                                                                     Set current instance year to the given value.
- * @method        Carbon         setYears(int $value)                                                                 Set current instance year to the given value.
- * @method        Carbon         setYear(int $value)                                                                  Set current instance year to the given value.
- * @method        Carbon         months(int $value)                                                                   Set current instance month to the given value.
- * @method        Carbon         month(int $value)                                                                    Set current instance month to the given value.
- * @method        Carbon         setMonths(int $value)                                                                Set current instance month to the given value.
- * @method        Carbon         setMonth(int $value)                                                                 Set current instance month to the given value.
- * @method        Carbon         days(int $value)                                                                     Set current instance day to the given value.
- * @method        Carbon         day(int $value)                                                                      Set current instance day to the given value.
- * @method        Carbon         setDays(int $value)                                                                  Set current instance day to the given value.
- * @method        Carbon         setDay(int $value)                                                                   Set current instance day to the given value.
- * @method        Carbon         hours(int $value)                                                                    Set current instance hour to the given value.
- * @method        Carbon         hour(int $value)                                                                     Set current instance hour to the given value.
- * @method        Carbon         setHours(int $value)                                                                 Set current instance hour to the given value.
- * @method        Carbon         setHour(int $value)                                                                  Set current instance hour to the given value.
- * @method        Carbon         minutes(int $value)                                                                  Set current instance minute to the given value.
- * @method        Carbon         minute(int $value)                                                                   Set current instance minute to the given value.
- * @method        Carbon         setMinutes(int $value)                                                               Set current instance minute to the given value.
- * @method        Carbon         setMinute(int $value)                                                                Set current instance minute to the given value.
- * @method        Carbon         seconds(int $value)                                                                  Set current instance second to the given value.
- * @method        Carbon         second(int $value)                                                                   Set current instance second to the given value.
- * @method        Carbon         setSeconds(int $value)                                                               Set current instance second to the given value.
- * @method        Carbon         setSecond(int $value)                                                                Set current instance second to the given value.
- * @method        Carbon         millis(int $value)                                                                   Set current instance millisecond to the given value.
- * @method        Carbon         milli(int $value)                                                                    Set current instance millisecond to the given value.
- * @method        Carbon         setMillis(int $value)                                                                Set current instance millisecond to the given value.
- * @method        Carbon         setMilli(int $value)                                                                 Set current instance millisecond to the given value.
- * @method        Carbon         milliseconds(int $value)                                                             Set current instance millisecond to the given value.
- * @method        Carbon         millisecond(int $value)                                                              Set current instance millisecond to the given value.
- * @method        Carbon         setMilliseconds(int $value)                                                          Set current instance millisecond to the given value.
- * @method        Carbon         setMillisecond(int $value)                                                           Set current instance millisecond to the given value.
- * @method        Carbon         micros(int $value)                                                                   Set current instance microsecond to the given value.
- * @method        Carbon         micro(int $value)                                                                    Set current instance microsecond to the given value.
- * @method        Carbon         setMicros(int $value)                                                                Set current instance microsecond to the given value.
- * @method        Carbon         setMicro(int $value)                                                                 Set current instance microsecond to the given value.
- * @method        Carbon         microseconds(int $value)                                                             Set current instance microsecond to the given value.
- * @method        Carbon         microsecond(int $value)                                                              Set current instance microsecond to the given value.
- * @method        Carbon         setMicroseconds(int $value)                                                          Set current instance microsecond to the given value.
- * @method        Carbon         setMicrosecond(int $value)                                                           Set current instance microsecond to the given value.
- * @method        Carbon         addYears(int $value = 1)                                                             Add years (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addYear()                                                                            Add one year to the instance (using date interval).
- * @method        Carbon         subYears(int $value = 1)                                                             Sub years (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subYear()                                                                            Sub one year to the instance (using date interval).
- * @method        Carbon         addYearsWithOverflow(int $value = 1)                                                 Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addYearWithOverflow()                                                                Add one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subYearsWithOverflow(int $value = 1)                                                 Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subYearWithOverflow()                                                                Sub one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addYearsWithoutOverflow(int $value = 1)                                              Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addYearWithoutOverflow()                                                             Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subYearsWithoutOverflow(int $value = 1)                                              Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subYearWithoutOverflow()                                                             Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addYearsWithNoOverflow(int $value = 1)                                               Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addYearWithNoOverflow()                                                              Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subYearsWithNoOverflow(int $value = 1)                                               Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subYearWithNoOverflow()                                                              Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addYearsNoOverflow(int $value = 1)                                                   Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addYearNoOverflow()                                                                  Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subYearsNoOverflow(int $value = 1)                                                   Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subYearNoOverflow()                                                                  Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMonths(int $value = 1)                                                            Add months (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMonth()                                                                           Add one month to the instance (using date interval).
- * @method        Carbon         subMonths(int $value = 1)                                                            Sub months (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMonth()                                                                           Sub one month to the instance (using date interval).
- * @method        Carbon         addMonthsWithOverflow(int $value = 1)                                                Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addMonthWithOverflow()                                                               Add one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subMonthsWithOverflow(int $value = 1)                                                Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subMonthWithOverflow()                                                               Sub one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addMonthsWithoutOverflow(int $value = 1)                                             Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMonthWithoutOverflow()                                                            Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMonthsWithoutOverflow(int $value = 1)                                             Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMonthWithoutOverflow()                                                            Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMonthsWithNoOverflow(int $value = 1)                                              Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMonthWithNoOverflow()                                                             Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMonthsWithNoOverflow(int $value = 1)                                              Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMonthWithNoOverflow()                                                             Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMonthsNoOverflow(int $value = 1)                                                  Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMonthNoOverflow()                                                                 Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMonthsNoOverflow(int $value = 1)                                                  Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMonthNoOverflow()                                                                 Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDays(int $value = 1)                                                              Add days (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addDay()                                                                             Add one day to the instance (using date interval).
- * @method        Carbon         subDays(int $value = 1)                                                              Sub days (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subDay()                                                                             Sub one day to the instance (using date interval).
- * @method        Carbon         addHours(int $value = 1)                                                             Add hours (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addHour()                                                                            Add one hour to the instance (using date interval).
- * @method        Carbon         subHours(int $value = 1)                                                             Sub hours (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subHour()                                                                            Sub one hour to the instance (using date interval).
- * @method        Carbon         addMinutes(int $value = 1)                                                           Add minutes (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMinute()                                                                          Add one minute to the instance (using date interval).
- * @method        Carbon         subMinutes(int $value = 1)                                                           Sub minutes (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMinute()                                                                          Sub one minute to the instance (using date interval).
- * @method        Carbon         addSeconds(int $value = 1)                                                           Add seconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addSecond()                                                                          Add one second to the instance (using date interval).
- * @method        Carbon         subSeconds(int $value = 1)                                                           Sub seconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subSecond()                                                                          Sub one second to the instance (using date interval).
- * @method        Carbon         addMillis(int $value = 1)                                                            Add milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMilli()                                                                           Add one millisecond to the instance (using date interval).
- * @method        Carbon         subMillis(int $value = 1)                                                            Sub milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMilli()                                                                           Sub one millisecond to the instance (using date interval).
- * @method        Carbon         addMilliseconds(int $value = 1)                                                      Add milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMillisecond()                                                                     Add one millisecond to the instance (using date interval).
- * @method        Carbon         subMilliseconds(int $value = 1)                                                      Sub milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMillisecond()                                                                     Sub one millisecond to the instance (using date interval).
- * @method        Carbon         addMicros(int $value = 1)                                                            Add microseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMicro()                                                                           Add one microsecond to the instance (using date interval).
- * @method        Carbon         subMicros(int $value = 1)                                                            Sub microseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMicro()                                                                           Sub one microsecond to the instance (using date interval).
- * @method        Carbon         addMicroseconds(int $value = 1)                                                      Add microseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMicrosecond()                                                                     Add one microsecond to the instance (using date interval).
- * @method        Carbon         subMicroseconds(int $value = 1)                                                      Sub microseconds (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMicrosecond()                                                                     Sub one microsecond to the instance (using date interval).
- * @method        Carbon         addMillennia(int $value = 1)                                                         Add millennia (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addMillennium()                                                                      Add one millennium to the instance (using date interval).
- * @method        Carbon         subMillennia(int $value = 1)                                                         Sub millennia (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subMillennium()                                                                      Sub one millennium to the instance (using date interval).
- * @method        Carbon         addMillenniaWithOverflow(int $value = 1)                                             Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addMillenniumWithOverflow()                                                          Add one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subMillenniaWithOverflow(int $value = 1)                                             Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subMillenniumWithOverflow()                                                          Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addMillenniaWithoutOverflow(int $value = 1)                                          Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMillenniumWithoutOverflow()                                                       Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMillenniaWithoutOverflow(int $value = 1)                                          Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMillenniumWithoutOverflow()                                                       Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMillenniaWithNoOverflow(int $value = 1)                                           Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMillenniumWithNoOverflow()                                                        Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMillenniaWithNoOverflow(int $value = 1)                                           Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMillenniumWithNoOverflow()                                                        Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMillenniaNoOverflow(int $value = 1)                                               Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addMillenniumNoOverflow()                                                            Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMillenniaNoOverflow(int $value = 1)                                               Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subMillenniumNoOverflow()                                                            Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addCenturies(int $value = 1)                                                         Add centuries (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addCentury()                                                                         Add one century to the instance (using date interval).
- * @method        Carbon         subCenturies(int $value = 1)                                                         Sub centuries (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subCentury()                                                                         Sub one century to the instance (using date interval).
- * @method        Carbon         addCenturiesWithOverflow(int $value = 1)                                             Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addCenturyWithOverflow()                                                             Add one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subCenturiesWithOverflow(int $value = 1)                                             Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subCenturyWithOverflow()                                                             Sub one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addCenturiesWithoutOverflow(int $value = 1)                                          Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addCenturyWithoutOverflow()                                                          Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subCenturiesWithoutOverflow(int $value = 1)                                          Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subCenturyWithoutOverflow()                                                          Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addCenturiesWithNoOverflow(int $value = 1)                                           Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addCenturyWithNoOverflow()                                                           Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subCenturiesWithNoOverflow(int $value = 1)                                           Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subCenturyWithNoOverflow()                                                           Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addCenturiesNoOverflow(int $value = 1)                                               Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addCenturyNoOverflow()                                                               Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subCenturiesNoOverflow(int $value = 1)                                               Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subCenturyNoOverflow()                                                               Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDecades(int $value = 1)                                                           Add decades (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addDecade()                                                                          Add one decade to the instance (using date interval).
- * @method        Carbon         subDecades(int $value = 1)                                                           Sub decades (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subDecade()                                                                          Sub one decade to the instance (using date interval).
- * @method        Carbon         addDecadesWithOverflow(int $value = 1)                                               Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addDecadeWithOverflow()                                                              Add one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subDecadesWithOverflow(int $value = 1)                                               Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subDecadeWithOverflow()                                                              Sub one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addDecadesWithoutOverflow(int $value = 1)                                            Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDecadeWithoutOverflow()                                                           Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subDecadesWithoutOverflow(int $value = 1)                                            Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subDecadeWithoutOverflow()                                                           Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDecadesWithNoOverflow(int $value = 1)                                             Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDecadeWithNoOverflow()                                                            Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subDecadesWithNoOverflow(int $value = 1)                                             Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subDecadeWithNoOverflow()                                                            Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDecadesNoOverflow(int $value = 1)                                                 Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addDecadeNoOverflow()                                                                Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subDecadesNoOverflow(int $value = 1)                                                 Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subDecadeNoOverflow()                                                                Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addQuarters(int $value = 1)                                                          Add quarters (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addQuarter()                                                                         Add one quarter to the instance (using date interval).
- * @method        Carbon         subQuarters(int $value = 1)                                                          Sub quarters (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subQuarter()                                                                         Sub one quarter to the instance (using date interval).
- * @method        Carbon         addQuartersWithOverflow(int $value = 1)                                              Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addQuarterWithOverflow()                                                             Add one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subQuartersWithOverflow(int $value = 1)                                              Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         subQuarterWithOverflow()                                                             Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        Carbon         addQuartersWithoutOverflow(int $value = 1)                                           Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addQuarterWithoutOverflow()                                                          Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subQuartersWithoutOverflow(int $value = 1)                                           Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subQuarterWithoutOverflow()                                                          Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addQuartersWithNoOverflow(int $value = 1)                                            Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addQuarterWithNoOverflow()                                                           Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subQuartersWithNoOverflow(int $value = 1)                                            Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subQuarterWithNoOverflow()                                                           Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addQuartersNoOverflow(int $value = 1)                                                Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addQuarterNoOverflow()                                                               Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subQuartersNoOverflow(int $value = 1)                                                Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         subQuarterNoOverflow()                                                               Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        Carbon         addWeeks(int $value = 1)                                                             Add weeks (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addWeek()                                                                            Add one week to the instance (using date interval).
- * @method        Carbon         subWeeks(int $value = 1)                                                             Sub weeks (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subWeek()                                                                            Sub one week to the instance (using date interval).
- * @method        Carbon         addWeekdays(int $value = 1)                                                          Add weekdays (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         addWeekday()                                                                         Add one weekday to the instance (using date interval).
- * @method        Carbon         subWeekdays(int $value = 1)                                                          Sub weekdays (the $value count passed in) to the instance (using date interval).
- * @method        Carbon         subWeekday()                                                                         Sub one weekday to the instance (using date interval).
- * @method        Carbon         addRealMicros(int $value = 1)                                                        Add microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMicro()                                                                       Add one microsecond to the instance (using timestamp).
- * @method        Carbon         subRealMicros(int $value = 1)                                                        Sub microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMicro()                                                                       Sub one microsecond to the instance (using timestamp).
+ * @method        $this          years(int $value)                                                                    Set current instance year to the given value.
+ * @method        $this          year(int $value)                                                                     Set current instance year to the given value.
+ * @method        $this          setYears(int $value)                                                                 Set current instance year to the given value.
+ * @method        $this          setYear(int $value)                                                                  Set current instance year to the given value.
+ * @method        $this          months(int $value)                                                                   Set current instance month to the given value.
+ * @method        $this          month(int $value)                                                                    Set current instance month to the given value.
+ * @method        $this          setMonths(int $value)                                                                Set current instance month to the given value.
+ * @method        $this          setMonth(int $value)                                                                 Set current instance month to the given value.
+ * @method        $this          days(int $value)                                                                     Set current instance day to the given value.
+ * @method        $this          day(int $value)                                                                      Set current instance day to the given value.
+ * @method        $this          setDays(int $value)                                                                  Set current instance day to the given value.
+ * @method        $this          setDay(int $value)                                                                   Set current instance day to the given value.
+ * @method        $this          hours(int $value)                                                                    Set current instance hour to the given value.
+ * @method        $this          hour(int $value)                                                                     Set current instance hour to the given value.
+ * @method        $this          setHours(int $value)                                                                 Set current instance hour to the given value.
+ * @method        $this          setHour(int $value)                                                                  Set current instance hour to the given value.
+ * @method        $this          minutes(int $value)                                                                  Set current instance minute to the given value.
+ * @method        $this          minute(int $value)                                                                   Set current instance minute to the given value.
+ * @method        $this          setMinutes(int $value)                                                               Set current instance minute to the given value.
+ * @method        $this          setMinute(int $value)                                                                Set current instance minute to the given value.
+ * @method        $this          seconds(int $value)                                                                  Set current instance second to the given value.
+ * @method        $this          second(int $value)                                                                   Set current instance second to the given value.
+ * @method        $this          setSeconds(int $value)                                                               Set current instance second to the given value.
+ * @method        $this          setSecond(int $value)                                                                Set current instance second to the given value.
+ * @method        $this          millis(int $value)                                                                   Set current instance millisecond to the given value.
+ * @method        $this          milli(int $value)                                                                    Set current instance millisecond to the given value.
+ * @method        $this          setMillis(int $value)                                                                Set current instance millisecond to the given value.
+ * @method        $this          setMilli(int $value)                                                                 Set current instance millisecond to the given value.
+ * @method        $this          milliseconds(int $value)                                                             Set current instance millisecond to the given value.
+ * @method        $this          millisecond(int $value)                                                              Set current instance millisecond to the given value.
+ * @method        $this          setMilliseconds(int $value)                                                          Set current instance millisecond to the given value.
+ * @method        $this          setMillisecond(int $value)                                                           Set current instance millisecond to the given value.
+ * @method        $this          micros(int $value)                                                                   Set current instance microsecond to the given value.
+ * @method        $this          micro(int $value)                                                                    Set current instance microsecond to the given value.
+ * @method        $this          setMicros(int $value)                                                                Set current instance microsecond to the given value.
+ * @method        $this          setMicro(int $value)                                                                 Set current instance microsecond to the given value.
+ * @method        $this          microseconds(int $value)                                                             Set current instance microsecond to the given value.
+ * @method        $this          microsecond(int $value)                                                              Set current instance microsecond to the given value.
+ * @method        $this          setMicroseconds(int $value)                                                          Set current instance microsecond to the given value.
+ * @method        $this          setMicrosecond(int $value)                                                           Set current instance microsecond to the given value.
+ * @method        $this          addYears(int $value = 1)                                                             Add years (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addYear()                                                                            Add one year to the instance (using date interval).
+ * @method        $this          subYears(int $value = 1)                                                             Sub years (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subYear()                                                                            Sub one year to the instance (using date interval).
+ * @method        $this          addYearsWithOverflow(int $value = 1)                                                 Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addYearWithOverflow()                                                                Add one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subYearsWithOverflow(int $value = 1)                                                 Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subYearWithOverflow()                                                                Sub one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addYearsWithoutOverflow(int $value = 1)                                              Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addYearWithoutOverflow()                                                             Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subYearsWithoutOverflow(int $value = 1)                                              Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subYearWithoutOverflow()                                                             Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addYearsWithNoOverflow(int $value = 1)                                               Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addYearWithNoOverflow()                                                              Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subYearsWithNoOverflow(int $value = 1)                                               Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subYearWithNoOverflow()                                                              Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addYearsNoOverflow(int $value = 1)                                                   Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addYearNoOverflow()                                                                  Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subYearsNoOverflow(int $value = 1)                                                   Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subYearNoOverflow()                                                                  Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMonths(int $value = 1)                                                            Add months (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMonth()                                                                           Add one month to the instance (using date interval).
+ * @method        $this          subMonths(int $value = 1)                                                            Sub months (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMonth()                                                                           Sub one month to the instance (using date interval).
+ * @method        $this          addMonthsWithOverflow(int $value = 1)                                                Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addMonthWithOverflow()                                                               Add one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subMonthsWithOverflow(int $value = 1)                                                Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subMonthWithOverflow()                                                               Sub one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addMonthsWithoutOverflow(int $value = 1)                                             Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMonthWithoutOverflow()                                                            Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMonthsWithoutOverflow(int $value = 1)                                             Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMonthWithoutOverflow()                                                            Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMonthsWithNoOverflow(int $value = 1)                                              Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMonthWithNoOverflow()                                                             Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMonthsWithNoOverflow(int $value = 1)                                              Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMonthWithNoOverflow()                                                             Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMonthsNoOverflow(int $value = 1)                                                  Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMonthNoOverflow()                                                                 Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMonthsNoOverflow(int $value = 1)                                                  Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMonthNoOverflow()                                                                 Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDays(int $value = 1)                                                              Add days (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addDay()                                                                             Add one day to the instance (using date interval).
+ * @method        $this          subDays(int $value = 1)                                                              Sub days (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subDay()                                                                             Sub one day to the instance (using date interval).
+ * @method        $this          addHours(int $value = 1)                                                             Add hours (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addHour()                                                                            Add one hour to the instance (using date interval).
+ * @method        $this          subHours(int $value = 1)                                                             Sub hours (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subHour()                                                                            Sub one hour to the instance (using date interval).
+ * @method        $this          addMinutes(int $value = 1)                                                           Add minutes (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMinute()                                                                          Add one minute to the instance (using date interval).
+ * @method        $this          subMinutes(int $value = 1)                                                           Sub minutes (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMinute()                                                                          Sub one minute to the instance (using date interval).
+ * @method        $this          addSeconds(int $value = 1)                                                           Add seconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addSecond()                                                                          Add one second to the instance (using date interval).
+ * @method        $this          subSeconds(int $value = 1)                                                           Sub seconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subSecond()                                                                          Sub one second to the instance (using date interval).
+ * @method        $this          addMillis(int $value = 1)                                                            Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMilli()                                                                           Add one millisecond to the instance (using date interval).
+ * @method        $this          subMillis(int $value = 1)                                                            Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMilli()                                                                           Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMilliseconds(int $value = 1)                                                      Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMillisecond()                                                                     Add one millisecond to the instance (using date interval).
+ * @method        $this          subMilliseconds(int $value = 1)                                                      Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMillisecond()                                                                     Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMicros(int $value = 1)                                                            Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMicro()                                                                           Add one microsecond to the instance (using date interval).
+ * @method        $this          subMicros(int $value = 1)                                                            Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMicro()                                                                           Sub one microsecond to the instance (using date interval).
+ * @method        $this          addMicroseconds(int $value = 1)                                                      Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMicrosecond()                                                                     Add one microsecond to the instance (using date interval).
+ * @method        $this          subMicroseconds(int $value = 1)                                                      Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMicrosecond()                                                                     Sub one microsecond to the instance (using date interval).
+ * @method        $this          addMillennia(int $value = 1)                                                         Add millennia (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMillennium()                                                                      Add one millennium to the instance (using date interval).
+ * @method        $this          subMillennia(int $value = 1)                                                         Sub millennia (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMillennium()                                                                      Sub one millennium to the instance (using date interval).
+ * @method        $this          addMillenniaWithOverflow(int $value = 1)                                             Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addMillenniumWithOverflow()                                                          Add one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subMillenniaWithOverflow(int $value = 1)                                             Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subMillenniumWithOverflow()                                                          Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addMillenniaWithoutOverflow(int $value = 1)                                          Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMillenniumWithoutOverflow()                                                       Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMillenniaWithoutOverflow(int $value = 1)                                          Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMillenniumWithoutOverflow()                                                       Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMillenniaWithNoOverflow(int $value = 1)                                           Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMillenniumWithNoOverflow()                                                        Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMillenniaWithNoOverflow(int $value = 1)                                           Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMillenniumWithNoOverflow()                                                        Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMillenniaNoOverflow(int $value = 1)                                               Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addMillenniumNoOverflow()                                                            Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMillenniaNoOverflow(int $value = 1)                                               Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subMillenniumNoOverflow()                                                            Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addCenturies(int $value = 1)                                                         Add centuries (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addCentury()                                                                         Add one century to the instance (using date interval).
+ * @method        $this          subCenturies(int $value = 1)                                                         Sub centuries (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subCentury()                                                                         Sub one century to the instance (using date interval).
+ * @method        $this          addCenturiesWithOverflow(int $value = 1)                                             Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addCenturyWithOverflow()                                                             Add one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subCenturiesWithOverflow(int $value = 1)                                             Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subCenturyWithOverflow()                                                             Sub one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addCenturiesWithoutOverflow(int $value = 1)                                          Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addCenturyWithoutOverflow()                                                          Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subCenturiesWithoutOverflow(int $value = 1)                                          Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subCenturyWithoutOverflow()                                                          Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addCenturiesWithNoOverflow(int $value = 1)                                           Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addCenturyWithNoOverflow()                                                           Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subCenturiesWithNoOverflow(int $value = 1)                                           Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subCenturyWithNoOverflow()                                                           Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addCenturiesNoOverflow(int $value = 1)                                               Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addCenturyNoOverflow()                                                               Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subCenturiesNoOverflow(int $value = 1)                                               Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subCenturyNoOverflow()                                                               Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDecades(int $value = 1)                                                           Add decades (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addDecade()                                                                          Add one decade to the instance (using date interval).
+ * @method        $this          subDecades(int $value = 1)                                                           Sub decades (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subDecade()                                                                          Sub one decade to the instance (using date interval).
+ * @method        $this          addDecadesWithOverflow(int $value = 1)                                               Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addDecadeWithOverflow()                                                              Add one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subDecadesWithOverflow(int $value = 1)                                               Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subDecadeWithOverflow()                                                              Sub one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addDecadesWithoutOverflow(int $value = 1)                                            Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDecadeWithoutOverflow()                                                           Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subDecadesWithoutOverflow(int $value = 1)                                            Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subDecadeWithoutOverflow()                                                           Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDecadesWithNoOverflow(int $value = 1)                                             Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDecadeWithNoOverflow()                                                            Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subDecadesWithNoOverflow(int $value = 1)                                             Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subDecadeWithNoOverflow()                                                            Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDecadesNoOverflow(int $value = 1)                                                 Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addDecadeNoOverflow()                                                                Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subDecadesNoOverflow(int $value = 1)                                                 Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subDecadeNoOverflow()                                                                Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addQuarters(int $value = 1)                                                          Add quarters (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addQuarter()                                                                         Add one quarter to the instance (using date interval).
+ * @method        $this          subQuarters(int $value = 1)                                                          Sub quarters (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subQuarter()                                                                         Sub one quarter to the instance (using date interval).
+ * @method        $this          addQuartersWithOverflow(int $value = 1)                                              Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addQuarterWithOverflow()                                                             Add one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subQuartersWithOverflow(int $value = 1)                                              Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          subQuarterWithOverflow()                                                             Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this          addQuartersWithoutOverflow(int $value = 1)                                           Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addQuarterWithoutOverflow()                                                          Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subQuartersWithoutOverflow(int $value = 1)                                           Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subQuarterWithoutOverflow()                                                          Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addQuartersWithNoOverflow(int $value = 1)                                            Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addQuarterWithNoOverflow()                                                           Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subQuartersWithNoOverflow(int $value = 1)                                            Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subQuarterWithNoOverflow()                                                           Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addQuartersNoOverflow(int $value = 1)                                                Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addQuarterNoOverflow()                                                               Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subQuartersNoOverflow(int $value = 1)                                                Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          subQuarterNoOverflow()                                                               Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        $this          addWeeks(int $value = 1)                                                             Add weeks (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addWeek()                                                                            Add one week to the instance (using date interval).
+ * @method        $this          subWeeks(int $value = 1)                                                             Sub weeks (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subWeek()                                                                            Sub one week to the instance (using date interval).
+ * @method        $this          addWeekdays(int $value = 1)                                                          Add weekdays (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addWeekday()                                                                         Add one weekday to the instance (using date interval).
+ * @method        $this          subWeekdays(int $value = 1)                                                          Sub weekdays (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subWeekday()                                                                         Sub one weekday to the instance (using date interval).
+ * @method        $this          addRealMicros(int $value = 1)                                                        Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMicro()                                                                       Add one microsecond to the instance (using timestamp).
+ * @method        $this          subRealMicros(int $value = 1)                                                        Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMicro()                                                                       Sub one microsecond to the instance (using timestamp).
  * @method        CarbonPeriod   microsUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
- * @method        Carbon         addRealMicroseconds(int $value = 1)                                                  Add microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMicrosecond()                                                                 Add one microsecond to the instance (using timestamp).
- * @method        Carbon         subRealMicroseconds(int $value = 1)                                                  Sub microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMicrosecond()                                                                 Sub one microsecond to the instance (using timestamp).
+ * @method        $this          addRealMicroseconds(int $value = 1)                                                  Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMicrosecond()                                                                 Add one microsecond to the instance (using timestamp).
+ * @method        $this          subRealMicroseconds(int $value = 1)                                                  Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMicrosecond()                                                                 Sub one microsecond to the instance (using timestamp).
  * @method        CarbonPeriod   microsecondsUntil($endDate = null, int $factor = 1)                                  Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
- * @method        Carbon         addRealMillis(int $value = 1)                                                        Add milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMilli()                                                                       Add one millisecond to the instance (using timestamp).
- * @method        Carbon         subRealMillis(int $value = 1)                                                        Sub milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMilli()                                                                       Sub one millisecond to the instance (using timestamp).
+ * @method        $this          addRealMillis(int $value = 1)                                                        Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMilli()                                                                       Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMillis(int $value = 1)                                                        Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMilli()                                                                       Sub one millisecond to the instance (using timestamp).
  * @method        CarbonPeriod   millisUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
- * @method        Carbon         addRealMilliseconds(int $value = 1)                                                  Add milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMillisecond()                                                                 Add one millisecond to the instance (using timestamp).
- * @method        Carbon         subRealMilliseconds(int $value = 1)                                                  Sub milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMillisecond()                                                                 Sub one millisecond to the instance (using timestamp).
+ * @method        $this          addRealMilliseconds(int $value = 1)                                                  Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMillisecond()                                                                 Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMilliseconds(int $value = 1)                                                  Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMillisecond()                                                                 Sub one millisecond to the instance (using timestamp).
  * @method        CarbonPeriod   millisecondsUntil($endDate = null, int $factor = 1)                                  Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
- * @method        Carbon         addRealSeconds(int $value = 1)                                                       Add seconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealSecond()                                                                      Add one second to the instance (using timestamp).
- * @method        Carbon         subRealSeconds(int $value = 1)                                                       Sub seconds (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealSecond()                                                                      Sub one second to the instance (using timestamp).
+ * @method        $this          addRealSeconds(int $value = 1)                                                       Add seconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealSecond()                                                                      Add one second to the instance (using timestamp).
+ * @method        $this          subRealSeconds(int $value = 1)                                                       Sub seconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealSecond()                                                                      Sub one second to the instance (using timestamp).
  * @method        CarbonPeriod   secondsUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each second or every X seconds if a factor is given.
- * @method        Carbon         addRealMinutes(int $value = 1)                                                       Add minutes (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMinute()                                                                      Add one minute to the instance (using timestamp).
- * @method        Carbon         subRealMinutes(int $value = 1)                                                       Sub minutes (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMinute()                                                                      Sub one minute to the instance (using timestamp).
+ * @method        $this          addRealMinutes(int $value = 1)                                                       Add minutes (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMinute()                                                                      Add one minute to the instance (using timestamp).
+ * @method        $this          subRealMinutes(int $value = 1)                                                       Sub minutes (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMinute()                                                                      Sub one minute to the instance (using timestamp).
  * @method        CarbonPeriod   minutesUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each minute or every X minutes if a factor is given.
- * @method        Carbon         addRealHours(int $value = 1)                                                         Add hours (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealHour()                                                                        Add one hour to the instance (using timestamp).
- * @method        Carbon         subRealHours(int $value = 1)                                                         Sub hours (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealHour()                                                                        Sub one hour to the instance (using timestamp).
+ * @method        $this          addRealHours(int $value = 1)                                                         Add hours (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealHour()                                                                        Add one hour to the instance (using timestamp).
+ * @method        $this          subRealHours(int $value = 1)                                                         Sub hours (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealHour()                                                                        Sub one hour to the instance (using timestamp).
  * @method        CarbonPeriod   hoursUntil($endDate = null, int $factor = 1)                                         Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each hour or every X hours if a factor is given.
- * @method        Carbon         addRealDays(int $value = 1)                                                          Add days (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealDay()                                                                         Add one day to the instance (using timestamp).
- * @method        Carbon         subRealDays(int $value = 1)                                                          Sub days (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealDay()                                                                         Sub one day to the instance (using timestamp).
+ * @method        $this          addRealDays(int $value = 1)                                                          Add days (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealDay()                                                                         Add one day to the instance (using timestamp).
+ * @method        $this          subRealDays(int $value = 1)                                                          Sub days (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealDay()                                                                         Sub one day to the instance (using timestamp).
  * @method        CarbonPeriod   daysUntil($endDate = null, int $factor = 1)                                          Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each day or every X days if a factor is given.
- * @method        Carbon         addRealWeeks(int $value = 1)                                                         Add weeks (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealWeek()                                                                        Add one week to the instance (using timestamp).
- * @method        Carbon         subRealWeeks(int $value = 1)                                                         Sub weeks (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealWeek()                                                                        Sub one week to the instance (using timestamp).
+ * @method        $this          addRealWeeks(int $value = 1)                                                         Add weeks (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealWeek()                                                                        Add one week to the instance (using timestamp).
+ * @method        $this          subRealWeeks(int $value = 1)                                                         Sub weeks (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealWeek()                                                                        Sub one week to the instance (using timestamp).
  * @method        CarbonPeriod   weeksUntil($endDate = null, int $factor = 1)                                         Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each week or every X weeks if a factor is given.
- * @method        Carbon         addRealMonths(int $value = 1)                                                        Add months (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMonth()                                                                       Add one month to the instance (using timestamp).
- * @method        Carbon         subRealMonths(int $value = 1)                                                        Sub months (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMonth()                                                                       Sub one month to the instance (using timestamp).
+ * @method        $this          addRealMonths(int $value = 1)                                                        Add months (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMonth()                                                                       Add one month to the instance (using timestamp).
+ * @method        $this          subRealMonths(int $value = 1)                                                        Sub months (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMonth()                                                                       Sub one month to the instance (using timestamp).
  * @method        CarbonPeriod   monthsUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each month or every X months if a factor is given.
- * @method        Carbon         addRealQuarters(int $value = 1)                                                      Add quarters (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealQuarter()                                                                     Add one quarter to the instance (using timestamp).
- * @method        Carbon         subRealQuarters(int $value = 1)                                                      Sub quarters (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealQuarter()                                                                     Sub one quarter to the instance (using timestamp).
+ * @method        $this          addRealQuarters(int $value = 1)                                                      Add quarters (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealQuarter()                                                                     Add one quarter to the instance (using timestamp).
+ * @method        $this          subRealQuarters(int $value = 1)                                                      Sub quarters (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealQuarter()                                                                     Sub one quarter to the instance (using timestamp).
  * @method        CarbonPeriod   quartersUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each quarter or every X quarters if a factor is given.
- * @method        Carbon         addRealYears(int $value = 1)                                                         Add years (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealYear()                                                                        Add one year to the instance (using timestamp).
- * @method        Carbon         subRealYears(int $value = 1)                                                         Sub years (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealYear()                                                                        Sub one year to the instance (using timestamp).
+ * @method        $this          addRealYears(int $value = 1)                                                         Add years (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealYear()                                                                        Add one year to the instance (using timestamp).
+ * @method        $this          subRealYears(int $value = 1)                                                         Sub years (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealYear()                                                                        Sub one year to the instance (using timestamp).
  * @method        CarbonPeriod   yearsUntil($endDate = null, int $factor = 1)                                         Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each year or every X years if a factor is given.
- * @method        Carbon         addRealDecades(int $value = 1)                                                       Add decades (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealDecade()                                                                      Add one decade to the instance (using timestamp).
- * @method        Carbon         subRealDecades(int $value = 1)                                                       Sub decades (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealDecade()                                                                      Sub one decade to the instance (using timestamp).
+ * @method        $this          addRealDecades(int $value = 1)                                                       Add decades (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealDecade()                                                                      Add one decade to the instance (using timestamp).
+ * @method        $this          subRealDecades(int $value = 1)                                                       Sub decades (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealDecade()                                                                      Sub one decade to the instance (using timestamp).
  * @method        CarbonPeriod   decadesUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each decade or every X decades if a factor is given.
- * @method        Carbon         addRealCenturies(int $value = 1)                                                     Add centuries (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealCentury()                                                                     Add one century to the instance (using timestamp).
- * @method        Carbon         subRealCenturies(int $value = 1)                                                     Sub centuries (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealCentury()                                                                     Sub one century to the instance (using timestamp).
+ * @method        $this          addRealCenturies(int $value = 1)                                                     Add centuries (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealCentury()                                                                     Add one century to the instance (using timestamp).
+ * @method        $this          subRealCenturies(int $value = 1)                                                     Sub centuries (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealCentury()                                                                     Sub one century to the instance (using timestamp).
  * @method        CarbonPeriod   centuriesUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each century or every X centuries if a factor is given.
- * @method        Carbon         addRealMillennia(int $value = 1)                                                     Add millennia (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         addRealMillennium()                                                                  Add one millennium to the instance (using timestamp).
- * @method        Carbon         subRealMillennia(int $value = 1)                                                     Sub millennia (the $value count passed in) to the instance (using timestamp).
- * @method        Carbon         subRealMillennium()                                                                  Sub one millennium to the instance (using timestamp).
+ * @method        $this          addRealMillennia(int $value = 1)                                                     Add millennia (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMillennium()                                                                  Add one millennium to the instance (using timestamp).
+ * @method        $this          subRealMillennia(int $value = 1)                                                     Sub millennia (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMillennium()                                                                  Sub one millennium to the instance (using timestamp).
  * @method        CarbonPeriod   millenniaUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.
- * @method        Carbon         roundYear(float $precision = 1, string $function = "round")                          Round the current instance year with given precision using the given function.
- * @method        Carbon         roundYears(float $precision = 1, string $function = "round")                         Round the current instance year with given precision using the given function.
- * @method        Carbon         floorYear(float $precision = 1)                                                      Truncate the current instance year with given precision.
- * @method        Carbon         floorYears(float $precision = 1)                                                     Truncate the current instance year with given precision.
- * @method        Carbon         ceilYear(float $precision = 1)                                                       Ceil the current instance year with given precision.
- * @method        Carbon         ceilYears(float $precision = 1)                                                      Ceil the current instance year with given precision.
- * @method        Carbon         roundMonth(float $precision = 1, string $function = "round")                         Round the current instance month with given precision using the given function.
- * @method        Carbon         roundMonths(float $precision = 1, string $function = "round")                        Round the current instance month with given precision using the given function.
- * @method        Carbon         floorMonth(float $precision = 1)                                                     Truncate the current instance month with given precision.
- * @method        Carbon         floorMonths(float $precision = 1)                                                    Truncate the current instance month with given precision.
- * @method        Carbon         ceilMonth(float $precision = 1)                                                      Ceil the current instance month with given precision.
- * @method        Carbon         ceilMonths(float $precision = 1)                                                     Ceil the current instance month with given precision.
- * @method        Carbon         roundDay(float $precision = 1, string $function = "round")                           Round the current instance day with given precision using the given function.
- * @method        Carbon         roundDays(float $precision = 1, string $function = "round")                          Round the current instance day with given precision using the given function.
- * @method        Carbon         floorDay(float $precision = 1)                                                       Truncate the current instance day with given precision.
- * @method        Carbon         floorDays(float $precision = 1)                                                      Truncate the current instance day with given precision.
- * @method        Carbon         ceilDay(float $precision = 1)                                                        Ceil the current instance day with given precision.
- * @method        Carbon         ceilDays(float $precision = 1)                                                       Ceil the current instance day with given precision.
- * @method        Carbon         roundHour(float $precision = 1, string $function = "round")                          Round the current instance hour with given precision using the given function.
- * @method        Carbon         roundHours(float $precision = 1, string $function = "round")                         Round the current instance hour with given precision using the given function.
- * @method        Carbon         floorHour(float $precision = 1)                                                      Truncate the current instance hour with given precision.
- * @method        Carbon         floorHours(float $precision = 1)                                                     Truncate the current instance hour with given precision.
- * @method        Carbon         ceilHour(float $precision = 1)                                                       Ceil the current instance hour with given precision.
- * @method        Carbon         ceilHours(float $precision = 1)                                                      Ceil the current instance hour with given precision.
- * @method        Carbon         roundMinute(float $precision = 1, string $function = "round")                        Round the current instance minute with given precision using the given function.
- * @method        Carbon         roundMinutes(float $precision = 1, string $function = "round")                       Round the current instance minute with given precision using the given function.
- * @method        Carbon         floorMinute(float $precision = 1)                                                    Truncate the current instance minute with given precision.
- * @method        Carbon         floorMinutes(float $precision = 1)                                                   Truncate the current instance minute with given precision.
- * @method        Carbon         ceilMinute(float $precision = 1)                                                     Ceil the current instance minute with given precision.
- * @method        Carbon         ceilMinutes(float $precision = 1)                                                    Ceil the current instance minute with given precision.
- * @method        Carbon         roundSecond(float $precision = 1, string $function = "round")                        Round the current instance second with given precision using the given function.
- * @method        Carbon         roundSeconds(float $precision = 1, string $function = "round")                       Round the current instance second with given precision using the given function.
- * @method        Carbon         floorSecond(float $precision = 1)                                                    Truncate the current instance second with given precision.
- * @method        Carbon         floorSeconds(float $precision = 1)                                                   Truncate the current instance second with given precision.
- * @method        Carbon         ceilSecond(float $precision = 1)                                                     Ceil the current instance second with given precision.
- * @method        Carbon         ceilSeconds(float $precision = 1)                                                    Ceil the current instance second with given precision.
- * @method        Carbon         roundMillennium(float $precision = 1, string $function = "round")                    Round the current instance millennium with given precision using the given function.
- * @method        Carbon         roundMillennia(float $precision = 1, string $function = "round")                     Round the current instance millennium with given precision using the given function.
- * @method        Carbon         floorMillennium(float $precision = 1)                                                Truncate the current instance millennium with given precision.
- * @method        Carbon         floorMillennia(float $precision = 1)                                                 Truncate the current instance millennium with given precision.
- * @method        Carbon         ceilMillennium(float $precision = 1)                                                 Ceil the current instance millennium with given precision.
- * @method        Carbon         ceilMillennia(float $precision = 1)                                                  Ceil the current instance millennium with given precision.
- * @method        Carbon         roundCentury(float $precision = 1, string $function = "round")                       Round the current instance century with given precision using the given function.
- * @method        Carbon         roundCenturies(float $precision = 1, string $function = "round")                     Round the current instance century with given precision using the given function.
- * @method        Carbon         floorCentury(float $precision = 1)                                                   Truncate the current instance century with given precision.
- * @method        Carbon         floorCenturies(float $precision = 1)                                                 Truncate the current instance century with given precision.
- * @method        Carbon         ceilCentury(float $precision = 1)                                                    Ceil the current instance century with given precision.
- * @method        Carbon         ceilCenturies(float $precision = 1)                                                  Ceil the current instance century with given precision.
- * @method        Carbon         roundDecade(float $precision = 1, string $function = "round")                        Round the current instance decade with given precision using the given function.
- * @method        Carbon         roundDecades(float $precision = 1, string $function = "round")                       Round the current instance decade with given precision using the given function.
- * @method        Carbon         floorDecade(float $precision = 1)                                                    Truncate the current instance decade with given precision.
- * @method        Carbon         floorDecades(float $precision = 1)                                                   Truncate the current instance decade with given precision.
- * @method        Carbon         ceilDecade(float $precision = 1)                                                     Ceil the current instance decade with given precision.
- * @method        Carbon         ceilDecades(float $precision = 1)                                                    Ceil the current instance decade with given precision.
- * @method        Carbon         roundQuarter(float $precision = 1, string $function = "round")                       Round the current instance quarter with given precision using the given function.
- * @method        Carbon         roundQuarters(float $precision = 1, string $function = "round")                      Round the current instance quarter with given precision using the given function.
- * @method        Carbon         floorQuarter(float $precision = 1)                                                   Truncate the current instance quarter with given precision.
- * @method        Carbon         floorQuarters(float $precision = 1)                                                  Truncate the current instance quarter with given precision.
- * @method        Carbon         ceilQuarter(float $precision = 1)                                                    Ceil the current instance quarter with given precision.
- * @method        Carbon         ceilQuarters(float $precision = 1)                                                   Ceil the current instance quarter with given precision.
- * @method        Carbon         roundMillisecond(float $precision = 1, string $function = "round")                   Round the current instance millisecond with given precision using the given function.
- * @method        Carbon         roundMilliseconds(float $precision = 1, string $function = "round")                  Round the current instance millisecond with given precision using the given function.
- * @method        Carbon         floorMillisecond(float $precision = 1)                                               Truncate the current instance millisecond with given precision.
- * @method        Carbon         floorMilliseconds(float $precision = 1)                                              Truncate the current instance millisecond with given precision.
- * @method        Carbon         ceilMillisecond(float $precision = 1)                                                Ceil the current instance millisecond with given precision.
- * @method        Carbon         ceilMilliseconds(float $precision = 1)                                               Ceil the current instance millisecond with given precision.
- * @method        Carbon         roundMicrosecond(float $precision = 1, string $function = "round")                   Round the current instance microsecond with given precision using the given function.
- * @method        Carbon         roundMicroseconds(float $precision = 1, string $function = "round")                  Round the current instance microsecond with given precision using the given function.
- * @method        Carbon         floorMicrosecond(float $precision = 1)                                               Truncate the current instance microsecond with given precision.
- * @method        Carbon         floorMicroseconds(float $precision = 1)                                              Truncate the current instance microsecond with given precision.
- * @method        Carbon         ceilMicrosecond(float $precision = 1)                                                Ceil the current instance microsecond with given precision.
- * @method        Carbon         ceilMicroseconds(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
+ * @method        $this          roundYear(float $precision = 1, string $function = "round")                          Round the current instance year with given precision using the given function.
+ * @method        $this          roundYears(float $precision = 1, string $function = "round")                         Round the current instance year with given precision using the given function.
+ * @method        $this          floorYear(float $precision = 1)                                                      Truncate the current instance year with given precision.
+ * @method        $this          floorYears(float $precision = 1)                                                     Truncate the current instance year with given precision.
+ * @method        $this          ceilYear(float $precision = 1)                                                       Ceil the current instance year with given precision.
+ * @method        $this          ceilYears(float $precision = 1)                                                      Ceil the current instance year with given precision.
+ * @method        $this          roundMonth(float $precision = 1, string $function = "round")                         Round the current instance month with given precision using the given function.
+ * @method        $this          roundMonths(float $precision = 1, string $function = "round")                        Round the current instance month with given precision using the given function.
+ * @method        $this          floorMonth(float $precision = 1)                                                     Truncate the current instance month with given precision.
+ * @method        $this          floorMonths(float $precision = 1)                                                    Truncate the current instance month with given precision.
+ * @method        $this          ceilMonth(float $precision = 1)                                                      Ceil the current instance month with given precision.
+ * @method        $this          ceilMonths(float $precision = 1)                                                     Ceil the current instance month with given precision.
+ * @method        $this          roundDay(float $precision = 1, string $function = "round")                           Round the current instance day with given precision using the given function.
+ * @method        $this          roundDays(float $precision = 1, string $function = "round")                          Round the current instance day with given precision using the given function.
+ * @method        $this          floorDay(float $precision = 1)                                                       Truncate the current instance day with given precision.
+ * @method        $this          floorDays(float $precision = 1)                                                      Truncate the current instance day with given precision.
+ * @method        $this          ceilDay(float $precision = 1)                                                        Ceil the current instance day with given precision.
+ * @method        $this          ceilDays(float $precision = 1)                                                       Ceil the current instance day with given precision.
+ * @method        $this          roundHour(float $precision = 1, string $function = "round")                          Round the current instance hour with given precision using the given function.
+ * @method        $this          roundHours(float $precision = 1, string $function = "round")                         Round the current instance hour with given precision using the given function.
+ * @method        $this          floorHour(float $precision = 1)                                                      Truncate the current instance hour with given precision.
+ * @method        $this          floorHours(float $precision = 1)                                                     Truncate the current instance hour with given precision.
+ * @method        $this          ceilHour(float $precision = 1)                                                       Ceil the current instance hour with given precision.
+ * @method        $this          ceilHours(float $precision = 1)                                                      Ceil the current instance hour with given precision.
+ * @method        $this          roundMinute(float $precision = 1, string $function = "round")                        Round the current instance minute with given precision using the given function.
+ * @method        $this          roundMinutes(float $precision = 1, string $function = "round")                       Round the current instance minute with given precision using the given function.
+ * @method        $this          floorMinute(float $precision = 1)                                                    Truncate the current instance minute with given precision.
+ * @method        $this          floorMinutes(float $precision = 1)                                                   Truncate the current instance minute with given precision.
+ * @method        $this          ceilMinute(float $precision = 1)                                                     Ceil the current instance minute with given precision.
+ * @method        $this          ceilMinutes(float $precision = 1)                                                    Ceil the current instance minute with given precision.
+ * @method        $this          roundSecond(float $precision = 1, string $function = "round")                        Round the current instance second with given precision using the given function.
+ * @method        $this          roundSeconds(float $precision = 1, string $function = "round")                       Round the current instance second with given precision using the given function.
+ * @method        $this          floorSecond(float $precision = 1)                                                    Truncate the current instance second with given precision.
+ * @method        $this          floorSeconds(float $precision = 1)                                                   Truncate the current instance second with given precision.
+ * @method        $this          ceilSecond(float $precision = 1)                                                     Ceil the current instance second with given precision.
+ * @method        $this          ceilSeconds(float $precision = 1)                                                    Ceil the current instance second with given precision.
+ * @method        $this          roundMillennium(float $precision = 1, string $function = "round")                    Round the current instance millennium with given precision using the given function.
+ * @method        $this          roundMillennia(float $precision = 1, string $function = "round")                     Round the current instance millennium with given precision using the given function.
+ * @method        $this          floorMillennium(float $precision = 1)                                                Truncate the current instance millennium with given precision.
+ * @method        $this          floorMillennia(float $precision = 1)                                                 Truncate the current instance millennium with given precision.
+ * @method        $this          ceilMillennium(float $precision = 1)                                                 Ceil the current instance millennium with given precision.
+ * @method        $this          ceilMillennia(float $precision = 1)                                                  Ceil the current instance millennium with given precision.
+ * @method        $this          roundCentury(float $precision = 1, string $function = "round")                       Round the current instance century with given precision using the given function.
+ * @method        $this          roundCenturies(float $precision = 1, string $function = "round")                     Round the current instance century with given precision using the given function.
+ * @method        $this          floorCentury(float $precision = 1)                                                   Truncate the current instance century with given precision.
+ * @method        $this          floorCenturies(float $precision = 1)                                                 Truncate the current instance century with given precision.
+ * @method        $this          ceilCentury(float $precision = 1)                                                    Ceil the current instance century with given precision.
+ * @method        $this          ceilCenturies(float $precision = 1)                                                  Ceil the current instance century with given precision.
+ * @method        $this          roundDecade(float $precision = 1, string $function = "round")                        Round the current instance decade with given precision using the given function.
+ * @method        $this          roundDecades(float $precision = 1, string $function = "round")                       Round the current instance decade with given precision using the given function.
+ * @method        $this          floorDecade(float $precision = 1)                                                    Truncate the current instance decade with given precision.
+ * @method        $this          floorDecades(float $precision = 1)                                                   Truncate the current instance decade with given precision.
+ * @method        $this          ceilDecade(float $precision = 1)                                                     Ceil the current instance decade with given precision.
+ * @method        $this          ceilDecades(float $precision = 1)                                                    Ceil the current instance decade with given precision.
+ * @method        $this          roundQuarter(float $precision = 1, string $function = "round")                       Round the current instance quarter with given precision using the given function.
+ * @method        $this          roundQuarters(float $precision = 1, string $function = "round")                      Round the current instance quarter with given precision using the given function.
+ * @method        $this          floorQuarter(float $precision = 1)                                                   Truncate the current instance quarter with given precision.
+ * @method        $this          floorQuarters(float $precision = 1)                                                  Truncate the current instance quarter with given precision.
+ * @method        $this          ceilQuarter(float $precision = 1)                                                    Ceil the current instance quarter with given precision.
+ * @method        $this          ceilQuarters(float $precision = 1)                                                   Ceil the current instance quarter with given precision.
+ * @method        $this          roundMillisecond(float $precision = 1, string $function = "round")                   Round the current instance millisecond with given precision using the given function.
+ * @method        $this          roundMilliseconds(float $precision = 1, string $function = "round")                  Round the current instance millisecond with given precision using the given function.
+ * @method        $this          floorMillisecond(float $precision = 1)                                               Truncate the current instance millisecond with given precision.
+ * @method        $this          floorMilliseconds(float $precision = 1)                                              Truncate the current instance millisecond with given precision.
+ * @method        $this          ceilMillisecond(float $precision = 1)                                                Ceil the current instance millisecond with given precision.
+ * @method        $this          ceilMilliseconds(float $precision = 1)                                               Ceil the current instance millisecond with given precision.
+ * @method        $this          roundMicrosecond(float $precision = 1, string $function = "round")                   Round the current instance microsecond with given precision using the given function.
+ * @method        $this          roundMicroseconds(float $precision = 1, string $function = "round")                  Round the current instance microsecond with given precision using the given function.
+ * @method        $this          floorMicrosecond(float $precision = 1)                                               Truncate the current instance microsecond with given precision.
+ * @method        $this          floorMicroseconds(float $precision = 1)                                              Truncate the current instance microsecond with given precision.
+ * @method        $this          ceilMicrosecond(float $precision = 1)                                                Ceil the current instance microsecond with given precision.
+ * @method        $this          ceilMicroseconds(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
  * @method        string         shortAbsoluteDiffForHumans(DateTimeInterface $other = null, int $parts = 1)          Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string         longAbsoluteDiffForHumans(DateTimeInterface $other = null, int $parts = 1)           Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string         shortRelativeDiffForHumans(DateTimeInterface $other = null, int $parts = 1)          Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
