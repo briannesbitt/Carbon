@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NoLocaleTranslator implements TranslatorInterface
 {
-    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         return $id;
     }
