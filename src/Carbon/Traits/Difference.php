@@ -26,7 +26,6 @@ use DateTimeInterface;
  * Depends on the following methods:
  *
  * @method bool lessThan($date)
- * @method DateInterval diff(\DateTimeInterface $date, bool $absolute = false)
  * @method static copy()
  * @method static resolveCarbon($date = null)
  * @method static Translator translator()
@@ -501,6 +500,19 @@ trait Difference
     }
 
     /**
+     * Get the difference in weeks as float (microsecond-precision).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInWeeks($date = null, $absolute = true)
+    {
+        return $this->floatDiffInDays($date, $absolute) / static::DAYS_PER_WEEK;
+    }
+
+    /**
      * Get the difference in months as float (microsecond-precision).
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
@@ -622,6 +634,19 @@ trait Difference
         $hoursDiff = $this->floatDiffInRealHours($date, $absolute);
 
         return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+    }
+
+    /**
+     * Get the difference in weeks as float (microsecond-precision).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealWeeks($date = null, $absolute = true)
+    {
+        return $this->floatDiffInRealDays($date, $absolute) / static::DAYS_PER_WEEK;
     }
 
     /**
