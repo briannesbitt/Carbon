@@ -4,12 +4,12 @@
         "ext-json": "*",
         "cmixin/business-time": "dev-master",
         "kylekatarnls/carbonite": "dev-master",
-        "nesbot/carbon": "dev-master as 2.37.0"
+        "nesbot/carbon": "dev-master as 2.39.1"
     },
     "scripts": {
         "check": "@php tools/check.php",
-        "history": "@php tools/api-history.php",
         "generate": "@php tools/generate.php",
+        "history": "@php tools/api-history.php",
         "releases": "@php tools/cache-releases.php"
     },
     "config": {

@@ -1724,6 +1724,9 @@ $dt->setDateFrom($source2);
 
 // The reverse hasFormat method allows you to test if a string looks like a given format
 {{::exec(var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));/*pad(50)*/)}} // {{eval}}
+
+// You also can use canBeCreatedFromFormat($dateString, $format) which will check both the format match and
+// the data is enough to create a new instance using createFromFormat().
 </code></pre>
     </p>
 
