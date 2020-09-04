@@ -880,7 +880,7 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormat('Y-01-30\\', '\\Y-m-d\\\\'));
 
         // @see https://github.com/briannesbitt/Carbon/issues/2180
-        $this->assertTrue(Carbon::hasFormat('2020-09-01 12:00:00Europe/Moscow','Y-m-d H:i:se'));
+        $this->assertTrue(Carbon::hasFormat('2020-09-01 12:00:00Europe/Moscow', 'Y-m-d H:i:se'));
 
         if (version_compare(PHP_VERSION, '7.3.0-dev', '>=')) {
             // Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.
