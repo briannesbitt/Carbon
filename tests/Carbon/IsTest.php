@@ -900,6 +900,73 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
     }
 
+    public function getFormatLetters()
+    {
+        return array_map(function ($letter) {
+            return [$letter];
+        }, [
+            'd',
+            'D',
+            'j',
+            'l',
+            'N',
+            'S',
+            'w',
+            'z',
+            'W',
+            'F',
+            'm',
+            'M',
+            'n',
+            't',
+            'L',
+            'o',
+            'Y',
+            'y',
+            'a',
+            'A',
+            'B',
+            'g',
+            'G',
+            'h',
+            'H',
+            'i',
+            's',
+            'u',
+            'v',
+            'e',
+            'I',
+            'O',
+            'P',
+            'T',
+            'Z',
+            'U',
+            'c',
+            'r',
+        ]);
+    }
+
+    /**
+     * @dataProvider getFormatLetters
+     */
+    public function testHasFormatWithSingleLetter($letter)
+    {
+        $output = Carbon::now()->format($letter);
+        $this->assertTrue(Carbon::hasFormat($output, $letter), "'$letter' format should match '$output'");
+    }
+
+    public function testCanBeCreatedFromFormat()
+    {
+        $this->assertTrue(Carbon::canBeCreatedFromFormat('1975-05-01', 'Y-m-d'));
+        $this->assertTrue(Carbon::canBeCreatedFromFormat('12/30/2019', 'm/d/Y'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat('1975-05-01', 'd m Y'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat('1975-5-1', 'Y-m-d'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat('19-05-01', 'Y-m-d'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat('30/12/2019', 'm/d/Y'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat('12/30/2019', 'd/m/Y'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat('5', 'N'));
+    }
+
     public function testIsSameFoobar()
     {
         $this->expectException(\BadMethodCallException::class);

@@ -912,6 +912,61 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
     }
 
+    public function getFormatLetters()
+    {
+        return array_map(function ($letter) {
+            return [$letter];
+        }, [
+            'd',
+            'D',
+            'j',
+            'l',
+            'N',
+            'S',
+            'w',
+            'z',
+            'W',
+            'F',
+            'm',
+            'M',
+            'n',
+            't',
+            'L',
+            'o',
+            'Y',
+            'y',
+            'a',
+            'A',
+            'B',
+            'g',
+            'G',
+            'h',
+            'H',
+            'i',
+            's',
+            'u',
+            'v',
+            'e',
+            'I',
+            'O',
+            'P',
+            'T',
+            'Z',
+            'U',
+            'c',
+            'r',
+        ]);
+    }
+
+    /**
+     * @dataProvider getFormatLetters
+     */
+    public function testHasFormatWithSingleLetter($letter)
+    {
+        $output = Carbon::now()->format($letter);
+        $this->assertTrue(Carbon::hasFormat($output, $letter), "'$letter' format should match '$output'");
+    }
+
     public function testIs()
     {
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019'));
