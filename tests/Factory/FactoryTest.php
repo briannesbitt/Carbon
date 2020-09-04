@@ -79,4 +79,33 @@ class FactoryTest extends AbstractTestCase
             'timezone' => 'Europe/Paris',
         ], $factory->settings());
     }
+
+    public function testFactoryTimezone()
+    {
+        Carbon::setTestNow(Carbon::parse('2020-09-04 03:39:04.123456', 'UTC'));
+
+        $factory = new Factory();
+
+        $date = $factory->now();
+        $this->assertInstanceOf(Carbon::class, $date);
+        $this->assertSame('2020-09-04 03:39:04.123456 UTC', $date->format('Y-m-d H:i:s.u e'));
+
+        $factory = new Factory([
+            'timezone' => 'Europe/Paris',
+        ]);
+
+        $this->assertSame('2020-09-04 05:39:04.123456 Europe/Paris', $factory->now()->format('Y-m-d H:i:s.u e'));
+        $this->assertSame('2020-09-04 00:00:00.000000 Europe/Paris', $factory->today()->format('Y-m-d H:i:s.u e'));
+        $this->assertSame('2020-09-05 00:00:00.000000 Europe/Paris', $factory->tomorrow()->format('Y-m-d H:i:s.u e'));
+        $this->assertSame('2020-09-04 09:39:04.123456 Europe/Paris', $factory->parse('2020-09-04 09:39:04.123456')->format('Y-m-d H:i:s.u e'));
+
+        $factory = new Factory([
+            'timezone' => 'America/Toronto',
+        ]);
+
+        $this->assertSame('2020-09-03 23:39:04.123456 America/Toronto', $factory->now()->format('Y-m-d H:i:s.u e'));
+        $this->assertSame('2020-09-03 00:00:00.000000 America/Toronto', $factory->today()->format('Y-m-d H:i:s.u e'));
+        $this->assertSame('2020-09-04 00:00:00.000000 America/Toronto', $factory->tomorrow()->format('Y-m-d H:i:s.u e'));
+        $this->assertSame('2020-09-04 09:39:04.123456 America/Toronto', $factory->parse('2020-09-04 09:39:04.123456')->format('Y-m-d H:i:s.u e'));
+    }
 }
