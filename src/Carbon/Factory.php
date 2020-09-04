@@ -11,6 +11,7 @@
 namespace Carbon;
 
 use Closure;
+use ReflectionMethod;
 
 /**
  * A factory to generate Carbon instances with common settings.
@@ -220,6 +221,7 @@ class Factory
         if ($className) {
             $this->className = $className;
         }
+
         $this->settings = $settings;
     }
 
@@ -266,8 +268,24 @@ class Factory
 
     public function __call($name, $arguments)
     {
+        $method = new ReflectionMethod($this->className, $name);
+        $settings = $this->settings;
+
+        if ($settings && isset($settings['timezone'])) {
+            $tzParameters = array_filter($method->getParameters(), function ($parameter) {
+                return in_array($parameter->getName(), ['tz', 'timezone'], true);
+            });
+
+            if (count($tzParameters)) {
+                array_splice($arguments, key($tzParameters), 0, [$settings['timezone']]);
+                unset($settings['timezone']);
+            }
+        }
+
         $result = $this->className::$name(...$arguments);
 
-        return $result instanceof CarbonInterface ? $result->settings($this->settings) : $result;
+        return $result instanceof CarbonInterface && !empty($settings)
+            ? $result->settings($settings)
+            : $result;
     }
 }
