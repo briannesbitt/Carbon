@@ -37,7 +37,7 @@
         "doctrine/orm": "^2.7",
         "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
         "kylekatarnls/multi-tester": "^2.0",
-        "phpmd/phpmd": "^2.8",
+        "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.35",
         "phpunit/phpunit": "^7.5 || ^8.0",

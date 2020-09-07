@@ -891,6 +891,9 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormat('2000-07-01T00:00:00+00:00', DateTime::ATOM));
         $this->assertTrue(Carbon::hasFormat('Y-01-30\\', '\\Y-m-d\\\\'));
 
+        // @see https://github.com/briannesbitt/Carbon/issues/2180
+        $this->assertTrue(Carbon::hasFormat('2020-09-01 12:00:00Europe/Moscow', 'Y-m-d H:i:se'));
+
         if (version_compare(PHP_VERSION, '7.3.0-dev', '>=')) {
             // Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.
             $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
@@ -907,6 +910,61 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
         $this->assertFalse(Carbon::hasFormat('30/12/2019', 'm/d/Y'));
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
+    }
+
+    public function getFormatLetters()
+    {
+        return array_map(function ($letter) {
+            return [$letter];
+        }, [
+            'd',
+            'D',
+            'j',
+            'l',
+            'N',
+            'S',
+            'w',
+            'z',
+            'W',
+            'F',
+            'm',
+            'M',
+            'n',
+            't',
+            'L',
+            'o',
+            'Y',
+            'y',
+            'a',
+            'A',
+            'B',
+            'g',
+            'G',
+            'h',
+            'H',
+            'i',
+            's',
+            'u',
+            'v',
+            'e',
+            'I',
+            'O',
+            'P',
+            'T',
+            'Z',
+            'U',
+            'c',
+            'r',
+        ]);
+    }
+
+    /**
+     * @dataProvider getFormatLetters
+     */
+    public function testHasFormatWithSingleLetter($letter)
+    {
+        $output = Carbon::now()->format($letter);
+        $this->assertTrue(Carbon::hasFormat($output, $letter), "'$letter' format should match '$output'");
     }
 
     public function testIs()

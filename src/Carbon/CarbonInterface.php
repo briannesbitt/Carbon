@@ -906,6 +906,23 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function calendar($referenceTime = null, array $formats = []);
 
     /**
+     * Checks if the (date)time string is in a given format and valid to create a
+     * new instance.
+     *
+     * @example
+     * ```
+     * Carbon::canBeCreatedFromFormat('11:12:45', 'h:i:s'); // true
+     * Carbon::canBeCreatedFromFormat('13:12:45', 'h:i:s'); // false
+     * ```
+     *
+     * @param string $date
+     * @param string $format
+     *
+     * @return bool
+     */
+    public static function canBeCreatedFromFormat($date, $format);
+
+    /**
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
@@ -2221,8 +2238,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
      * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
      * ```
-     *
-     * @SuppressWarnings(PHPMD.EmptyCatchBlock)
      *
      * @param string $date
      * @param string $format
@@ -4384,8 +4399,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc3339String();
-     * echo Carbon::now()->toRfc3339String(true);
+     * echo Carbon::now()->toRfc3339String() . "\n";
+     * echo Carbon::now()->toRfc3339String(true) . "\n";
      * ```
      *
      * @return string
