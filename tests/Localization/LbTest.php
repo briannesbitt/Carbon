@@ -119,7 +119,7 @@ class LbTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'virun 1 Sekonnen',
+        'virun 1 Sekonn',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'virun 1Sek',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -175,19 +175,19 @@ class LbTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'virun 2J',
         // Carbon::now()->addSecond()->diffForHumans()
-        'an 1 Sekonnen',
+        'an 1 Sekonn',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'an 1Sek',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 Sekonnen duerno',
+        '1 Sekonn duerno',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1Sek duerno',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 Sekonnen virdrun',
+        '1 Sekonn virdrun',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1Sek virdrun',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 Sekonnen',
+        '1 Sekonn',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1Sek',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -197,7 +197,7 @@ class LbTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'an 1Sek',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 Minutt 1 Sekonnen',
+        '1 Minutt 1 Sekonn',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2J 3Mo 1D 1Sek',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)

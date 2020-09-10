@@ -29,7 +29,7 @@ return [
     'h' => ':countSto',
     'minute' => ':count Minutt|:count Minutten',
     'min' => ':countM',
-    'second' => ':count Sekonnen',
+    'second' => ':count Sekonn|:count Sekonnen',
     's' => ':countSek',
 
     'ago' => 'virun :time',
