@@ -1005,4 +1005,13 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('August 2019'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('June 2018'));
     }
+
+    public function testHasFormatWithDots()
+    {
+        $this->assertTrue(Carbon::hasFormat('2020.09.09', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020009009', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020-09-09', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020*09*09', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020k09d09', 'Y.m.d'));
+    }
 }
