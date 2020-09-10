@@ -119,75 +119,75 @@ class LbTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ago',
+        'virun 1 Sekonn',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1Sek',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'ago',
+        'virun 2 Sekonnen',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2Sek',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ago',
+        'virun 1 Minutt',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1M',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'ago',
+        'virun 2 Minutten',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2M',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ago',
+        'virun 1 Stonn',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1Sto',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'ago',
+        'virun 2 Stonnen',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2Sto',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ago',
+        'virun 1 Dag',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1D',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'ago',
+        'virun 2 Deeg',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2D',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ago',
+        'virun 1 Woch',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1Wo',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'ago',
+        'virun 2 Wochen',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2Wo',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ago',
+        'virun 1 Mount',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1Mo',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'ago',
+        'virun 2 Méint',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2Mo',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ago',
+        'virun 1 Joer',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ago',
+        'virun 1J',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'ago',
+        'virun 2 Joer',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'ago',
+        'virun 2J',
         // Carbon::now()->addSecond()->diffForHumans()
-        'from_now',
+        'an 1 Sekonn',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'from_now',
+        'an 1Sek',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        '1 Sekonn duerno',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        '1Sek duerno',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        '1 Sekonn virdrun',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        '1Sek virdrun',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 Sekonnen',
+        '1 Sekonn',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1Sek',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -195,17 +195,17 @@ class LbTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2Sek',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'from_now',
+        'an 1Sek',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 Minutt 1 Sekonnen',
+        '1 Minutt 1 Sekonn',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2J 3Mo 1D 1Sek',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'from_now',
+        'an 3 Joer',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'ago',
+        'virun 5Mo',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'ago',
+        'virun 2J 3Mo 1D 1Sek',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 Woch 10 Stonnen',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -213,11 +213,11 @@ class LbTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 Woch 6 Deeg',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'from_now',
+        'an 1 Woch an 6 Deeg',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 Wochen 1 Stonn',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'from_now',
+        'an 1 Stonn',
         // CarbonInterval::days(2)->forHumans()
         '2 Deeg',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
