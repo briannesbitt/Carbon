@@ -17,63 +17,63 @@ class KlGlTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Tomorrow at 12:00 AM',
+        'Tomorrow at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'arfininngorneq at 12:00 AM',
+        'arfininngorneq at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sapaat at 12:00 AM',
+        'sapaat at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ataasinngorneq at 12:00 AM',
+        'ataasinngorneq at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'marlunngorneq at 12:00 AM',
+        'marlunngorneq at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pingasunngorneq at 12:00 AM',
+        'pingasunngorneq at 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'sisamanngorneq at 12:00 AM',
+        'sisamanngorneq at 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'tallimanngorneq at 12:00 AM',
+        'tallimanngorneq at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'marlunngorneq at 12:00 AM',
+        'marlunngorneq at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'pingasunngorneq at 12:00 AM',
+        'pingasunngorneq at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'sisamanngorneq at 12:00 AM',
+        'sisamanngorneq at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'tallimanngorneq at 12:00 AM',
+        'tallimanngorneq at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'arfininngorneq at 12:00 AM',
+        'arfininngorneq at 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'Last sapaat at 8:49 PM',
+        'Last sapaat at 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 10:00 PM',
+        'Yesterday at 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Today at 10:00 AM',
+        'Today at 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Today at 2:00 AM',
+        'Today at 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Tomorrow at 1:00 AM',
+        'Tomorrow at 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'marlunngorneq at 12:00 AM',
+        'marlunngorneq at 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Yesterday at 12:00 AM',
+        'Yesterday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 12:00 AM',
+        'Yesterday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last marlunngorneq at 12:00 AM',
+        'Last marlunngorneq at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last ataasinngorneq at 12:00 AM',
+        'Last ataasinngorneq at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last sapaat at 12:00 AM',
+        'Last sapaat at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last arfininngorneq at 12:00 AM',
+        'Last arfininngorneq at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last tallimanngorneq at 12:00 AM',
+        'Last tallimanngorneq at 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Last sisamanngorneq at 12:00 AM',
+        'Last sisamanngorneq at 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'Last pingasunngorneq at 12:00 AM',
+        'Last pingasunngorneq at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Last tallimanngorneq at 12:00 AM',
+        'Last tallimanngorneq at 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1st 1st 1st 1st 1st',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -119,108 +119,108 @@ class KlGlTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 marluk ago',
+        '1 sikunti matuma siorna',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 marluk ago',
+        '1s matuma siorna',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 marluk ago',
+        '2 sikuntit matuma siorna',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 marluk ago',
+        '2s matuma siorna',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 eqqumiitsuliorneq ago',
+        '1 minutsi matuma siorna',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 eqqumiitsuliorneq ago',
+        '1m matuma siorna',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 eqqumiitsuliorneq ago',
+        '2 minutsit matuma siorna',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 eqqumiitsuliorneq ago',
+        '2m matuma siorna',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 akunneq ago',
+        '1 tiimi matuma siorna',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 akunneq ago',
+        '1h matuma siorna',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 akunneq ago',
+        '2 tiimit matuma siorna',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 akunneq ago',
+        '2h matuma siorna',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 ulloq ago',
+        '1 ulloq matuma siorna',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 ulloq ago',
+        '1d matuma siorna',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 ulloq ago',
+        '2 ullut matuma siorna',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ulloq ago',
+        '2d matuma siorna',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 sapaat ago',
+        '1 sap. ak. matuma siorna',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 sapaat ago',
+        '1w matuma siorna',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 sapaat ago',
+        '2 sap. ak. matuma siorna',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 sapaat ago',
+        '2w matuma siorna',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 Ukiup qaammatai ago',
+        'qaammat 1 matuma siorna',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 Ukiup qaammatai ago',
+        '1mo matuma siorna',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 Ukiup qaammatai ago',
+        'qaammatit 2 matuma siorna',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 Ukiup qaammatai ago',
+        '2mos matuma siorna',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 ukioq ago',
+        'ukioq 1 matuma siorna',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 ukioq ago',
+        '1yr matuma siorna',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 ukioq ago',
+        'ukiut 2 matuma siorna',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ukioq ago',
+        '2yrs matuma siorna',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 marluk from now',
+        '1 sikunti from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 marluk from now',
+        '1s from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 marluk after',
+        '1 sikunti after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 marluk after',
+        '1s after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 marluk before',
+        '1 sikunti before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 marluk before',
+        '1s before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 marluk',
+        '1 sikunti',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 marluk',
+        '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 marluk',
+        '2 sikuntit',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 marluk',
+        '2s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 marluk from now',
+        '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 eqqumiitsuliorneq 1 marluk',
+        '1 minutsi 1 sikunti',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ukioq 3 Ukiup qaammatai 1 ulloq 1 marluk',
+        '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 ukioq from now',
+        'ukiut 3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 Ukiup qaammatai ago',
+        '5mos matuma siorna',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ukioq 3 Ukiup qaammatai 1 ulloq 1 marluk ago',
+        '2yrs 3mos 1d 1s matuma siorna',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 sapaat 10 akunneq',
+        '1 sap. ak. 10 tiimit',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 sapaat 6 ulloq',
+        '1 sap. ak. 6 ullut',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 sapaat 6 ulloq',
+        '1 sap. ak. 6 ullut',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 sapaat and 6 ulloq from now',
+        '1 sap. ak. and 6 ullut from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 sapaat 1 akunneq',
+        '2 sap. ak. 1 tiimi',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 akunneq from now',
+        'tiimi from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 ulloq',
+        '2 ullut',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 ulloq 3 akunneq',
+        '1d 3h',
     ];
 }
