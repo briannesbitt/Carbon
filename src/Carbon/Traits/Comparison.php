@@ -862,25 +862,17 @@ trait Comparison
         // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
         // To ensure we're really testing against our desired format, perform an additional regex validation.
 
+        // List letters to replace
+        $letters = array_keys(static::$regexFormats);
         // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
-        $quotedFormat = str_replace('\\\\', '\\', preg_quote($format, '/'));
-
-        // Build the regex string
-        $regex = '';
-
-        for ($i = 0; $i < strlen($quotedFormat); ++$i) {
-            // Backslash – the next character does not represent a date token so add it on as-is and continue.
-            // We're doing an extra ++$i here to increment the loop by 2.
-            if ($quotedFormat[$i] === '\\') {
-                $char = $quotedFormat[++$i];
-                $regex .= $char === '\\' ? '\\\\' : $char;
-
-                continue;
-            }
-
-            $regex .= strtr($quotedFormat[$i], static::$regexFormats);
-        }
-
+        $regex = str_replace('\\\\', '\\', preg_quote($format, '/'));
+        // Replace not-escaped letters
+        $regex = preg_replace_callback('/(?<!\\\\)((?:\\\\{2})*)(['.implode('', $letters).'])/', function ($match) {
+            return $match[1].strtr($match[2], static::$regexFormats);
+        }, $regex);
+        // Replace escaped letters by the letter itself
+        $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);
+        // Escape not escaped slashes
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
         return (bool) @preg_match('/^'.$regex.'$/', $date);

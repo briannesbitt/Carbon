@@ -889,6 +889,7 @@ class IsTest extends AbstractTestCase
 
         // Format failure
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
+        $this->assertFalse(Carbon::hasFormat('1975-01-30\\', '\\Y-m-d\\\\'));
         $this->assertFalse(Carbon::hasFormat('Foo 21st', 'D jS'));
         $this->assertFalse(Carbon::hasFormat('Sun 51st', 'D jS'));
         $this->assertFalse(Carbon::hasFormat('Sun 21xx', 'D jS'));
@@ -1028,5 +1029,14 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('June 2019'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('August 2019'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('June 2018'));
+    }
+
+    public function testHasFormatWithDots()
+    {
+        $this->assertTrue(Carbon::hasFormat('2020.09.09', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020009009', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020-09-09', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020*09*09', 'Y.m.d'));
+        $this->assertFalse(Carbon::hasFormat('2020k09d09', 'Y.m.d'));
     }
 }

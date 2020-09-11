@@ -12,10 +12,16 @@
 /*
  * Authors:
  * - Danish Standards Association    bug-glibc-locales@gnu.org
+ * - John Eyðstein Johannesen (mashema)
  */
 return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
-        'L' => 'MMM DD YYYY',
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'D. MMMM YYYY',
+        'LLL' => 'D. MMMM YYYY HH:mm',
+        'LLLL' => 'dddd [d.] D. MMMM YYYY [kl.] HH:mm',
     ],
     'months' => ['januaarip', 'februaarip', 'marsip', 'apriilip', 'maajip', 'juunip', 'juulip', 'aggustip', 'septembarip', 'oktobarip', 'novembarip', 'decembarip'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
@@ -25,31 +31,34 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
 
-    'year' => ':count ukioq', // less reliable
-    'y' => ':count ukioq', // less reliable
-    'a_year' => ':count ukioq', // less reliable
+    'year' => '{1}ukioq :count|{0}:count ukiut|]1,Inf[ukiut :count',
+    'a_year' => '{1}ukioq|{0}:count ukiut|]1,Inf[ukiut :count',
+    'y' => '{1}:countyr|{0}:countyrs|]1,Inf[:countyrs',
 
-    'month' => ':count Ukiup qaammatai',
-    'm' => ':count Ukiup qaammatai',
-    'a_month' => ':count Ukiup qaammatai',
+    'month' => '{1}qaammat :count|{0}:count qaammatit|]1,Inf[qaammatit :count',
+    'a_month' => '{1}qaammat|{0}:count qaammatit|]1,Inf[qaammatit :count',
+    'm' => '{1}:countmo|{0}:countmos|]1,Inf[:countmos',
 
-    'week' => ':count sapaat', // less reliable
-    'w' => ':count sapaat', // less reliable
-    'a_week' => ':count sapaat', // less reliable
+    'week' => '{1}:count sap. ak.|{0}:count sap. ak.|]1,Inf[:count sap. ak.',
+    'a_week' => '{1}a sap. ak.|{0}:count sap. ak.|]1,Inf[:count sap. ak.',
+    'w' => ':countw',
 
-    'day' => ':count ulloq',
-    'd' => ':count ulloq',
-    'a_day' => ':count ulloq',
+    'day' => '{1}:count ulloq|{0}:count ullut|]1,Inf[:count ullut',
+    'a_day' => '{1}a ulloq|{0}:count ullut|]1,Inf[:count ullut',
+    'd' => ':countd',
 
-    'hour' => ':count akunneq',
-    'h' => ':count akunneq',
-    'a_hour' => ':count akunneq',
+    'hour' => '{1}:count tiimi|{0}:count tiimit|]1,Inf[:count tiimit',
+    'a_hour' => '{1}tiimi|{0}:count tiimit|]1,Inf[:count tiimit',
+    'h' => ':counth',
 
-    'minute' => ':count eqqumiitsuliorneq', // less reliable
-    'min' => ':count eqqumiitsuliorneq', // less reliable
-    'a_minute' => ':count eqqumiitsuliorneq', // less reliable
+    'minute' => '{1}:count minutsi|{0}:count minutsit|]1,Inf[:count minutsit',
+    'a_minute' => '{1}a minutsi|{0}:count minutsit|]1,Inf[:count minutsit',
+    'min' => ':countm',
 
-    'second' => ':count marluk', // less reliable
-    's' => ':count marluk', // less reliable
-    'a_second' => ':count marluk', // less reliable
+    'second' => '{1}:count sikunti|{0}:count sikuntit|]1,Inf[:count sikuntit',
+    'a_second' => '{1}sikunti|{0}:count sikuntit|]1,Inf[:count sikuntit',
+    's' => ':counts',
+
+    'ago' => ':time matuma siorna',
+
 ]);

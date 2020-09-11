@@ -14,6 +14,7 @@
  * - Philippe Vaucher
  * - Tsutomu Kuroda
  * - dan-nl
+ * - Simon Lelorrain (slelorrain)
  */
 return [
     'year' => ':count Joer',
@@ -28,8 +29,13 @@ return [
     'h' => ':countSto',
     'minute' => ':count Minutt|:count Minutten',
     'min' => ':countM',
-    'second' => ':count Sekonnen',
+    'second' => ':count Sekonn|:count Sekonnen',
     's' => ':countSek',
+
+    'ago' => 'virun :time',
+    'from_now' => 'an :time',
+    'before' => ':time virdrun',
+    'after' => ':time duerno',
 
     'diff_today' => 'Haut',
     'diff_yesterday' => 'Gëschter',
