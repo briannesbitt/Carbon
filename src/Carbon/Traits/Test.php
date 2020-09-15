@@ -22,7 +22,7 @@ trait Test
     /**
      * A test Carbon instance to be returned when now instances are created.
      *
-     * @var static
+     * @var Closure|static
      */
     protected static $testNow;
 

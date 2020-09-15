@@ -335,6 +335,12 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
+    public function testNearlyOneDayDiff()
+    {
+        $this->assertSame(-0.99999999998843, Carbon::parse('2020-09-15 23:29:59.123456')->diffInDays('2020-09-14 23:29:59.123457'));
+        $this->assertSame(0.99999999998843, Carbon::parse('2020-09-14 23:29:59.123457')->diffInDays('2020-09-15 23:29:59.123456'));
+    }
+
     public function testDiffInWeekdaysPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
