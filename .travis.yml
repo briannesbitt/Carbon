@@ -66,6 +66,7 @@ branches:
 matrix:
   include:
     - php: 7.2.5
+    - php: 7.2.12
     - php: 7.2.15
     - php: 7.2
     - php: 7.2
