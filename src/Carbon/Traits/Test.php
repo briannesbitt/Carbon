@@ -66,9 +66,9 @@ trait Test
      */
     public static function withTestNow($testNow = null, $callback = null)
     {
-        self::setTestNow($testNow);
+        static::setTestNow($testNow);
         $callback();
-        self::setTestNow();
+        static::setTestNow();
     }
 
     /**
