@@ -593,7 +593,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const DAYS_PER_WEEK = 7;
     public const HOURS_PER_DAY = 24;
     public const MINUTES_PER_HOUR = 60;
-    public const SECONDS_PER_HOUR = 3600;
     public const SECONDS_PER_MINUTE = 60;
     public const MILLISECONDS_PER_SECOND = 1000;
     public const MICROSECONDS_PER_MILLISECOND = 1000;
