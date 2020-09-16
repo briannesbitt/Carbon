@@ -273,13 +273,13 @@ class TestingAidsTest extends AbstractTestCase
     public function testWithTestNow()
     {
         $self = $this;
-        $test_now = '2020-09-16 10:20:00';
-        Carbon::withTestNow($test_now, static function () use ($self, $test_now) {
-            $current_time = Carbon::now();
-            $self->assertSame($test_now, $current_time->format('Y-m-d H:i:s'));
+        $testNow = '2020-09-16 10:20:00';
+        Carbon::withTestNow($testNow, static function () use ($self, $testNow) {
+            $currentTime = Carbon::now();
+            $self->assertSame($testNow, $currentTime->format('Y-m-d H:i:s'));
         });
 
         $current_time = Carbon::now();
-        $this->assertNotEquals($test_now, $current_time->format('Y-m-d H:i:s'));
+        $this->assertNotEquals($testNow, $current_time->format('Y-m-d H:i:s'));
     }
 }
