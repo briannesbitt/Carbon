@@ -275,7 +275,7 @@ class TestingAidsTest extends AbstractTestCase
     {
         $self = $this;
         $test_now = '2020-09-16 10:20:00';
-        CarbonImmutable::withTestNow($test_now, static function() use ($self, $test_now) {
+        CarbonImmutable::withTestNow($test_now, static function () use ($self, $test_now) {
             $current_time = CarbonImmutable::now();
             $self->assertSame($test_now, $current_time->format('Y-m-d H:i:s'));
         });
