@@ -460,7 +460,11 @@
         window.addEventListener('message', function (event) {
             var data = event.data;
             if (typeof data === 'string') {
-                data = JSON.parse(data);
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {
+                    data = null;
+                }
             }
             if (data && data.sender === 'try-carbon') {
                 switch (data.event) {

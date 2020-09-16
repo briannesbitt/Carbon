@@ -409,6 +409,8 @@
     
         <li>John Corrigan</li>
     
+        <li>John Eyðstein Johannesen (mashema)</li>
+    
         <li>John MacAslan</li>
     
         <li>Jon Ashdown</li>
@@ -746,6 +748,8 @@
         <li>Sigurd Gartmann</li>
     
         <li>Simon Hürlimann (CyT)</li>
+    
+        <li>Simon Lelorrain (slelorrain)</li>
     
         <li>Simone Carletti</li>
     
@@ -1408,7 +1412,11 @@
         window.addEventListener('message', function (event) {
             var data = event.data;
             if (typeof data === 'string') {
-                data = JSON.parse(data);
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {
+                    data = null;
+                }
             }
             if (data && data.sender === 'try-carbon') {
                 switch (data.event) {

@@ -229,7 +229,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
     $carbonObject = new $className();
     $dateTimeObject = new \DateTime();
     $rc = new \ReflectionClass($className);
-    preg_match_all('/@method\s+(\S+)\s+([^(]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
+    preg_match_all('/@method\s+(\S+)\s+([^(\s]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
 
     foreach ($matches as list($all, $return, $method, $parameters, $description)) {
         $parameters = convertType(trim($parameters));

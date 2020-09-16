@@ -2480,7 +2480,8 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 // setting the second argument to false when start date is greater than end date
 {{::exec(echo Carbon::parse('12:01:23')->floatDiffInHours('06:02:34', false);/*pad(80)*/)}} // {{eval}}
 {{::exec(echo Carbon::parse('2000-01-01 12:00')->floatDiffInDays('2000-02-11 06:00');/*pad(80)*/)}} // {{eval}}
-{{::exec(echo Carbon::parse('2000-01-15 12:00')->floatDiffInMonths('2000-02-24 06:00');/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2000-01-01')->floatDiffInWeeks('2000-02-11');/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2000-01-15')->floatDiffInMonths('2000-02-24');/*pad(80)*/)}} // {{eval}}
 // floatDiffInMonths count as many full months as possible from the start date, then consider the number
 // of days in the months for ending chunks to reach the end date
 // So the following result (ending with 24 march is different from previous one with 24 february):
@@ -2529,6 +2530,8 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 // above day unit, "real" will affect the decimal part based on hours and smaller units
 {{::exec(echo $date->floatDiffInRealDays('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->floatDiffInDays('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealWeeks('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInWeeks('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->floatDiffInRealMonths('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->floatDiffInMonths('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->floatDiffInRealYears('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
