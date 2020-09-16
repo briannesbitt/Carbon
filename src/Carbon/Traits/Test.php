@@ -10,8 +10,6 @@
  */
 namespace Carbon\Traits;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Closure;
 use DateTimeImmutable;
 
@@ -68,11 +66,9 @@ trait Test
      */
     public static function withTestNow($testNow = null, $callback = null)
     {
-        Carbon::setTestNow($testNow);
-        CarbonImmutable::setTestNow($testNow);
+        self::setTestNow($testNow);
         $callback();
-        Carbon::setTestNow();
-        CarbonImmutable::setTestNow();
+        self::setTestNow();
     }
 
     /**
