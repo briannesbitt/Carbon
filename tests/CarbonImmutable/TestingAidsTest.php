@@ -257,4 +257,17 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2018-05-06 05:10:15.000000', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
+
+    public function testWithTestNow()
+    {
+        $self = $this;
+        $test_now = '2020-09-16 10:20:00';
+        Carbon::withTestNow($test_now, static function () use ($self, $test_now) {
+            $current_time = Carbon::now();
+            $self->assertSame($test_now, $current_time->format('Y-m-d H:i:s'));
+        });
+
+        $current_time = Carbon::now();
+        $this->assertNotEquals($test_now, $current_time->format('Y-m-d H:i:s'));
+    }
 }
