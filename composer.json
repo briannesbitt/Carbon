@@ -41,6 +41,7 @@
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.35",
         "phpunit/phpunit": "^7.5 || ^8.0",
+        "povils/phpmnd": "^2.3",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
@@ -71,6 +72,7 @@
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpstan": "phpstan analyse --configuration phpstan.neon",
         "phpmd": "phpmd src text /phpmd.xml",
+        "phpmnd": "phpmnd src/Carbon --exclude=Lang --ansi",
         "phpdoc": "php phpdoc.php"
     },
     "extra": {

@@ -52,8 +52,8 @@ trait Week
     {
         return $this->weekYear(
             $year,
-            $dayOfWeek ?? 1,
-            $dayOfYear ?? 4
+            $dayOfWeek ?? static::MONDAY,
+            $dayOfYear ?? static::THURSDAY
         );
     }
 
@@ -70,7 +70,7 @@ trait Week
      */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
-        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? static::SUNDAY;
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($year !== null) {
@@ -83,13 +83,14 @@ trait Week
             $week = $this->week(null, $dayOfWeek, $dayOfYear);
             $day = $this->dayOfWeek;
             $date = $this->year($year);
+
             switch ($date->weekYear(null, $dayOfWeek, $dayOfYear) - $year) {
                 case 1:
-                    $date = $date->subWeeks(26);
+                    $date = $date->subWeeks(static::WEEKS_PER_YEAR / 2);
 
                     break;
                 case -1:
-                    $date = $date->addWeeks(26);
+                    $date = $date->addWeeks(static::WEEKS_PER_YEAR / 2);
 
                     break;
             }
@@ -133,8 +134,8 @@ trait Week
     public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
         return $this->weeksInYear(
-            $dayOfWeek ?? 1,
-            $dayOfYear ?? 4
+            $dayOfWeek ?? static::MONDAY,
+            $dayOfYear ?? static::THURSDAY
         );
     }
 
@@ -150,7 +151,7 @@ trait Week
      */
     public function weeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
-        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? static::SUNDAY;
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
         $year = $this->year;
         $start = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
@@ -215,8 +216,8 @@ trait Week
     {
         return $this->week(
             $week,
-            $dayOfWeek ?? 1,
-            $dayOfYear ?? 4
+            $dayOfWeek ?? static::MONDAY,
+            $dayOfYear ?? static::THURSDAY
         );
     }
 }

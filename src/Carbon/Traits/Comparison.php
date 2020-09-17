@@ -555,7 +555,7 @@ trait Comparison
      */
     public function isLongYear()
     {
-        return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
+        return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === static::WEEKS_PER_YEAR + 1;
     }
 
     /**
