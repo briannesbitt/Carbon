@@ -22,7 +22,8 @@ trait CarbonTypeConverter
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $precision = ($fieldDeclaration['precision'] ?: 10) === 10
+        $maximum = CarbonDoctrineType::MAXIMUM_PRECISION;
+        $precision = ($fieldDeclaration['precision'] ?: $maximum) === $maximum
             ? DateTimeDefaultPrecision::get()
             : $fieldDeclaration['precision'];
         $type = parent::getSQLDeclaration($fieldDeclaration, $platform);
