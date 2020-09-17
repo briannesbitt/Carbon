@@ -27,7 +27,8 @@ class CarbonTimeZone extends DateTimeZone
     protected static function parseNumericTimezone($timezone)
     {
         if (abs($timezone) > static::MAXIMUM_TIMEZONE_OFFSET) {
-            throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than '.
+            throw new InvalidTimeZoneException(
+                'Absolute timezone offset cannot be greater than '.
                 static::MAXIMUM_TIMEZONE_OFFSET.'.'
             );
         }
