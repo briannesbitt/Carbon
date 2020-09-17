@@ -1877,7 +1877,7 @@ trait Date
     public function meridiem(bool $isLower = false): string
     {
         $hour = $this->hour;
-        $index = $hour < 12 ? 0 : 1;
+        $index = $hour < static::HOURS_PER_DAY / 2 ? 0 : 1;
 
         if ($isLower) {
             $key = 'meridiem.'.($index + 2);

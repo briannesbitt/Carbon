@@ -375,7 +375,7 @@ trait Localization
                 ], $messages, $key) : [],
                 $mode & CarbonInterface::TRANSLATE_MERIDIEM ? array_map(function ($hour) use ($meridiem) {
                     if (is_array($meridiem)) {
-                        return $meridiem[$hour < 12 ? 0 : 1];
+                        return $meridiem[$hour < static::HOURS_PER_DAY / 2 ? 0 : 1];
                     }
 
                     return $meridiem($hour, 0, false);
