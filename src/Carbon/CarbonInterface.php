@@ -2123,10 +2123,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns raw translation message for a given key.
      *
-     * @param TranslatorInterface $translator the translator to use
-     * @param string              $key        key to find
-     * @param string|null         $locale     current locale used if null
-     * @param string|null         $default    default value if translation returns the key
+     * @param TranslatorInterface|null $translator the translator to use
+     * @param string                   $key        key to find
+     * @param string|null              $locale     current locale used if null
+     * @param string|null              $default    default value if translation returns the key
      *
      * @return string|Closure|null
      */
