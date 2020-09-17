@@ -267,7 +267,7 @@ class TestingAidsTest extends AbstractTestCase
             $self->assertSame($testNow, $currentTime->format('Y-m-d H:i:s'));
         });
 
-        $current_time = Carbon::now();
-        $this->assertNotEquals($testNow, $current_time->format('Y-m-d H:i:s'));
+        $currentTime = Carbon::now();
+        $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
 }
