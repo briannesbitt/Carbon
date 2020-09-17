@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
 
 /**
  * Trait Week.
@@ -85,11 +86,11 @@ trait Week
             $date = $this->year($year);
 
             switch ($date->weekYear(null, $dayOfWeek, $dayOfYear) - $year) {
-                case 1:
+                case CarbonInterval::POSITIVE:
                     $date = $date->subWeeks(static::WEEKS_PER_YEAR / 2);
 
                     break;
-                case -1:
+                case CarbonInterval::NEGATIVE:
                     $date = $date->addWeeks(static::WEEKS_PER_YEAR / 2);
 
                     break;

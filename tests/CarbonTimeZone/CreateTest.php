@@ -46,7 +46,7 @@ class CreateTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Absolute timezone offset cannot be greater than 100.'
+            'Absolute timezone offset cannot be greater than 99.'
         );
 
         new CarbonTimeZone(-15e15);

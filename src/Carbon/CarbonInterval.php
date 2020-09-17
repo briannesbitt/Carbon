@@ -175,6 +175,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public const NO_LIMIT = -1;
 
+    public const POSITIVE = 1;
+    public const NEGATIVE = -1;
+
     /**
      * Interval spec period designators
      */
@@ -186,6 +189,19 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public const PERIOD_HOURS = 'H';
     public const PERIOD_MINUTES = 'M';
     public const PERIOD_SECONDS = 'S';
+
+    public const SPECIAL_TRANSLATIONS = [
+        1 => [
+            'option' => CarbonInterface::ONE_DAY_WORDS,
+            'future' => 'diff_tomorrow',
+            'past' => 'diff_yesterday',
+        ],
+        2 => [
+            'option' => CarbonInterface::TWO_DAY_WORDS,
+            'future' => 'diff_after_tomorrow',
+            'past' => 'diff_before_yesterday',
+        ],
+    ];
 
     /**
      * A translator to ... er ... translate stuff
@@ -1717,17 +1733,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         if ($parts === 1) {
             if ($relativeToNow && $unit === 'day') {
-                if ($count === 1 && $options & CarbonInterface::ONE_DAY_WORDS) {
-                    $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
-                    $translation = $this->translate($key, $interpolations, null, $translator);
+                $specialTranslations = static::SPECIAL_TRANSLATIONS[$count] ?? null;
 
-                    if ($translation !== $key) {
-                        return $translation;
-                    }
-                }
-
-                if ($count === 2 && $options & CarbonInterface::TWO_DAY_WORDS) {
-                    $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
+                if ($specialTranslations && $options & $specialTranslations['option']) {
+                    $key = $specialTranslations[$isFuture ? 'future' : 'past'];
                     $translation = $this->translate($key, $interpolations, null, $translator);
 
                     if ($translation !== $key) {
@@ -1829,13 +1838,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected function solveNegativeInterval()
     {
         if (!$this->isEmpty() && $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0) {
-            $this->years *= -1;
-            $this->months *= -1;
-            $this->dayz *= -1;
-            $this->hours *= -1;
-            $this->minutes *= -1;
-            $this->seconds *= -1;
-            $this->microseconds *= -1;
+            $this->years *= self::NEGATIVE;
+            $this->months *= self::NEGATIVE;
+            $this->dayz *= self::NEGATIVE;
+            $this->hours *= self::NEGATIVE;
+            $this->minutes *= self::NEGATIVE;
+            $this->seconds *= self::NEGATIVE;
+            $this->microseconds *= self::NEGATIVE;
             $this->invert();
         }
 
@@ -1871,7 +1880,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $interval->times($value);
         }
 
-        $sign = ($this->invert === 1) !== ($interval->invert === 1) ? -1 : 1;
+        $sign = ($this->invert === 1) !== ($interval->invert === 1) ? self::NEGATIVE : self::POSITIVE;
         $this->years += $interval->y * $sign;
         $this->months += $interval->m * $sign;
         $this->dayz += ($interval->days === false ? $interval->d : $interval->days) * $sign;
@@ -2086,14 +2095,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $passed = $current->copy()->add($second);
         $current->add($first);
 
-        if ($current < $passed) {
-            return -1;
-        }
-        if ($current > $passed) {
-            return 1;
-        }
-
-        return 0;
+        return $current <=> $passed;
     }
 
     /**
@@ -2230,7 +2232,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         if ($this->invert) {
-            $result *= -1;
+            $result *= self::NEGATIVE;
         }
 
         if ($unit === 'weeks') {
@@ -2680,7 +2682,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return;
         }
 
-        $this->f *= -1;
+        $this->f *= self::NEGATIVE;
         $this->invert();
     }
 
@@ -2741,7 +2743,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
             if ($from->$unit < 0) {
-                $to->$unit *= -1;
+                $to->$unit *= self::NEGATIVE;
             }
         }
     }

@@ -17,6 +17,8 @@ use DateTimeZone;
 
 class CarbonTimeZone extends DateTimeZone
 {
+    public const MAXIMUM_TIMEZONE_OFFSET = 99;
+
     public function __construct($timezone = null)
     {
         parent::__construct(static::getDateTimeZoneNameFromMixed($timezone));
@@ -24,8 +26,10 @@ class CarbonTimeZone extends DateTimeZone
 
     protected static function parseNumericTimezone($timezone)
     {
-        if ($timezone <= -100 || $timezone >= 100) {
-            throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than 100.');
+        if (abs($timezone) > static::MAXIMUM_TIMEZONE_OFFSET) {
+            throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than '.
+                static::MAXIMUM_TIMEZONE_OFFSET.'.'
+            );
         }
 
         return ($timezone >= 0 ? '+' : '').$timezone.':00';

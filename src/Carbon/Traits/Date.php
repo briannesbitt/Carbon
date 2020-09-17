@@ -884,7 +884,7 @@ trait Date
 
             // @property-read int 365 or 366
             case $name === 'daysInYear':
-                return $this->isLeapYear() ? 366 : 365;
+                return static::DAYS_PER_YEAR + ($this->isLeapYear() ? 1 : 0);
 
             // @property int does a diffInYears() with default parameters
             case $name === 'age':
