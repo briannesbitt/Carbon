@@ -3006,13 +3006,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function max($date = null);
 
     /**
-     * Create a Carbon instance for the greatest supported date.
-     *
-     * @return static
-     */
-    public static function maxValue();
-
-    /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
@@ -3047,13 +3040,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static
      */
     public function min($date = null);
-
-    /**
-     * Create a Carbon instance for the lowest supported date.
-     *
-     * @return static
-     */
-    public static function minValue();
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.

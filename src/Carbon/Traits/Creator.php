@@ -287,38 +287,6 @@ trait Creator
         return static::rawParse('yesterday', $tz);
     }
 
-    /**
-     * Create a Carbon instance for the greatest supported date.
-     *
-     * @return static
-     */
-    public static function maxValue()
-    {
-        if (self::$PHPIntSize === 4) {
-            // 32 bit
-            return static::createFromTimestamp(PHP_INT_MAX); // @codeCoverageIgnore
-        }
-
-        // 64 bit
-        return static::create(9999, 12, 31, 23, 59, 59);
-    }
-
-    /**
-     * Create a Carbon instance for the lowest supported date.
-     *
-     * @return static
-     */
-    public static function minValue()
-    {
-        if (self::$PHPIntSize === 4) {
-            // 32 bit
-            return static::createFromTimestamp(~PHP_INT_MAX); // @codeCoverageIgnore
-        }
-
-        // 64 bit
-        return static::create(1, 1, 1, 0, 0, 0);
-    }
-
     private static function assertBetween($unit, $value, $min, $max)
     {
         if (static::isStrictModeEnabled() && ($value < $min || $value > $max)) {

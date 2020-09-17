@@ -27,13 +27,6 @@ trait Options
     use Localization;
 
     /**
-     * Customizable PHP_INT_SIZE override.
-     *
-     * @var int
-     */
-    public static $PHPIntSize = PHP_INT_SIZE;
-
-    /**
      * Days of weekend.
      *
      * @var array
