@@ -564,7 +564,7 @@ trait Creator
         }
 
         $tz = is_int($originalTz)
-            ? @timezone_name_from_abbr('', (int) ($originalTz * 3600), 1)
+            ? @timezone_name_from_abbr('', (int) ($originalTz * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE), 1)
             : $originalTz;
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
