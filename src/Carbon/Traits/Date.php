@@ -905,6 +905,7 @@ trait Date
             case $name === 'century':
                 $factor = 1;
                 $year = $this->year;
+
                 if ($year < 0) {
                     $year = -$year;
                     $factor = -1;
@@ -917,6 +918,7 @@ trait Date
             case $name === 'millennium':
                 $factor = 1;
                 $year = $this->year;
+
                 if ($year < 0) {
                     $year = -$year;
                     $factor = -1;

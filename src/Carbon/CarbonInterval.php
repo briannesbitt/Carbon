@@ -169,16 +169,23 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     use Options;
 
     /**
+     * Unlimited parts for forHumans() method.
+     *
+     * INF constant can be used instead.
+     */
+    public const NO_LIMIT = -1;
+
+    /**
      * Interval spec period designators
      */
-    const PERIOD_PREFIX = 'P';
-    const PERIOD_YEARS = 'Y';
-    const PERIOD_MONTHS = 'M';
-    const PERIOD_DAYS = 'D';
-    const PERIOD_TIME_PREFIX = 'T';
-    const PERIOD_HOURS = 'H';
-    const PERIOD_MINUTES = 'M';
-    const PERIOD_SECONDS = 'S';
+    public const PERIOD_PREFIX = 'P';
+    public const PERIOD_YEARS = 'Y';
+    public const PERIOD_MONTHS = 'M';
+    public const PERIOD_DAYS = 'D';
+    public const PERIOD_TIME_PREFIX = 'T';
+    public const PERIOD_HOURS = 'H';
+    public const PERIOD_MINUTES = 'M';
+    public const PERIOD_SECONDS = 'S';
 
     /**
      * A translator to ... er ... translate stuff
@@ -1373,7 +1380,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return array
      */
-    protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
+    protected function getForHumansParameters($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null)
     {
         $optionalSpace = ' ';
         $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
@@ -1387,7 +1394,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
         }
 
-        if ($parts === -1) {
+        if ($parts === self::NO_LIMIT) {
             $parts = INF;
         }
 
@@ -1572,7 +1579,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
+    public function forHumans($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null)
     {
         [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 

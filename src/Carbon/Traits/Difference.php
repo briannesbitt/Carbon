@@ -737,7 +737,7 @@ trait Difference
         return $this->diffForHumans($other, [
             'join' => ', ',
             'syntax' => CarbonInterface::DIFF_ABSOLUTE,
-            'parts' => -1,
+            'parts' => INF,
         ]);
     }
 
