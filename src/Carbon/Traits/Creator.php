@@ -659,6 +659,10 @@ trait Creator
         $function = static::$createFromFormatFunction;
 
         if (!$function) {
+            if ($format === 'Y-m-d H:i:s.u' && strstr($time, '.') == null )
+            {
+                $time .= '.000';
+            }
             return static::rawCreateFromFormat($format, $time, $tz);
         }
 
