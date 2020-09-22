@@ -226,7 +226,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        '1 sekund sidan',
+        '1s sidan',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
@@ -234,7 +234,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
-        '2 sekund sidan',
+        '2s sidan',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
@@ -242,7 +242,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        '1 minutt sidan',
+        '1m sidan',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
@@ -250,7 +250,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
-        '2 minutt sidan',
+        '2m sidan',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
@@ -258,7 +258,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        '1 time sidan',
+        '1t sidan',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
@@ -266,7 +266,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
-        '2 timar sidan',
+        '2t sidan',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
@@ -274,7 +274,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago'
-        '1 dag sidan',
+        '1d sidan',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
@@ -282,7 +282,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago'
-        '2 dagar sidan',
+        '2d sidan',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago'
@@ -290,7 +290,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         // '1w ago'
-        '1 veke sidan',
+        '1v sidan',
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago'
@@ -298,7 +298,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago'
-        '2 veker sidan',
+        '2v sidan',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago'
@@ -306,7 +306,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        '1 månad sidan',
+        '1 md sidan',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
@@ -314,7 +314,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
-        '2 månader sidan',
+        '2 md sidan',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
@@ -338,7 +338,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        'om 1 sekund',
+        'om 1s',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
@@ -346,7 +346,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        '1 sekund etter',
+        '1s etter',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
@@ -354,7 +354,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 sekund før',
+        '1s før',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
@@ -362,7 +362,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1 sekund',
+        '1s',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
@@ -370,11 +370,11 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2 sekund',
+        '2s',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        'om 1 sekund',
+        'om 1s',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
@@ -382,7 +382,7 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 år 3 månader 1 dag 1 sekund',
+        '2 år 3 md 1d 1s',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -390,11 +390,11 @@ class NnNoTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        '5 månader sidan',
+        '5 md sidan',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        '2 år 3 månader 1 dag 1 sekund sidan',
+        '2 år 3 md 1d 1s sidan',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -426,6 +426,6 @@ class NnNoTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1 dag 3 timar',
+        '1d 3t',
     ];
 }
