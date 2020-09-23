@@ -15,24 +15,34 @@
  * - Alexander Tømmerås
  * - Øystein
  * - JD Isaacks
+ * - Gaute Hvoslef Kvalnes (gaute)
  */
 return [
-    'year' => ':count år|:count år',
+    'year' => ':count år',
     'a_year' => 'eit år|:count år',
+    'y' => ':count år',
     'month' => ':count månad|:count månader',
     'a_month' => 'ein månad|:count månader',
-    'week' => ':count uke|:count uker',
-    'a_week' => 'eit uke|:count uker',
+    'm' => ':count md',
+    'week' => ':count veke|:count veker',
+    'a_week' => 'ei veke|:count veker',
+    'w' => ':countv',
     'day' => ':count dag|:count dagar',
     'a_day' => 'ein dag|:count dagar',
+    'd' => ':countd',
     'hour' => ':count time|:count timar',
     'a_hour' => 'ein time|:count timar',
+    'h' => ':countt',
     'minute' => ':count minutt',
     'a_minute' => 'eit minutt|:count minutt',
+    'min' => ':countm',
     'second' => ':count sekund',
     'a_second' => 'nokre sekund|:count sekund',
+    's' => ':counts',
     'ago' => ':time sidan',
     'from_now' => 'om :time',
+    'after' => ':time etter',
+    'before' => ':time før',
     'diff_today' => 'I dag',
     'diff_yesterday' => 'I går',
     'diff_yesterday_regexp' => 'I går(?:\\s+klokka)?',
