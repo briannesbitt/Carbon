@@ -55,6 +55,26 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($d);
     }
 
+    /**
+     * Work-around for https://bugs.php.net/bug.php?id=80141
+     */
+    public function testCFormat()
+    {
+        $d = Carbon::createFromFormat('c', Carbon::parse('2020-02-02')->format('c'));
+        $this->assertCarbon($d, 2020, 2, 2, 0, 0, 0, 0);
+        $d = Carbon::createFromFormat('c', '2020-02-02T23:45:12+09:00');
+        $this->assertSame('+09:00', $d->tzName);
+        $this->assertCarbon($d, 2020, 2, 2, 23, 45, 12, 0);
+        $d = Carbon::createFromFormat('l c', 'Sunday 2020-02-02T23:45:12+09:00');
+        $this->assertSame('+09:00', $d->tzName);
+        $this->assertCarbon($d, 2020, 2, 2, 23, 45, 12, 0);
+        $d = Carbon::createFromFormat('l \\\\c', 'Sunday \\2020-02-02T23:45:12+09:00');
+        $this->assertSame('+09:00', $d->tzName);
+        $this->assertCarbon($d, 2020, 2, 2, 23, 45, 12, 0);
+        $d = Carbon::createFromFormat('Y-m-d\\cH:i:s', '2020-02-02c23:45:12');
+        $this->assertCarbon($d, 2020, 2, 2, 23, 45, 12, 0);
+    }
+
     public function testCreateFromFormatWithMillisecondsAlone()
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s.v', '1975-05-21 22:32:11.321');
