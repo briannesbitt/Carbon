@@ -531,6 +531,7 @@ trait Date
     use Creator;
     use Difference;
     use Macro;
+    use Microtime;
     use Modifiers;
     use Mutability;
     use ObjectInitialisation;
