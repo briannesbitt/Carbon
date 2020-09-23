@@ -12,7 +12,6 @@ use Tests\AbstractTestCase;
 
 class CreateFromMicrotimeTest extends AbstractTestCase
 {
-
     public function testCreateFromMicrotimeFloat()
     {
         $microtime = 1600887164.889500;

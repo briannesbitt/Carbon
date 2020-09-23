@@ -9,9 +9,10 @@ trait Microtime
 {
     /**
      * Create a Carbon instance from a microtime as float, format XXXXXXXXXX.XXXX.
-     * 
+     *
      * @param float $microtime
      * @param \DateTimeZone|string|null $tz
+     *
      * @return Carbon
      */
     public static function createFromMicrotimeFloat(float $microtime, $tz = null)
@@ -22,9 +23,10 @@ trait Microtime
 
     /**
      * Create a Carbon instance from a microtime as string, format X.XXXXXXXX XXXXXXXXXX.
-     * 
+     *
      * @param string $microtime
      * @param \DateTimeZone|string|null $tz
+     *
      * @return Carbon
      */
     public static function createFromMicrotimeWhitespace(string $microtime, $tz = null)

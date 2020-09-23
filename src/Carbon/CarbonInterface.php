@@ -1165,22 +1165,24 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Create a Carbon instance from a microtime as float, format XXXXXXXXXX.XXXX.
-     * 
+     *
      * @param float $microtime
      * @param \DateTimeZone|string|null $tz
+     *
      * @return static
      */
     public static function createFromMicrotimeFloat(float $microtime, $tz = null);
 
     /**
      * Create a Carbon instance from a microtime as string, format X.XXXXXXXX XXXXXXXXXX.
-     * 
+     *
      * @param string $microtime
      * @param \DateTimeZone|string|null $tz
+     *
      * @return static
      */
     public static function createFromMicrotimeWhitespace(string $microtime, $tz = null);
-    
+
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.
      *
