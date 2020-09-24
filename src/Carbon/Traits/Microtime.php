@@ -13,7 +13,7 @@ trait Microtime
      * @param float $microtime
      * @param \DateTimeZone|string|null $tz
      *
-     * @return Carbon
+     * @return static
      */
     public static function createFromMicrotimeFloat(float $microtime, $tz = null)
     {
@@ -27,7 +27,7 @@ trait Microtime
      * @param string $microtime
      * @param \DateTimeZone|string|null $tz
      *
-     * @return Carbon
+     * @return static
      */
     public static function createFromMicrotimeWhitespace(string $microtime, $tz = null)
     {
