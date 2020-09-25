@@ -14,6 +14,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Carbon\Translator;
 use Tests\AbstractTestCase;
+use Tests\Carbon\Fixtures\DumpCarbon;
 
 class ArraysTest extends AbstractTestCase
 {
@@ -89,5 +90,11 @@ class ArraysTest extends AbstractTestCase
             'date' => '2019-04-09 11:10:10.667952',
             'timezone' => 'America/Toronto',
         ], $debug);
+    }
+
+    public function testDebuggingUninitializedInstances()
+    {
+        $date = new DumpCarbon();
+        $this->assertStringContainsString(DumpCarbon::class, $date->getDump());
     }
 }
