@@ -12,6 +12,7 @@ namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
+use Throwable;
 
 /**
  * Trait Options.
@@ -423,9 +424,16 @@ trait Options
             }
         }
 
-        // @codeCoverageIgnoreStart
-
         if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {
+            $this->addDateAndTimezoneToArray($infos);
+        }
+
+        return $infos;
+    }
+
+    private function addDateAndTimezoneToArray(&$infos): void
+    {
+        try {
             if (!isset($infos['date'])) {
                 $infos['date'] = $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
             }
@@ -433,10 +441,8 @@ trait Options
             if (!isset($infos['timezone'])) {
                 $infos['timezone'] = $this->tzName;
             }
+        } catch (Throwable $exception) {
+            // noop
         }
-
-        // @codeCoverageIgnoreEnd
-
-        return $infos;
     }
 }
