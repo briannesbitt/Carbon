@@ -82,7 +82,7 @@ use Carbon\Carbon;
 printf("Now: %s", Carbon::now());
 ```
 
-<a name="install-nocomposer"/>
+<a name="install-nocomposer"></a>
 
 ### Without Composer
 
