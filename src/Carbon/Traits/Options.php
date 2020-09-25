@@ -424,25 +424,25 @@ trait Options
             }
         }
 
-        if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {
-            $this->addDateAndTimezoneToArray($infos);
-        }
+        $this->addExtraDebugInfos($infos);
 
         return $infos;
     }
 
-    private function addDateAndTimezoneToArray(&$infos): void
+    protected function addExtraDebugInfos(&$infos): void
     {
-        try {
-            if (!isset($infos['date'])) {
-                $infos['date'] = $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
-            }
+        if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {
+            try {
+                if (!isset($infos['date'])) {
+                    $infos['date'] = $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
+                }
 
-            if (!isset($infos['timezone'])) {
-                $infos['timezone'] = $this->tzName;
+                if (!isset($infos['timezone'])) {
+                    $infos['timezone'] = $this->tzName;
+                }
+            } catch (Throwable $exception) {
+                // noop
             }
-        } catch (Throwable $exception) {
-            // noop
         }
     }
 }
