@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+//declare(strict_types=1);
 
 /**
  * @author userator
@@ -16,14 +16,17 @@ class CreateFromMicrotimeTest extends AbstractTestCase
     {
         $microtime = 1600887164.889500;
         $d = Carbon::createFromMicrotimeFloat($microtime);
-        $this->assertSame(number_format($microtime, 6, '.', ''), $d->format('U.u'));
+        $this->assertSame('1600887164.889500', $d->format('U.u'));
+
+        $microtime = '1600887164.889522';
+        $d = Carbon::createFromMicrotimeFloat($microtime);
+        $this->assertSame($microtime, $d->format('U.u'));
     }
 
     public function testCreateFromMicrotimeWhitespace()
     {
-        $microtime = '0.88950000 1600887164';
+        $microtime = '0.88951247 1600887164';
         $d = Carbon::createFromMicrotimeWhitespace($microtime);
-        $parts = explode(' ', $microtime);
-        $this->assertSame(number_format(intval($parts[1]) + floatval($parts[0]), 6, '.', ''), $d->format('U.u'));
+        $this->assertSame('1600887164.889512', $d->format('U.u'));
     }
 }

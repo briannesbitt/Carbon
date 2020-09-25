@@ -31,7 +31,7 @@ trait Microtime
      */
     public static function createFromMicrotimeWhitespace(string $microtime, $tz = null)
     {
-        return static::rawCreateFromFormat('0.u00 U', $microtime)
+        return static::rawCreateFromFormat('0.u?? U', $microtime)
                 ->setTimezone($tz);
     }
 }
