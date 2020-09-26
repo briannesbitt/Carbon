@@ -531,7 +531,6 @@ trait Date
     use Creator;
     use Difference;
     use Macro;
-    use Microtime;
     use Modifiers;
     use Mutability;
     use ObjectInitialisation;
@@ -1145,7 +1144,7 @@ trait Date
                 return $this;
 
             case 'timestamp':
-                parent::setTimestamp((int) $value);
+                $this->timestamp($value);
 
                 break;
 

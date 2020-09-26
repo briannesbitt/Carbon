@@ -139,4 +139,52 @@ class CreateFromTimestampTest extends AbstractTestCase
             Carbon::createFromTimestampMs(1572757200000 + 3600000, 'America/New_York')->toIso8601String()
         );
     }
+
+    public function testCreateFromMicrotimeFloat()
+    {
+        $microtime = 1600887164.88952298;
+        $d = Carbon::createFromTimestamp($microtime);
+        $this->assertSame('America/Toronto', $d->tzName);
+        $this->assertSame('2020-09-23 14:52:44.889523', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887164.889523', $d->format('U.u'));
+    }
+
+    public function testCreateFromMicrotimeWhitespace()
+    {
+        $microtime = '0.88951247 1600887164';
+        $d = Carbon::createFromTimestamp($microtime);
+        $this->assertSame('America/Toronto', $d->tzName);
+        $this->assertSame('2020-09-23 14:52:44.889512', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887164.889512', $d->format('U.u'));
+
+        $microtime = '0.88951247/1600887164/12.56';
+        $d = Carbon::createFromTimestamp($microtime);
+        $this->assertSame('America/Toronto', $d->tzName);
+        $this->assertSame('2020-09-23 14:52:57.449512', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887177.449512', $d->format('U.u'));
+    }
+
+    public function testCreateFromMicrotimeUTCFloat()
+    {
+        $microtime = 1600887164.88952298;
+        $d = Carbon::createFromTimestampUTC($microtime);
+        $this->assertSame('+00:00', $d->tzName);
+        $this->assertSame('2020-09-23 18:52:44.889523', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887164.889523', $d->format('U.u'));
+    }
+
+    public function testCreateFromMicrotimeUTCWhitespace()
+    {
+        $microtime = '0.88951247 1600887164';
+        $d = Carbon::createFromTimestampUTC($microtime);
+        $this->assertSame('+00:00', $d->tzName);
+        $this->assertSame('2020-09-23 18:52:44.889512', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887164.889512', $d->format('U.u'));
+
+        $microtime = '0.88951247/1600887164/12.56';
+        $d = Carbon::createFromTimestampUTC($microtime);
+        $this->assertSame('+00:00', $d->tzName);
+        $this->assertSame('2020-09-23 18:52:57.449512', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887177.449512', $d->format('U.u'));
+    }
 }

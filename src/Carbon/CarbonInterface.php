@@ -599,6 +599,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
+     * Above this limit timestamp will be considered in milliseconds.
+     *
+     * The limit is set to ~10 000 years so, 1st January 11970.
+     *
+     * Timestamp is considered unreliable way before reaching this limit
+     */
+    public const TIMESTAMP_MAX_VALUE = 315360000000;
+
+    /**
      * Special settings to get the start of week from current locale culture.
      */
     public const WEEK_DAY_AUTO = 'auto';
@@ -1164,24 +1173,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function createFromTimestampUTC($timestamp);
 
     /**
-     * Create a Carbon instance from a microtime as float, format XXXXXXXXXX.XXXX.
+     * Create a Carbon instance from a microtime as float or string,
+     * format XXXXXXXXXX.XXXX or X.XXXXXXXX XXXXXXXXXX.
      *
-     * @param float $microtime
+     * @param float|int|string          $microtime
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
-    public static function createFromMicrotimeFloat(float $microtime, $tz = null);
-
-    /**
-     * Create a Carbon instance from a microtime as string, format X.XXXXXXXX XXXXXXXXXX.
-     *
-     * @param string $microtime
-     * @param \DateTimeZone|string|null $tz
-     *
-     * @return static
-     */
-    public static function createFromMicrotimeWhitespace(string $microtime, $tz = null);
+    public static function createFromMicrotime($microtime, $tz = null);
 
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.

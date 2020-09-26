@@ -119,5 +119,14 @@ class FluidSettersTest extends AbstractTestCase
         $d = Carbon::now();
         $this->assertInstanceOfCarbon($d->timestamp(10));
         $this->assertSame(10, $d->timestamp);
+
+        $this->assertInstanceOfCarbon($d->timestamp(1600887164.88952298));
+        $this->assertSame('2020-09-23 14:52:44.889523', $d->format('Y-m-d H:i:s.u'));
+
+        $this->assertInstanceOfCarbon($d->timestamp('0.88951247 1600887164'));
+        $this->assertSame('2020-09-23 14:52:44.889512', $d->format('Y-m-d H:i:s.u'));
+
+        $this->assertInstanceOfCarbon($d->timestamp('0.88951247/1600887164/12.56'));
+        $this->assertSame('2020-09-23 14:52:57.449512', $d->format('Y-m-d H:i:s.u'));
     }
 }
