@@ -18,6 +18,8 @@ trait Timestamp
     /**
      * Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
      *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
@@ -31,6 +33,8 @@ trait Timestamp
     /**
      * Create a Carbon instance from an timestamp keeping the timezone to UTC.
      *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
      * @param float|int|string $timestamp
      *
      * @return static
@@ -42,6 +46,8 @@ trait Timestamp
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
+     *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
@@ -60,6 +66,8 @@ trait Timestamp
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
      *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
@@ -72,22 +80,9 @@ trait Timestamp
     }
 
     /**
-     * Create a Carbon instance from a microtime as int, float or a string containing
-     * numbers.
-     *
-     * @param float|int|string          $microtime
-     * @param \DateTimeZone|string|null $tz
-     *
-     * @return static
-     */
-    public static function createFromMicrotime($microtime, $tz = null)
-    {
-        return static::rawCreateFromFormat('U.u', self::formatNumber($microtime))
-            ->setTimezone($tz);
-    }
-
-    /**
      * Set the instance's timestamp.
+     *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
      * @param float|int|string $value
      *

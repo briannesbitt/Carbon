@@ -599,15 +599,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
-     * Above this limit timestamp will be considered in milliseconds.
-     *
-     * The limit is set to ~10 000 years so, 1st January 11970.
-     *
-     * Timestamp is considered unreliable way before reaching this limit
-     */
-    public const TIMESTAMP_MAX_VALUE = 315360000000;
-
-    /**
      * Special settings to get the start of week from current locale culture.
      */
     public const WEEK_DAY_AUTO = 'auto';
@@ -1144,9 +1135,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function createFromTimeString($time, $tz = null);
 
     /**
-     * Create a Carbon instance from a timestamp.
+     * Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
      *
-     * @param int                       $timestamp
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -1156,7 +1149,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
      *
-     * @param float                     $timestamp
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -1164,24 +1159,27 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function createFromTimestampMs($timestamp, $tz = null);
 
     /**
-     * Create a Carbon instance from an UTC timestamp.
+     * Create a Carbon instance from a timestamp in milliseconds.
      *
-     * @param int $timestamp
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @return static
-     */
-    public static function createFromTimestampUTC($timestamp);
-
-    /**
-     * Create a Carbon instance from a microtime as float or string,
-     * format XXXXXXXXXX.XXXX or X.XXXXXXXX XXXXXXXXXX.
-     *
-     * @param float|int|string          $microtime
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
-    public static function createFromMicrotime($microtime, $tz = null);
+    public static function createFromTimestampMsUTC($timestamp);
+
+    /**
+     * Create a Carbon instance from an timestamp keeping the timezone to UTC.
+     *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string $timestamp
+     *
+     * @return static
+     */
+    public static function createFromTimestampUTC($timestamp);
 
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.
@@ -4214,7 +4212,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the instance's timestamp.
      *
-     * @param int $value
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string $value
      *
      * @return static
      */
