@@ -84,13 +84,13 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string $value
+     * @param float|int|string $unixTimestamp
      *
      * @return static
      */
-    public function timestamp($value)
+    public function timestamp($unixTimestamp)
     {
-        [$timestamp, $microseconds] = self::getNumberIntegerAndDecimalParts($value);
+        [$timestamp, $microseconds] = self::getNumberIntegerAndDecimalParts($unixTimestamp);
 
         return $this->setTimestamp((int) $timestamp)->setMicroseconds((int) $microseconds);
     }

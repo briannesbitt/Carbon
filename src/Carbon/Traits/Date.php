@@ -1141,7 +1141,7 @@ trait Date
             case 'dayOfYear':
                 $this->addDays($value - $this->dayOfYear);
 
-                return $this;
+                break;
 
             case 'timestamp':
                 $this->timestamp($value);
@@ -1455,17 +1455,19 @@ trait Date
     }
 
     /**
-     * Sets the date and time based on an Unix timestamp.
+     * Set the instance's timestamp.
      *
-     * @see https://php.net/manual/en/datetime.settimestamp.php
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param int $unixtimestamp
+     * @param float|int|string $unixTimestamp
      *
      * @return static
      */
-    public function setTimestamp($unixtimestamp)
+    public function setTimestamp($unixTimestamp)
     {
-        return parent::setTimestamp((int) $unixtimestamp);
+        [$timestamp, $microseconds] = self::getNumberIntegerAndDecimalParts($unixTimestamp);
+
+        return parent::setTimestamp((int) $timestamp)->setMicroseconds((int) $microseconds);
     }
 
     /**

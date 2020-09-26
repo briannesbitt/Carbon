@@ -3804,15 +3804,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function setTimeFromTimeString($time);
 
     /**
-     * Sets the date and time based on an Unix timestamp.
+     * Set the instance's timestamp.
      *
-     * @see https://php.net/manual/en/datetime.settimestamp.php
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param int $unixtimestamp
+     * @param float|int|string $unixTimestamp
      *
      * @return static
      */
-    public function setTimestamp($unixtimestamp);
+    public function setTimestamp($unixTimestamp);
 
     /**
      * Set the instance's timezone from a string or object.
@@ -4214,11 +4214,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string $value
+     * @param float|int|string $unixTimestamp
      *
      * @return static
      */
-    public function timestamp($value);
+    public function timestamp($unixTimestamp);
 
     /**
      * @alias setTimezone
