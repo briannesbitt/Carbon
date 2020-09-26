@@ -90,9 +90,7 @@ trait Timestamp
      */
     public function timestamp($unixTimestamp)
     {
-        [$timestamp, $microseconds] = self::getNumberIntegerAndDecimalParts($unixTimestamp);
-
-        return $this->setTimestamp((int) $timestamp)->setMicroseconds((int) $microseconds);
+        return $this->setTimestamp($unixTimestamp);
     }
 
     /**

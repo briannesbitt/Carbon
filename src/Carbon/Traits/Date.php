@@ -1144,7 +1144,7 @@ trait Date
                 break;
 
             case 'timestamp':
-                $this->timestamp($value);
+                $this->setTimestamp($value);
 
                 break;
 
