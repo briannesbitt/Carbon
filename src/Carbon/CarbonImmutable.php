@@ -29,7 +29,7 @@ use DateTimeZone;
  * @property      int                          $second
  * @property      int                          $micro
  * @property      int                          $microsecond
- * @property      int                          $timestamp                                                                           seconds since the Unix Epoch
+ * @property      int|float|string             $timestamp                                                                           seconds since the Unix Epoch
  * @property      string                       $englishDayOfWeek                                                                    the day of week in English
  * @property      string                       $shortEnglishDayOfWeek                                                               the abbreviated day of week in English
  * @property      string                       $englishMonth                                                                        the month in English

@@ -49,8 +49,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string          $timestamp
-     * @param \DateTimeZone|string|null $tz
+     * @param float|int|string $timestamp
      *
      * @return static
      */
