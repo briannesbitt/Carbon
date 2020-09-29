@@ -41,7 +41,15 @@ trait Timestamp
      */
     public static function createFromTimestampUTC($timestamp)
     {
-        return static::rawCreateFromFormat('U.u', self::formatNumber($timestamp));
+        [$integer, $decimal] = self::getIntegerAndDecimalPartsFromString($timestamp);
+        $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
+
+        if ($delta < 0 || $delta >= 1) {
+            $integer += $delta;
+            $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
+        }
+
+        return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
 
     /**
@@ -138,8 +146,8 @@ trait Timestamp
     }
 
     /**
-     * Return an array with integer part digits and decimals digits split from one or more numbers
-     * (such as timestamps) as float, int or string with the given number of decimals (6 by default).
+     * Return an array with integer part digits and decimals digits split from one or more positive numbers
+     * (such as timestamps) as string with the given number of decimals (6 by default).
      *
      * By splitting integer and decimal, this method obtain a better precision than
      * number_format when the input is a string.
@@ -149,29 +157,9 @@ trait Timestamp
      *
      * @return array 0-index is integer part, 1-index is decimal part digits
      */
-    private static function getNumberIntegerAndDecimalParts($numbers, $decimals = 6)
-    {
-        if (is_float($numbers) || is_int($numbers)) {
-            return explode('.', number_format($numbers, $decimals, '.', ''));
-        }
-
-        return self::getIntegerAndDecimalPartsFromString($numbers, $decimals);
-    }
-
-    /**
-     * Return an array with integer part digits and decimals digits split from one or more numbers
-     * (such as timestamps) as string with the given number of decimals (6 by default).
-     *
-     * By splitting integer and decimal, this method obtain a better precision than
-     * number_format when the input is a string.
-     *
-     * @param string $numbers  one or more numbers
-     * @param int    $decimals number of decimals precision (6 by default)
-     *
-     * @return array 0-index is integer part, 1-index is decimal part digits
-     */
     private static function getIntegerAndDecimalPartsFromString($numbers, $decimals = 6)
     {
+        $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
         $integer = 0;
         $decimal = 0;
 
@@ -186,29 +174,6 @@ trait Timestamp
         $integer += $overflow;
         $decimal -= $overflow;
 
-        return [$integer, round($decimal * pow(10, $decimals))];
-    }
-
-    /**
-     * Return a string representation of one or more numbers (such as timestamps)
-     * with the given number of decimals (6 by default).
-     *
-     * By splitting integer and decimal, this method obtain a better precision than
-     * number_format when the input is a string.
-     *
-     * @param float|int|string $numbers  one or more numbers
-     * @param int              $decimals number of decimals precision (6 by default)
-     *
-     * @return string
-     */
-    private static function formatNumber($numbers, $decimals = 6)
-    {
-        if (is_float($numbers) || is_int($numbers)) {
-            return number_format($numbers, $decimals, '.', '');
-        }
-
-        [$integer, $decimal] = self::getIntegerAndDecimalPartsFromString($numbers, $decimals);
-
-        return "$integer.".str_pad($decimal, $decimals, '0', STR_PAD_LEFT);
+        return [$sign * $integer, $sign * round($decimal * pow(10, $decimals))];
     }
 }

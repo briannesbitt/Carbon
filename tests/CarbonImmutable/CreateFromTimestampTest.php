@@ -179,7 +179,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('1600887164.889523', $d->format('U.u'));
     }
 
-    public function testCreateFromMicrotimeWhitespace()
+    public function testCreateFromMicrotimeStrings()
     {
         $microtime = '0.88951247 1600887164';
         $d = Carbon::createFromTimestamp($microtime);
@@ -192,6 +192,12 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $d->tzName);
         $this->assertSame('2020-09-23 14:52:57.449512', $d->format('Y-m-d H:i:s.u'));
         $this->assertSame('1600887177.449512', $d->format('U.u'));
+
+        $d = Carbon::createFromTimestamp('-10.6');
+        $this->assertSame('1969-12-31 18:59:49.400000 -05:00', $d->format('Y-m-d H:i:s.u P'));
+
+        $d = new Carbon('-10.6');
+        $this->assertSame('1969-12-31 23:59:49.400000 +00:00', $d->format('Y-m-d H:i:s.u P'));
     }
 
     public function testCreateFromMicrotimeUTCFloat()
@@ -203,7 +209,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('1600887164.889523', $d->format('U.u'));
     }
 
-    public function testCreateFromMicrotimeUTCWhitespace()
+    public function testCreateFromMicrotimeUTCStrings()
     {
         $microtime = '0.88951247 1600887164';
         $d = Carbon::createFromTimestampUTC($microtime);
