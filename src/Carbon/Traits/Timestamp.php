@@ -63,7 +63,7 @@ trait Timestamp
      */
     public static function createFromTimestampMsUTC($timestamp)
     {
-        [$milliseconds, $microseconds] = self::getNumberIntegerAndDecimalParts($timestamp, 3);
+        [$milliseconds, $microseconds] = self::getIntegerAndDecimalPartsFromString($timestamp, 3);
         $seconds = substr($milliseconds, 0, -3);
         $microseconds = substr($milliseconds, -3).$microseconds;
 
@@ -159,6 +159,10 @@ trait Timestamp
      */
     private static function getIntegerAndDecimalPartsFromString($numbers, $decimals = 6)
     {
+        if (is_int($numbers) || is_float($numbers)) {
+            $numbers = number_format($numbers, $decimals, '.', '');
+        }
+
         $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
         $integer = 0;
         $decimal = 0;
