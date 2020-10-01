@@ -1152,7 +1152,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestamp(int $timestamp, $tz = null);
+    public static function createFromTimestamp($timestamp, $tz = null);
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
@@ -1164,7 +1164,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestampMs(float $timestamp, $tz = null);
+    public static function createFromTimestampMs($timestamp, $tz = null);
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
@@ -1186,7 +1186,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createFromTimestampUTC(int $timestamp);
+    public static function createFromTimestampUTC($timestamp);
 
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.
@@ -2050,7 +2050,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function getPreciseTimestamp($precision = 6);
+    public function getPreciseTimestamp($precision = 6): float;
 
     /**
      * Returns current local settings.
@@ -4620,7 +4620,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function unix();
+    public function unix(): int;
 
     /**
      * @alias to
@@ -4720,7 +4720,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return float
      */
-    public function valueOf();
+    public function valueOf(): float;
 
     /**
      * Get/set the week number using given first day of week and first
