@@ -2264,6 +2264,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function hasFormat($date, $format);
 
     /**
+     * Checks if the (date)time string is in a given format.
+     *
+     * @example
+     * ```
+     * Carbon::hasFormatWithModifiers('31/08/2015', 'd#m#Y'); // true
+     * Carbon::hasFormatWithModifiers('31/08/2015', 'm#d#Y'); // false
+     * ```
+     *
+     * @param string $date
+     * @param string $format
+     *
+     * @return bool
+     */
+    public static function hasFormatWithModifiers(string $date, string $format): bool;
+
+    /**
      * Checks if macro is registered globally or locally.
      *
      * @param string $name
