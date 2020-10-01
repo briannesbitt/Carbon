@@ -45,6 +45,7 @@ class IteratorTest extends AbstractTestCase
         foreach ($period as $key => $current) {
             $this->assertInstanceOfCarbon($current);
             $this->assertEquals($current, $period->current());
+            $this->assertEquals($current, $period->current);
         }
     }
 

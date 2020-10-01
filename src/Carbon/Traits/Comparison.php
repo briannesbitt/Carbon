@@ -862,20 +862,26 @@ trait Comparison
         // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
         // To ensure we're really testing against our desired format, perform an additional regex validation.
 
-        // List letters to replace
-        $letters = array_keys(static::$regexFormats);
-        // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
-        $regex = str_replace('\\\\', '\\', preg_quote($format, '/'));
-        // Replace not-escaped letters
-        $regex = preg_replace_callback('/(?<!\\\\)((?:\\\\{2})*)(['.implode('', $letters).'])/', function ($match) {
-            return $match[1].strtr($match[2], static::$regexFormats);
-        }, $regex);
-        // Replace escaped letters by the letter itself
-        $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);
-        // Escape not escaped slashes
-        $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
+        return self::matchFormatPattern($date, preg_quote($format, '/'), static::$regexFormats);
+    }
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date);
+    /**
+     * Checks if the (date)time string is in a given format.
+     *
+     * @example
+     * ```
+     * Carbon::hasFormatWithModifiers('31/08/2015', 'd#m#Y'); // true
+     * Carbon::hasFormatWithModifiers('31/08/2015', 'm#d#Y'); // false
+     * ```
+     *
+     * @param string $date
+     * @param string $format
+     *
+     * @return bool
+     */
+    public static function hasFormatWithModifiers(string $date, string $format): bool
+    {
+        return self::matchFormatPattern($date, $format, array_merge(static::$regexFormats, static::$regexFormatModifiers));
     }
 
     /**
@@ -997,5 +1003,41 @@ trait Comparison
         }
 
         return $current->eq($other);
+    }
+
+    /**
+     * Checks if the (date)time string is in a given format with
+     * given list of pattern replacements.
+     *
+     * @example
+     * ```
+     * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
+     * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
+     * ```
+     *
+     * @param string $date
+     * @param string $format
+     * @param array  $replacements
+     *
+     * @return bool
+     */
+    private static function matchFormatPattern(string $date, string $format, array $replacements): bool
+    {
+        // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
+        $regex = str_replace('\\\\', '\\', $format);
+        // Replace not-escaped letters
+        $regex = preg_replace_callback(
+            '/(?<!\\\\)((?:\\\\{2})*)(['.implode('', array_keys($replacements)).'])/',
+            function ($match) use ($replacements) {
+                return $match[1].strtr($match[2], $replacements);
+            },
+            $regex
+        );
+        // Replace escaped letters by the letter itself
+        $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);
+        // Escape not escaped slashes
+        $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
+
+        return (bool) @preg_match('/^'.$regex.'$/', $date);
     }
 }

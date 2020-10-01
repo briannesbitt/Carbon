@@ -899,6 +899,24 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
         $this->assertFalse(Carbon::hasFormat('30/12/2019', 'm/d/Y'));
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
+        $this->assertFalse(Carbon::hasFormat('1975-05-01', 'Y-m-d!'));
+        $this->assertFalse(Carbon::hasFormat('1975-05-01', 'Y-m-d|'));
+        $this->assertFalse(Carbon::hasFormat('1975-05-01', 'Y-*-d'));
+    }
+
+    public function testHasFormatWithModifiers()
+    {
+        $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-m-d!'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-m-d|'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-*-d'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-??-d!'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y#m#d'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('1975/05/31', 'Y#m#d'));
+
+        $this->assertFalse(Carbon::hasFormatWithModifiers('1975/31/05', 'Y#m#d'));
+        $this->assertFalse(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-?-d|'));
+        $this->assertFalse(Carbon::hasFormatWithModifiers('1975--01', 'Y-*-d'));
+        $this->assertFalse(Carbon::hasFormatWithModifiers('1975705-01', 'Y#m#d'));
     }
 
     public function getFormatLetters()

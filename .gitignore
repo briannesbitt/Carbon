@@ -11,3 +11,4 @@ coverage
 phpunit.xml
 Carbon-*.zip
 *.phpunit.result.cache
+/nbproject/

@@ -82,8 +82,6 @@ use Carbon\Carbon;
 printf("Now: %s", Carbon::now());
 ```
 
-<a name="install-nocomposer"/>
-
 ### Without Composer
 
 Why are you not using [composer](http://getcomposer.org/)? Download the Carbon [latest release](https://github.com/briannesbitt/Carbon/releases) and put the contents of the ZIP archive into a directory in your project. Then require the file `autoload.php` to get all classes and dependencies loaded on need.
