@@ -10,69 +10,94 @@
  */
 namespace Carbon\Traits;
 
-use DateTime;
-
 /**
  * Trait Timestamp.
  */
 trait Timestamp
 {
     /**
-     * Create a Carbon instance from a timestamp.
+     * Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
      *
-     * @param int                       $timestamp
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
     public static function createFromTimestamp($timestamp, $tz = null)
     {
-        $date = new DateTime('@'.((int) $timestamp));
-        $tz = static::safeCreateDateTimeZone($tz);
+        return static::createFromTimestampUTC($timestamp)->setTimezone($tz);
+    }
 
-        if ($tz) {
-            $date->setTimezone($tz);
+    /**
+     * Create a Carbon instance from an timestamp keeping the timezone to UTC.
+     *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string $timestamp
+     *
+     * @return static
+     */
+    public static function createFromTimestampUTC($timestamp)
+    {
+        [$integer, $decimal] = self::getIntegerAndDecimalPartsFromString($timestamp);
+        $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
+
+        if ($delta < 0 || $delta >= 1) {
+            $integer += $delta;
+            $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
         }
 
-        return (new static($date->format(DateTime::ATOM)))->tz($tz);
+        return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
      *
-     * @param float                     $timestamp
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string $timestamp
+     *
+     * @return static
+     */
+    public static function createFromTimestampMsUTC($timestamp)
+    {
+        [$milliseconds, $microseconds] = self::getIntegerAndDecimalPartsFromString($timestamp, 3);
+        $seconds = substr($milliseconds, 0, -3);
+        $microseconds = substr($milliseconds, -3).$microseconds;
+
+        return static::rawCreateFromFormat('U.u', "$seconds.$microseconds");
+    }
+
+    /**
+     * Create a Carbon instance from a timestamp in milliseconds.
+     *
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
     public static function createFromTimestampMs($timestamp, $tz = null)
     {
-        return static::rawCreateFromFormat('U.u', sprintf('%F', $timestamp / 1000))
+        return static::createFromTimestampMsUTC($timestamp)
             ->setTimezone($tz);
-    }
-
-    /**
-     * Create a Carbon instance from an UTC timestamp.
-     *
-     * @param int $timestamp
-     *
-     * @return static
-     */
-    public static function createFromTimestampUTC($timestamp)
-    {
-        return new static('@'.$timestamp);
     }
 
     /**
      * Set the instance's timestamp.
      *
-     * @param int $value
+     * Timestamp input can be given as int, float or a string containing one or more numbers.
+     *
+     * @param float|int|string $unixTimestamp
      *
      * @return static
      */
-    public function timestamp($value)
+    public function timestamp($unixTimestamp)
     {
-        return $this->setTimestamp((int) $value);
+        return $this->setTimestamp($unixTimestamp);
     }
 
     /**
@@ -118,5 +143,41 @@ trait Timestamp
     public function unix()
     {
         return $this->getTimestamp();
+    }
+
+    /**
+     * Return an array with integer part digits and decimals digits split from one or more positive numbers
+     * (such as timestamps) as string with the given number of decimals (6 by default).
+     *
+     * By splitting integer and decimal, this method obtain a better precision than
+     * number_format when the input is a string.
+     *
+     * @param float|int|string $numbers  one or more numbers
+     * @param int              $decimals number of decimals precision (6 by default)
+     *
+     * @return array 0-index is integer part, 1-index is decimal part digits
+     */
+    private static function getIntegerAndDecimalPartsFromString($numbers, $decimals = 6)
+    {
+        if (is_int($numbers) || is_float($numbers)) {
+            $numbers = number_format($numbers, $decimals, '.', '');
+        }
+
+        $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
+        $integer = 0;
+        $decimal = 0;
+
+        foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
+            [$integerPart, $decimalPart] = explode('.', "$chunk.");
+
+            $integer += intval($integerPart);
+            $decimal += floatval("0.$decimalPart");
+        }
+
+        $overflow = floor($decimal);
+        $integer += $overflow;
+        $decimal -= $overflow;
+
+        return [$sign * $integer, $sign * round($decimal * pow(10, $decimals))];
     }
 }
