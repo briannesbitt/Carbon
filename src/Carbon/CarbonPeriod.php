@@ -16,6 +16,7 @@ use Carbon\Exceptions\InvalidPeriodDateException;
 use Carbon\Exceptions\InvalidPeriodParameterException;
 use Carbon\Exceptions\NotACarbonClassException;
 use Carbon\Exceptions\NotAPeriodException;
+use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
 use Carbon\Traits\IntervalRounding;
@@ -35,6 +36,14 @@ use RuntimeException;
 
 /**
  * Substitution of DatePeriod with some modifications and many more features.
+ *
+ * @property-read int $recurrences number of recurrences (if end not set).
+ * @property-read bool $include_start_date rather the start date is included in the iteration.
+ * @property-read bool $include_end_date rather the end date is included in the iteration (if recurrences not set).
+ * @property-read CarbonInterface $start Period start date.
+ * @property-read CarbonInterface $current Current date from the iteration.
+ * @property-read CarbonInterface $end Period end date.
+ * @property-read CarbonInterval $interval Underlying date interval instance. Always present, one day by default.
  *
  * @method static CarbonPeriod start($date, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance.
  * @method static CarbonPeriod since($date, $inclusive = null) Alias for start().
@@ -361,28 +370,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Get a copy of the instance.
-     *
-     * @return static
-     */
-    public function copy()
-    {
-        return clone $this;
-    }
-
-    /**
-     * @alias copy
-     *
-     * Get a copy of the instance.
-     *
-     * @return static
-     */
-    public function clone()
-    {
-        return clone $this;
-    }
-
-    /**
      * Create a new instance.
      *
      * @return static
@@ -677,16 +664,75 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Return whether given callable is a string pointing to one of Carbon's is* methods
-     * and should be automatically converted to a filter callback.
+     * Get a copy of the instance.
      *
-     * @param callable $callable
+     * @return static
+     */
+    public function copy()
+    {
+        return clone $this;
+    }
+
+    /**
+     * Get a property allowing both `DatePeriod` snakeCase and camelCase names.
+     *
+     * @param string $name
+     *
+     * @return bool|CarbonInterface|CarbonInterval|int|null
+     */
+    public function __get(string $name)
+    {
+        switch (strtolower(preg_replace('/[A-Z]/', '_$0', $name))) {
+            case 'start':
+            case 'start_date':
+                return $this->getStartDate();
+            case 'end':
+            case 'end_date':
+                return $this->getEndDate();
+            case 'interval':
+            case 'date_interval':
+                return $this->getDateInterval();
+            case 'recurrences':
+                return $this->getRecurrences();
+            case 'include_start_date':
+                return $this->isStartIncluded();
+            case 'include_end_date':
+                return $this->isEndIncluded();
+            case 'current':
+                return $this->current();
+            default:
+                throw new UnknownGetterException($name);
+        }
+    }
+
+    /**
+     * Check if an attribute exists on the object
+     *
+     * @param string $name
      *
      * @return bool
      */
-    protected function isCarbonPredicateMethod($callable)
+    public function __isset(string $name): bool
     {
-        return is_string($callable) && substr($callable, 0, 2) === 'is' && (method_exists($this->dateClass, $callable) || call_user_func([$this->dateClass, 'hasMacro'], $callable));
+        try {
+            $this->__get($name);
+        } catch (UnknownGetterException | ReflectionException $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @alias copy
+     *
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function clone()
+    {
+        return clone $this;
     }
 
     /**
@@ -1030,28 +1076,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Create a filter tuple from raw parameters.
-     *
-     * Will create an automatic filter callback for one of Carbon's is* methods.
-     *
-     * @param array $parameters
-     *
-     * @return array
-     */
-    protected function createFilterTuple(array $parameters)
-    {
-        $method = array_shift($parameters);
-
-        if (!$this->isCarbonPredicateMethod($method)) {
-            return [$method, array_shift($parameters)];
-        }
-
-        return [function ($date) use ($method, $parameters) {
-            return call_user_func_array([$date, $method], $parameters);
-        }, $method];
-    }
-
-    /**
      * Remove a filter by instance or name.
      *
      * @param callable|string $filter
@@ -1147,22 +1171,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Update properties after removing built-in filters.
-     *
-     * @return void
-     */
-    protected function updateInternalState()
-    {
-        if (!$this->hasFilter(static::END_DATE_FILTER)) {
-            $this->endDate = null;
-        }
-
-        if (!$this->hasFilter(static::RECURRENCES_FILTER)) {
-            $this->recurrences = null;
-        }
-    }
-
-    /**
      * Add a recurrences filter (set maximum number of recurrences).
      *
      * @param int|null $recurrences
@@ -1190,25 +1198,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $this->handleChangedParameters();
 
         return $this;
-    }
-
-    /**
-     * Recurrences filter callback (limits number of recurrences).
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
-     * @param \Carbon\Carbon $current
-     * @param int            $key
-     *
-     * @return bool|string
-     */
-    protected function filterRecurrences($current, $key)
-    {
-        if ($key < $this->recurrences) {
-            return true;
-        }
-
-        return static::END_ITERATION;
     }
 
     /**
@@ -1269,119 +1258,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $this->handleChangedParameters();
 
         return $this;
-    }
-
-    /**
-     * End date filter callback.
-     *
-     * @param \Carbon\Carbon $current
-     *
-     * @return bool|string
-     */
-    protected function filterEndDate($current)
-    {
-        if (!$this->isEndExcluded() && $current == $this->endDate) {
-            return true;
-        }
-
-        if ($this->dateInterval->invert ? $current > $this->endDate : $current < $this->endDate) {
-            return true;
-        }
-
-        return static::END_ITERATION;
-    }
-
-    /**
-     * End iteration filter callback.
-     *
-     * @return string
-     */
-    protected function endIteration()
-    {
-        return static::END_ITERATION;
-    }
-
-    /**
-     * Handle change of the parameters.
-     */
-    protected function handleChangedParameters()
-    {
-        if (($this->getOptions() & static::IMMUTABLE) && $this->dateClass === Carbon::class) {
-            $this->setDateClass(CarbonImmutable::class);
-        } elseif (!($this->getOptions() & static::IMMUTABLE) && $this->dateClass === CarbonImmutable::class) {
-            $this->setDateClass(Carbon::class);
-        }
-
-        $this->validationResult = null;
-    }
-
-    /**
-     * Validate current date and stop iteration when necessary.
-     *
-     * Returns true when current date is valid, false if it is not, or static::END_ITERATION
-     * when iteration should be stopped.
-     *
-     * @return bool|string
-     */
-    protected function validateCurrentDate()
-    {
-        if ($this->current === null) {
-            $this->rewind();
-        }
-
-        // Check after the first rewind to avoid repeating the initial validation.
-        if ($this->validationResult !== null) {
-            return $this->validationResult;
-        }
-
-        return $this->validationResult = $this->checkFilters();
-    }
-
-    /**
-     * Check whether current value and key pass all the filters.
-     *
-     * @return bool|string
-     */
-    protected function checkFilters()
-    {
-        $current = $this->prepareForReturn($this->current);
-
-        foreach ($this->filters as $tuple) {
-            $result = call_user_func(
-                $tuple[0],
-                $current->copy(),
-                $this->key,
-                $this
-            );
-
-            if ($result === static::END_ITERATION) {
-                return static::END_ITERATION;
-            }
-
-            if (!$result) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Prepare given date to be returned to the external logic.
-     *
-     * @param CarbonInterface $date
-     *
-     * @return CarbonInterface
-     */
-    protected function prepareForReturn(CarbonInterface $date)
-    {
-        $date = call_user_func([$this->dateClass, 'make'], $date);
-
-        if ($this->timezone) {
-            $date = $date->setTimezone($this->timezone);
-        }
-
-        return $date;
     }
 
     /**
@@ -1489,28 +1365,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         }
 
         return $this->valid();
-    }
-
-    /**
-     * Keep incrementing the current date until a valid date is found or the iteration is ended.
-     *
-     * @throws RuntimeException
-     *
-     * @return void
-     */
-    protected function incrementCurrentDateUntilValid()
-    {
-        $attempts = 0;
-
-        do {
-            $this->current = $this->current->add($this->dateInterval);
-
-            $this->validationResult = null;
-
-            if (++$attempts > static::NEXT_MAX_ATTEMPTS) {
-                throw new UnreachableException('Could not find next valid date.');
-            }
-        } while ($this->validateCurrentDate() === false);
     }
 
     /**
@@ -1675,27 +1529,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $array = $this->toArray();
 
         return $array ? $array[count($array) - 1] : null;
-    }
-
-    /**
-     * Call given macro.
-     *
-     * @param string $name
-     * @param array  $parameters
-     *
-     * @return mixed
-     */
-    protected function callMacro($name, $parameters)
-    {
-        $macro = static::$macros[$name];
-
-        if ($macro instanceof Closure) {
-            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
-
-            return call_user_func_array($boundMacro ?: $macro, $parameters);
-        }
-
-        return call_user_func_array($macro, $parameters);
     }
 
     /**
@@ -2233,38 +2066,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Return the Carbon instance passed through, a now instance in the same timezone
-     * if null given or parse the input if string given.
-     *
-     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
-     *
-     * @return \Carbon\CarbonInterface
-     */
-    protected function resolveCarbon($date = null)
-    {
-        return $this->getStartDate()->nowWithSameTz()->carbonize($date);
-    }
-
-    /**
-     * Resolve passed arguments or DatePeriod to a CarbonPeriod object.
-     *
-     * @param mixed $period
-     * @param mixed ...$arguments
-     *
-     * @return static
-     */
-    protected function resolveCarbonPeriod($period, ...$arguments)
-    {
-        if ($period instanceof self) {
-            return $period;
-        }
-
-        return $period instanceof DatePeriod
-            ? static::instance($period)
-            : static::create($period, ...$arguments);
-    }
-
-    /**
      * Specify data which should be serialized to JSON.
      *
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -2336,5 +2137,263 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function isConsecutiveWith($period, ...$arguments): bool
     {
         return $this->follows($period, ...$arguments) || $this->isFollowedBy($period, ...$arguments);
+    }
+
+    /**
+     * Update properties after removing built-in filters.
+     *
+     * @return void
+     */
+    protected function updateInternalState()
+    {
+        if (!$this->hasFilter(static::END_DATE_FILTER)) {
+            $this->endDate = null;
+        }
+
+        if (!$this->hasFilter(static::RECURRENCES_FILTER)) {
+            $this->recurrences = null;
+        }
+    }
+
+    /**
+     * Create a filter tuple from raw parameters.
+     *
+     * Will create an automatic filter callback for one of Carbon's is* methods.
+     *
+     * @param array $parameters
+     *
+     * @return array
+     */
+    protected function createFilterTuple(array $parameters)
+    {
+        $method = array_shift($parameters);
+
+        if (!$this->isCarbonPredicateMethod($method)) {
+            return [$method, array_shift($parameters)];
+        }
+
+        return [function ($date) use ($method, $parameters) {
+            return call_user_func_array([$date, $method], $parameters);
+        }, $method];
+    }
+
+    /**
+     * Return whether given callable is a string pointing to one of Carbon's is* methods
+     * and should be automatically converted to a filter callback.
+     *
+     * @param callable $callable
+     *
+     * @return bool
+     */
+    protected function isCarbonPredicateMethod($callable)
+    {
+        return is_string($callable) && substr($callable, 0, 2) === 'is' && (method_exists($this->dateClass, $callable) || call_user_func([$this->dateClass, 'hasMacro'], $callable));
+    }
+
+    /**
+     * Recurrences filter callback (limits number of recurrences).
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
+     * @param \Carbon\Carbon $current
+     * @param int            $key
+     *
+     * @return bool|string
+     */
+    protected function filterRecurrences($current, $key)
+    {
+        if ($key < $this->recurrences) {
+            return true;
+        }
+
+        return static::END_ITERATION;
+    }
+
+    /**
+     * End date filter callback.
+     *
+     * @param \Carbon\Carbon $current
+     *
+     * @return bool|string
+     */
+    protected function filterEndDate($current)
+    {
+        if (!$this->isEndExcluded() && $current == $this->endDate) {
+            return true;
+        }
+
+        if ($this->dateInterval->invert ? $current > $this->endDate : $current < $this->endDate) {
+            return true;
+        }
+
+        return static::END_ITERATION;
+    }
+
+    /**
+     * End iteration filter callback.
+     *
+     * @return string
+     */
+    protected function endIteration()
+    {
+        return static::END_ITERATION;
+    }
+
+    /**
+     * Handle change of the parameters.
+     */
+    protected function handleChangedParameters()
+    {
+        if (($this->getOptions() & static::IMMUTABLE) && $this->dateClass === Carbon::class) {
+            $this->setDateClass(CarbonImmutable::class);
+        } elseif (!($this->getOptions() & static::IMMUTABLE) && $this->dateClass === CarbonImmutable::class) {
+            $this->setDateClass(Carbon::class);
+        }
+
+        $this->validationResult = null;
+    }
+
+    /**
+     * Validate current date and stop iteration when necessary.
+     *
+     * Returns true when current date is valid, false if it is not, or static::END_ITERATION
+     * when iteration should be stopped.
+     *
+     * @return bool|string
+     */
+    protected function validateCurrentDate()
+    {
+        if ($this->current === null) {
+            $this->rewind();
+        }
+
+        // Check after the first rewind to avoid repeating the initial validation.
+        if ($this->validationResult !== null) {
+            return $this->validationResult;
+        }
+
+        return $this->validationResult = $this->checkFilters();
+    }
+
+    /**
+     * Check whether current value and key pass all the filters.
+     *
+     * @return bool|string
+     */
+    protected function checkFilters()
+    {
+        $current = $this->prepareForReturn($this->current);
+
+        foreach ($this->filters as $tuple) {
+            $result = call_user_func(
+                $tuple[0],
+                $current->copy(),
+                $this->key,
+                $this
+            );
+
+            if ($result === static::END_ITERATION) {
+                return static::END_ITERATION;
+            }
+
+            if (!$result) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Prepare given date to be returned to the external logic.
+     *
+     * @param CarbonInterface $date
+     *
+     * @return CarbonInterface
+     */
+    protected function prepareForReturn(CarbonInterface $date)
+    {
+        $date = call_user_func([$this->dateClass, 'make'], $date);
+
+        if ($this->timezone) {
+            $date = $date->setTimezone($this->timezone);
+        }
+
+        return $date;
+    }
+
+    /**
+     * Keep incrementing the current date until a valid date is found or the iteration is ended.
+     *
+     * @throws RuntimeException
+     *
+     * @return void
+     */
+    protected function incrementCurrentDateUntilValid()
+    {
+        $attempts = 0;
+
+        do {
+            $this->current = $this->current->add($this->dateInterval);
+
+            $this->validationResult = null;
+
+            if (++$attempts > static::NEXT_MAX_ATTEMPTS) {
+                throw new UnreachableException('Could not find next valid date.');
+            }
+        } while ($this->validateCurrentDate() === false);
+    }
+
+    /**
+     * Call given macro.
+     *
+     * @param string $name
+     * @param array  $parameters
+     *
+     * @return mixed
+     */
+    protected function callMacro($name, $parameters)
+    {
+        $macro = static::$macros[$name];
+
+        if ($macro instanceof Closure) {
+            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
+
+            return call_user_func_array($boundMacro ?: $macro, $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
+    }
+
+    /**
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
+     *
+     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     *
+     * @return \Carbon\CarbonInterface
+     */
+    protected function resolveCarbon($date = null)
+    {
+        return $this->getStartDate()->nowWithSameTz()->carbonize($date);
+    }
+
+    /**
+     * Resolve passed arguments or DatePeriod to a CarbonPeriod object.
+     *
+     * @param mixed $period
+     * @param mixed ...$arguments
+     *
+     * @return static
+     */
+    protected function resolveCarbonPeriod($period, ...$arguments)
+    {
+        if ($period instanceof self) {
+            return $period;
+        }
+
+        return $period instanceof DatePeriod
+            ? static::instance($period)
+            : static::create($period, ...$arguments);
     }
 }

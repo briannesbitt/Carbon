@@ -101,10 +101,14 @@ class GettersTest extends AbstractTestCase
         $period = new CarbonPeriod;
 
         $this->assertSame(0, $period->getOptions());
+        $this->assertTrue($period->include_start_date);
+        $this->assertTrue($period->include_end_date);
 
         $period = new CarbonPeriod(new DateTime, new DateTime, $options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
 
         $this->assertSame($options, $period->getOptions());
+        $this->assertFalse($period->include_start_date);
+        $this->assertFalse($period->include_end_date);
     }
 
     public function testOverlaps()
@@ -211,5 +215,11 @@ class GettersTest extends AbstractTestCase
         $this->assertFalse(CarbonPeriod::create('2019-08-02 11:47:00', '2019-08-03 11:47:00')->isInProgress());
         $this->assertTrue(CarbonPeriod::create('2019-08-03 11:47:00', '2019-08-15 11:47:00')->isInProgress());
         $this->assertTrue(CarbonPeriod::create('2019-08-01', '2019-08-15')->isInProgress());
+    }
+
+    public function testUnknownGetter()
+    {
+        $this->assertTrue(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->start));
+        $this->assertFalse(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->middle));
     }
 }
