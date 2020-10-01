@@ -911,7 +911,7 @@ trait Comparison
             return false;
         }
 
-        return static::hasFormat($date, $format);
+        return static::hasFormatWithModifiers($date, $format);
     }
 
     /**
