@@ -22,6 +22,7 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::start($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
+        $this->assertEquals(Carbon::parse($date), $period->start);
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
 
         $period->since($date = '2014-10-12 15:42:34', true);
@@ -37,6 +38,7 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::end($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
+        $this->assertEquals(Carbon::parse($date), $period->end);
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $period->until($date = '2014-10-12 15:42:34', true);
@@ -77,6 +79,7 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::recurrences(5);
         $this->assertSame(5, $period->getRecurrences());
+        $this->assertSame(5, $period->recurrences);
 
         $period->times(3);
         $this->assertSame(3, $period->getRecurrences());
@@ -118,6 +121,7 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::interval('PT6H');
         $this->assertEquals(CarbonInterval::create('PT6H'), $period->getDateInterval());
+        $this->assertEquals(CarbonInterval::create('PT6H'), $period->interval);
     }
 
     public function testInvertInterval()
