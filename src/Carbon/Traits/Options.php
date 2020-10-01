@@ -107,6 +107,21 @@ trait Options
     ];
 
     /**
+     * Format modifiers (such as available in createFromFormat) regex patterns.
+     *
+     * @var array
+     */
+    protected static $regexFormatModifiers = [
+        '*' => '.+',
+        ' ' => '[   ]',
+        '#' => '[;:\\/.,()-]',
+        '?' => '([^a]|[a])',
+        '!' => '',
+        '|' => '',
+        '+' => '',
+    ];
+
+    /**
      * Indicates if months should be calculated with overflow.
      * Global setting.
      *
