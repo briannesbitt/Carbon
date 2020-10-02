@@ -231,4 +231,12 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('2020-09-23 18:52:57.449512', $d->format('Y-m-d H:i:s.u'));
         $this->assertSame('1600887177.449512', $d->format('U.u'));
     }
+
+    public function testNegativeIntegerTimestamp()
+    {
+        $this->assertSame(
+            '1969-12-31 18:59:59.000000 -05:00',
+            Carbon::createFromTimestamp(-1)->format('Y-m-d H:i:s.u P')
+        );
+    }
 }

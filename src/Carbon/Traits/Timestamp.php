@@ -178,6 +178,6 @@ trait Timestamp
         $integer += $overflow;
         $decimal -= $overflow;
 
-        return [$sign * $integer, $sign * round($decimal * pow(10, $decimals))];
+        return [$sign * $integer, $decimal === 0.0 ? 0.0 : $sign * round($decimal * pow(10, $decimals))];
     }
 }
