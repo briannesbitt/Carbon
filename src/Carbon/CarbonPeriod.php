@@ -598,13 +598,13 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         // Parse and assign arguments one by one. First argument may be an ISO 8601 spec,
         // which will be first parsed into parts and then processed the same way.
 
-        $agumentsCount = count($arguments);
+        $argumentsCount = count($arguments);
 
-        if ($agumentsCount && static::isIso8601($iso = $arguments[0])) {
+        if ($argumentsCount && static::isIso8601($iso = $arguments[0])) {
             array_splice($arguments, 0, 1, static::parseIso8601($iso));
         }
 
-        if ($agumentsCount === 1) {
+        if ($argumentsCount === 1) {
             if ($arguments[0] instanceof DatePeriod) {
                 $arguments = [
                     $arguments[0]->start,
