@@ -80,6 +80,12 @@ class CreateFromTimestampTest extends AbstractTestCase
         $timestamp = $baseTimestamp + 321.8479;
         $d = Carbon::createFromTimestampMsUTC($timestamp);
         $this->assertCarbon($d, 1975, 5, 22, 2, 32, 5, 321848);
+
+        $d = Carbon::createFromTimestampMsUTC(1);
+        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 1, 0);
+
+        $d = Carbon::createFromTimestampMsUTC(-0.04);
+        $this->assertCarbon($d, 1969, 12, 31, 23, 59, 59, 999960);
     }
 
     public function testComaDecimalSeparatorLocale()
