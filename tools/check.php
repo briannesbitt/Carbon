@@ -113,9 +113,10 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
 
 $errorExit = $missingMethodsCount > MAXIMUM_MISSING_METHODS_THRESHOLD;
 
-display($missingMethodsCount ?
-    "\033[".($errorExit ? '0;31' : '1;33')."m$missingMethodsCount missing / $methodsCount (threshold: ".MAXIMUM_MISSING_METHODS_THRESHOLD.")\033[0m\n" :
-    "\033[0;32mEvery method documented\033[0m\n"
+display(
+    $missingMethodsCount
+        ? "\033[".($errorExit ? '0;31' : '1;33')."m$missingMethodsCount missing / $methodsCount (threshold: ".MAXIMUM_MISSING_METHODS_THRESHOLD.")\033[0m\n"
+        : "\033[0;32mEvery method documented\033[0m\n"
 );
 
 if ($missingArguments) {
