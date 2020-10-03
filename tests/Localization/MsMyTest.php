@@ -119,7 +119,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'beberapa saat yang lepas',
+        '1 saat yang lepas',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 saat yang lepas',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -127,7 +127,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 saat yang lepas',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'seminit yang lepas',
+        '1 minit yang lepas',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 minit yang lepas',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -135,7 +135,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 minit yang lepas',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'sejam yang lepas',
+        '1 jam yang lepas',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1 jam yang lepas',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -143,7 +143,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 jam yang lepas',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'sehari yang lepas',
+        '1 hari yang lepas',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1 hari yang lepas',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -151,7 +151,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 hari yang lepas',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'seminggu yang lepas',
+        '1 minggu yang lepas',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         '1 minggu yang lepas',
         // Carbon::now()->subWeeks(2)->diffForHumans()
@@ -159,7 +159,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 minggu yang lepas',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'sebulan yang lepas',
+        '1 bulan yang lepas',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1 bulan yang lepas',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -167,7 +167,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 bulan yang lepas',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'setahun yang lepas',
+        '1 tahun yang lepas',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1 tahun yang lepas',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -175,19 +175,19 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 tahun yang lepas',
         // Carbon::now()->addSecond()->diffForHumans()
-        'beberapa saat dari sekarang',
+        '1 saat dari sekarang',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 saat dari sekarang',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'beberapa saat selepas',
+        '1 saat kemudian',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 saat selepas',
+        '1 saat kemudian',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'beberapa saat sebelum',
+        '1 saat lepas',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 saat sebelum',
+        '1 saat lepas',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'beberapa saat',
+        '1 saat',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 saat',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -197,7 +197,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1 saat dari sekarang',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'seminit beberapa saat',
+        '1 minit 1 saat',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 tahun 3 bulan 1 hari 1 saat',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -207,15 +207,15 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 tahun 3 bulan 1 hari 1 saat yang lepas',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'seminggu 10 jam',
+        '1 minggu 10 jam',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'seminggu 6 hari',
+        '1 minggu 6 hari',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'seminggu 6 hari',
+        '1 minggu 6 hari',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'seminggu dan 6 hari dari sekarang',
+        '1 minggu dan 6 hari dari sekarang',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 minggu sejam',
+        '2 minggu 1 jam',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'sejam dari sekarang',
         // CarbonInterval::days(2)->forHumans()
