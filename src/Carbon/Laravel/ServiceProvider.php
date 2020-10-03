@@ -33,11 +33,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
     }
 
-    public function setApp($app)
-    {
-        $this->app = $app;
-    }
-
     public function updateLocale()
     {
         $app = $this->app && method_exists($this->app, 'getLocale') ? $this->app : app('translator');

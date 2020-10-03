@@ -188,7 +188,7 @@ class ServiceProviderTest extends TestCase
         }
         ');
 
-        $service->setApp(new \stdClass());
+        $service->app = new \stdClass();
         $service->updateLocale();
 
         $this->assertSame('it', \Illuminate\Support\Carbon::$locale);
