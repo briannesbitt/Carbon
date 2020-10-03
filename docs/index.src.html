@@ -325,19 +325,23 @@ echo "\n";
 {{::exec(var_dump(Carbon::hasFormat('21#05#1975!', 'd#m#Y!'));)}} // {{eval}}</code></pre>
     </p>
 
-    <p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix
-        timestamps</a>. The first will create a Carbon instance equal to the given timestamp and will set the timezone
-        as well or default it to the current timezone. The second, <code>createFromTimestampUTC()</code>, is different
-        in that the timezone will remain UTC (GMT), it acts the same as <code>Carbon::parse('@'.$timestamp)</code>
-        but I have just made it a little more explicit. The third, <code>createFromTimestampMs()</code>, accepts a
+    <p>You can create instances from <a href="http://en.wikipedia.org/wiki/Unix_time">unix
+        timestamps</a>. <code>createFromTimestamp()</code> create a Carbon instance equal to the given timestamp and
+        will set the timezone as well or default it to the current timezone. <code>createFromTimestampUTC()</code>, is
+        different in that the timezone will remain UTC (GMT+00:00), it's equivalent to <code>Carbon::parse('@'.$timestamp)</code>
+        but it supports int, float or string containing one or more numbers (like the one produced by <code>microtime()</code>)
+        so it can also set microseconds with no precision lost. The third, <code>createFromTimestampMs()</code>, accepts a
         timestamp in milliseconds instead of seconds. Negative timestamps are also allowed.</p>
 
     <p>
-    <pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestamp(-1.5, 'Europe/London')->toDateTimeString();/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestamp('1601735792.198956', 'Europe/London')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampUTC('0.198956 1601735792')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMs('1601735792198.956', 'Europe/London')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMsUTC('0.956 1601735792198')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
 </code></pre>
     </p>
 
