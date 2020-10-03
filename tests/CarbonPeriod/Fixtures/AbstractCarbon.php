@@ -13,6 +13,7 @@ namespace Tests\CarbonPeriod\Fixtures;
 
 use Carbon\CarbonInterface;
 use DateTime;
+use phpDocumentor\Reflection\Types\Parent_;
 
 abstract class AbstractCarbon extends DateTime implements CarbonInterface
 {
@@ -39,6 +40,31 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     public function modify($modify)
     {
         return parent::modify($modify);
+    }
+
+    public function setDate($year, $month, $day)
+    {
+        return parent::setDate($year, $month, $day);
+    }
+
+    public function setISODate($year, $month, $day = 1)
+    {
+        return parent::setISODate($year, $month, $day = 1);
+    }
+
+    public function setTime($hour, $minute, $second = 0, $microseconds = 0)
+    {
+        return parent::setTime($hour, $minute, $second, $microseconds);
+    }
+
+    public function setTimestamp($unixTimestamp)
+    {
+        return parent::setTimestamp($unixTimestamp);
+    }
+
+    public function setTimezone($value)
+    {
+        return parent::setTimezone($value);
     }
 
     public static function createFromFormat($format, $time, $tz = null)
