@@ -18,6 +18,7 @@ use Carbon\CarbonPeriod;
 use DateInterval;
 use DateTime;
 use Tests\AbstractTestCase;
+use Tests\CarbonPeriod\Fixtures\AbstractCarbon;
 
 class SettersTest extends AbstractTestCase
 {
@@ -106,6 +107,9 @@ class SettersTest extends AbstractTestCase
         $period->toggleOptions(CarbonPeriod::IMMUTABLE, false);
         $this->assertSame(Carbon::class, $period->getDateClass());
         $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
+
+        $period->setDateClass(AbstractCarbon::class);
+        $this->assertSame(AbstractCarbon::class, $period->getDateClass());
     }
 
     public function testSetDateClassInvalidArgumentException()

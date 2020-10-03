@@ -424,9 +424,16 @@ class FilterTest extends AbstractTestCase
         include_once 'Fixtures/filters.php';
 
         $period = new CarbonPeriod('2017-03-10', '2017-03-19');
+        $callable = [new FooFilters, 'bar'];
 
-        $period->addFilter([new FooFilters, 'bar']);
+        $this->assertFalse($period->hasFilter($callable));
+        $this->assertFalse($period->hasFilter('foobar_filter'));
+        $this->assertFalse($period->hasFilter('not_callable'));
+        $period->addFilter($callable);
         $period->addFilter('foobar_filter');
+        $this->assertTrue($period->hasFilter($callable));
+        $this->assertTrue($period->hasFilter('foobar_filter'));
+        $this->assertFalse($period->hasFilter('not_callable'));
 
         $this->assertSame(
             $this->standardizeDates(['2017-03-10', '2017-03-12', '2017-03-16', '2017-03-18']),

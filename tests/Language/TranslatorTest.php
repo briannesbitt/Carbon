@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\Language;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Translator;
 use ReflectionMethod;
 use Tests\AbstractTestCase;
@@ -63,5 +64,14 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame(10, $method->invoke(null, ['a'], ['a', 'c']));
         $this->assertSame(11, $method->invoke(null, ['a', 'b'], ['a']));
         $this->assertSame(10, $method->invoke(null, ['a'], ['a']));
+    }
+
+    public function testNotLocaleAwareException()
+    {
+        $exception = new NotLocaleAwareException('foobar');
+        $this->assertSame(
+            'string does neither implements Symfony\Contracts\Translation\LocaleAwareInterface nor getLocale() method.',
+            $exception->getMessage()
+        );
     }
 }
