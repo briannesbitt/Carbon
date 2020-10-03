@@ -82,6 +82,12 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 22, 2, 32, 5, 321848);
 
         $d = Carbon::createFromTimestampMsUTC(1);
+        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0, 1000);
+
+        $d = Carbon::createFromTimestampMsUTC(60);
+        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0, 60000);
+
+        $d = Carbon::createFromTimestampMsUTC(1000);
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 1, 0);
 
         $d = Carbon::createFromTimestampMsUTC(-0.04);

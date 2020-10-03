@@ -43,11 +43,8 @@ trait Timestamp
     {
         [$integer, $decimal] = self::getIntegerAndDecimalParts($timestamp);
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
-
-        if ($delta < 0 || $delta >= 1) {
-            $integer += $delta;
-            $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
-        }
+        $integer += $delta;
+        $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
 
         return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
@@ -69,11 +66,9 @@ trait Timestamp
         $microseconds = $sign * abs($microseconds) + static::MICROSECONDS_PER_MILLISECOND * ($milliseconds % static::MILLISECONDS_PER_SECOND);
         $seconds = $sign * floor($milliseconds / static::MILLISECONDS_PER_SECOND);
         $delta = floor($microseconds / static::MICROSECONDS_PER_SECOND);
-
-        if ($delta < 0 || $delta >= 1) {
-            $seconds += $delta;
-            $microseconds -= $delta * static::MICROSECONDS_PER_SECOND;
-        }
+        $seconds += $delta;
+        $microseconds -= $delta * static::MICROSECONDS_PER_SECOND;
+        $microseconds = str_pad($microseconds, 6, '0', STR_PAD_LEFT);
 
         return static::rawCreateFromFormat('U u', "$seconds $microseconds");
     }
