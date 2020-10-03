@@ -33,6 +33,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
     }
 
+    public function setApp($app)
+    {
+        $this->app = $app;
+    }
+
     public function updateLocale()
     {
         $app = $this->app && method_exists($this->app, 'getLocale') ? $this->app : app('translator');
@@ -42,7 +47,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         CarbonPeriod::setLocale($locale);
         CarbonInterval::setLocale($locale);
 
-        // @codeCoverageIgnoreStart
         if (class_exists(IlluminateCarbon::class)) {
             IlluminateCarbon::setLocale($locale);
         }
@@ -55,7 +59,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 // Non Carbon class in use in Date facade
             }
         }
-        // @codeCoverageIgnoreEnd
     }
 
     public function register()

@@ -122,4 +122,76 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('fr', CarbonPeriod::getLocale());
         $this->assertSame('fr', CarbonInterval::getLocale());
     }
+
+    public function testUpdateLocale()
+    {
+        if (class_exists('Illuminate\Support\Carbon')) {
+            $this->markTestSkipped('This test cannot be run with Laravel 5.5 classes available via autoload.');
+        }
+
+        eval('namespace Illuminate\Support;
+        class Carbon
+        {
+            public static $locale = null;
+
+            public static function setLocale($locale)
+            {
+                static::$locale = $locale;
+            }
+        }');
+
+        eval('namespace Illuminate\Support\Facades;
+        class Date
+        {
+            public static $locale = null;
+
+            public static function getFacadeRoot()
+            {
+                return new static();
+            }
+
+            public function setLocale($locale)
+            {
+                static::$locale = $locale;
+
+                if ($locale === "fr") {
+                    throw new \Exception("stop");
+                }
+            }
+        }');
+
+        include_once __DIR__.'/ServiceProvider.php';
+        $dispatcher = new Dispatcher();
+        $service = new ServiceProvider($dispatcher);
+        $service->boot();
+        $service->app->register();
+        $service->updateLocale();
+
+        $this->assertSame('de', \Illuminate\Support\Carbon::$locale);
+        $this->assertSame('de', \Illuminate\Support\Facades\Date::$locale);
+
+        $service->app->setLocale('fr');
+        $service->updateLocale();
+
+        $this->assertSame('fr', \Illuminate\Support\Carbon::$locale);
+        $this->assertSame('fr', \Illuminate\Support\Facades\Date::$locale);
+
+        eval('namespace Carbon\Laravel;
+        function app()
+        {
+            $app = new \Tests\Laravel\App();
+            $app->setEventDispatcher(new \Illuminate\Events\Dispatcher());
+            $app->register();
+            $app->setLocale("it");
+
+            return $app;
+        }
+        ');
+
+        $service->setApp(new \stdClass());
+        $service->updateLocale();
+
+        $this->assertSame('it', \Illuminate\Support\Carbon::$locale);
+        $this->assertSame('it', \Illuminate\Support\Facades\Date::$locale);
+    }
 }
