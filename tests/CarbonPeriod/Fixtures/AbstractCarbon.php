@@ -16,9 +16,14 @@ use DateTime;
 
 abstract class AbstractCarbon extends DateTime implements CarbonInterface
 {
+    public function __construct($time = null, $tz = null)
+    {
+        parent::__construct($time, $tz);
+    }
+
     public static function __set_state($dump)
     {
-        return static::parse($dump);
+        return new static($dump);
     }
 
     public function add($unit, $value = 1, $overflow = null)
