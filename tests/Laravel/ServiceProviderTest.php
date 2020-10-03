@@ -72,4 +72,54 @@ class ServiceProviderTest extends TestCase
         $service->app->removeService('events');
         $this->assertNull($service->boot());
     }
+
+    public function testListenerWithoutLocaleUpdatedClass()
+    {
+        if (class_exists('Illuminate\Foundation\Events\LocaleUpdated')) {
+            $this->markTestSkipped('This test cannot be run with Laravel 5.5 classes available via autoload.');
+        }
+
+        include_once __DIR__.'/ServiceProvider.php';
+        $dispatcher = new Dispatcher();
+        $service = new ServiceProvider($dispatcher);
+
+        Carbon::setLocale('en');
+        CarbonImmutable::setLocale('en');
+        CarbonPeriod::setLocale('en');
+        CarbonInterval::setLocale('en');
+
+        $service->boot();
+        $service->app->register();
+        $service->app->setLocaleWithoutEvent('fr');
+        $dispatcher->dispatch('locale.changed');
+        $this->assertSame('fr', Carbon::getLocale());
+        $this->assertSame('fr', CarbonImmutable::getLocale());
+        $this->assertSame('fr', CarbonPeriod::getLocale());
+        $this->assertSame('fr', CarbonInterval::getLocale());
+    }
+
+    public function testListenerWithLocaleUpdatedClass()
+    {
+        if (!class_exists('Illuminate\Foundation\Events\LocaleUpdated')) {
+            eval('namespace Illuminate\Foundation\Events; class LocaleUpdated {}');
+        }
+
+        include_once __DIR__.'/ServiceProvider.php';
+        $dispatcher = new Dispatcher();
+        $service = new ServiceProvider($dispatcher);
+
+        Carbon::setLocale('en');
+        CarbonImmutable::setLocale('en');
+        CarbonPeriod::setLocale('en');
+        CarbonInterval::setLocale('en');
+
+        $service->boot();
+        $service->app->register();
+        $service->app->setLocaleWithoutEvent('fr');
+        $dispatcher->dispatch('Illuminate\Foundation\Events\LocaleUpdated');
+        $this->assertSame('fr', Carbon::getLocale());
+        $this->assertSame('fr', CarbonImmutable::getLocale());
+        $this->assertSame('fr', CarbonPeriod::getLocale());
+        $this->assertSame('fr', CarbonInterval::getLocale());
+    }
 }
