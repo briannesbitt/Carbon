@@ -13,7 +13,6 @@ namespace Tests\CarbonPeriod\Fixtures;
 
 use Carbon\CarbonInterface;
 use DateTime;
-use phpDocumentor\Reflection\Types\Parent_;
 
 abstract class AbstractCarbon extends DateTime implements CarbonInterface
 {
@@ -22,7 +21,7 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
         parent::__construct($time, $tz);
     }
 
-    public static function __set_state($dump)
+    public static function __set_state($dump): self
     {
         return new static($dump);
     }
@@ -69,6 +68,6 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
 
     public static function createFromFormat($format, $time, $tz = null)
     {
-        return parent::createFromFormat($format);
+        return parent::createFromFormat($format, $time, $tz);
     }
 }
