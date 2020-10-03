@@ -129,10 +129,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-setTimestamp">
     <h2><span class="class-name">Carbon::</span>setTimestamp</h2>
-    <code>$unixtimestamp</code>
+    <code>$unixTimestamp</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Sets the date and time based on an Unix timestamp.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$unixtimestamp</code></td></tr></table>
+    <p class="doc-description">Set the instance's timestamp.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.41.0</td><td><code>$unixTimestamp</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$unixtimestamp</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTimestamp">
@@ -1207,6 +1207,15 @@ Carbon::parse('2019-02-28 12:00:01')->isMidday(); // false</code></pre></p>
     <p class="doc-description">Checks if the (date)time string is in a given format.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::hasFormat('11:12:45', 'h:i:s'); // true
 Carbon::hasFormat('13:12:45', 'h:i:s'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><code>$date, $format</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-hasFormatWithModifiers">
+    <h2><span class="class-name">Carbon::</span>hasFormatWithModifiers</h2>
+    <code>string $date, string $format</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Checks if the (date)time string is in a given format.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::hasFormatWithModifiers('31/08/2015', 'd#m#Y'); // true
+Carbon::hasFormatWithModifiers('31/08/2015', 'm#d#Y'); // false</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.41.0</td><td><code>string $date, string $format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-canBeCreatedFromFormat">
@@ -2936,6 +2945,15 @@ parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$testNow = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $testNow = null</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-withTestNow">
+    <h2><span class="class-name">Carbon::</span>withTestNow</h2>
+    <code>$testNow = null, $callback = null</code>
+    <p class="doc-description">Temporarily sets a static date to be used within the callback.
+Using setTestNow to set the date, executing the callback, then
+clearing the test instance.<br><br>/!\ Use this method for unit tests only.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.41.0</td><td><code>$testNow = null, $callback = null</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-getTestNow">
     <h2><span class="class-name">Carbon::</span>getTestNow</h2>
     <em>no arguments</em>
@@ -2958,32 +2976,40 @@ is anything that is not null.</p>
     <h2><span class="class-name">Carbon::</span>createFromTimestamp</h2>
     <code>$timestamp, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Create a Carbon instance from a timestamp.</p>
+    <p class="doc-description">Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$timestamp, $tz = null</code></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-createFromTimestampMs">
-    <h2><span class="class-name">Carbon::</span>createFromTimestampMs</h2>
-    <code>$timestamp, $tz = null</code>
-    <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Create a Carbon instance from a timestamp in milliseconds.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.23.0</td><td><code>$timestamp, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromTimestampUTC">
     <h2><span class="class-name">Carbon::</span>createFromTimestampUTC</h2>
     <code>$timestamp</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Create a Carbon instance from an UTC timestamp.</p>
+    <p class="doc-description">Create a Carbon instance from an timestamp keeping the timezone to UTC.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$timestamp</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-createFromTimestampMsUTC">
+    <h2><span class="class-name">Carbon::</span>createFromTimestampMsUTC</h2>
+    <code>$timestamp</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Create a Carbon instance from a timestamp in milliseconds.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.41.0</td><td><code>$timestamp</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-createFromTimestampMs">
+    <h2><span class="class-name">Carbon::</span>createFromTimestampMs</h2>
+    <code>$timestamp, $tz = null</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Create a Carbon instance from a timestamp in milliseconds.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.23.0</td><td><code>$timestamp, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-timestamp">
     <h2><span class="class-name">Carbon::</span>timestamp</h2>
-    <code>$value</code>
+    <code>$unixTimestamp</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Set the instance's timestamp.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$value</code></td></tr></table>
+    <p class="doc-description">Set the instance's timestamp.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.41.0</td><td><code>$unixTimestamp</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$value</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getPreciseTimestamp">
@@ -4194,6 +4220,14 @@ else return the result of $method called on it.</p>
     <p class="doc-description">Get current open time range as TimeRange instance or false if closed.</p>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimePeriod">
+    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimePeriod</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonPeriod|bool</code></div>
+    <p class="doc-description">Get current open time range as TimeRange instance or false if closed.</p>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRangeStart">
     <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRangeStart</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
@@ -5303,22 +5337,6 @@ name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
 </div>
 
-<div class="doc-method " id="doc-method-CarbonPeriod-copy">
-    <h2><span class="class-name">CarbonPeriod::</span>copy</h2>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>CarbonPeriod</code></div>
-    <p class="doc-description">Get a copy of the instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-CarbonPeriod-clone">
-    <h2><span class="class-name">CarbonPeriod::</span>clone</h2>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>CarbonPeriod</code></div>
-    <p class="doc-description">@alias copy<br><br>Get a copy of the instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
-</div>
-
 <div class="doc-method " id="doc-method-CarbonPeriod-create">
     <h2><span class="class-name">CarbonPeriod::</span>create</h2>
     <code>$params</code>
@@ -5393,6 +5411,38 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
     <code>$arguments</code>
     <p class="doc-description">CarbonPeriod constructor.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$arguments</code></td></tr><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-copy">
+    <h2><span class="class-name">CarbonPeriod::</span>copy</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonPeriod</code></div>
+    <p class="doc-description">Get a copy of the instance.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-__get">
+    <h2><span class="class-name">CarbonPeriod::</span>__get</h2>
+    <code>string $name</code>
+    <div class="doc-return">returns <code>bool|CarbonInterface|CarbonInterval|int|null</code></div>
+    <p class="doc-description">Get a property allowing both `DatePeriod` snakeCase and camelCase names.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.41.0</td><td><code>string $name</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-__isset">
+    <h2><span class="class-name">CarbonPeriod::</span>__isset</h2>
+    <code>string $name</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Check if an attribute exists on the object</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.41.0</td><td><code>string $name</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-clone">
+    <h2><span class="class-name">CarbonPeriod::</span>clone</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonPeriod</code></div>
+    <p class="doc-description">@alias copy<br><br>Get a copy of the instance.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-setDateClass">
