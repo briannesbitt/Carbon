@@ -17,6 +17,7 @@
  * - Josh Soref
  * - Azri Jamil
  * - Hariadi Hinta
+ * - Ashraf Kamarudin
  */
 return [
     'year' => '{1}:count tahun|]1,Inf[:count tahun',
