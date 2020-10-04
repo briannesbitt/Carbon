@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod\Fixtures;
 
 use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
 use DateTime;
 
 abstract class AbstractCarbon extends DateTime implements CarbonInterface
@@ -34,6 +35,11 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     public function sub($unit, $value = 1, $overflow = null)
     {
         return parent::sub($unit);
+    }
+
+    public function diff($date = null, $absolute = false): CarbonInterval
+    {
+        return CarbonInterval::instance(parent::diff($date, $absolute));
     }
 
     public function modify($modify)
