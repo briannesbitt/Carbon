@@ -80,6 +80,18 @@ class CreateFromTimestampTest extends AbstractTestCase
         $timestamp = $baseTimestamp + 321.8479;
         $d = Carbon::createFromTimestampMsUTC($timestamp);
         $this->assertCarbon($d, 1975, 5, 22, 2, 32, 5, 321848);
+
+        $d = Carbon::createFromTimestampMsUTC(1);
+        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0, 1000);
+
+        $d = Carbon::createFromTimestampMsUTC(60);
+        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0, 60000);
+
+        $d = Carbon::createFromTimestampMsUTC(1000);
+        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 1, 0);
+
+        $d = Carbon::createFromTimestampMsUTC(-0.04);
+        $this->assertCarbon($d, 1969, 12, 31, 23, 59, 59, 999960);
     }
 
     public function testComaDecimalSeparatorLocale()
@@ -230,5 +242,13 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('+00:00', $d->tzName);
         $this->assertSame('2020-09-23 18:52:57.449512', $d->format('Y-m-d H:i:s.u'));
         $this->assertSame('1600887177.449512', $d->format('U.u'));
+    }
+
+    public function testNegativeIntegerTimestamp()
+    {
+        $this->assertSame(
+            '1969-12-31 18:59:59.000000 -05:00',
+            Carbon::createFromTimestamp(-1)->format('Y-m-d H:i:s.u P')
+        );
     }
 }

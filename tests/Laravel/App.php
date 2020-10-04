@@ -54,10 +54,15 @@ class App implements ArrayAccess
         return version_compare((string) static::version(), '5.5') >= 0 ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed';
     }
 
-    public function setLocale(string $locale)
+    public function setLocaleWithoutEvent(string $locale)
     {
         $this->locale = $locale;
         $this->translator->setLocale($locale);
+    }
+
+    public function setLocale(string $locale)
+    {
+        $this->setLocaleWithoutEvent($locale);
         $this->events->dispatch(static::getLocaleChangeEventName());
     }
 

@@ -1403,7 +1403,7 @@ trait Date
      */
     public function setTimestamp($unixTimestamp)
     {
-        [$timestamp, $microseconds] = self::getIntegerAndDecimalPartsFromString($unixTimestamp);
+        [$timestamp, $microseconds] = self::getIntegerAndDecimalParts($unixTimestamp);
 
         return parent::setTimestamp((int) $timestamp)->setMicroseconds((int) $microseconds);
     }

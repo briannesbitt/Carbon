@@ -41,13 +41,10 @@ trait Timestamp
      */
     public static function createFromTimestampUTC($timestamp): self
     {
-        [$integer, $decimal] = self::getIntegerAndDecimalPartsFromString($timestamp);
+        [$integer, $decimal] = self::getIntegerAndDecimalParts($timestamp);
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
-
-        if ($delta < 0 || $delta >= 1) {
-            $integer += $delta;
-            $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
-        }
+        $integer += $delta;
+        $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
 
         return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
@@ -63,11 +60,17 @@ trait Timestamp
      */
     public static function createFromTimestampMsUTC($timestamp): self
     {
-        [$milliseconds, $microseconds] = self::getIntegerAndDecimalPartsFromString($timestamp, 3);
-        $seconds = substr($milliseconds, 0, -3);
-        $microseconds = substr($milliseconds, -3).$microseconds;
+        [$milliseconds, $microseconds] = self::getIntegerAndDecimalParts($timestamp, 3);
+        $sign = $milliseconds < 0 || $milliseconds === 0.0 && $microseconds < 0 ? -1 : 1;
+        $milliseconds = abs($milliseconds);
+        $microseconds = $sign * abs($microseconds) + static::MICROSECONDS_PER_MILLISECOND * ($milliseconds % static::MILLISECONDS_PER_SECOND);
+        $seconds = $sign * floor($milliseconds / static::MILLISECONDS_PER_SECOND);
+        $delta = floor($microseconds / static::MICROSECONDS_PER_SECOND);
+        $seconds += $delta;
+        $microseconds -= $delta * static::MICROSECONDS_PER_SECOND;
+        $microseconds = str_pad($microseconds, 6, '0', STR_PAD_LEFT);
 
-        return static::rawCreateFromFormat('U.u', "$seconds.$microseconds");
+        return static::rawCreateFromFormat('U u', "$seconds $microseconds");
     }
 
     /**
@@ -157,7 +160,7 @@ trait Timestamp
      *
      * @return array 0-index is integer part, 1-index is decimal part digits
      */
-    private static function getIntegerAndDecimalPartsFromString($numbers, $decimals = 6): array
+    private static function getIntegerAndDecimalParts($numbers, $decimals = 6): array
     {
         if (is_int($numbers) || is_float($numbers)) {
             $numbers = number_format($numbers, $decimals, '.', '');
@@ -178,6 +181,6 @@ trait Timestamp
         $integer += $overflow;
         $decimal -= $overflow;
 
-        return [$sign * $integer, $sign * round($decimal * pow(10, $decimals))];
+        return [$sign * $integer, $decimal === 0.0 ? 0.0 : $sign * round($decimal * pow(10, $decimals))];
     }
 }
