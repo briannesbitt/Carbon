@@ -305,19 +305,43 @@ echo "\n";
     <pre><code class="php">{{::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{eval}}</code></pre>
     </p>
 
-    <p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix
-        timestamps</a>. The first will create a Carbon instance equal to the given timestamp and will set the timezone
-        as well or default it to the current timezone. The second, <code>createFromTimestampUTC()</code>, is different
-        in that the timezone will remain UTC (GMT), it acts the same as <code>Carbon::parse('@'.$timestamp)</code>
-        but I have just made it a little more explicit. The third, <code>createFromTimestampMs()</code>, accepts a
+    <p>You can test if a date matches a format for <code>createFromFormat()</code> (e.g. date/time components,
+        modifiers or separators) using <code>Carbon::hasFormatWithModifiers()</code> or
+        <code>Carbon::canBeCreatedFromFormat()</code> which also ensure data is actually enough to
+        create an instance.</p>
+
+    <p>
+    <pre><code class="php">{{::exec(var_dump(Carbon::hasFormatWithModifiers('21/05/1975', 'd#m#Y!'));)}} // {{eval}}
+// As 21 is too high for a month number and day is expected to be formatted "05":
+{{::exec(var_dump(Carbon::hasFormatWithModifiers('5/21/1975', 'd#m#Y!'));)}} // {{eval}}
+// 5 is ok for N format:
+{{::exec(var_dump(Carbon::hasFormatWithModifiers('5', 'N'));)}} // {{eval}}
+// but not enough to create an instance:
+{{::exec(var_dump(Carbon::canBeCreatedFromFormat('5', 'N'));)}} // {{eval}}
+// Both hasFormatWithModifiers() and hasFormat() exist because
+// hasFormat() does not interpret modifiers, it checks strictly if ->format() could have produce the given
+// string with the given format:
+{{::exec(var_dump(Carbon::hasFormat('21/05/1975', 'd#m#Y!'));)}} // {{eval}}
+{{::exec(var_dump(Carbon::hasFormat('21#05#1975!', 'd#m#Y!'));)}} // {{eval}}</code></pre>
+    </p>
+
+    <p>You can create instances from <a href="http://en.wikipedia.org/wiki/Unix_time">unix
+        timestamps</a>. <code>createFromTimestamp()</code> create a Carbon instance equal to the given timestamp and
+        will set the timezone as well or default it to the current timezone. <code>createFromTimestampUTC()</code>, is
+        different in that the timezone will remain UTC (GMT+00:00), it's equivalent to <code>Carbon::parse('@'.$timestamp)</code>
+        but it supports int, float or string containing one or more numbers (like the one produced by <code>microtime()</code>)
+        so it can also set microseconds with no precision lost. The third, <code>createFromTimestampMs()</code>, accepts a
         timestamp in milliseconds instead of seconds. Negative timestamps are also allowed.</p>
 
     <p>
-    <pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
-{{::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestamp(-1.5, 'Europe/London')->toDateTimeString();/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestamp('1601735792.198956', 'Europe/London')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampUTC('0.198956 1601735792')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMs('1601735792198.956', 'Europe/London')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMsUTC('0.956 1601735792198')->format('Y-m-d\TH:i:s.uP');/*pad(101)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -1245,6 +1269,11 @@ $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
 {{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
 {{::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{eval}}
 {{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
+// Instead of mock and clear mock, you also can use withTestNow():
+
+{{::exec(Carbon::withTestNow('2010-09-15', static function () {
+    echo Carbon::now();
+});/*pad(54)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -1723,10 +1752,7 @@ $dt->setDateFrom($source2);
 {{::exec(echo $dt->format('l jS \\of F Y h:i:s A');/*pad(50)*/)}} // {{eval}}
 
 // The reverse hasFormat method allows you to test if a string looks like a given format
-{{::exec(var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));/*pad(50)*/)}} // {{eval}}
-
-// You also can use canBeCreatedFromFormat($dateString, $format) which will check both the format match and
-// the data is enough to create a new instance using createFromFormat().
+{{::exec(var_dump(Carbon::hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));)}} // {{eval}}
 </code></pre>
     </p>
 

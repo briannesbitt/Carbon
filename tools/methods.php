@@ -152,10 +152,12 @@ function methods($excludeNatives = false, $excludeMixins = true)
                 $rc = new \ReflectionFunction($rc->invoke($carbonObject));
             }
 
-            $docComment = ($rc->getDocComment()
-                ?: (method_exists(\Carbon\CarbonImmutable::class, $method)
-                    ? (new \ReflectionMethod(\Carbon\CarbonImmutable::class, $method))->getDocComment()
-                    : null
+            $docComment = (
+                $rc->getDocComment()
+                ?: (
+                    method_exists(\Carbon\CarbonImmutable::class, $method)
+                        ? (new \ReflectionMethod(\Carbon\CarbonImmutable::class, $method))->getDocComment()
+                        : null
                 )
             ) ?: null;
 
