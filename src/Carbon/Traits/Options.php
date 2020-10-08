@@ -408,7 +408,7 @@ trait Options
             'localSerializer' => 'toJsonFormat',
             'localMacros' => 'macros',
             'localGenericMacros' => 'genericMacros',
-            'locale' => 'locale',
+            'localTranslator' => 'locale',
             'tzName' => 'timezone',
             'localFormatFunction' => 'formatFunction',
         ];
