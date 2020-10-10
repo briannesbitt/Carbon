@@ -2277,7 +2277,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function hasFormatWithModifiers(string $date, string $format): bool;
+    public static function hasFormatWithModifiers($date, $format): bool;
 
     /**
      * Checks if macro is registered globally or locally.

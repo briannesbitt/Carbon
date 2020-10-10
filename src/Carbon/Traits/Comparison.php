@@ -862,7 +862,7 @@ trait Comparison
         // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
         // To ensure we're really testing against our desired format, perform an additional regex validation.
 
-        return self::matchFormatPattern($date, preg_quote($format, '/'), static::$regexFormats);
+        return self::matchFormatPattern((string) $date, preg_quote((string) $format, '/'), static::$regexFormats);
     }
 
     /**
@@ -879,9 +879,9 @@ trait Comparison
      *
      * @return bool
      */
-    public static function hasFormatWithModifiers(string $date, string $format): bool
+    public static function hasFormatWithModifiers($date, $format): bool
     {
-        return self::matchFormatPattern($date, $format, array_merge(static::$regexFormats, static::$regexFormatModifiers));
+        return self::matchFormatPattern((string) $date, (string) $format, array_merge(static::$regexFormats, static::$regexFormatModifiers));
     }
 
     /**

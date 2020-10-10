@@ -112,4 +112,11 @@ class CreateFromFormatTest extends AbstractTestCase
         $carbon = Carbon::createFromFormat('d/m/Y', '11/03/2016');
         $this->assertSame($this->noErrors, $carbon->getLastErrors());
     }
+
+    public function testCreateFromFormatWithDollar()
+    {
+        $d = Carbon::createFromFormat('$c', '$1975-05-21T22:32:11+01:00');
+        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
+        $this->assertInstanceOfCarbon($d);
+    }
 }

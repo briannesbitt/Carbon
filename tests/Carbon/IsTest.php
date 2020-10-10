@@ -888,6 +888,7 @@ class IsTest extends AbstractTestCase
         }
 
         // Format failure
+        $this->assertFalse(Carbon::hasFormat(null, 'd m Y'));
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
         $this->assertFalse(Carbon::hasFormat('1975-01-30\\', '\\Y-m-d\\\\'));
         $this->assertFalse(Carbon::hasFormat('Foo 21st', 'D jS'));
