@@ -79,6 +79,12 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
 
+    public function testParseWithYYYMMDD()
+    {
+        $c = Carbon::parse('20201128');
+        $this->assertCarbon($c, 2020, 11, 28, 0, 0, 0);
+    }
+
     public function testDefaultTimezone()
     {
         $c = new Carbon('now');
