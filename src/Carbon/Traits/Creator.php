@@ -60,8 +60,8 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (is_numeric($time) && (!is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
-            $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
+        if (substr($time, 0, 1) === '@') {
+            $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
         }
 
         // If the class has a test now set and we are trying to create a now()

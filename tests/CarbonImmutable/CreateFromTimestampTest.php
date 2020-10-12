@@ -208,7 +208,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $d = Carbon::createFromTimestamp('-10.6');
         $this->assertSame('1969-12-31 18:59:49.400000 -05:00', $d->format('Y-m-d H:i:s.u P'));
 
-        $d = new Carbon('-10.6');
+        $d = new Carbon('@-10.6');
         $this->assertSame('1969-12-31 23:59:49.400000 +00:00', $d->format('Y-m-d H:i:s.u P'));
     }
 
