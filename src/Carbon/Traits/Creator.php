@@ -59,7 +59,7 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (is_numeric($time) && (!is_string($time) || $time < 0 || $time > 99991231)) {
+        if (is_numeric($time) && (!is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
             $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
