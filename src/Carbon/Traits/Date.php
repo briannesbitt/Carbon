@@ -2401,7 +2401,7 @@ trait Date
         }
 
         if (static::isModifiableUnit($unit)) {
-            return $this->{"${action}Unit"}($unit, $parameters[0] ?? 1, $overflow);
+            return $this->{"${action}Unit"}($unit, array_pad($parameters, 1, 1)[0], $overflow);
         }
 
         $sixFirstLetters = substr($unit, 0, 6);
