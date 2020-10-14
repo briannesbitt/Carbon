@@ -65,7 +65,7 @@ final class Macro implements BuiltinMethodReflection
     {
         $this->className = $className;
         $this->methodName = $methodName;
-        $this->reflectionFunction = is_array($macro)
+        $this->reflectionFunction = \is_array($macro)
             ? new ReflectionMethod($macro[0], $macro[1])
             : new ReflectionFunction($macro);
         $this->parameters = $this->reflectionFunction->getParameters();
