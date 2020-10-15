@@ -165,7 +165,7 @@ trait Localization
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
                 'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.
-                (is_object($translator) ? get_class($translator) : gettype($translator)).' has been given.'
+                (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.'
             );
         }
 
@@ -374,7 +374,7 @@ trait Localization
                     'second',
                 ], $messages, $key) : [],
                 $mode & CarbonInterface::TRANSLATE_MERIDIEM ? array_map(function ($hour) use ($meridiem) {
-                    if (is_array($meridiem)) {
+                    if (\is_array($meridiem)) {
                         return $meridiem[$hour < static::HOURS_PER_DAY / 2 ? 0 : 1];
                     }
 
@@ -522,7 +522,7 @@ trait Localization
     public static function executeWithLocale($locale, $func)
     {
         $currentLocale = static::getLocale();
-        $result = call_user_func($func, static::setLocale($locale) ? static::getLocale() : false, static::translator());
+        $result = \call_user_func($func, static::setLocale($locale) ? static::getLocale() : false, static::translator());
         static::setLocale($currentLocale);
 
         return $result;
@@ -693,7 +693,7 @@ trait Localization
      */
     protected function getTranslatorLocale($translator = null): ?string
     {
-        if (func_num_args() === 0) {
+        if (\func_num_args() === 0) {
             $translator = $this->getLocalTranslator();
         }
 
@@ -711,7 +711,7 @@ trait Localization
      */
     protected static function getLocaleAwareTranslator($translator = null)
     {
-        if (func_num_args() === 0) {
+        if (\func_num_args() === 0) {
             $translator = static::translator();
         }
 
@@ -779,7 +779,7 @@ trait Localization
     {
         $filler = '>>DO NOT REPLACE<<';
 
-        if (is_array($translation)) {
+        if (\is_array($translation)) {
             return array_pad($translation, $length, $filler);
         }
 

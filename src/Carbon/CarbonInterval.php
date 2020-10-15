@@ -361,7 +361,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $spec = $years;
 
-        if (!is_string($spec) || floatval($years) || preg_match('/^[0-9.]/', $years)) {
+        if (!\is_string($spec) || \floatval($years) || preg_match('/^[0-9.]/', $years)) {
             $spec = static::PERIOD_PREFIX;
 
             $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
@@ -388,7 +388,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         parent::__construct($spec);
 
-        if (!is_null($microseconds)) {
+        if (!\is_null($microseconds)) {
             $this->f = $microseconds / Carbon::MICROSECONDS_PER_SECOND;
         }
     }
@@ -526,7 +526,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         if (preg_match('/s([,.])([uv])$/', $format, $match)) {
             $interval = explode($match[1], $interval);
-            $index = count($interval) - 1;
+            $index = \count($interval) - 1;
             $interval[$index] = str_pad($interval[$index], $match[2] === 'v' ? 3 : 6, '0');
             $interval = implode($match[1], $interval);
         }
@@ -542,7 +542,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 }
 
                 $interval = mb_substr($interval, mb_strlen($match[0]));
-                $instance->$unit += intval($match[0]);
+                $instance->$unit += \intval($match[0]);
 
                 continue;
             }
@@ -713,8 +713,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
 
         while ([$part, $value, $unit] = array_shift($parts)) {
-            $intValue = intval($value);
-            $fraction = floatval($value) - $intValue;
+            $intValue = \intval($value);
+            $fraction = \floatval($value) - $intValue;
 
             // Fix calculation precision
             switch (round($fraction, 6)) {
@@ -974,7 +974,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return self::withOriginal(new static($interval), $interval);
         }
 
-        if (!is_string($interval)) {
+        if (!\is_string($interval)) {
             return null;
         }
 
@@ -1121,7 +1121,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function set($name, $value = null)
     {
-        $properties = is_array($name) ? $name : [$name => $value];
+        $properties = \is_array($name) ? $name : [$name => $value];
 
         foreach ($properties as $key => $value) {
             switch (Carbon::singularUnit(rtrim($key, 'z'))) {
@@ -1321,10 +1321,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if ($macro instanceof Closure) {
             $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
 
-            return call_user_func_array($boundMacro ?: $macro, $parameters);
+            return \call_user_func_array($boundMacro ?: $macro, $parameters);
         }
 
-        return call_user_func_array($macro, $parameters);
+        return \call_user_func_array($macro, $parameters);
     }
 
     /**
@@ -1355,7 +1355,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         try {
-            $this->set($method, count($parameters) === 0 ? 1 : $parameters[0]);
+            $this->set($method, \count($parameters) === 0 ? 1 : $parameters[0]);
         } catch (UnknownSetterException $exception) {
             if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
                 throw new BadFluentSetterException($method, 0, $exception);
@@ -1367,18 +1367,18 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
     protected function getForHumansInitialVariables($syntax, $short)
     {
-        if (is_array($syntax)) {
+        if (\is_array($syntax)) {
             return $syntax;
         }
 
-        if (is_int($short)) {
+        if (\is_int($short)) {
             return [
                 'parts' => $short,
                 'short' => false,
             ];
         }
 
-        if (is_bool($syntax)) {
+        if (\is_bool($syntax)) {
             return [
                 'short' => $syntax,
                 'syntax' => CarbonInterface::DIFF_ABSOLUTE,
@@ -1406,7 +1406,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $minimumUnit = 's';
         extract($this->getForHumansInitialVariables($syntax, $short));
 
-        if (is_null($syntax)) {
+        if (\is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
         }
 
@@ -1414,7 +1414,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $parts = INF;
         }
 
-        if (is_null($options)) {
+        if (\is_null($options)) {
             $options = static::getHumanDiffOptions();
         }
 
@@ -1430,11 +1430,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if ($altNumbers) {
             if ($altNumbers !== true) {
                 $language = new Language($this->locale);
-                $altNumbers = in_array($language->getCode(), (array) $altNumbers);
+                $altNumbers = \in_array($language->getCode(), (array) $altNumbers);
             }
         }
 
-        if (is_array($join)) {
+        if (\is_array($join)) {
             [$default, $last] = $join;
 
             if ($default !== ' ') {
@@ -1442,7 +1442,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
 
             $join = function ($list) use ($default, $last) {
-                if (count($list) < 2) {
+                if (\count($list) < 2) {
                     return implode('', $list);
                 }
 
@@ -1452,7 +1452,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             };
         }
 
-        if (is_string($join)) {
+        if (\is_string($join)) {
             if ($join !== ' ') {
                 $optionalSpace = '';
             }
@@ -1532,7 +1532,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $keys = array_keys($nonZeroValues);
         $firstKey = $keys[0];
-        $lastKey = $keys[count($keys) - 1];
+        $lastKey = $keys[\count($keys) - 1];
         $values = [];
         $record = false;
 
@@ -1637,8 +1637,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         if ($method) {
             while (
-                count($intervalValues->getNonZeroValues()) > $parts &&
-                ($count = count($keys = array_keys($intervalValues->getValuesSequence()))) > 1
+                \count($intervalValues->getNonZeroValues()) > $parts &&
+                ($count = \count($keys = array_keys($intervalValues->getValuesSequence()))) > 1
             ) {
                 $intervalValues = $this->copy()->roundUnit($keys[$count - 2], 1, $method);
             }
@@ -1686,24 +1686,24 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
                 $interval[] = $transChoice($short, $diffIntervalData);
-            } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && count($interval) > 0) {
+            } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && \count($interval) > 0) {
                 break;
             }
 
             // break the loop after we get the required number of parts in array
-            if (count($interval) >= $parts) {
+            if (\count($interval) >= $parts) {
                 break;
             }
 
             // break the loop after we have reached the minimum unit
-            if (in_array($minimumUnit, [$diffIntervalData['unit'], $diffIntervalData['unitShort']])) {
+            if (\in_array($minimumUnit, [$diffIntervalData['unit'], $diffIntervalData['unitShort']])) {
                 $fallbackUnit = [$diffIntervalData['unit'], $diffIntervalData['unitShort']];
 
                 break;
             }
         }
 
-        if (count($interval) === 0) {
+        if (\count($interval) === 0) {
             if ($relativeToNow && $options & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
                 $translation = $this->translate($key, $interpolations, null, $translator);
@@ -1830,7 +1830,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function invert($inverted = null)
     {
-        $this->invert = (func_num_args() === 0 ? !$this->invert : $inverted) ? 1 : 0;
+        $this->invert = (\func_num_args() === 0 ? !$this->invert : $inverted) ? 1 : 0;
 
         return $this;
     }
@@ -1865,7 +1865,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             [$value, $unit] = [$unit, $value];
         }
 
-        if (is_string($unit) && !preg_match('/^\s*\d/', $unit)) {
+        if (\is_string($unit) && !preg_match('/^\s*\d/', $unit)) {
             $unit = "$value $unit";
             $value = 1;
         }
@@ -1908,7 +1908,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->add($unit, -floatval($value));
+        return $this->add($unit, -\floatval($value));
     }
 
     /**
@@ -2061,7 +2061,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $specString .= $value.$key;
         }
 
-        if (count($time) > 0) {
+        if (\count($time) > 0) {
             $specString .= static::PERIOD_TIME_PREFIX;
             foreach ($time as $key => $value) {
                 $specString .= $value.$key;
@@ -2155,9 +2155,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $realUnit = $unit = strtolower($unit);
 
-        if (in_array($unit, ['days', 'weeks'])) {
+        if (\in_array($unit, ['days', 'weeks'])) {
             $realUnit = 'dayz';
-        } elseif (!in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
+        } elseif (!\in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
             throw new UnknownUnitException($unit);
         }
 

@@ -356,7 +356,7 @@ trait Options
         if (isset($settings['locale'])) {
             $locales = $settings['locale'];
 
-            if (!is_array($locales)) {
+            if (!\is_array($locales)) {
                 $locales = [$locales];
             }
 
