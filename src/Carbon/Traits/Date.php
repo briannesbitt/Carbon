@@ -2489,7 +2489,7 @@ trait Date
         if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
             throw new InvalidTypeException(
                 $message.'DateTime or DateTimeInterface, '.
-                (is_object($date) ? get_class($date) : gettype($date)).' given'
+                (\is_object($date) ? \get_class($date) : \gettype($date)).' given'
             );
         }
     }
@@ -2508,7 +2508,7 @@ trait Date
             return $this->nowWithSameTz();
         }
 
-        if (is_string($date)) {
+        if (\is_string($date)) {
             return static::parse($date, $this->getTimezone());
         }
 
@@ -2527,10 +2527,10 @@ trait Date
         if ($macro instanceof Closure) {
             $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
 
-            return call_user_func_array($boundMacro ?: $macro, $parameters);
+            return \call_user_func_array($boundMacro ?: $macro, $parameters);
         }
 
-        return call_user_func_array($macro, $parameters);
+        return \call_user_func_array($macro, $parameters);
     }
 
     protected function executeCallableWithContext($macro, ...$parameters)
@@ -2555,10 +2555,10 @@ trait Date
             if ($macro instanceof Closure) {
                 $boundMacro = @Closure::bind($macro, null, static::class);
 
-                return call_user_func_array($boundMacro ?: $macro, $parameters);
+                return \call_user_func_array($boundMacro ?: $macro, $parameters);
             }
 
-            return call_user_func_array($macro, $parameters);
+            return \call_user_func_array($macro, $parameters);
         });
     }
 

@@ -344,7 +344,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function __construct($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
-        $this->originalInput = func_num_args() === 1 ? $years : func_get_args();
+        $this->originalInput = \func_num_args() === 1 ? $years : \func_get_args();
 
         if ($years instanceof Closure) {
             $this->step = $years;
