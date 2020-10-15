@@ -33,11 +33,11 @@ class CarbonTimeZone extends DateTimeZone
 
     protected static function getDateTimeZoneNameFromMixed($timezone)
     {
-        if (is_null($timezone)) {
+        if (\is_null($timezone)) {
             return date_default_timezone_get();
         }
 
-        if (is_string($timezone)) {
+        if (\is_string($timezone)) {
             $timezone = preg_replace('/^\s*([+-]\d+)(\d{2})\s*$/', '$1:$2', $timezone);
         }
 

@@ -441,7 +441,7 @@ trait Comparison
      */
     public function isWeekend()
     {
-        return in_array($this->dayOfWeek, static::$weekendDays);
+        return \in_array($this->dayOfWeek, static::$weekendDays);
     }
 
     /**
@@ -710,8 +710,8 @@ trait Comparison
      */
     public function isDayOfWeek($dayOfWeek)
     {
-        if (is_string($dayOfWeek) && defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
-            $dayOfWeek = constant($constant);
+        if (\is_string($dayOfWeek) && \defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
+            $dayOfWeek = \constant($constant);
         }
 
         return $this->dayOfWeek === $dayOfWeek;
@@ -943,7 +943,7 @@ trait Comparison
         $tester = trim($tester);
 
         if (preg_match('/^\d+$/', $tester)) {
-            return $this->year === intval($tester);
+            return $this->year === \intval($tester);
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {

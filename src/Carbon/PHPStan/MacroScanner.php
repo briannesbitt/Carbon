@@ -21,7 +21,7 @@ final class MacroScanner
     public function hasMethod(string $className, string $methodName): bool
     {
         return is_a($className, CarbonInterface::class, true) &&
-            is_callable([$className, 'hasMacro']) &&
+            \is_callable([$className, 'hasMacro']) &&
             $className::hasMacro($methodName);
     }
 

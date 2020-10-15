@@ -51,7 +51,7 @@ trait Test
             $testNow = null;
         }
 
-        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
+        static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
     }
 
     /**

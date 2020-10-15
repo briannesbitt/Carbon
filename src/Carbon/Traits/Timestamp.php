@@ -162,7 +162,7 @@ trait Timestamp
      */
     private static function getIntegerAndDecimalParts($numbers, $decimals = 6)
     {
-        if (is_int($numbers) || is_float($numbers)) {
+        if (\is_int($numbers) || \is_float($numbers)) {
             $numbers = number_format($numbers, $decimals, '.', '');
         }
 
@@ -173,8 +173,8 @@ trait Timestamp
         foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
             [$integerPart, $decimalPart] = explode('.', "$chunk.");
 
-            $integer += intval($integerPart);
-            $decimal += floatval("0.$decimalPart");
+            $integer += \intval($integerPart);
+            $decimal += \floatval("0.$decimalPart");
         }
 
         $overflow = floor($decimal);
