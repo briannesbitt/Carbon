@@ -59,7 +59,7 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (is_numeric($time) && (!is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
+        if (is_numeric($time) && (!\is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
             $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
@@ -214,11 +214,11 @@ trait Creator
             return static::rawParse($time, $tz);
         }
 
-        if (is_string($function) && method_exists(static::class, $function)) {
+        if (\is_string($function) && method_exists(static::class, $function)) {
             $function = [static::class, $function];
         }
 
-        return $function(...func_get_args());
+        return $function(...\func_get_args());
     }
 
     /**
@@ -366,8 +366,8 @@ trait Creator
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
-        if (is_string($year) && !is_numeric($year)) {
-            return static::parse($year, $tz ?: (is_string($month) || $month instanceof DateTimeZone ? $month : null));
+        if (\is_string($year) && !is_numeric($year)) {
+            return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
         }
 
         $defaults = null;
@@ -453,7 +453,7 @@ trait Creator
         $fields = static::getRangesByUnit();
 
         foreach ($fields as $field => $range) {
-            if ($$field !== null && (!is_int($$field) || $$field < $range[0] || $$field > $range[1])) {
+            if ($$field !== null && (!\is_int($$field) || $$field < $range[0] || $$field > $range[1])) {
                 if (static::isStrictModeEnabled()) {
                     throw new InvalidDateException($field, $$field);
                 }
@@ -465,7 +465,7 @@ trait Creator
         $instance = static::create($year, $month, $day, $hour, $minute, $second, $tz);
 
         foreach (array_reverse($fields) as $field => $range) {
-            if ($$field !== null && (!is_int($$field) || $$field !== $instance->$field)) {
+            if ($$field !== null && (!\is_int($$field) || $$field !== $instance->$field)) {
                 if (static::isStrictModeEnabled()) {
                     throw new InvalidDateException($field, $$field);
                 }
@@ -563,7 +563,7 @@ trait Creator
             return parent::createFromFormat($format, "$time");
         }
 
-        $tz = is_int($originalTz)
+        $tz = \is_int($originalTz)
             ? @timezone_name_from_abbr('', (int) ($originalTz * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE), 1)
             : $originalTz;
 
@@ -665,11 +665,11 @@ trait Creator
             return static::rawCreateFromFormat($format, $time, $tz);
         }
 
-        if (is_string($function) && method_exists(static::class, $function)) {
+        if (\is_string($function) && method_exists(static::class, $function)) {
             $function = [static::class, $function];
         }
 
-        return $function(...func_get_args());
+        return $function(...\func_get_args());
     }
 
     /**
@@ -870,10 +870,10 @@ trait Creator
 
         $date = null;
 
-        if (is_string($var)) {
+        if (\is_string($var)) {
             $var = trim($var);
 
-            if (is_string($var) &&
+            if (\is_string($var) &&
                 !preg_match('/^P[0-9T]/', $var) &&
                 !preg_match('/^R[0-9]/', $var) &&
                 preg_match('/[a-z0-9]/i', $var)

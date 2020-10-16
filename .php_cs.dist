@@ -14,6 +14,9 @@ $rules = array(
         'spacing' => 'none',
     ),
     'ereg_to_preg' => true,
+    'native_function_invocation' => [
+        'include' => ['@compiler_optimized'],
+    ],
     'no_blank_lines_after_phpdoc' => true,
     'no_short_bool_cast' => true,
     'no_unneeded_control_parentheses' => true,

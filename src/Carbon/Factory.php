@@ -285,10 +285,10 @@ class Factory
 
         if ($settings && isset($settings['timezone'])) {
             $tzParameters = array_filter($method->getParameters(), function ($parameter) {
-                return in_array($parameter->getName(), ['tz', 'timezone'], true);
+                return \in_array($parameter->getName(), ['tz', 'timezone'], true);
             });
 
-            if (count($tzParameters)) {
+            if (\count($tzParameters)) {
                 array_splice($arguments, key($tzParameters), 0, [$settings['timezone']]);
                 unset($settings['timezone']);
             }
