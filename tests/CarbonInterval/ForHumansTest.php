@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace Tests\CarbonInterval;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -362,6 +363,18 @@ class ForHumansTest extends AbstractTestCase
 
         $interval = CarbonInterval::days(2)->minutes(59)->seconds(62);
         $this->assertEquals('2 days 59 minutes', $interval->forHumans(['parts' => 2]));
+
+        $start = Carbon::create(2009, 9)->startOfMonth();
+        $end = Carbon::create(2012, 2)->endOfMonth();
+
+        $interval = CarbonInterval::instance($start->diff($end))->forHumans(
+            Carbon::DIFF_ABSOLUTE,
+            false,
+            2,
+            Carbon::CEIL
+        );
+
+        $this->assertEquals('2 years 6 months', $interval);
     }
 
     public function testGetValuesSequence()
