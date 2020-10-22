@@ -334,11 +334,11 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
-        'už 1 sekundės',
+        '1 sekundės nuo dabar',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        'už 1 sek.',
+        '1 sek. nuo dabar',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
@@ -350,11 +350,11 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
-        '1 sekundė nuo dabar',
+        'už 1 sekundė',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 sek. nuo dabar',
+        'už 1 sek.',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
@@ -374,7 +374,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        'už 1 sek.',
+        '1 sek. nuo dabar',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
@@ -386,7 +386,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
-        'už 3 metų',
+        '3 metų nuo dabar',
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
@@ -410,7 +410,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now'
-        'už 1 savaitės ir 6 dienų',
+        '1 savaitės ir 6 dienų nuo dabar',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
@@ -418,7 +418,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
-        'už 1 valandos',
+        '1 valandos nuo dabar',
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days'
