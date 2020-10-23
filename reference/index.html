@@ -1211,11 +1211,11 @@ Carbon::hasFormat('13:12:45', 'h:i:s'); // false</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-hasFormatWithModifiers">
     <h2><span class="class-name">Carbon::</span>hasFormatWithModifiers</h2>
-    <code>string $date, string $format</code>
+    <code>$date, $format</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the (date)time string is in a given format.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::hasFormatWithModifiers('31/08/2015', 'd#m#Y'); // true
 Carbon::hasFormatWithModifiers('31/08/2015', 'm#d#Y'); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.41.0</td><td><code>string $date, string $format</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.41.2</td><td><code>$date, $format</code></td></tr><tr><td>Method added</td><td>2.41.0</td><td><code>string $date, string $format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-canBeCreatedFromFormat">
@@ -3451,6 +3451,14 @@ given custom zone.</p>
     <p class="doc-description">Checks the date to see if it is a holiday observed in the selected zone.</p>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-setHolidayGetter">
+    <h2><span class="class-name">Carbon::</span>setHolidayGetter</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>$this|null</code></div>
+    <p class="doc-description">Set the strategy to get the holiday ID from a date object.</p>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-getHolidayId">
     <h2><span class="class-name">Carbon::</span>getHolidayId</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
@@ -3496,7 +3504,7 @@ or false if it's not a holiday.</p>
     <h2><span class="class-name">Carbon::</span>getYearHolidaysNextFunction</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>Closure</code></div>
+    <div class="doc-return">returns <code>callable</code></div>
     <p class="doc-description">Get a next() callback to call to iterate over holidays of a year.</p>
 </div>
 
@@ -3621,6 +3629,38 @@ or false if it's not a holiday.</p>
     <em>no arguments</em>
     <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">Store a first variable as Carbon instance into the second variable if the first one is a date.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getHolidayDataById">
+    <h2><span class="class-name">Carbon::</span>getHolidayDataById</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>array</code></div>
+    <p class="doc-description">Get stored data set for the a given holiday ID.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-setHolidayDataById">
+    <h2><span class="class-name">Carbon::</span>setHolidayDataById</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>$this|null</code></div>
+    <p class="doc-description">Set stored data set for the a given holiday ID.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getHolidayData">
+    <h2><span class="class-name">Carbon::</span>getHolidayData</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>array</code></div>
+    <p class="doc-description">Get stored data set for the current holiday or null if it's not a holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-setHolidayData">
+    <h2><span class="class-name">Carbon::</span>setHolidayData</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>$this|null</code></div>
+    <p class="doc-description">Set stored data set for the current holiday, does nothing if it's not a holiday.</p>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setMaxIteration">
