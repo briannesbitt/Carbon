@@ -12,7 +12,6 @@ parameters:
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::diffInReal([A-Za-z]+)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-        - '#^Variable \$this in isset\(\) (always exists and is not nullable|is never defined)\.$#'
         - '#^Unary operation "\~" on mixed results in an error\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
