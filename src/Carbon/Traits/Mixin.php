@@ -96,7 +96,7 @@ trait Mixin
      */
     private static function loadMixinTrait($trait)
     {
-        $context = eval('return new class() extends '.static::class.' {use '.$trait.';};');
+        $context = eval(self::getAnonymousClassCodeForTrait($trait));
         $className = \get_class($context);
 
         foreach (self::getMixableMethods($context) as $name) {
@@ -115,6 +115,11 @@ trait Mixin
                 return $closure(...\func_get_args());
             });
         }
+    }
+
+    private static function getAnonymousClassCodeForTrait(string $trait)
+    {
+        return 'return new class() extends '.static::class.' {use '.$trait.';};';
     }
 
     private static function getMixableMethods(self $context): Generator
