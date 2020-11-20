@@ -66,7 +66,7 @@ return [
     'diff_yesterday_regexp' => 'ayer(?:\\s+a)?(?:\\s+las)?',
     'diff_tomorrow' => 'mañana',
     'diff_tomorrow_regexp' => 'mañana(?:\\s+a)?(?:\\s+las)?',
-    'diff_before_yesterday' => 'antier',
+    'diff_before_yesterday' => 'anteayer',
     'diff_after_tomorrow' => 'pasado mañana',
     'formats' => [
         'LT' => 'H:mm',
