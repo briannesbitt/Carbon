@@ -75,27 +75,27 @@ class OcFrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'divendres passat a 0:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1r 1r 1r 1a 1a',
+        '1èr 1èr 1èr 1èra 1èra',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2n 1a',
+        '2nd 1èra',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3r 1a',
+        '3en 1èra',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4t 1a',
+        '4en 1èra',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5è 1a',
+        '5en 1èra',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6è 1a',
+        '6en 1èra',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7è 1a',
+        '7en 1èra',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11è 2a',
+        '11en 2nda',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40è',
+        '40en',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41è',
+        '41en',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100è',
+        '100en',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class OcFrTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0è',
+        '0en',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'fa 1 segonda',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
