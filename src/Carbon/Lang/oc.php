@@ -83,8 +83,9 @@ return [
     'weekdays_short' => ['dg', 'dl', 'dm', 'dc', 'dj', 'dv', 'ds'],
     'weekdays_min' => ['dg', 'dl', 'dm', 'dc', 'dj', 'dv', 'ds'],
     'ordinal' => function ($number, $period) {
-        $ordinal = $number === 1 ? 'èr' : ($number === 2 ? 'nd' : 'en');
+        $ordinal = [1 => 'èr', 2 => 'nd'][(int) $number] ?? 'en';
 
+        // feminine for year, week, hour, minute, second
         if (preg_match('/^[yYwWhHgGis]$/', $period)) {
             $ordinal .= 'a';
         }
