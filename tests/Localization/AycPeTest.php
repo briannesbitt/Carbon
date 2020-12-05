@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AycPeTest extends LocalizationTestCase
 {
-    const LOCALE = 'ayc_PE'; // Southern Aymara
+    public const LOCALE = 'ayc_PE'; // Southern Aymara
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 VM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

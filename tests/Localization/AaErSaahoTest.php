@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AaErSaahoTest extends LocalizationTestCase
 {
-    const LOCALE = 'aa_ER@saaho'; // Afar
+    public const LOCALE = 'aa_ER@saaho'; // Afar
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 saaku',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

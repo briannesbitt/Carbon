@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class LvLvTest extends LocalizationTestCase
 {
-    const LOCALE = 'lv_LV'; // Latvian
+    public const LOCALE = 'lv_LV'; // Latvian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
         'Tomorrow at 00:00',

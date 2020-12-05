@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AfNaTest extends LocalizationTestCase
 {
-    const LOCALE = 'af_NA'; // Afrikaans
+    public const LOCALE = 'af_NA'; // Afrikaans
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Môre om 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

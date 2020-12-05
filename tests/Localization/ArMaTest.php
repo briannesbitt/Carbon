@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class ArMaTest extends LocalizationTestCase
 {
-    const LOCALE = 'ar_MA'; // Arabic
+    public const LOCALE = 'ar_MA'; // Arabic
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'غدا على الساعة 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

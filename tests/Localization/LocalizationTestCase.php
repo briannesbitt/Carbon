@@ -18,9 +18,9 @@ use Tests\AbstractTestCase;
 
 abstract class LocalizationTestCase extends AbstractTestCase
 {
-    const LOCALE = 'en';
+    public const LOCALE = 'en';
 
-    const LOCALES = [
+    public const LOCALES = [
         'aa' => 'Afar',
         'ab' => 'Abkhazian',
         'ae' => 'Avestan',
@@ -211,7 +211,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         'gom' => 'Konkani Latin script',
     ];
 
-    const TESTS = [
+    public const TESTS = [
         '{class}::parse(\'2018-01-04 00:00:00\')->addDays(1)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->addDays(2)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->addDays(3)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
@@ -317,7 +317,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         'CarbonInterval::create(\'P1DT3H\')->forHumans(true)',
     ];
 
-    const CASES = [];
+    public const CASES = [];
 
     protected function setUp(): void
     {

@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class EtEeTest extends LocalizationTestCase
 {
-    const LOCALE = 'et_EE'; // Estonian
+    public const LOCALE = 'et_EE'; // Estonian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'homme 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

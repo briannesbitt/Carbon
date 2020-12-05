@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class BeTest extends LocalizationTestCase
 {
-    const LOCALE = 'be'; // Belarusian
+    public const LOCALE = 'be'; // Belarusian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Заўтра ў 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

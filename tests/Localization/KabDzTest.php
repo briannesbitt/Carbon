@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class KabDzTest extends LocalizationTestCase
 {
-    const LOCALE = 'kab_DZ'; // Kabyle
+    public const LOCALE = 'kab_DZ'; // Kabyle
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 FT',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

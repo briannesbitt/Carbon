@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class JvTest extends LocalizationTestCase
 {
-    const LOCALE = 'jv'; // Javanese
+    public const LOCALE = 'jv'; // Javanese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Mbenjang pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

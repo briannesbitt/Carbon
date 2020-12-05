@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class UrTest extends LocalizationTestCase
 {
-    const LOCALE = 'ur'; // Urdu
+    public const LOCALE = 'ur'; // Urdu
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'کل بوقت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

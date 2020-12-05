@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class TeTest extends LocalizationTestCase
 {
-    const LOCALE = 'te'; // Telugu
+    public const LOCALE = 'te'; // Telugu
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'రేపు రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

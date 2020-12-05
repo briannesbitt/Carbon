@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AzIrTest extends LocalizationTestCase
 {
-    const LOCALE = 'az_IR'; // Azerbaijani
+    public const LOCALE = 'az_IR'; // Azerbaijani
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'sabah saat 12:00 gecə',

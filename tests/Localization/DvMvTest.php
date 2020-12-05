@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class DvMvTest extends LocalizationTestCase
 {
-    const LOCALE = 'dv_MV'; // Divehi
+    public const LOCALE = 'dv_MV'; // Divehi
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'މާދަމާ 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

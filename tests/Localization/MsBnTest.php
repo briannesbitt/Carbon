@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class MsBnTest extends LocalizationTestCase
 {
-    const LOCALE = 'ms_BN'; // Malay
+    public const LOCALE = 'ms_BN'; // Malay
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Esok pukul 12:00 a',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
