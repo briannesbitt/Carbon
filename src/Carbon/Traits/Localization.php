@@ -164,7 +164,7 @@ trait Localization
     public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)
     {
         if (!($translator instanceof TranslatorBagInterface && (
-            $translator instanceof TranslatorInterface// || $translator instanceof LegacyTranslatorInterface
+            $translator instanceof TranslatorInterface || $translator instanceof LegacyTranslatorInterface
         ))) {
             throw new InvalidTypeException(
                 'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.

@@ -100,21 +100,27 @@ abstract class AbstractTestCase extends TestCase
         $translator->resetMessages();
     }
 
-    public static function assertIsArray($value, ?string $message = null): void
+    public static function assertIsArray($value, string $message = ''): void
     {
-        self::assertTrue(is_array($value), $message ?? 'Failing asserting the passed value is an array.');
+        self::assertTrue(
+            is_array($value),
+            empty($message) ? 'Failing asserting the passed value is an array.' : $message
+        );
     }
 
-    public static function assertIsInt($value, ?string $message = null): void
+    public static function assertIsInt($value, string $message = ''): void
     {
-        self::assertTrue(is_int($value), $message ?? 'Failing asserting the passed value is an integer.');
+        self::assertTrue(
+            is_int($value),
+            empty($message) ? 'Failing asserting the passed value is an integer.' : $message
+        );
     }
 
-    public static function assertStringContainsString($needle, $haystack, ?string $message = null): void
+    public static function assertStringContainsString($needle, $haystack, string $message = ''): void
     {
         self::assertTrue(
             strpos($haystack, $needle) !== false,
-            $message ?? "Failing asserting the given '$haystack' contains '$needle'."
+            empty($message) ? "Failing asserting the given '$haystack' contains '$needle'." : $message
         );
     }
 
