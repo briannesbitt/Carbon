@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class CyTest extends LocalizationTestCase
 {
-    const LOCALE = 'cy'; // Welsh
+    public const LOCALE = 'cy'; // Welsh
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Yfory am 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

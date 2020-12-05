@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class ZhHkTest extends LocalizationTestCase
 {
-    const LOCALE = 'zh_HK'; // Chinese
+    public const LOCALE = 'zh_HK'; // Chinese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         '明天 00:00',

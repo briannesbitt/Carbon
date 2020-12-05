@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class PaArabTest extends LocalizationTestCase
 {
-    const LOCALE = 'pa_Arab'; // Panjabi
+    public const LOCALE = 'pa_Arab'; // Panjabi
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'کل بوقت 12:00 صبح',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

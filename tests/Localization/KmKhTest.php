@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class KmKhTest extends LocalizationTestCase
 {
-    const LOCALE = 'km_KH'; // Khmer
+    public const LOCALE = 'km_KH'; // Khmer
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ស្អែក ម៉ោង 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

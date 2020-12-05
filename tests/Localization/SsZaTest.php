@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class SsZaTest extends LocalizationTestCase
 {
-    const LOCALE = 'ss_ZA'; // Swati
+    public const LOCALE = 'ss_ZA'; // Swati
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Kusasa nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

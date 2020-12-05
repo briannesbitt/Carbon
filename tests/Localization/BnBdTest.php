@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class BnBdTest extends LocalizationTestCase
 {
-    const LOCALE = 'bn_BD'; // Bengali
+    public const LOCALE = 'bn_BD'; // Bengali
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
         'আগামীকাল রাত ১২:০ সময়',

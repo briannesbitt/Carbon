@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class EuEsTest extends LocalizationTestCase
 {
-    const LOCALE = 'eu_ES'; // Basque
+    public const LOCALE = 'eu_ES'; // Basque
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'bihar 00:00etan',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

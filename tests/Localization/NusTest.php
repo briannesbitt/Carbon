@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class NusTest extends LocalizationTestCase
 {
-    const LOCALE = 'nus'; // Nuer
+    public const LOCALE = 'nus'; // Nuer
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 rw',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

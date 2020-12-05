@@ -8,7 +8,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 
 class TranslationHuTest extends TestCaseBase
 {
-    const LOCALE = 'hu';
+    public const LOCALE = 'hu';
 
     public function testGetsAndSetsTranslator()
     {

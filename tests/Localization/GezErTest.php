@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class GezErTest extends LocalizationTestCase
 {
-    const LOCALE = 'gez_ER'; // Geez
+    public const LOCALE = 'gez_ER'; // Geez
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 ጽባሕ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

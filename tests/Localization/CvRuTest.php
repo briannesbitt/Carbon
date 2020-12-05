@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class CvRuTest extends LocalizationTestCase
 {
-    const LOCALE = 'cv_RU'; // Chuvash
+    public const LOCALE = 'cv_RU'; // Chuvash
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ыран 00:00 сехетре',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

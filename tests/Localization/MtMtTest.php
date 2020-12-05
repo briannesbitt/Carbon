@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class MtMtTest extends LocalizationTestCase
 {
-    const LOCALE = 'mt_MT'; // Maltese
+    public const LOCALE = 'mt_MT'; // Maltese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Għada fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

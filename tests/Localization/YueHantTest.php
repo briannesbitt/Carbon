@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class YueHantTest extends LocalizationTestCase
 {
-    const LOCALE = 'yue_Hant'; // Cantonese
+    public const LOCALE = 'yue_Hant'; // Cantonese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         '明天 00:00',

@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class ElCyTest extends LocalizationTestCase
 {
-    const LOCALE = 'el_CY'; // Greek (modern)
+    public const LOCALE = 'el_CY'; // Greek (modern)
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Αύριο {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

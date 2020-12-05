@@ -23,7 +23,7 @@ class EventDispatcherBase
     {
         if (isset($this->listeners[$name])) {
             foreach ($this->listeners[$name] as $listener) {
-                call_user_func($listener, $event);
+                $listener($event);
             }
         }
     }

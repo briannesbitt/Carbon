@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class LbTest extends LocalizationTestCase
 {
-    const LOCALE = 'lb'; // Luxembourgish
+    public const LOCALE = 'lb'; // Luxembourgish
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Muer um 0:00 Auer',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

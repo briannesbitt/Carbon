@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class MeTest extends LocalizationTestCase
 {
-    const LOCALE = 'me'; // me
+    public const LOCALE = 'me'; // me
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'sjutra u 0:00',

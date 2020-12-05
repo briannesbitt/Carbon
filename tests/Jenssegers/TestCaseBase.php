@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class TestCaseBase extends TestCase
 {
-    const LOCALE = 'en';
+    public const LOCALE = 'en';
 
     public function setUp(): void
     {

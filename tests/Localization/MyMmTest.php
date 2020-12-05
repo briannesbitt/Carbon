@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class MyMmTest extends LocalizationTestCase
 {
-    const LOCALE = 'my_MM'; // Burmese
+    public const LOCALE = 'my_MM'; // Burmese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
         'မနက်ဖြန် ၁၂:၀၀ နံနက် မှာ',

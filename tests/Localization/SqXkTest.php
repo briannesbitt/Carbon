@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class SqXkTest extends LocalizationTestCase
 {
-    const LOCALE = 'sq_XK'; // Albanian
+    public const LOCALE = 'sq_XK'; // Albanian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Nesër në 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

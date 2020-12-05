@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class TzmTest extends LocalizationTestCase
 {
-    const LOCALE = 'tzm'; // Tamazight
+    public const LOCALE = 'tzm'; // Tamazight
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ⴰⵙⴽⴰ ⴴ 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

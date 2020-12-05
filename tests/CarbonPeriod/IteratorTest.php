@@ -113,7 +113,7 @@ class IteratorTest extends AbstractTestCase
      */
     public function testIterateBackwards($arguments, $expected)
     {
-        $period = call_user_func_array('Carbon\CarbonPeriod::create', $arguments);
+        $period = CarbonPeriod::create(...$arguments);
 
         $interval = new CarbonInterval('P3D');
         $interval->invert = 1;

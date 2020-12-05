@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class BemTest extends LocalizationTestCase
 {
-    const LOCALE = 'bem'; // Bemba
+    public const LOCALE = 'bem'; // Bemba
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 uluchelo',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

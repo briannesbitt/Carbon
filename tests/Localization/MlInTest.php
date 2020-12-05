@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class MlInTest extends LocalizationTestCase
 {
-    const LOCALE = 'ml_IN'; // Malayalam
+    public const LOCALE = 'ml_IN'; // Malayalam
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'നാളെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

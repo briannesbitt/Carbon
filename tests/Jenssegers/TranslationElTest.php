@@ -5,7 +5,7 @@ namespace Tests\Jenssegers;
 
 class TranslationElTest extends TestCaseBase
 {
-    const LOCALE = 'el';
+    public const LOCALE = 'el';
 
     public function testTimespanTranslated()
     {

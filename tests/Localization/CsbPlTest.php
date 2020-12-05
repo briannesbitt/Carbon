@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class CsbPlTest extends LocalizationTestCase
 {
-    const LOCALE = 'csb_PL'; // Kashubian
+    public const LOCALE = 'csb_PL'; // Kashubian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

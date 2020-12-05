@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AstEsTest extends LocalizationTestCase
 {
-    const LOCALE = 'ast_ES'; // Asturian
+    public const LOCALE = 'ast_ES'; // Asturian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'mañana a las 0:00',

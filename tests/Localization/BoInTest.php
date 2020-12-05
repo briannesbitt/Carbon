@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class BoInTest extends LocalizationTestCase
 {
-    const LOCALE = 'bo_IN'; // Tibetan
+    public const LOCALE = 'bo_IN'; // Tibetan
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'སང་ཉིན 12:00 སྔ་དྲོ་',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
