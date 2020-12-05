@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class NeNpTest extends LocalizationTestCase
 {
-    const LOCALE = 'ne_NP'; // Nepali
+    public const LOCALE = 'ne_NP'; // Nepali
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'भोलि रातिको 12:00 बजे',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

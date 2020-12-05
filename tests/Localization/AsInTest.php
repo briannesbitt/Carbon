@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AsInTest extends LocalizationTestCase
 {
-    const LOCALE = 'as_IN'; // Assamese
+    public const LOCALE = 'as_IN'; // Assamese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 পূৰ্ব্বাহ্ন',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class BgBgTest extends LocalizationTestCase
 {
-    const LOCALE = 'bg_BG'; // Bulgarian
+    public const LOCALE = 'bg_BG'; // Bulgarian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Утре в 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

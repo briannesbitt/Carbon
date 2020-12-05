@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class KaTest extends LocalizationTestCase
 {
-    const LOCALE = 'ka'; // Georgian
+    public const LOCALE = 'ka'; // Georgian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
         'ხვალ, 00:00-ზე',

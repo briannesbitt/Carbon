@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class FrHtTest extends LocalizationTestCase
 {
-    const LOCALE = 'fr_HT'; // French
+    public const LOCALE = 'fr_HT'; // French
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Demain à 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

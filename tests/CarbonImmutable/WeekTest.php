@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class WeekTest extends AbstractTestCase
 {
-    const SAMPLE = [
+    public const SAMPLE = [
         '1990-12-20' => [
             1990,
             1990,

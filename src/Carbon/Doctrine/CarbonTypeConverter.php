@@ -36,7 +36,7 @@ trait CarbonTypeConverter
             return preg_replace('/\(\d+\)/', "($precision)", $type);
         }
 
-        list($before, $after) = explode(' ', "$type ");
+        [$before, $after] = explode(' ', "$type ");
 
         return trim("$before($precision) $after");
     }

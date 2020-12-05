@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class ViVnTest extends LocalizationTestCase
 {
-    const LOCALE = 'vi_VN'; // Vietnamese
+    public const LOCALE = 'vi_VN'; // Vietnamese
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ngày mai lúc 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

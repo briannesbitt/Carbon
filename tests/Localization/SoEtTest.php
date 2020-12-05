@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class SoEtTest extends LocalizationTestCase
 {
-    const LOCALE = 'so_ET'; // Somali
+    public const LOCALE = 'so_ET'; // Somali
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'Beri markay tahay 12:00 AM',

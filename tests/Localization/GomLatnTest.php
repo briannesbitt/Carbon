@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class GomLatnTest extends LocalizationTestCase
 {
-    const LOCALE = 'gom_Latn'; // Konkani Latin script
+    public const LOCALE = 'gom_Latn'; // Konkani Latin script
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Faleam rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

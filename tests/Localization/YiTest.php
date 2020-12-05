@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class YiTest extends LocalizationTestCase
 {
-    const LOCALE = 'yi'; // Yiddish
+    public const LOCALE = 'yi'; // Yiddish
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

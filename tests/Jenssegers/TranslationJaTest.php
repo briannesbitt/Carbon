@@ -5,7 +5,7 @@ namespace Tests\Jenssegers;
 
 class TranslationJaTest extends TestCaseBase
 {
-    const LOCALE = 'ja';
+    public const LOCALE = 'ja';
 
     /**
      * @test

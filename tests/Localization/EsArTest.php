@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class EsArTest extends LocalizationTestCase
 {
-    const LOCALE = 'es_AR'; // Spanish
+    public const LOCALE = 'es_AR'; // Spanish
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'mañana a las 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

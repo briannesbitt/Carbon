@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class TlTest extends LocalizationTestCase
 {
-    const LOCALE = 'tl'; // Tagalog
+    public const LOCALE = 'tl'; // Tagalog
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Bukas ng 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

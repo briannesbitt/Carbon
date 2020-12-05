@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class GaIeTest extends LocalizationTestCase
 {
-    const LOCALE = 'ga_IE'; // Irish
+    public const LOCALE = 'ga_IE'; // Irish
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Amárach ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

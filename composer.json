@@ -28,7 +28,7 @@
     "minimum-stability": "dev",
     "bin": ["bin/carbon"],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
         "symfony/polyfill-mbstring": "^1.0",
         "symfony/translation": "^4.4 || ^5.0"

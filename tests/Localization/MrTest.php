@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class MrTest extends LocalizationTestCase
 {
-    const LOCALE = 'mr'; // Marathi
+    public const LOCALE = 'mr'; // Marathi
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'उद्या रात्री 12:00 वाजता',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

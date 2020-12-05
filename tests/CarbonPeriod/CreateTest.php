@@ -328,14 +328,14 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider provideInvalidParameters
      */
-    public function testCreateFromInvalidParameters()
+    public function testCreateFromInvalidParameters(...$arguments)
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Invalid constructor parameters.'
         );
 
-        call_user_func_array('Carbon\CarbonPeriod::create', func_get_args());
+        CarbonPeriod::create(...$arguments);
     }
 
     public function provideInvalidParameters()

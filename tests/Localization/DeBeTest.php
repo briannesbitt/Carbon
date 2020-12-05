@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class DeBeTest extends LocalizationTestCase
 {
-    const LOCALE = 'de_BE'; // German
+    public const LOCALE = 'de_BE'; // German
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'morgen um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

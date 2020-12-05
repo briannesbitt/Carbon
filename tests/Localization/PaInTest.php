@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class PaInTest extends LocalizationTestCase
 {
-    const LOCALE = 'pa_IN'; // Panjabi
+    public const LOCALE = 'pa_IN'; // Panjabi
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'ਕਲ ਰਾਤ 12:00 ਵਜੇ',

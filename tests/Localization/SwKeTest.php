@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class SwKeTest extends LocalizationTestCase
 {
-    const LOCALE = 'sw_KE'; // Swahili
+    public const LOCALE = 'sw_KE'; // Swahili
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'kesho saa 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class HneInTest extends LocalizationTestCase
 {
-    const LOCALE = 'hne_IN'; // Chhattisgarhi
+    public const LOCALE = 'hne_IN'; // Chhattisgarhi
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 बिहिनियाँ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

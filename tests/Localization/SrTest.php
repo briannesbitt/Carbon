@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class SrTest extends LocalizationTestCase
 {
-    const LOCALE = 'sr'; // Serbian
+    public const LOCALE = 'sr'; // Serbian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'sutra u 0:00',

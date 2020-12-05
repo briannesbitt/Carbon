@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class AkTest extends LocalizationTestCase
 {
-    const LOCALE = 'ak'; // Akan
+    public const LOCALE = 'ak'; // Akan
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 AN',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

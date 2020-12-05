@@ -5,7 +5,7 @@ namespace Tests\Jenssegers;
 
 class TranslationTaTest extends TestCaseBase
 {
-    const LOCALE = 'ta';
+    public const LOCALE = 'ta';
 
     /** @test */
     public function it_translates_month()

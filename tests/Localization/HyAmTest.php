@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class HyAmTest extends LocalizationTestCase
 {
-    const LOCALE = 'hy_AM'; // Armenian
+    public const LOCALE = 'hy_AM'; // Armenian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'վաղը 00:00',

@@ -18,6 +18,7 @@ use Symfony\Component\Translation;
 class Translator extends Translation\Translator
 {
     public const REGION_CODE_LENGTH = 2;
+
     /**
      * Translator singletons for each language.
      *
