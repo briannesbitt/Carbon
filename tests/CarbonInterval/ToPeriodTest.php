@@ -5,6 +5,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class ToPeriodTest extends AbstractTestCase
