@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class LoLaTest extends LocalizationTestCase
 {
-    const LOCALE = 'lo_LA'; // Lao
+    public const LOCALE = 'lo_LA'; // Lao
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ມື້ອື່ນເວລາ 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

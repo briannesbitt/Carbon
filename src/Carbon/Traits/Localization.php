@@ -535,7 +535,7 @@ trait Localization
     public static function executeWithLocale($locale, $func)
     {
         $currentLocale = static::getLocale();
-        $result = \call_user_func($func, static::setLocale($locale) ? static::getLocale() : false, static::translator());
+        $result = $func(static::setLocale($locale) ? static::getLocale() : false, static::translator());
         static::setLocale($currentLocale);
 
         return $result;

@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class HiTest extends LocalizationTestCase
 {
-    const LOCALE = 'hi'; // Hindi
+    public const LOCALE = 'hi'; // Hindi
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'कल रात 12:00 बजे',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

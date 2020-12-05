@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class OmKeTest extends LocalizationTestCase
 {
-    const LOCALE = 'om_KE'; // Oromo
+    public const LOCALE = 'om_KE'; // Oromo
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

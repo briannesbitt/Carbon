@@ -5,6 +5,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class ToPeriodTest extends AbstractTestCase
@@ -14,9 +15,9 @@ class ToPeriodTest extends AbstractTestCase
      */
     public function testConvertToDatePeriod($interval, $arguments, $expected)
     {
-        $period = call_user_func_array([$interval, 'toPeriod'], $arguments);
+        $period = ([$interval, 'toPeriod'])(...$arguments);
 
-        $this->assertInstanceOf('Carbon\CarbonPeriod', $period);
+        $this->assertInstanceOf(CarbonPeriod::class, $period);
 
         $this->assertSame($expected, $period->spec());
     }

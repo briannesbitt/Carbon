@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class TiTest extends LocalizationTestCase
 {
-    const LOCALE = 'ti'; // Tigrinya
+    public const LOCALE = 'ti'; // Tigrinya
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 ንጉሆ ሰዓተ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

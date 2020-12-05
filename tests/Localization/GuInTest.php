@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class GuInTest extends LocalizationTestCase
 {
-    const LOCALE = 'gu_IN'; // Gujarati
+    public const LOCALE = 'gu_IN'; // Gujarati
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'કાલે રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

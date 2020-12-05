@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class TzlTest extends LocalizationTestCase
 {
-    const LOCALE = 'tzl'; // Talossan
+    public const LOCALE = 'tzl'; // Talossan
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'demà à 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

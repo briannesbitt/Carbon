@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class HrBaTest extends LocalizationTestCase
 {
-    const LOCALE = 'hr_BA'; // Croatian
+    public const LOCALE = 'hr_BA'; // Croatian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
         'sutra u 00:00',

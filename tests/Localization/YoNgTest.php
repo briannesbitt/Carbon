@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class YoNgTest extends LocalizationTestCase
 {
-    const LOCALE = 'yo_NG'; // Yoruba
+    public const LOCALE = 'yo_NG'; // Yoruba
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ọ̀la ni 12:00 Àárọ̀',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

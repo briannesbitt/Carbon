@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class KkKzTest extends LocalizationTestCase
 {
-    const LOCALE = 'kk_KZ'; // Kazakh
+    public const LOCALE = 'kk_KZ'; // Kazakh
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ертең сағат 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

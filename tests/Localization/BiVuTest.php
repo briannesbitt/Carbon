@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class BiVuTest extends LocalizationTestCase
 {
-    const LOCALE = 'bi_VU'; // Bislama
+    public const LOCALE = 'bi_VU'; // Bislama
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

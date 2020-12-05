@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class PlTest extends LocalizationTestCase
 {
-    const LOCALE = 'pl'; // Polish
+    public const LOCALE = 'pl'; // Polish
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
         'Jutro o 00:00',

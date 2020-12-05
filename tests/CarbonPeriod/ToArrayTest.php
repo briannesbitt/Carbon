@@ -172,7 +172,7 @@ class ToArrayTest extends AbstractTestCase
             'dateInterval' => CarbonInterval::hour(),
             'filters' => [
                 [
-                    'Carbon\CarbonPeriod::filterRecurrences',
+                    CarbonPeriod::RECURRENCES_FILTER,
                     null,
                 ],
             ],

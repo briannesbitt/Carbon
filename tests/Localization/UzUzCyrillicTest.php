@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class UzUzCyrillicTest extends LocalizationTestCase
 {
-    const LOCALE = 'uz_UZ@cyrillic'; // Uzbek
+    public const LOCALE = 'uz_UZ@cyrillic'; // Uzbek
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'Эртага 00:00 да',

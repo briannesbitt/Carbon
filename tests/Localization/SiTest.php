@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class SiTest extends LocalizationTestCase
 {
-    const LOCALE = 'si'; // Sinhala
+    public const LOCALE = 'si'; // Sinhala
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'හෙට පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

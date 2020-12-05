@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class LtLtTest extends LocalizationTestCase
 {
-    const LOCALE = 'lt_LT'; // Lithuanian
+    public const LOCALE = 'lt_LT'; // Lithuanian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
         'Rytoj 00:00',

@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class QuTest extends LocalizationTestCase
 {
-    const LOCALE = 'qu'; // Quechua
+    public const LOCALE = 'qu'; // Quechua
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'mañana a las 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

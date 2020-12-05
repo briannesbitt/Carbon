@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class HuHuTest extends LocalizationTestCase
 {
-    const LOCALE = 'hu_HU'; // Hungarian
+    public const LOCALE = 'hu_HU'; // Hungarian
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'holnap 0:00-kor',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))

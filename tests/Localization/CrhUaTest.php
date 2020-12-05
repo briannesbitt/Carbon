@@ -16,9 +16,9 @@ namespace Tests\Localization;
  */
 class CrhUaTest extends LocalizationTestCase
 {
-    const LOCALE = 'crh_UA'; // Crimean Turkish
+    public const LOCALE = 'crh_UA'; // Crimean Turkish
 
-    const CASES = [
+    public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 ÜE',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
