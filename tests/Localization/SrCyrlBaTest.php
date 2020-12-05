@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SrCyrlBaTest extends LocalizationTestCase
 {
     const LOCALE = 'sr_Cyrl_BA'; // Serbian

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class NanTwTest extends LocalizationTestCase
 {
     const LOCALE = 'nan_TW'; // Min Nan Chinese

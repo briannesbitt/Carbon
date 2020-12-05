@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class OmEtTest extends LocalizationTestCase
 {
     const LOCALE = 'om_ET'; // Oromo

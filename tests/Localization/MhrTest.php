@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class MhrTest extends LocalizationTestCase
 {
     const LOCALE = 'mhr'; // Eastern Mari

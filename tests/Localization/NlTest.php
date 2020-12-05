@@ -15,6 +15,9 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 
+/**
+ * @group localization
+ */
 class NlTest extends LocalizationTestCase
 {
     const LOCALE = 'nl'; // Dutch

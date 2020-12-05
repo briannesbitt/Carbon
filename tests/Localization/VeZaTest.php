@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class VeZaTest extends LocalizationTestCase
 {
     const LOCALE = 've_ZA'; // Venda

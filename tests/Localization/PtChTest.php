@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class PtChTest extends LocalizationTestCase
 {
     const LOCALE = 'pt_CH'; // Portuguese

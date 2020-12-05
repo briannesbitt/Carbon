@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class DoiInTest extends LocalizationTestCase
 {
     const LOCALE = 'doi_IN'; // Dogri (macrolanguage)

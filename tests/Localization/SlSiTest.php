@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SlSiTest extends LocalizationTestCase
 {
     const LOCALE = 'sl_SI'; // Slovenian

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ToTest extends LocalizationTestCase
 {
     const LOCALE = 'to'; // Tonga

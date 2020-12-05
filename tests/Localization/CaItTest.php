@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class CaItTest extends LocalizationTestCase
 {
     const LOCALE = 'ca_IT'; // Catalan

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class HaGhTest extends LocalizationTestCase
 {
     const LOCALE = 'ha_GH'; // Hausa

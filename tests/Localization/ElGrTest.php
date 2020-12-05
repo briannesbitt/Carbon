@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ElGrTest extends LocalizationTestCase
 {
     const LOCALE = 'el_GR'; // Greek (modern)

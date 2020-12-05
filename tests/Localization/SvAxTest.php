@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SvAxTest extends LocalizationTestCase
 {
     const LOCALE = 'sv_AX'; // Swedish

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class NsoZaTest extends LocalizationTestCase
 {
     const LOCALE = 'nso_ZA'; // Northern Sotho

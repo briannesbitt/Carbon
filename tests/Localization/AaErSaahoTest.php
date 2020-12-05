@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class AaErSaahoTest extends LocalizationTestCase
 {
     const LOCALE = 'aa_ER@saaho'; // Afar

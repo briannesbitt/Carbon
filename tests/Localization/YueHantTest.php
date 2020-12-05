@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class YueHantTest extends LocalizationTestCase
 {
     const LOCALE = 'yue_Hant'; // Cantonese

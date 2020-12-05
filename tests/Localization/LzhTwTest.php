@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class LzhTwTest extends LocalizationTestCase
 {
     const LOCALE = 'lzh_TW'; // Literary Chinese

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class EnGuTest extends LocalizationTestCase
 {
     const LOCALE = 'en_GU'; // English

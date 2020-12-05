@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class MlInTest extends LocalizationTestCase
 {
     const LOCALE = 'ml_IN'; // Malayalam

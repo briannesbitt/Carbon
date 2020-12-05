@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TeoKeTest extends LocalizationTestCase
 {
     const LOCALE = 'teo_KE'; // Teso

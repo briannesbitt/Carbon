@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class GlEsTest extends LocalizationTestCase
 {
     const LOCALE = 'gl_ES'; // Galician

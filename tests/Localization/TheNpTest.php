@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TheNpTest extends LocalizationTestCase
 {
     const LOCALE = 'the_NP'; // Chitwania Tharu

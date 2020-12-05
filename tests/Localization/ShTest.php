@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ShTest extends LocalizationTestCase
 {
     const LOCALE = 'sh'; // Serbo Croatian

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SaInTest extends LocalizationTestCase
 {
     const LOCALE = 'sa_IN'; // Sanskrit

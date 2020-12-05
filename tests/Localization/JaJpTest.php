@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class JaJpTest extends LocalizationTestCase
 {
     const LOCALE = 'ja_JP'; // Japanese

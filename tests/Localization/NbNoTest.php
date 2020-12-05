@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class NbNoTest extends LocalizationTestCase
 {
     const LOCALE = 'nb_NO'; // Norwegian Bokmål

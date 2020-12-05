@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TigErTest extends LocalizationTestCase
 {
     const LOCALE = 'tig_ER'; // Tigre

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class CyGbTest extends LocalizationTestCase
 {
     const LOCALE = 'cy_GB'; // Welsh

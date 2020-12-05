@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class BemZmTest extends LocalizationTestCase
 {
     const LOCALE = 'bem_ZM'; // Bemba

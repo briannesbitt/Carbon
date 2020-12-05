@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class QuzPeTest extends LocalizationTestCase
 {
     const LOCALE = 'quz_PE'; // Cusco Quechua
