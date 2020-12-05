@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SqXkTest extends LocalizationTestCase
 {
     const LOCALE = 'sq_XK'; // Albanian

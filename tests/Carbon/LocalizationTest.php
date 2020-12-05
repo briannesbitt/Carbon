@@ -23,6 +23,9 @@ use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 use Tests\Carbon\Fixtures\NoLocaleTranslator;
 
+/**
+ * @group localization
+ */
 class LocalizationTest extends AbstractTestCase
 {
     public function testGetTranslator()

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class RoMdTest extends LocalizationTestCase
 {
     const LOCALE = 'ro_MD'; // Romanian

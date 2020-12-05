@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class KyKgTest extends LocalizationTestCase
 {
     const LOCALE = 'ky_KG'; // Kirghiz

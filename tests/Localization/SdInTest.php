@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SdInTest extends LocalizationTestCase
 {
     const LOCALE = 'sd_IN'; // Sindhi

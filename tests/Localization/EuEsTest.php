@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class EuEsTest extends LocalizationTestCase
 {
     const LOCALE = 'eu_ES'; // Basque

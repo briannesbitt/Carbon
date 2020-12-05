@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ItVaTest extends LocalizationTestCase
 {
     const LOCALE = 'it_VA'; // Italian

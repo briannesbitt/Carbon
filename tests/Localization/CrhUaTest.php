@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class CrhUaTest extends LocalizationTestCase
 {
     const LOCALE = 'crh_UA'; // Crimean Turkish

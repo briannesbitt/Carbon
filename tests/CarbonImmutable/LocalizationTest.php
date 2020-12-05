@@ -21,6 +21,9 @@ use Symfony\Component\Translation\MessageCatalogue;
 use Tests\AbstractTestCase;
 use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
+/**
+ * @group localization
+ */
 class LocalizationTest extends AbstractTestCase
 {
     protected function tearDown(): void

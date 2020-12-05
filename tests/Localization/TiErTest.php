@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TiErTest extends LocalizationTestCase
 {
     const LOCALE = 'ti_ER'; // Tigrinya

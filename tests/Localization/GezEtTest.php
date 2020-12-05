@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class GezEtTest extends LocalizationTestCase
 {
     const LOCALE = 'gez_ET'; // Geez

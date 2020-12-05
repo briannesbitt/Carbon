@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class EnIeTest extends LocalizationTestCase
 {
     const LOCALE = 'en_IE'; // English

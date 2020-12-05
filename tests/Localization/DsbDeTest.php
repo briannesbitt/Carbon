@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class DsbDeTest extends LocalizationTestCase
 {
     const LOCALE = 'dsb_DE'; // Lower Sorbian

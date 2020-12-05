@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TrCyTest extends LocalizationTestCase
 {
     const LOCALE = 'tr_CY'; // Turkish

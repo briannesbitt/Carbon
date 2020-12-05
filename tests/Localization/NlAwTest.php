@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class NlAwTest extends LocalizationTestCase
 {
     const LOCALE = 'nl_AW'; // Dutch

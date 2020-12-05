@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class LiTest extends LocalizationTestCase
 {
     const LOCALE = 'li'; // Limburgish

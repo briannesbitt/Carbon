@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class I18nTest extends LocalizationTestCase
 {
     const LOCALE = 'i18n'; // i18n

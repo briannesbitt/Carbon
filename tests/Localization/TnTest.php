@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TnTest extends LocalizationTestCase
 {
     const LOCALE = 'tn'; // Tswana

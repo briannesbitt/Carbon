@@ -13,6 +13,9 @@ namespace Tests\Localization;
 
 use Carbon\Carbon;
 
+/**
+ * @group localization
+ */
 class JaTest extends LocalizationTestCase
 {
     const LOCALE = 'ja'; // Japanese

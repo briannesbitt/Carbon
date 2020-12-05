@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class UzUzCyrillicTest extends LocalizationTestCase
 {
     const LOCALE = 'uz_UZ@cyrillic'; // Uzbek

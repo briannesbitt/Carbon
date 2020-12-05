@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class NeNpTest extends LocalizationTestCase
 {
     const LOCALE = 'ne_NP'; // Nepali

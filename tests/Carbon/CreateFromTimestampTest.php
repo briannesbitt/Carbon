@@ -106,7 +106,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
 
         $locale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8') === false) {
+        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'French_France.UTF8') === false) {
             $this->markTestSkipped('testComaDecimalSeparatorLocale test need fr_FR.UTF-8.');
         }
 

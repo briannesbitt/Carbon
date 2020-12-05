@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class MnMnTest extends LocalizationTestCase
 {
     const LOCALE = 'mn_MN'; // Mongolian

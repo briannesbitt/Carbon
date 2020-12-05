@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ArTdTest extends LocalizationTestCase
 {
     const LOCALE = 'ar_TD'; // Arabic

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class YuwPgTest extends LocalizationTestCase
 {
     const LOCALE = 'yuw_PG'; // Yau (Morobe Province)

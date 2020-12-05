@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class HsbTest extends LocalizationTestCase
 {
     const LOCALE = 'hsb'; // Upper Sorbian

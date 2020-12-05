@@ -286,6 +286,7 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider getLocales
+     * @group localization
      */
     public function testParseFromLocaleForEachLocale($locale)
     {

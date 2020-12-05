@@ -41,7 +41,6 @@ class ServiceProviderTest extends TestCase
         CarbonPeriod::setLocale('en');
         CarbonInterval::setLocale('en');
 
-        include_once __DIR__.'/ServiceProvider.php';
         $service = new ServiceProvider($dispatcher);
 
         $this->assertSame('en', Carbon::getLocale());
@@ -79,7 +78,6 @@ class ServiceProviderTest extends TestCase
             $this->markTestSkipped('This test cannot be run with Laravel 5.5 classes available via autoload.');
         }
 
-        include_once __DIR__.'/ServiceProvider.php';
         $dispatcher = new Dispatcher();
         $service = new ServiceProvider($dispatcher);
 
@@ -104,7 +102,6 @@ class ServiceProviderTest extends TestCase
             eval('namespace Illuminate\Foundation\Events; class LocaleUpdated {}');
         }
 
-        include_once __DIR__.'/ServiceProvider.php';
         $dispatcher = new Dispatcher();
         $service = new ServiceProvider($dispatcher);
 
@@ -160,7 +157,6 @@ class ServiceProviderTest extends TestCase
             }
         }');
 
-        include_once __DIR__.'/ServiceProvider.php';
         $dispatcher = new Dispatcher();
         $service = new ServiceProvider($dispatcher);
         $service->boot();

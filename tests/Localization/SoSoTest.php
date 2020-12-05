@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SoSoTest extends LocalizationTestCase
 {
     const LOCALE = 'so_SO'; // Somali

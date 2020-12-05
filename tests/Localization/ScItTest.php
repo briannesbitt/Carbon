@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ScItTest extends LocalizationTestCase
 {
     const LOCALE = 'sc_IT'; // Sardinian

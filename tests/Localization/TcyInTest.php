@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TcyInTest extends LocalizationTestCase
 {
     const LOCALE = 'tcy_IN'; // Tulu

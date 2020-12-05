@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class RuUaTest extends LocalizationTestCase
 {
     const LOCALE = 'ru_UA'; // Russian
