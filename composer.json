@@ -40,7 +40,7 @@
         "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.54",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^7.1.29 || ^8.5",
         "povils/phpmnd": "^2.3",
         "squizlabs/php_codesniffer": "^3.4"
     },

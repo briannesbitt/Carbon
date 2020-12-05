@@ -17,6 +17,7 @@ use Carbon\Language;
 use Carbon\Translator;
 use Closure;
 use Symfony\Component\Translation\TranslatorBagInterface;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -162,7 +163,9 @@ trait Localization
      */
     public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)
     {
-        if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
+        if (!($translator instanceof TranslatorBagInterface && (
+            $translator instanceof TranslatorInterface// || $translator instanceof LegacyTranslatorInterface
+        ))) {
             throw new InvalidTypeException(
                 'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.
                 (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.'

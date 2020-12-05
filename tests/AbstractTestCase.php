@@ -100,6 +100,24 @@ abstract class AbstractTestCase extends TestCase
         $translator->resetMessages();
     }
 
+    public static function assertIsArray($value, ?string $message = null): void
+    {
+        self::assertTrue(is_array($value), $message ?? 'Failing asserting the passed value is an array.');
+    }
+
+    public static function assertIsInt($value, ?string $message = null): void
+    {
+        self::assertTrue(is_int($value), $message ?? 'Failing asserting the passed value is an integer.');
+    }
+
+    public static function assertStringContainsString($needle, $haystack, ?string $message = null): void
+    {
+        self::assertTrue(
+            strpos($haystack, $needle) !== false,
+            $message ?? "Failing asserting the given '$haystack' contains '$needle'."
+        );
+    }
+
     public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
         $expected = [
