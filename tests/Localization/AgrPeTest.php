@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class AgrPeTest extends LocalizationTestCase
 {
     const LOCALE = 'agr_PE'; // Aguaruna

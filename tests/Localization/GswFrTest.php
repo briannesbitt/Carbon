@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class GswFrTest extends LocalizationTestCase
 {
     const LOCALE = 'gsw_FR'; // Swiss German

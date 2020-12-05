@@ -49,6 +49,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "tests/Laravel/ServiceProvider.php"
+        ],
         "psr-4": {
             "Tests\\": "tests/"
         }

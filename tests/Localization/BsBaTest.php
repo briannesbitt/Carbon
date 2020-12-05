@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class BsBaTest extends LocalizationTestCase
 {
     const LOCALE = 'bs_BA'; // Bosnian

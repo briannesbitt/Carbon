@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class DzBtTest extends LocalizationTestCase
 {
     const LOCALE = 'dz_BT'; // Dzongkha

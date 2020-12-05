@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ZhHantHkTest extends LocalizationTestCase
 {
     const LOCALE = 'zh_Hant_HK'; // Chinese

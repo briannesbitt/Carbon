@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class ShsCaTest extends LocalizationTestCase
 {
     const LOCALE = 'shs_CA'; // Shuswap

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class FaAfTest extends LocalizationTestCase
 {
     const LOCALE = 'fa_AF'; // Persian

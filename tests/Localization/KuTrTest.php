@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class KuTrTest extends LocalizationTestCase
 {
     const LOCALE = 'ku_TR'; // Kurdish

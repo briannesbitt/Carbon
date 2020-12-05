@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class DeAtTest extends LocalizationTestCase
 {
     const LOCALE = 'de_AT'; // German

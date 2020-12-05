@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class OcFrTest extends LocalizationTestCase
 {
     const LOCALE = 'oc_FR'; // Occitan

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class DvMvTest extends LocalizationTestCase
 {
     const LOCALE = 'dv_MV'; // Divehi

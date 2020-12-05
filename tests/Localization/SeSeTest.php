@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class SeSeTest extends LocalizationTestCase
 {
     const LOCALE = 'se_SE'; // NorthernSami

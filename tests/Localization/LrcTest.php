@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class LrcTest extends LocalizationTestCase
 {
     const LOCALE = 'lrc'; // Northern Luri

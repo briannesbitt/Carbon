@@ -235,7 +235,7 @@ abstract class AbstractTestCase extends TestCase
     public function wrapWithUtf8LcTimeLocale($locale, Closure $func)
     {
         $currentLocale = setlocale(LC_TIME, '0');
-        $locales = ["$locale.UTF-8"];
+        $locales = ["$locale.UTF-8", "$locale.utf8"];
         $mapping = [
             'fr_FR' => 'French_France',
         ];

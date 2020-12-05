@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class LnCgTest extends LocalizationTestCase
 {
     const LOCALE = 'ln_CG'; // Lingala

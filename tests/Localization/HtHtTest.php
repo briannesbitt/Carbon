@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class HtHtTest extends LocalizationTestCase
 {
     const LOCALE = 'ht_HT'; // Haitian

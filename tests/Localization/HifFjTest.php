@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class HifFjTest extends LocalizationTestCase
 {
     const LOCALE = 'hif_FJ'; // Fiji Hindi

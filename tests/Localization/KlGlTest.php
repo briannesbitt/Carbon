@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class KlGlTest extends LocalizationTestCase
 {
     const LOCALE = 'kl_GL'; // Kalaallisut

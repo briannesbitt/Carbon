@@ -6,8 +6,8 @@
     colors="true"
 >
     <filter>
-        <whitelist>
-            <directory>src/Carbon</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/Carbon</directory>
         </whitelist>
     </filter>
 

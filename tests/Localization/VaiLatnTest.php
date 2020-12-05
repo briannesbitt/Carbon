@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class VaiLatnTest extends LocalizationTestCase
 {
     const LOCALE = 'vai_Latn'; // Vai

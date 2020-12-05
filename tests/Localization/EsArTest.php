@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class EsArTest extends LocalizationTestCase
 {
     const LOCALE = 'es_AR'; // Spanish

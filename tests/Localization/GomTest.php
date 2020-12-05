@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class GomTest extends LocalizationTestCase
 {
     const LOCALE = 'gom'; // Konkani Latin script

@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class HakTwTest extends LocalizationTestCase
 {
     const LOCALE = 'hak_TW'; // Hakka Chinese

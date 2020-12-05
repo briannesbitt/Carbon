@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class TaMyTest extends LocalizationTestCase
 {
     const LOCALE = 'ta_MY'; // Tamil

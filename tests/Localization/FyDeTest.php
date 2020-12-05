@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class FyDeTest extends LocalizationTestCase
 {
     const LOCALE = 'fy_DE'; // WesternFrisian

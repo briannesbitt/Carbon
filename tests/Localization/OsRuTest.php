@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class OsRuTest extends LocalizationTestCase
 {
     const LOCALE = 'os_RU'; // Ossetian

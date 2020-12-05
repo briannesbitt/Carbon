@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class FrCmTest extends LocalizationTestCase
 {
     const LOCALE = 'fr_CM'; // French

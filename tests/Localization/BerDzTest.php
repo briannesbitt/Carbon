@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
+/**
+ * @group localization
+ */
 class BerDzTest extends LocalizationTestCase
 {
     const LOCALE = 'ber_DZ'; // ber
