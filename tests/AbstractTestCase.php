@@ -116,7 +116,7 @@ abstract class AbstractTestCase extends TestCase
         );
     }
 
-    public static function assertStringContainsString($needle, $haystack, string $message = ''): void
+    public static function assertStringContainsString(string $needle, string $haystack, string $message = ''): void
     {
         self::assertTrue(
             strpos($haystack, $needle) !== false,
