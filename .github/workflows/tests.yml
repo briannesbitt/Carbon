@@ -29,14 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: 7.1.8
-          - php: 7.1.28
-          - php: 7.1
-          - php: 7.1
-            setup: lowest
-          - php: 7.1
-
-          - php: 7.2.0
+          - php: 7.2.5
           - php: 7.2.15
           - php: 7.2
           - php: 7.2
@@ -83,18 +76,23 @@ jobs:
       if: matrix.laravel == 'true'
       uses: niden/actions-memcached@v7
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
+#    - name: Cache Composer packages
+#      id: composer-cache
+#      uses: actions/cache@v2
+#      with:
+#        path: vendor
+#        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
+#        restore-keys: |
+#          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
+
+    - name: Install symfony/translation-contracts
+      if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
+      run: composer require --no-update symfony/translation-contracts --no-interaction --dev;
 
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: |
+        composer remove --no-update povils/phpmnd --no-interaction --dev;
         if [[ "${{ matrix.styleCheck }}" != 'true' ]]; then
           composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
         fi;
@@ -151,14 +149,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: 7.1.8
-          - php: 7.1.28
-          - php: 7.1
-          - php: 7.1
-            setup: lowest
-          - php: 7.1
-
-          - php: 7.2.0
+          - php: 7.2.5
           - php: 7.2.15
           - php: 7.2
           - php: 7.2
@@ -199,19 +190,23 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
+#      - name: Cache Composer packages
+#        id: composer-cache
+#        uses: actions/cache@v2
+#        with:
+#          path: vendor
+#          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
+
+      - name: Install symfony/translation-contracts
+        if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
+        run: composer require --no-update symfony/translation-contracts --no-interaction --dev;
 
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: |
-          composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+          composer remove --no-update povils/phpmnd kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
           composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
 
       - name: Run test suite
