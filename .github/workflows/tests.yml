@@ -96,10 +96,10 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: |
         if [[ "${{ matrix.styleCheck }}" != 'true' ]]; then
-          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
         fi;
         if [[ "${{ matrix.laravel }}" != 'true' ]]; then
-          composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
+          composer remove --no-update kylekatarnls/multi-tester --no-interaction;
         fi;
         composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
 
@@ -207,7 +207,7 @@ jobs:
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: |
-          composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+          composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
           composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
 
       - name: Run test suite
