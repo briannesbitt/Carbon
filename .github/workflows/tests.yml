@@ -81,9 +81,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
+        key: c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
+          c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
 
     - name: Install symfony/translation-contracts
       if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
@@ -195,9 +195,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
+          key: c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
+            c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
 
       - name: Install symfony/translation-contracts
         if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
