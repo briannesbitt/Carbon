@@ -96,5 +96,8 @@ class ArraysTest extends AbstractTestCase
     {
         $date = new DumpCarbon();
         $this->assertStringContainsString(DumpCarbon::class, $date->getDump());
+
+        $date->breakFormat();
+        $this->assertStringContainsString(DumpCarbon::class, $date->getDump());
     }
 }
