@@ -10,7 +10,15 @@
         "check": "@php tools/check.php",
         "generate": "@php tools/generate.php",
         "history": "@php tools/api-history.php",
-        "releases": "@php tools/cache-releases.php"
+        "releases": "@php tools/cache-releases.php",
+        "release": [
+            "@releases",
+            "@php tools/release.php",
+            "composer update",
+            "@history",
+            "@generate",
+            "@check"
+        ]
     },
     "config": {
         "process-timeout": 0
