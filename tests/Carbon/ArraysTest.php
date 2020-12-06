@@ -92,12 +92,16 @@ class ArraysTest extends AbstractTestCase
         ], $debug);
     }
 
+    public function testDebuggingWithFormatException()
+    {
+        $date = new DumpCarbon();
+        $date->breakFormat();
+        $this->assertSame([], $date->__debugInfo());
+    }
+
     public function testDebuggingUninitializedInstances()
     {
         $date = new DumpCarbon();
-        $this->assertStringContainsString(DumpCarbon::class, $date->getDump());
-
-        $date->breakFormat();
         $this->assertStringContainsString(DumpCarbon::class, $date->getDump());
     }
 }
