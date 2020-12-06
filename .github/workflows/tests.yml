@@ -73,7 +73,7 @@ jobs:
         coverage: ${{ matrix.coverage && 'true' || 'none' }}
 
     - name: Setup Memcached
-      if: matrix.laravel == 'true'
+      if: matrix.laravel
       uses: niden/actions-memcached@v7
 
     - name: Cache Composer packages
@@ -94,10 +94,10 @@ jobs:
       run: |
         composer remove --no-update povils/phpmnd --no-interaction --dev;
         if [[ "${{ matrix.styleCheck }}" != 'true' ]]; then
-          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
         fi;
         if [[ "${{ matrix.laravel }}" != 'true' ]]; then
-          composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
+          composer remove --no-update kylekatarnls/multi-tester --no-interaction;
         fi;
         composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
 
@@ -124,22 +124,19 @@ jobs:
         DB_USERNAME: root
 
     - name: Code Climate Test Reporter
-      if: matrix.coverage == 'true'
+      if: matrix.coverage
       uses: aktions/codeclimate-test-reporter@v1
       with:
         codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
         command: after-build -t clover
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      continue-on-error: true
 
     - name: Coverage
-      if: matrix.coverage == 'true'
-      run: |
-        bash <(curl -s https://codecov.io/bash);
-        composer require codacy/coverage;
-        vendor/bin/codacycoverage clover coverage.xml;
+      if: matrix.coverage
+      run: bash <(curl -s https://codecov.io/bash)
       env:
-        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         PHP_VERSION: ${{ matrix.php }}
 
   windows:
@@ -206,7 +203,7 @@ jobs:
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: |
-          composer remove --no-update povils/phpmnd kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+          composer remove --no-update povils/phpmnd kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
           composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
 
       - name: Run test suite
