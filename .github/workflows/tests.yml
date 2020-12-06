@@ -76,14 +76,14 @@ jobs:
       if: matrix.laravel == 'true'
       uses: niden/actions-memcached@v7
 
-#    - name: Cache Composer packages
-#      id: composer-cache
-#      uses: actions/cache@v2
-#      with:
-#        path: vendor
-#        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
 
     - name: Install symfony/translation-contracts
       if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
@@ -190,14 +190,14 @@ jobs:
           tools: composer:v2
           coverage: none
 
-#      - name: Cache Composer packages
-#        id: composer-cache
-#        uses: actions/cache@v2
-#        with:
-#          path: vendor
-#          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
 
       - name: Install symfony/translation-contracts
         if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
