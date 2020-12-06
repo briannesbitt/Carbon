@@ -80,7 +80,7 @@ jobs:
         coverage: ${{ matrix.coverage && 'true' || 'none' }}
 
     - name: Setup Memcached
-      if: matrix.laravel == 'true'
+      if: matrix.laravel
       uses: niden/actions-memcached@v7
 
     - name: Cache Composer packages
@@ -126,7 +126,7 @@ jobs:
         DB_USERNAME: root
 
     - name: Code Climate Test Reporter
-      if: matrix.coverage == 'true'
+      if: matrix.coverage
       uses: aktions/codeclimate-test-reporter@v1
       with:
         codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
@@ -135,7 +135,7 @@ jobs:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     - name: Coverage
-      if: matrix.coverage == 'true'
+      if: matrix.coverage
       run: |
         bash <(curl -s https://codecov.io/bash);
         composer require codacy/coverage;
