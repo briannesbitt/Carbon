@@ -96,7 +96,7 @@ class ArraysTest extends AbstractTestCase
     {
         $date = new DumpCarbon();
         $date->breakFormat();
-        $this->assertSame([], $date->__debugInfo());
+        $this->assertTrue(is_array($date->__debugInfo()));
     }
 
     public function testDebuggingUninitializedInstances()
