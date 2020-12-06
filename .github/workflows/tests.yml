@@ -132,6 +132,7 @@ jobs:
         codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
         command: after-build -t clover
       env:
+        CC_TEST_REPORTER_ID:  ${{ secrets.CC_TEST_REPORTER_ID }}
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     - name: Coverage
