@@ -133,6 +133,7 @@ jobs:
         command: after-build -t clover
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      continue-on-error: true
 
     - name: Coverage
       if: matrix.coverage
