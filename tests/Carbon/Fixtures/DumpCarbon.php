@@ -13,10 +13,13 @@ declare(strict_types=1);
 namespace Tests\Carbon\Fixtures;
 
 use Carbon\Carbon;
+use Exception;
 
-class DumpCarbon extends Carbon
+final class DumpCarbon extends Carbon
 {
     private $dump;
+
+    private $formatBroken = false;
 
     public function __construct($time = null, $tz = null)
     {
@@ -31,5 +34,19 @@ class DumpCarbon extends Carbon
     public function getDump(): string
     {
         return $this->dump;
+    }
+
+    public function breakFormat(): void
+    {
+        $this->formatBroken = true;
+    }
+
+    public function format($format)
+    {
+        if ($this->formatBroken) {
+            throw new Exception('Broken');
+        }
+
+        return parent::format($format);
     }
 }
