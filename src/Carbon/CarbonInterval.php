@@ -603,6 +603,16 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     }
 
     /**
+     * Return the current context from inside a macro callee or a new one if static.
+     *
+     * @return static
+     */
+    protected static function this()
+    {
+        return end(static::$macroContextStack) ?: new static(0);
+    }
+
+    /**
      * Creates a CarbonInterval from string.
      *
      * Format:
