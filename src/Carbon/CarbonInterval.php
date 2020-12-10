@@ -583,7 +583,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $interval = new static(0);
             $localStrictModeEnabled = $interval->localStrictModeEnabled;
             $interval->localStrictModeEnabled = true;
-            $result = $interval->$method(...$parameters);
+
+            $result = static::hasMacro($method)
+                ? static::bindMacroContext(null, function () use (&$method, &$parameters, &$interval) {
+                    return $interval->callMacro($method, $parameters);
+                })
+                : $interval->$method(...$parameters);
+
             $interval->localStrictModeEnabled = $localStrictModeEnabled;
 
             return $result;

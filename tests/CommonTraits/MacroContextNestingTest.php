@@ -65,33 +65,35 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
     /**
      * @dataProvider getMacroableClasses
      *
-     * @param string      $class
-     * @param mixed       $sample
-     * @param string|null $reference
+     * @param string $class
+     * @param mixed  $sample
      */
-    public function testMacroContextDetectionNesting($class, $sample, $reference)
+    public function testMacroContextDetectionNesting($class, $sample)
     {
         $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
         $class::macro($macro1, static function () {
-            return self::this()->__toString();
+            $context = self::context();
+
+            return $context ? get_class($context) : 'null';
         });
 
         $macro2 = 'macro'.(mt_rand(100, 999999) * 2 + 1);
         $class::macro($macro2, static function () use ($macro1, $sample) {
-            $dates = [self::this()->$macro1()];
+            $dump = [self::$macro1(), self::this()->$macro1()];
 
-            $dates[] = $sample->$macro1();
-            $dates[] = self::this()->$macro1();
+            $dump[] = $sample->$macro1();
+            $dump[] = self::$macro1();
 
-            return $dates;
+            return $dump;
         });
 
-        $dates = $class::$macro2();
+        $dump = $class::$macro2();
 
         $this->assertSame([
-            $reference ?: strval(new $class),
-            strval($sample),
-            $reference ?: strval(new $class),
-        ], $dates);
+            'null',
+            $class,
+            $class,
+            'null',
+        ], $dump);
     }
 }
