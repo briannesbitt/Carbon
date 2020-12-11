@@ -3239,7 +3239,9 @@ Carbon::macro('diffFromYear', static function ($year, $absolute = false, $short 
 });
 )}}
 
-// Can be called on Carbon instances: self::this() = current instance ($this)
+// Can be called on Carbon instances:
+//    self::context() = current instance ($this) or null when called statically
+//    self::this() = current instance ($this) or Carbon::now() when called statically
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{eval}}
