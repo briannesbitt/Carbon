@@ -165,6 +165,16 @@ trait Mixin
     }
 
     /**
+     * Return the current context from inside a macro callee or a null if static.
+     *
+     * @return static|null
+     */
+    protected static function context()
+    {
+        return end(static::$macroContextStack) ?: null;
+    }
+
+    /**
      * Return the current context from inside a macro callee or a new one if static.
      *
      * @return static
