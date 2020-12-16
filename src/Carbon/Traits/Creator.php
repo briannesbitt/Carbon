@@ -422,6 +422,42 @@ trait Creator
     }
 
     /**
+     * Create a new Carbon instance from a specific date and time, returning only itself or throwing an exception if an
+     * invalid format is provided.
+     *
+     * If any of $year, $month or $day are set to null their now() values will
+     * be used.
+     *
+     * If $hour is null it will be set to its now() value and the default
+     * values for $minute and $second will be their now() values.
+     *
+     * If $hour is not null then the default values for $minute and $second
+     * will be 0.
+     *
+     * @param int|null                 $year
+     * @param int|null                 $month
+     * @param int|null                 $day
+     * @param int|null                 $hour
+     * @param int|null                 $minute
+     * @param int|null                 $second
+     * @param DateTimeZone|string|null $tz
+     *
+     * @throws InvalidFormatException
+     *
+     * @return static
+     */
+    public static function createStrict($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
+    {
+        $instance = static::create($year, $month, $day, $hour, $minute, $second, $tz);
+
+        if (!$instance) {
+            throw new InvalidFormatException(implode(PHP_EOL, static::$lastErrors['errors']));
+        }
+
+        return $instance;
+    }
+
+    /**
      * Create a new safe Carbon instance from a specific date and time.
      *
      * If any of $year, $month or $day are set to null their now() values will
