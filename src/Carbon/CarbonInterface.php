@@ -1065,7 +1065,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public static function createStrict($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
-
     /**
      * Create a Carbon instance from just a date. The time portion is set to now.
      *
