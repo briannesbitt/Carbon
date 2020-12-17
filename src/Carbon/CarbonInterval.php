@@ -846,7 +846,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
     }
 
-    private static function copyStep(IntervalStep $from, IntervalStep $to): void
+    private static function copyStep(self $from, self $to): void
     {
         $to->setStep($from->getStep());
     }
