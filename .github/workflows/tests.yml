@@ -53,7 +53,7 @@ jobs:
           - php: 8.1
             composerOptions: --ignore-platform-req=php
 
-          - php: 8.0
+          - php: 7.4
             laravel: true
 
           - php: 7.4
@@ -70,7 +70,7 @@ jobs:
         php-version: ${{ matrix.php }}
         extensions: json${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached' || '' }}
         tools: composer:v2
-        coverage: ${{ matrix.coverage && 'true' || 'none' }}
+        coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
 
     - name: Install locales
       run: |
@@ -80,21 +80,7 @@ jobs:
       if: matrix.laravel
       uses: niden/actions-memcached@v7
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
-
-    - name: Install symfony/translation-contracts
-      if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
-      run: composer require --no-update symfony/translation-contracts --no-interaction --dev;
-
     - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
       run: |
         composer remove --no-update povils/phpmnd --no-interaction --dev;
         if [[ "${{ matrix.styleCheck }}" != 'true' ]]; then
@@ -191,21 +177,7 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            c3-${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
-
-      - name: Install symfony/translation-contracts
-        if: steps.composer-cache.outputs.cache-hit != 'true' && matrix.setup == 'lowest'
-        run: composer require --no-update symfony/translation-contracts --no-interaction --dev;
-
       - name: Install dependencies
-        if: steps.composer-cache.outputs.cache-hit != 'true'
         run: |
           composer remove --no-update povils/phpmnd kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
           composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};

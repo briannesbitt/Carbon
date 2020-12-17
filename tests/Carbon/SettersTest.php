@@ -779,9 +779,11 @@ class SettersTest extends AbstractTestCase
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
             $modulo = ($$valueUnit - $value) % $units[$valueUnit];
+
             if ($modulo < 0) {
                 $modulo += $units[$valueUnit];
             }
+
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
