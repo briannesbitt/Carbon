@@ -77,7 +77,7 @@ jobs:
         php-version: ${{ matrix.php }}
         extensions: json${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached' || '' }}
         tools: composer:v2
-        coverage: ${{ matrix.coverage && 'true' || 'none' }}
+        coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
 
     - name: Install locales
       run: |
@@ -92,9 +92,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.coverage && 'c-' || '' }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.coverage && 'c-' || '' }}${{ matrix.styleCheck && 's-' || '' }}${{ matrix.laravel && 'l-' || '' }}${{ hashFiles('**/composer.json') }}
         restore-keys: |
-          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.coverage && 'c-' || '' }}-${{ matrix.styleCheck && 's-' || '' }}-${{ matrix.laravel && 'l-' || '' }}-
+          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.coverage && 'c-' || '' }}${{ matrix.styleCheck && 's-' || '' }}${{ matrix.laravel && 'l-' || '' }}
 
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
@@ -205,7 +205,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
 
