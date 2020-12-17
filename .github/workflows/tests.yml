@@ -87,15 +87,6 @@ jobs:
       if: matrix.laravel
       uses: niden/actions-memcached@v7
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.coverage && 'c-' || '' }}${{ matrix.styleCheck && 's-' || '' }}${{ matrix.laravel && 'l-' || '' }}${{ hashFiles('**/composer.json') }}
-        restore-keys: |
-          ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.coverage && 'c-' || '' }}${{ matrix.styleCheck && 's-' || '' }}${{ matrix.laravel && 'l-' || '' }}
-
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: |
@@ -199,15 +190,6 @@ jobs:
           extensions: json
           tools: composer:v2
           coverage: none
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.setup }}-
 
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
