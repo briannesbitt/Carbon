@@ -1498,11 +1498,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
         $result = iterator_to_array($this);
 
-        [
-            $this->key,
-            $this->current,
-            $this->validationResult
-        ] = $state;
+        [$this->key, $this->current, $this->validationResult] = $state;
 
         return $result;
     }
