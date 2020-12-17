@@ -583,7 +583,15 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public static function __callStatic($method, $parameters)
     {
-        return (new static)->$method(...$parameters);
+        $date = new static();
+
+        if (static::hasMacro($method)) {
+            return static::bindMacroContext(null, function () use (&$method, &$parameters, &$date) {
+                return $date->callMacro($method, $parameters);
+            });
+        }
+
+        return $date->$method(...$parameters);
     }
 
     /**
