@@ -11,8 +11,8 @@ if (function_exists('xdebug_disable')) {
 }
 
 chdir(__DIR__.'/..');
-require 'vendor/autoload.php';
-require 'tools/methods.php';
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/methods.php';
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -345,12 +345,12 @@ function compile($src, $dest = null)
         $namesCache = [];
         $oldCode = $code;
         $code = preg_replace_callback('@{{(\w*)::each\((.+)\)}}([\s\S]+){{::endEach}}@isU', function ($matches) use ($imports, &$__state) {
-            list(, $name, $items, $contents) = $matches;
+            [, $name, $items, $contents] = $matches;
 
             return evaluateCode($__state, "$imports foreach ($items as \$item) { ?>{{eval(\$$name = <?php var_export(\$item); ?>;)}}$contents<?php }");
         }, $code);
         $code = preg_replace_callback('@{{(?:(\w*)::(\w+)\((.+)\)|((?:(\w+)_)?eval(?:\((.+)\))?))}}@sU', function ($matches) use ($imports, &$lastCode, &$codes, &$namesCache, &$__state) {
-            list($orig, $name, $cmd, $src, $eval, $evalName, $evalContent) = array_pad($matches, 7, null);
+            [$orig, $name, $cmd, $src, $eval, $evalName, $evalContent] = array_pad($matches, 7, null);
 
             $src = trim($src, "\n\r");
             $code = empty($evalContent) ? $src : $evalContent;

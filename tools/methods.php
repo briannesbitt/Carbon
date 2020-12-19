@@ -233,7 +233,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
     $rc = new \ReflectionClass($className);
     preg_match_all('/@method\s+(\S+)\s+([^(\s]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
 
-    foreach ($matches as list($all, $return, $method, $parameters, $description)) {
+    foreach ($matches as [$all, $return, $method, $parameters, $description]) {
         $parameters = convertType(trim($parameters));
 
         if (preg_match('/^(static|Carbon\w*)\s/', $method)) {

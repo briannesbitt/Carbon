@@ -11,20 +11,16 @@ $target = $arguments[1] ?? null;
 
 function loadDependencies()
 {
-    require 'vendor/autoload.php';
-    require __DIR__.'/methods.php';
+    require_once __DIR__.'/../vendor/autoload.php';
+    require_once __DIR__.'/methods.php';
 }
 
 function nameAlias($name)
 {
-    switch ($name) {
-        case 'dt':
-            return 'date';
-        case 'abs':
-            return 'absolute';
-        default:
-            return $name;
-    }
+    return [
+        'dt' => 'date',
+        'abs' => 'absolute',
+    ][$name] ?? $name;
 }
 
 $methods = [];
@@ -135,12 +131,12 @@ function requireCarbon($branch)
     }
 
     $path = realpath(__DIR__.'/../composer.phar');
-    $path = $path ? "php $path" : 'composer';
+    $path = $path ? 'php '.$path : 'composer';
 
     return executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
 }
 
-foreach (methods() as list($carbonObject, $className, $method)) {
+foreach (methods() as [$carbonObject, $className, $method]) {
     $methods["$className::$method"] = [];
 }
 
