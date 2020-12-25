@@ -34,20 +34,17 @@ jobs:
           - php: 7.1
           - php: 7.1
             setup: lowest
-          - php: 7.1
 
           - php: 7.2.0
           - php: 7.2.15
           - php: 7.2
           - php: 7.2
             setup: lowest
-          - php: 7.2
 
           - php: 7.3.0
           - php: 7.3.5
           - php: 7.3
             setup: lowest
-          - php: 7.3
 
           - php: 7.4
             setup: lowest
@@ -147,20 +144,17 @@ jobs:
           - php: 7.1
           - php: 7.1
             setup: lowest
-          - php: 7.1
 
           - php: 7.2.0
           - php: 7.2.15
           - php: 7.2
           - php: 7.2
             setup: lowest
-          - php: 7.2
 
           - php: 7.3.0
           - php: 7.3.5
           - php: 7.3
             setup: lowest
-          - php: 7.3
 
           - php: 7.4
             setup: lowest
