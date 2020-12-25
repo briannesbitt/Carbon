@@ -34,24 +34,25 @@ jobs:
           - php: 7.2
           - php: 7.2
             setup: lowest
-          - php: 7.2
 
           - php: 7.3.0
           - php: 7.3.5
           - php: 7.3
-            setup: lowest
           - php: 7.3
-
-          - php: 7.4
             setup: lowest
+
           - php: 7.4
             coverage: true
+          - php: 7.4
+            setup: lowest
 
           - php: 8.0
-            composerOptions: --ignore-platform-req=php
+          - php: 8.0
+            setup: lowest
 
           - php: 8.1
-            composerOptions: --ignore-platform-req=php
+          - php: 8.1
+            setup: lowest
 
           - php: 7.4
             laravel: true
@@ -89,7 +90,7 @@ jobs:
         if [[ "${{ matrix.laravel }}" != 'true' ]]; then
           composer remove --no-update kylekatarnls/multi-tester --no-interaction;
         fi;
-        composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
+        composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
 
     - name: Run test suite
       run: |
@@ -141,28 +142,27 @@ jobs:
           - php: 7.2
           - php: 7.2
             setup: lowest
-          - php: 7.2
 
           - php: 7.3.0
           - php: 7.3.5
           - php: 7.3
-            setup: lowest
           - php: 7.3
-
-          - php: 7.4
             setup: lowest
+
           - php: 7.4
             coverage: true
+          - php: 7.4
+            setup: lowest
 
           - php: 8.0
-            composerOptions: --ignore-platform-req=php
+          - php: 8.0
+            setup: lowest
 
           - php: 8.1
-            composerOptions: --ignore-platform-req=php
+          - php: 8.1
+            setup: lowest
 
           - php: 7.3.0
-
-          - php: 8.0
 
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 
@@ -180,7 +180,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer remove --no-update povils/phpmnd kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-          composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.composerOptions }};
+          composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
 
       - name: Run test suite
         run: |
