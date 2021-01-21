@@ -922,7 +922,7 @@ class IsTest extends AbstractTestCase
 
     public function getFormatLetters()
     {
-        return array_map(function ($letter) {
+        return array_map(static function ($letter) {
             return [$letter];
         }, [
             'd',

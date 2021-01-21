@@ -61,7 +61,7 @@ trait Options
     /**
      * Format regex patterns.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected static $regexFormats = [
         'd' => '(3[01]|[12][0-9]|0[1-9])',
@@ -72,7 +72,7 @@ trait Options
         'S' => '(st|nd|rd|th)',
         'w' => '([0-6])',
         'z' => '(36[0-5]|3[0-5][0-9]|[12][0-9]{2}|[1-9]?[0-9])',
-        'W' => '(5[012]|[1-4][0-9]|[1-9])',
+        'W' => '(5[012]|[1-4][0-9]|0?[1-9])',
         'F' => '([a-zA-Z]{2,})',
         'm' => '(1[012]|0[1-9])',
         'M' => '([a-zA-Z]{3})',
