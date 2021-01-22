@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 1000;
+    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 200;
 
     public function testSingularUnit()
     {
