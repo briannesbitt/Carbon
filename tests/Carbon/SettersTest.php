@@ -447,6 +447,9 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(60, $d->offsetMinutes);
         $this->assertSame(1, $d->offsetHours);
         $this->assertSame(60, $d->utcOffset());
+
+        $d->utcOffset(330);
+        $this->assertSame(330, $d->utcOffset());
     }
 
     public function testSetTimezoneUsingDateTimeZone()
