@@ -5,7 +5,6 @@ enabled:
   - extra_empty_lines
   - short_array_syntax
   - method_separation
-  - multiline_array_trailing_comma
   - no_empty_lines_after_phpdocs
   - operators_spaces
   - ordered_use
@@ -29,6 +28,8 @@ enabled:
   - spaces_cast
   - standardize_not_equal
   - ternary_spaces
+  - trailing_comma_in_multiline_array
+  - trailing_comma_in_multiline_call
   - trim_array_spaces
   - unalign_double_arrow
   - unalign_equals
