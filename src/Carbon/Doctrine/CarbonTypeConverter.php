@@ -70,7 +70,7 @@ trait CarbonTypeConverter
                 $value,
                 $this->getName(),
                 'Y-m-d H:i:s.u or any format supported by '.$class.'::parse()',
-                $error
+                $error,
             );
         }
 
@@ -93,7 +93,7 @@ trait CarbonTypeConverter
         throw ConversionException::conversionFailedInvalidType(
             $value,
             $this->getName(),
-            ['null', 'DateTime', 'Carbon']
+            ['null', 'DateTime', 'Carbon'],
         );
     }
 }

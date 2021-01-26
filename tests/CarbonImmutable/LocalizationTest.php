@@ -689,7 +689,7 @@ class LocalizationTest extends AbstractTestCase
         $this->expectExceptionMessage(
             'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
-            'Symfony\Component\Translation\IdentityTranslator has been given.'
+            'Symfony\Component\Translation\IdentityTranslator has been given.',
         );
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
@@ -796,7 +796,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->assertSame(
             '29 февраля 2020 г., 12:24',
-            Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL')
+            Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL'),
         );
     }
 
@@ -804,12 +804,12 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->assertSame(
             'година',
-            CarbonInterval::hour()->locale('uk')->forHumans(['aUnit' => true])
+            CarbonInterval::hour()->locale('uk')->forHumans(['aUnit' => true]),
         );
 
         $this->assertSame(
             'годину тому',
-            Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true])
+            Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true]),
         );
     }
 }

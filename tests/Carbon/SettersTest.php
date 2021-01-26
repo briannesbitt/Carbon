@@ -264,7 +264,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown or bad timezone (sdf)'
+            'Unknown or bad timezone (sdf)',
         );
 
         /** @var mixed $d */
@@ -347,7 +347,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown or bad timezone (sdf)'
+            'Unknown or bad timezone (sdf)',
         );
 
         $d = Carbon::now();
@@ -358,7 +358,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown or bad timezone (sdf)'
+            'Unknown or bad timezone (sdf)',
         );
 
         /** @var mixed $d */
@@ -370,7 +370,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown or bad timezone (sdf)'
+            'Unknown or bad timezone (sdf)',
         );
 
         $d = Carbon::now();
@@ -616,7 +616,7 @@ class SettersTest extends AbstractTestCase
                 var_export($original->timezoneName, true).
                 ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
                     return var_export($value, true);
-                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'), );
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
@@ -631,7 +631,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown unit \'anyUnit\''
+            'Unknown unit \'anyUnit\'',
         );
 
         Carbon::now()->setUnitNoOverflow('anyUnit', 1, 'year');
@@ -641,7 +641,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown unit \'anyUnit\''
+            'Unknown unit \'anyUnit\'',
         );
 
         Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
@@ -724,7 +724,7 @@ class SettersTest extends AbstractTestCase
                 var_export($original->timezoneName, true).
                 ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
                     return var_export($value, true);
-                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'), );
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
@@ -814,7 +814,7 @@ class SettersTest extends AbstractTestCase
                 var_export($original->timezoneName, true).
                 ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {
                     return var_export($value, true);
-                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'), );
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;

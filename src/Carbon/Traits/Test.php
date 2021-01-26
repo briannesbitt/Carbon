@@ -129,7 +129,7 @@ trait Test
             $realNow = new DateTimeImmutable('now');
             $testNow = $testNow(static::parse(
                 $realNow->format('Y-m-d H:i:s.u'),
-                $tz ?: $realNow->getTimezone()
+                $tz ?: $realNow->getTimezone(),
             ));
         }
         /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */

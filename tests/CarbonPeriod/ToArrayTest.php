@@ -56,7 +56,7 @@ class ToArrayTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
-            $this->standardizeDates($result)
+            $this->standardizeDates($result),
         );
     }
 
@@ -138,7 +138,7 @@ class ToArrayTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
-            $this->standardizeDates($period->toArray())
+            $this->standardizeDates($period->toArray()),
         );
 
         $this->assertSame(1, $period->key());

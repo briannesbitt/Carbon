@@ -29,7 +29,7 @@ class AddTest extends AbstractTestCase
                 $lastNegated = $negated;
 
                 return new DateTimeImmutable($date->format('Y-m-d H:i:s').' + 2 years');
-            }
+            },
         );
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame(1977, $date->year);

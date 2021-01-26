@@ -201,7 +201,7 @@ final class Macro implements BuiltinMethodReflection
     {
         return TrinaryLogic::createFromBoolean(
             $this->reflectionFunction->isDeprecated() ||
-            preg_match('/@deprecated/i', $this->getDocComment() ?: '')
+            preg_match('/@deprecated/i', $this->getDocComment() ?: ''),
         );
     }
 

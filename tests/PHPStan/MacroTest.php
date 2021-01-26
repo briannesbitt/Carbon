@@ -100,14 +100,14 @@ class MacroTest extends AbstractTestCase
              */
             function () {
                 return 'foo';
-            }
+            },
         );
 
         $this->assertSame(
             '/**
              * Foo.
              */',
-            $macro->getDocComment()
+            $macro->getDocComment(),
         );
     }
 
@@ -178,7 +178,7 @@ class MacroTest extends AbstractTestCase
         if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
             $this->markTestSkipped(
                 'PHP 8 nightly build seems to be broken here while the previous alpha was\'nt. '.
-                'We\'ll try to reactive later and open a ticket if it persists.'
+                'We\'ll try to reactive later and open a ticket if it persists.',
             );
         }
 
@@ -189,7 +189,7 @@ class MacroTest extends AbstractTestCase
              * @deprecated since 3.0.0
              */
             function () {
-            }
+            },
         );
 
         $this->assertTrue($macro->isDeprecated()->yes());
@@ -201,7 +201,7 @@ class MacroTest extends AbstractTestCase
              * @discouraged since 3.0.0
              */
             function () {
-            }
+            },
         );
 
         $this->assertFalse($macro->isDeprecated()->yes());
@@ -247,7 +247,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             (new ReflectionClass($mixinClass))->getName(),
-            $macro->getReflection()->getDeclaringClass()->getName()
+            $macro->getReflection()->getDeclaringClass()->getName(),
         );
         $this->assertSame('foo', $macro->getReflection()->getName());
 

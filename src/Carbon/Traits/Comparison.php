@@ -980,7 +980,7 @@ trait Comparison
 
         if (preg_match(
             '/^(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d+$/i',
-            $tester
+            $tester,
         )) {
             return $current->startOfMonth()->eq($other->startOfMonth());
         }
@@ -1031,7 +1031,7 @@ trait Comparison
             function ($match) use ($replacements) {
                 return $match[1].strtr($match[2], $replacements);
             },
-            $regex
+            $regex,
         );
         // Replace escaped letters by the letter itself
         $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);

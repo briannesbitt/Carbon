@@ -562,7 +562,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(
             '1 week from now',
             Carbon::parse('2020-07-30 13:51:15')
-                ->diffForHumans(['options' => CarbonInterface::ROUND])
+                ->diffForHumans(['options' => CarbonInterface::ROUND]),
         );
     }
 
@@ -1603,7 +1603,7 @@ class DiffTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Expected null, string, DateTime or DateTimeInterface, integer given'
+            'Expected null, string, DateTime or DateTimeInterface, integer given',
         );
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(10);
@@ -1613,7 +1613,7 @@ class DiffTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given'
+            'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given',
         );
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(new CarbonInterval());
@@ -1623,7 +1623,7 @@ class DiffTest extends AbstractTestCase
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(
-            'Failed to parse time string (2018-04-13-08:00:00) at position 16'
+            'Failed to parse time string (2018-04-13-08:00:00) at position 16',
         );
 
         $mar13 = Carbon::parse('2018-03-13');

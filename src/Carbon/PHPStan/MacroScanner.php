@@ -48,7 +48,7 @@ final class MacroScanner
         return new Macro(
             $className,
             $methodName,
-            $macro
+            $macro,
         );
     }
 }

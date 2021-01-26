@@ -32,7 +32,7 @@ class SetDateAndTimeFromTest extends AbstractTestCase
             $source->day,
             $target->hour,
             $target->minute,
-            $target->second
+            $target->second,
         );
     }
 
@@ -52,7 +52,7 @@ class SetDateAndTimeFromTest extends AbstractTestCase
             $target->day,
             $source->hour,
             $source->minute,
-            $source->second
+            $source->second,
         );
     }
 }

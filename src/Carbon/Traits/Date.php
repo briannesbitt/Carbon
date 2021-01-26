@@ -1554,7 +1554,7 @@ trait Date
     {
         return (int) static::getTranslationMessageWith(
             $locale ? Translator::get($locale) : static::getTranslator(),
-            'first_day_of_week'
+            'first_day_of_week',
         );
     }
 
@@ -1980,7 +1980,7 @@ trait Date
                     function ($code) {
                         return mb_substr($code[0], 1);
                     },
-                    $formats[strtoupper($code)] ?? ''
+                    $formats[strtoupper($code)] ?? '',
                 );
                 $rest = mb_substr($format, $i + mb_strlen($code));
                 $format = mb_substr($format, 0, $i).$sequence.$rest;
@@ -2489,7 +2489,7 @@ trait Date
         if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
             throw new InvalidTypeException(
                 $message.'DateTime or DateTimeInterface, '.
-                (\is_object($date) ? \get_class($date) : \gettype($date)).' given'
+                (\is_object($date) ? \get_class($date) : \gettype($date)).' given',
             );
         }
     }

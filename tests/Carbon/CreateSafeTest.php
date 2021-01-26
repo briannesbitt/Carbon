@@ -28,7 +28,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'second : -1 is not a valid value.'
+            'second : -1 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, null, null, null, -1);
@@ -45,7 +45,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'second : 60 is not a valid value.'
+            'second : 60 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, null, null, null, 60);
@@ -55,7 +55,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'minute : -1 is not a valid value.'
+            'minute : -1 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, null, null, -1);
@@ -65,7 +65,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'minute : 60 is not a valid value.'
+            'minute : 60 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, null, null, 60, 25);
@@ -75,7 +75,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'hour : -6 is not a valid value.'
+            'hour : -6 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, null, -6);
@@ -85,7 +85,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'hour : 25 is not a valid value.'
+            'hour : 25 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, null, 25, 16, 15);
@@ -95,7 +95,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'day : -5 is not a valid value.'
+            'day : -5 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, -5);
@@ -105,7 +105,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'day : 32 is not a valid value.'
+            'day : 32 is not a valid value.',
         );
 
         Carbon::createSafe(null, null, 32, 17, 16, 15);
@@ -115,7 +115,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'month : -4 is not a valid value.'
+            'month : -4 is not a valid value.',
         );
 
         Carbon::createSafe(null, -4);
@@ -125,7 +125,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'month : 13 is not a valid value.'
+            'month : 13 is not a valid value.',
         );
 
         Carbon::createSafe(null, 13, 5, 17, 16, 15);
@@ -135,7 +135,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'year : 0 is not a valid value.'
+            'year : 0 is not a valid value.',
         );
 
         Carbon::createSafe(0);
@@ -145,7 +145,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'year : -5 is not a valid value.'
+            'year : -5 is not a valid value.',
         );
 
         Carbon::createSafe(-5);
@@ -155,7 +155,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'year : 10000 is not a valid value.'
+            'year : 10000 is not a valid value.',
         );
 
         Carbon::createSafe(10000, 12, 5, 17, 16, 15);
@@ -165,7 +165,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'day : 31 is not a valid value.'
+            'day : 31 is not a valid value.',
         );
 
         // 30 days in April
@@ -176,7 +176,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'day : 30 is not a valid value.'
+            'day : 30 is not a valid value.',
         );
 
         // 29 days in February for a leap year
@@ -201,7 +201,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'day : 29 is not a valid value.'
+            'day : 29 is not a valid value.',
         );
 
         // 28 days in February for a non-leap year
@@ -235,7 +235,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->expectException(\Carbon\Exceptions\InvalidDateException::class);
         $this->expectExceptionMessage(
-            'second : 15.1 is not a valid value.'
+            'second : 15.1 is not a valid value.',
         );
 
         Carbon::createSafe(2015, 2, 10, 17, 16, 15.1);

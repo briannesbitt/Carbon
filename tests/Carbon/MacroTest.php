@@ -63,7 +63,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
                 Carbon::create($year, 3, 21)
                     ->setTimezone($date->getTimezone())
                     ->addDays(easter_days($year))
-                    ->endOfDay()
+                    ->endOfDay(),
             );
         });
 
@@ -235,7 +235,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method Carbon\Carbon::nonExistingStaticMacro does not exist.'
+            'Method Carbon\Carbon::nonExistingStaticMacro does not exist.',
         );
 
         Carbon::nonExistingStaticMacro();
@@ -245,7 +245,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method nonExistingMacro does not exist.'
+            'Method nonExistingMacro does not exist.',
         );
 
         /** @var mixed $date */

@@ -34,7 +34,7 @@ class MacroExtensionTest extends AbstractTestCase
 
         $this->assertSame(
             CarbonInterval::class,
-            $scanner->getMethod(Carbon::class, 'foo')->getReturnType()->getName()
+            $scanner->getMethod(Carbon::class, 'foo')->getReturnType()->getName(),
         );
     }
 }

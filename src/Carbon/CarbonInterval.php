@@ -552,7 +552,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     "'$expected'",
                     $nextCharacter,
                     'Allowed substitutes for interval formats are '.implode(', ', array_keys(static::$formats))."\n".
-                    'See https://www.php.net/manual/en/function.date.php for their meaning'
+                    'See https://www.php.net/manual/en/function.date.php for their meaning',
                 );
             }
 
@@ -562,7 +562,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if ($interval !== '') {
             throw new ParseErrorException(
                 'end of string',
-                $interval
+                $interval,
             );
         }
 
@@ -861,14 +861,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
                 default:
                     throw new InvalidIntervalException(
-                        sprintf('Invalid part %s in definition %s', $part, $intervalDefinition)
+                        sprintf('Invalid part %s in definition %s', $part, $intervalDefinition),
                     );
             }
         }
 
         return self::withOriginal(
             new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * Carbon::MICROSECONDS_PER_MILLISECOND + $microseconds),
-            $intervalDefinition
+            $intervalDefinition,
         );
     }
 
@@ -1661,7 +1661,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 $intervalValues = $this->copy()->roundUnit(
                     $keys[min($count, $previousCount - 1) - 2],
                     1,
-                    $method
+                    $method,
                 );
                 $previousCount = $count;
             }
@@ -2041,7 +2041,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             static::create($yearPart)
                 ->microseconds(abs($this->totalMicroseconds) * $factor)
                 ->cascade(),
-            true
+            true,
         );
     }
 
@@ -2560,7 +2560,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $this->copyProperties(
             $next
                 ->roundUnit($unit, $precision, $function)
-                ->diff($base)
+                ->diff($base),
         );
 
         return $this->invert($inverted);

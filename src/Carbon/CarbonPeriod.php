@@ -365,7 +365,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         throw new NotAPeriodException(
             'Argument 1 passed to '.$class.'::'.__METHOD__.'() '.
             'must be an instance of DatePeriod or '.$class.', '.
-            ($type === 'object' ? 'instance of '.\get_class($period) : $type).' given.'
+            ($type === 'object' ? 'instance of '.\get_class($period) : $type).' given.',
         );
     }
 
@@ -633,7 +633,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 (
                     \is_string($argument) && preg_match(
                         '/^(\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
-                        $argument
+                        $argument,
                     ) ||
                     $argument instanceof DateInterval ||
                     $argument instanceof Closure
@@ -883,7 +883,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         return $this->setOptions(
             $state ?
             $this->options | $options :
-            $this->options & ~$options
+            $this->options & ~$options,
         );
     }
 
@@ -1455,7 +1455,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                     $this->getStartDate(),
                     $this->getDateInterval(),
                     $this->getEndDate() ? $this->getIncludedEndDate() : $this->getRecurrences(),
-                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0
+                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0,
                 );
             }
 
@@ -2288,7 +2288,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 $tuple[0],
                 $current->copy(),
                 $this->key,
-                $this
+                $this,
             );
 
             if ($result === static::END_ITERATION) {

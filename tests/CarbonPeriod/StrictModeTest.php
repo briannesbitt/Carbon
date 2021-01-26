@@ -33,7 +33,7 @@ class StrictModeTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method foobar does not exist.'
+            'Method foobar does not exist.',
         );
 
         /** @var mixed $period */

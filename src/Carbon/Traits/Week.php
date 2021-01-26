@@ -54,7 +54,7 @@ trait Week
         return $this->weekYear(
             $year,
             $dayOfWeek ?? static::MONDAY,
-            $dayOfYear ?? static::THURSDAY
+            $dayOfYear ?? static::THURSDAY,
         );
     }
 
@@ -136,7 +136,7 @@ trait Week
     {
         return $this->weeksInYear(
             $dayOfWeek ?? static::MONDAY,
-            $dayOfYear ?? static::THURSDAY
+            $dayOfYear ?? static::THURSDAY,
         );
     }
 
@@ -218,7 +218,7 @@ trait Week
         return $this->week(
             $week,
             $dayOfWeek ?? static::MONDAY,
-            $dayOfYear ?? static::THURSDAY
+            $dayOfYear ?? static::THURSDAY,
         );
     }
 }

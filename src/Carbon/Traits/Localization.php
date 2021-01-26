@@ -165,7 +165,7 @@ trait Localization
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
                 'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.
-                (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.'
+                (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.',
             );
         }
 
@@ -379,7 +379,7 @@ trait Localization
                     }
 
                     return $meridiem($hour, 0, false);
-                }, range(0, 23)) : []
+                }, range(0, 23)) : [],
             );
         }
 
@@ -486,7 +486,7 @@ trait Localization
                 $translator->setMessages($preferredLocale, array_replace_recursive(
                     $translator->getMessages()[$locale] ?? [],
                     Translator::get($locale)->getMessages()[$locale] ?? [],
-                    $translator->getMessages($preferredLocale)
+                    $translator->getMessages($preferredLocale),
                 ));
             }
         }

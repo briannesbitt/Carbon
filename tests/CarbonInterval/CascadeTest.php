@@ -18,7 +18,7 @@ class CascadeTest extends AbstractTestCase
     {
         $this->assertSame(
             ($inverted ? '- ' : '+ ').$spec,
-            ($interval->invert ? '- ' : '+ ').$interval->spec()
+            ($interval->invert ? '- ' : '+ ').$interval->spec(),
         );
     }
 
