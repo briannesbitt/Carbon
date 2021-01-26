@@ -166,7 +166,7 @@ class AliasTest extends AbstractTestCase
             $this->standardizeDates([
                 Carbon::now()->subDays(3)->subHours(5), Carbon::now()->subDays(6)->subHours(10),
             ]),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -174,7 +174,7 @@ class AliasTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method foobar does not exist.'
+            'Method foobar does not exist.',
         );
 
         CarbonPeriod::foobar();
@@ -196,7 +196,7 @@ class AliasTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Empty interval is not accepted.'
+            'Empty interval is not accepted.',
         );
 
         CarbonPeriod::days(0);

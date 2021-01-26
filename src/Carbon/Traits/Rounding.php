@@ -93,7 +93,7 @@ trait Rounding
                 $fraction *= $delta;
                 $arguments[0] += $this->$unit * $factor;
                 $changes[$unit] = round(
-                    $minimum + ($fraction ? $fraction * $function(($this->$unit - $minimum) / $fraction) : 0)
+                    $minimum + ($fraction ? $fraction * $function(($this->$unit - $minimum) / $fraction) : 0),
                 );
 
                 // Cannot use modulo as it lose double precision
@@ -108,7 +108,7 @@ trait Rounding
         [$value, $minimum] = $arguments;
         /** @var CarbonInterface $result */
         $result = $this->$normalizedUnit(
-            floor($function(($value - $minimum) / $precision) * $precision + $minimum)
+            floor($function(($value - $minimum) / $precision) * $precision + $minimum),
         );
 
         foreach ($changes as $unit => $value) {

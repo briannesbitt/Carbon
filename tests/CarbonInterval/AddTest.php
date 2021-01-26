@@ -145,7 +145,7 @@ class AddTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'This type of data cannot be added/subtracted.'
+            'This type of data cannot be added/subtracted.',
         );
 
         CarbonInterval::day()->add(Carbon::now());

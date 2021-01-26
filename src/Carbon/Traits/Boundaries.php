@@ -275,7 +275,7 @@ trait Boundaries
         return $this
             ->subDays(
                 (static::DAYS_PER_WEEK + $this->dayOfWeek - ($weekStartsAt ?? $this->firstWeekDay)) %
-                static::DAYS_PER_WEEK
+                static::DAYS_PER_WEEK,
             )
             ->startOfDay();
     }
@@ -299,7 +299,7 @@ trait Boundaries
         return $this
             ->addDays(
                 (static::DAYS_PER_WEEK - $this->dayOfWeek + ($weekEndsAt ?? $this->lastWeekDay)) %
-                static::DAYS_PER_WEEK
+                static::DAYS_PER_WEEK,
             )
             ->endOfDay();
     }

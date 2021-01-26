@@ -17,7 +17,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(
             (float) $expected,
             CarbonInterval::fromString($spec)->total($unit),
-            "$spec as $unit did not get the expected total"
+            "$spec as $unit did not get the expected total",
         );
     }
 
@@ -47,7 +47,7 @@ class TotalTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown unit \'foo\'.'
+            'Unknown unit \'foo\'.',
         );
 
         CarbonInterval::create()->total('foo');

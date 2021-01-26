@@ -316,7 +316,7 @@ class ConstructTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Unknown fluent constructor \'anything\''
+            'Unknown fluent constructor \'anything\'',
         );
 
         CarbonInterval::anything();

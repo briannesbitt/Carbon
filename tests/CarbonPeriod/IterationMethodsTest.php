@@ -25,7 +25,7 @@ class IterationMethodsTest extends AbstractTestCase
 
         $this->assertSame("3 days before Christmas!\n".
             "2 days before Christmas!\n".
-            "1 days before Christmas!\n", $result);
+            "1 days before Christmas!\n", $result, );
     }
 
     public function testMap()

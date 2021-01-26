@@ -14,7 +14,7 @@ class RoundingTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Rounding is only possible with single unit intervals.'
+            'Rounding is only possible with single unit intervals.',
         );
 
         CarbonPeriod::days(2)->round('2 hours 50 minutes');

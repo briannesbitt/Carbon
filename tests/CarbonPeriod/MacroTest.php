@@ -49,7 +49,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-05-10', '2018-05-11', '2018-05-14']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -79,7 +79,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             'Sunday, 11 September 2016',
-            $period->formatStartDate()
+            $period->formatStartDate(),
         );
     }
 
@@ -108,7 +108,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             3,
-            CarbonPeriod::countWeekdaysBetween('2018-05-10', '2018-05-14')
+            CarbonPeriod::countWeekdaysBetween('2018-05-10', '2018-05-14'),
         );
     }
 
@@ -146,7 +146,7 @@ class MacroTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method nonExistingMacro does not exist.'
+            'Method nonExistingMacro does not exist.',
         );
 
         /** @var mixed $period */
@@ -159,7 +159,7 @@ class MacroTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method nonExistingMacro does not exist.'
+            'Method nonExistingMacro does not exist.',
         );
 
         CarbonPeriod::nonExistingMacro();

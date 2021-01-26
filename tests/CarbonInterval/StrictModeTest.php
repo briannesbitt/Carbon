@@ -33,7 +33,7 @@ class StrictModeTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown setter \'foobar\''
+            'Unknown setter \'foobar\'',
         );
 
         /** @var mixed $interval */
@@ -45,7 +45,7 @@ class StrictModeTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown getter \'foobar\''
+            'Unknown getter \'foobar\'',
         );
 
         /** @var mixed $interval */
@@ -66,7 +66,7 @@ class StrictModeTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Unknown fluent constructor \'foobar\''
+            'Unknown fluent constructor \'foobar\'',
         );
 
         CarbonInterval::foobar();

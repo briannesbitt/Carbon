@@ -22,7 +22,7 @@ class GettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown getter \'doesNotExit\''
+            'Unknown getter \'doesNotExit\'',
         );
 
         /** @var mixed $interval */

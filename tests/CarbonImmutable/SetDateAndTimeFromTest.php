@@ -26,7 +26,7 @@ class SetDateAndTimeFromTest extends AbstractTestCase
             2,
             1,
             1,
-            1
+            1,
         );
     }
 
@@ -40,7 +40,7 @@ class SetDateAndTimeFromTest extends AbstractTestCase
             1,
             2,
             2,
-            2
+            2,
         );
     }
 }

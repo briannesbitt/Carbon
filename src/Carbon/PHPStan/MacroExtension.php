@@ -63,7 +63,7 @@ final class MacroExtension implements MethodsClassReflectionExtension
             $builtinMacro->isDeprecated()->yes(),
             $builtinMacro->isInternal(),
             $builtinMacro->isFinal(),
-            $builtinMacro->getDocComment()
+            $builtinMacro->getDocComment(),
         );
     }
 }

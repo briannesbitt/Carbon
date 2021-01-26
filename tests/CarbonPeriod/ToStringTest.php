@@ -26,7 +26,7 @@ class ToStringTest extends AbstractTestCase
     {
         $this->assertSame(
             $expected,
-            $period->toString()
+            $period->toString(),
         );
     }
 
@@ -42,7 +42,7 @@ class ToStringTest extends AbstractTestCase
             [
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30'),
-                    Carbon::parse('2015-10-03')
+                    Carbon::parse('2015-10-03'),
                 ),
                 'Every 1 day from 2015-09-30 to 2015-10-03',
             ],
@@ -50,7 +50,7 @@ class ToStringTest extends AbstractTestCase
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30 12:50'),
                     CarbonInterval::days(3)->hours(5),
-                    Carbon::parse('2015-10-03 19:00')
+                    Carbon::parse('2015-10-03 19:00'),
                 ),
                 'Every 3 days and 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
             ],
@@ -78,12 +78,12 @@ class ToStringTest extends AbstractTestCase
         $period = CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::days(3)->hours(5),
-            Carbon::parse('2015-10-03 19:00')
+            Carbon::parse('2015-10-03 19:00'),
         );
 
         $this->assertSame(
             'Every 3 days and 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
-            (string) $period
+            (string) $period,
         );
     }
 
@@ -94,7 +94,7 @@ class ToStringTest extends AbstractTestCase
     {
         $this->assertSame(
             $expected,
-            $period->toIso8601String()
+            $period->toIso8601String(),
         );
     }
 
@@ -110,7 +110,7 @@ class ToStringTest extends AbstractTestCase
             [
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30', 'America/Toronto'),
-                    Carbon::parse('2015-10-03', 'America/Toronto')
+                    Carbon::parse('2015-10-03', 'America/Toronto'),
                 ),
                 '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00',
             ],
@@ -118,14 +118,14 @@ class ToStringTest extends AbstractTestCase
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30 12:50', 'America/Toronto'),
                     CarbonInterval::days(3)->hours(5),
-                    Carbon::parse('2015-10-03 19:00', 'America/Toronto')
+                    Carbon::parse('2015-10-03 19:00', 'America/Toronto'),
                 ),
                 '2015-09-30T12:50:00-04:00/P3DT5H/2015-10-03T19:00:00-04:00',
             ],
             [
                 CarbonPeriod::create(
                     Carbon::parse('2015-09-30 12:50', 'America/Toronto'),
-                    CarbonInterval::days(3)
+                    CarbonInterval::days(3),
                 ),
                 '2015-09-30T12:50:00-04:00/P3D',
             ],
@@ -141,12 +141,12 @@ class ToStringTest extends AbstractTestCase
         $period = CarbonPeriod::create(
             Carbon::parse('2015-09-30'),
             CarbonInterval::days(3)->hours(5),
-            Carbon::parse('2015-10-03')
+            Carbon::parse('2015-10-03'),
         );
 
         $this->assertSame(
             '2015-09-30T00:00:00-04:00/P3DT5H/2015-10-03T00:00:00-04:00',
-            $period->spec()
+            $period->spec(),
         );
     }
 
@@ -160,12 +160,12 @@ class ToStringTest extends AbstractTestCase
 
         $this->assertSame(
             '2019-11-25 00:00:00',
-            $formattedSunday
+            $formattedSunday,
         );
 
         $this->assertSame(
             $formattedSunday,
-            $period[0]->toImmutable()->startOfWeek()->format('Y-m-d H:i:s')
+            $period[0]->toImmutable()->startOfWeek()->format('Y-m-d H:i:s'),
         );
     }
 }

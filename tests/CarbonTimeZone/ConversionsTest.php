@@ -159,7 +159,7 @@ class ConversionsTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown timezone for offset -54000 seconds.'
+            'Unknown timezone for offset -54000 seconds.',
         );
 
         (new CarbonTimeZone(-15))->toRegionTimeZone();

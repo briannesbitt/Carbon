@@ -116,7 +116,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval'
+            'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval',
         );
 
         $period = new CarbonPeriod('2001-01-01', '2001-01-02');
@@ -128,7 +128,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid interval.'
+            'Invalid interval.',
         );
 
         CarbonPeriod::create()->setDateInterval(new DateTime);
@@ -138,7 +138,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Empty interval is not accepted.'
+            'Empty interval is not accepted.',
         );
 
         CarbonPeriod::create()->setDateInterval(new DateInterval('P0D'));
@@ -148,7 +148,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid number of recurrences.'
+            'Invalid number of recurrences.',
         );
 
         CarbonPeriod::create()->setRecurrences('foo');
@@ -158,7 +158,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid number of recurrences.'
+            'Invalid number of recurrences.',
         );
 
         CarbonPeriod::create()->setRecurrences(-4);
@@ -168,7 +168,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid options.'
+            'Invalid options.',
         );
 
         CarbonPeriod::create()->setOptions('1');
@@ -178,7 +178,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid constructor parameters.'
+            'Invalid constructor parameters.',
         );
 
         CarbonPeriod::create([]);
@@ -188,7 +188,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid start date.'
+            'Invalid start date.',
         );
 
         CarbonPeriod::create()->setStartDate(new DateInterval('P1D'));
@@ -198,7 +198,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid end date.'
+            'Invalid end date.',
         );
 
         CarbonPeriod::create()->setEndDate(new DateInterval('P1D'));

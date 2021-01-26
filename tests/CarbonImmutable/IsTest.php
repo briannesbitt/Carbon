@@ -281,7 +281,7 @@ class IsTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Bad comparison unit: \'foobar\''
+            'Bad comparison unit: \'foobar\'',
         );
 
         Carbon::now()->isSameUnit('foobar', Carbon::now()->subMillennium());
@@ -675,7 +675,7 @@ class IsTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Expected null, string, DateTime or DateTimeInterface, stdClass given'
+            'Expected null, string, DateTime or DateTimeInterface, stdClass given',
         );
 
         $current = Carbon::createFromDate(2012, 1, 2);

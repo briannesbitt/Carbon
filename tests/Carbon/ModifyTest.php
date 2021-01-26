@@ -176,7 +176,7 @@ class ModifyTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid unit for real timestamp add/sub: \'foobar\''
+            'Invalid unit for real timestamp add/sub: \'foobar\'',
         );
 
         (new Carbon('2014-03-30 00:00:00'))->addRealUnit('foobar');
@@ -213,19 +213,19 @@ class ModifyTest extends AbstractTestCase
 
         $this->assertSame(
             '2019-06-04 00:00:00',
-            Carbon::parse('after tomorrow')->format('Y-m-d H:i:s')
+            Carbon::parse('after tomorrow')->format('Y-m-d H:i:s'),
         );
         $this->assertSame(
             '2000-01-27 00:00:00',
-            Carbon::parse('2000-01-25')->change('after tomorrow')->format('Y-m-d H:i:s')
+            Carbon::parse('2000-01-25')->change('after tomorrow')->format('Y-m-d H:i:s'),
         );
         $this->assertSame(
             '2019-05-31 00:00:00',
-            Carbon::parse('before yesterday')->format('Y-m-d H:i:s')
+            Carbon::parse('before yesterday')->format('Y-m-d H:i:s'),
         );
         $this->assertSame(
             '2000-01-23 00:00:00',
-            Carbon::parse('2000-01-25')->change('before yesterday')->format('Y-m-d H:i:s')
+            Carbon::parse('2000-01-25')->change('before yesterday')->format('Y-m-d H:i:s'),
         );
     }
 }

@@ -662,7 +662,7 @@ class IsTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Expected null, string, DateTime or DateTimeInterface, stdClass given'
+            'Expected null, string, DateTime or DateTimeInterface, stdClass given',
         );
 
         $current = Carbon::createFromDate(2012, 1, 2);
@@ -991,7 +991,7 @@ class IsTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method isSameFoobar does not exist.'
+            'Method isSameFoobar does not exist.',
         );
 
         /** @var mixed $date */
@@ -1003,7 +1003,7 @@ class IsTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Method isCurrentFoobar does not exist.'
+            'Method isCurrentFoobar does not exist.',
         );
 
         /** @var mixed $date */

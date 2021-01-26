@@ -74,7 +74,7 @@ class SerializationTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            "Invalid serialized value: $value"
+            "Invalid serialized value: $value",
         );
 
         Carbon::fromSerialized($value);

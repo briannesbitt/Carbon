@@ -194,7 +194,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown setter \'doesNotExit\''
+            'Unknown setter \'doesNotExit\'',
         );
 
         /** @var mixed $ci */
@@ -206,7 +206,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Unknown fluent setter \'doesNotExit\''
+            'Unknown fluent setter \'doesNotExit\'',
         );
 
         /** @var mixed $ci */
@@ -218,7 +218,7 @@ class SettersTest extends AbstractTestCase
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
-            'Unknown fluent constructor \'doesNotExit\''
+            'Unknown fluent constructor \'doesNotExit\'',
         );
 
         CarbonInterval::doesNotExit(123);

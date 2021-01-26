@@ -28,7 +28,7 @@ class NotACarbonClassException extends BaseInvalidArgumentException implements I
         parent::__construct(sprintf(
             'Given class does not implement %s: %s',
             CarbonInterface::class,
-            $className
+            $className,
         ), $code, $previous);
     }
 }
