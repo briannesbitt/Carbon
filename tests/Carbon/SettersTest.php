@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 1000;
+    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 200;
 
     public function testSingularUnit()
     {
@@ -448,6 +448,9 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(60, $d->offsetMinutes);
         $this->assertSame(1, $d->offsetHours);
         $this->assertSame(60, $d->utcOffset());
+
+        $d->utcOffset(330);
+        $this->assertSame(330, $d->utcOffset());
     }
 
     public function testSetTimezoneUsingDateTimeZone()
