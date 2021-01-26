@@ -586,9 +586,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $date = new static();
 
         if (static::hasMacro($method)) {
-            return static::bindMacroContext(null, function () use (&$method, &$parameters, &$date) {
-                return $date->callMacro($method, $parameters);
-            });
+            return static::bindMacroContext(null, static fn () => $date->callMacro($method, $parameters));
         }
 
         return $date->$method(...$parameters);
@@ -1097,9 +1095,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
         $this->filters = array_values(array_filter(
             $this->filters,
-            function ($tuple) use ($key, $filter) {
-                return $tuple[$key] !== $filter;
-            }
+            static fn ($tuple) => $tuple[$key] !== $filter,
         ));
 
         $this->updateInternalState();
@@ -1564,9 +1560,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function __call($method, $parameters)
     {
         if (static::hasMacro($method)) {
-            return static::bindMacroContext($this, function () use (&$method, &$parameters) {
-                return $this->callMacro($method, $parameters);
-            });
+            return static::bindMacroContext($this, static fn () => $this->callMacro($method, $parameters));
         }
 
         $roundedValue = $this->callRoundMethod($method, $parameters);
@@ -2178,9 +2172,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             return [$method, array_shift($parameters)];
         }
 
-        return [function ($date) use ($method, $parameters) {
-            return ([$date, $method])(...$parameters);
-        }, $method];
+        return [static fn ($date) => ([$date, $method])(...$parameters), $method];
     }
 
     /**

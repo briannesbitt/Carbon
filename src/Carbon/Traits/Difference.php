@@ -289,9 +289,7 @@ trait Difference
      */
     public function diffInWeekdays($date = null, bool $absolute = false): int
     {
-        return $this->diffInDaysFiltered(function (CarbonInterface $date) {
-            return $date->isWeekday();
-        }, $date, $absolute);
+        return $this->diffInDaysFiltered(static fn (CarbonInterface $date) => $date->isWeekday(), $date, $absolute);
     }
 
     /**
@@ -304,9 +302,7 @@ trait Difference
      */
     public function diffInWeekendDays($date = null, bool $absolute = false): int
     {
-        return $this->diffInDaysFiltered(function (CarbonInterface $date) {
-            return $date->isWeekend();
-        }, $date, $absolute);
+        return $this->diffInDaysFiltered(static fn (CarbonInterface $date) => $date->isWeekend(), $date, $absolute);
     }
 
     /**

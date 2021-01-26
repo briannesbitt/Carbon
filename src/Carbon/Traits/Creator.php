@@ -676,9 +676,7 @@ trait Creator
 
             return $formats[$code] ?? preg_replace_callback(
                 '/MMMM|MM|DD|dddd/',
-                function ($code) {
-                    return mb_substr($code[0], 1);
-                },
+                static fn (string $code) => mb_substr($code[0], 1),
                 $formats[strtoupper($code)] ?? ''
             );
         }, $format);
