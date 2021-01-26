@@ -1560,7 +1560,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function __call($method, $parameters)
     {
         if (static::hasMacro($method)) {
-            return static::bindMacroContext($this, static fn () => $this->callMacro($method, $parameters));
+            return static::bindMacroContext($this, fn () => $this->callMacro($method, $parameters));
         }
 
         $roundedValue = $this->callRoundMethod($method, $parameters);
