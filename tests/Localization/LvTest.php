@@ -353,11 +353,11 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before',
-        '1 sekundi pirms',
+        '1 sekundi agrāk',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before',
-        '1 sek. pirms',
+        '1 sek. agrāk',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',

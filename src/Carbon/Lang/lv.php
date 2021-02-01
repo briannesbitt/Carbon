@@ -64,7 +64,7 @@ return [
     'from_now' => 'pēc :time',
 
     'after' => ':time vēlāk',
-    'before' => ':time pirms',
+    'before' => ':time agrāk',
 
     'year_after' => '0 gadus|:count gadu|:count gadus',
     'a_year_after' => '{1}gadu|0 gadus|:count gadu|:count gadus',
