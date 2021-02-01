@@ -21,119 +21,119 @@ class LvTest extends LocalizationTestCase
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
-        'rīt 00:00',
+        'rīt plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Saturday at 12:00 AM',
-        'sestdien 00:00',
+        'sestdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Sunday at 12:00 AM',
-        'svētdien 00:00',
+        'svētdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Monday at 12:00 AM',
-        'nākošo pirmdien 00:00',
+        'nākošo pirmdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tuesday at 12:00 AM',
-        'nākošo otrdien 00:00',
+        'nākošo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Wednesday at 12:00 AM',
-        'nākošo trešdien 00:00',
+        'nākošo trešdien plkst. 00:00',
 
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
         // 'Thursday at 12:00 AM',
-        'nākošo ceturtdien 00:00',
+        'nākošo ceturtdien plkst. 00:00',
 
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
         // 'Friday at 12:00 AM',
-        'nākošo piektdien 00:00',
+        'nākošo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM',
-        'nākošo otrdien 00:00',
+        'nākošo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Wednesday at 12:00 AM',
-        'nākošo trešdien 00:00',
+        'nākošo trešdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Thursday at 12:00 AM',
-        'nākošo ceturtdien 00:00',
+        'nākošo ceturtdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Friday at 12:00 AM',
-        'nākošo piektdien 00:00',
+        'nākošo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Saturday at 12:00 AM',
-        'nākošo sestdien 00:00',
+        'nākošo sestdien plkst. 00:00',
 
         // Carbon::now()->subDays(2)->calendar()
         // 'Last Sunday at 8:49 PM',
-        'pagājušo svētdien 20:49',
+        'pagājušo svētdien plkst. 20:49',
 
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Yesterday at 10:00 PM',
-        'vakar 22:00',
+        'vakar plkst. 22:00',
 
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         // 'Today at 10:00 AM',
-        'šodien 10:00',
+        'šodien plkst. 10:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Today at 2:00 AM',
-        'šodien 02:00',
+        'šodien plkst. 02:00',
 
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
         // 'Tomorrow at 1:00 AM',
-        'rīt 01:00',
+        'rīt plkst. 01:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM',
-        'nākošo otrdien 00:00',
+        'nākošo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
         // 'Yesterday at 12:00 AM',
-        'vakar 00:00',
+        'vakar plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Yesterday at 12:00 AM',
-        'vakar 00:00',
+        'vakar plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Tuesday at 12:00 AM',
-        'pagājušo otrdien 00:00',
+        'pagājušo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Monday at 12:00 AM',
-        'pagājušo pirmdien 00:00',
+        'pagājušo pirmdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Sunday at 12:00 AM',
-        'pagājušo svētdien 00:00',
+        'pagājušo svētdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Saturday at 12:00 AM',
-        'pagājušo sestdien 00:00',
+        'pagājušo sestdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Friday at 12:00 AM',
-        'pagājušo piektdien 00:00',
+        'pagājušo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
         // 'Last Thursday at 12:00 AM',
-        'pagājušo ceturtdien 00:00',
+        'pagājušo ceturtdien plkst. 00:00',
 
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
         // 'Last Wednesday at 12:00 AM',
-        'pagājušo trešdien 00:00',
+        'pagājušo trešdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Last Friday at 12:00 AM',
-        'pagājušo piektdien 00:00',
+        'pagājušo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         // '1st 1st 1st 1st 1st',

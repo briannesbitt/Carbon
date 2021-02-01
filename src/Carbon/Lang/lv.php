@@ -117,21 +117,21 @@ return [
     ],
 
     'calendar' => [
-        'sameDay' => '[šodien] LT',
-        'nextDay' => '[rīt] LT',
+        'sameDay' => '[šodien] [plkst.] LT',
+        'nextDay' => '[rīt] [plkst.] LT',
         'nextWeek' => function (CarbonInterface $current, CarbonInterface $other) use ($daysOfWeekLocativum) {
             if ($current->week !== $other->week) {
-                return '[nākošo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+                return '[nākošo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] [plkst.] LT';
             }
 
-            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] [plkst.] LT';
         },
-        'lastDay' => '[vakar] LT',
+        'lastDay' => '[vakar] [plkst.] LT',
         'lastWeek' => function (CarbonInterface $current) use ($daysOfWeekLocativum) {
-            return '[pagājušo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+            return '[pagājušo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] [plkst.] LT';
         },
         'sameElse' => function (CarbonInterface $current) use ($daysOfWeekLocativum) {
-            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] [plkst.] LT';
         },
     ],
 
