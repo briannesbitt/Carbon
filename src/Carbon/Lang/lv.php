@@ -160,9 +160,7 @@ return [
         'lastWeek' => function (CarbonInterface $current) use ($daysOfWeekLocativum) {
             return '[pagājušo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] [plkst.] LT';
         },
-        'sameElse' => function (CarbonInterface $current) use ($daysOfWeekLocativum) {
-            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] [plkst.] LT';
-        },
+        'sameElse' => 'L',
     ],
 
     'weekdays' => $daysOfWeek,
