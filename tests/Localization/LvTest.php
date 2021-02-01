@@ -277,7 +277,7 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago',
-        'pirms 1 dienas',
+        'pirms 1 d.',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago',
@@ -285,7 +285,7 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago',
-        'pirms 2 dienām',
+        'pirms 2 d.',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago',
@@ -321,11 +321,11 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago',
-        'pirms 1 gads',
+        'pirms 1 gada',
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago',
-        'pirms 1 gads',
+        'pirms 1 g.',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago',
@@ -333,7 +333,7 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago',
-        'pirms 2 gadiem',
+        'pirms 2 g.',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
@@ -361,7 +361,7 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',
-        '1 sekundes',
+        '1 sekunde',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s',
@@ -369,7 +369,7 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds',
-        '2 sekundēm',
+        '2 sekundes',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s',
@@ -381,11 +381,11 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second',
-        '1 minūtes 1 sekundes',
+        '1 minūte 1 sekunde',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s',
-        '2 gadiem 3 mēn. 1 dienas 1 sek.',
+        '2 g. 3 mēn. 1 d. 1 sek.',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now',
@@ -397,19 +397,19 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago',
-        'pirms 2 gadiem 3 mēn. 1 dienas 1 sek.',
+        'pirms 2 g. 3 mēn. 1 d. 1 sek.',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours',
-        '1 nedēļas 10 stundām',
+        '1 nedēļa 10 stundas',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 nedēļas 6 dienām',
+        '1 nedēļa 6 dienas',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 nedēļas 6 dienām',
+        '1 nedēļa 6 dienas',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now',
@@ -417,7 +417,7 @@ class LvTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour',
-        '2 nedēļām 1 stundas',
+        '2 nedēļas 1 stunda',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',
@@ -425,10 +425,10 @@ class LvTest extends LocalizationTestCase
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days',
-        '2 dienām',
+        '2 dienas',
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h',
-        '1 dienas 3 st.',
+        '1 d. 3 st.',
     ];
 }
