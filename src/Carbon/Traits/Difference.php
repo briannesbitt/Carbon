@@ -1089,7 +1089,8 @@ trait Difference
     }
 
     /**
-     * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
+     * Returns either day of week + time (e.g. "Friday at 15:30") if reference time is within 7 days,
+     * or a calendar date (e.g. "10/09/2017") otherwise.
      *
      * @param Carbon|\DateTimeInterface|string|null $referenceTime
      * @param array                                 $formats
