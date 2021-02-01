@@ -1,4 +1,5 @@
 <?php
+use Carbon\CarbonInterface;
 
 /**
  * This file is part of the Carbon package.
@@ -31,7 +32,11 @@
  * - zakse
  * - Janis Eglitis (janiseglitis)
  * - Guntars
+ * - Juris Sudmalis
  */
+$daysOfWeek = ['svētdiena', 'pirmdiena', 'otrdiena', 'trešdiena', 'ceturtdiena', 'piektdiena', 'sestdiena'];
+$daysOfWeekLocativum = ['svētdien', 'pirmdien', 'otrdien', 'trešdien', 'ceturtdien', 'piektdien', 'sestdien'];
+
 return [
     'year' => '0 gadiem|:count gads|:count gadiem',
     'y' => '0 gadiem|:count gads|:count gadiem',
@@ -94,9 +99,14 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' un '],
+
     'diff_now' => 'tagad',
+    'diff_today' => 'šodien',
     'diff_yesterday' => 'vakar',
+    'diff_before_yesterday' => 'aizvakar',
     'diff_tomorrow' => 'rīt',
+    'diff_after_tomorrow' => 'parīt',
+
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -105,7 +115,27 @@ return [
         'LLL' => 'DD.MM.YYYY., HH:mm',
         'LLLL' => 'YYYY. [gada] D. MMMM, HH:mm',
     ],
-    'weekdays' => ['svētdiena', 'pirmdiena', 'otrdiena', 'trešdiena', 'ceturtdiena', 'piektdiena', 'sestdiena'],
+
+    'calendar' => [
+        'sameDay' => '[šodien] LT',
+        'nextDay' => '[rīt] LT',
+        'nextWeek' => function (CarbonInterface $current, CarbonInterface $other) use ($daysOfWeekLocativum) {
+            if ($current->week !== $other->week) {
+                return '[nākošo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+            }
+
+            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+        },
+        'lastDay' => '[vakar] LT',
+        'lastWeek' => function (CarbonInterface $current) use ($daysOfWeekLocativum) {
+            return '[pagājušo] ['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+        },
+        'sameElse' => function (CarbonInterface $current) use ($daysOfWeekLocativum) {
+            return '['.$daysOfWeekLocativum[$current->dayOfWeek].'] LT';
+        },
+    ],
+
+    'weekdays' => $daysOfWeek,
     'weekdays_short' => ['Sv.', 'P.', 'O.', 'T.', 'C.', 'Pk.', 'S.'],
     'weekdays_min' => ['Sv.', 'P.', 'O.', 'T.', 'C.', 'Pk.', 'S.'],
     'months' => ['janvārī', 'februārī', 'martā', 'aprīlī', 'maijā', 'jūnijā', 'jūlijā', 'augustā', 'septembrī', 'oktobrī', 'novembrī', 'decembrī'],
