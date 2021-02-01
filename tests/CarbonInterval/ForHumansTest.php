@@ -375,6 +375,19 @@ class ForHumansTest extends AbstractTestCase
         );
 
         $this->assertEquals('2 years 6 months', $interval);
+
+        $interval = CarbonInterval::months(1)->days(30);
+        $this->assertEquals('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::months(1)->days(31);
+        $this->assertEquals('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::months(1)->days(32);
+        $this->assertEquals('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::months(1)->days(30);
+        $this->assertEquals('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
+        $interval = CarbonInterval::months(1)->days(31);
+        $this->assertEquals('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
+        $interval = CarbonInterval::months(1)->days(32);
+        $this->assertEquals('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
     }
 
     public function testGetValuesSequence()

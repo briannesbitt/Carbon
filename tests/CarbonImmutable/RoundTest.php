@@ -113,6 +113,11 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->roundWeek(), 2315, 7, 19, 0, 0, 0, 0);
     }
 
+    public function testRoundMonth()
+    {
+        $this->assertCarbon(Carbon::parse('2021-01-29')->ceilMonth(), 2021, 2, 1, 0, 0, 0);
+    }
+
     public function testRoundInvalidArgument()
     {
         $this->expectException(\InvalidArgumentException::class);
