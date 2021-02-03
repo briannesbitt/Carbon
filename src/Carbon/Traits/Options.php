@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\Exceptions\UnknownGetterException;
 use DateTimeInterface;
 use Throwable;
 
@@ -412,8 +413,15 @@ trait Options
             'tzName' => 'timezone',
             'localFormatFunction' => 'formatFunction',
         ];
+
         foreach ($map as $property => $key) {
-            $value = $this->$property ?? null;
+            try {
+                $value = $this->$property ?? null;
+            } catch (UnknownGetterException $exception) {
+                // @see https://github.com/briannesbitt/Carbon/issues/2217
+                $value = null; // @codeCoverageIgnore
+            }
+
             if ($value !== null) {
                 $settings[$key] = $value;
             }
