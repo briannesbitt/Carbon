@@ -415,12 +415,7 @@ trait Options
         ];
 
         foreach ($map as $property => $key) {
-            try {
-                $value = $this->$property ?? null;
-            } catch (UnknownGetterException $exception) {
-                // @see https://github.com/briannesbitt/Carbon/issues/2217
-                $value = null; // @codeCoverageIgnore
-            }
+            $value = $this->$property ?? null;
 
             if ($value !== null) {
                 $settings[$key] = $value;
