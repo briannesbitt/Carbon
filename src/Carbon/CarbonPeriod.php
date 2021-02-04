@@ -29,7 +29,6 @@ use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
-use Iterator;
 use JsonSerializable;
 use ReflectionException;
 use RuntimeException;
@@ -266,7 +265,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      *
      * @var int|null
      */
-    protected $recurrences;
+    protected $carbonRecurrences;
 
     /**
      * Iteration options.
@@ -353,7 +352,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         if ($period instanceof DatePeriod) {
             return new static(
                 $period->start,
-                $period->end ?: ($period->recurrences - 1),
+                $period->end ?: ($period->carbonRecurrences - 1),
                 $period->interval,
                 $period->include_start_date ? 0 : static::EXCLUDE_START_DATE
             );
@@ -614,7 +613,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
             if ($arguments[0] instanceof DatePeriod) {
                 $arguments = [
                     $arguments[0]->start,
-                    $arguments[0]->end ?: ($arguments[0]->recurrences - 1),
+                    $arguments[0]->end ?: ($arguments[0]->carbonRecurrences - 1),
                     $arguments[0]->interval,
                     $arguments[0]->include_start_date ? 0 : static::EXCLUDE_START_DATE,
                 ];
@@ -645,7 +644,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
                 $this->setStartDate($parsed);
             } elseif ($this->endDate === null && $parsed = Carbon::make($argument)) {
                 $this->setEndDate($parsed);
-            } elseif ($this->recurrences === null && $this->endDate === null && is_numeric($argument)) {
+            } elseif ($this->carbonRecurrences === null && $this->endDate === null && is_numeric($argument)) {
                 $this->setRecurrences($argument);
             } elseif ($this->options === null && (\is_int($argument) || $argument === null)) {
                 $this->setOptions($argument);
@@ -984,7 +983,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     public function getRecurrences()
     {
-        return $this->recurrences;
+        return $this->carbonRecurrences;
     }
 
     /**
@@ -1190,7 +1189,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
             $this->filters[] = [static::END_DATE_FILTER, null];
         }
 
-        if ($this->recurrences !== null) {
+        if ($this->carbonRecurrences !== null) {
             $this->filters[] = [static::RECURRENCES_FILTER, null];
         }
 
@@ -1218,7 +1217,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
             return $this->removeFilter(static::RECURRENCES_FILTER);
         }
 
-        $this->recurrences = (int) $recurrences;
+        $this->carbonRecurrences = (int) $recurrences;
 
         if (!$this->hasFilter(static::RECURRENCES_FILTER)) {
             return $this->addFilter(static::RECURRENCES_FILTER);
@@ -1405,8 +1404,8 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     {
         $parts = [];
 
-        if ($this->recurrences !== null) {
-            $parts[] = 'R'.$this->recurrences;
+        if ($this->carbonRecurrences !== null) {
+            $parts[] = 'R'.$this->carbonRecurrences;
         }
 
         $parts[] = $this->startDate->toIso8601String();
@@ -1435,8 +1434,8 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
             ? 'Y-m-d H:i:s'
             : 'Y-m-d';
 
-        if ($this->recurrences !== null) {
-            $parts[] = $this->translate('period_recurrences', [], $this->recurrences, $translator);
+        if ($this->carbonRecurrences !== null) {
+            $parts[] = $this->translate('period_recurrences', [], $this->carbonRecurrences, $translator);
         }
 
         $parts[] = $this->translate('period_interval', [':interval' => $this->dateInterval->forHumans([
@@ -2175,7 +2174,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         }
 
         if (!$this->hasFilter(static::RECURRENCES_FILTER)) {
-            $this->recurrences = null;
+            $this->carbonRecurrences = null;
         }
     }
 
@@ -2225,7 +2224,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     protected function filterRecurrences($current, $key)
     {
-        if ($key < $this->recurrences) {
+        if ($key < $this->carbonRecurrences) {
             return true;
         }
 
