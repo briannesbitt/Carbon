@@ -11,7 +11,6 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
-use Carbon\Exceptions\UnknownGetterException;
 use DateTimeInterface;
 use Throwable;
 
