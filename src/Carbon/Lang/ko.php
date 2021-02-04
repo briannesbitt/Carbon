@@ -66,7 +66,7 @@ return [
         'lastWeek' => '지난주 dddd LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'd':
             case 'D':

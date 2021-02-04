@@ -45,7 +45,7 @@ return [
         'lastWeek' => 'dddd[и] [ҳафтаи гузашта соати] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         if ($number === 0) { // special case for zero
             return "$number-ıncı";
         }
@@ -77,7 +77,7 @@ return [
 
         return $number.($suffixes[$number] ?? $suffixes[$number % 10] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
     },
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'шаб';
         }

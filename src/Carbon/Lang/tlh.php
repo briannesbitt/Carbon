@@ -23,7 +23,7 @@ return [
     'hour' => '{1}wa’ rep|:count rep',
     'minute' => '{1}wa’ tup|:count tup',
     'second' => '{1}puS lup|:count lup',
-    'ago' => function ($time) {
+    'ago' => static function ($time) {
         $output = strtr($time, [
             'jaj' => 'Hu’',
             'jar' => 'wen',
@@ -32,7 +32,7 @@ return [
 
         return $output === $time ? "$time ret" : $output;
     },
-    'from_now' => function ($time) {
+    'from_now' => static function ($time) {
         $output = strtr($time, [
             'jaj' => 'leS',
             'jar' => 'waQ',

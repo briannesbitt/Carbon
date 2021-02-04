@@ -112,7 +112,7 @@ return [
         'nextDay' => '[Заўтра ў] LT',
         'nextWeek' => '[У] dddd [ў] LT',
         'lastDay' => '[Учора ў] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
             switch ($current->dayOfWeek) {
                 case 1:
                 case 2:
@@ -124,7 +124,7 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'M':
             case 'd':
@@ -138,7 +138,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'ночы';
         }

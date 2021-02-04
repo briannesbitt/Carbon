@@ -69,7 +69,7 @@ return [
         'lastWeek' => '[গত] dddd, LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'রাত';
         }
