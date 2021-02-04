@@ -412,8 +412,10 @@ trait Options
             'tzName' => 'timezone',
             'localFormatFunction' => 'formatFunction',
         ];
+
         foreach ($map as $property => $key) {
             $value = $this->$property ?? null;
+
             if ($value !== null) {
                 $settings[$key] = $value;
             }
