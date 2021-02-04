@@ -228,7 +228,7 @@ class GettersTest extends AbstractTestCase
     {
         $this->assertSame(
             '2019-08-01',
-            CarbonPeriod::create('2019-08-01', '2019-08-15')->get('start')->format('Y-m-d')
+            CarbonPeriod::create('2019-08-01', '2019-08-15')->get('start')->format('Y-m-d'),
         );
     }
 
