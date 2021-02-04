@@ -413,7 +413,8 @@ trait Options
             'localFormatFunction' => 'formatFunction',
         ];
         foreach ($map as $property => $key) {
-            $value = $this->$property ?? null;
+            if (property_exists($this, $property)) $value = $this->$property ?? null;
+                else $value = null;
             if ($value !== null) {
                 $settings[$key] = $value;
             }
