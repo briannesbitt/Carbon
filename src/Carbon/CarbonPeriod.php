@@ -161,7 +161,7 @@ use RuntimeException;
  * @method $this ceilMicrosecond(float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(float $precision = 1) Ceil the current instance microsecond with given precision.
  */
-class CarbonPeriod implements Iterator, Countable, JsonSerializable
+class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
 {
     use IntervalRounding;
     use Mixin {
