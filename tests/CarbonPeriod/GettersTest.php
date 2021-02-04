@@ -14,6 +14,7 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
+use Carbon\Exceptions\UnknownGetterException;
 use DateTime;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
@@ -217,9 +218,25 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('2019-08-01', '2019-08-15')->isInProgress());
     }
 
-    public function testUnknownGetter()
+    public function testIsset()
     {
         $this->assertTrue(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->start));
         $this->assertFalse(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->middle));
+    }
+
+    public function testGet()
+    {
+        $this->assertSame(
+            '2019-08-01',
+            CarbonPeriod::create('2019-08-01', '2019-08-15')->get('start')->format('Y-m-d')
+        );
+    }
+
+    public function testUnknownGetter()
+    {
+        $this->expectException(UnknownGetterException::class);
+        $this->expectExceptionMessage("Unknown getter 'middle'");
+
+        CarbonPeriod::create('2019-08-01', '2019-08-15')->get('middle');
     }
 }
