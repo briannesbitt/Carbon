@@ -1089,8 +1089,10 @@ trait Difference
     }
 
     /**
-     * Returns either day of week + time (e.g. "Friday at 15:30") if reference time is within 7 days,
-     * or a calendar date (e.g. "10/09/2017") otherwise.
+     * Returns either day of week + time (e.g. "Last Friday at 3:30 PM") if reference time is within 7 days,
+     * or a calendar date (e.g. "10/29/2017") otherwise.
+     *
+     * Language, date and time formats will change according to the current locale.
      *
      * @param Carbon|\DateTimeInterface|string|null $referenceTime
      * @param array                                 $formats
