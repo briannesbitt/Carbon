@@ -21,119 +21,119 @@ class LvLvTest extends LocalizationTestCase
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM',
-        'Tomorrow at 00:00',
+        'rīt plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Saturday at 12:00 AM',
-        'sestdiena at 00:00',
+        'sestdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Sunday at 12:00 AM',
-        'svētdiena at 00:00',
+        'svētdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Monday at 12:00 AM',
-        'pirmdiena at 00:00',
+        'nākošo pirmdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tuesday at 12:00 AM',
-        'otrdiena at 00:00',
+        'nākošo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Wednesday at 12:00 AM',
-        'trešdiena at 00:00',
+        'nākošo trešdien plkst. 00:00',
 
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
         // 'Thursday at 12:00 AM',
-        'ceturtdiena at 00:00',
+        'nākošo ceturtdien plkst. 00:00',
 
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
         // 'Friday at 12:00 AM',
-        'piektdiena at 00:00',
+        'nākošo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM',
-        'otrdiena at 00:00',
+        'nākošo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Wednesday at 12:00 AM',
-        'trešdiena at 00:00',
+        'nākošo trešdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Thursday at 12:00 AM',
-        'ceturtdiena at 00:00',
+        'nākošo ceturtdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Friday at 12:00 AM',
-        'piektdiena at 00:00',
+        'nākošo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Saturday at 12:00 AM',
-        'sestdiena at 00:00',
+        'nākošo sestdien plkst. 00:00',
 
         // Carbon::now()->subDays(2)->calendar()
         // 'Last Sunday at 8:49 PM',
-        'Last svētdiena at 20:49',
+        'pagājušo svētdien plkst. 20:49',
 
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Yesterday at 10:00 PM',
-        'Yesterday at 22:00',
+        'vakar plkst. 22:00',
 
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         // 'Today at 10:00 AM',
-        'Today at 10:00',
+        'šodien plkst. 10:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Today at 2:00 AM',
-        'Today at 02:00',
+        'šodien plkst. 02:00',
 
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
         // 'Tomorrow at 1:00 AM',
-        'Tomorrow at 01:00',
+        'rīt plkst. 01:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM',
-        'otrdiena at 00:00',
+        'nākošo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
         // 'Yesterday at 12:00 AM',
-        'Yesterday at 00:00',
+        'vakar plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Yesterday at 12:00 AM',
-        'Yesterday at 00:00',
+        'vakar plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Tuesday at 12:00 AM',
-        'Last otrdiena at 00:00',
+        'pagājušo otrdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Monday at 12:00 AM',
-        'Last pirmdiena at 00:00',
+        'pagājušo pirmdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Sunday at 12:00 AM',
-        'Last svētdiena at 00:00',
+        'pagājušo svētdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Saturday at 12:00 AM',
-        'Last sestdiena at 00:00',
+        'pagājušo sestdien plkst. 00:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Friday at 12:00 AM',
-        'Last piektdiena at 00:00',
+        'pagājušo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
         // 'Last Thursday at 12:00 AM',
-        'Last ceturtdiena at 00:00',
+        'pagājušo ceturtdien plkst. 00:00',
 
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
         // 'Last Wednesday at 12:00 AM',
-        'Last trešdiena at 00:00',
+        'pagājušo trešdien plkst. 00:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Last Friday at 12:00 AM',
-        'Last piektdiena at 00:00',
+        'pagājušo piektdien plkst. 00:00',
 
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         // '1st 1st 1st 1st 1st',
@@ -277,7 +277,7 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago',
-        'pirms 1 dienas',
+        'pirms 1 d.',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago',
@@ -285,7 +285,7 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago',
-        'pirms 2 dienām',
+        'pirms 2 d.',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago',
@@ -321,11 +321,11 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago',
-        'pirms 1 gads',
+        'pirms 1 gada',
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago',
-        'pirms 1 gads',
+        'pirms 1 g.',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago',
@@ -333,7 +333,7 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago',
-        'pirms 2 gadiem',
+        'pirms 2 g.',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
@@ -353,15 +353,15 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before',
-        '1 sekundi pirms',
+        '1 sekundi agrāk',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before',
-        '1 sek. pirms',
+        '1 sek. agrāk',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',
-        '1 sekundes',
+        '1 sekunde',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s',
@@ -369,7 +369,7 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds',
-        '2 sekundēm',
+        '2 sekundes',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s',
@@ -381,11 +381,11 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second',
-        '1 minūtes 1 sekundes',
+        '1 minūte 1 sekunde',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s',
-        '2 gadiem 3 mēn. 1 dienas 1 sek.',
+        '2 g. 3 mēn. 1 d. 1 sek.',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now',
@@ -397,19 +397,19 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago',
-        'pirms 2 gadiem 3 mēn. 1 dienas 1 sek.',
+        'pirms 2 g. 3 mēn. 1 d. 1 sek.',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours',
-        '1 nedēļas 10 stundām',
+        '1 nedēļa 10 stundas',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 nedēļas 6 dienām',
+        '1 nedēļa 6 dienas',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 nedēļas 6 dienām',
+        '1 nedēļa 6 dienas',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now',
@@ -417,7 +417,7 @@ class LvLvTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour',
-        '2 nedēļām 1 stundas',
+        '2 nedēļas 1 stunda',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',
@@ -425,10 +425,10 @@ class LvLvTest extends LocalizationTestCase
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days',
-        '2 dienām',
+        '2 dienas',
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h',
-        '1 dienas 3 st.',
+        '1 d. 3 st.',
     ];
 }
