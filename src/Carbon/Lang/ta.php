@@ -63,7 +63,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberவது',
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 2) {
             return ' யாமம்';
         }

@@ -88,7 +88,7 @@ return [
     'weekdays' => ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
     'weekdays_short' => ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
     'weekdays_min' => ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             // In french, only the first has be ordinal, other number remains cardinal
             // @link https://fr.wikihow.com/%C3%A9crire-la-date-en-fran%C3%A7ais

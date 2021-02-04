@@ -63,7 +63,7 @@ return [
         'nextDay' => '[Утре в] LT',
         'nextWeek' => 'dddd [в] LT',
         'lastDay' => '[Вчера в] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
             switch ($current->dayOfWeek) {
                 case 0:
                 case 3:
@@ -75,7 +75,7 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         $lastDigit = $number % 10;
         $last2Digits = $number % 100;
         if ($number === 0) {

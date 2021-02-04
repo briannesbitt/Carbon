@@ -166,7 +166,7 @@ class Translator extends Translation\Translator
 
             return $format(
                 ...array_values($parameters),
-                ...array_fill(0, max(0, $count - \count($parameters)), null),
+                ...array_fill(0, max(0, $count - \count($parameters)), ''),
             );
         }
 

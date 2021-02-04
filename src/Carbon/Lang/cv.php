@@ -31,7 +31,7 @@ return [
     'second' => ':count ҫеккунт',
     'a_second' => '{1}пӗр-ик ҫеккунт|:count ҫеккунт',
     'ago' => ':time каялла',
-    'from_now' => function ($time) {
+    'from_now' => static function ($time) {
         return $time.(preg_match('/сехет$/', $time) ? 'рен' : (preg_match('/ҫул/', $time) ? 'тан' : 'ран'));
     },
     'diff_yesterday' => 'Ӗнер',

@@ -51,7 +51,7 @@ return [
     'a_microsecond' => 'un microsecondo|:count microsecondi',
     'µs' => ':countµs',
     'ago' => ':time fa',
-    'from_now' => function ($time) {
+    'from_now' => static function ($time) {
         return (preg_match('/^[0-9].+$/', $time) ? 'tra' : 'in')." $time";
     },
     'after' => ':time dopo',
@@ -81,7 +81,7 @@ return [
         'nextDay' => '[Domani alle] LT',
         'nextWeek' => 'dddd [alle] LT',
         'lastDay' => '[Ieri alle] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[la scorsa] dddd [alle] LT';
