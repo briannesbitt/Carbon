@@ -586,7 +586,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -6840,8 +6840,9 @@ echo Carbon::parse('12:01:23')->floatDiffInHours('06:02:34', false);            
 echo Carbon::parse('2000-01-01 12:00')->floatDiffInDays('2000-02-11 06:00');     // 40.75
 echo Carbon::parse('2000-01-01')->floatDiffInWeeks('2000-02-11');                // 5.8571428571429
 echo Carbon::parse('2000-01-15')->floatDiffInMonths('2000-02-24');               // 1.3103448275862
-// floatDiffInMonths count as many full months as possible from the start date, then consider the number
-// of days in the months for ending chunks to reach the end date
+// floatDiffInMonths count as many full months as possible from the start date
+// (for instance 31 days if the start is in January), then consider the number
+// of days in the months for ending chunks to reach the end date.
 // So the following result (ending with 24 march is different from previous one with 24 february):
 echo Carbon::parse('2000-02-15 12:00')->floatDiffInMonths('2000-03-24 06:00');   // 1.2822580645161
 // floatDiffInYears apply the same logic (and so different results with leap years)
@@ -6849,9 +6850,17 @@ echo Carbon::parse('2000-02-15 12:00')->floatDiffInYears('2010-03-24 06:00');   
 </code></pre>
     </p>
 
-    <p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account,
+    <p>⚠️ Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account,
         that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24
         hours long.</p>
+
+    <p>⚠️ Be careful of <code>floatDiffInMonths()</code> which can gives you a lower result
+        (<code>number of months in A &lt; number of months in B</code>) for an interval having more days
+        (<code>number of days in A &gt; number of days in B</code>) due to the variable number of days in months
+        (especially February). By default, we rely on the result of
+        <a href="https://www.php.net/manual/en/datetime.diff.php">DateTime::diff</a> which is sensitive to
+        overflow.
+        <a href="https://github.com/briannesbitt/Carbon/issues/2264">See issue #2264 for alternative calculations</a>.
 
     <p>
     <pre><code class="php">$date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London')); // DST off
