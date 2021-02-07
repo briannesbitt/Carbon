@@ -960,9 +960,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Cast the current instance into the given class.
      *
-     * @param string $className The $className::instance() method will be called to cast the current object.
+     * @template T of DateInterval
      *
-     * @return DateInterval
+     * @psalm-param class-string<T> $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return T
      */
     public function cast(string $className)
     {
@@ -1530,7 +1532,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return int[]
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'years' => $this->years,
@@ -1549,7 +1551,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return int[]
      */
-    public function getNonZeroValues()
+    public function getNonZeroValues(): array
     {
         return array_filter($this->toArray(), 'intval');
     }
@@ -1560,7 +1562,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return int[]
      */
-    public function getValuesSequence()
+    public function getValuesSequence(): array
     {
         $nonZeroValues = $this->getNonZeroValues();
 
@@ -1633,7 +1635,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public function forHumans($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null)
+    public function forHumans($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null): string
     {
         [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 
@@ -1832,7 +1834,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return DateInterval
      */
-    public function toDateInterval()
+    public function toDateInterval(): DateInterval
     {
         return self::castIntervalToClass($this, DateInterval::class);
     }
@@ -1844,7 +1846,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return CarbonPeriod
      */
-    public function toPeriod(...$params)
+    public function toPeriod(...$params): CarbonPeriod
     {
         return CarbonPeriod::create($this, ...$params);
     }
@@ -1857,7 +1859,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return CarbonPeriod
      */
-    public function stepBy($interval, $unit = null)
+    public function stepBy($interval, $unit = null): CarbonPeriod
     {
         $start = $this->startDate ?: Carbon::make($this->startDate ?: 'now');
         $end = $this->endDate ?: $start->copy()->add($this);
@@ -1873,14 +1875,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function invert($inverted = null)
+    public function invert($inverted = null): self
     {
         $this->invert = (\func_num_args() === 0 ? !$this->invert : $inverted) ? 1 : 0;
 
         return $this;
     }
 
-    protected function solveNegativeInterval()
+    protected function solveNegativeInterval(): self
     {
         if (!$this->isEmpty() && $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0) {
             $this->years *= self::NEGATIVE;
@@ -1904,7 +1906,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function add($unit, $value = 1)
+    public function add($unit, $value = 1): self
     {
         if (is_numeric($unit)) {
             [$value, $unit] = [$unit, $value];
@@ -1947,7 +1949,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function sub($unit, $value = 1)
+    public function sub($unit, $value = 1): self
     {
         if (is_numeric($unit)) {
             [$value, $unit] = [$unit, $value];
@@ -1964,7 +1966,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function subtract($unit, $value = 1)
+    public function subtract($unit, $value = 1): self
     {
         return $this->sub($unit, $value);
     }
@@ -2044,7 +2046,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function times($factor)
+    public function times($factor): self
     {
         if ($factor < 0) {
             $this->invert = $this->invert ? 0 : 1;
@@ -2077,12 +2079,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function shares($divider)
+    public function shares($divider): self
     {
         return $this->times(1 / $divider);
     }
 
-    protected function copyProperties(self $interval, $ignoreSign = false)
+    protected function copyProperties(self $interval, $ignoreSign = false): self
     {
         $this->years = $interval->years;
         $this->months = $interval->months;
@@ -2106,7 +2108,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function multiply($factor)
+    public function multiply($factor): self
     {
         if ($factor < 0) {
             $this->invert = $this->invert ? 0 : 1;
@@ -2134,7 +2136,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function divide($divider)
+    public function divide($divider): self
     {
         return $this->multiply(1 / $divider);
     }
@@ -2146,7 +2148,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public static function getDateIntervalSpec(DateInterval $interval)
+    public static function getDateIntervalSpec(DateInterval $interval): string
     {
         $date = array_filter([
             static::PERIOD_YEARS => abs($interval->y),
@@ -2181,7 +2183,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public function spec()
+    public function spec(): string
     {
         return static::getDateIntervalSpec($this);
     }
@@ -2192,9 +2194,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @param DateInterval $first
      * @param DateInterval $second
      *
-     * @return int
+     * @return int 0, 1 or -1
      */
-    public static function compareDateIntervals(DateInterval $first, DateInterval $second)
+    public static function compareDateIntervals(DateInterval $first, DateInterval $second): int
     {
         $current = Carbon::now();
         $passed = $current->copy()->add($second);
@@ -2208,9 +2210,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @param DateInterval $interval
      *
-     * @return int
+     * @return int 0, 1 or -1
      */
-    public function compare(DateInterval $interval)
+    public function compare(DateInterval $interval): int
     {
         return static::compareDateIntervals($this, $interval);
     }
@@ -2220,7 +2222,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function cascade()
+    public function cascade(): self
     {
         return $this->doCascade(false);
     }
@@ -2628,7 +2630,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function roundUnit($unit, $precision = 1, $function = 'round')
+    public function roundUnit($unit, $precision = 1, $function = 'round'): self
     {
         $base = CarbonImmutable::parse('2000-01-01 00:00:00', 'UTC')
             ->roundUnit($unit, $precision, $function);
@@ -2658,7 +2660,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function floorUnit($unit, $precision = 1)
+    public function floorUnit($unit, $precision = 1): self
     {
         return $this->roundUnit($unit, $precision, 'floor');
     }
@@ -2673,7 +2675,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function ceilUnit($unit, $precision = 1)
+    public function ceilUnit($unit, $precision = 1): self
     {
         return $this->roundUnit($unit, $precision, 'ceil');
     }
@@ -2688,7 +2690,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function round($precision = 1, $function = 'round')
+    public function round($precision = 1, $function = 'round'): self
     {
         return $this->roundWith($precision, $function);
     }
@@ -2702,7 +2704,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function floor($precision = 1)
+    public function floor($precision = 1): self
     {
         return $this->round($precision, 'floor');
     }
@@ -2716,11 +2718,19 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return $this
      */
-    public function ceil($precision = 1)
+    public function ceil($precision = 1): self
     {
         return $this->round($precision, 'ceil');
     }
 
+    /**
+     * @template T
+     *
+     * @param T     $interval
+     * @param mixed $original
+     *
+     * @return T
+     */
     private static function withOriginal($interval, $original)
     {
         if ($interval instanceof self) {
@@ -2730,14 +2740,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         return $interval;
     }
 
-    private static function standardizeUnit($unit)
+    private static function standardizeUnit(string $unit): string
     {
         $unit = rtrim($unit, 'sz').'s';
 
         return $unit === 'days' ? 'dayz' : $unit;
     }
 
-    private static function getFlipCascadeFactors()
+    private static function getFlipCascadeFactors(): array
     {
         if (!self::$flipCascadeFactors) {
             self::$flipCascadeFactors = [];
@@ -2753,7 +2763,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * @codeCoverageIgnore
      */
-    private function fixNegativeMicroseconds()
+    private function fixNegativeMicroseconds(): void
     {
         if ($this->s !== 0 || $this->i !== 0 || $this->h !== 0 || $this->d !== 0 || $this->m !== 0 || $this->y !== 0) {
             $this->f = (round($this->f * 1000000) + 1000000) / 1000000;
@@ -2798,7 +2808,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @codeCoverageIgnore
      */
-    private function fixDiffInterval()
+    private function fixDiffInterval(): void
     {
         if ($this->f > 0 && $this->y === -1 && $this->m === 11 && $this->d >= 27 && $this->h === 23 && $this->i === 59 && $this->s === 59) {
             $this->y = 0;
@@ -2814,7 +2824,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
     }
 
-    private static function castIntervalToClass(DateInterval $interval, string $className)
+    /**
+     * @template T
+     *
+     * @param DateInterval $interval
+     * @psalm-param class-string<T> $className
+     *
+     * @return T
+     */
+    private static function castIntervalToClass(DateInterval $interval, string $className): object
     {
         $mainClass = DateInterval::class;
 
@@ -2858,14 +2876,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
     }
 
-    private function invertCascade(array $values)
+    private function invertCascade(array $values): self
     {
         return $this->set(array_map(function ($value) {
             return -$value;
         }, $values))->doCascade(true)->invert();
     }
 
-    private function doCascade(bool $deep)
+    private function doCascade(bool $deep): self
     {
         $originalData = $this->toArray();
         $originalData['milliseconds'] = (int) ($originalData['microseconds'] / static::getMicrosecondsPerMillisecond());

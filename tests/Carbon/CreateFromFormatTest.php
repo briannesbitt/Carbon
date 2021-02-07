@@ -84,10 +84,6 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testCreateFromFormatWithMillisecondsMerged()
     {
-        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
-            $this->markTestSkipped('Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.');
-        }
-
         $d = Carbon::createFromFormat('Y-m-d H:s.vi', '1975-05-21 22:11.32132');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11, 321000);
         $this->assertInstanceOfCarbon($d);
