@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  push:
+    branches: [ 'gh-pages', 'gh-pages/**' ]
+  pull_request:
+    branches: [ 'gh-pages', 'gh-pages/**' ]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        extensions: json
+        tools: composer:v2
+        coverage: none
+
+    - name: Install dependencies
+      run: composer update --prefer-dist --no-interaction --no-suggest
+
+    - name: Run test suite
+      run: php tools/check.php
