@@ -158,4 +158,44 @@ class AddTest extends AbstractTestCase
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTime('2020-06-14'), true), 2020, 6, 11, 0, 0, 0);
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTimeImmutable('2020-06-14'), true), 2020, 6, 11, 0, 0, 0);
     }
+
+    public function testMagicAddAndSubMethods()
+    {
+        $this->assertCarbonInterval(CarbonInterval::days(3)->addWeeks(2), 0, 0, 17, 0, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::weeks(3)->addDays(2), 0, 0, 23, 0, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::weeks(3)->subDays(2), 0, 0, 19, 0, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::hours(2)->subMinutes(15), 0, 0, 0, 2, -15, 0);
+        $this->assertCarbonInterval(CarbonInterval::hours(2)->subMinutes(15)->cascade(), 0, 0, 0, 1, 45, 0);
+    }
+
+    public function testPlus()
+    {
+        $this->assertCarbonInterval(CarbonInterval::days(3)->plus(0, 0, 2, 0, 26), 0, 0, 17, 26, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::days(3)->plus(0, 0, 0.25), 0, 0, 4, 18, 0, 0);
+        $interval = CarbonInterval::days(3)->plus(0, 0, 0.25)->plus(0, 0, 0.25)->cascade();
+        $this->assertCarbonInterval($interval, 0, 0, 6, 12, 0, 0);
+    }
+
+    public function testPlusWithPHP8Syntax()
+    {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
+        }
+
+        $this->assertCarbonInterval(CarbonInterval::days(3)->plus(weeks: 2, hours: 26), 0, 0, 17, 26, 0, 0);
+    }
+
+    public function testMinus()
+    {
+        $this->assertCarbonInterval(CarbonInterval::days(3)->minus(0, 0, 2, 0, 26), 0, 0, 11, 26, 0, 0, 0, true);
+    }
+
+    public function testMinusWithPHP8Syntax()
+    {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
+        }
+
+        $this->assertCarbonInterval(CarbonInterval::days(3)->minus(weeks: 2, hours: 26), 0, 0, 11, 26, 0, 0, 0, true);
+    }
 }
