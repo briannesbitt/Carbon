@@ -182,7 +182,9 @@ class AddTest extends AbstractTestCase
             $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
         }
 
-        $this->assertCarbonInterval(CarbonInterval::days(3)->plus(weeks: 2, hours: 26), 0, 0, 17, 26, 0, 0);
+        $interval = eval('return \Carbon\CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
+
+        $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
     }
 
     public function testMinus()
@@ -196,6 +198,8 @@ class AddTest extends AbstractTestCase
             $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
         }
 
-        $this->assertCarbonInterval(CarbonInterval::days(3)->minus(weeks: 2, hours: 26), 0, 0, 11, 26, 0, 0, 0, true);
+        $interval = eval('return \Carbon\CarbonInterval::days(3)->minus(weeks: 2, hours: 26);');
+
+        $this->assertCarbonInterval($interval, 0, 0, 11, 26, 0, 0, 0, true);
     }
 }
