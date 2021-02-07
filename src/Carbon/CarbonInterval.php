@@ -1805,7 +1805,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @param string|DateInterval $unit
      * @param int|float           $value
      *
-     * @return static
+     * @return $this
      */
     public function add($unit, $value = 1)
     {
@@ -1848,7 +1848,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @param string|DateInterval $unit
      * @param int|float           $value
      *
-     * @return static
+     * @return $this
      */
     public function sub($unit, $value = 1)
     {
@@ -1865,7 +1865,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @param string|DateInterval $unit
      * @param int|float           $value
      *
-     * @return static
+     * @return $this
      */
     public function subtract($unit, $value = 1)
     {
