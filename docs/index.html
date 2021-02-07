@@ -9252,9 +9252,14 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
             <code>isMicrosecondsFallbackEnabled</code> are no longer needed and so have been removed.
         </li>
         <li>In Carbon 1, calls of an unknown method on <code>CarbonInterval</code>
-            (ex: <code>CarbonInterval::anything()</code>) just returned null. Now they throw an exception.
+            (ex: <code>CarbonInterval::anything()</code>) just returned null. In Carbon 2 they throw an exception.
         </li>
-        <li>In Carbon 1, <code>dayOfYear</code> started from <code>0</code>. Now it starts from <code>1</code>.
+        <li>In Carbon 1, <code>dayOfYear</code> started from <code>0</code>. In Carbon 2 it starts from <code>1</code>.
+        </li>
+        <li>In Carbon 1, <code>null</code> was considered as <code>0</code> when passed to add/sub method (such as
+            <code>addDays(null)</code>, <code>subMonths(null)</code>, etc.). In Carbon 2, it behave the same as no
+            parameters so default to <code>1</code>. Anyway, you're discouraged to pass <code>null</code> in such
+            methods as it's ambiguous and the behavior for next major version is not guaranteed.
         </li>
         <li>That's all folks! Every other methods you used in Carbon 1 should continue to work just the same with
             Carbon 2.
