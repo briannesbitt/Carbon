@@ -13,6 +13,8 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use Tests\AbstractTestCase;
 
@@ -23,6 +25,8 @@ class ConstructTest extends AbstractTestCase
         $c = new Carbon();
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
+        $this->assertInstanceOf(DateTimeImmutable::class, $c);
+        $this->assertInstanceOf(DateTimeInterface::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
