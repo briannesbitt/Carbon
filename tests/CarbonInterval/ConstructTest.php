@@ -21,6 +21,8 @@ class ConstructTest extends AbstractTestCase
     public function testInheritedConstruct()
     {
         $ci = new CarbonInterval('PT0S');
+        $this->assertInstanceOf(CarbonInterval::class, $ci);
+        $this->assertInstanceOf(DateInterval::class, $ci);
         $this->assertSame('PT0S', $ci->spec());
         $ci = new CarbonInterval('P1Y2M3D');
         $this->assertSame('P1Y2M3D', $ci->spec());
