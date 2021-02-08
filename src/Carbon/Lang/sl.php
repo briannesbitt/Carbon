@@ -96,7 +96,7 @@ return [
         'nextDay' => '[jutri ob] LT',
         'nextWeek' => 'dddd [ob] LT',
         'lastDay' => '[včeraj ob] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[preteklo] [nedeljo] [ob] LT';

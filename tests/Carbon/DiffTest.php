@@ -337,11 +337,6 @@ class DiffTest extends AbstractTestCase
 
     public function testNearlyOneDayDiff()
     {
-        if (version_compare(PHP_VERSION, '7.2.12-dev', '<')) {
-            $this->markTestSkipped("Intervals of 1 day minus few milliseconds can't be evaluated properly due to ".
-                'https://bugs.php.net/bug.php?id=77007', );
-        }
-
         $this->assertSame(-0.99999999998843, Carbon::parse('2020-09-15 23:29:59.123456')->diffInDays('2020-09-14 23:29:59.123457'));
         $this->assertSame(0.99999999998843, Carbon::parse('2020-09-14 23:29:59.123457')->diffInDays('2020-09-15 23:29:59.123456'));
     }

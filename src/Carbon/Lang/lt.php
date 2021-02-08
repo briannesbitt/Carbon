@@ -121,7 +121,7 @@ return [
         'lastWeek' => '[Paskutinį] dddd LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         switch ($number) {
             case 0:
                 return '0-is';

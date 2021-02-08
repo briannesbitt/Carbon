@@ -71,7 +71,7 @@ return [
         'lastWeek' => '[geçen] dddd [saat] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'd':
             case 'D':

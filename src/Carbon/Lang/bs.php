@@ -55,7 +55,7 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $current) {
+        'nextWeek' => static function (\Carbon\CarbonInterface $current) {
             switch ($current->dayOfWeek) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -68,7 +68,7 @@ return [
             }
         },
         'lastDay' => '[jučer u] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
             switch ($current->dayOfWeek) {
                 case 0:
                 case 3:

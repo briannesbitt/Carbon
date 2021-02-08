@@ -59,7 +59,7 @@ return [
         'lastWeek' => '[անցած] dddd [օրը ժամը] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'DDD':
             case 'w':
@@ -70,7 +70,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'գիշերվա';
         }

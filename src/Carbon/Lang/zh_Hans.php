@@ -63,7 +63,7 @@ return [
         'lastWeek' => '[上]ddddLT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'd':
             case 'D':
@@ -78,7 +78,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute) {
+    'meridiem' => static function ($hour, $minute) {
         $time = $hour * 100 + $minute;
         if ($time < 600) {
             return '凌晨';

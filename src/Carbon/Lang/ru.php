@@ -35,13 +35,11 @@
  * - Vladislav UnsealedOne
  * - dima-bzz
  */
-$transformDiff = function ($input) {
-    return strtr($input, [
-        'неделя' => 'неделю',
-        'секунда' => 'секунду',
-        'минута' => 'минуту',
-    ]);
-};
+$transformDiff = static fn (string $input) => strtr($input, [
+    'неделя' => 'неделю',
+    'секунда' => 'секунду',
+    'минута' => 'минуту',
+]);
 
 return [
     'year' => ':count год|:count года|:count лет',
@@ -65,18 +63,10 @@ return [
     'second' => ':count секунда|:count секунды|:count секунд',
     's' => ':count сек.',
     'a_second' => '{1}несколько секунд|:count секунду|:count секунды|:count секунд',
-    'ago' => function ($time) use ($transformDiff) {
-        return $transformDiff($time).' назад';
-    },
-    'from_now' => function ($time) use ($transformDiff) {
-        return 'через '.$transformDiff($time);
-    },
-    'after' => function ($time) use ($transformDiff) {
-        return $transformDiff($time).' после';
-    },
-    'before' => function ($time) use ($transformDiff) {
-        return $transformDiff($time).' до';
-    },
+    'ago' => static fn (string $time) => $transformDiff($time).' назад',
+    'from_now' => static fn (string $time) => 'через '.$transformDiff($time),
+    'after' => static fn (string $time) => $transformDiff($time).' после',
+    'before' => static fn (string $time) => $transformDiff($time).' до',
     'diff_now' => 'только что',
     'diff_today' => 'Сегодня,',
     'diff_today_regexp' => 'Сегодня,?(?:\\s+в)?',
@@ -97,7 +87,7 @@ return [
     'calendar' => [
         'sameDay' => '[Сегодня, в] LT',
         'nextDay' => '[Завтра, в] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+        'nextWeek' => static function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
             if ($current->week !== $other->week) {
                 switch ($current->dayOfWeek) {
                     case 0:
@@ -120,7 +110,7 @@ return [
             return '[В] dddd, [в] LT';
         },
         'lastDay' => '[Вчера, в] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
             if ($current->week !== $other->week) {
                 switch ($current->dayOfWeek) {
                     case 0:
@@ -144,7 +134,7 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'M':
             case 'd':
@@ -159,7 +149,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'ночи';
         }

@@ -61,7 +61,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'a_second' => ':count sekunt',
 
     'ago' => static fn (string $time) => $transformDiff($time).' ozal',
-    'from_now' => static fn ($time) => $transformDiff($time).' soňra',
-    'after' => static fn ($time) => $transformDiff($time).' soň',
-    'before' => static fn ($time) => $transformDiff($time).' öň',
+    'from_now' => static fn (string $time) => $transformDiff($time).' soňra',
+    'after' => static fn (string $time) => $transformDiff($time).' soň',
+    'before' => static fn (string $time) => $transformDiff($time).' öň',
 ]);

@@ -127,19 +127,19 @@ return [
         'LLLL' => 'dddd, D MMMM YYYY, HH:mm',
     ],
     'calendar' => [
-        'sameDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+        'sameDay' => static function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
             return $processHoursFunction($date, '[Сьогодні ');
         },
-        'nextDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+        'nextDay' => static function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
             return $processHoursFunction($date, '[Завтра ');
         },
-        'nextWeek' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+        'nextWeek' => static function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
             return $processHoursFunction($date, '[У] dddd [');
         },
-        'lastDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+        'lastDay' => static function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
             return $processHoursFunction($date, '[Вчора ');
         },
-        'lastWeek' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
             switch ($date->dayOfWeek) {
                 case 0:
                 case 3:
@@ -152,7 +152,7 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         switch ($period) {
             case 'M':
             case 'd':
@@ -166,7 +166,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'ночі';
         }
@@ -183,7 +183,7 @@ return [
     'months_standalone' => ['січень', 'лютий', 'березень', 'квітень', 'травень', 'червень', 'липень', 'серпень', 'вересень', 'жовтень', 'листопад', 'грудень'],
     'months_short' => ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'],
     'months_regexp' => '/(D[oD]?(\[[^\[\]]*\]|\s)+MMMM?|L{2,4}|l{2,4})/',
-    'weekdays' => function (\Carbon\CarbonInterface $date, $format, $index) {
+    'weekdays' => static function (\Carbon\CarbonInterface $date, $format, $index) {
         static $words = [
             'nominative' => ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п’ятниця', 'субота'],
             'accusative' => ['неділю', 'понеділок', 'вівторок', 'середу', 'четвер', 'п’ятницю', 'суботу'],

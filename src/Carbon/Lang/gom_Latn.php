@@ -54,7 +54,7 @@ return [
 
     'ordinal' => static fn ($number, $period) => $number.($period === 'D' ? 'er' : ''),
 
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'rati';
         }

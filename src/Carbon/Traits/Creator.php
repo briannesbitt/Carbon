@@ -521,13 +521,6 @@ trait Creator
      */
     private static function createFromFormatAndTimezone($format, $time, $originalTz)
     {
-        // Work-around for https://bugs.php.net/bug.php?id=75577
-        // @codeCoverageIgnoreStart
-        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
-            $format = str_replace('.v', '.u', $format);
-        }
-        // @codeCoverageIgnoreEnd
-
         if ($originalTz === null) {
             return parent::createFromFormat($format, "$time");
         }

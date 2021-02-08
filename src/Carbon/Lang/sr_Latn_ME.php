@@ -27,7 +27,7 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
     'diff_tomorrow' => 'sjutra',
     'calendar' => [
         'nextDay' => '[sjutra u] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $date) {
+        'nextWeek' => static function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[u nedjelju u] LT';
@@ -39,7 +39,7 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
                     return '[u] dddd [u] LT';
             }
         },
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[prošle nedjelje u] LT';

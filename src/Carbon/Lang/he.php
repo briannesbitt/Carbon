@@ -60,7 +60,7 @@ return [
         'lastWeek' => '[ביום] dddd [האחרון בשעה] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => static function ($hour, $minute, $isLower) {
         if ($hour < 5) {
             return 'לפנות בוקר';
         }
