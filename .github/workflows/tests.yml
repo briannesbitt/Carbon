@@ -45,10 +45,16 @@ jobs:
           - php: 7.4
             laravel: true
 
-          - php: 7.4
-            styleCheck: true
+          - php: 8.0
+            composerCommand: phpcs
 
-    name: ${{ matrix.styleCheck && 'Style check - ' || '' }}${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
+          - php: 8.0
+            composerCommand: phpstan
+
+          - php: 7.4
+            composerCommand: phpmd
+
+    name: ${{ matrix.composerCommand && format('{0} - ', matrix.composerCommand) || '' }}${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
     steps:
     - uses: actions/checkout@v2
@@ -71,7 +77,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        if [[ "${{ matrix.styleCheck }}" != 'true' ]]; then
+        if [[ "${{ matrix.composerCommand }}" == '' ]]; then
           composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
         fi;
         if [[ "${{ matrix.laravel }}" != 'true' ]]; then
@@ -81,15 +87,15 @@ jobs:
 
     - name: Run test suite
       run: |
-        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
+        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" = 'true' ]]; then
           php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
           cp coverage.xml clover.xml;
         fi;
-        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
+        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" != 'true' ]]; then
           php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
         fi;
-        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" = 'true' ]]; then
-          composer style-check;
+        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' ]]; then
+          composer ${{ matrix.composerCommand }};
         fi;
         if [[ "${{ matrix.laravel }}" = 'true' ]]; then
           vendor/bin/multi-tester;
