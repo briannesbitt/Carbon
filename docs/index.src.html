@@ -3465,7 +3465,7 @@ CarbonInterval::macro('twice', static function () {
 });
 )}}
 {{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(42)*/)}} // {{eval}}
-{{::lint($interval = CarbonInterval::hours(2)->minutes(15)->twice();)}}
+{{::lint($interval = CarbonInterval::hours(2)->addMinutes(15)->twice();)}}
 {{::exec(echo $interval->forHumans(['short' => true]);/*pad(42)*/)}} // {{eval}}
 </code></pre>
     </p>
@@ -3789,7 +3789,7 @@ echo CarbonInterval::year();/*pad(54)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo CarbonInterval::months(3);/*pad(54)*/)}} // {{eval}}
 echo "\n";
-{{::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(3)->addSeconds(32);/*pad(54)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo CarbonInterval::weeks(3);/*pad(54)*/)}} // {{eval}}
 echo "\n";
@@ -3799,6 +3799,45 @@ echo "\n";
 {{::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7, 123);/*pad(54)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo CarbonInterval::createFromDateString('3 months');/*pad(54)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>You can add/sub any unit to a given existing interval:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(
+$interval = CarbonInterval::months(3);
+echo $interval;/*pad(54)*/)}} // {{eval}}
+echo "\n";
+
+{{::exec(
+$interval->subMonths(1);
+echo $interval;/*pad(54)*/)}} // {{eval}}
+echo "\n";
+
+{{::exec(
+$interval->addDays(15);
+echo $interval;/*pad(54)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>We also provide <code>plus()</code> and <code>minus()</code> method that expect numbers for each
+        unit in the same order than <code>create()</code> and can be used in a convenient way with PHP 8:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(
+$interval = CarbonInterval::months(3);
+echo $interval;/*pad(54)*/)}} // {{eval}}
+echo "\n";
+
+{{::exec(
+$interval->minus(months: 1);
+echo $interval;/*pad(54)*/)}} // {{eval}}
+echo "\n";
+
+{{::exec(
+$interval->plus(days: 15, hours: 20);
+echo $interval;/*pad(54)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -3845,6 +3884,7 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 {{::exec(echo CarbonInterval::days(24)->dayz;/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::days(24)->daysExcludeWeeks;/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(54)*/)}} // {{eval}}  <-- days setter overwrites the current value
+{{::exec(echo CarbonInterval::weeks(3)->addDays(14)->weeks;/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{eval}}
 </code></pre>
@@ -3886,7 +3926,7 @@ CarbonInterval::fromString('2m 15s'); // or abbreviated)}}
     <pre><code class="php">{{::lint(
 CarbonInterval::setLocale('fr');)}}
 {{::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(54)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::hour()->seconds(3);/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::hour()->addSeconds(3);/*pad(54)*/)}} // {{eval}}
 {{::lint(CarbonInterval::setLocale('en');)}}
 </code></pre>
     </p>
@@ -4056,8 +4096,8 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
     <p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
 
     <p>
-    <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->addHours(5)->total('hours');/*pad(58)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(3)->addHours(5)->totalHours;/*pad(58)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::months(6)->totalWeeks;/*pad(58)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::year()->totalDays;/*pad(58)*/)}} // {{eval}}
 </code></pre>
@@ -4075,7 +4115,7 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
     <p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
 
     <p>
-    <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->addHours(5)->spec();)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -4156,7 +4196,7 @@ echo "\n";
 
     <p>
     <pre><code class="php">{{::lint(
-$interval = CarbonInterval::months(2)->hours(12)->seconds(50);
+$interval = CarbonInterval::months(2)->addHours(12)->addSeconds(50);
 )}}
 
 // All the values:
