@@ -48,8 +48,8 @@ trait Creator
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param DateTimeInterface|string|null $time
+     * @param DateTimeZone|string|null      $tz
      *
      * @throws InvalidFormatException
      */
