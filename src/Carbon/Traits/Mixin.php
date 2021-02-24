@@ -109,8 +109,8 @@ trait Mixin
                 try {
                     // @ is required to handle error if not converted into exceptions
                     $closure = @$closureBase->bindTo($context);
-                } catch (Throwable $throwable) {
-                    $closure = $closureBase;
+                } catch (Throwable $throwable) { // @codeCoverageIgnore
+                    $closure = $closureBase; // @codeCoverageIgnore
                 }
 
                 // in case of errors not converted into exceptions
