@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\Exceptions\InvalidFormatException;
+use DateTimeZone;
 
 /**
  * Trait Serialization.
@@ -127,9 +128,14 @@ trait Serialization
      */
     public function __wakeup()
     {
-        if (get_parent_class() && method_exists(parent::class, '__wakeup')) {
+        // FatalError occurs when calling __wakeup method in PHP 7.4 or later.
+        // @codeCoverageIgnoreStart
+        if (version_compare(PHP_VERSION, '7.4.0-dev', '>=')) {
+            parent::__construct($this->date, $this->timezone !== null ? new DateTimeZone($this->timezone) : null);
+        } elseif (get_parent_class() && method_exists(parent::class, '__wakeup')) {
             parent::__wakeup();
         }
+        // @codeCoverageIgnoreEnd
 
         $this->constructedObjectId = spl_object_hash($this);
 
