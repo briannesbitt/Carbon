@@ -131,7 +131,7 @@ trait Serialization
         // FatalError occurs when calling __wakeup method in PHP 7.4 or later.
         // @codeCoverageIgnoreStart
         if (version_compare(PHP_VERSION, '7.4.0-dev', '>=')) {
-            parent::__construct($this->date, $this->timezone !== null ? new DateTimeZone($this->timezone) : null);
+            parent::__construct($this->{$this->dumpProperties[0]}, $this->timezone !== null ? new DateTimeZone($this->timezone) : null);
         } elseif (get_parent_class() && method_exists(parent::class, '__wakeup')) {
             parent::__wakeup();
         }
