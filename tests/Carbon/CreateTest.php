@@ -77,6 +77,7 @@ class CreateTest extends AbstractTestCase
 
     public function testOutOfRangeException()
     {
+        /** @var OutOfRangeException $error */
         $error = null;
 
         try {
@@ -86,7 +87,6 @@ class CreateTest extends AbstractTestCase
         }
 
         $this->assertInstanceOf(OutOfRangeException::class, $error);
-        /** @var OutOfRangeException $error */
         $this->assertSame('month', $error->getUnit());
         $this->assertSame(-5, $error->getValue());
         $this->assertSame(0, $error->getMin());
