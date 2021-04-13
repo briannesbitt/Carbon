@@ -873,8 +873,7 @@ trait Creator
         if (\is_string($var)) {
             $var = trim($var);
 
-            if (\is_string($var) &&
-                !preg_match('/^P[0-9T]/', $var) &&
+            if (!preg_match('/^P[0-9T]/', $var) &&
                 !preg_match('/^R[0-9]/', $var) &&
                 preg_match('/[a-z0-9]/i', $var)
             ) {
