@@ -353,7 +353,7 @@ trait Difference
     {
         $diff = $this->diff($date);
 
-        if ($diff->days === 0 && version_compare(PHP_VERSION, '8.1.0-dev', '<')) {
+        if ($diff->days === 0) {
             $diff = static::fixDiffInterval($diff, $absolute);
         }
 
