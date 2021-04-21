@@ -737,6 +737,21 @@ trait Date
         return $date instanceof self ? $date : static::instance($date);
     }
 
+    protected function resolveUtc($date = null)
+    {
+        $copy = $this->resolveCarbon($date);
+
+        if ($copy->getTimezone()->getName() === 'UTC') {
+            return $copy;
+        }
+
+        if ($copy === $date && $copy instanceof DateTime) {
+            $copy = static::instance($copy);
+        }
+
+        return $copy->utc();
+    }
+
     /**
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.

@@ -119,7 +119,13 @@ trait Difference
      */
     public function diff($date = null, $absolute = false)
     {
-        return parent::diff($this->resolveCarbon($date), (bool) $absolute);
+        $other = $this->resolveCarbon($date);
+
+        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tzName !== $this->tzName) {
+            $other = $other->copy()->setTimezone($this->getTimezone());
+        }
+
+        return parent::diff($other, (bool) $absolute);
     }
 
     /**
@@ -638,8 +644,8 @@ trait Difference
      */
     public function floatDiffInRealDays($date = null, $absolute = true)
     {
-        $date = $this->resolveCarbon($date)->utc();
-        $utc = $this->copy()->utc();
+        $date = $this->resolveUtc($date);
+        $utc = $this->resolveUtc();
         $hoursDiff = $utc->floatDiffInRealHours($date, $absolute);
 
         return ($hoursDiff < 0 ? -1 : 1) * $utc->diffInDays($date) + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
