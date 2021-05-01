@@ -1748,9 +1748,11 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 : CarbonImmutable::startOfTime();
         }
 
-        if ($this->filters === []) {
+        if ($this->filters === [[static::RECURRENCES_FILTER, null]]) {
             return $this->getStartDate()->copy()->add(
-                $this->getDateInterval()->times($this->recurrences)
+                $this->getDateInterval()->times(
+                    $this->recurrences - ($this->isStartExcluded() ? 0 : 1)
+                )
             );
         }
 

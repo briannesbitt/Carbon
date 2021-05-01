@@ -567,6 +567,6 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
             return -135908816449551;
         }
 
-        return min(PHP_INT_MIN, -9223372036854773760);
+        return max(PHP_INT_MIN, -9223372036854773760);
     }
 }
