@@ -13,6 +13,7 @@ namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\UnknownGetterException;
 use DateTime;
@@ -146,6 +147,60 @@ class GettersTest extends AbstractTestCase
 
         $range1 = CarbonPeriod::create('2019-01-26 10:30:12', '2019-01-26 13:30:12');
         $range2 = CarbonPeriod::create('2019-01-26 10:30:05', '2019-01-26 13:32:12');
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', INF);
+        $range2 = CarbonPeriod::create('2999-01-26 10:30:05', '2999-01-26 13:32:12');
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', CarbonInterval::day(-1), INF);
+        $range2 = CarbonPeriod::create('2999-01-26 10:30:05', '2999-01-26 13:32:12');
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', INF);
+        $range2 = CarbonPeriod::create('1975-01-26 10:30:05', '1975-01-26 13:32:12');
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', CarbonInterval::day(-1), INF);
+        $range2 = CarbonPeriod::create('1975-01-26 10:30:05', '1975-01-26 13:32:12');
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', INF);
+        $range2 = CarbonPeriod::create('2999-01-26 10:30:05', INF);
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', CarbonInterval::day(-1), INF);
+        $range2 = CarbonPeriod::create('2999-01-26 10:30:05', INF);
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', INF);
+        $range2 = CarbonPeriod::create('1975-01-26 10:30:05', INF);
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', INF);
+        $range2 = CarbonPeriod::create('1975-01-26 10:30:05', CarbonInterval::day(-1), INF);
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', CarbonInterval::day(-1), INF);
+        $range2 = CarbonPeriod::create('1975-01-26 10:30:05', INF);
 
         $this->assertTrue($range1->overlaps($range2));
         $this->assertTrue($range2->overlaps($range1));

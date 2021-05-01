@@ -509,5 +509,46 @@ use DateTimeZone;
  */
 class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
 {
-    use Date;
+    use Date {
+        __clone as dateTraitClone;
+    }
+
+    /** @var bool */
+    protected $endOfTime = false;
+
+    /** @var bool */
+    protected $startOfTime = false;
+
+    public function __clone()
+    {
+        $this->dateTraitClone();
+        $this->endOfTime = false;
+        $this->startOfTime = false;
+    }
+
+    public static function endOfTime(): self
+    {
+        $date = static::parse('9999-12-31')->years(99999999999999999);
+        $date->endOfTime = true;
+
+        return $date;
+    }
+
+    public function isEndOfTime(): bool
+    {
+        return $this->endOfTime ?? false;
+    }
+
+    public static function startOfTime(): self
+    {
+        $date = static::parse('0001-01-01')->years(-99999999999999999);
+        $date->startOfTime = true;
+
+        return $date;
+    }
+
+    public function isStartOfTime(): bool
+    {
+        return $this->startOfTime ?? false;
+    }
 }
