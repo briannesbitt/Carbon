@@ -526,19 +526,11 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
         $this->startOfTime = false;
     }
 
-    public static function endOfTime(): self
-    {
-        $date = static::parse('9999-12-31')->years(99999999999999999);
-        $date->endOfTime = true;
-
-        return $date;
-    }
-
-    public function isEndOfTime(): bool
-    {
-        return $this->endOfTime ?? false;
-    }
-
+    /**
+     * Create a very old date representing start of time.
+     *
+     * @return static
+     */
     public static function startOfTime(): self
     {
         $date = static::parse('0001-01-01')->years(-99999999999999999);
@@ -547,8 +539,16 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
         return $date;
     }
 
-    public function isStartOfTime(): bool
+    /**
+     * Create a very far date representing end of time.
+     *
+     * @return static
+     */
+    public static function endOfTime(): self
     {
-        return $this->startOfTime ?? false;
+        $date = static::parse('9999-12-31')->years(99999999999999999);
+        $date->endOfTime = true;
+
+        return $date;
     }
 }

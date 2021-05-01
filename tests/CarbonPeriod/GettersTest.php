@@ -154,12 +154,20 @@ class GettersTest extends AbstractTestCase
         $range1 = CarbonPeriod::create('2019-01-26 10:30:12', INF);
         $range2 = CarbonPeriod::create('2999-01-26 10:30:05', '2999-01-26 13:32:12');
 
+        $this->assertFalse($range1->calculateEnd()->isStartOfTime());
+        $this->assertTrue($range1->calculateEnd()->isEndOfTime());
+        $this->assertFalse($range2->calculateEnd()->isStartOfTime());
+        $this->assertFalse($range2->calculateEnd()->isEndOfTime());
         $this->assertTrue($range1->overlaps($range2));
         $this->assertTrue($range2->overlaps($range1));
 
         $range1 = CarbonPeriod::create('2019-01-26 10:30:12', CarbonInterval::day(-1), INF);
         $range2 = CarbonPeriod::create('2999-01-26 10:30:05', '2999-01-26 13:32:12');
 
+        $this->assertTrue($range1->calculateEnd()->isStartOfTime());
+        $this->assertFalse($range1->calculateEnd()->isEndOfTime());
+        $this->assertFalse($range2->calculateEnd()->isStartOfTime());
+        $this->assertFalse($range2->calculateEnd()->isEndOfTime());
         $this->assertFalse($range1->overlaps($range2));
         $this->assertFalse($range2->overlaps($range1));
 
