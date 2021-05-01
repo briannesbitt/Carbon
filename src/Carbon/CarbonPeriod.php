@@ -1768,7 +1768,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         foreach ($this as $date) {
             if (++$attempts > static::END_MAX_ATTEMPTS) {
                 throw new UnreachableException(
-                    'Could not calculate period end after iterating ' . static::END_MAX_ATTEMPTS . ' times.'
+                    'Could not calculate period end after iterating '.static::END_MAX_ATTEMPTS.' times.'
                 );
             }
         }

@@ -513,12 +513,6 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
         __clone as dateTraitClone;
     }
 
-    /** @var bool */
-    protected $endOfTime = false;
-
-    /** @var bool */
-    protected $startOfTime = false;
-
     public function __clone()
     {
         $this->dateTraitClone();
@@ -533,7 +527,7 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
      */
     public static function startOfTime(): self
     {
-        $date = static::parse('0001-01-01')->years(-99999999999999999);
+        $date = static::parse('0001-01-01')->years(self::getStartOfTimeYear());
         $date->startOfTime = true;
 
         return $date;
@@ -546,9 +540,33 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
      */
     public static function endOfTime(): self
     {
-        $date = static::parse('9999-12-31')->years(99999999999999999);
+        $date = static::parse('9999-12-31 23:59:59.999999')->years(self::getEndOfTimeYear());
         $date->endOfTime = true;
 
         return $date;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    private static function getEndOfTimeYear(): int
+    {
+        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
+            return 145261681241552;
+        }
+
+        return PHP_INT_MAX;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    private static function getStartOfTimeYear(): int
+    {
+        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
+            return -135908816449551;
+        }
+
+        return min(PHP_INT_MIN, -9223372036854773760);
     }
 }
