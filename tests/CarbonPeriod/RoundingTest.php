@@ -164,5 +164,14 @@ class RoundingTest extends AbstractTestCase
 
         $this->assertSame('2019-02-01 18:00:00.000000', $period->calculateEnd('round')->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-02-01 18:52:23.123456', $period->calculateEnd()->format('Y-m-d H:i:s.u'));
+
+        $period = CarbonPeriod::create('2019-02-01 12:52:23.123456', '3 hours')
+            ->setRecurrences(3)
+            ->addFilter(function ($date) {
+                return $date->hour % 2;
+            });
+
+        $this->assertSame('2019-02-02 03:00:00.000000', $period->calculateEnd('round')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-02-02 03:52:23.123456', $period->calculateEnd()->format('Y-m-d H:i:s.u'));
     }
 }
