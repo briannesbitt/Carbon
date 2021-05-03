@@ -907,6 +907,9 @@ class IsTest extends AbstractTestCase
 
     public function testHasFormatWithModifiers()
     {
+        $this->assertTrue(Carbon::hasFormatWithModifiers('2021-05-03T00:00:00+02:00', 'Y-m-d\TH:i:sp'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('2021-05-03T00:00:00+02:00', 'Y-m-d\TH:i:sP'));
+        $this->assertTrue(Carbon::hasFormatWithModifiers('2021-05-03T00:00:00Z', 'Y-m-d\TH:i:sp'));
         $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-m-d!'));
         $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-m-d|'));
         $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-*-d'));
@@ -914,6 +917,7 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormatWithModifiers('1975-05-01', 'Y#m#d'));
         $this->assertTrue(Carbon::hasFormatWithModifiers('1975/05/31', 'Y#m#d'));
 
+        $this->assertFalse(Carbon::hasFormatWithModifiers('2021-05-03T00:00:00Z', 'Y-m-d\TH:i:sP'));
         $this->assertFalse(Carbon::hasFormatWithModifiers('1975/31/05', 'Y#m#d'));
         $this->assertFalse(Carbon::hasFormatWithModifiers('1975-05-01', 'Y-?-d|'));
         $this->assertFalse(Carbon::hasFormatWithModifiers('1975--01', 'Y-*-d'));
