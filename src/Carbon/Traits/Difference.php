@@ -211,8 +211,11 @@ trait Difference
      */
     public function diffInDays($date = null, bool $absolute = false): float
     {
-        $hoursDiff = $this->diffInHours($date, $absolute);
-        $interval = $this->diffAsDateInterval($date, $absolute);
+        $date = $this->resolveCarbon($date)->utc();
+        $utc = $this->copy()->utc();
+
+        $hoursDiff = $utc->diffInHours($date, $absolute);
+        $interval = $utc->diffAsDateInterval($date, $absolute);
 
         if ($interval->y === 0 && $interval->m === 0 && $interval->d === 0) {
             return $hoursDiff / static::HOURS_PER_DAY;
