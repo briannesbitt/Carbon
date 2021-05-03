@@ -112,7 +112,7 @@ class MsMyTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         '10:00 pagi, 10:00 pagi',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 tengahari, 12:00 tengahari',
+        '12:00 tengah hari, 12:00 tengah hari',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 petang, 5:00 petang',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')

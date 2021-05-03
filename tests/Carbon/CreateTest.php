@@ -77,6 +77,7 @@ class CreateTest extends AbstractTestCase
 
     public function testOutOfRangeException()
     {
+        /** @var OutOfRangeException $error */
         $error = null;
 
         try {

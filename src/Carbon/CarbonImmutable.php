@@ -509,5 +509,64 @@ use DateTimeZone;
  */
 class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
 {
-    use Date;
+    use Date {
+        __clone as dateTraitClone;
+    }
+
+    public function __clone()
+    {
+        $this->dateTraitClone();
+        $this->endOfTime = false;
+        $this->startOfTime = false;
+    }
+
+    /**
+     * Create a very old date representing start of time.
+     *
+     * @return static
+     */
+    public static function startOfTime(): self
+    {
+        $date = static::parse('0001-01-01')->years(self::getStartOfTimeYear());
+        $date->startOfTime = true;
+
+        return $date;
+    }
+
+    /**
+     * Create a very far date representing end of time.
+     *
+     * @return static
+     */
+    public static function endOfTime(): self
+    {
+        $date = static::parse('9999-12-31 23:59:59.999999')->years(self::getEndOfTimeYear());
+        $date->endOfTime = true;
+
+        return $date;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    private static function getEndOfTimeYear(): int
+    {
+        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
+            return 145261681241552;
+        }
+
+        return PHP_INT_MAX;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    private static function getStartOfTimeYear(): int
+    {
+        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
+            return -135908816449551;
+        }
+
+        return max(PHP_INT_MIN, -9223372036854773760);
+    }
 }
