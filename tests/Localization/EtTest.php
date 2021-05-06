@@ -124,91 +124,91 @@ class EtTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 sekund tagasi',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 sekund tagasi',
+        '1 s tagasi',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 sekundit tagasi',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 sekundit tagasi',
+        '2 s tagasi',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 minut tagasi',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 minut tagasi',
+        '1 min tagasi',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minutit tagasi',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 minutit tagasi',
+        '2 min tagasi',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 tund tagasi',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 tund tagasi',
+        '1 t tagasi',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 tundi tagasi',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 tundi tagasi',
+        '2 t tagasi',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 päev tagasi',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 päev tagasi',
+        '1 p tagasi',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 päeva tagasi',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 päeva tagasi',
+        '2 p tagasi',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 nädal tagasi',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 nädal tagasi',
+        '1 näd tagasi',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 nädalat tagasi',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 nädalat tagasi',
+        '2 näd tagasi',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 kuu tagasi',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 kuu tagasi',
+        '1 k tagasi',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 kuud tagasi',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 kuud tagasi',
+        '2 k tagasi',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 aasta tagasi',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 aasta tagasi',
+        '1 a tagasi',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 aastat tagasi',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 aastat tagasi',
+        '2 a tagasi',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 sekundi pärast',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 sekund pärast',
+        '1 s pärast',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 sekund pärast',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 sekund pärast',
+        '1 s pärast',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 sekund enne',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 sekund enne',
+        '1 s enne',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 sekund',
+        '1 s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekundit',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sekundit',
+        '2 s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 sekund pärast',
+        '1 s pärast',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 sekund',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 aastat 3 kuud 1 päev 1 sekund',
+        '2 a 3 k 1 p 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 aasta pärast',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 kuud tagasi',
+        '5 k tagasi',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 aastat 3 kuud 1 päev 1 sekund tagasi',
+        '2 a 3 k 1 p 1 s tagasi',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 nädal 10 tundi',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -224,6 +224,6 @@ class EtTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 päeva',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 päev 3 tundi',
+        '1 p 3 t',
     ];
 }
