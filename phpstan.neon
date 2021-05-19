@@ -7,7 +7,6 @@ parameters:
         processTimeout: 300.0
     ignoreErrors:
         - '#^Call to an undefined static method#'
-        - '#^Call to an undefined method .*::(foo|foobar|this)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::floatDiffIn([A-Za-z]+)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::diffInReal([A-Za-z]+)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.#'
