@@ -7,7 +7,6 @@ parameters:
         processTimeout: 300.0
     ignoreErrors:
         - '#^Call to an undefined static method#'
-        - '#^Call to an undefined method .*::(foo|foobar|this)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
         - '#^Unary operation "\~" on mixed results in an error\.$#'
