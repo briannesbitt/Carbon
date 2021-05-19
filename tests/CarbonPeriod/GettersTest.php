@@ -256,7 +256,7 @@ class GettersTest extends AbstractTestCase
         $this->expectException(UnreachableException::class);
         $this->expectExceptionMessage(
             "Could not calculate period end without either explicit end or recurrences.\n".
-            "If you're looking for a forever-period, use ->setRecurrences(INF)."
+            "If you're looking for a forever-period, use ->setRecurrences(INF).",
         );
 
         CarbonPeriod::create('2019-01-26 10:30:12', null)->overlaps('R2/2019-01-31T10:30:45Z/P2D');
@@ -266,7 +266,7 @@ class GettersTest extends AbstractTestCase
     {
         $this->expectException(UnreachableException::class);
         $this->expectExceptionMessage(
-            'Could not calculate period end after iterating 10000 times.'
+            'Could not calculate period end after iterating 10000 times.',
         );
 
         $period = CarbonPeriod::create('2019-01-26 10:30:12', CarbonInterval::minute(), 98282828);

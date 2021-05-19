@@ -1731,7 +1731,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         if ($this->recurrences === null) {
             throw new UnreachableException(
                 "Could not calculate period end without either explicit end or recurrences.\n".
-                "If you're looking for a forever-period, use ->setRecurrences(INF)."
+                "If you're looking for a forever-period, use ->setRecurrences(INF).",
             );
         }
 
@@ -1746,8 +1746,8 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         if ($this->filters === [[static::RECURRENCES_FILTER, null]]) {
             return $this->getStartDate()->copy()->add(
                 $this->getDateInterval()->times(
-                    $this->recurrences - ($this->isStartExcluded() ? 0 : 1)
-                )
+                    $this->recurrences - ($this->isStartExcluded() ? 0 : 1),
+                ),
             );
         }
 
@@ -1765,7 +1765,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         foreach ($this as $date) {
             if (++$attempts > static::END_MAX_ATTEMPTS) {
                 throw new UnreachableException(
-                    'Could not calculate period end after iterating '.static::END_MAX_ATTEMPTS.' times.'
+                    'Could not calculate period end after iterating '.static::END_MAX_ATTEMPTS.' times.',
                 );
             }
         }
