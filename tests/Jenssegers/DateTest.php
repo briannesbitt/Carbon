@@ -12,8 +12,11 @@ class DateTest extends TestCaseBase
         $date = new Carbon('2013-01-31');
         $this->assertSame(1359590400, $date->getTimestamp());
 
+        $before = time();
         $date = new Carbon('1 day ago');
-        $this->assertSame(time() - 86400, $date->getTimestamp());
+        $after = time();
+        $this->assertGreaterThanOrEqual($before - 86400, $date->getTimestamp());
+        $this->assertLessThanOrEqual($after - 86400, $date->getTimestamp());
     }
 
     public function testConstructTimestamp()
