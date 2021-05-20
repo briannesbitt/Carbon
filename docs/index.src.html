@@ -4264,6 +4264,12 @@ $period = Carbon::parse('2018-04-21')->daysUntil('2018-04-27'); // same as Carbo
     centuriesUntil() provides the same feature for centuries intervals
     millenniaUntil() provides the same feature for millennia intervals
 */
+// Using number of recurrences:
+CarbonPeriod::create('now', '1 day', 3); // now, now + 1 day, now + 2 day
+// Can be infinite:
+CarbonPeriod::create('now', '2 days', INF); // infinite iteration
+CarbonPeriod::create('now', '2 days', INF)->calculateEnd()->isEndOfTime(); // true
+CarbonPeriod::create('now', CarbonInterval::days(-2), INF)->calculateEnd()->isStartOfTime(); // true
 )}}
 </code></pre>
     </p>

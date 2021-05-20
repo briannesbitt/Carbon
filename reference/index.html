@@ -1255,6 +1255,22 @@ var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false</code></pre>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>string $tester</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-isStartOfTime">
+    <h2><span class="class-name">Carbon::</span>isStartOfTime</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Returns true if the date was created using CarbonImmutable::startOfTime()</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.45.1</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfTime">
+    <h2><span class="class-name">Carbon::</span>isEndOfTime</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Returns true if the date was created using CarbonImmutable::endOfTime()</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.45.1</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-resetToStringFormat">
     <h2><span class="class-name">Carbon::</span>resetToStringFormat</h2>
     <em>no arguments</em>
@@ -5703,7 +5719,7 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 <div class="doc-method " id="doc-method-CarbonPeriod-getRecurrences">
     <h2><span class="class-name">CarbonPeriod::</span>getRecurrences</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int|null</code></div>
+    <div class="doc-return">returns <code>int|float|null</code></div>
     <p class="doc-description">Get number of recurrences.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
