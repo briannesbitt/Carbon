@@ -117,20 +117,27 @@ This project exists thanks to all the people who contribute.
 
 [Thanks to people helping us to translate Carbon in so many languages](https://carbon.nesbot.com/contribute/translators/)
 
-### Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/Carbon#backer)]
-
-<a href="https://opencollective.com/Carbon#backers" target="_blank"><img src="https://opencollective.com/Carbon/backers.svg?width=890"></a>
-
 ### Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/Carbon#sponsor)]
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
+
+<a href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme" target="_blank"><img src="https://carbon.nesbot.com/tidelift-brand.png" width="256" height="64"></a>
+<a href="https://onlinecasinohex.ca/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/0/avatar.svg" width="192" height="64"></a>
 <a href="https://opencollective.com/Carbon/sponsor/0/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/1/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/2/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/3/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/3/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/4/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/4/avatar.svg"></a>
+
+[[Become a sponsor](https://opencollective.com/Carbon#sponsor)]
+
+### Backers
+
+Thank you to all our backers! 🙏
+
+<a href="https://opencollective.com/Carbon#backers" target="_blank"><img src="https://opencollective.com/Carbon/backers.svg?width=890"></a>
+
+[[Become a backer](https://opencollective.com/Carbon#backer)]
 
 ## Carbon for enterprise
 
