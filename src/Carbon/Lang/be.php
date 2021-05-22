@@ -24,6 +24,7 @@ if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
  * - Serhan Apaydın
  * - JD Isaacks
  * - AbadonnaAbbys
+ * - Siomkin Alexander
  */
 return [
     'year' => ':count год|:count гады|:count гадоў',
