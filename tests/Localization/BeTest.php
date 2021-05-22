@@ -11,9 +11,6 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
 class BeTest extends LocalizationTestCase
 {
     public const LOCALE = 'be'; // Belarusian
@@ -148,11 +145,11 @@ class BeTest extends LocalizationTestCase
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 дзень таму',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 дзень таму',
+        '1 дн таму',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 ні таму',
+        '2 дні таму',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ні таму',
+        '2 дн таму',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 тыдзень таму',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -192,23 +189,23 @@ class BeTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 секунда',
+        '1 сек',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 секунды',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 секунды',
+        '2 сек',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'праз 1 секунду',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 хвіліна 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 гады 3 месяцы 1 дзень 1 секунда',
+        '2 гады 3 месяцы 1 дн 1 сек',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'праз 3 гады',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 месяцаў таму',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 гады 3 месяцы 1 дзень 1 секунду таму',
+        '2 гады 3 месяцы 1 дн 1 секунду таму',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 тыдзень 10 гадзін',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -222,8 +219,8 @@ class BeTest extends LocalizationTestCase
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'праз гадзіну',
         // CarbonInterval::days(2)->forHumans()
-        '2 ні',
+        '2 дні',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 дзень 3 гадзіны',
+        '1 дн 3 гадзіны',
     ];
 }
