@@ -19,6 +19,7 @@ use Carbon\Exceptions\UnitException;
 use Closure;
 use DateTime;
 use DateTimeImmutable;
+use ReturnTypeWillChange;
 
 /**
  * Trait Converter.
@@ -75,6 +76,7 @@ trait Converter
      *
      * @return string
      */
+    #[ReturnTypeWillChange]
     public function format($format)
     {
         $function = $this->localFormatFunction ?: static::$formatFunction;

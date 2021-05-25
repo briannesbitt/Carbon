@@ -27,6 +27,7 @@ use Closure;
 use DateInterval;
 use Exception;
 use ReflectionException;
+use ReturnTypeWillChange;
 use Throwable;
 
 /**
@@ -965,6 +966,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @link http://php.net/manual/en/dateinterval.createfromdatestring.php
      */
+    #[ReturnTypeWillChange]
     public static function createFromDateString($time)
     {
         $interval = @parent::createFromDateString(strtr($time, [
