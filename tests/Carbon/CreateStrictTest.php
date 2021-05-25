@@ -41,9 +41,6 @@ class CreateStrictTest extends AbstractTestCase
     public function testCreateStrictDoesNotAllowFormatString()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(
-            'must be of the type int or null, string given'
-        );
 
         Carbon::createStrict('2021-05-25', 'Y-m-d');
     }
