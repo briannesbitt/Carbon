@@ -522,6 +522,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $interval = implode($match[1], $interval);
         }
 
+        $interval = $interval ?? '';
+
         for ($index = 0; $index < $length; $index++) {
             $expected = mb_substr($format, $index, 1);
             $nextCharacter = mb_substr($interval, 0, 1);
