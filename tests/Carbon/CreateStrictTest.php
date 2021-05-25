@@ -14,6 +14,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Carbon\Exceptions\OutOfRangeException;
 use Tests\AbstractTestCase;
+use TypeError;
 
 class CreateStrictTest extends AbstractTestCase
 {
@@ -25,6 +26,26 @@ class CreateStrictTest extends AbstractTestCase
         );
 
         Carbon::createStrict(null, null, null, null, null, -1);
+    }
+
+    public function testCreateStrictThrowsExceptionForMonthOverRange()
+    {
+        $this->expectException(OutOfRangeException::class);
+        $this->expectExceptionMessage(
+            'month must be between 0 and 99, 9001 given'
+        );
+
+        Carbon::createStrict(null, 9001);
+    }
+
+    public function testCreateStrictDoesNotAllowFormatString()
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage(
+            'must be of the type int or null, string given'
+        );
+
+        Carbon::createStrict('2021-05-25', 'Y-m-d');
     }
 
     public function testCreateStrictResetsStrictModeOnSuccess()
