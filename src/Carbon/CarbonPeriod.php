@@ -503,7 +503,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
                 $interval = $part;
             } elseif ($start === null && $parsed = Carbon::make($part)) {
                 $start = $part;
-            } elseif ($end === null && $parsed = Carbon::make(static::addMissingParts($start, $part))) {
+            } elseif ($end === null && $parsed = Carbon::make(static::addMissingParts($start ?? '', $part))) {
                 $end = $part;
             } else {
                 throw new InvalidPeriodParameterException("Invalid ISO 8601 specification: $iso.");

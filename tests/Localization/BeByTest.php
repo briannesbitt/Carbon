@@ -277,15 +277,15 @@ class BeByTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago'
-        '1 дзень таму',
+        '1 дн таму',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
-        '2 ні таму',
+        '2 дні таму',
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago'
-        '2 ні таму',
+        '2 дн таму',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago'
@@ -365,7 +365,7 @@ class BeByTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1 секунда',
+        '1 сек',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
@@ -373,7 +373,7 @@ class BeByTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2 секунды',
+        '2 сек',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
@@ -385,7 +385,7 @@ class BeByTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 гады 3 месяцы 1 дзень 1 секунда',
+        '2 гады 3 месяцы 1 дн 1 сек',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -397,7 +397,7 @@ class BeByTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        '2 гады 3 месяцы 1 дзень 1 секунду таму',
+        '2 гады 3 месяцы 1 дн 1 секунду таму',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -425,10 +425,10 @@ class BeByTest extends LocalizationTestCase
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days'
-        '2 ні',
+        '2 дні',
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1 дзень 3 гадзіны',
+        '1 дн 3 гадзіны',
     ];
 }
