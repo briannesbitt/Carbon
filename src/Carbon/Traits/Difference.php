@@ -19,6 +19,7 @@ use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
+use ReturnTypeWillChange;
 
 /**
  * Trait Difference.
@@ -117,6 +118,7 @@ trait Difference
      *
      * @return DateInterval
      */
+    #[ReturnTypeWillChange]
     public function diff($date = null, $absolute = false)
     {
         return parent::diff($this->resolveCarbon($date), (bool) $absolute);
