@@ -21,6 +21,7 @@ use Closure;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
+use ReturnTypeWillChange;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -619,6 +620,7 @@ trait Creator
      *
      * @return static|false
      */
+    #[ReturnTypeWillChange]
     public static function createFromFormat($format, $time, $tz = null)
     {
         $function = static::$createFromFormatFunction;
@@ -859,6 +861,7 @@ trait Creator
     /**
      * {@inheritdoc}
      */
+    #[ReturnTypeWillChange]
     public static function getLastErrors()
     {
         return static::$lastErrors;

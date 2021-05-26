@@ -12,9 +12,11 @@ declare(strict_types=1);
 namespace Tests\CarbonTimeZone\Fixtures;
 
 use Carbon\CarbonTimeZone;
+use ReturnTypeWillChange;
 
 class UnknownZone extends CarbonTimeZone
 {
+    #[ReturnTypeWillChange]
     public function getName()
     {
         return 'foobar';
