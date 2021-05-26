@@ -11,7 +11,7 @@ class App implements ArrayAccess
     /**
      * @var string
      */
-    protected $locale;
+    protected $locale = 'en';
 
     /**
      * @var string
