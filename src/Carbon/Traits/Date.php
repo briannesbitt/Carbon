@@ -2524,6 +2524,30 @@ trait Date
         return $date instanceof self ? $date : static::instance($date);
     }
 
+    /**
+     * Return the Carbon instance passed through, a now instance in UTC
+     * if null given or parse the input if string given (using current timezone
+     * then switching to UTC).
+     *
+     * @param Carbon|DateTimeInterface|string|null $date
+     *
+     * @return static
+     */
+    protected function resolveUTC($date = null): self
+    {
+        if (!$date) {
+            return static::now('UTC');
+        }
+
+        if (\is_string($date)) {
+            return static::parse($date, $this->getTimezone())->utc();
+        }
+
+        static::expectDateTime($date, ['null', 'string']);
+
+        return $date instanceof self ? $date : static::instance($date)->utc();
+    }
+
     protected static function weekRotate(int $day, int $rotation): int
     {
         return (static::DAYS_PER_WEEK + $rotation % static::DAYS_PER_WEEK + $day) % static::DAYS_PER_WEEK;

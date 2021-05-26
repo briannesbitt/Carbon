@@ -212,7 +212,7 @@ trait Difference
      */
     public function diffInDays($date = null, bool $absolute = false): float
     {
-        $date = $this->resolveCarbon($date)->utc();
+        $date = $this->resolveUTC($date);
         $utc = $this->copy()->utc();
 
         $hoursDiff = $utc->diffInHours($date, $absolute);
