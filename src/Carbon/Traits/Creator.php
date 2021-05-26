@@ -384,7 +384,7 @@ trait Creator
         $second = ($second < 10 ? '0' : '').number_format($second, 6);
         $instance = static::rawCreateFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
-        if ($fixYear !== null) {
+        if ($instance && $fixYear !== null) {
             $instance = $instance->addYears($fixYear);
         }
 
@@ -563,7 +563,7 @@ trait Creator
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
-        if ($tz === false) {
+        if ($tz === null) {
             return null;
         }
 
