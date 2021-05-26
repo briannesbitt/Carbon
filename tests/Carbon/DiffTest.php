@@ -1606,6 +1606,13 @@ class DiffTest extends AbstractTestCase
 
     public function testFloatDiffWithRealUnits()
     {
+        $from = Carbon::parse('2021-03-27 20:00 Europe/Warsaw');
+        $to = Carbon::parse('2021-03-27 20:00 Europe/London');
+        $from->floatDiffInRealDays($to);
+
+        $this->assertSame('2021-03-27 20:00:00 Europe/Warsaw', $from->format('Y-m-d H:i:s e'));
+        $this->assertSame('2021-03-27 20:00:00 Europe/London', $to->format('Y-m-d H:i:s e'));
+
         date_default_timezone_set('UTC');
 
         $this->assertSame(0.9583333333333335, Carbon::parse('2021-03-27 20:00 Europe/Warsaw')->floatDiffInRealDays('2021-03-28 20:00'));
