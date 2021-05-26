@@ -180,16 +180,16 @@ trait Options
     /**
      * Format to use on string cast.
      *
-     * @var string|null
+     * @var string|callable|null
      */
-    protected ?string $localToStringFormat = null;
+    protected $localToStringFormat = null;
 
     /**
      * Format to use on JSON serialization.
      *
-     * @var string|null
+     * @var string|callable|null
      */
-    protected ?string $localSerializer = null;
+    protected $localSerializer = null;
 
     /**
      * Instance-specific macros.

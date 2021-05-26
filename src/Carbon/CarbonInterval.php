@@ -667,9 +667,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @return static|null
+     * @return static|mixed|null
      */
-    public static function __callStatic(string $method, array $parameters): ?self
+    public static function __callStatic(string $method, array $parameters)
     {
         try {
             $interval = new static(0);

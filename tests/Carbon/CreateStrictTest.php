@@ -22,7 +22,7 @@ class CreateStrictTest extends AbstractTestCase
     {
         $this->expectException(OutOfRangeException::class);
         $this->expectExceptionMessage(
-            'second must be between 0 and 99, -1 given'
+            'second must be between 0 and 99, -1 given',
         );
 
         Carbon::createStrict(null, null, null, null, null, -1);
@@ -32,7 +32,7 @@ class CreateStrictTest extends AbstractTestCase
     {
         $this->expectException(OutOfRangeException::class);
         $this->expectExceptionMessage(
-            'month must be between 0 and 99, 9001 given'
+            'month must be between 0 and 99, 9001 given',
         );
 
         Carbon::createStrict(null, 9001);
