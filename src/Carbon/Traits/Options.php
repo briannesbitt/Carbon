@@ -32,7 +32,7 @@ trait Options
      *
      * @var array
      */
-    protected static $weekendDays = [
+    protected static array $weekendDays = [
         CarbonInterface::SATURDAY,
         CarbonInterface::SUNDAY,
     ];
@@ -42,7 +42,7 @@ trait Options
      *
      * @var array<string, string>
      */
-    protected static $regexFormats = [
+    protected static array $regexFormats = [
         'd' => '(3[01]|[12][0-9]|0[1-9])',
         'D' => '(Sun|Mon|Tue|Wed|Thu|Fri|Sat)',
         'j' => '([123][0-9]|[1-9])',
@@ -91,7 +91,7 @@ trait Options
      *
      * @var array
      */
-    protected static $regexFormatModifiers = [
+    protected static array $regexFormatModifiers = [
         '*' => '.+',
         ' ' => '[   ]',
         '#' => '[;:\\/.,()-]',
@@ -107,7 +107,7 @@ trait Options
      *
      * @var bool
      */
-    protected static $monthsOverflow = true;
+    protected static bool $monthsOverflow = true;
 
     /**
      * Indicates if years should be calculated with overflow.
@@ -115,7 +115,7 @@ trait Options
      *
      * @var bool
      */
-    protected static $yearsOverflow = true;
+    protected static bool $yearsOverflow = true;
 
     /**
      * Indicates if the strict mode is in use.
@@ -123,7 +123,7 @@ trait Options
      *
      * @var bool
      */
-    protected static $strictModeEnabled = true;
+    protected static bool $strictModeEnabled = true;
 
     /**
      * Function to call instead of format.
@@ -152,7 +152,7 @@ trait Options
      *
      * @var bool|null
      */
-    protected $localMonthsOverflow = null;
+    protected ?bool $localMonthsOverflow = null;
 
     /**
      * Indicates if years should be calculated with overflow.
@@ -160,7 +160,7 @@ trait Options
      *
      * @var bool|null
      */
-    protected $localYearsOverflow = null;
+    protected ?bool $localYearsOverflow = null;
 
     /**
      * Indicates if the strict mode is in use.
@@ -168,42 +168,42 @@ trait Options
      *
      * @var bool|null
      */
-    protected $localStrictModeEnabled = null;
+    protected ?bool $localStrictModeEnabled = null;
 
     /**
      * Options for diffForHumans and forHumans methods.
      *
      * @var bool|null
      */
-    protected $localHumanDiffOptions = null;
+    protected ?bool $localHumanDiffOptions = null;
 
     /**
      * Format to use on string cast.
      *
      * @var string|null
      */
-    protected $localToStringFormat = null;
+    protected ?string $localToStringFormat = null;
 
     /**
      * Format to use on JSON serialization.
      *
      * @var string|null
      */
-    protected $localSerializer = null;
+    protected ?string $localSerializer = null;
 
     /**
      * Instance-specific macros.
      *
      * @var array|null
      */
-    protected $localMacros = null;
+    protected ?array $localMacros = null;
 
     /**
      * Instance-specific generic macros.
      *
      * @var array|null
      */
-    protected $localGenericMacros = null;
+    protected ?array $localGenericMacros = null;
 
     /**
      * Function to call instead of format.
@@ -221,7 +221,7 @@ trait Options
      *
      * @param bool $strictModeEnabled
      */
-    public static function useStrictMode($strictModeEnabled = true)
+    public static function useStrictMode(bool $strictModeEnabled = true): void
     {
         static::$strictModeEnabled = $strictModeEnabled;
     }
@@ -232,7 +232,7 @@ trait Options
      *
      * @return bool
      */
-    public static function isStrictModeEnabled()
+    public static function isStrictModeEnabled(): bool
     {
         return static::$strictModeEnabled;
     }
@@ -250,7 +250,7 @@ trait Options
      *
      * @return void
      */
-    public static function useMonthsOverflow($monthsOverflow = true)
+    public static function useMonthsOverflow(bool $monthsOverflow = true): void
     {
         static::$monthsOverflow = $monthsOverflow;
     }
@@ -266,7 +266,7 @@ trait Options
      *
      * @return void
      */
-    public static function resetMonthsOverflow()
+    public static function resetMonthsOverflow(): void
     {
         static::$monthsOverflow = true;
     }
@@ -276,7 +276,7 @@ trait Options
      *
      * @return bool
      */
-    public static function shouldOverflowMonths()
+    public static function shouldOverflowMonths(): bool
     {
         return static::$monthsOverflow;
     }
@@ -294,7 +294,7 @@ trait Options
      *
      * @return void
      */
-    public static function useYearsOverflow($yearsOverflow = true)
+    public static function useYearsOverflow(bool $yearsOverflow = true): void
     {
         static::$yearsOverflow = $yearsOverflow;
     }
@@ -310,7 +310,7 @@ trait Options
      *
      * @return void
      */
-    public static function resetYearsOverflow()
+    public static function resetYearsOverflow(): void
     {
         static::$yearsOverflow = true;
     }
@@ -320,7 +320,7 @@ trait Options
      *
      * @return bool
      */
-    public static function shouldOverflowYears()
+    public static function shouldOverflowYears(): bool
     {
         return static::$yearsOverflow;
     }
@@ -342,7 +342,7 @@ trait Options
      *
      * @return $this|static
      */
-    public function settings(array $settings)
+    public function settings(array $settings): self
     {
         $this->localStrictModeEnabled = $settings['strictMode'] ?? null;
         $this->localMonthsOverflow = $settings['monthOverflow'] ?? null;
@@ -376,7 +376,7 @@ trait Options
      *
      * @return array
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         $settings = [];
         $map = [
@@ -409,7 +409,7 @@ trait Options
      *
      * @return array
      */
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         $infos = array_filter(get_object_vars($this), function ($var) {
             return $var;
@@ -426,7 +426,7 @@ trait Options
         return $infos;
     }
 
-    protected function addExtraDebugInfos(&$infos): void
+    protected function addExtraDebugInfos(array &$infos): void
     {
         if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {
             try {

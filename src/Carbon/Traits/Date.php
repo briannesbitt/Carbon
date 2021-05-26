@@ -619,9 +619,9 @@ trait Date
      *
      * @throws InvalidTimeZoneException
      *
-     * @return CarbonTimeZone|false
+     * @return CarbonTimeZone|null
      */
-    protected static function safeCreateDateTimeZone($object, $objectDump = null)
+    protected static function safeCreateDateTimeZone($object, $objectDump = null): ?CarbonTimeZone
     {
         return CarbonTimeZone::instance($object, $objectDump);
     }

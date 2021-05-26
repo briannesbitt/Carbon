@@ -688,7 +688,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return array
      */
-    public function __debugInfo();
+    public function __debugInfo(): array;
 
     /**
      * Get a part of the Carbon object
@@ -1045,7 +1045,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
@@ -1072,7 +1072,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
     public static function createFromFormat($format, $time, $tz = null);
 
@@ -1083,13 +1083,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                         $time
      * @param DateTimeZone|string|false|null $tz         optional timezone
      * @param string|null                    $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
-     * @param TranslatorInterface            $translator optional custom translator to use for macro-formats
+     * @param TranslatorInterface|null       $translator optional custom translator to use for macro-formats
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null);
+    public static function createFromIsoFormat(string $format, string $time, $tz = null, string $locale = 'en', TranslatorInterface $translator = null);
 
     /**
      * Create a Carbon instance from a specific format and a string in a given language.
@@ -1101,9 +1101,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createFromLocaleFormat($format, $locale, $time, $tz = null);
+    public static function createFromLocaleFormat(string $format, string $locale, string $time, $tz = null);
 
     /**
      * Create a Carbon instance from a specific ISO format and a string in a given language.
@@ -1115,9 +1115,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null);
+    public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $tz = null);
 
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
@@ -1230,7 +1230,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidDateException
      *
-     * @return static|false
+     * @return static|null
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null);
 
@@ -2060,7 +2060,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return array
      */
-    public function getSettings();
+    public function getSettings(): array;
 
     /**
      * Get the Carbon instance (real or mock) to be returned when a "now"
@@ -2715,7 +2715,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function isStrictModeEnabled();
+    public static function isStrictModeEnabled(): bool;
 
     /**
      * Determines if the instance is today.
@@ -3361,9 +3361,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function rawCreateFromFormat($format, $time, $tz = null);
+    public static function rawCreateFromFormat(string $format, string $time, $tz = null);
 
     /**
      * @see https://php.net/manual/en/datetime.format.php
@@ -3415,7 +3415,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return void
      */
-    public static function resetMonthsOverflow();
+    public static function resetMonthsOverflow(): void;
 
     /**
      * Reset the format used to the default when type juggling a Carbon instance to a string
@@ -3435,7 +3435,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return void
      */
-    public static function resetYearsOverflow();
+    public static function resetYearsOverflow(): void;
 
     /**
      * Round the current instance second with given precision if specified.
@@ -3813,14 +3813,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function shouldOverflowMonths();
+    public static function shouldOverflowMonths(): bool;
 
     /**
      * Get the month overflow global behavior (can be overridden in specific instances).
      *
      * @return bool
      */
-    public static function shouldOverflowYears();
+    public static function shouldOverflowYears(): bool;
 
     /**
      * @alias diffForHumans
@@ -4688,7 +4688,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return void
      */
-    public static function useMonthsOverflow($monthsOverflow = true);
+    public static function useMonthsOverflow(bool $monthsOverflow = true): void;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4699,7 +4699,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param bool $strictModeEnabled
      */
-    public static function useStrictMode($strictModeEnabled = true);
+    public static function useStrictMode(bool $strictModeEnabled = true): void;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4714,7 +4714,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return void
      */
-    public static function useYearsOverflow($yearsOverflow = true);
+    public static function useYearsOverflow(bool $yearsOverflow = true): void;
 
     /**
      * Set the instance's timezone to UTC.

@@ -86,9 +86,9 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @throws InvalidTimeZoneException
      *
-     * @return false|static
+     * @return static|null
      */
-    public static function instance($object = null, $objectDump = null)
+    public static function instance($object = null, $objectDump = null): ?self
     {
         $tz = $object;
 
@@ -109,7 +109,7 @@ class CarbonTimeZone extends DateTimeZone
                 throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
             }
 
-            return false;
+            return null;
         }
 
         return new static($tz->getName());
@@ -184,11 +184,11 @@ class CarbonTimeZone extends DateTimeZone
      * @see timezone_name_from_abbr native PHP function.
      *
      * @param DateTimeInterface|null $date
-     * @param int                    $isDst
+     * @param int                    $isDST
      *
-     * @return string|false
+     * @return string|null
      */
-    public function toRegionName(DateTimeInterface $date = null, $isDst = 1)
+    public function toRegionName(?DateTimeInterface $date = null, int $isDST = -1): ?string
     {
         $name = $this->getName();
         $firstChar = substr($name, 0, 1);
@@ -208,7 +208,7 @@ class CarbonTimeZone extends DateTimeZone
         }
         // @codeCoverageIgnoreEnd
 
-        $name = @timezone_name_from_abbr('', $offset, $isDst);
+        $name = @timezone_name_from_abbr('', $offset, $isDST);
 
         if ($name) {
             return $name;
@@ -220,7 +220,7 @@ class CarbonTimeZone extends DateTimeZone
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -228,9 +228,9 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param DateTimeInterface|null $date
      *
-     * @return CarbonTimeZone|false
+     * @return static|null
      */
-    public function toRegionTimeZone(DateTimeInterface $date = null)
+    public function toRegionTimeZone(DateTimeInterface $date = null): ?self
     {
         $tz = $this->toRegionName($date);
 
@@ -239,7 +239,7 @@ class CarbonTimeZone extends DateTimeZone
                 throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
             }
 
-            return false;
+            return null;
         }
 
         return new static($tz);

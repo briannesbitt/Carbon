@@ -106,7 +106,7 @@ trait Creator
      *
      * @return DateTimeInterface
      */
-    private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz)
+    private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz): DateTimeInterface
     {
         if ($tz !== null) {
             $safeTz = static::safeCreateDateTimeZone($tz);
@@ -138,7 +138,7 @@ trait Creator
      *
      * @return static
      */
-    public static function instance($date)
+    public static function instance($date): self
     {
         if ($date instanceof static) {
             return clone $date;
@@ -175,7 +175,7 @@ trait Creator
      *
      * @return static
      */
-    public static function rawParse($time = null, $tz = null)
+    public static function rawParse($time = null, $tz = null): ?self
     {
         if ($time instanceof DateTimeInterface) {
             return static::instance($time);
@@ -208,7 +208,7 @@ trait Creator
      *
      * @return static
      */
-    public static function parse($time = null, $tz = null)
+    public static function parse($time = null, $tz = null): ?self
     {
         $function = static::$parseFunction;
 
@@ -332,9 +332,9 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
+    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null): ?self
     {
         if (\is_string($year) && !is_numeric($year)) {
             return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
@@ -388,7 +388,7 @@ trait Creator
             $instance = $instance->addYears($fixYear);
         }
 
-        return $instance;
+        return $instance ?: null;
     }
 
     /**
@@ -416,9 +416,9 @@ trait Creator
      *
      * @throws InvalidDateException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
+    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null): ?self
     {
         $fields = static::getRangesByUnit();
 
@@ -428,7 +428,7 @@ trait Creator
                     throw new InvalidDateException($field, $$field);
                 }
 
-                return false;
+                return null;
             }
         }
 
@@ -440,7 +440,7 @@ trait Creator
                     throw new InvalidDateException($field, $$field);
                 }
 
-                return false;
+                return null;
             }
         }
 
@@ -549,9 +549,9 @@ trait Creator
      * @param string                         $time
      * @param DateTimeZone|string|false|null $originalTz
      *
-     * @return DateTimeInterface|false
+     * @return DateTimeInterface|null
      */
-    private static function createFromFormatAndTimezone($format, $time, $originalTz)
+    private static function createFromFormatAndTimezone(string $format, string $time, $originalTz): ?DateTimeInterface
     {
         if ($originalTz === null) {
             return parent::createFromFormat($format, "$time");
@@ -564,10 +564,10 @@ trait Creator
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
         if ($tz === false) {
-            return false;
+            return null;
         }
 
-        return parent::createFromFormat($format, "$time", $tz);
+        return parent::createFromFormat($format, "$time", $tz) ?: null;
     }
 
     /**
@@ -579,9 +579,9 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function rawCreateFromFormat($format, $time, $tz = null)
+    public static function rawCreateFromFormat(string $format, string $time, $tz = null): ?self
     {
         // Work-around for https://bugs.php.net/bug.php?id=80141
         $format = preg_replace('/(?<!\\\\)((?:\\\\{2})*)c/', '$1Y-m-d\TH:i:sP', $format);
@@ -637,7 +637,7 @@ trait Creator
             throw new InvalidFormatException(implode(PHP_EOL, $lastErrors['errors']));
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -649,10 +649,10 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
     #[ReturnTypeWillChange]
-    public static function createFromFormat($format, $time, $tz = null)
+    public static function createFromFormat($format, $time, $tz = null): ?self
     {
         $function = static::$createFromFormatFunction;
 
@@ -674,14 +674,19 @@ trait Creator
      * @param string                         $time
      * @param DateTimeZone|string|false|null $tz         optional timezone
      * @param string|null                    $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
-     * @param TranslatorInterface            $translator optional custom translator to use for macro-formats
+     * @param TranslatorInterface|null       $translator optional custom translator to use for macro-formats
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createFromIsoFormat($format, $time, $tz = null, $locale = self::DEFAULT_LOCALE, $translator = null)
-    {
+    public static function createFromIsoFormat(
+        string $format,
+        string $time,
+        $tz = null,
+        ?string $locale = self::DEFAULT_LOCALE,
+        ?TranslatorInterface $translator = null
+    ): ?self {
         $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
             [$code] = $match;
 
@@ -817,9 +822,9 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
+    public static function createFromLocaleFormat(string $format, string $locale, string $time, $tz = null): ?self
     {
         return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
@@ -834,9 +839,9 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return static|null
      */
-    public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null)
+    public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $tz = null): ?self
     {
         $time = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
 
@@ -855,7 +860,7 @@ trait Creator
      *
      * @return static|null
      */
-    public static function make($var)
+    public static function make($var): ?self
     {
         if ($var instanceof DateTimeInterface) {
             return static::instance($var);
@@ -884,7 +889,7 @@ trait Creator
      *
      * @return void
      */
-    private static function setLastErrors(array $lastErrors)
+    private static function setLastErrors(array $lastErrors): void
     {
         static::$lastErrors = $lastErrors;
     }
