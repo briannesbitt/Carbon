@@ -20,6 +20,7 @@ use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
+use ReturnTypeWillChange;
 
 /**
  * Trait Difference.

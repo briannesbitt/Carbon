@@ -668,7 +668,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
             if ($this->dateInterval === null &&
                 (
                     \is_string($argument) && preg_match(
-                        '/^(\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
+                        '/^(-?\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
                         $argument,
                     ) ||
                     $argument instanceof DateInterval ||
