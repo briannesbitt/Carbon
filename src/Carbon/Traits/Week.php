@@ -190,8 +190,8 @@ trait Week
             return $date->addWeeks(round($week) - $this->week(null, $dayOfWeek, $dayOfYear));
         }
 
-        $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
-        $end = $date->copy()->startOfWeek($dayOfWeek);
+        $start = $date->copy()->shiftTimezone('UTC')->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $end = $date->copy()->shiftTimezone('UTC')->startOfWeek($dayOfWeek);
 
         if ($start > $end) {
             $start = $start->subWeeks(static::WEEKS_PER_YEAR / 2)->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);

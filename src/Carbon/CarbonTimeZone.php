@@ -234,7 +234,7 @@ class CarbonTimeZone extends DateTimeZone
     {
         $tz = $this->toRegionName($date);
 
-        if ($tz === false) {
+        if ($tz === null) {
             if (Carbon::isStrictModeEnabled()) {
                 throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
             }
