@@ -104,7 +104,7 @@ class CarbonTimeZone extends DateTimeZone
             $tz = static::getDateTimeZoneFromName($object);
         }
 
-        if ($tz === false) {
+        if ($tz === null) {
             if (Carbon::isStrictModeEnabled()) {
                 throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
             }
