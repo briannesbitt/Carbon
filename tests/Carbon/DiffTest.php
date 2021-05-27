@@ -1737,6 +1737,9 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-1.0, Carbon::parse('2018-11-01 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-01 00:00:00', 'Europe/Paris')));
         $this->assertSame(-1.0, Carbon::parse('2018-11-28 00:00:00')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00')));
         $this->assertSame(-1.0, Carbon::parse('2018-11-28 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00', 'Europe/Paris')));
+
+        Carbon::setTestNow('2021-03-28 20:00 Europe/Warsaw');
+        $this->assertSame(0.9583333333333335, Carbon::parse('2021-03-27 20:00 Europe/Warsaw')->floatDiffInRealDays());
     }
 
     /**
