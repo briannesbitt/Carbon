@@ -1757,14 +1757,14 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     private function getEndFromRecurrences()
     {
-        if ($this->recurrences === null) {
+        if ($this->carbonRecurrences === null) {
             throw new UnreachableException(
                 "Could not calculate period end without either explicit end or recurrences.\n".
                 "If you're looking for a forever-period, use ->setRecurrences(INF).",
             );
         }
 
-        if ($this->recurrences === INF) {
+        if ($this->carbonRecurrences === INF) {
             $start = $this->getStartDate();
 
             return $start < $start->copy()->add($this->getDateInterval())
@@ -1775,7 +1775,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         if ($this->filters === [[static::RECURRENCES_FILTER, null]]) {
             return $this->getStartDate()->copy()->add(
                 $this->getDateInterval()->times(
-                    $this->recurrences - ($this->isStartExcluded() ? 0 : 1),
+                    $this->carbonRecurrences - ($this->isStartExcluded() ? 0 : 1),
                 ),
             );
         }
