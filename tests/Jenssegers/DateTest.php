@@ -9,6 +9,8 @@ class DateTest extends TestCaseBase
 {
     public function testConstructFromString()
     {
+        Carbon::setTestNow();
+
         $date = new Carbon('2013-01-31');
         $this->assertSame(1359590400, $date->getTimestamp());
 

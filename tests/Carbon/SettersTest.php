@@ -592,7 +592,9 @@ class SettersTest extends AbstractTestCase
                 $date->$valueUnit === $modulo ||
                 $$valueUnit - ((int) $date->{"diffIn$unit"}($original, false)) === $value ||
                 ($valueUnit === 'day' &&
-                    $date->format('Y-m-d H:i:s.u') === $original->copy()->modify(($original->day + $value).' days'))
+                    $date->format('Y-m-d H:i:s.u') === $original->copy()
+                        ->modify(($original->day + $value).' days')
+                        ->format('Y-m-d H:i:s.u'))
             ) {
                 $results['current']++;
 
@@ -611,12 +613,19 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new Exception('Unhandled result for: '.
-                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
-                var_export($original->timezoneName, true).
-                ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
-                    return var_export($value, true);
-                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'), );
+            $this->failOperation(
+                $original,
+                $date,
+                $start,
+                $end,
+                'setUnitNoOverflow',
+                $valueUnit,
+                $value,
+                $overflowUnit,
+                $unit,
+                $modulo,
+                $$valueUnit,
+            );
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
@@ -700,7 +709,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
-                -((int) $date->{"diffIn$unit"}($original, false)) === $value
+                -((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
 
@@ -719,12 +728,19 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new Exception('Unhandled result for: '.
-                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
-                var_export($original->timezoneName, true).
-                ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
-                    return var_export($value, true);
-                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'), );
+            $this->failOperation(
+                $original,
+                $date,
+                $start,
+                $end,
+                'addUnitNoOverflow',
+                $valueUnit,
+                $value,
+                $overflowUnit,
+                $unit,
+                $modulo,
+                $value,
+            );
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
@@ -790,7 +806,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
-                ((int) $date->{"diffIn$unit"}($original, false)) === $value
+                ((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
 
@@ -809,12 +825,19 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new Exception('Unhandled result for: '.
-                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
-                var_export($original->timezoneName, true).
-                ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {
-                    return var_export($value, true);
-                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'), );
+            $this->failOperation(
+                $original,
+                $date,
+                $start,
+                $end,
+                'subUnitNoOverflow',
+                $valueUnit,
+                $value,
+                $overflowUnit,
+                $unit,
+                $modulo,
+                $value,
+            );
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
@@ -823,5 +846,40 @@ class SettersTest extends AbstractTestCase
         $this->assertGreaterThan($minimum, $results['end']);
         $this->assertGreaterThan($minimum, $results['current']);
         $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
+    }
+
+    private function failOperation(
+        Carbon $original,
+        Carbon $date,
+        Carbon $start,
+        Carbon $end,
+        string $method,
+        string $valueUnit,
+        int $value,
+        string $overflowUnit,
+        string $unit,
+        int $modulo,
+        int $variableValue
+    ): void {
+        throw new Exception(implode("\n", [
+            'Unhandled result for: '.
+            'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+            var_export($original->timezoneName, true).
+            ")->$method(".implode(', ', array_map(function ($value) {
+                return var_export($value, true);
+            }, [$valueUnit, $value, $overflowUnit])).');',
+            'Getting: '.$date->format('Y-m-d H:i:s.u e'),
+            "Current $valueUnit: ".$date->$valueUnit,
+            'Is neither '.$start->$valueUnit." (from $start)",
+            'Nor '.$end->$valueUnit." (from $end)",
+            "Nor $value (from value)",
+            "Nor $modulo (from modulo)",
+            method_exists($date, "diffInReal$unit")
+                ? "diffInReal$unit() exists and returns ".$date->{"diffInReal$unit"}($original, false)
+                    ." while expecting $variableValue"
+                : "diffInReal$unit() does not exist",
+            "diffIn$unit() exists and returns ".$date->{"diffIn$unit"}($original, false)
+            ." while expecting $variableValue",
+        ]));
     }
 }

@@ -619,9 +619,9 @@ trait Date
      *
      * @throws InvalidTimeZoneException
      *
-     * @return CarbonTimeZone|false
+     * @return CarbonTimeZone|null
      */
-    protected static function safeCreateDateTimeZone($object, $objectDump = null)
+    protected static function safeCreateDateTimeZone($object, $objectDump = null): ?CarbonTimeZone
     {
         return CarbonTimeZone::instance($object, $objectDump);
     }
@@ -2522,6 +2522,30 @@ trait Date
         static::expectDateTime($date, ['null', 'string']);
 
         return $date instanceof self ? $date : static::instance($date);
+    }
+
+    /**
+     * Return the Carbon instance passed through, a now instance in UTC
+     * if null given or parse the input if string given (using current timezone
+     * then switching to UTC).
+     *
+     * @param Carbon|DateTimeInterface|string|null $date
+     *
+     * @return static
+     */
+    protected function resolveUTC($date = null): self
+    {
+        if (!$date) {
+            return static::now('UTC');
+        }
+
+        if (\is_string($date)) {
+            return static::parse($date, $this->getTimezone())->utc();
+        }
+
+        static::expectDateTime($date, ['null', 'string']);
+
+        return $date instanceof self ? $date : static::instance($date)->utc();
     }
 
     protected static function weekRotate(int $day, int $rotation): int

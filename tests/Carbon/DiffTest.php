@@ -1684,6 +1684,13 @@ class DiffTest extends AbstractTestCase
 
     public function testFloatDiffWithRealUnits()
     {
+        $from = Carbon::parse('2021-03-27 20:00 Europe/Warsaw');
+        $to = Carbon::parse('2021-03-27 20:00 Europe/London');
+        $from->floatDiffInRealDays($to);
+
+        $this->assertSame('2021-03-27 20:00:00 Europe/Warsaw', $from->format('Y-m-d H:i:s e'));
+        $this->assertSame('2021-03-27 20:00:00 Europe/London', $to->format('Y-m-d H:i:s e'));
+
         date_default_timezone_set('UTC');
         $this->assertSame(1.0006944444444443, Carbon::parse('2018-12-01 00:00')->floatDiffInRealDays(Carbon::parse('2018-12-02 00:01'), true));
 
@@ -1730,6 +1737,9 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-1.0, Carbon::parse('2018-11-01 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-01 00:00:00', 'Europe/Paris')));
         $this->assertSame(-1.0, Carbon::parse('2018-11-28 00:00:00')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00')));
         $this->assertSame(-1.0, Carbon::parse('2018-11-28 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00', 'Europe/Paris')));
+
+        Carbon::setTestNow('2021-03-28 20:00 Europe/Warsaw');
+        $this->assertSame(0.9583333333333335, Carbon::parse('2021-03-27 20:00 Europe/Warsaw')->floatDiffInRealDays());
     }
 
     /**

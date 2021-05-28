@@ -20,7 +20,6 @@ use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
-use ReturnTypeWillChange;
 
 /**
  * Trait Difference.
@@ -212,7 +211,7 @@ trait Difference
      */
     public function diffInDays($date = null, bool $absolute = false): float
     {
-        $date = $this->resolveCarbon($date)->utc();
+        $date = $this->resolveUTC($date);
         $utc = $this->copy()->utc();
 
         $hoursDiff = $utc->diffInHours($date, $absolute);
