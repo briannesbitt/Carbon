@@ -97,7 +97,7 @@ class CreateTest extends AbstractTestCase
     {
         Carbon::useStrictMode(false);
         $this->assertFalse(Carbon::isStrictModeEnabled());
-        $this->assertFalse(Carbon::create(null, -5));
+        $this->assertNull(Carbon::create(null, -5));
         Carbon::useStrictMode(true);
         $this->assertTrue(Carbon::isStrictModeEnabled());
     }

@@ -51,8 +51,8 @@ class StrictModeTest extends AbstractTestCase
     public function testSafeCreateDateTimeZoneWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
-        $this->assertFalse(Carbon::createFromDate(2001, 1, 1, -15));
-        $this->assertFalse(Carbon::createFromDate(2001, 1, 1, 'foobar'));
+        $this->assertNull(Carbon::createFromDate(2001, 1, 1, -15));
+        $this->assertNull(Carbon::createFromDate(2001, 1, 1, 'foobar'));
     }
 
     public function testSetWithStrictMode()

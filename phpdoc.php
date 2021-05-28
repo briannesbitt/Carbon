@@ -30,12 +30,12 @@ $code = '';
 $overrideTyping = [
     $carbon => [
         // 'createFromImmutable' => ['static Carbon', 'DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
-        'createFromFormat' => ['static Carbon|false', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
+        'createFromFormat' => ['static Carbon', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
         '__set_state' => ['static Carbon', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
     $immutable => [
         // 'createFromMutable' => ['static CarbonImmutable', 'DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
-        'createFromFormat' => ['static CarbonImmutable|false', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
+        'createFromFormat' => ['static CarbonImmutable', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
         '__set_state' => ['static CarbonImmutable', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
 ];

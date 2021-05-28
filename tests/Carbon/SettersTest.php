@@ -592,7 +592,9 @@ class SettersTest extends AbstractTestCase
                 $date->$valueUnit === $modulo ||
                 $$valueUnit - ((int) $date->{"diffIn$unit"}($original, false)) === $value ||
                 ($valueUnit === 'day' &&
-                    $date->format('Y-m-d H:i:s.u') === $original->copy()->modify(($original->day + $value).' days'))
+                    $date->format('Y-m-d H:i:s.u') === $original->copy()
+                        ->modify(($original->day + $value).' days')
+                        ->format('Y-m-d H:i:s.u'))
             ) {
                 $results['current']++;
 
@@ -707,7 +709,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
-                -((int) $date->{"diffIn$unit"}($original, false)) === $value
+                -((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
 
@@ -737,7 +739,7 @@ class SettersTest extends AbstractTestCase
                 $overflowUnit,
                 $unit,
                 $modulo,
-                $$valueUnit,
+                $value,
             );
         }
 
@@ -804,7 +806,7 @@ class SettersTest extends AbstractTestCase
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
-                ((int) $date->{"diffIn$unit"}($original, false)) === $value
+                ((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
 
@@ -834,7 +836,7 @@ class SettersTest extends AbstractTestCase
                 $overflowUnit,
                 $unit,
                 $modulo,
-                $$valueUnit,
+                $value,
             );
         }
 
