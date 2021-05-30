@@ -38,6 +38,6 @@ enabled:
   - whitespacy_lines
 
 finder:
-  exclude:
+  not-path:
     - "src/Carbon/Doctrine/DateTimeType.php"
     - "src/Carbon/Doctrine/DateTimeImmutableType.php"
