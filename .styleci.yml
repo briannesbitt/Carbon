@@ -36,3 +36,8 @@ enabled:
   - unneeded_control_parentheses
   - unused_use
   - whitespacy_lines
+
+finder:
+  exclude:
+    - "src/Carbon/Doctrine/DateTimeType.php"
+    - "src/Carbon/Doctrine/DateTimeImmutableType.php"
