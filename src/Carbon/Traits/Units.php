@@ -29,12 +29,12 @@ trait Units
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
-     * @param string $unit
-     * @param int    $value
+     * @param string    $unit
+     * @param int|float $value
      *
      * @return static
      */
-    public function addRealUnit($unit, $value = 1)
+    public function addRealUnit(string $unit, $value = 1): self
     {
         switch ($unit) {
             // @call addRealUnit
@@ -131,8 +131,13 @@ trait Units
                 return $this;
         }
 
-        /* @var CarbonInterface $this */
-        return $this->setTimestamp((int) ($this->getTimestamp() + $value));
+        $seconds = (int) $value;
+        $microseconds = (int) round(
+            (abs($value) - abs($seconds)) * ($value < 0 ? -1 : 1) * static::MICROSECONDS_PER_SECOND,
+        );
+        $date = $this->setTimestamp($this->getTimestamp() + $seconds);
+
+        return $microseconds ? $date->addRealUnit('microsecond', $microseconds) : $date;
     }
 
     /**
@@ -144,7 +149,7 @@ trait Units
      *
      * @return static
      */
-    public function subRealUnit($unit, $value = 1)
+    public function subRealUnit($unit, $value = 1): self
     {
         return $this->addRealUnit($unit, -$value);
     }
@@ -156,7 +161,7 @@ trait Units
      *
      * @return bool
      */
-    public static function isModifiableUnit($unit)
+    public static function isModifiableUnit($unit): bool
     {
         static $modifiableUnits = [
             // @call addUnit
@@ -183,7 +188,7 @@ trait Units
      *
      * @return static
      */
-    public function rawAdd(DateInterval $interval)
+    public function rawAdd(DateInterval $interval): self
     {
         return parent::add($interval);
     }
@@ -202,7 +207,7 @@ trait Units
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, $overflow = null)
+    public function add($unit, $value = 1, ?bool $overflow = null): self
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
@@ -224,7 +229,7 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit($unit, $value, $overflow);
+        return $this->addUnit((string) $unit, (int) $value, $overflow);
     }
 
     /**
@@ -236,11 +241,11 @@ trait Units
      *
      * @return static
      */
-    public function addUnit($unit, $value = 1, $overflow = null)
+    public function addUnit(string $unit, int $value = 1, ?bool $overflow = null): self
     {
         $date = $this;
 
-        if (!is_numeric($value) || !\floatval($value)) {
+        if ($value === 0) {
             return $date->isMutable() ? $date : $date->copy();
         }
 
@@ -290,25 +295,11 @@ trait Units
             $day = $date->day;
         }
 
-        $value = (int) $value;
-
         if ($unit === 'milli' || $unit === 'millisecond') {
             $unit = 'microsecond';
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        // Work-around for bug https://bugs.php.net/bug.php?id=75642
-        if ($unit === 'micro' || $unit === 'microsecond') {
-            $microseconds = $this->micro + $value;
-            $second = (int) floor($microseconds / static::MICROSECONDS_PER_SECOND);
-            $microseconds %= static::MICROSECONDS_PER_SECOND;
-            if ($microseconds < 0) {
-                $microseconds += static::MICROSECONDS_PER_SECOND;
-            }
-            $date = $date->microseconds($microseconds);
-            $unit = 'second';
-            $value = $second;
-        }
         $date = $date->modify("$value $unit");
 
         if (isset($timeString)) {
@@ -331,7 +322,7 @@ trait Units
      *
      * @return static
      */
-    public function subUnit($unit, $value = 1, $overflow = null)
+    public function subUnit(string $unit, int $value = 1, ?bool $overflow = null): self
     {
         return $this->addUnit($unit, -$value, $overflow);
     }
@@ -343,7 +334,7 @@ trait Units
      *
      * @return static
      */
-    public function rawSub(DateInterval $interval)
+    public function rawSub(DateInterval $interval): self
     {
         return parent::sub($interval);
     }
@@ -362,7 +353,7 @@ trait Units
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, $overflow = null)
+    public function sub($unit, $value = 1, ?bool $overflow = null): self
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
@@ -384,7 +375,7 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit($unit, -\floatval($value), $overflow);
+        return $this->addUnit((string) $unit, -((int) $value), $overflow);
     }
 
     /**
@@ -398,7 +389,7 @@ trait Units
      *
      * @return static
      */
-    public function subtract($unit, $value = 1, $overflow = null)
+    public function subtract($unit, $value = 1, ?bool $overflow = null): self
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);

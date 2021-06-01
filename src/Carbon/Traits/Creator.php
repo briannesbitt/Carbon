@@ -77,12 +77,6 @@ trait Creator
             static::mockConstructorParameters($time, $tz);
         }
 
-        // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
-        if (strpos((string) .1, '.') === false) {
-            $locale = setlocale(LC_NUMERIC, '0');
-            setlocale(LC_NUMERIC, 'C');
-        }
-
         try {
             parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz) ?: null);
         } catch (Exception $exception) {
@@ -90,10 +84,6 @@ trait Creator
         }
 
         $this->constructedObjectId = spl_object_hash($this);
-
-        if (isset($locale)) {
-            setlocale(LC_NUMERIC, $locale);
-        }
 
         static::setLastErrors(parent::getLastErrors());
     }

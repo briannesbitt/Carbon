@@ -49,6 +49,11 @@ $rules = array(
 );
 
 return Config::create()->setRules($rules)
-             ->setFinder(Finder::create()->in(__DIR__.'/src'))
+             ->setFinder(
+                Finder::create()
+                    ->in(__DIR__.'/src')
+                    ->notPath('Carbon/Doctrine/DateTimeType.php')
+                    ->notPath('Carbon/Doctrine/DateTimeImmutableType.php')
+             )
              ->setUsingCache(true)
              ->setRiskyAllowed(true);

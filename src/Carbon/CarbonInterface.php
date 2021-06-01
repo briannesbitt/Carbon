@@ -763,18 +763,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public function add($unit, $value = 1, $overflow = null);
+    public function add($unit, $value = 1, bool $overflow = null);
 
     /**
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
-     * @param string $unit
-     * @param int    $value
+     * @param string    $unit
+     * @param int|float $value
      *
      * @return static
      */
-    public function addRealUnit($unit, $value = 1);
+    public function addRealUnit(string $unit, $value = 1);
 
     /**
      * Add given units to the current instance.
@@ -785,7 +785,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public function addUnit($unit, $value = 1, $overflow = null);
+    public function addUnit(string $unit, int $value = 1, bool $overflow = null);
 
     /**
      * Add any unit to a new value without overflowing current other unit given.
@@ -1233,6 +1233,25 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static|null
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null);
+
+    /**
+     * Create a new Carbon instance from a specific date and time using strict validation.
+     *
+     * @see create()
+     *
+     * @param int|null                 $year
+     * @param int|null                 $month
+     * @param int|null                 $day
+     * @param int|null                 $hour
+     * @param int|null                 $minute
+     * @param int|null                 $second
+     * @param DateTimeZone|string|null $tz
+     *
+     * @throws InvalidFormatException
+     *
+     * @return static
+     */
+    public static function createStrict(int $year = 0, int $month = 1, int $day = 1, int $hour = 0, int $minute = 0, int $second = 0, $tz = null);
 
     /**
      * Get/set the day of year.
@@ -2592,7 +2611,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function isModifiableUnit($unit);
+    public static function isModifiableUnit($unit): bool;
 
     /**
      * Returns true if the current class/instance is mutable.
@@ -4007,7 +4026,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public function sub($unit, $value = 1, $overflow = null);
+    public function sub($unit, $value = 1, bool $overflow = null);
 
     /**
      * Subtract seconds to the instance using timestamp. Positive $value travels
@@ -4029,7 +4048,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public function subUnit($unit, $value = 1, $overflow = null);
+    public function subUnit(string $unit, int $value = 1, bool $overflow = null);
 
     /**
      * Subtract any unit to a new value without overflowing current other unit given.
@@ -4053,7 +4072,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public function subtract($unit, $value = 1, $overflow = null);
+    public function subtract($unit, $value = 1, bool $overflow = null);
 
     /**
      * Get the difference in a human readable format in the current locale from current instance to an other
