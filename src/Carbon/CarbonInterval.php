@@ -919,7 +919,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $start = $start instanceof CarbonInterface ? $start : Carbon::make($start);
         $end = $end instanceof CarbonInterface ? $end : Carbon::make($end);
         $interval = static::instance($start->diffAsDateInterval($end, $absolute));
-        $interval->fixDiffInterval();
 
         $interval->startDate = $start;
         $interval->endDate = $end;
@@ -2802,29 +2801,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $this->f *= self::NEGATIVE;
         $this->invert();
-    }
-
-    /**
-     * Work-around for https://bugs.php.net/bug.php?id=77145
-     *
-     * @SuppressWarnings(UnusedPrivateMethod)
-     *
-     * @codeCoverageIgnore
-     */
-    private function fixDiffInterval(): void
-    {
-        if ($this->f > 0 && $this->y === -1 && $this->m === 11 && $this->d >= 27 && $this->h === 23 && $this->i === 59 && $this->s === 59) {
-            $this->y = 0;
-            $this->m = 0;
-            $this->d = 0;
-            $this->h = 0;
-            $this->i = 0;
-            $this->s = 0;
-            $this->f = (1000000 - round($this->f * 1000000)) / 1000000;
-            $this->invert();
-        } elseif ($this->f < 0) {
-            $this->fixNegativeMicroseconds();
-        }
     }
 
     /**
