@@ -297,18 +297,6 @@ trait Units
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        // Work-around for bug https://bugs.php.net/bug.php?id=75642
-        if ($unit === 'micro' || $unit === 'microsecond') {
-            $microseconds = $this->micro + $value;
-            $second = (int) floor($microseconds / static::MICROSECONDS_PER_SECOND);
-            $microseconds %= static::MICROSECONDS_PER_SECOND;
-            if ($microseconds < 0) {
-                $microseconds += static::MICROSECONDS_PER_SECOND;
-            }
-            $date = $date->microseconds($microseconds);
-            $unit = 'second';
-            $value = $second;
-        }
         $date = $date->modify("$value $unit");
 
         if (isset($timeString)) {
