@@ -921,9 +921,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $interval = static::instance($start->diffAsDateInterval($end, $absolute));
         $interval->fixDiffInterval();
 
-        // The line below fixes https://bugs.php.net/bug.php?id=77007
-        $interval->abs($absolute);
-
         $interval->startDate = $start;
         $interval->endDate = $end;
 
