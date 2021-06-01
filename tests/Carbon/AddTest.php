@@ -240,6 +240,26 @@ class AddTest extends AbstractTestCase
         $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->addSeconds(-1)->second);
     }
 
+    public function testAddDecimalSeconds()
+    {
+        $this->assertSame(
+            '1999-12-31 23:59:58.500000',
+            Carbon::parse('2000-01-01 00:00:00')->addSeconds(-1.5)->format('Y-m-d H:i:s.u'),
+        );
+        $this->assertSame(
+            '2000-01-01 00:00:01.500000',
+            Carbon::parse('2000-01-01 00:00:00')->addSeconds(1.5)->format('Y-m-d H:i:s.u'),
+        );
+        $this->assertSame(
+            '1999-12-31 23:59:58.500000',
+            Carbon::parse('2000-01-01 00:00:00')->addRealSeconds(-1.5)->format('Y-m-d H:i:s.u'),
+        );
+        $this->assertSame(
+            '2000-01-01 00:00:01.500000',
+            Carbon::parse('2000-01-01 00:00:00')->addRealSeconds(1.5)->format('Y-m-d H:i:s.u'),
+        );
+    }
+
     public function testAddSecond()
     {
         $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addSecond()->second);
