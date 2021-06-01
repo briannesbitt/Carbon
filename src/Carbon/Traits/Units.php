@@ -14,6 +14,7 @@ namespace Carbon\Traits;
 use Carbon\CarbonConverterInterface;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\UnitException;
 use Closure;
 use DateInterval;
@@ -302,12 +303,13 @@ trait Units
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        $inverted = $value < 0;
-        $value = abs($value);
-
-        $date = $date->rawAdd(
-            CarbonInterval::fromString("$value $unit")->invert($inverted),
-        );
+        try {
+            $date = $date->rawAdd(
+                CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
+            );
+        } catch (InvalidIntervalException $exception) {
+            $date = $date->modify("$value $unit");
+        }
 
         if (isset($timeString)) {
             $date = $date->setTimeFromTimeString($timeString);
