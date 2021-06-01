@@ -104,6 +104,10 @@ function dumpParameter($method, ReflectionParameter $parameter)
     if ($parameter->getType()) {
         $name = cleanClassName($parameter->getType()->getName());
 
+        if ($parameter->allowsNull()) {
+            $name = "?$name";
+        }
+
         $output = "$name $output";
     }
 
