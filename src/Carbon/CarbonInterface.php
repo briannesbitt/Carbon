@@ -1243,7 +1243,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null): self;
+    public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null);
 
     /**
      * Get/set the day of year.
