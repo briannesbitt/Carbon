@@ -121,7 +121,13 @@ trait Difference
     #[ReturnTypeWillChange]
     public function diff($date = null, $absolute = false)
     {
-        return parent::diff($this->resolveCarbon($date), (bool) $absolute);
+        $other = $this->resolveCarbon($date);
+
+        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
+            $other = $other->tz($this->tz);
+        }
+
+        return parent::diff($other, (bool) $absolute);
     }
 
     /**
