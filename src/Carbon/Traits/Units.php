@@ -234,7 +234,7 @@ trait Units
         $date = $this;
 
         if (!is_numeric($value) || !\floatval($value)) {
-            return $date->isMutable() ? $date : $date->copy();
+            return $date->isMutable() ? $date : $date->avoidMutation();
         }
 
         $metaUnits = [

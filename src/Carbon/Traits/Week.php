@@ -75,7 +75,7 @@ trait Week
             $year = (int) round($year);
 
             if ($this->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
-                return $this->copy();
+                return $this->avoidMutation();
             }
 
             $week = $this->week(null, $dayOfWeek, $dayOfYear);
@@ -103,13 +103,13 @@ trait Week
 
         $year = $this->year;
         $day = $this->dayOfYear;
-        $date = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $date = $this->avoidMutation()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
 
         if ($date->year === $year && $day < $date->dayOfYear) {
             return $year - 1;
         }
 
-        $date = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $date = $this->avoidMutation()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
 
         if ($date->year === $year && $day >= $date->dayOfYear) {
             return $year + 1;
@@ -151,12 +151,12 @@ trait Week
         $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 0;
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
         $year = $this->year;
-        $start = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $start = $this->avoidMutation()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
         $startDay = $start->dayOfYear;
         if ($start->year !== $year) {
             $startDay -= $start->daysInYear;
         }
-        $end = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $end = $this->avoidMutation()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
         $endDay = $end->dayOfYear;
         if ($end->year !== $year) {
             $endDay += $this->daysInYear;
@@ -186,8 +186,8 @@ trait Week
             return $date->addWeeks(round($week) - $this->week(null, $dayOfWeek, $dayOfYear));
         }
 
-        $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
-        $end = $date->copy()->startOfWeek($dayOfWeek);
+        $start = $date->avoidMutation()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $end = $date->avoidMutation()->startOfWeek($dayOfWeek);
         if ($start > $end) {
             $start = $start->subWeeks(26)->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
         }
