@@ -211,7 +211,7 @@ trait Units
             $unit = clone $unit;
             $seconds = floor($unit->f);
             $unit->f -= $seconds;
-            $unit->s += $seconds;
+            $unit->s += (int) $seconds;
         }
 
         if ($unit instanceof CarbonConverterInterface) {

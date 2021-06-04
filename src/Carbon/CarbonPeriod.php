@@ -1795,13 +1795,8 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             $range = static::create($range);
         }
 
-        $thisDates = [$this->getStartDate(), $this->calculateEnd()];
-        sort($thisDates);
-        [$start, $end] = $thisDates;
-
-        $rangeDates = [$range->getStartDate(), $range->calculateEnd()];
-        sort($rangeDates);
-        [$rangeStart, $rangeEnd] = $rangeDates;
+        [$start, $end] = $this->orderCouple($this->getStartDate(), $this->calculateEnd());
+        [$rangeStart, $rangeEnd] = $this->orderCouple($range->getStartDate(), $range->calculateEnd());
 
         return $end > $rangeStart && $rangeEnd > $start;
     }
@@ -2492,5 +2487,10 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         return $period instanceof DatePeriod
             ? static::instance($period)
             : static::create($period, ...$arguments);
+    }
+
+    private function orderCouple($a, $b): array
+    {
+        return $a > $b ? [$b, $a] : [$a, $b];
     }
 }
