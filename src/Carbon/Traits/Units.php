@@ -201,6 +201,19 @@ trait Units
             $unit = CarbonInterval::make($unit);
         }
 
+        // Can be removed if https://bugs.php.net/bug.php?id=81106
+        // is fixed
+        if (
+            $unit instanceof DateInterval &&
+            version_compare(PHP_VERSION, '8.1.0-dev', '>=') &&
+            ($unit->f < 0 || $unit->f >= 1)
+        ) {
+            $unit = clone $unit;
+            $seconds = floor($unit->f);
+            $unit->f -= $seconds;
+            $unit->s += $seconds;
+        }
+
         if ($unit instanceof CarbonConverterInterface) {
             return $this->resolveCarbon($unit->convertDate($this, false));
         }
@@ -210,14 +223,6 @@ trait Units
         }
 
         if ($unit instanceof DateInterval) {
-            // Can be removed if https://bugs.php.net/bug.php?id=81106
-            // is fixed
-            if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && ($unit->f < 0 || $unit->f >= 1)) {
-                $seconds = floor($unit->f);
-                $unit->f -= $seconds;
-                $unit->s += $seconds;
-            }
-
             return parent::add($unit);
         }
 
