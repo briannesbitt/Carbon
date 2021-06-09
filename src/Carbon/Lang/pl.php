@@ -29,7 +29,7 @@
 return [
     'year' => ':count rok|:count lata|:count lat',
     'a_year' => 'rok|:count lata|:count lat',
-    'y' => ':count r|:count l',
+    'y' => ':count r|:count l|:count l',
     'month' => ':count miesiąc|:count miesiące|:count miesięcy',
     'a_month' => 'miesiąc|:count miesiące|:count miesięcy',
     'm' => ':count mies.',
