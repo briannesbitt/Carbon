@@ -2489,8 +2489,8 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             : static::create($period, ...$arguments);
     }
 
-    private function orderCouple($a, $b): array
+    private function orderCouple($first, $second): array
     {
-        return $a > $b ? [$b, $a] : [$a, $b];
+        return $first > $second ? [$second, $first] : [$first, $second];
     }
 }
