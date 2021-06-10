@@ -203,6 +203,7 @@ trait Units
 
         // Can be removed if https://bugs.php.net/bug.php?id=81106
         // is fixed
+        // @codeCoverageIgnoreStart
         if (
             $unit instanceof DateInterval &&
             version_compare(PHP_VERSION, '8.1.0-dev', '>=') &&
@@ -213,6 +214,7 @@ trait Units
             $unit->f -= $seconds;
             $unit->s += (int) $seconds;
         }
+        // @codeCoverageIgnoreEnd
 
         if ($unit instanceof CarbonConverterInterface) {
             return $this->resolveCarbon($unit->convertDate($this, false));
