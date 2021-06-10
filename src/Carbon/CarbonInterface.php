@@ -831,6 +831,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function average($date = null);
 
     /**
+     * Clone the current instance if it's mutable.
+     *
+     * This method is convenient to ensure you don't mutate the initial object
+     * but avoid to make a useless copy of it if it's already immutable.
+     *
+     * @return static
+     */
+    public function avoidMutation();
+
+    /**
      * Determines if the instance is between two others.
      *
      * The third argument allow you to specify if bounds are included or not (true by default)
