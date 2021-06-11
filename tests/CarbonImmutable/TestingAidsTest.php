@@ -14,6 +14,7 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Closure;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class TestingAidsTest extends AbstractTestCase
@@ -262,10 +263,16 @@ class TestingAidsTest extends AbstractTestCase
     {
         $self = $this;
         $testNow = '2020-09-16 10:20:00';
-        Carbon::withTestNow($testNow, static function () use ($self, $testNow) {
+        $object = new stdClass();
+
+        $result = Carbon::withTestNow($testNow, static function () use ($self, $testNow, $object) {
             $currentTime = Carbon::now();
             $self->assertSame($testNow, $currentTime->format('Y-m-d H:i:s'));
+
+            return $object;
         });
+
+        $this->assertSame($object, $result);
 
         $currentTime = Carbon::now();
         $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
