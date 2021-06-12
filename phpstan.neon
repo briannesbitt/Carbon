@@ -19,6 +19,7 @@ parameters:
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Carbon/SerializationTest.php'
+        - '*/tests/CarbonImmutable/SetStateTest.php'
         - '*/tests/CarbonImmutable/SerializationTest.php'
         - '*/tests/Laravel/*.php'
         - '*/tests/Cli/*.php'
