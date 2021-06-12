@@ -175,13 +175,6 @@ class MacroTest extends AbstractTestCase
 
     public function testIsDeprecated()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
-            $this->markTestSkipped(
-                'PHP 8 nightly build seems to be broken here while the previous alpha was\'nt. '.
-                'We\'ll try to reactive later and open a ticket if it persists.',
-            );
-        }
-
         $macro = new Macro(
             Carbon::class,
             'lower',
