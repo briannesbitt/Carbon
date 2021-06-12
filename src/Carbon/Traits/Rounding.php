@@ -196,7 +196,7 @@ trait Rounding
     {
         return $this->closest(
             $this->avoidMutation()->floorWeek($weekStartsAt),
-            $this->avoidMutation()->ceilWeek($weekStartsAt)
+            $this->avoidMutation()->ceilWeek($weekStartsAt),
         );
     }
 
