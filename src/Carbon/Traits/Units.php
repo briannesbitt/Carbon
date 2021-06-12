@@ -261,7 +261,7 @@ trait Units
         $date = $this;
 
         if ($value === 0) {
-            return $date->avoidMutation();
+            return $date->isMutable() ? $date : $date->copy();
         }
 
         $metaUnits = [

@@ -96,7 +96,9 @@ trait Week
                     break;
             }
 
-            $date = $date->addWeeks($week - $date->week(null, $dayOfWeek, $dayOfYear))->startOfWeek($dayOfWeek);
+            $date = $date
+                ->addWeeks($week - $date->week(null, $dayOfWeek, $dayOfYear))
+                ->startOfWeek($dayOfWeek);
 
             if ($date->dayOfWeek === $day) {
                 return $date;
