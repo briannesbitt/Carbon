@@ -28,6 +28,7 @@ use Closure;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -685,6 +686,23 @@ trait Date
     }
 
     /**
+     * Clone the current instance if it's mutable.
+     *
+     * This method is convenient to ensure you don't mutate the initial object
+     * but avoid to make a useless copy of it if it's already immutable.
+     *
+     * @return static
+     */
+    public function avoidMutation(): self
+    {
+        if ($this instanceof DateTimeImmutable) {
+            return $this;
+        }
+
+        return clone $this;
+    }
+
+    /**
      * Returns a present instance in the same timezone.
      *
      * @return static
@@ -705,7 +723,7 @@ trait Date
     public function carbonize($date = null)
     {
         if ($date instanceof DateInterval) {
-            return $this->copy()->add($date);
+            return $this->avoidMutation()->add($date);
         }
 
         if ($date instanceof DatePeriod || $date instanceof CarbonPeriod) {
@@ -870,7 +888,7 @@ trait Date
 
             // @property-read int 1 through 5
             case $name === 'weekNumberInMonth':
-                return (int) ceil(($this->day + $this->copy()->startOfMonth()->dayOfWeekIso - 1) / static::DAYS_PER_WEEK);
+                return (int) ceil(($this->day + $this->avoidMutation()->startOfMonth()->dayOfWeekIso - 1) / static::DAYS_PER_WEEK);
 
             // @property-read int 0 through 6
             case $name === 'firstWeekDay':
@@ -946,7 +964,7 @@ trait Date
 
             // @property-read bool checks if the timezone is local, true if local, false otherwise
             case $name === 'local':
-                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get())->getOffset();
+                return $this->getOffset() === $this->avoidMutation()->setTimezone(date_default_timezone_get())->getOffset();
 
             // @property-read bool checks if the timezone is UTC, true if UTC, false otherwise
             case $name === 'utc':
@@ -1265,11 +1283,11 @@ trait Date
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
         try {
-            $original = $this->copy();
+            $original = $this->avoidMutation();
             /** @var static $date */
             $date = $this->$valueUnit($value);
-            $start = $original->copy()->startOf($overflowUnit);
-            $end = $original->copy()->endOf($overflowUnit);
+            $start = $original->avoidMutation()->startOf($overflowUnit);
+            $end = $original->avoidMutation()->endOf($overflowUnit);
 
             if ($date < $start) {
                 $date = $date->setDateTimeFrom($start);

@@ -23,6 +23,7 @@ $autoDocLines = [];
 $carbon = __DIR__.'/src/Carbon/Carbon.php';
 $immutable = __DIR__.'/src/Carbon/CarbonImmutable.php';
 $interface = __DIR__.'/src/Carbon/CarbonInterface.php';
+$phpLevel = 7.1;
 file_put_contents($interface, preg_replace('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', "$1\n\n    // $3", file_get_contents($interface), 1));
 require_once __DIR__.'/vendor/autoload.php';
 $trait = __DIR__.'/src/Carbon/Traits/Date.php';
@@ -107,6 +108,10 @@ function dumpParameter($method, ReflectionParameter $parameter)
 
     if ($parameter->getType()) {
         $name = cleanClassName($parameter->getType()->getName());
+
+        if ($parameter->allowsNull()) {
+            $name = "?$name";
+        }
 
         $output = "$name $output";
     }
@@ -593,6 +598,10 @@ foreach ($carbonMethods as $method) {
                 "     *\n".
                 "     * @see https://php.net/manual/en/datetime.$link.php\n".
                 '     */';
+        }
+
+        if (strpos($return, 'self') !== false && $phpLevel < 7.4) {
+            $return = '';
         }
 
         $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";

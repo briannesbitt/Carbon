@@ -34,9 +34,9 @@ jobs:
           - php: 8.0
             setup: lowest
 
-          #- php: 8.1
-          #- php: 8.1
-          #  setup: lowest
+          - php: 8.1
+          - php: 8.1
+            setup: lowest
 
           - php: 8.0
             laravel: true
@@ -131,9 +131,9 @@ jobs:
           - php: 8.0
             setup: lowest
 
-          #- php: 8.1
-          #- php: 8.1
-          #  setup: lowest
+          - php: 8.1
+          - php: 8.1
+            setup: lowest
 
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 

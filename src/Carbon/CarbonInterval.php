@@ -2201,7 +2201,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public static function compareDateIntervals(DateInterval $first, DateInterval $second): int
     {
         $current = Carbon::now();
-        $passed = $current->copy()->add($second);
+        $passed = $current->avoidMutation()->add($second);
         $current->add($first);
 
         return $current <=> $passed;
