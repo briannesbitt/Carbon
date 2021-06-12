@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
+use Carbon\Traits\Serialization;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class ToStringTest extends AbstractTestCase
@@ -58,5 +60,27 @@ class ToStringTest extends AbstractTestCase
             return 'Y'.($interval->years * 2);
         }]);
         $this->assertSame('Y22:abc', $ci.':abc');
+    }
+
+    public function testSteState()
+    {
+        $obj = new class () {
+            use Serialization;
+
+            public static function instance($value)
+            {
+                return $value;
+            }
+
+            public function callSetState($value)
+            {
+                return static::__set_state($value);
+            }
+        };
+
+        $data = $obj->callSetState(['foo' => 'bar']);
+
+        $this->assertInstanceOf(stdClass::class, $data);
+        $this->assertSame(['foo' => 'bar'], (array) $data);
     }
 }
