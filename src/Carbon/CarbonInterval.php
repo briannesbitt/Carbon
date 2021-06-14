@@ -546,7 +546,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     "'$expected'",
                     $nextCharacter,
                     'Allowed substitutes for interval formats are '.implode(', ', array_keys(static::$formats))."\n".
-                    'See https://www.php.net/manual/en/function.date.php for their meaning'
+                    'See https://php.net/manual/en/function.date.php for their meaning'
                 );
             }
 
@@ -964,7 +964,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return static
      *
-     * @link http://php.net/manual/en/dateinterval.createfromdatestring.php
+     * @link https://php.net/manual/en/dateinterval.createfromdatestring.php
      */
     #[ReturnTypeWillChange]
     public static function createFromDateString($time)
