@@ -9,7 +9,6 @@ enabled:
   - no_empty_lines_after_phpdocs
   - operators_spaces
   - ordered_use
-  # - phpdoc_align
   - phpdoc_indent
   - phpdoc_inline_tag
   - phpdoc_no_access
