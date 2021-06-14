@@ -17,12 +17,10 @@ use Carbon\CarbonTimeZone;
 use DateTimeZone;
 use InvalidArgumentException;
 use stdClass;
-use Tests\AbstractTestCase;
+use Tests\AbstractTestCaseWithOldNow;
 
-class ConversionsTest extends AbstractTestCase
+class ConversionsTest extends AbstractTestCaseWithOldNow
 {
-    protected $oldNow = true;
-
     public function testToString()
     {
         $this->assertSame('+06:00', strval(new CarbonTimeZone(6)));

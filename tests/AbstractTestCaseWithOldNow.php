@@ -29,10 +29,9 @@ abstract class AbstractTestCaseWithOldNow extends AbstractTestCase
     protected function tearDown(): void
     {
         Carbon::resetMacros();
-        Carbon::setTestNow();
         Carbon::serializeUsing(null);
+
         CarbonImmutable::resetMacros();
-        CarbonImmutable::setTestNow();
         CarbonImmutable::serializeUsing(null);
 
         parent::tearDown();
