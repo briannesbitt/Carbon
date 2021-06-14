@@ -47,7 +47,7 @@ $rules = [
     'unary_operator_spaces' => true,
 ];
 
-return Config::create()->setRules($rules)
+return (new Config())->setRules($rules)
              ->setFinder(
                 Finder::create()
                     ->in(__DIR__.'/src')
