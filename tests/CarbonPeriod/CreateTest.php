@@ -641,7 +641,7 @@ class CreateTest extends AbstractTestCase
                     $this->getEndDate()->format('j');
             }
         };
-        $subClass = get_class($period);
+        $subClass = \get_class($period);
 
         $this->assertInstanceOf(CarbonPeriod::class, $period);
         $this->assertNotSame(CarbonPeriod::class, $subClass);

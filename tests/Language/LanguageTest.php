@@ -19,9 +19,9 @@ class LanguageTest extends AbstractTestCase
     public function testAll()
     {
         $all = Language::all();
-        $this->assertTrue(is_array($all));
+        $this->assertTrue(\is_array($all));
         $this->assertArrayHasKey('en', $all);
-        $this->assertTrue(is_array($all['en']));
+        $this->assertTrue(\is_array($all['en']));
         $this->assertArrayHasKey('isoName', $all['en']);
         $this->assertSame('English', $all['en']['isoName']);
     }
@@ -29,7 +29,7 @@ class LanguageTest extends AbstractTestCase
     public function testRegions()
     {
         $regions = Language::regions();
-        $this->assertTrue(is_array($regions));
+        $this->assertTrue(\is_array($regions));
         $this->assertArrayHasKey('US', $regions);
         $this->assertSame('United States of America', $regions['US']);
     }
@@ -240,11 +240,11 @@ class LanguageTest extends AbstractTestCase
     public function testToString()
     {
         $ar = new Language('ar');
-        $this->assertSame('ar', strval($ar));
+        $this->assertSame('ar', \strval($ar));
         $ar = new Language('ar_DZ');
-        $this->assertSame('ar_DZ', strval($ar));
+        $this->assertSame('ar_DZ', \strval($ar));
         $ar = new Language('ar_Shakl');
-        $this->assertSame('ar_Shakl', strval($ar));
+        $this->assertSame('ar_Shakl', \strval($ar));
     }
 
     public function testToJson()

@@ -50,10 +50,10 @@ $rules = [
 return (new Config())->setRules($rules)
              ->setFinder(
                 Finder::create()
-                    ->in(__DIR__.'/src')
+                    ->in(__DIR__)
                     ->notPath([
-                        'Carbon/Doctrine/DateTimeImmutableType.php',
-                        'Carbon/Doctrine/DateTimeType.php',
+                        'src/Carbon/Doctrine/DateTimeImmutableType.php',
+                        'src/Carbon/Doctrine/DateTimeType.php',
                     ])
              )
              ->setUsingCache(true)

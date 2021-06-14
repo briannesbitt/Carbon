@@ -24,7 +24,7 @@ class LanguagesCoverageTest extends AbstractTestCase
         $tester = $this;
         $missingLanguages = array_filter($languages, function ($language) use ($tester, $tests) {
             $file = basename($language);
-            $covered = in_array(
+            $covered = \in_array(
                 str_replace(['_', '-', '@'], '', strtolower(substr($file, 0, -4))),
                 $tests
             );
