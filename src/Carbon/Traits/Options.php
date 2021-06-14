@@ -449,7 +449,7 @@ trait Options
 
     protected function addExtraDebugInfos(&$infos): void
     {
-        if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {
+        if ($this instanceof DateTimeInterface) {
             try {
                 if (!isset($infos['date'])) {
                     $infos['date'] = $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
