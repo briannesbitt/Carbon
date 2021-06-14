@@ -45,7 +45,6 @@ $rules = array(
     'unary_operator_spaces' => true,
     'line_ending' => true,
     'blank_line_after_namespace' => true,
-    'no_unused_imports' => true,
 );
 
 return Config::create()->setRules($rules)
