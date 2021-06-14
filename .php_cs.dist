@@ -3,16 +3,16 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-$rules = array(
+$rules = [
     '@PSR2' => true,
-    'array_syntax' => array(
+    'array_syntax' => [
         'syntax' => 'short',
-    ),
+    ],
     'blank_line_before_statement' => true,
     'cast_spaces' => true,
-    'concat_space' => array(
+    'concat_space' => [
         'spacing' => 'none',
-    ),
+    ],
     'ereg_to_preg' => true,
     'native_function_invocation' => [
         'include' => ['@compiler_optimized'],
@@ -45,7 +45,7 @@ $rules = array(
     'unary_operator_spaces' => true,
     'line_ending' => true,
     'blank_line_after_namespace' => true,
-);
+];
 
 return Config::create()->setRules($rules)
              ->setFinder(
