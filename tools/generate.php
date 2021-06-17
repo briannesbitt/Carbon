@@ -91,16 +91,27 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             if ($rcCarbon == $rcDate) {
                 $dateClass = trim($dateClass, '/\\');
 
-                yield [
-                    'info' => $info,
-                    'name' => $method,
-                    'classes' => $classes,
-                    'return' => $return,
-                    'prototype' => '<em>Native PHP method</em>',
-                    'className' => preg_replace('/^Carbon\\\\/', '', $className),
-                    'description' => 'See <a href="http://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
-                    'history' => '',
-                ];
+                yield strpos($dateClass, 'Symfony\\') === 0
+                    ? [
+                        'info' => $info,
+                        'name' => $method,
+                        'classes' => $classes,
+                        'return' => $return,
+                        'prototype' => '<em>Method from Symfony interhited class</em>',
+                        'className' => preg_replace('/^Carbon\\\\/', '', $className),
+                        'description' => 'See '.$dateClass.'::'.$method,
+                        'history' => '',
+                    ]
+                    : [
+                        'info' => $info,
+                        'name' => $method,
+                        'classes' => $classes,
+                        'return' => $return,
+                        'prototype' => '<em>Native PHP method</em>',
+                        'className' => preg_replace('/^Carbon\\\\/', '', $className),
+                        'description' => 'See <a href="http://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
+                        'history' => '',
+                    ];
 
                 continue;
             }

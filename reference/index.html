@@ -173,6 +173,15 @@ Return relative interval (negative if</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-avoidMutation">
+    <h2><span class="class-name">Carbon::</span>avoidMutation</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Clone the current instance if it's mutable.<br><br>This method is convenient to ensure you don't mutate the initial object
+but avoid to make a useless copy of it if it's already immutable.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.47.1</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-nowWithSameTz">
     <h2><span class="class-name">Carbon::</span>nowWithSameTz</h2>
     <em>no arguments</em>
@@ -488,7 +497,7 @@ while ($someDate->isDayOff() || ($count-- > 0)) {
     <code>$format</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Format the instance with the current locale.  You can set the current
-locale using setlocale() http://php.net/setlocale.</p>
+locale using setlocale() https://php.net/setlocale.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.13.0</td><td><code>$format</code></td></tr><tr><td>Prototype changed</td><td>1.9.0</td><td><code>$format = 'l, d-M-Y H:i:s T'</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>$format</code></td></tr></table>
 </div>
 
@@ -568,7 +577,7 @@ locale using setlocale() http://php.net/setlocale.</p>
     <h2><span class="class-name">Carbon::</span>translatedFormat</h2>
     <code>string $format</code>
     <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
+    <p class="doc-description">Format as ->format() do (using date replacements patterns from https://php.net/manual/en/function.date.php)
 but translate words whenever possible (months, day names, etc.) using the current locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>string $format</code></td></tr></table>
 </div>
@@ -1660,6 +1669,14 @@ values for $minute and $second will be their now() values.<br><br>If $hour is no
 will be 0.<br><br>If one of the set values is not valid, an InvalidDateException
 will be thrown.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.22.0</td><td><code>$year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-createStrict">
+    <h2><span class="class-name">Carbon::</span>createStrict</h2>
+    <code>?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Create a new Carbon instance from a specific date and time using strict validation.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.47.1</td><td><code>?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromDate">
@@ -2972,6 +2989,7 @@ parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
 <div class="doc-method " id="doc-method-Carbon-withTestNow">
     <h2><span class="class-name">Carbon::</span>withTestNow</h2>
     <code>$testNow = null, $callback = null</code>
+    <div class="doc-return">returns <code>mixed</code></div>
     <p class="doc-description">Temporarily sets a static date to be used within the callback.
 Using setTestNow to set the date, executing the callback, then
 clearing the test instance.<br><br>/!\ Use this method for unit tests only.</p>
@@ -6919,45 +6937,52 @@ languages.</p>
 
 <div class="doc-method " id="doc-method-Translator-setConfigCacheFactory">
     <h2><span class="class-name">Translator::</span>setConfigCacheFactory</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.setconfigcachefactory.php">PHP documentation for Symfony\Component\Translation\Translator::setConfigCacheFactory</a></p>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::setConfigCacheFactory</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-addLoader">
     <h2><span class="class-name">Translator::</span>addLoader</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.addloader.php">PHP documentation for Symfony\Component\Translation\Translator::addLoader</a></p>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::addLoader</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-addResource">
     <h2><span class="class-name">Translator::</span>addResource</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.addresource.php">PHP documentation for Symfony\Component\Translation\Translator::addResource</a></p>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::addResource</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getLocale">
     <h2><span class="class-name">Translator::</span>getLocale</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.getlocale.php">PHP documentation for Symfony\Component\Translation\Translator::getLocale</a></p>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::getLocale</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setFallbackLocales">
     <h2><span class="class-name">Translator::</span>setFallbackLocales</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.setfallbacklocales.php">PHP documentation for Symfony\Component\Translation\Translator::setFallbackLocales</a></p>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::setFallbackLocales</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getFallbackLocales">
     <h2><span class="class-name">Translator::</span>getFallbackLocales</h2>
-    <em>Native PHP method</em>
+    <em>Method from Symfony interhited class</em>
     <div class="doc-return">returns <code>array</code></div>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.getfallbacklocales.php">PHP documentation for Symfony\Component\Translation\Translator::getFallbackLocales</a></p>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::getFallbackLocales</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getCatalogue">
     <h2><span class="class-name">Translator::</span>getCatalogue</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/symfony\component\translation\translator.getcatalogue.php">PHP documentation for Symfony\Component\Translation\Translator::getCatalogue</a></p>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::getCatalogue</p>
+</div>
+
+<div class="doc-method " id="doc-method-Translator-getCatalogues">
+    <h2><span class="class-name">Translator::</span>getCatalogues</h2>
+    <em>Method from Symfony interhited class</em>
+    <div class="doc-return">returns <code>array</code></div>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::getCatalogues</p>
 </div>
 
 <div class="doc-method " id="doc-method-Language-__construct">

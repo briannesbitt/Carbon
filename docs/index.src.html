@@ -353,6 +353,20 @@ echo "\n";
 {{::exec(echo $dt->diffInYears($dt->copy()->addYear());)}}  // {{eval}}
 
 // $dt was unchanged and still holds the value of Carbon:now()
+
+// Without ->copy() it would return 0 because addYear() modify $dt so
+// diffInYears() compare $dt with itself:
+{{::exec(echo $dt->diffInYears($dt->addYear());)}}  // {{eval}}
+
+// Note that this would not happen neither with CarbonImmutable
+// When immutable, any add/sub methods return a new instance:
+{{::lint($dt = CarbonImmutable::now();)}}
+{{::exec(echo $dt->diffInYears($dt->addYear());)}}  // {{eval}}
+
+// Last, when your variable can be either a Carbon or CarbonImmutable,
+// You can use avoidMutation() which will copy() only if the given date
+// is mutable:
+{{::exec(echo $dt->diffInYears($dt->avoidMutation()->addYear());)}}  // {{eval}}
 </code></pre>
     </p>
 
@@ -5010,6 +5024,10 @@ try {
 {{::exec(echo $error;/*pad(36)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p>The same way, <code>Carbon::create()</code> return <code>false</code> if you pass an incorrect value (such as a negative month)
+        but it throws an exception in strict mode. <code>Carbon::createStrict()</code> is like <code>create()</code> but throws
+        an exception even if not in strict mode.</p>
 
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 
