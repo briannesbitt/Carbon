@@ -86,7 +86,7 @@ return [
         $ordinal = [1 => 'èr', 2 => 'nd'][(int) $number] ?? 'en';
 
         // feminine for year, week, hour, minute, second
-        if (preg_match('/^[yYwWhHgGis]$/', $period)) {
+        if (preg_match('/^[yYwWhHgGis]$/', $period ?? '')) {
             $ordinal .= 'a';
         }
 
