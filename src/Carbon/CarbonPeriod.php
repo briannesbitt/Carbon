@@ -32,6 +32,7 @@ use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use ReflectionException;
+use ReturnTypeWillChange;
 use RuntimeException;
 
 /**
@@ -2163,6 +2164,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return CarbonInterface[]
      */
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();
