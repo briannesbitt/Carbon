@@ -27,7 +27,7 @@ namespace Carbon\Traits;
  * @method static addWeeks(int $weeks = 1)
  * @method static copy()
  * @method static dayOfYear(int $dayOfYear)
- * @method string getTranslationMessage(string $key, string $locale = null, string $default = null, $translator = null)
+ * @method string getTranslationMessage(string $key, ?string $locale = null, ?string $default = null, $translator = null)
  * @method static next(int|string $day = null)
  * @method static startOfWeek(int $day = 1)
  * @method static subWeeks(int $weeks = 1)
