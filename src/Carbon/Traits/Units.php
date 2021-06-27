@@ -248,7 +248,7 @@ trait Units
     {
         $date = $this;
 
-        if (!is_numeric($value) || !\floatval($value)) {
+        if (!is_numeric($value) || !(float) $value) {
             return $date->isMutable() ? $date : $date->avoidMutation();
         }
 
@@ -392,7 +392,7 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit($unit, -\floatval($value), $overflow);
+        return $this->addUnit($unit, -(float) $value, $overflow);
     }
 
     /**

@@ -969,7 +969,7 @@ trait Date
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
-                return 1 + \intval($this->rawFormat('z'));
+                return 1 + (int) ($this->rawFormat('z'));
 
             // @property-read int 365 or 366
             case $name === 'daysInYear':
@@ -1339,7 +1339,7 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = ($this->dayOfWeek + 7 - \intval($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
+        $dayOfWeek = ($this->dayOfWeek + 7 - (int) ($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
 
         return \is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
@@ -1918,7 +1918,7 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return \strval((string) floor($date->micro / 100000));
+                    return (string) ((string) floor($date->micro / 100000));
                 },
                 'SS' => function (CarbonInterface $date) {
                     return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
@@ -2025,7 +2025,7 @@ trait Date
             ':period' => (string) $period,
         ]);
 
-        return \strval($result === 'ordinal' ? $number : $result);
+        return (string) ($result === 'ordinal' ? $number : $result);
     }
 
     /**

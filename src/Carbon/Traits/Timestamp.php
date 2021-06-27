@@ -173,8 +173,8 @@ trait Timestamp
         foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
             [$integerPart, $decimalPart] = explode('.', "$chunk.");
 
-            $integer += \intval($integerPart);
-            $decimal += \floatval("0.$decimalPart");
+            $integer += (int) $integerPart;
+            $decimal += (float) ("0.$decimalPart");
         }
 
         $overflow = floor($decimal);

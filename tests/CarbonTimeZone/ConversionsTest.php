@@ -23,8 +23,8 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
 {
     public function testToString()
     {
-        $this->assertSame('+06:00', \strval(new CarbonTimeZone(6)));
-        $this->assertSame('Europe/Paris', \strval(new CarbonTimeZone('Europe/Paris')));
+        $this->assertSame('+06:00', (string) (new CarbonTimeZone(6)));
+        $this->assertSame('Europe/Paris', (string) (new CarbonTimeZone('Europe/Paris')));
     }
 
     public function testToRegionName()
