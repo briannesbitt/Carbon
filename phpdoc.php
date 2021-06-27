@@ -595,7 +595,7 @@ foreach ($carbonMethods as $method) {
 
     if (method_exists($function, 'getAttributes') && ($attributes = $function->getAttributes())) {
         foreach ($attributes as $attribute) {
-            $methodDocBlock .= "\n    #[" . $attribute->getName() . ']';
+            $methodDocBlock .= "\n    #[".$attribute->getName().']';
         }
     }
 
