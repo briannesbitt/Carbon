@@ -610,6 +610,10 @@ foreach ($carbonMethods as $method) {
         $return = '';
     }
 
+    if ($method === '__toString' && $phpLevel < 8) {
+        $return = '';
+    }
+
     if (method_exists($function, 'getAttributes') && ($attributes = $function->getAttributes())) {
         foreach ($attributes as $attribute) {
             $methodDocBlock .= "\n    #[".$attribute->getName().']';

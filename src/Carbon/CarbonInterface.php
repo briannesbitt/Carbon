@@ -750,7 +750,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public function __toString(): string;
+    public function __toString();
 
     /**
      * Add given units or interval to the current instance.
