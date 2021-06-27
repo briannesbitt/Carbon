@@ -2401,12 +2401,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         $current = $this->prepareForReturn($this->carbonCurrent);
 
         foreach ($this->filters as $tuple) {
-            $result = \call_user_func(
-                $tuple[0],
-                $current->avoidMutation(),
-                $this->key,
-                $this,
-            );
+            $result = \call_user_func($tuple[0], $current->avoidMutation(), $this->key, $this);
 
             if ($result === static::END_ITERATION) {
                 return static::END_ITERATION;
