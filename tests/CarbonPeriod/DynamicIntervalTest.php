@@ -33,7 +33,7 @@ class DynamicIntervalTest extends AbstractTestCase
             $dates[] = $date->day;
         }
 
-        $this->assertSame(10, count($period));
+        $this->assertSame(10, \count($period));
         $this->assertSame(array_merge(range(1, 5), range(8, 12)), $dates);
     }
 }

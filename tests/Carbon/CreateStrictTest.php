@@ -59,6 +59,7 @@ class CreateStrictTest extends AbstractTestCase
         Carbon::useStrictMode(false);
 
         $exception = null;
+
         try {
             Carbon::createStrict(null, -1);
         } catch (OutOfRangeException $e) {

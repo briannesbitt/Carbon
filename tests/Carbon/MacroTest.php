@@ -28,7 +28,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testCarbonIsMacroableWhenNotCalledDynamically()
     {
-        if (!function_exists('easter_days')) {
+        if (!\function_exists('easter_days')) {
             $this->markTestSkipped('This test requires ext-calendar to be enabled.');
         }
 
@@ -51,7 +51,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis()
     {
-        if (!function_exists('easter_days')) {
+        if (!\function_exists('easter_days')) {
             $this->markTestSkipped('This test requires ext-calendar to be enabled.');
         }
 
@@ -75,7 +75,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testCarbonIsMacroableWhenCalledStatically()
     {
-        if (!function_exists('easter_days')) {
+        if (!\function_exists('easter_days')) {
             $this->markTestSkipped('This test requires ext-calendar to be enabled.');
         }
 

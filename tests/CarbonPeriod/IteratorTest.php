@@ -205,7 +205,7 @@ class IteratorTest extends AbstractTestCase
                 $this->assertFalse($period->valid());
             }
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -234,7 +234,7 @@ class IteratorTest extends AbstractTestCase
                 $this->assertTrue($period->valid());
             }
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -265,7 +265,7 @@ class IteratorTest extends AbstractTestCase
                 $this->assertTrue($period->valid());
             }
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -293,7 +293,7 @@ class IteratorTest extends AbstractTestCase
             $this->assertEquals($current, $period->current());
             $this->assertTrue($period->valid());
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -344,7 +344,7 @@ class IteratorTest extends AbstractTestCase
 
             $period->next();
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }

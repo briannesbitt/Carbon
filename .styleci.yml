@@ -3,13 +3,11 @@ preset: psr2
 enabled:
   - concat_without_spaces
   - extra_empty_lines
-  - short_array_syntax
   - method_separation
   - multiline_array_trailing_comma
   - no_empty_lines_after_phpdocs
   - operators_spaces
   - ordered_use
-  # - phpdoc_align
   - phpdoc_indent
   - phpdoc_inline_tag
   - phpdoc_no_access
@@ -23,6 +21,7 @@ enabled:
   - phpdoc_types
   - phpdoc_var_without_name
   - return
+  - short_array_syntax
   - short_bool_cast
   - single_quote
   - spaces_after_semicolon
@@ -39,5 +38,5 @@ enabled:
 
 finder:
   not-path:
-    - "src/Carbon/Doctrine/DateTimeType.php"
     - "src/Carbon/Doctrine/DateTimeImmutableType.php"
+    - "src/Carbon/Doctrine/DateTimeType.php"
