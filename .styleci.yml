@@ -1,5 +1,7 @@
 preset: psr2
 
+risky: true
+
 enabled:
   - concat_without_spaces
   - extra_empty_lines
