@@ -458,7 +458,7 @@ class CreateTest extends AbstractTestCase
         $period = new CarbonPeriod;
 
         $this->assertEquals(new Carbon, $period->getStartDate());
-        $this->assertEquals('P1D', $period->getDateInterval()->spec());
+        $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
         $this->assertEquals(0, $period->getOptions());
