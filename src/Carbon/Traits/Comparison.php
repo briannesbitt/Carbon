@@ -1044,7 +1044,7 @@ trait Comparison
         // Escape not escaped slashes
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date);
+        return (bool) @preg_match('/^'.$regex.'$/', $date ?? '');
     }
 
     /**
