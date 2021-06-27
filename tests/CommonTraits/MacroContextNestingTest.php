@@ -24,7 +24,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
         return [
             [Carbon::class, Carbon::parse('2010-05-23'), null],
             [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null],
-            [CarbonInterval::class, CarbonInterval::make('P1M6D'), \strval(CarbonInterval::second())],
+            [CarbonInterval::class, CarbonInterval::make('P1M6D'), (string) (CarbonInterval::second())],
             [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null],
         ];
     }
@@ -56,9 +56,9 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
         $dates = $class::$macro2();
 
         $this->assertSame([
-            $reference ?: \strval(new $class),
-            \strval($sample),
-            $reference ?: \strval(new $class),
+            $reference ?: (string) (new $class),
+            (string) $sample,
+            $reference ?: (string) (new $class),
         ], $dates);
     }
 

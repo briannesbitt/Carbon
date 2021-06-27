@@ -16,6 +16,7 @@ $rules = [
     ],
     'ereg_to_preg' => true,
     'line_ending' => true,
+    'modernize_types_casting' => true,
     'native_function_invocation' => [
         'include' => ['@compiler_optimized'],
     ],

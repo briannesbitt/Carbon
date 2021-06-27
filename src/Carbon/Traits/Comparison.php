@@ -949,7 +949,7 @@ trait Comparison
         $tester = trim($tester);
 
         if (preg_match('/^\d+$/', $tester)) {
-            return $this->year === \intval($tester);
+            return $this->year === (int) $tester;
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {

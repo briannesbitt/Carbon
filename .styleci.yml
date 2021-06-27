@@ -1,9 +1,12 @@
 preset: psr2
 
+risky: true
+
 enabled:
   - concat_without_spaces
   - extra_empty_lines
   - method_separation
+  - modernize_types_casting
   - multiline_array_trailing_comma
   - no_empty_lines_after_phpdocs
   - operators_spaces
