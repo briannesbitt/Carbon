@@ -168,7 +168,7 @@ trait Localization
      *
      * @return string
      */
-    public static function getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null)
+    public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)
     {
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
@@ -196,7 +196,7 @@ trait Localization
      *
      * @return string
      */
-    public function getTranslationMessage(string $key, string $locale = null, string $default = null, $translator = null)
+    public function getTranslationMessage(string $key, ?string $locale = null, ?string $default = null, $translator = null)
     {
         return static::getTranslationMessageWith($translator ?: $this->getLocalTranslator(), $key, $locale, $default);
     }
@@ -239,12 +239,12 @@ trait Localization
      *
      * @param string                                             $key
      * @param array                                              $parameters
-     * @param null                                               $number
+     * @param string|int|float|null                              $number
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, TranslatorInterface $translator = null, bool $altNumbers = false): string
+    public function translate(string $key, array $parameters = [], $number = null, ?TranslatorInterface $translator = null, bool $altNumbers = false): string
     {
         $translation = static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
 

@@ -2017,7 +2017,7 @@ trait Date
      *
      * @return string
      */
-    public function ordinal(string $key, string $period = null): string
+    public function ordinal(string $key, ?string $period = null): string
     {
         $number = $this->$key;
         $result = $this->translate('ordinal', [
@@ -2088,7 +2088,7 @@ trait Date
      *
      * @return string
      */
-    public function isoFormat(string $format, string $originalFormat = null): string
+    public function isoFormat(string $format, ?string $originalFormat = null): string
     {
         $result = '';
         $length = mb_strlen($format);

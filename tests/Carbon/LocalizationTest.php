@@ -702,7 +702,7 @@ class LocalizationTest extends AbstractTestCase
         }
 
         $translator = new class implements TranslatorInterface {
-            public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
+            public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
             {
                 return 'x';
             }

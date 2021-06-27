@@ -229,7 +229,7 @@ class Factory
 
     protected $settings = [];
 
-    public function __construct(array $settings = [], string $className = null)
+    public function __construct(array $settings = [], ?string $className = null)
     {
         if ($className) {
             $this->className = $className;
