@@ -643,7 +643,7 @@ trait Localization
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&
                 $translator->trans('period_recurrences') !== 'period_recurrences' &&
-                $translator->trans('period_interval') !== 'period_interval' &&
+                $translator->trans('period_interval', ['']) !== 'period_interval' &&
                 $translator->trans('period_start_date') !== 'period_start_date' &&
                 $translator->trans('period_end_date') !== 'period_end_date';
         });

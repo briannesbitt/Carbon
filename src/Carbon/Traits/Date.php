@@ -2022,7 +2022,7 @@ trait Date
         $number = $this->$key;
         $result = $this->translate('ordinal', [
             ':number' => $number,
-            ':period' => $period,
+            ':period' => (string) $period,
         ]);
 
         return \strval($result === 'ordinal' ? $number : $result);
