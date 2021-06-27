@@ -156,7 +156,7 @@ class GettersTest extends AbstractTestCase
     public function testGetAgeWithRealAge()
     {
         $d = Carbon::createFromDate(1975, 5, 21);
-        $age = intval(substr((string) (intval(date('Ymd')) - intval(date('Ymd', $d->timestamp))), 0, -4));
+        $age = (int) (substr((string) ((int) (date('Ymd')) - (int) (date('Ymd', $d->timestamp))), 0, -4));
 
         $this->assertSame($age, $d->age);
     }
@@ -218,7 +218,7 @@ class GettersTest extends AbstractTestCase
     public function testGetLocalTrue()
     {
         // Default timezone has been set to America/Toronto in AbstractTestCase.php
-        // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
+        // @see : https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
         $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->local);
         $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/New_York')->local);
     }

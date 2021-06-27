@@ -32,6 +32,7 @@ use Generator;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionException;
+use ReturnTypeWillChange;
 use RuntimeException;
 
 /**
@@ -2187,6 +2188,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      *
      * @return CarbonInterface[]
      */
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();

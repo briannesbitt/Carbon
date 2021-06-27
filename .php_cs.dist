@@ -3,17 +3,20 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-$rules = array(
+$rules = [
     '@PSR2' => true,
-    'array_syntax' => array(
+    'array_syntax' => [
         'syntax' => 'short',
-    ),
+    ],
+    'blank_line_after_namespace' => true,
     'blank_line_before_statement' => true,
     'cast_spaces' => true,
-    'concat_space' => array(
+    'concat_space' => [
         'spacing' => 'none',
-    ),
+    ],
     'ereg_to_preg' => true,
+    'line_ending' => true,
+    'modernize_types_casting' => true,
     'native_function_invocation' => [
         'include' => ['@compiler_optimized'],
     ],
@@ -43,17 +46,16 @@ $rules = array(
     'trailing_comma_in_multiline_array' => true,
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
-    'line_ending' => true,
-    'blank_line_after_namespace' => true,
-    'no_unused_imports' => true,
-);
+];
 
-return Config::create()->setRules($rules)
+return (new Config())->setRules($rules)
              ->setFinder(
                 Finder::create()
-                    ->in(__DIR__.'/src')
-                    ->notPath('Carbon/Doctrine/DateTimeType.php')
-                    ->notPath('Carbon/Doctrine/DateTimeImmutableType.php')
+                    ->in(__DIR__)
+                    ->notPath([
+                        'src/Carbon/Doctrine/DateTimeImmutableType.php',
+                        'src/Carbon/Doctrine/DateTimeType.php',
+                    ])
              )
              ->setUsingCache(true)
              ->setRiskyAllowed(true);

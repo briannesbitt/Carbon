@@ -949,7 +949,7 @@ trait Comparison
         $tester = trim($tester);
 
         if (preg_match('/^\d+$/', $tester)) {
-            return $this->year === \intval($tester);
+            return $this->year === (int) $tester;
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
@@ -1044,7 +1044,7 @@ trait Comparison
         // Escape not escaped slashes
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date);
+        return (bool) @preg_match('/^'.$regex.'$/', $date ?? '');
     }
 
     /**

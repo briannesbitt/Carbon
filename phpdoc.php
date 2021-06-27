@@ -135,7 +135,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
 }
 
 foreach ($tags as $tag) {
-    if (is_array($tag)) {
+    if (\is_array($tag)) {
         [$tag, $pattern] = $tag;
     }
 
@@ -294,7 +294,7 @@ foreach ($tags as $tag) {
                         "Sub one $unitName to the instance (using date interval).",
                     ];
 
-                    if (in_array($unit, [
+                    if (\in_array($unit, [
                         'month',
                         'quarter',
                         'year',
@@ -472,13 +472,13 @@ function compileDoc($autoDocLines, $file)
     $columnsMaxLengths = [];
 
     foreach ($autoDocLines as &$editableLine) {
-        if (is_array($editableLine)) {
+        if (\is_array($editableLine)) {
             if (($editableLine[1] ?? '') === 'self') {
                 $editableLine[1] = $class === 'Carbon' ? '$this' : $class;
             }
 
             foreach ($editableLine as $column => $text) {
-                $length = strlen($text);
+                $length = \strlen($text);
                 $max = $columnsMaxLengths[$column] ?? 0;
 
                 if ($length > $max) {
@@ -490,7 +490,7 @@ function compileDoc($autoDocLines, $file)
 
     foreach ($autoDocLines as $line) {
         $autoDoc .= "\n *";
-        if (is_string($line)) {
+        if (\is_string($line)) {
             if (!empty($line)) {
                 $autoDoc .= " $line";
             }
@@ -544,68 +544,83 @@ function getMethodReturnType(ReflectionMethod $method)
 }
 
 foreach ($carbonMethods as $method) {
-    if ($method === 'diff' || method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
-        $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
-        $static = $function->isStatic() ? ' static' : '';
-        $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
-            return dumpParameter($method, $parameter);
-        }, $function->getParameters()));
-        $methodDocBlock = $function->getDocComment() ?: '';
-
-        if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
-            $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
-            $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
-            $doc = explode("\n@", $doc, 2);
-            $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
-            $returnType = $function->getReturnType();
-
-            if ($returnType instanceof ReflectionNamedType) {
-                $returnType = $returnType->getName();
-            }
-
-            if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
-                $returnType = $match[1];
-            }
-
-            $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
-            $staticMethods[] = [
-                '@method',
-                str_replace(['self', 'static'], 'Carbon', $returnType),
-                "$method($parameters)",
-                $doc[0],
-            ];
-            $staticImmutableMethods[] = [
-                '@method',
-                str_replace(['self', 'static'], 'CarbonImmutable', $returnType),
-                "$method($parameters)",
-                $doc[0],
-            ];
-
-            for ($i = 1; $i < count($doc); $i++) {
-                $staticMethods[] = ['', '', '', $doc[$i]];
-                $staticImmutableMethods[] = ['', '', '', $doc[$i]];
-            }
-        }
-
-        $return = getMethodReturnType($function);
-
-        if (!empty($methodDocBlock)) {
-            $methodDocBlock = "\n    $methodDocBlock";
-        } elseif (isset($nativeMethods[$method])) {
-            $link = strtolower($method);
-            $methodDocBlock = "\n    /**\n".
-                "     * Calls DateTime::$method if mutable or DateTimeImmutable::$method else.\n".
-                "     *\n".
-                "     * @see https://php.net/manual/en/datetime.$link.php\n".
-                '     */';
-        }
-
-        if (strpos($return, 'self') !== false && $phpLevel < 7.4) {
-            $return = '';
-        }
-
-        $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
+    if (!method_exists(\Carbon\CarbonImmutable::class, $method) ||
+        method_exists(DateTimeInterface::class, $method) ||
+        in_array($method, ['diff', 'createFromInterface'], true)
+    ) {
+        continue;
     }
+
+    $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
+    $static = $function->isStatic() ? ' static' : '';
+    $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
+        return dumpParameter($method, $parameter);
+    }, $function->getParameters()));
+    $methodDocBlock = $function->getDocComment() ?: '';
+
+    if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
+        $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
+        $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
+        $doc = explode("\n@", $doc, 2);
+        $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
+        $returnType = $function->getReturnType();
+
+        if ($returnType instanceof ReflectionNamedType) {
+            $returnType = $returnType->getName();
+        }
+
+        if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
+            $returnType = $match[1];
+        }
+
+        $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
+        $staticMethods[] = [
+            '@method',
+            str_replace(['self', 'static'], 'Carbon', $returnType),
+            "$method($parameters)",
+            $doc[0],
+        ];
+        $staticImmutableMethods[] = [
+            '@method',
+            str_replace(['self', 'static'], 'CarbonImmutable', $returnType),
+            "$method($parameters)",
+            $doc[0],
+        ];
+
+        for ($i = 1; $i < \count($doc); $i++) {
+            $staticMethods[] = ['', '', '', $doc[$i]];
+            $staticImmutableMethods[] = ['', '', '', $doc[$i]];
+        }
+    }
+
+    $return = getMethodReturnType($function);
+
+    if (!empty($methodDocBlock)) {
+        $methodDocBlock = "\n    $methodDocBlock";
+    } elseif (isset($nativeMethods[$method])) {
+        $link = strtolower($method);
+        $methodDocBlock = "\n    /**\n".
+            "     * Calls DateTime::$method if mutable or DateTimeImmutable::$method else.\n".
+            "     *\n".
+            "     * @see https://php.net/manual/en/datetime.$link.php\n".
+            '     */';
+    }
+
+    if (strpos($return, 'self') !== false && $phpLevel < 7.4) {
+        $return = '';
+    }
+
+    if ($method === '__toString' && $phpLevel < 8) {
+        $return = '';
+    }
+
+    if (method_exists($function, 'getAttributes') && ($attributes = $function->getAttributes())) {
+        foreach ($attributes as $attribute) {
+            $methodDocBlock .= "\n    #[".$attribute->getName().']';
+        }
+    }
+
+    $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
 }
 
 $files->$interface = strtr(preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {

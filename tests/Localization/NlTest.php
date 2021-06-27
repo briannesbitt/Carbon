@@ -233,21 +233,21 @@ class NlTest extends LocalizationTestCase
 
     public function testPeriod()
     {
-        $this->assertSame('4 keer elke week van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')));
-        $this->assertSame('4 keer elk jaar van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y')));
-        $this->assertSame('4 keer elke 2 jaar van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P2Y')));
-        $this->assertSame('4 keer elk jaar en 6 maanden van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y6M')));
-        $this->assertSame('Elke dag en 5 uur van 2015-09-30 12:50:00 tot 2015-10-03 19:00:00', strval(CarbonPeriod::create(
+        $this->assertSame('4 keer elke week van 2012-07-01 12:00:00', (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')));
+        $this->assertSame('4 keer elk jaar van 2012-07-01 12:00:00', (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y')));
+        $this->assertSame('4 keer elke 2 jaar van 2012-07-01 12:00:00', (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P2Y')));
+        $this->assertSame('4 keer elk jaar en 6 maanden van 2012-07-01 12:00:00', (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y6M')));
+        $this->assertSame('Elke dag en 5 uur van 2015-09-30 12:50:00 tot 2015-10-03 19:00:00', (string) (CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::day()->hours(5),
             Carbon::parse('2015-10-03 19:00'),
         )));
-        $this->assertSame('Elk uur en 30 minuten van 2015-09-30 12:50:00 tot 2015-10-03 19:00:00', strval(CarbonPeriod::create(
+        $this->assertSame('Elk uur en 30 minuten van 2015-09-30 12:50:00 tot 2015-10-03 19:00:00', (string) (CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::hour()->minutes(30),
             Carbon::parse('2015-10-03 19:00'),
         )));
-        $this->assertSame('Elke 4 uur en 30 minuten van 2015-09-30 12:50:00 tot 2015-10-03 19:00:00', strval(CarbonPeriod::create(
+        $this->assertSame('Elke 4 uur en 30 minuten van 2015-09-30 12:50:00 tot 2015-10-03 19:00:00', (string) (CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::hours(4)->minutes(30),
             Carbon::parse('2015-10-03 19:00'),

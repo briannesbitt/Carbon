@@ -240,11 +240,11 @@ class LanguageTest extends AbstractTestCase
     public function testToString()
     {
         $ar = new Language('ar');
-        $this->assertSame('ar', strval($ar));
+        $this->assertSame('ar', (string) $ar);
         $ar = new Language('ar_DZ');
-        $this->assertSame('ar_DZ', strval($ar));
+        $this->assertSame('ar_DZ', (string) $ar);
         $ar = new Language('ar_Shakl');
-        $this->assertSame('ar_Shakl', strval($ar));
+        $this->assertSame('ar_Shakl', (string) $ar);
     }
 
     public function testToJson()

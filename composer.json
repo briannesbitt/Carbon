@@ -7,7 +7,7 @@
         "time",
         "DateTime"
     ],
-    "homepage": "http://carbon.nesbot.com",
+    "homepage": "https://carbon.nesbot.com",
     "support": {
         "issues": "https://github.com/briannesbitt/Carbon/issues",
         "source": "https://github.com/briannesbitt/Carbon"
@@ -17,11 +17,11 @@
         {
             "name": "Brian Nesbitt",
             "email": "brian@nesbot.com",
-            "homepage": "http://nesbot.com"
+            "homepage": "https://markido.com"
         },
         {
             "name": "kylekatarnls",
-            "homepage": "http://github.com/kylekatarnls"
+            "homepage": "https://github.com/kylekatarnls"
         }
     ],
     "prefer-stable": true,

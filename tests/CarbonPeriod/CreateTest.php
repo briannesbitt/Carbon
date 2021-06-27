@@ -460,7 +460,7 @@ class CreateTest extends AbstractTestCase
         $period = new CarbonPeriod;
 
         $this->assertEquals(new Carbon, $period->getStartDate());
-        $this->assertEquals('P1D', $period->getDateInterval()->spec());
+        $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
         $this->assertEquals(0, $period->getOptions());
@@ -643,7 +643,7 @@ class CreateTest extends AbstractTestCase
                     $this->getEndDate()->format('j');
             }
         };
-        $subClass = get_class($period);
+        $subClass = \get_class($period);
 
         $this->assertInstanceOf(CarbonPeriod::class, $period);
         $this->assertNotSame(CarbonPeriod::class, $subClass);

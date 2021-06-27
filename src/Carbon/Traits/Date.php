@@ -632,7 +632,7 @@ trait Date
      *
      * @return CarbonTimeZone
      *
-     * @link http://php.net/manual/en/datetime.gettimezone.php
+     * @link https://php.net/manual/en/datetime.gettimezone.php
      */
     #[ReturnTypeWillChange]
     public function getTimezone()
@@ -900,7 +900,7 @@ trait Date
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
-                return 1 + \intval($this->rawFormat('z'));
+                return 1 + (int) ($this->rawFormat('z'));
 
             // @property-read int 365 or 366
             case $name === 'daysInYear':
@@ -1677,7 +1677,7 @@ trait Date
 
     /**
      * Format the instance with the current locale.  You can set the current
-     * locale using setlocale() http://php.net/setlocale.
+     * locale using setlocale() https://php.net/setlocale.
      *
      * @param string $format
      *
@@ -1786,7 +1786,7 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return \strval((string) floor($date->micro / 100000));
+                    return (string) ((string) floor($date->micro / 100000));
                 },
                 'SS' => function (CarbonInterface $date) {
                     return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
@@ -1885,15 +1885,15 @@ trait Date
      *
      * @return string
      */
-    public function ordinal(string $key, string $period = null): string
+    public function ordinal(string $key, ?string $period = null): string
     {
         $number = $this->$key;
         $result = $this->translate('ordinal', [
             ':number' => $number,
-            ':period' => $period,
+            ':period' => (string) $period,
         ]);
 
-        return \strval($result === 'ordinal' ? $number : $result);
+        return (string) ($result === 'ordinal' ? $number : $result);
     }
 
     /**
@@ -1956,7 +1956,7 @@ trait Date
      *
      * @return string
      */
-    public function isoFormat(string $format, string $originalFormat = null): string
+    public function isoFormat(string $format, ?string $originalFormat = null): string
     {
         $result = '';
         $length = mb_strlen($format);
@@ -2105,7 +2105,7 @@ trait Date
     }
 
     /**
-     * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
+     * Format as ->format() do (using date replacements patterns from https://php.net/manual/en/function.date.php)
      * but translate words whenever possible (months, day names, etc.) using the current locale.
      *
      * @param string $format

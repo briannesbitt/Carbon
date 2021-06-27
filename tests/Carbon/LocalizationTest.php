@@ -667,7 +667,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testGetAvailableLocales()
     {
-        $this->assertCount(count(glob(__DIR__.'/../../src/Carbon/Lang/*.php')), Carbon::getAvailableLocales());
+        $this->assertCount(\count(glob(__DIR__.'/../../src/Carbon/Lang/*.php')), Carbon::getAvailableLocales());
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -681,7 +681,7 @@ class LocalizationTest extends AbstractTestCase
     public function testGetAvailableLocalesInfo()
     {
         $infos = Carbon::getAvailableLocalesInfo();
-        $this->assertCount(count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
+        $this->assertCount(\count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
         $this->assertArrayHasKey('en', $infos);
         $this->assertInstanceOf(Language::class, $infos['en']);
         $this->assertSame('English', $infos['en']->getIsoName());
