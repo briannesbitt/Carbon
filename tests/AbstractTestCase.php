@@ -282,7 +282,7 @@ abstract class AbstractTestCase extends TestCase
         foreach ($dates as $date) {
             if ($date instanceof DateTime) {
                 $date = Carbon::instance($date);
-            } elseif (is_string($date)) {
+            } elseif (\is_string($date)) {
                 $date = Carbon::parse($date);
             }
 

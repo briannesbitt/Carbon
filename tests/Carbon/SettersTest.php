@@ -554,7 +554,7 @@ class SettersTest extends AbstractTestCase
             $second = mt_rand(0, 59);
             $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
-            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $overflowUnit = $units[mt_rand(0, \count($units) - 1)];
             $units = [
                 'year' => 10,
                 'month' => 12,
@@ -564,7 +564,7 @@ class SettersTest extends AbstractTestCase
                 'second' => 60,
                 'microsecond' => 1000000,
             ];
-            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
+            $valueUnit = array_keys($units)[mt_rand(0, \count($units) - 1)];
             $value = mt_rand() > 0.5 ?
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
@@ -674,7 +674,7 @@ class SettersTest extends AbstractTestCase
             $second = mt_rand(0, 59);
             $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
-            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $overflowUnit = $units[mt_rand(0, \count($units) - 1)];
             $units = [
                 'year' => 10,
                 'month' => 12,
@@ -684,7 +684,7 @@ class SettersTest extends AbstractTestCase
                 'second' => 60,
                 'microsecond' => 1000000,
             ];
-            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
+            $valueUnit = array_keys($units)[mt_rand(0, \count($units) - 1)];
             $value = mt_rand() > 0.5 ?
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
@@ -769,7 +769,7 @@ class SettersTest extends AbstractTestCase
             $second = mt_rand(0, 59);
             $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
-            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $overflowUnit = $units[mt_rand(0, \count($units) - 1)];
             $units = [
                 'year' => 10,
                 'month' => 12,
@@ -779,7 +779,7 @@ class SettersTest extends AbstractTestCase
                 'second' => 60,
                 'microsecond' => 1000000,
             ];
-            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
+            $valueUnit = array_keys($units)[mt_rand(0, \count($units) - 1)];
             $value = mt_rand() > 0.5 ?
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);

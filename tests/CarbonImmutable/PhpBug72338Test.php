@@ -30,11 +30,6 @@ use Tests\AbstractTestCase;
  */
 class PhpBug72338Test extends AbstractTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /**
      * Ensures that modify don't use changed timestamp
      */

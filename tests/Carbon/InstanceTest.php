@@ -140,7 +140,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testChildCast()
     {
-        $class = get_class(new class extends Carbon {
+        $class = \get_class(new class extends Carbon {
             public function foo()
             {
                 return 42;
@@ -158,7 +158,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testSiblingCast()
     {
-        $class = get_class(new class extends DateTime {
+        $class = \get_class(new class extends DateTime {
             public function foo()
             {
                 return 42;

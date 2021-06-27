@@ -135,7 +135,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
 }
 
 foreach ($tags as $tag) {
-    if (is_array($tag)) {
+    if (\is_array($tag)) {
         [$tag, $pattern] = $tag;
     }
 
@@ -294,7 +294,7 @@ foreach ($tags as $tag) {
                         "Sub one $unitName to the instance (using date interval).",
                     ];
 
-                    if (in_array($unit, [
+                    if (\in_array($unit, [
                         'month',
                         'quarter',
                         'year',
@@ -472,13 +472,13 @@ function compileDoc($autoDocLines, $file)
     $columnsMaxLengths = [];
 
     foreach ($autoDocLines as &$editableLine) {
-        if (is_array($editableLine)) {
+        if (\is_array($editableLine)) {
             if (($editableLine[1] ?? '') === 'self') {
                 $editableLine[1] = $class === 'Carbon' ? '$this' : $class;
             }
 
             foreach ($editableLine as $column => $text) {
-                $length = strlen($text);
+                $length = \strlen($text);
                 $max = $columnsMaxLengths[$column] ?? 0;
 
                 if ($length > $max) {
@@ -490,7 +490,7 @@ function compileDoc($autoDocLines, $file)
 
     foreach ($autoDocLines as $line) {
         $autoDoc .= "\n *";
-        if (is_string($line)) {
+        if (\is_string($line)) {
             if (!empty($line)) {
                 $autoDoc .= " $line";
             }
@@ -581,7 +581,7 @@ foreach ($carbonMethods as $method) {
                 $doc[0],
             ];
 
-            for ($i = 1; $i < count($doc); $i++) {
+            for ($i = 1; $i < \count($doc); $i++) {
                 $staticMethods[] = ['', '', '', $doc[$i]];
                 $staticImmutableMethods[] = ['', '', '', $doc[$i]];
             }

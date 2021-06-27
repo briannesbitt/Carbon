@@ -17,16 +17,14 @@ use Carbon\CarbonTimeZone;
 use DateTimeZone;
 use InvalidArgumentException;
 use stdClass;
-use Tests\AbstractTestCase;
+use Tests\AbstractTestCaseWithOldNow;
 
-class ConversionsTest extends AbstractTestCase
+class ConversionsTest extends AbstractTestCaseWithOldNow
 {
-    protected $oldNow = true;
-
     public function testToString()
     {
-        $this->assertSame('+06:00', strval(new CarbonTimeZone(6)));
-        $this->assertSame('Europe/Paris', strval(new CarbonTimeZone('Europe/Paris')));
+        $this->assertSame('+06:00', (string) (new CarbonTimeZone(6)));
+        $this->assertSame('Europe/Paris', (string) (new CarbonTimeZone('Europe/Paris')));
     }
 
     public function testToRegionName()
@@ -126,17 +124,17 @@ class ConversionsTest extends AbstractTestCase
         /** @var DateTimeZone $tz */
         $tz = (new CarbonTimeZone('America/Toronto'))->cast(DateTimeZone::class);
 
-        $this->assertSame(DateTimeZone::class, get_class($tz));
+        $this->assertSame(DateTimeZone::class, \get_class($tz));
         $this->assertSame('America/Toronto', $tz->getName());
 
         $obj = new class extends CarbonTimeZone {
         };
-        $class = get_class($obj);
+        $class = \get_class($obj);
 
         /** @var DateTimeZone $tz */
         $tz = (new CarbonTimeZone('America/Toronto'))->cast($class);
 
-        $this->assertSame($class, get_class($tz));
+        $this->assertSame($class, \get_class($tz));
         $this->assertSame('America/Toronto', $tz->getName());
     }
 

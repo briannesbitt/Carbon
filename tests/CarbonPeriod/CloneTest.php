@@ -21,7 +21,7 @@ class CloneTest extends AbstractTestCase
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->clone();
 
-        $this->assertSame(strval($period), strval($clone));
+        $this->assertSame((string) $period, (string) $clone);
         $this->assertNotSame($period, $clone);
         $this->assertEquals($period, $clone);
     }
@@ -31,7 +31,7 @@ class CloneTest extends AbstractTestCase
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->copy();
 
-        $this->assertSame(strval($period), strval($clone));
+        $this->assertSame((string) $period, (string) $clone);
         $this->assertNotSame($period, $clone);
         $this->assertEquals($period, $clone);
     }

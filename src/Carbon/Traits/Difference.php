@@ -784,6 +784,6 @@ trait Difference
             $format = $format($current, $other) ?? '';
         }
 
-        return $this->isoFormat(\strval($format));
+        return $this->isoFormat((string) $format);
     }
 }
