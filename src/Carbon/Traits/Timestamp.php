@@ -45,6 +45,7 @@ trait Timestamp
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
         $integer += $delta;
         $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
+        $decimal = str_pad((string) $decimal, 6, '0', STR_PAD_LEFT);
 
         return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
