@@ -302,7 +302,7 @@ trait Localization
             return $result;
         }
 
-        return "$number";
+        return (string) $number;
     }
 
     /**

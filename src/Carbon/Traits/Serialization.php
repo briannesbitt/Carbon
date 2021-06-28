@@ -76,7 +76,7 @@ trait Serialization
      */
     public static function fromSerialized($value)
     {
-        $instance = @unserialize("$value");
+        $instance = @unserialize((string) $value);
 
         if (!$instance instanceof static) {
             throw new InvalidFormatException("Invalid serialized value: $value");
