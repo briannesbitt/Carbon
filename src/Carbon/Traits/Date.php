@@ -2167,7 +2167,7 @@ trait Date
                 }
 
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
-                $i += mb_strlen("$sequence") - 1;
+                $i += mb_strlen((string) $sequence) - 1;
                 $length = mb_strlen($format);
                 $char = $sequence;
             }
@@ -2197,7 +2197,7 @@ trait Date
                 'S' => function ($date) {
                     $day = $date->rawFormat('j');
 
-                    return str_replace("$day", '', $date->isoFormat('Do'));
+                    return str_replace((string) $day, '', $date->isoFormat('Do'));
                 },
                 'w' => true,
                 'z' => true,

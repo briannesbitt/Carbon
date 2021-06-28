@@ -592,7 +592,7 @@ trait Creator
         // @codeCoverageIgnoreEnd
 
         if ($originalTz === null) {
-            return parent::createFromFormat($format, "$time");
+            return parent::createFromFormat($format, (string) $time);
         }
 
         $tz = \is_int($originalTz)
@@ -605,7 +605,7 @@ trait Creator
             return false;
         }
 
-        return parent::createFromFormat($format, "$time", $tz);
+        return parent::createFromFormat($format, (string) $time, $tz);
     }
 
     /**
