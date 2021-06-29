@@ -876,11 +876,11 @@ trait Date
 
             // @property-read int 51 through 53
             case $name === 'weeksInYear':
-                return (int) $this->weeksInYear();
+                return $this->weeksInYear();
 
             // @property-read int 51 through 53
             case $name === 'isoWeeksInYear':
-                return (int) $this->isoWeeksInYear();
+                return $this->isoWeeksInYear();
 
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':
@@ -1240,7 +1240,7 @@ trait Date
     {
         $dayOfYear = $this->dayOfYear;
 
-        return \is_null($value) ? $dayOfYear : $this->addDays($value - $dayOfYear);
+        return $value === null ? $dayOfYear : $this->addDays($value - $dayOfYear);
     }
 
     /**
@@ -1254,7 +1254,7 @@ trait Date
     {
         $dayOfWeek = static::weekRotate($this->dayOfWeek, -((int) $this->getTranslationMessage('first_day_of_week')));
 
-        return \is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
+        return $value === null ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
 
     /**
@@ -1268,7 +1268,7 @@ trait Date
     {
         $dayOfWeekIso = $this->dayOfWeekIso;
 
-        return \is_null($value) ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
+        return $value === null ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
     }
 
     /**
@@ -1786,7 +1786,7 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return (string) ((string) floor($date->micro / 100000));
+                    return (string) floor($date->micro / 100000);
                 },
                 'SS' => function (CarbonInterface $date) {
                     return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
@@ -2035,7 +2035,7 @@ trait Date
                 }
 
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
-                $i += mb_strlen("$sequence") - 1;
+                $i += mb_strlen((string) $sequence) - 1;
                 $length = mb_strlen($format);
                 $char = $sequence;
             }
@@ -2065,7 +2065,7 @@ trait Date
                 'S' => function ($date) {
                     $day = $date->rawFormat('j');
 
-                    return str_replace("$day", '', $date->isoFormat('Do'));
+                    return str_replace((string) $day, '', $date->isoFormat('Do'));
                 },
                 'w' => true,
                 'z' => true,

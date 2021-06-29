@@ -57,71 +57,71 @@ jobs:
     name: ${{ matrix.composerCommand && format('{0} - ', matrix.composerCommand) || '' }}${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: json${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached' || '' }}
-        tools: composer:v2
-        coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached' || '' }}
+          tools: composer:v2
+          coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
 
-    - name: Install locales
-      run: |
-        sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen fr_FR.UTF-8 sr_ME.UTF-8 ar_AE.UTF-8 zh_TW.UTF-8 zh_CN.UTF-8 yo_NG.UTF-8 en_US.UTF-8
+      - name: Install locales
+        run: |
+          sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen fr_FR.UTF-8 sr_ME.UTF-8 ar_AE.UTF-8 zh_TW.UTF-8 zh_CN.UTF-8 yo_NG.UTF-8 en_US.UTF-8
 
-    - name: Setup Memcached
-      if: matrix.laravel
-      uses: niden/actions-memcached@v7
+      - name: Setup Memcached
+        if: matrix.laravel
+        uses: niden/actions-memcached@v7
 
-    - name: Install dependencies
-      run: |
-        if [[ "${{ matrix.composerCommand }}" == '' ]]; then
-          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-        fi;
-        if [[ "${{ matrix.laravel }}" != 'true' ]]; then
-          composer remove --no-update kylekatarnls/multi-tester --no-interaction;
-        fi;
-        composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+      - name: Install dependencies
+        run: |
+          if [[ "${{ matrix.composerCommand }}" == '' ]]; then
+            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
+          fi;
+          if [[ "${{ matrix.laravel }}" != 'true' ]]; then
+            composer remove --no-update kylekatarnls/multi-tester --no-interaction;
+          fi;
+          composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
 
-    - name: Run test suite
-      run: |
-        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" = 'true' ]]; then
-          php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
-          cp coverage.xml clover.xml;
-        fi;
-        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" != 'true' ]]; then
-          php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
-        fi;
-        if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' ]]; then
-          composer ${{ matrix.composerCommand }};
-        fi;
-        if [[ "${{ matrix.laravel }}" = 'true' ]]; then
-          vendor/bin/multi-tester;
-        fi;
-      env:
-        PHP_VERSION: ${{ matrix.php }}
-        REDIS_HOST: 127.0.0.1
-        REDIS_PORT: 6379
-        DB_PORT: ${{ job.services.mysql.ports[3306] }}
-        DB_USERNAME: root
+      - name: Run test suite
+        run: |
+          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" = 'true' ]]; then
+            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
+            cp coverage.xml clover.xml;
+          fi;
+          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" != 'true' ]]; then
+            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+          fi;
+          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' ]]; then
+            composer ${{ matrix.composerCommand }};
+          fi;
+          if [[ "${{ matrix.laravel }}" = 'true' ]]; then
+            vendor/bin/multi-tester;
+          fi;
+        env:
+          PHP_VERSION: ${{ matrix.php }}
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_USERNAME: root
 
-    - name: Code Climate Test Reporter
-      if: matrix.coverage
-      uses: aktions/codeclimate-test-reporter@v1
-      with:
-        codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
-        command: after-build -t clover
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      continue-on-error: true
+      - name: Code Climate Test Reporter
+        if: matrix.coverage
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: after-build -t clover
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        continue-on-error: true
 
-    - name: Coverage
-      if: matrix.coverage
-      run: bash <(curl -s https://codecov.io/bash)
-      env:
-        PHP_VERSION: ${{ matrix.php }}
+      - name: Coverage
+        if: matrix.coverage
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+          PHP_VERSION: ${{ matrix.php }}
 
   windows:
     runs-on: windows-latest

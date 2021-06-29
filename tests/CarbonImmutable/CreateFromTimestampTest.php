@@ -189,6 +189,14 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $d->tzName);
         $this->assertSame('2020-09-23 14:52:44.889523', $d->format('Y-m-d H:i:s.u'));
         $this->assertSame('1600887164.889523', $d->format('U.u'));
+
+        $microtime = 1600887164.0603;
+        $d = Carbon::createFromTimestamp($microtime);
+        $this->assertSame('America/Toronto', $d->tzName);
+        $this->assertSame('2020-09-23 14:52:44.060300', $d->format('Y-m-d H:i:s.u'));
+        $this->assertSame('1600887164.060300', $d->format('U.u'));
+
+        $this->assertSame('010000', Carbon::createFromTimestamp(0.01)->format('u'));
     }
 
     public function testCreateFromMicrotimeStrings()

@@ -228,7 +228,7 @@ trait Modifiers
         $check = $date->rawFormat('Y-m');
         $date = $date->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $date->rawFormat('Y-m') === $check ? $this->modify("$date") : false;
+        return $date->rawFormat('Y-m') === $check ? $this->modify((string) $date) : false;
     }
 
     /**
@@ -279,7 +279,7 @@ trait Modifiers
         $year = $date->year;
         $date = $date->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify("$date");
+        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify((string) $date);
     }
 
     /**
@@ -327,7 +327,7 @@ trait Modifiers
     {
         $date = $this->avoidMutation()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $this->year === $date->year ? $this->modify("$date") : false;
+        return $this->year === $date->year ? $this->modify((string) $date) : false;
     }
 
     /**
