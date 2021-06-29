@@ -36,7 +36,6 @@ enabled:
   - unary_operators_spaces
   - unneeded_control_parentheses
   - unused_use
-  - whitespacy_lines
 
 finder:
   not-path:
