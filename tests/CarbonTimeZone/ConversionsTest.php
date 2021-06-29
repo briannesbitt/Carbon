@@ -150,7 +150,6 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
     {
         Carbon::useStrictMode(false);
         $this->assertNull((new CarbonTimeZone(-15))->toRegionTimeZone());
-        Carbon::useStrictMode(true);
     }
 
     public function testInvalidRegionForOffsetInStrictMode()

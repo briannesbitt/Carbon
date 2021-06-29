@@ -15,7 +15,7 @@ use Carbon\CarbonImmutable;
 
 class Mixin
 {
-    public $timezone = null;
+    public $timezone;
 
     public function setUserTimezone()
     {

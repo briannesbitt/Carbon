@@ -53,7 +53,7 @@ trait Serialization
      *
      * @var string|null
      */
-    protected $dumpLocale = null;
+    protected $dumpLocale;
 
     /**
      * Return a serialized string of the instance.

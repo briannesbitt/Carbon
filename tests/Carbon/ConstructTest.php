@@ -151,7 +151,6 @@ class ConstructTest extends AbstractTestCase
         $timezone = 5;
         $c = new Carbon('2019-02-12 23:00:00', $timezone);
         $this->assertSame('+05:00', $c->tzName);
-        Carbon::useStrictMode(true);
     }
 
     public function testMockingWithMicroseconds()
