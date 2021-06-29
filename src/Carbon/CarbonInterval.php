@@ -2242,12 +2242,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             'years' => $this->years,
             'months' => $this->months,
             'weeks' => (int) ($this->d / $daysPerWeek),
-            'dayz' => (int) ($this->d % $daysPerWeek),
+            'dayz' => $this->d % $daysPerWeek,
             'hours' => $this->hours,
             'minutes' => $this->minutes,
             'seconds' => $this->seconds,
             'milliseconds' => (int) ($this->microseconds / Carbon::MICROSECONDS_PER_MILLISECOND),
-            'microseconds' => (int) ($this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND),
+            'microseconds' => $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND,
         ];
 
         if (isset($factors['dayz']) && $factors['dayz'][0] !== 'weeks') {

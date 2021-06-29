@@ -945,11 +945,11 @@ trait Date
 
             // @property-read int 51 through 53
             case $name === 'weeksInYear':
-                return (int) $this->weeksInYear();
+                return $this->weeksInYear();
 
             // @property-read int 51 through 53
             case $name === 'isoWeeksInYear':
-                return (int) $this->isoWeeksInYear();
+                return $this->isoWeeksInYear();
 
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':
@@ -1918,7 +1918,7 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return (string) ((string) floor($date->micro / 100000));
+                    return (string) floor($date->micro / 100000);
                 },
                 'SS' => function (CarbonInterface $date) {
                     return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
