@@ -54,7 +54,7 @@ class MacroTest extends AbstractTestCase
 
     public function testIsFinal()
     {
-        $mixinClass = new class {
+        $mixinClass = new class() {
             // Declaring final won't apply for macro, sub-class will always be able to override macros.
             final public static function foo(): string
             {
@@ -223,7 +223,7 @@ class MacroTest extends AbstractTestCase
 
     public function testGetReflection()
     {
-        $mixinClass = new class {
+        $mixinClass = new class() {
             // Declaring final won't apply for macro, sub-class will always be able to override macros.
             final public static function foo(): string
             {

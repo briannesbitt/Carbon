@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CommonTraits;
 
 use Carbon\Carbon;
@@ -56,9 +58,9 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
         $dates = $class::$macro2();
 
         $this->assertSame([
-            $reference ?: (string) (new $class),
+            $reference ?: (string) (new $class()),
             (string) $sample,
-            $reference ?: (string) (new $class),
+            $reference ?: (string) (new $class()),
         ], $dates);
     }
 

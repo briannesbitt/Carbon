@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 set_time_limit(0);

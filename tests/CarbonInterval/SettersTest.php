@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
@@ -155,7 +157,7 @@ class SettersTest extends AbstractTestCase
 
     public function testInvert()
     {
-        $ci = new CarbonInterval;
+        $ci = new CarbonInterval();
 
         $this->assertSame($ci, $ci->invert());
         $this->assertSame(1, $ci->invert);
@@ -184,7 +186,7 @@ class SettersTest extends AbstractTestCase
         );
 
         /** @var mixed $ci */
-        $ci = new CarbonInterval;
+        $ci = new CarbonInterval();
         $ci->doesNotExit = 123;
     }
 
@@ -196,7 +198,7 @@ class SettersTest extends AbstractTestCase
         );
 
         /** @var mixed $ci */
-        $ci = new CarbonInterval;
+        $ci = new CarbonInterval();
         $ci->doesNotExit(123);
     }
 

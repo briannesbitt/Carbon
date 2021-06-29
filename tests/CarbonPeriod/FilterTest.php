@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
@@ -31,7 +33,7 @@ class FilterTest extends AbstractTestCase
 
     public function testGetAndSetFilters()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $this->assertSame([], $period->getFilters());
         $this->assertSame($period, $period->setFilters($filters = [
@@ -78,7 +80,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAddAndPrependFilters()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter())
@@ -93,7 +95,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveFilterByInstance()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter())
@@ -109,7 +111,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveFilterByName()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter(), 'foo')
@@ -383,7 +385,7 @@ class FilterTest extends AbstractTestCase
 
     public function testInvalidCarbonMethodShouldNotBeConvertedToCallback()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->addFilter('toDateTimeString');
 
@@ -394,10 +396,10 @@ class FilterTest extends AbstractTestCase
 
     public function testAddCallableFilters()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->addFilter($string = 'date_offset_get')
-            ->addFilter($array = [new DateTime, 'getOffset']);
+            ->addFilter($array = [new DateTime(), 'getOffset']);
 
         $this->assertSame([
             [$string, null],
@@ -407,11 +409,11 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveCallableFilters()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setFilters([
             [$string = 'date_offset_get', null],
-            [$array = [new DateTime, 'getOffset'], null],
+            [$array = [new DateTime(), 'getOffset'], null],
         ]);
 
         $period->removeFilter($string)->removeFilter($array);
@@ -424,7 +426,7 @@ class FilterTest extends AbstractTestCase
         include_once 'Fixtures/filters.php';
 
         $period = new CarbonPeriod('2017-03-10', '2017-03-19');
-        $callable = [new FooFilters, 'bar'];
+        $callable = [new FooFilters(), 'bar'];
 
         $this->assertFalse($period->hasFilter($callable));
         $this->assertFalse($period->hasFilter('foobar_filter'));

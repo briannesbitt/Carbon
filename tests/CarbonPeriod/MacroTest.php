@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
@@ -90,7 +92,7 @@ class MacroTest extends AbstractTestCase
         });
 
         /** @var mixed $period */
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $this->assertInstanceOf('Carbon\CarbonPeriod', $period->myself());
         $this->assertSame($period, $period->myself());
@@ -115,7 +117,7 @@ class MacroTest extends AbstractTestCase
     public function testMacroIsBindedToDatePeriodClass()
     {
         CarbonPeriod::macro('newMyself', function () {
-            return new static;
+            return new static();
         });
 
         $this->assertInstanceOf('Carbon\CarbonPeriod', CarbonPeriod::newMyself());
@@ -126,7 +128,7 @@ class MacroTest extends AbstractTestCase
         CarbonPeriod::macro('lower', 'strtolower');
 
         /** @var mixed $period */
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $this->assertSame('abc', $period->lower('ABC'));
         $this->assertSame('abc', CarbonPeriod::lower('ABC'));
@@ -134,7 +136,7 @@ class MacroTest extends AbstractTestCase
 
     public function testRegisterMixin()
     {
-        CarbonPeriod::mixin(new Mixin);
+        CarbonPeriod::mixin(new Mixin());
 
         $this->assertNull(CarbonPeriod::getFoo());
 
