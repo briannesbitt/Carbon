@@ -30,7 +30,6 @@ enabled:
   - spaces_after_semicolon
   - spaces_cast
   - standardize_not_equal
-  - ternary_spaces
   - trim_array_spaces
   - unalign_double_arrow
   - unalign_equals
