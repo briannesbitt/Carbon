@@ -15,7 +15,7 @@ use Carbon\CarbonInterval;
 
 class Mixin
 {
-    public $factor = null;
+    public $factor;
 
     public function setFactor()
     {
