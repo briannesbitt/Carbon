@@ -5,6 +5,7 @@ risky: true
 enabled:
   - concat_without_spaces
   - extra_empty_lines
+  - is_null
   - method_separation
   - modernize_types_casting
   - multiline_array_trailing_comma

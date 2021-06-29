@@ -380,7 +380,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         parent::__construct($spec);
 
-        if (!\is_null($microseconds)) {
+        if ($microseconds !== null) {
             $this->f = $microseconds / Carbon::MICROSECONDS_PER_SECOND;
         }
     }
@@ -1360,7 +1360,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $minimumUnit = 's';
         extract($this->getForHumansInitialVariables($syntax, $short));
 
-        if (\is_null($syntax)) {
+        if ($syntax === null) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
         }
 
@@ -1368,7 +1368,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $parts = INF;
         }
 
-        if (\is_null($options)) {
+        if ($options === null) {
             $options = static::getHumanDiffOptions();
         }
 

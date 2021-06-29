@@ -1327,7 +1327,7 @@ trait Date
     {
         $dayOfYear = $this->dayOfYear;
 
-        return \is_null($value) ? $dayOfYear : $this->addDays($value - $dayOfYear);
+        return $value === null ? $dayOfYear : $this->addDays($value - $dayOfYear);
     }
 
     /**
@@ -1341,7 +1341,7 @@ trait Date
     {
         $dayOfWeek = ($this->dayOfWeek + 7 - (int) ($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
 
-        return \is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
+        return $value === null ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
 
     /**
@@ -1355,7 +1355,7 @@ trait Date
     {
         $dayOfWeekIso = $this->dayOfWeekIso;
 
-        return \is_null($value) ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
+        return $value === null ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
     }
 
     /**
