@@ -41,7 +41,7 @@ return [
     's' => ':count seg.',
     'ago' => 'hai :time',
     'from_now' => function ($time) {
-        if (substr($time, 0, 2) === 'un') {
+        if (strpos($time, 'un') === 0) {
             return "n$time";
         }
 

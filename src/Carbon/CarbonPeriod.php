@@ -2280,7 +2280,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     protected function isCarbonPredicateMethod($callable)
     {
-        return \is_string($callable) && substr($callable, 0, 2) === 'is' &&
+        return \is_string($callable) && strpos($callable, 'is') === 0 &&
             (method_exists($this->dateClass, $callable) || ([$this->dateClass, 'hasMacro'])($callable));
     }
 

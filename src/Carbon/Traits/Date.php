@@ -890,7 +890,7 @@ trait Date
         switch (true) {
             case isset($formats[$name]):
                 $format = $formats[$name];
-                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'rawFormat';
+                $method = strpos($format, '%') === 0 ? 'formatLocalized' : 'rawFormat';
                 $value = $this->$method($format);
 
                 return is_numeric($value) ? (int) $value : $value;
@@ -1132,7 +1132,7 @@ trait Date
             case 'microseconds':
             case 'microsecond':
             case 'micro':
-                if (substr($name, 0, 5) === 'milli') {
+                if (strpos($name, 'milli') === 0) {
                     $value *= 1000;
                 }
 
@@ -1818,7 +1818,7 @@ trait Date
     public function formatLocalized($format)
     {
         // Check for Windows to find and replace the %e modifier correctly.
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if (stripos(PHP_OS, 'WIN') === 0) {
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
@@ -2537,7 +2537,7 @@ trait Date
 
         $unit = rtrim($method, 's');
 
-        if (substr($unit, 0, 2) === 'is') {
+        if (strpos($unit, 'is') === 0) {
             $word = substr($unit, 2);
 
             if (\in_array($word, static::$days)) {
@@ -2575,7 +2575,7 @@ trait Date
         if ($action === 'add' || $action === 'sub') {
             $unit = substr($unit, 3);
 
-            if (substr($unit, 0, 4) === 'Real') {
+            if (strpos($unit, 'Real') === 0) {
                 $unit = static::singularUnit(substr($unit, 4));
 
                 return $this->{"${action}RealUnit"}($unit, ...$parameters);
@@ -2617,7 +2617,7 @@ trait Date
             }
         }
 
-        if (substr($unit, 0, 9) === 'isCurrent') {
+        if (strpos($unit, 'isCurrent') === 0) {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
             } catch (BadComparisonUnitException | BadMethodCallException $exception) {
