@@ -2,7 +2,6 @@
 <phpunit
   xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-  bootstrap="tests/bootstrap.php"
   colors="true"
 >
   <coverage processUncoveredFiles="true">
@@ -52,4 +51,8 @@
       <directory>tests/PHPStan</directory>
     </testsuite>
   </testsuites>
+
+  <php>
+    <ini name="max_execution_time" value="0"/>
+  </php>
 </phpunit>

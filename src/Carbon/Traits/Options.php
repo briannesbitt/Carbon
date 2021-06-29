@@ -130,21 +130,21 @@ trait Options
      *
      * @var string|callable|null
      */
-    protected static $formatFunction = null;
+    protected static $formatFunction;
 
     /**
      * Function to call instead of createFromFormat.
      *
      * @var string|callable|null
      */
-    protected static $createFromFormatFunction = null;
+    protected static $createFromFormatFunction;
 
     /**
      * Function to call instead of parse.
      *
      * @var string|callable|null
      */
-    protected static $parseFunction = null;
+    protected static $parseFunction;
 
     /**
      * Indicates if months should be calculated with overflow.
@@ -152,7 +152,7 @@ trait Options
      *
      * @var bool|null
      */
-    protected ?bool $localMonthsOverflow = null;
+    protected ?bool $localMonthsOverflow;
 
     /**
      * Indicates if years should be calculated with overflow.
@@ -160,7 +160,7 @@ trait Options
      *
      * @var bool|null
      */
-    protected ?bool $localYearsOverflow = null;
+    protected ?bool $localYearsOverflow;
 
     /**
      * Indicates if the strict mode is in use.
@@ -168,49 +168,49 @@ trait Options
      *
      * @var bool|null
      */
-    protected ?bool $localStrictModeEnabled = null;
+    protected ?bool $localStrictModeEnabled;
 
     /**
      * Options for diffForHumans and forHumans methods.
      *
      * @var bool|null
      */
-    protected ?bool $localHumanDiffOptions = null;
+    protected ?bool $localHumanDiffOptions;
 
     /**
      * Format to use on string cast.
      *
      * @var string|callable|null
      */
-    protected $localToStringFormat = null;
+    protected $localToStringFormat;
 
     /**
      * Format to use on JSON serialization.
      *
      * @var string|callable|null
      */
-    protected $localSerializer = null;
+    protected $localSerializer;
 
     /**
      * Instance-specific macros.
      *
      * @var array|null
      */
-    protected ?array $localMacros = null;
+    protected ?array $localMacros;
 
     /**
      * Instance-specific generic macros.
      *
      * @var array|null
      */
-    protected ?array $localGenericMacros = null;
+    protected ?array $localGenericMacros;
 
     /**
      * Function to call instead of format.
      *
      * @var string|callable|null
      */
-    protected $localFormatFunction = null;
+    protected $localFormatFunction;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.

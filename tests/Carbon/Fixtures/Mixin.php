@@ -15,7 +15,7 @@ use Carbon\CarbonInterface;
 
 class Mixin
 {
-    public $timezone = null;
+    public $timezone;
 
     public function __construct($timezone)
     {

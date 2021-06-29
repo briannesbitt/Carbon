@@ -544,7 +544,7 @@ trait Creator
     private static function createFromFormatAndTimezone(string $format, string $time, $originalTz): ?DateTimeInterface
     {
         if ($originalTz === null) {
-            return parent::createFromFormat($format, "$time") ?: null;
+            return parent::createFromFormat($format, (string) $time) ?: null;
         }
 
         $tz = \is_int($originalTz)
@@ -557,7 +557,7 @@ trait Creator
             return null;
         }
 
-        return parent::createFromFormat($format, "$time", $tz) ?: null;
+        return parent::createFromFormat($format, (string) $time, $tz) ?: null;
     }
 
     /**

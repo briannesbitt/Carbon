@@ -38,7 +38,7 @@ class CarbonTimeZone extends DateTimeZone
 
     protected static function getDateTimeZoneNameFromMixed($timezone): string
     {
-        if (\is_null($timezone)) {
+        if ($timezone === null) {
             return date_default_timezone_get();
         }
 

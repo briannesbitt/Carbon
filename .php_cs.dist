@@ -15,6 +15,9 @@ $rules = [
         'spacing' => 'none',
     ],
     'ereg_to_preg' => true,
+    'is_null' => [
+        'use_yoda_style' => false,
+    ],
     'line_ending' => true,
     'modernize_types_casting' => true,
     'native_function_invocation' => [

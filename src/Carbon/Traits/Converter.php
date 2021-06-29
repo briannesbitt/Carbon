@@ -38,7 +38,7 @@ trait Converter
      *
      * @var string|Closure|null
      */
-    protected static $toStringFormat = null;
+    protected static $toStringFormat;
 
     /**
      * Reset the format used to the default when type juggling a Carbon instance to a string

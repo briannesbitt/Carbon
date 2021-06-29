@@ -16,18 +16,6 @@ use Tests\AbstractTestCase;
 
 class StrictModeTest extends AbstractTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Carbon::useStrictMode();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Carbon::useStrictMode();
-    }
-
     public function testSafeCreateDateTimeZoneWithStrictMode1()
     {
         $this->expectException(\InvalidArgumentException::class);
