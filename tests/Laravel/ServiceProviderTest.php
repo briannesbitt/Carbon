@@ -129,7 +129,7 @@ class ServiceProviderTest extends TestCase
         eval('namespace Illuminate\Support;
         class Carbon
         {
-            public static $locale = null;
+            public static $locale;
 
             public static function setLocale($locale)
             {
@@ -140,7 +140,7 @@ class ServiceProviderTest extends TestCase
         eval('namespace Illuminate\Support\Facades;
         class Date
         {
-            public static $locale = null;
+            public static $locale;
 
             public static function getFacadeRoot()
             {
