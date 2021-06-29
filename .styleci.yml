@@ -3,7 +3,6 @@ preset: psr12
 risky: true
 
 enabled:
-  - concat_without_spaces
   - extra_empty_lines
   - method_separation
   - modernize_types_casting
