@@ -96,7 +96,7 @@ jobs:
             composer remove --no-update kylekatarnls/multi-tester --no-interaction;
           fi;
           ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
-          composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
 
       - name: Run test suite
         run: |
@@ -193,7 +193,7 @@ jobs:
         run: |
           composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
           ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
-          composer update --prefer-dist --no-progress --no-suggest --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
 
       - name: Run test suite
         run: |
