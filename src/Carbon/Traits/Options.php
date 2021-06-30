@@ -168,7 +168,7 @@ trait Options
      *
      * @var bool|null
      */
-    protected ?bool $localStrictModeEnabled;
+    protected ?bool $localStrictModeEnabled = null;
 
     /**
      * Options for diffForHumans and forHumans methods.
@@ -203,7 +203,7 @@ trait Options
      *
      * @var array|null
      */
-    protected ?array $localGenericMacros;
+    protected ?array $localGenericMacros = null;
 
     /**
      * Function to call instead of format.
