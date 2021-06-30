@@ -196,7 +196,7 @@ trait Options
      *
      * @var array|null
      */
-    protected ?array $localMacros;
+    protected ?array $localMacros = null;
 
     /**
      * Instance-specific generic macros.
