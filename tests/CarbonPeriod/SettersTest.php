@@ -413,23 +413,23 @@ class SettersTest extends AbstractTestCase
         $inclusive = false;
         $period = CarbonPeriod::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive);
 
-        $this->assertEquals($start, $period->getStartDate()->format('Y-m-d'));
-        $this->assertEquals($end, $period->getEndDate()->format('Y-m-d'));
+        $this->assertSame($start, $period->getStartDate()->format('Y-m-d'));
+        $this->assertSame($end, $period->getEndDate()->format('Y-m-d'));
         $this->assertSame(20, $period->getDateInterval()->dayz);
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $inclusive = true;
         $period = CarbonPeriod::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive);
 
-        $this->assertEquals($start, $period->getStartDate()->format('Y-m-d'));
-        $this->assertEquals($end, $period->getEndDate()->format('Y-m-d'));
+        $this->assertSame($start, $period->getStartDate()->format('Y-m-d'));
+        $this->assertSame($end, $period->getEndDate()->format('Y-m-d'));
         $this->assertSame(20, $period->getDateInterval()->dayz);
         $this->assertSame(0, $period->getOptions());
 
         $period = CarbonPeriod::options($opt)->setDateInterval($int)->setDates($start, $end);
 
-        $this->assertEquals($start, $period->getStartDate()->format('Y-m-d'));
-        $this->assertEquals($end, $period->getEndDate()->format('Y-m-d'));
+        $this->assertSame($start, $period->getStartDate()->format('Y-m-d'));
+        $this->assertSame($end, $period->getEndDate()->format('Y-m-d'));
         $this->assertSame(20, $period->getDateInterval()->dayz);
         $this->assertSame($opt, $period->getOptions());
     }
