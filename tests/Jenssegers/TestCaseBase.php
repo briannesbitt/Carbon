@@ -6,12 +6,14 @@ namespace Tests\Jenssegers;
 use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 
-class TestCaseBase extends TestCase
+abstract class TestCaseBase extends TestCase
 {
     public const LOCALE = 'en';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
+        parent::setUp();
+
         date_default_timezone_set('UTC');
         Carbon::setLocale(static::LOCALE);
 

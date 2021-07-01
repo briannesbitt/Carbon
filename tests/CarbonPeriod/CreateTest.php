@@ -463,7 +463,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
-        $this->assertEquals(0, $period->getOptions());
+        $this->assertSame(0, $period->getOptions());
     }
 
     public function testCreateFromDateStringsWithTimezones()

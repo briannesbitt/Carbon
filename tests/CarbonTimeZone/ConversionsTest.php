@@ -89,7 +89,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         Carbon::setTestNow(Carbon::parse($date));
         $offset = (new CarbonTimeZone($timezone))->toOffsetName();
 
-        $this->assertEquals($expectedOffset, $offset);
+        $this->assertSame($expectedOffset, $offset);
     }
 
     /**
@@ -102,7 +102,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
     {
         $offset = (new CarbonTimeZone($timezone))->toOffsetName(Carbon::parse($date));
 
-        $this->assertEquals($expectedOffset, $offset);
+        $this->assertSame($expectedOffset, $offset);
     }
 
     public function testToOffsetNameFromDifferentCreationMethods()

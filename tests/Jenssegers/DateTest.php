@@ -36,9 +36,9 @@ class DateTest extends TestCaseBase
 
     public function testCreateFromCarbon()
     {
-        $date = Carbon::make(Carbon::createFromFormat('U', 1367186296));
+        $date = Carbon::make(Carbon::createFromFormat('U', '1367186296'));
         $this->assertInstanceOf(Carbon::class, $date);
-        $this->assertEquals(1367186296, $date->getTimestamp());
+        $this->assertSame(1367186296, $date->getTimestamp());
     }
 
     public function testManipulation()
