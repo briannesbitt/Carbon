@@ -142,7 +142,7 @@ trait Timestamp
      *
      * @return int
      */
-    public function getTimestampMs()
+    public function getTimestampMs(): int
     {
         return (int) $this->getPreciseTimestamp(3);
     }
