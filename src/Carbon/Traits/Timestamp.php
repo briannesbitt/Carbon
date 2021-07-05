@@ -138,6 +138,16 @@ trait Timestamp
     }
 
     /**
+     * Returns the timestamp with millisecond precision.
+     *
+     * @return int
+     */
+    public function getTimestampMs()
+    {
+        return (int) $this->getPreciseTimestamp(3);
+    }
+
+    /**
      * @alias getTimestamp
      *
      * Returns the UNIX timestamp for the current date.
