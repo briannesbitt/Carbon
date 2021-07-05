@@ -48,6 +48,12 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertSame(1515260050987126000.0, $dt->getPreciseTimestamp(9));
     }
 
+    public function testGetTimestampMs()
+    {
+        $dt = Carbon::parse('2018-01-06 12:34:10.987126');
+        $this->assertSame(1515260050987, $dt->getTimestampMs());
+    }
+
     public function testNowWithTimezone()
     {
         $dt = Carbon::now('Europe/London');
