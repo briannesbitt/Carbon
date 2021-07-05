@@ -149,6 +149,7 @@ trait Serialization
      *
      * @return array|string
      */
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $serializer = $this->localSerializer ?? static::$serializer;
