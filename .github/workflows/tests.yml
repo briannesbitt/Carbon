@@ -42,7 +42,7 @@ jobs:
           - php: 8.1
             setup: lowest
 
-          - php: 7.4
+          - php: 8.0
             laravel: true
 
           - php: 8.0
@@ -63,7 +63,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: json${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached' || '' }}
+          extensions: json, msgpack${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached' || '' }}
           tools: composer:v2
           coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
 
