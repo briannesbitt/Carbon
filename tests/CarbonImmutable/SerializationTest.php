@@ -30,22 +30,27 @@ class SerializationTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->serialized = 'O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}';
+        $this->serialized = \extension_loaded('msgpack')
+            ? [
+                "O:22:\"Carbon\CarbonImmutable\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}",
+                "O:22:\"Carbon\CarbonImmutable\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:23:\"s:15:\"America/Toronto\";\";}}",
+            ]
+            : ['O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}'];
     }
 
     public function testSerialize()
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
-        $this->assertSame($this->serialized, $dt->serialize());
-        $this->assertSame($this->serialized, serialize($dt));
+        $this->assertTrue(\in_array($dt->serialize(), $this->serialized, true));
+        $this->assertTrue(\in_array(serialize($dt), $this->serialized, true));
     }
 
     public function testFromUnserialized()
     {
-        $dt = Carbon::fromSerialized($this->serialized);
+        $dt = Carbon::fromSerialized($this->serialized[0]);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
 
-        $dt = unserialize($this->serialized);
+        $dt = unserialize($this->serialized[0]);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
     }
 
@@ -129,5 +134,19 @@ class SerializationTest extends AbstractTestCase
         $date = unserialize(serialize($target));
 
         $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
+    }
+
+    public function testMsgPackExtension(): void
+    {
+        if (!\extension_loaded('msgpack')) {
+            $this->markTestSkipped('This test needs msgpack extension to be enabled.');
+        }
+
+        $string = '2018-06-01 21:25:13.321654 Europe/Vilnius';
+        $date = Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
+        $message = @msgpack_pack($date);
+        $copy = msgpack_unpack($message);
+
+        $this->assertSame($string, $copy->format('Y-m-d H:i:s.u e'));
     }
 }
