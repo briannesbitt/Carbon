@@ -130,4 +130,18 @@ class SerializationTest extends AbstractTestCase
 
         $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
     }
+
+    public function testMsgPackExtension(): void
+    {
+        if (!extension_loaded('msgpack')) {
+            $this->markTestSkipped('This test needs msgpack extension to be enabled.');
+        }
+
+        $string = '2018-06-01 21:25:13.321654 Europe/Vilnius';
+        $date = \Carbon\Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
+        $message = @msgpack_pack($date);
+        $copy = msgpack_unpack($message);
+
+        $this->assertSame($string, $copy->format('Y-m-d H:i:s.u e'));
+    }
 }
