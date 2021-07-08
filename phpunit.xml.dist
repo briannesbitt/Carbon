@@ -48,7 +48,7 @@
       <directory>tests/Cli</directory>
     </testsuite>
     <testsuite name="phpstan">
-      <directory>tests/PHPStan</directory>
+      <directory phpVersion="8.0.9999" phpVersionOperator="&lt;=">tests/PHPStan</directory>
     </testsuite>
   </testsuites>
 
