@@ -34,6 +34,8 @@ class CreateTest extends AbstractTestCase
 
         $period = CarbonPeriod::create($iso, $options);
 
+        $this->assertInstanceOf(CarbonPeriod::class, $period);
+        $this->assertInstanceOf(DatePeriod::class, $period);
         $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period),

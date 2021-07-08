@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonTimeZone;
 
 use Carbon\CarbonTimeZone;
+use DateTimeZone;
 use Tests\AbstractTestCase;
 use Tests\CarbonTimeZone\Fixtures\UnknownZone;
 
@@ -21,6 +22,8 @@ class CreateTest extends AbstractTestCase
     {
         $tz = new CarbonTimeZone(6);
 
+        $this->assertInstanceOf(CarbonTimeZone::class, $tz);
+        $this->assertInstanceOf(DateTimeZone::class, $tz);
         $this->assertSame('+06:00', $tz->getName());
 
         $tz = CarbonTimeZone::create(6);
