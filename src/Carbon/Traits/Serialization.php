@@ -218,13 +218,13 @@ trait Serialization
         $properties = $this->dumpProperties;
 
         // @codeCoverageIgnoreStart
-        if (!extension_loaded('msgpack')) {
+        if (!\extension_loaded('msgpack')) {
             return $properties;
         }
 
         if (isset($this->constructedObjectId)) {
             $this->dumpDateProperties = [
-                'date'     => $this->format('Y-m-d H:i:s.u'),
+                'date' => $this->format('Y-m-d H:i:s.u'),
                 'timezone' => serialize($this->timezone ?? null),
             ];
 
