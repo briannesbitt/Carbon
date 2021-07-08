@@ -222,12 +222,14 @@ trait Serialization
             return $properties;
         }
 
-        $properties[] = 'dumpDateProperties';
+        if (isset($this->constructedObjectId)) {
+            $this->dumpDateProperties = [
+                'date'     => $this->format('Y-m-d H:i:s.u'),
+                'timezone' => serialize($this->timezone ?? null),
+            ];
 
-        $this->dumpDateProperties = [
-            'date' => $this->format('Y-m-d H:i:s.u'),
-            'timezone' => serialize($this->timezone ?? null),
-        ];
+            $properties[] = 'dumpDateProperties';
+        }
 
         return $properties;
         // @codeCoverageIgnoreEnd

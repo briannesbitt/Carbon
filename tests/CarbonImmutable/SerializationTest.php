@@ -30,7 +30,9 @@ class SerializationTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->serialized = 'O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}';
+        $this->serialized = extension_loaded('msgpack')
+            ? "O:22:\"Carbon\CarbonImmutable\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}"
+            : 'O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}';
     }
 
     public function testSerialize()
@@ -138,7 +140,7 @@ class SerializationTest extends AbstractTestCase
         }
 
         $string = '2018-06-01 21:25:13.321654 Europe/Vilnius';
-        $date = \Carbon\Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
+        $date = Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
         $message = @msgpack_pack($date);
         $copy = msgpack_unpack($message);
 
