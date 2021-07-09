@@ -841,7 +841,7 @@ class LocalizationTest extends AbstractTestCase
             'join' => true,
         ]));
 
-        Carbon::setTranslator(new \Symfony\Component\Translation\IdentityTranslator());
+        Carbon::setTranslator(new IdentityTranslator());
 
         $this->assertNull(Carbon::getFallbackLocale());
 

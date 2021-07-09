@@ -154,7 +154,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
 
     public function testInvalidRegionForOffsetInStrictMode()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Unknown timezone for offset -54000 seconds.'
         );

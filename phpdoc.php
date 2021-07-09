@@ -124,7 +124,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
         if ($parameter->isDefaultValueAvailable()) {
             $output .= ' = '.dumpValue($parameter->getDefaultValue());
         }
-    } catch (\ReflectionException $exp) {
+    } catch (ReflectionException $exp) {
     }
 
     return $output;
