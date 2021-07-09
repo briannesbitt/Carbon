@@ -6,6 +6,7 @@
 /.styleci.yml       export-ignore
 /.travis.yml        export-ignore
 /build.php          export-ignore
+/codecov.yml        export-ignore
 /phpdoc.php         export-ignore
 /phpstan.neon       export-ignore
 /phpunit.xml.dist   export-ignore
