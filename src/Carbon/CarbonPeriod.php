@@ -651,10 +651,12 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 $parsed = @CarbonInterval::make($argument)
             ) {
                 $this->setDateInterval($parsed);
-            } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
-                $this->setStartDate($parsed);
-            } elseif ($this->endDate === null && $parsed = Carbon::make($argument)) {
-                $this->setEndDate($parsed);
+            } elseif ($parsed = Carbon::make($argument)) {
+                if ($this->startDate === null) {
+                    $this->setStartDate($parsed);
+                } elseif ($this->endDate === null) {
+                    $this->setEndDate($parsed);
+                }
             } elseif ($this->recurrences === null && $this->endDate === null && is_numeric($argument)) {
                 $this->setRecurrences($argument);
             } elseif ($this->options === null && (\is_int($argument) || $argument === null)) {
@@ -824,7 +826,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             throw new InvalidIntervalException('Invalid interval.');
         }
 
-        if ($interval->spec() === 'PT0S' && !$interval->f && !$interval->getStep()) {
+        if (!$interval->f && $interval->spec() === 'PT0S' && !$interval->getStep()) {
             throw new InvalidIntervalException('Empty interval is not accepted.');
         }
 
@@ -2312,7 +2314,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     protected function filterEndDate($current)
     {
-        if (!$this->isEndExcluded() && $current == $this->endDate) {
+        if ($current == $this->endDate && !$this->isEndExcluded()) {
             return true;
         }
 
@@ -2338,9 +2340,9 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     protected function handleChangedParameters()
     {
-        if (($this->getOptions() & static::IMMUTABLE) && $this->dateClass === Carbon::class) {
+        if ($this->dateClass === Carbon::class && ($this->getOptions() & static::IMMUTABLE)) {
             $this->setDateClass(CarbonImmutable::class);
-        } elseif (!($this->getOptions() & static::IMMUTABLE) && $this->dateClass === CarbonImmutable::class) {
+        } elseif ($this->dateClass === CarbonImmutable::class && !($this->getOptions() & static::IMMUTABLE)) {
             $this->setDateClass(Carbon::class);
         }
 

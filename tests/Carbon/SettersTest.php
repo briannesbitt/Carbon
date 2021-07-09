@@ -588,8 +588,8 @@ class SettersTest extends AbstractTestCase
             }
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
-                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
+                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value ||
+                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value)
             ) {
                 $results['current']++;
 
@@ -703,8 +703,8 @@ class SettersTest extends AbstractTestCase
             }
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
-                -$date->{"diffIn$unit"}($original, false) === $value
+                -$date->{"diffIn$unit"}($original, false) === $value ||
+                (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value)
             ) {
                 $results['current']++;
 
@@ -800,8 +800,8 @@ class SettersTest extends AbstractTestCase
 
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
-                $date->{"diffIn$unit"}($original, false) === $value
+                $date->{"diffIn$unit"}($original, false) === $value ||
+                (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value)
             ) {
                 $results['current']++;
 

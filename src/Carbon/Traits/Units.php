@@ -206,8 +206,8 @@ trait Units
         // @codeCoverageIgnoreStart
         if (
             $unit instanceof DateInterval &&
-            version_compare(PHP_VERSION, '8.1.0-dev', '>=') &&
-            ($unit->f < 0 || $unit->f >= 1)
+            ($unit->f < 0 || $unit->f >= 1) &&
+            version_compare(PHP_VERSION, '8.1.0-dev', '>=')
         ) {
             $unit = clone $unit;
             $seconds = floor($unit->f);
