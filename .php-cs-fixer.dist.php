@@ -15,9 +15,8 @@ $rules = [
         'spacing' => 'none',
     ],
     'ereg_to_preg' => true,
-    'is_null' => [
-        'use_yoda_style' => false,
-    ],
+    'general_phpdoc_tag_rename' => true,
+    'is_null' => true,
     'line_ending' => true,
     'modernize_types_casting' => true,
     'native_function_invocation' => [
@@ -31,12 +30,17 @@ $rules = [
     'ordered_imports' => true,
     'phpdoc_align' => false,
     'phpdoc_indent' => true,
-    'phpdoc_inline_tag' => true,
+    'phpdoc_inline_tag_normalizer' => true,
     'phpdoc_no_access' => true,
     'phpdoc_no_package' => true,
     'phpdoc_order' => true,
     'phpdoc_scalar' => true,
     'phpdoc_separation' => true,
+    'phpdoc_tag_type' => [
+        'tags' => [
+            'inheritdoc' => 'inline',
+        ],
+    ],
     'phpdoc_to_comment' => true,
     'phpdoc_trim' => true,
     'phpdoc_types' => true,
@@ -46,9 +50,15 @@ $rules = [
     'space_after_semicolon' => true,
     'standardize_not_equals' => true,
     'ternary_operator_spaces' => true,
-    'trailing_comma_in_multiline_array' => true,
+    'trailing_comma_in_multiline' => true,
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
+    'yoda_style' => [
+        'always_move_variable' => false,
+        'equal' => false,
+        'identical' => false,
+        'less_and_greater' => false,
+    ],
 ];
 
 return (new Config())->setRules($rules)
