@@ -8,10 +8,6 @@
         "DateTime"
     ],
     "homepage": "https://carbon.nesbot.com",
-    "support": {
-        "issues": "https://github.com/briannesbitt/Carbon/issues",
-        "source": "https://github.com/briannesbitt/Carbon"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -24,9 +20,6 @@
             "homepage": "https://github.com/kylekatarnls"
         }
     ],
-    "prefer-stable": true,
-    "minimum-stability": "dev",
-    "bin": ["bin/carbon"],
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
@@ -43,43 +36,14 @@
         "phpunit/phpunit": "^7.5.20 || ^8.5.14",
         "squizlabs/php_codesniffer": "^3.4"
     },
-    "autoload": {
-        "psr-4": {
-            "Carbon\\": "src/Carbon/"
-        }
-    },
-    "autoload-dev": {
-        "files": [
-            "tests/Laravel/ServiceProvider.php"
-        ],
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "config": {
         "process-timeout": 0,
         "sort-packages": true
     },
-    "scripts": {
-        "test": [
-            "@phpunit",
-            "@style-check"
-        ],
-        "style-check": [
-            "@phpcs",
-            "@phpstan",
-            "@phpmd"
-        ],
-        "phpunit": "phpunit --verbose",
-        "phpcs": "php-cs-fixer fix -v --diff --dry-run",
-        "phpstan": "phpstan analyse --configuration phpstan.neon",
-        "phpmd": "phpmd src text /phpmd.xml",
-        "phpdoc": "php phpdoc.php"
-    },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev",
-            "dev-3.x": "3.x-dev"
+            "dev-3.x": "3.x-dev",
+            "dev-master": "2.x-dev"
         },
         "laravel": {
             "providers": [
@@ -91,5 +55,43 @@
                 "extension.neon"
             ]
         }
+    },
+    "autoload": {
+        "psr-4": {
+            "Carbon\\": "src/Carbon/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "tests/Laravel/ServiceProvider.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "bin": [
+        "bin/carbon"
+    ],
+    "scripts": {
+        "phpcs": "php-cs-fixer fix -v --diff --dry-run",
+        "phpdoc": "php phpdoc.php",
+        "phpmd": "phpmd src text /phpmd.xml",
+        "phpstan": "phpstan analyse --configuration phpstan.neon",
+        "phpunit": "phpunit --verbose",
+        "style-check": [
+            "@phpcs",
+            "@phpstan",
+            "@phpmd"
+        ],
+        "test": [
+            "@phpunit",
+            "@style-check"
+        ]
+    },
+    "support": {
+        "issues": "https://github.com/briannesbitt/Carbon/issues",
+        "source": "https://github.com/briannesbitt/Carbon"
     }
 }
