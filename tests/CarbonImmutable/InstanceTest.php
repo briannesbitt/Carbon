@@ -43,7 +43,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testInstanceFromCarbonKeepsTimezoneName()
     {
-        $dating = Carbon::instance(Carbon::create(1975, 5, 21, 22, 32, 11)->setTimezone(new \DateTimeZone('America/Vancouver')));
+        $dating = Carbon::instance(Carbon::create(1975, 5, 21, 22, 32, 11)->setTimezone(new DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
