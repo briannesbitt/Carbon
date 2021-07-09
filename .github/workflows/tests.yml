@@ -102,7 +102,6 @@ jobs:
         run: |
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
             php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
-            cp coverage.xml clover.xml;
           fi;
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
             php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
