@@ -361,7 +361,9 @@ class Translator extends Translation\Translator
             parent::setLocale($macroLocale);
         }
 
-        if ($this->initializing || $this->loadMessagesFromFile($locale)) {
+        $loaded = $this->loadMessagesFromFile($locale);
+
+        if ($loaded || $this->initializing) {
             parent::setLocale($locale);
 
             return true;
