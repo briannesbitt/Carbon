@@ -116,21 +116,21 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
     public function testGenericMacroPriority()
     {
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 8) !== 'myPrefix') {
+            if (!str_starts_with($method, 'myPrefix')) {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'first';
         });
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 8) !== 'myPrefix') {
+            if (!str_starts_with($method, 'myPrefix')) {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'second';
         }, 1);
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 8) !== 'myPrefix') {
+            if (!str_starts_with($method, 'myPrefix')) {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
@@ -152,21 +152,21 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
     public function testLocalGenericMacroPriority()
     {
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 3) !== 'mlp') {
+            if (!str_starts_with($method, 'mlp')) {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'first';
         });
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 3) !== 'mlp') {
+            if (!str_starts_with($method, 'mlp')) {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'second';
         }, 1);
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 3) !== 'mlp') {
+            if (!str_starts_with($method, 'mlp')) {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
@@ -180,14 +180,14 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $date = Carbon::now()->settings([
             'genericMacros' => [
                 function ($method) {
-                    if (substr($method, 0, 3) !== 'mlp') {
+                    if (!str_starts_with($method, 'mlp')) {
                         throw new \BadMethodCallException('Try next macro', 0);
                     }
 
                     return 'local-first';
                 },
                 function ($method) {
-                    if (substr($method, 0, 3) !== 'mlp') {
+                    if (!str_starts_with($method, 'mlp')) {
                         throw new \BadMethodCallException('Try next macro', 0);
                     }
 

@@ -37,7 +37,7 @@ trait CarbonTypeConverter
             return $type;
         }
 
-        if (strpos($type, '(') !== false) {
+        if (str_contains($type, '(')) {
             return preg_replace('/\(\d+\)/', "($precision)", $type);
         }
 

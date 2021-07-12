@@ -442,7 +442,7 @@ foreach ($tags as $tag) {
 
         $description = trim($vars->description);
         $variable = $vars->name;
-        if (substr($description, 0, 1) === '$') {
+        if (str_starts_with($description, '$')) {
             [$variable, $description] = explode(' ', $description, 2);
             $variable = ltrim($variable, '$');
             $description = ltrim($description);
@@ -541,7 +541,7 @@ foreach ($carbonMethods as $method) {
     }, $function->getParameters()));
     $methodDocBlock = $function->getDocComment() ?: '';
 
-    if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
+    if (str_starts_with($method, '__') && $function->isStatic()) {
         $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
         $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
         $doc = explode("\n@", $doc, 2);
@@ -589,7 +589,7 @@ foreach ($carbonMethods as $method) {
             '     */';
     }
 
-    if (strpos($return, 'self') !== false && $phpLevel < 7.4) {
+    if (str_contains($return, 'self') && $phpLevel < 7.4) {
         $return = '';
     }
 

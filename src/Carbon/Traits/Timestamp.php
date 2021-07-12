@@ -177,7 +177,7 @@ trait Timestamp
             $numbers = number_format($numbers, $decimals, '.', '');
         }
 
-        $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
+        $sign = str_starts_with($numbers, '-') ? -1 : 1;
         $integer = 0;
         $decimal = 0;
 

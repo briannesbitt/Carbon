@@ -355,7 +355,7 @@ class Translator extends Translation\Translator
         }
 
         // If subtag (ex: en_CA) first load the macro (ex: en) to have a fallback
-        if (strpos($locale, '_') !== false &&
+        if (str_contains($locale, '_') &&
             $this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))
         ) {
             parent::setLocale($macroLocale);
