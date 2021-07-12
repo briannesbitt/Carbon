@@ -77,7 +77,7 @@ trait Creator
         }
 
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
-        if (strpos((string) .1, '.') === false) {
+        if (!str_contains((string) .1, '.')) {
             $locale = setlocale(LC_NUMERIC, '0');
             setlocale(LC_NUMERIC, 'C');
         }
