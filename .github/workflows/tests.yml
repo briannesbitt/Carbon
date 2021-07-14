@@ -85,7 +85,6 @@ jobs:
         run: |
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" = 'true' ]]; then
             php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
-            cp coverage.xml clover.xml;
           fi;
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.composerCommand }}" == '' && "${{ matrix.coverage }}" != 'true' ]]; then
             php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
@@ -114,10 +113,8 @@ jobs:
         continue-on-error: true
 
       - name: Coverage
+        uses: codecov/codecov-action@v1
         if: matrix.coverage
-        run: bash <(curl -s https://codecov.io/bash)
-        env:
-          PHP_VERSION: ${{ matrix.php }}
 
   windows:
     runs-on: windows-latest

@@ -1082,7 +1082,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function get(string $name)
     {
-        if (substr($name, 0, 5) === 'total') {
+        if (str_starts_with($name, 'total')) {
             return $this->total(substr($name, 5));
         }
 

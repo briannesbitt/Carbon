@@ -622,7 +622,7 @@ trait Comparison
 
         if (!isset($units[$unit])) {
             if (isset($this->$unit)) {
-                return $this->$unit === $this->resolveCarbon($date)->$unit;
+                return $this->resolveCarbon($date)->$unit === $this->$unit;
             }
 
             if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
@@ -1001,7 +1001,7 @@ trait Comparison
         ];
 
         foreach ($units as $unit => [$minimum, $startUnit]) {
-            if ($median->$unit === $minimum) {
+            if ($minimum === $median->$unit) {
                 $current = $current->startOf($startUnit);
 
                 break;

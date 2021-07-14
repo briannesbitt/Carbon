@@ -821,7 +821,7 @@ trait Date
         switch (true) {
             case isset($formats[$name]):
                 $format = $formats[$name];
-                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'rawFormat';
+                $method = str_starts_with($format, '%') ? 'formatLocalized' : 'rawFormat';
                 $value = $this->$method($format);
 
                 return is_numeric($value) ? (int) $value : $value;
@@ -1065,7 +1065,7 @@ trait Date
             case 'microseconds':
             case 'microsecond':
             case 'micro':
-                if (substr($name, 0, 5) === 'milli') {
+                if (str_starts_with($name, 'milli')) {
                     $value *= 1000;
                 }
 
@@ -1441,7 +1441,7 @@ trait Date
      */
     public function setTimeFromTimeString($time)
     {
-        if (strpos($time, ':') === false) {
+        if (!str_contains($time, ':')) {
             $time .= ':0';
         }
 
@@ -2373,7 +2373,7 @@ trait Date
 
         $unit = rtrim($method, 's');
 
-        if (substr($unit, 0, 2) === 'is') {
+        if (str_starts_with($unit, 'is')) {
             $word = substr($unit, 2);
 
             if (\in_array($word, static::$days)) {
@@ -2411,7 +2411,7 @@ trait Date
         if ($action === 'add' || $action === 'sub') {
             $unit = substr($unit, 3);
 
-            if (substr($unit, 0, 4) === 'Real') {
+            if (str_starts_with($unit, 'Real')) {
                 $unit = static::singularUnit(substr($unit, 4));
 
                 return $this->{"${action}RealUnit"}($unit, ...$parameters);
@@ -2453,7 +2453,7 @@ trait Date
             }
         }
 
-        if (substr($unit, 0, 9) === 'isCurrent') {
+        if (str_starts_with($unit, 'isCurrent')) {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
             } catch (BadComparisonUnitException | BadMethodCallException $exception) {
@@ -2461,7 +2461,7 @@ trait Date
             }
         }
 
-        if (substr($method, -5) === 'Until') {
+        if (str_ends_with($method, 'Until')) {
             try {
                 $unit = static::singularUnit(substr($method, 0, -5));
 
