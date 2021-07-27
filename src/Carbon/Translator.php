@@ -326,7 +326,7 @@ class Translator extends Translation\Translator
 
         $previousLocale = $this->getLocale();
 
-        if ($previousLocale === $locale) {
+        if ($previousLocale === $locale && isset($this->messages[$locale])) {
             return true;
         }
 
