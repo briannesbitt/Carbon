@@ -23,6 +23,7 @@ $rules = [
         'include' => ['@compiler_optimized'],
     ],
     'no_blank_lines_after_phpdoc' => true,
+    'no_extra_blank_lines' => true,
     'no_short_bool_cast' => true,
     'no_unneeded_control_parentheses' => true,
     'no_unused_imports' => true,
