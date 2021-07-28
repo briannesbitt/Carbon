@@ -318,11 +318,11 @@ class CreateTest extends AbstractTestCase
 
         $date = Carbon::parseFromLocale('à l’instant');
 
-        $this->assertTrue(Carbon::now() == $date);
+        $this->assertEquals(Carbon::now(), $date);
 
         $date = Carbon::parseFromLocale('après-demain');
 
-        $this->assertTrue(Carbon::today()->addDays(2) == $date);
+        $this->assertEquals(Carbon::today()->addDays(2), $date);
     }
 
     public function testCreateFromLocaleFormat()

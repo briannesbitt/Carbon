@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\CarbonPeriod;
+use DatePeriod;
 use Tests\AbstractTestCase;
 
 class ToDatePeriodTest extends AbstractTestCase
@@ -22,7 +23,7 @@ class ToDatePeriodTest extends AbstractTestCase
         $result = $period->toDatePeriod();
 
         $this->assertFalse($period->isEndExcluded());
-        $this->assertSame('DatePeriod', \get_class($result));
+        $this->assertSame(DatePeriod::class, \get_class($result));
         $this->assertSame('2021-01-05', $result->getStartDate()->format('Y-m-d'));
         $this->assertSame('2021-02-15', $result->getEndDate()->format('Y-m-d'));
         // CarbonPeriod includes end date by default while DatePeriod will always exclude it
@@ -35,7 +36,7 @@ class ToDatePeriodTest extends AbstractTestCase
         $newInstance = CarbonPeriod::instance($result);
 
         $this->assertTrue($period->isEndExcluded());
-        $this->assertSame('DatePeriod', \get_class($result));
+        $this->assertSame(DatePeriod::class, \get_class($result));
         $this->assertSame('2021-01-05', $result->getStartDate()->format('Y-m-d'));
         $this->assertSame('2021-02-14', $result->getEndDate()->format('Y-m-d'));
         $dates = iterator_to_array($result);
@@ -47,7 +48,7 @@ class ToDatePeriodTest extends AbstractTestCase
         $result = $period->toDatePeriod();
         $newInstance = CarbonPeriod::instance($result);
 
-        $this->assertSame('DatePeriod', \get_class($result));
+        $this->assertSame(DatePeriod::class, \get_class($result));
         $this->assertSame('2021-01-05', $result->getStartDate()->format('Y-m-d'));
         $this->assertNull($result->getEndDate());
         $dates = iterator_to_array($result);
