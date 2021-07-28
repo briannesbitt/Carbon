@@ -92,7 +92,7 @@ class MacroTest extends AbstractTestCase
         /** @var mixed $period */
         $period = new CarbonPeriod;
 
-        $this->assertInstanceOf('Carbon\CarbonPeriod', $period->myself());
+        $this->assertInstanceOf(CarbonPeriod::class, $period->myself());
         $this->assertSame($period, $period->myself());
     }
 
@@ -118,7 +118,7 @@ class MacroTest extends AbstractTestCase
             return new static;
         });
 
-        $this->assertInstanceOf('Carbon\CarbonPeriod', CarbonPeriod::newMyself());
+        $this->assertInstanceOf(CarbonPeriod::class, CarbonPeriod::newMyself());
     }
 
     public function testRegisterNonClosureMacro()
