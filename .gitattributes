@@ -7,7 +7,6 @@
 /.travis.yml             export-ignore
 /build.php               export-ignore
 /contributing.md         export-ignore
-/extension.neon          export-ignore
 /codecov.yml             export-ignore
 /phpdoc.php              export-ignore
 /phpmd.xml               export-ignore
