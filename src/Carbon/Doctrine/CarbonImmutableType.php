@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Thanks to https://github.com/flaushi for his suggestion:

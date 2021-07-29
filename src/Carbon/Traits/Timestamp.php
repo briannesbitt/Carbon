@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -69,7 +70,7 @@ trait Timestamp
         $delta = floor($microseconds / static::MICROSECONDS_PER_SECOND);
         $seconds += $delta;
         $microseconds -= $delta * static::MICROSECONDS_PER_SECOND;
-        $microseconds = str_pad($microseconds, 6, '0', STR_PAD_LEFT);
+        $microseconds = str_pad((string) $microseconds, 6, '0', STR_PAD_LEFT);
 
         return static::rawCreateFromFormat('U u', "$seconds $microseconds");
     }

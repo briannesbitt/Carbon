@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -2077,7 +2078,9 @@ trait Date
      */
     public function getAltNumber(string $key): string
     {
-        return $this->translateNumber(\strlen($key) > 1 ? $this->$key : $this->rawFormat('h'));
+        $number = \strlen($key) > 1 ? $this->$key : $this->rawFormat('h');
+
+        return $this->translateNumber((int) $number);
     }
 
     /**

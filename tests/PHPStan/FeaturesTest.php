@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Tests\PHPStan;
@@ -34,7 +33,7 @@ class FeaturesTest extends AbstractTestCase
     public function testAnalysesWithAnError(): void
     {
         $this->assertStringContainsString(
-            '17     Static call to instance method Carbon\Carbon::foo().',
+            '16     Static call to instance method Carbon\Carbon::foo().',
             $this->analyze(__DIR__.'/BadFixture.php')
         );
     }

@@ -12,6 +12,7 @@ An international PHP extension for DateTime. [https://carbon.nesbot.com](https:/
 
 ```php
 <?php
+declare(strict_types=1);
 
 use Carbon\Carbon;
 
@@ -75,6 +76,7 @@ $ composer require nesbot/carbon
 
 ```php
 <?php
+declare(strict_types=1);
 require 'vendor/autoload.php';
 
 use Carbon\Carbon;
@@ -88,6 +90,7 @@ Why are you not using [composer](https://getcomposer.org/)? Download the Carbon 
 
 ```php
 <?php
+declare(strict_types=1);
 require 'path-to-Carbon-directory/autoload.php';
 
 use Carbon\Carbon;
