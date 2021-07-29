@@ -28,7 +28,7 @@ class ParseErrorExceptionTest extends AbstractTestCase
     {
         $exception = new ParseErrorException('string', 'int', 'help message');
 
-        $this->assertSame("Format expected string but get 'int'".PHP_EOL.'help message', $exception->getMessage());
+        $this->assertSame("Format expected string but get 'int'\nhelp message", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());
         $this->assertNull($exception->getPrevious());
     }
