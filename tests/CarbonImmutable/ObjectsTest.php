@@ -14,6 +14,7 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use DateTime;
 use DateTimeImmutable;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class ObjectsTest extends AbstractTestCase
@@ -23,7 +24,7 @@ class ObjectsTest extends AbstractTestCase
         $dt = Carbon::now();
         $dtToObject = $dt->toObject();
 
-        $this->assertInstanceOf(\stdClass::class, $dtToObject);
+        $this->assertInstanceOf(stdClass::class, $dtToObject);
 
         $this->assertObjectHasAttribute('year', $dtToObject);
         $this->assertSame($dt->year, $dtToObject->year);

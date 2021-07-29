@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class RoundTest extends AbstractTestCase
@@ -132,10 +133,9 @@ class RoundTest extends AbstractTestCase
 
     public function testRoundInvalidArgument()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown unit \'foobar\'.'
-        );
+        ));
 
         Carbon::now()->roundUnit('foobar');
     }

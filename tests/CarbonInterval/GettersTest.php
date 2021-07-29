@@ -13,16 +13,16 @@ namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
 use Carbon\Translator;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown getter \'doesNotExit\''
-        );
+        ));
 
         /** @var mixed $interval */
         $interval = CarbonInterval::year();

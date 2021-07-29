@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class FromStringTest extends AbstractTestCase
@@ -109,7 +110,7 @@ class FromStringTest extends AbstractTestCase
 
         try {
             CarbonInterval::fromString($string);
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $message = $exception->getMessage();
         }
 

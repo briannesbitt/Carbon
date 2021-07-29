@@ -12,7 +12,9 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use \DateTime;
+use BadMethodCallException;
 use Carbon\Carbon;
+use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
 
@@ -660,10 +662,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameAsWithInvalidArgument()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Expected null, string, DateTime or DateTimeInterface, stdClass given'
-        );
+        ));
 
         $current = Carbon::createFromDate(2012, 1, 2);
         $current->isSameAs('Y-m-d', new stdClass());
@@ -993,10 +994,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameFoobar()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new BadMethodCallException(
             'Method isSameFoobar does not exist.'
-        );
+        ));
 
         /** @var mixed $date */
         $date = Carbon::parse('12:00:00');
@@ -1005,10 +1005,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsCurrentFoobar()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new BadMethodCallException(
             'Method isCurrentFoobar does not exist.'
-        );
+        ));
 
         /** @var mixed $date */
         $date = Carbon::parse('12:00:00');

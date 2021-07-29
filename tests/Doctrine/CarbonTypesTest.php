@@ -129,11 +129,10 @@ class CarbonTypesTest extends AbstractTestCase
      */
     public function testConvertToPHPValueFailure(string $name, string $class)
     {
-        $this->expectException(ConversionException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new ConversionException(
             "Could not convert database value \"2020-0776-23 18:47\" to Doctrine Type $name. ".
             "Expected format: Y-m-d H:i:s.u or any format supported by $class::parse()"
-        );
+        ));
 
         Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', new MySQL57Platform());
     }
@@ -169,11 +168,10 @@ class CarbonTypesTest extends AbstractTestCase
      */
     public function testConvertToDatabaseValueFailure(string $name)
     {
-        $this->expectException(ConversionException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new ConversionException(
             "Could not convert PHP value of type 'array' to type '$name'. ".
             'Expected one of the following types: null, DateTime, Carbon'
-        );
+        ));
 
         Type::getType($name)->convertToDatabaseValue([2020, 06, 23], new MySQL57Platform());
     }

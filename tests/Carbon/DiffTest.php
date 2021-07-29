@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Closure;
+use DateTime;
 use Exception;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
@@ -1284,7 +1285,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansWithDateTimeInstance()
     {
-        $feb15 = new \DateTime('2015-02-15');
+        $feb15 = new DateTime('2015-02-15');
         $mar15 = Carbon::parse('2015-03-15');
         $this->assertSame('1 month after', $mar15->diffForHumans($feb15));
     }
@@ -1311,7 +1312,7 @@ class DiffTest extends AbstractTestCase
     public function testDiffWithDateTime()
     {
         $dt1 = Carbon::createFromDate(2000, 1, 25)->endOfDay();
-        $dt2 = new \DateTime('2000-01-10');
+        $dt2 = new DateTime('2000-01-10');
 
         $this->assertSame(383, $dt1->diffInHours($dt2));
     }
@@ -1521,30 +1522,27 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffWithInvalidType()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Expected null, string, DateTime or DateTimeInterface, integer given'
-        );
+        ));
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(10);
     }
 
     public function testDiffWithInvalidObject()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given'
-        );
+        ));
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(new CarbonInterval());
     }
 
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new Exception(
             'Failed to parse time string (2018-04-13-08:00:00) at position 16'
-        );
+        ));
 
         $mar13 = Carbon::parse('2018-03-13');
         $mar13->diffForHumans('2018-04-13-08:00:00');
