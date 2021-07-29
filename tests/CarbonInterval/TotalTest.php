@@ -5,6 +5,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class TotalTest extends AbstractTestCase
@@ -45,10 +46,9 @@ class TotalTest extends AbstractTestCase
 
     public function testThrowsExceptionForInvalidUnits()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown unit \'foo\'.'
-        );
+        ));
 
         CarbonInterval::create()->total('foo');
     }
@@ -139,7 +139,7 @@ class TotalTest extends AbstractTestCase
 
         try {
             $interval->totalMonths;
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $monthsError = $exception->getMessage();
         }
 
@@ -147,7 +147,7 @@ class TotalTest extends AbstractTestCase
 
         try {
             $interval->totalYears;
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $yearsError = $exception->getMessage();
         }
 

@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace Tests\CarbonInterval;
 
+use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use DateInterval;
@@ -314,10 +315,9 @@ class ConstructTest extends AbstractTestCase
 
     public function testCallInvalidStaticMethod()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new BadMethodCallException(
             'Unknown fluent constructor \'anything\''
-        );
+        ));
 
         CarbonInterval::anything();
     }

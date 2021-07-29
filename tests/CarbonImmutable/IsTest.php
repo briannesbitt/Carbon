@@ -13,6 +13,7 @@ namespace Tests\CarbonImmutable;
 
 use \DateTime;
 use Carbon\CarbonImmutable as Carbon;
+use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
 
@@ -279,10 +280,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameFoobar()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Bad comparison unit: \'foobar\''
-        );
+        ));
 
         Carbon::now()->isSameUnit('foobar', Carbon::now()->subMillennium());
     }
@@ -673,10 +673,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameAsWithInvalidArgument()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Expected null, string, DateTime or DateTimeInterface, stdClass given'
-        );
+        ));
 
         $current = Carbon::createFromDate(2012, 1, 2);
         $current->isSameAs('Y-m-d', new stdClass());

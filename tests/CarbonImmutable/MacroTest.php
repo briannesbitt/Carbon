@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace Tests\CarbonImmutable;
 
+use BadMethodCallException;
 use Carbon\CarbonImmutable as Carbon;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
@@ -104,20 +105,18 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new BadMethodCallException(
             'Method Carbon\CarbonImmutable::nonExistingStaticMacro does not exist.'
-        );
+        ));
 
         Carbon::nonExistingStaticMacro();
     }
 
     public function testCarbonRaisesExceptionWhenMacroIsNotFound()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new BadMethodCallException(
             'Method nonExistingMacro does not exist.'
-        );
+        ));
 
         /** @var mixed $date */
         $date = Carbon::now();

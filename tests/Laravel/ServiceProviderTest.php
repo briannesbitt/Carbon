@@ -138,6 +138,7 @@ class ServiceProviderTest extends TestCase
         }');
 
         eval('namespace Illuminate\Support\Facades;
+        use Exception;
         class Date
         {
             public static $locale;
@@ -152,7 +153,7 @@ class ServiceProviderTest extends TestCase
                 static::$locale = $locale;
 
                 if ($locale === "fr") {
-                    throw new \Exception("stop");
+                    throw new Exception("stop");
                 }
             }
         }');

@@ -21,6 +21,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use InvalidArgumentException;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
@@ -109,8 +110,9 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromInvalidIso8601String($iso)
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid ISO 8601 specification: $iso");
+        $this->expectExceptionObject(new InvalidArgumentException(
+            "Invalid ISO 8601 specification: $iso"
+        ));
 
         CarbonPeriod::create($iso);
     }
@@ -330,10 +332,9 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromInvalidParameters(...$arguments)
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid constructor parameters.'
-        );
+        ));
 
         CarbonPeriod::create(...$arguments);
     }
@@ -341,9 +342,9 @@ class CreateTest extends AbstractTestCase
     public function provideInvalidParameters()
     {
         return [
-            [new \stdClass, CarbonInterval::days(1), Carbon::tomorrow()],
-            [Carbon::now(), new \stdClass, Carbon::tomorrow()],
-            [Carbon::now(), CarbonInterval::days(1), new \stdClass],
+            [new stdClass, CarbonInterval::days(1), Carbon::tomorrow()],
+            [Carbon::now(), new stdClass, Carbon::tomorrow()],
+            [Carbon::now(), CarbonInterval::days(1), new stdClass],
             [Carbon::yesterday(), Carbon::now(), Carbon::tomorrow()],
             [CarbonInterval::day(), CarbonInterval::hour()],
             [5, CarbonPeriod::EXCLUDE_START_DATE, CarbonPeriod::EXCLUDE_END_DATE],
@@ -583,8 +584,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateFromCarbonInstanceInvalidMethod()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Method unknownUnitsUntil does not exist.');
+        $this->expectExceptionObject(new BadMethodCallException(
+            'Method unknownUnitsUntil does not exist.'
+        ));
 
         /** @var object $date */
         $date = Carbon::create('2019-01-02');
@@ -657,8 +659,9 @@ class CreateTest extends AbstractTestCase
 
     public function testBadCast()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('DateTime has not the instance() method needed to cast the date.');
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'DateTime has not the instance() method needed to cast the date.'
+        ));
 
         CarbonPeriod::create('2010-08-24', CarbonInterval::weeks(2), '2012-07-19')
             ->cast(DateTime::class);
@@ -695,18 +698,20 @@ class CreateTest extends AbstractTestCase
 
     public function testInstanceInvalidType()
     {
-        $this->expectException(NotAPeriodException::class);
-        $this->expectExceptionMessage('Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
-            'must be an instance of DatePeriod or Carbon\CarbonPeriod, string given.');
+        $this->expectExceptionObject(new NotAPeriodException(
+            'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
+            'must be an instance of DatePeriod or Carbon\CarbonPeriod, string given.'
+        ));
 
         CarbonPeriod::instance('hello');
     }
 
     public function testInstanceInvalidInstance()
     {
-        $this->expectException(NotAPeriodException::class);
-        $this->expectExceptionMessage('Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
-            'must be an instance of DatePeriod or Carbon\CarbonPeriod, instance of Carbon\Carbon given.');
+        $this->expectExceptionObject(new NotAPeriodException(
+            'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
+            'must be an instance of DatePeriod or Carbon\CarbonPeriod, instance of Carbon\Carbon given.'
+        ));
 
         CarbonPeriod::instance(Carbon::now());
     }

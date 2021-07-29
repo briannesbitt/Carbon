@@ -16,6 +16,7 @@ use Carbon\CarbonInterval;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
+use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
@@ -679,8 +680,7 @@ class LocalizationTest extends AbstractTestCase
 
         Carbon::setTranslator($translator);
 
-        $this->expectException(NotLocaleAwareException::class);
-        $this->expectExceptionMessage(\get_class($translator).' does neither implements Symfony\\Contracts\\Translation\\LocaleAwareInterface nor getLocale() method.');
+        $this->expectExceptionObject(new NotLocaleAwareException($translator));
 
         Carbon::now()->locale();
     }
@@ -719,12 +719,11 @@ class LocalizationTest extends AbstractTestCase
 
     public function testTranslationCustomWithCustomTranslator()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
             'Symfony\Component\Translation\IdentityTranslator has been given.'
-        );
+        ));
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
         $date->setLocalTranslator(
