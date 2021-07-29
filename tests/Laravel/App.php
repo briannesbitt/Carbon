@@ -51,7 +51,7 @@ class App implements ArrayAccess
 
     public static function getLocaleChangeEventName()
     {
-        return version_compare((string) static::version(), '5.5') >= 0
+        return version_compare(static::version(), '5.5') >= 0
             ? 'Illuminate\Foundation\Events\LocaleUpdated'
             : 'locale.changed';
     }
