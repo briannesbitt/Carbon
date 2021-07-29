@@ -14,9 +14,9 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
-use Carbon\Exceptions\InvalidFormatException;
 use Closure;
 use DateTime;
+use Exception;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -1526,9 +1526,10 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
-        $this->expectExceptionObject(new InvalidFormatException(
-            "Could not parse '2018-04-13-08:00:00': DateTimeImmutable::__construct(): Failed to parse time string (2018-04-13-08:00:00) at position 16 (:): Unexpected character"
-        ));
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage(
+            'Failed to parse time string (2018-04-13-08:00:00) at position 16'
+        );
 
         $mar13 = Carbon::parse('2018-03-13');
         $mar13->diffForHumans('2018-04-13-08:00:00');
