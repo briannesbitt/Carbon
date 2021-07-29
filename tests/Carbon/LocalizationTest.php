@@ -36,7 +36,7 @@ class LocalizationTest extends AbstractTestCase
         Carbon::setLocale('en');
     }
 
-    public function testGetTranslator()
+    public function testGetTranslator(): void
     {
         /** @var Translator $t */
         $t = Carbon::getTranslator();
@@ -44,7 +44,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('en', $t->getLocale());
     }
 
-    public function testResetTranslator()
+    public function testResetTranslator(): void
     {
         /** @var Translator $t */
         $t = MyCarbon::getTranslator();
@@ -52,7 +52,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('en', $t->getLocale());
     }
 
-    public function testSetLocaleToAuto()
+    public function testSetLocaleToAuto(): void
     {
         $currentLocale = setlocale(LC_ALL, '0');
         if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
@@ -171,7 +171,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return array
      */
-    public function providerLocales()
+    public function providerLocales(): array
     {
         return [
             ['af'],
@@ -318,7 +318,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @param string $locale
      */
-    public function testSetLocale($locale)
+    public function testSetLocale($locale): void
     {
         $this->assertTrue(Carbon::setLocale($locale));
         $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
@@ -329,7 +329,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @param string $locale
      */
-    public function testSetTranslator($locale)
+    public function testSetTranslator($locale): void
     {
         $ori = Carbon::getTranslator();
         $t = new Translator($locale);
@@ -344,7 +344,7 @@ class LocalizationTest extends AbstractTestCase
         Carbon::setTranslator($ori);
     }
 
-    public function testSetLocaleWithKnownLocale()
+    public function testSetLocaleWithKnownLocale(): void
     {
         $this->assertTrue(Carbon::setLocale('fr'));
     }
@@ -354,7 +354,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return array
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale()
+    public function dataProviderTestSetLocaleWithMalformedLocale(): array
     {
         return [
             ['DE'],
@@ -373,22 +373,22 @@ class LocalizationTest extends AbstractTestCase
      *
      * @param string $malformedLocale
      */
-    public function testSetLocaleWithMalformedLocale($malformedLocale)
+    public function testSetLocaleWithMalformedLocale($malformedLocale): void
     {
         $this->assertTrue(Carbon::setLocale($malformedLocale));
     }
 
-    public function testSetLocaleWithNonExistingLocale()
+    public function testSetLocaleWithNonExistingLocale(): void
     {
         $this->assertFalse(Carbon::setLocale('pt-XX'));
     }
 
-    public function testSetLocaleWithUnknownLocale()
+    public function testSetLocaleWithUnknownLocale(): void
     {
         $this->assertFalse(Carbon::setLocale('zz'));
     }
 
-    public function testCustomTranslation()
+    public function testCustomTranslation(): void
     {
         Carbon::setLocale('en');
         /** @var Translator $translator */
@@ -407,7 +407,7 @@ class LocalizationTest extends AbstractTestCase
         Carbon::setLocale('en');
     }
 
-    public function testCustomLocalTranslation()
+    public function testCustomLocalTranslation(): void
     {
         $boringLanguage = 'en_Overboring';
         $translator = Translator::get($boringLanguage);
@@ -437,7 +437,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('утра', $meridiem);
     }
 
-    public function testAddCustomTranslation()
+    public function testAddCustomTranslation(): void
     {
         $enBoring = [
             'day' => '1 boring day|%count% boring days',
@@ -485,7 +485,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(Carbon::setLocale('en'));
     }
 
-    public function testCustomWeekStart()
+    public function testCustomWeekStart(): void
     {
         $this->assertTrue(Carbon::setLocale('ru'));
 
@@ -515,7 +515,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(Carbon::setLocale('en'));
     }
 
-    public function testAddAndRemoveDirectory()
+    public function testAddAndRemoveDirectory(): void
     {
         $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
         mkdir($directory);
@@ -546,7 +546,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(Carbon::setLocale('en'));
     }
 
-    public function testLocaleHasShortUnits()
+    public function testLocaleHasShortUnits(): void
     {
         $withShortUnit = [
             'year' => 'foo',
@@ -585,7 +585,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertFalse(Carbon::localeHasShortUnits($withSameShortUnitLocale));
     }
 
-    public function testLocaleHasDiffSyntax()
+    public function testLocaleHasDiffSyntax(): void
     {
         $withDiffSyntax = [
             'year' => 'foo',
@@ -612,7 +612,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertFalse(Carbon::localeHasDiffSyntax('foobar'));
     }
 
-    public function testLocaleHasDiffOneDayWords()
+    public function testLocaleHasDiffOneDayWords(): void
     {
         $withOneDayWords = [
             'year' => 'foo',
@@ -635,7 +635,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertFalse(Carbon::localeHasDiffOneDayWords($withoutOneDayWordsLocale));
     }
 
-    public function testLocaleHasDiffTwoDayWords()
+    public function testLocaleHasDiffTwoDayWords(): void
     {
         $withTwoDayWords = [
             'year' => 'foo',
@@ -657,7 +657,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertFalse(Carbon::localeHasDiffTwoDayWords($withoutTwoDayWordsLocale));
     }
 
-    public function testLocaleHasPeriodSyntax()
+    public function testLocaleHasPeriodSyntax(): void
     {
         $withPeriodSyntax = [
             'year' => 'foo',
@@ -683,7 +683,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(Carbon::localeHasPeriodSyntax('nl'));
     }
 
-    public function testGetAvailableLocales()
+    public function testGetAvailableLocales(): void
     {
         $this->assertCount(\count(glob(__DIR__.'/../../src/Carbon/Lang/*.php')), Carbon::getAvailableLocales());
 
@@ -696,14 +696,14 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 
-    public function testNotLocaleAwareException()
+    public function testNotLocaleAwareException(): void
     {
         if (method_exists(TranslatorInterface::class, 'getLocale')) {
             $this->markTestSkipped('In Symfony < 5, NotLocaleAwareException will never been thrown.');
         }
 
         $translator = new class implements TranslatorInterface {
-            public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
+            public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
             {
                 return 'x';
             }
@@ -718,7 +718,7 @@ class LocalizationTest extends AbstractTestCase
         Carbon::now()->locale();
     }
 
-    public function testGetAvailableLocalesInfo()
+    public function testGetAvailableLocalesInfo(): void
     {
         $infos = Carbon::getAvailableLocalesInfo();
         $this->assertCount(\count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
@@ -727,21 +727,21 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('English', $infos['en']->getIsoName());
     }
 
-    public function testGeorgianSpecialFromNowTranslation()
+    public function testGeorgianSpecialFromNowTranslation(): void
     {
         $diff = Carbon::now()->locale('ka')->addWeeks(3)->diffForHumans();
 
         $this->assertSame('3 კვირაში', $diff);
     }
 
-    public function testSinhaleseSpecialAfterTranslation()
+    public function testSinhaleseSpecialAfterTranslation(): void
     {
         $diff = Carbon::now()->locale('si')->addDays(3)->diffForHumans(Carbon::now());
 
         $this->assertSame('දින 3 න්', $diff);
     }
 
-    public function testWeekDayMultipleForms()
+    public function testWeekDayMultipleForms(): void
     {
         $date = Carbon::parse('2018-10-10')->locale('ru');
 
@@ -757,7 +757,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('минулої середи', $date->isoFormat('[минулої] dddd'));
     }
 
-    public function testTranslationCustomWithCustomTranslator()
+    public function testTranslationCustomWithCustomTranslator(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
@@ -775,7 +775,7 @@ class LocalizationTest extends AbstractTestCase
         $date->getTranslationMessage('foo');
     }
 
-    public function testTranslateTimeStringTo()
+    public function testTranslateTimeStringTo(): void
     {
         $date = Carbon::parse('2019-07-05')->locale('de');
         $baseString = $date->isoFormat('LLLL');
@@ -785,7 +785,7 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('vendredi, 5. juillet 2019 00:00', $date->translateTimeStringTo($baseString, 'fr'));
     }
 
-    public function testFallbackLocales()
+    public function testFallbackLocales(): void
     {
         // /!\ Used for backward compatibility, please avoid this method
         // @see testMultiLocales() as preferred method
@@ -849,7 +849,7 @@ class LocalizationTest extends AbstractTestCase
         Carbon::setTranslator(new Translator('en'));
     }
 
-    public function testMultiLocales()
+    public function testMultiLocales(): void
     {
         $myDialect = 'xx_MY_Dialect';
         $secondChoice = 'xy_MY_Dialect';
@@ -872,7 +872,7 @@ class LocalizationTest extends AbstractTestCase
         ]));
     }
 
-    public function testStandAloneMonthsInLLLFormat()
+    public function testStandAloneMonthsInLLLFormat(): void
     {
         $this->assertSame(
             '29 февраля 2020 г., 12:24',
@@ -880,7 +880,7 @@ class LocalizationTest extends AbstractTestCase
         );
     }
 
-    public function testAgoDeclension()
+    public function testAgoDeclension(): void
     {
         $this->assertSame(
             'година',
@@ -893,7 +893,7 @@ class LocalizationTest extends AbstractTestCase
         );
     }
 
-    public function testAustriaGermanJanuary()
+    public function testAustriaGermanJanuary(): void
     {
         $this->assertSame(
             'Jänner',

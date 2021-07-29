@@ -13,7 +13,7 @@ namespace Tests\CarbonPeriod\Fixtures;
 
 class FooFilters
 {
-    public function bar($date)
+    public function bar($date): bool
     {
         return $date->day % 2 === 0;
     }

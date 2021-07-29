@@ -16,42 +16,42 @@ use Tests\AbstractTestCase;
 
 class ToStringTest extends AbstractTestCase
 {
-    public function testDefault()
+    public function testDefault(): void
     {
         CarbonInterval::setLocale('en');
         $ci = CarbonInterval::create(11, 1, 2, 5, 22, 33, 55);
         $this->assertSame('11 years 1 month 2 weeks 5 days 22 hours 33 minutes 55 seconds:abc', $ci.':abc');
     }
 
-    public function testDefaultWithMicroseconds()
+    public function testDefaultWithMicroseconds(): void
     {
         CarbonInterval::setLocale('en');
         $ci = CarbonInterval::create(11, 1, 2, 5, 22, 33, 55, 12345);
         $this->assertSame('11 years 1 month 2 weeks 5 days 22 hours 33 minutes 55 seconds:abc', $ci.':abc');
     }
 
-    public function testOverrideSimple()
+    public function testOverrideSimple(): void
     {
         $ci = CarbonInterval::create(0, 0, 0, 0, 22, 33, 55);
         $ci->settings(['toStringFormat' => '%H:%I:%S']);
         $this->assertSame('22:33:55:abc', $ci.':abc');
     }
 
-    public function testOverrideWithMicroseconds()
+    public function testOverrideWithMicroseconds(): void
     {
         $ci = CarbonInterval::create(11, 1, 2, 5, 22, 33, 55, 12345);
         $ci->settings(['toStringFormat' => '%R%Y-%M-%D %H:%I:%S.%F']);
         $this->assertSame('+11-01-19 22:33:55.012345:abc', $ci.':abc');
     }
 
-    public function testOverrideWithInvert()
+    public function testOverrideWithInvert(): void
     {
         $ci = CarbonInterval::create(11, 1, 2, 5, 22, 33, 55)->invert();
         $ci->settings(['toStringFormat' => '%R%Y-%M-%D %H:%I:%S']);
         $this->assertSame('-11-01-19 22:33:55:abc', $ci.':abc');
     }
 
-    public function testClosure()
+    public function testClosure(): void
     {
         $ci = CarbonInterval::create(11);
         $ci->settings(['toStringFormat' => static function (CarbonInterval $interval) {

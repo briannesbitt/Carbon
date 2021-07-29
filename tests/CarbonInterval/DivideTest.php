@@ -16,38 +16,38 @@ use Tests\AbstractTestCase;
 
 class DivideTest extends AbstractTestCase
 {
-    public function testDivideSimple()
+    public function testDivideSimple(): void
     {
         $ci = CarbonInterval::hours(3)->minutes(43)->divide(0.25);
         $this->assertCarbonInterval($ci, 0, 0, 0, 14, 52, 00);
     }
 
-    public function testDivideMoreThanOne()
+    public function testDivideMoreThanOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->divide(1 / 2.75);
         $this->assertCarbonInterval($ci, 11, 10, 3, 20, 13, 0);
     }
 
-    public function testDivideOne()
+    public function testDivideOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->divide(1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
     }
 
-    public function testDivideLessThanOne()
+    public function testDivideLessThanOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->divide(3);
         $this->assertCarbonInterval($ci, 1, 5, 6, 9, 43, 23);
     }
 
-    public function testDivideLessThanZero()
+    public function testDivideLessThanZero(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->divide(-1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
         $this->assertSame(1, $ci->invert);
     }
 
-    public function testDivideLessThanZeroWithInvertedInterval()
+    public function testDivideLessThanZeroWithInvertedInterval(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11);
         $ci->invert = 1;

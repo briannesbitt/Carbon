@@ -28,7 +28,7 @@ class JenssegersDate extends Carbon
      */
     protected static $parseFunction = 'jngParse';
 
-    public static function jngParse($time = null, $tz = null)
+    public static function jngParse($time = null, $tz = null): self
     {
         if (\is_string($time)) {
             $time = static::translateTimeString($time, static::getLocale(), 'en');
@@ -46,7 +46,7 @@ class JenssegersDate extends Carbon
         return parent::rawCreateFromFormat($format, $time, $tz);
     }
 
-    public function jngFormat($format)
+    public function jngFormat($format): string
     {
         return $this->translatedFormat($format);
     }

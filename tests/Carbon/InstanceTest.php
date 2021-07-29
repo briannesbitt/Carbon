@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 
 class InstanceTest extends AbstractTestCase
 {
-    public function testInstanceFromDateTime()
+    public function testInstanceFromDateTime(): void
     {
         $dating = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
         $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
@@ -29,25 +29,25 @@ class InstanceTest extends AbstractTestCase
         $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
     }
 
-    public function testInstanceFromCarbon()
+    public function testInstanceFromCarbon(): void
     {
         $dating = Carbon::instance(Carbon::create(1975, 5, 21, 22, 32, 11));
         $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
     }
 
-    public function testInstanceFromDateTimeKeepsTimezoneName()
+    public function testInstanceFromDateTimeKeepsTimezoneName(): void
     {
         $dating = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11')->setTimezone(new DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
-    public function testInstanceFromCarbonKeepsTimezoneName()
+    public function testInstanceFromCarbonKeepsTimezoneName(): void
     {
         $dating = Carbon::instance(Carbon::create(1975, 5, 21, 22, 32, 11)->setTimezone(new DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
-    public function testInstanceFromDateTimeKeepsMicros()
+    public function testInstanceFromDateTimeKeepsMicros(): void
     {
         $micro = 254687;
         $datetime = DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.'.$micro);
@@ -55,7 +55,7 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame($micro, $carbon->micro);
     }
 
-    public function testInstanceFromCarbonKeepsMicros()
+    public function testInstanceFromCarbonKeepsMicros(): void
     {
         $micro = 254687;
         $carbon = Carbon::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.'.$micro);
@@ -63,14 +63,14 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame($micro, $carbon->micro);
     }
 
-    public function testTimezoneCopy()
+    public function testTimezoneCopy(): void
     {
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
         $carbon = CarbonImmutable::instance($carbon);
         $this->assertSame('2017-06-27 13:14:15.123456 Europe/Paris', $carbon->format('Y-m-d H:i:s.u e'));
     }
 
-    public function testInstanceStateSetBySetStateMethod()
+    public function testInstanceStateSetBySetStateMethod(): void
     {
         /** @var Carbon $carbon */
         $carbon = Carbon::__set_state([
@@ -82,7 +82,7 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
     }
 
-    public function testInstanceStateSetBySetStateString()
+    public function testInstanceStateSetBySetStateString(): void
     {
         /** @var Carbon $carbon */
         $carbon = Carbon::__set_state('2017-05-18 13:02:15.273420');
@@ -90,7 +90,7 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
     }
 
-    public function testDeserializationOccursCorrectly()
+    public function testDeserializationOccursCorrectly(): void
     {
         $carbon = new Carbon('2017-06-27 13:14:15.000000');
         $serialized = 'return '.var_export($carbon, true).';';
@@ -99,7 +99,7 @@ class InstanceTest extends AbstractTestCase
         $this->assertInstanceOf(Carbon::class, $deserialized);
     }
 
-    public function testMutableConversions()
+    public function testMutableConversions(): void
     {
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
         $carbon = $carbon->locale('en_CA');
@@ -128,7 +128,7 @@ class InstanceTest extends AbstractTestCase
         self::assertSame($copy, $copy->modify('+1 day'));
     }
 
-    public function testInvalidCast()
+    public function testInvalidCast(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'DateTimeZone has not the instance() method needed to cast the date.'
@@ -138,10 +138,10 @@ class InstanceTest extends AbstractTestCase
         $carbon->cast(DateTimeZone::class);
     }
 
-    public function testChildCast()
+    public function testChildCast(): void
     {
         $class = \get_class(new class extends Carbon {
-            public function foo()
+            public function foo(): int
             {
                 return 42;
             }
@@ -156,10 +156,10 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame('2017-06-27', $casted->format('Y-m-d'));
     }
 
-    public function testSiblingCast()
+    public function testSiblingCast(): void
     {
         $class = \get_class(new class extends DateTime {
-            public function foo()
+            public function foo(): int
             {
                 return 42;
             }

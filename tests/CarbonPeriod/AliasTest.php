@@ -20,7 +20,7 @@ use Tests\AbstractTestCase;
 
 class AliasTest extends AbstractTestCase
 {
-    public function testSetStartDate()
+    public function testSetStartDate(): void
     {
         $period = CarbonPeriod::start($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
@@ -36,7 +36,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
     }
 
-    public function testSetEndDate()
+    public function testSetEndDate(): void
     {
         $period = CarbonPeriod::end($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
@@ -55,7 +55,7 @@ class AliasTest extends AbstractTestCase
         $this->assertNull($period->getEndDate());
     }
 
-    public function testManageFilters()
+    public function testManageFilters(): void
     {
         $filter = function () {
             return true;
@@ -77,7 +77,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame($filters, $period->getFilters());
     }
 
-    public function testSetRecurrences()
+    public function testSetRecurrences(): void
     {
         $period = CarbonPeriod::recurrences(5);
         $this->assertSame(5, $period->getRecurrences());
@@ -90,7 +90,7 @@ class AliasTest extends AbstractTestCase
         $this->assertNull($period->getRecurrences());
     }
 
-    public function testManageOptions()
+    public function testManageOptions(): void
     {
         $start = CarbonPeriod::EXCLUDE_START_DATE;
         $end = CarbonPeriod::EXCLUDE_END_DATE;
@@ -108,7 +108,7 @@ class AliasTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
     }
 
-    public function testSetDates()
+    public function testSetDates(): void
     {
         $period = CarbonPeriod::dates($start = '2014-10-12 15:42:34', $end = '2017-09-13 12:30:45');
         $this->assertEquals(Carbon::parse($start), $period->getStartDate());
@@ -119,20 +119,20 @@ class AliasTest extends AbstractTestCase
         $this->assertNull($period->getEndDate());
     }
 
-    public function testManageInterval()
+    public function testManageInterval(): void
     {
         $period = CarbonPeriod::interval('PT6H');
         $this->assertEquals(CarbonInterval::create('PT6H'), $period->getDateInterval());
         $this->assertEquals(CarbonInterval::create('PT6H'), $period->interval);
     }
 
-    public function testInvertInterval()
+    public function testInvertInterval(): void
     {
         $period = CarbonPeriod::invert();
         $this->assertEquals(CarbonInterval::create('P1D')->invert(), $period->getDateInterval());
     }
 
-    public function testModifyIntervalPlural()
+    public function testModifyIntervalPlural(): void
     {
         $period = CarbonPeriod::weeks(2);
         $this->assertSame('P14D', $period->getDateInterval()->spec());
@@ -144,7 +144,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame('PT1S', $period->getDateInterval()->spec());
     }
 
-    public function testModifyIntervalSingular()
+    public function testModifyIntervalSingular(): void
     {
         $period = CarbonPeriod::week();
         $this->assertSame('P7D', $period->getDateInterval()->spec());
@@ -156,7 +156,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame('P2Y3M4DT5H6M7S', $period->getDateInterval()->spec());
     }
 
-    public function testChainAliases()
+    public function testChainAliases(): void
     {
         Carbon::setTestNow('2018-05-15');
         $period = CarbonPeriod::days(3)->hours(5)->invert()
@@ -172,7 +172,7 @@ class AliasTest extends AbstractTestCase
         );
     }
 
-    public function testCallInvalidAlias()
+    public function testCallInvalidAlias(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method foobar does not exist.'
@@ -181,7 +181,7 @@ class AliasTest extends AbstractTestCase
         CarbonPeriod::foobar();
     }
 
-    public function testOverrideDefaultInterval()
+    public function testOverrideDefaultInterval(): void
     {
         $period = CarbonPeriod::hours(5);
         $this->assertSame('PT5H', $period->getDateInterval()->spec());
@@ -193,7 +193,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame('P1DT5H', $period->getDateInterval()->spec());
     }
 
-    public function testModifyIntoEmptyDateInterval()
+    public function testModifyIntoEmptyDateInterval(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Empty interval is not accepted.'

@@ -22,7 +22,7 @@ class Mixin
         $this->timezone = $timezone;
     }
 
-    public function setUserTimezone()
+    public function setUserTimezone(): \Closure
     {
         $mixin = $this;
 
@@ -31,7 +31,7 @@ class Mixin
         };
     }
 
-    public function userFormat()
+    public function userFormat(): \Closure
     {
         $mixin = $this;
 

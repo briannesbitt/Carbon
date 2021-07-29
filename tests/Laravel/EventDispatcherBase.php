@@ -10,7 +10,7 @@ class EventDispatcherBase
      */
     protected $listeners;
 
-    public function listen($name, $listener)
+    public function listen($name, $listener): void
     {
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
@@ -19,7 +19,7 @@ class EventDispatcherBase
         $this->listeners[$name][] = $listener;
     }
 
-    public function dispatch($name, $event = null)
+    public function dispatch($name, $event = null): void
     {
         if (isset($this->listeners[$name])) {
             foreach ($this->listeners[$name] as $listener) {

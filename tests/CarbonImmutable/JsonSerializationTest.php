@@ -16,7 +16,7 @@ use Tests\AbstractTestCaseWithOldNow;
 
 class JsonSerializationTest extends AbstractTestCaseWithOldNow
 {
-    public function testCarbonAllowsCustomSerializer()
+    public function testCarbonAllowsCustomSerializer(): void
     {
         Carbon::serializeUsing(function (Carbon $carbon) {
             return $carbon->getTimestamp();
@@ -27,14 +27,14 @@ class JsonSerializationTest extends AbstractTestCaseWithOldNow
         $this->assertSame(1498569255, $result);
     }
 
-    public function testCarbonAllowsCustomSerializerString()
+    public function testCarbonAllowsCustomSerializerString(): void
     {
         Carbon::serializeUsing('Y-m-d');
 
         $this->assertSame('"2017-06-27"', json_encode(Carbon::now()));
     }
 
-    public function testCarbonAllowsCustomSerializerViaSettings()
+    public function testCarbonAllowsCustomSerializerViaSettings(): void
     {
         $date = Carbon::now()->settings([
             'toJsonFormat' => 'H:i:s',
@@ -43,7 +43,7 @@ class JsonSerializationTest extends AbstractTestCaseWithOldNow
         $this->assertSame('"13:14:15"', json_encode($date));
     }
 
-    public function testCarbonCanSerializeToJson()
+    public function testCarbonCanSerializeToJson(): void
     {
         $this->assertSame('2017-06-27T13:14:15.000000Z', Carbon::now()->jsonSerialize());
     }

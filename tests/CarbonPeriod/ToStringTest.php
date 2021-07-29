@@ -22,7 +22,7 @@ class ToStringTest extends AbstractTestCase
     /**
      * @dataProvider provideToString
      */
-    public function testToString($period, $expected)
+    public function testToString($period, $expected): void
     {
         $this->assertSame(
             $expected,
@@ -30,7 +30,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function provideToString()
+    public function provideToString(): array
     {
         Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
 
@@ -73,7 +73,7 @@ class ToStringTest extends AbstractTestCase
         ];
     }
 
-    public function testMagicToString()
+    public function testMagicToString(): void
     {
         $period = CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
@@ -90,7 +90,7 @@ class ToStringTest extends AbstractTestCase
     /**
      * @dataProvider provideToIso8601String
      */
-    public function testToIso8601String($period, $expected)
+    public function testToIso8601String($period, $expected): void
     {
         $this->assertSame(
             $expected,
@@ -98,7 +98,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function provideToIso8601String()
+    public function provideToIso8601String(): array
     {
         Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
 
@@ -136,7 +136,7 @@ class ToStringTest extends AbstractTestCase
         ];
     }
 
-    public function testSpec()
+    public function testSpec(): void
     {
         $period = CarbonPeriod::create(
             Carbon::parse('2015-09-30'),
@@ -150,7 +150,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function testStartOfWeekForPeriod()
+    public function testStartOfWeekForPeriod(): void
     {
         $sunday = CarbonImmutable::parse('2019-12-01');
 

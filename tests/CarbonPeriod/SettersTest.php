@@ -23,7 +23,7 @@ use Tests\CarbonPeriod\Fixtures\AbstractCarbon;
 
 class SettersTest extends AbstractTestCase
 {
-    public function testSetStartDate()
+    public function testSetStartDate(): void
     {
         $period = new CarbonPeriod;
 
@@ -32,7 +32,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
     }
 
-    public function testSetEndDate()
+    public function testSetEndDate(): void
     {
         $period = new CarbonPeriod;
 
@@ -41,7 +41,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2018-04-25', $period->getEndDate()->toDateString());
     }
 
-    public function testSetDateInterval()
+    public function testSetDateInterval(): void
     {
         $period = new CarbonPeriod;
 
@@ -50,7 +50,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('P3D', $period->getDateInterval()->spec());
     }
 
-    public function testSetDateIntervalFromStringFormat()
+    public function testSetDateIntervalFromStringFormat(): void
     {
         $period = new CarbonPeriod;
 
@@ -59,7 +59,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('P10DT4H32M23S', $period->getDateInterval()->spec());
     }
 
-    public function testSetRecurrences()
+    public function testSetRecurrences(): void
     {
         $period = new CarbonPeriod;
 
@@ -68,7 +68,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(5, $period->getRecurrences());
     }
 
-    public function testSetDates()
+    public function testSetDates(): void
     {
         $period = new CarbonPeriod;
 
@@ -78,7 +78,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2019-04-19', $period->getEndDate()->toDateString());
     }
 
-    public function testSetOptions()
+    public function testSetOptions(): void
     {
         $period = new CarbonPeriod;
 
@@ -87,7 +87,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($options, $period->getOptions());
     }
 
-    public function testSetDateClass()
+    public function testSetDateClass(): void
     {
         $period = new CarbonPeriod('2001-01-01', '2001-01-02');
 
@@ -113,7 +113,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(AbstractCarbon::class, $period->getDateClass());
     }
 
-    public function testSetDateClassInvalidArgumentException()
+    public function testSetDateClassInvalidArgumentException(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval'
@@ -124,7 +124,7 @@ class SettersTest extends AbstractTestCase
         $period->setDateClass(CarbonInterval::class);
     }
 
-    public function testInvalidInterval()
+    public function testInvalidInterval(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid interval.'
@@ -133,7 +133,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setDateInterval(new DateTime);
     }
 
-    public function testEmptyInterval()
+    public function testEmptyInterval(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Empty interval is not accepted.'
@@ -142,7 +142,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setDateInterval(new DateInterval('P0D'));
     }
 
-    public function testInvalidNumberOfRecurrencesString()
+    public function testInvalidNumberOfRecurrencesString(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid number of recurrences.'
@@ -151,7 +151,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setRecurrences('foo');
     }
 
-    public function testInvalidNegativeNumberOfRecurrences()
+    public function testInvalidNegativeNumberOfRecurrences(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid number of recurrences.'
@@ -160,7 +160,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setRecurrences(-4);
     }
 
-    public function testInvalidOptions()
+    public function testInvalidOptions(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid options.'
@@ -169,7 +169,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setOptions('1');
     }
 
-    public function testInvalidConstructorParameters()
+    public function testInvalidConstructorParameters(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid constructor parameters.'
@@ -178,7 +178,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create([]);
     }
 
-    public function testInvalidStartDate()
+    public function testInvalidStartDate(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid start date.'
@@ -187,7 +187,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setStartDate(new DateInterval('P1D'));
     }
 
-    public function testInvalidEndDate()
+    public function testInvalidEndDate(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid end date.'
@@ -196,7 +196,7 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setEndDate(new DateInterval('P1D'));
     }
 
-    public function testToggleOptions()
+    public function testToggleOptions(): void
     {
         $start = CarbonPeriod::EXCLUDE_START_DATE;
         $end = CarbonPeriod::EXCLUDE_END_DATE;
@@ -216,7 +216,7 @@ class SettersTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
     }
 
-    public function testToggleOptionsOnAndOff()
+    public function testToggleOptionsOnAndOff(): void
     {
         $start = CarbonPeriod::EXCLUDE_START_DATE;
         $end = CarbonPeriod::EXCLUDE_END_DATE;
@@ -243,7 +243,7 @@ class SettersTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
     }
 
-    public function testSetStartDateInclusiveOrExclusive()
+    public function testSetStartDateInclusiveOrExclusive(): void
     {
         $period = new CarbonPeriod;
 
@@ -257,7 +257,7 @@ class SettersTest extends AbstractTestCase
         $this->assertFalse($period->isStartExcluded());
     }
 
-    public function testSetEndDateInclusiveOrExclusive()
+    public function testSetEndDateInclusiveOrExclusive(): void
     {
         $period = new CarbonPeriod;
 
@@ -271,7 +271,7 @@ class SettersTest extends AbstractTestCase
         $this->assertFalse($period->isEndExcluded());
     }
 
-    public function testInvertDateInterval()
+    public function testInvertDateInterval(): void
     {
         $period = new CarbonPeriod;
 
@@ -295,7 +295,7 @@ class SettersTest extends AbstractTestCase
         ], $dates);
     }
 
-    public function testExcludeStartDate()
+    public function testExcludeStartDate(): void
     {
         $period = new CarbonPeriod;
 
@@ -309,7 +309,7 @@ class SettersTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
     }
 
-    public function testExcludeEndDate()
+    public function testExcludeEndDate(): void
     {
         $period = new CarbonPeriod;
 
@@ -323,7 +323,7 @@ class SettersTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
     }
 
-    public function testSetRelativeDates()
+    public function testSetRelativeDates(): void
     {
         $period = new CarbonPeriod;
 
@@ -333,7 +333,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2018-05-31 12:00:00', $period->getEndDate()->toDateTimeString());
     }
 
-    public function testFluentSetters()
+    public function testFluentSetters(): void
     {
         Carbon::setTestNow(Carbon::now('UTC'));
 

@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class SettingsTest extends AbstractTestCase
 {
-    public function testSettings()
+    public function testSettings(): void
     {
         $paris = Carbon::parse('2018-01-31 00:00:00')->settings([
             'timezone' => 'Europe/Paris',

@@ -340,7 +340,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
     /**
      * @group language
      */
-    public function testLanguage()
+    public function testLanguage(): void
     {
         $this->wrapWithNonDstDate(function () {
             /** @var Carbon $date */

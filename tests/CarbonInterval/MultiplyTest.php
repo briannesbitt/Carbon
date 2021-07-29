@@ -16,44 +16,44 @@ use Tests\AbstractTestCase;
 
 class MultiplyTest extends AbstractTestCase
 {
-    public function testMultiplySimple()
+    public function testMultiplySimple(): void
     {
         $ci = CarbonInterval::hours(3)->minutes(43)->multiply(4);
         $this->assertCarbonInterval($ci, 0, 0, 0, 14, 52, 00);
     }
 
-    public function testMultiplyMoreThanOne()
+    public function testMultiplyMoreThanOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->multiply(2.75);
         $this->assertCarbonInterval($ci, 11, 10, 3, 20, 13, 0);
     }
 
-    public function testMultiplyOne()
+    public function testMultiplyOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->multiply(1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
     }
 
-    public function testMultiplyLessThanOne()
+    public function testMultiplyLessThanOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->multiply(0.333);
         $this->assertCarbonInterval($ci, 1, 1, 6, 8, 53, 51);
     }
 
-    public function testMultiplyZero()
+    public function testMultiplyZero(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->multiply(0);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
-    public function testMultiplyLessThanZero()
+    public function testMultiplyLessThanZero(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->multiply(-1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
         $this->assertSame(1, $ci->invert);
     }
 
-    public function testMultiplyLessThanZeroWithInvertedInterval()
+    public function testMultiplyLessThanZeroWithInvertedInterval(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11);
         $ci->invert = 1;

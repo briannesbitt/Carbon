@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class NowDerivativesTest extends AbstractTestCase
 {
-    public function testNowWithSameTimezone()
+    public function testNowWithSameTimezone(): void
     {
         $dt = Carbon::now('Europe/London');
         $dt2 = $dt->nowWithSameTz();

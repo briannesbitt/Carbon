@@ -16,14 +16,14 @@ use Tests\AbstractTestCase;
 
 class ModifyTest extends AbstractTestCase
 {
-    public function testSimpleModify()
+    public function testSimpleModify(): void
     {
         $a = new Carbon('2014-03-30 00:00:00');
         $b = $a->addHours(24);
         $this->assertSame(24, $a->diffInHours($b));
     }
 
-    public function testTimezoneModify()
+    public function testTimezoneModify(): void
     {
         // For daylight saving time reason 2014-03-30 0h59 is immediately followed by 2h00
 
@@ -170,7 +170,7 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(-25, $b->diffInHours($a, false));
     }
 
-    public function testNextAndPrevious()
+    public function testNextAndPrevious(): void
     {
         Carbon::setTestNow('2019-06-02 13:27:09.816752');
 

@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class StrictModeTest extends AbstractTestCase
 {
-    public function testCallWithStrictMode()
+    public function testCallWithStrictMode(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method foobar does not exist.'
@@ -29,7 +29,7 @@ class StrictModeTest extends AbstractTestCase
         $period->foobar();
     }
 
-    public function testCallWithoutStrictMode()
+    public function testCallWithoutStrictMode(): void
     {
         Carbon::useStrictMode(false);
         /** @var mixed $period */

@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class RoundTest extends AbstractTestCase
 {
-    public function testRoundWithDefaultUnit()
+    public function testRoundWithDefaultUnit(): void
     {
         $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
         $copy = $dt->copy();
@@ -55,7 +55,7 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->ceil(3.8), 2315, 7, 18, 22, 42, 19, 800000);
     }
 
-    public function testRoundWithStrings()
+    public function testRoundWithStrings(): void
     {
         $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
 
@@ -64,7 +64,7 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->ceil('5 minutes'), 2315, 7, 18, 22, 45, 0, 0);
     }
 
-    public function testRoundWithStringsException()
+    public function testRoundWithStringsException(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Rounding is only possible with single unit intervals.'
@@ -72,7 +72,7 @@ class RoundTest extends AbstractTestCase
         Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round('2 hours 5 minutes');
     }
 
-    public function testRoundWithInterval()
+    public function testRoundWithInterval(): void
     {
         $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
 
@@ -81,7 +81,7 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->ceil(new DateInterval('PT5M')), 2315, 7, 18, 22, 45, 0, 0);
     }
 
-    public function testRoundWithIntervalException()
+    public function testRoundWithIntervalException(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Rounding is only possible with single unit intervals.'
@@ -90,7 +90,7 @@ class RoundTest extends AbstractTestCase
         Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round(CarbonInterval::day()->minutes(5));
     }
 
-    public function testRoundWithBaseUnit()
+    public function testRoundWithBaseUnit(): void
     {
         $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
         $copy = $dt->copy();
@@ -113,7 +113,7 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->floorMonth(), 2315, 7, 1, 0, 0, 0, 0);
     }
 
-    public function testRoundWithMetaUnit()
+    public function testRoundWithMetaUnit(): void
     {
         $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
         $copy = $dt->copy();
@@ -129,7 +129,7 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->subMonth()->floorQuarters(2), 2315, 1, 1, 0, 0, 0, 0);
     }
 
-    public function testRoundWeek()
+    public function testRoundWeek(): void
     {
         $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
         $copy = $dt->copy();
@@ -157,14 +157,14 @@ class RoundTest extends AbstractTestCase
         Carbon::setWeekEndsAt(Carbon::SUNDAY);
     }
 
-    public function testCeilMonth()
+    public function testCeilMonth(): void
     {
         $this->assertCarbon(Carbon::parse('2021-01-29')->ceilMonth(), 2021, 2, 1, 0, 0, 0);
         $this->assertCarbon(Carbon::parse('2021-01-31')->ceilMonth(), 2021, 2, 1, 0, 0, 0);
         $this->assertCarbon(Carbon::parse('2021-12-17')->ceilMonth(), 2022, 1, 1, 0, 0, 0);
     }
 
-    public function testRoundInvalidArgument()
+    public function testRoundInvalidArgument(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown unit \'foobar\'.'

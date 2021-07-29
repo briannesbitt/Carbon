@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class CreateFromFormatTest extends AbstractTestCase
 {
-    public function testDefaults()
+    public function testDefaults(): void
     {
         $this->expectExceptionObject(new ParseErrorException(
             'number',
@@ -27,7 +27,7 @@ class CreateFromFormatTest extends AbstractTestCase
         CarbonInterval::createFromFormat('H:i:s', '');
     }
 
-    public function testNulls()
+    public function testNulls(): void
     {
         $this->expectExceptionObject(new ParseErrorException(
             'number',
@@ -37,7 +37,7 @@ class CreateFromFormatTest extends AbstractTestCase
         CarbonInterval::createFromFormat('H:i:s', null);
     }
 
-    public function testTrailingData()
+    public function testTrailingData(): void
     {
         $this->expectExceptionObject(new ParseErrorException(
             'end of string',
@@ -47,7 +47,7 @@ class CreateFromFormatTest extends AbstractTestCase
         CarbonInterval::createFromFormat('H:i', '01:30:25');
     }
 
-    public function testInvalidSubstitute()
+    public function testInvalidSubstitute(): void
     {
         $this->expectException(ParseErrorException::class);
         $this->expectExceptionMessage(
@@ -59,7 +59,7 @@ class CreateFromFormatTest extends AbstractTestCase
         CarbonInterval::createFromFormat('N', '4');
     }
 
-    public function testYears()
+    public function testYears(): void
     {
         $ci = CarbonInterval::createFromFormat('Y', '1');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -70,7 +70,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 2, 0, 0, 0, 0, 0);
     }
 
-    public function testMonths()
+    public function testMonths(): void
     {
         $ci = CarbonInterval::createFromFormat('m', '1');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -81,7 +81,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 2, 0, 0, 0, 0);
     }
 
-    public function testWeeks()
+    public function testWeeks(): void
     {
         $ci = CarbonInterval::createFromFormat('W', '1');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -92,7 +92,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 14, 0, 0, 0);
     }
 
-    public function testDays()
+    public function testDays(): void
     {
         $ci = CarbonInterval::createFromFormat('d', '1');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -103,7 +103,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 2, 0, 0, 0);
     }
 
-    public function testWeeksAndDays()
+    public function testWeeksAndDays(): void
     {
         $ci = CarbonInterval::createFromFormat('W d', '3 5');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -114,7 +114,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 8, 0, 0, 0);
     }
 
-    public function testHours()
+    public function testHours(): void
     {
         $ci = CarbonInterval::createFromFormat('H', '1');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -125,7 +125,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 2, 0, 0);
     }
 
-    public function testMinutes()
+    public function testMinutes(): void
     {
         $ci = CarbonInterval::createFromFormat('i', '01');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -136,7 +136,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 2, 0);
     }
 
-    public function testSeconds()
+    public function testSeconds(): void
     {
         $ci = CarbonInterval::createFromFormat('s', '01');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -146,7 +146,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 2);
     }
 
-    public function testDecimalSeconds()
+    public function testDecimalSeconds(): void
     {
         $ci = CarbonInterval::createFromFormat('s.v', '1.5');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -156,7 +156,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 1, 253400);
     }
 
-    public function testMilliseconds()
+    public function testMilliseconds(): void
     {
         $ci = CarbonInterval::createFromFormat('v', '100');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -168,7 +168,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 200000);
     }
 
-    public function testMicroseconds()
+    public function testMicroseconds(): void
     {
         $ci = CarbonInterval::createFromFormat('u', '100000');
         $this->assertInstanceOfCarbonInterval($ci);
@@ -180,14 +180,14 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 200000);
     }
 
-    public function testAll()
+    public function testAll(): void
     {
         $ci = CarbonInterval::createFromFormat('Y-m-d H:i:s.u', '2000-01-02 3:04:05.500000');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2000, 1, 2, 3, 4, 5, 500000);
     }
 
-    public function testCopy()
+    public function testCopy(): void
     {
         $one = CarbonInterval::createFromFormat('H:i:s', '10:10:10');
         $two = $one->copy()->hours(3)->minutes(3)->seconds(3);

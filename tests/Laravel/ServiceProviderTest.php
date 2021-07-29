@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ServiceProviderTest extends TestCase
 {
-    public function getDispatchers()
+    public function getDispatchers(): array
     {
         if (!class_exists(Dispatcher::class)) {
             include_once __DIR__.'/Dispatcher.php';
@@ -33,7 +33,7 @@ class ServiceProviderTest extends TestCase
     /**
      * @dataProvider getDispatchers
      */
-    public function testBoot($dispatcher)
+    public function testBoot($dispatcher): void
     {
         // Reset language
         Carbon::setLocale('en');
@@ -72,7 +72,7 @@ class ServiceProviderTest extends TestCase
         $this->assertNull($service->boot());
     }
 
-    public function testListenerWithoutLocaleUpdatedClass()
+    public function testListenerWithoutLocaleUpdatedClass(): void
     {
         if (class_exists('Illuminate\Foundation\Events\LocaleUpdated')) {
             $this->markTestSkipped('This test cannot be run with Laravel 5.5 classes available via autoload.');
@@ -96,7 +96,7 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('fr', CarbonInterval::getLocale());
     }
 
-    public function testListenerWithLocaleUpdatedClass()
+    public function testListenerWithLocaleUpdatedClass(): void
     {
         if (!class_exists('Illuminate\Foundation\Events\LocaleUpdated')) {
             eval('namespace Illuminate\Foundation\Events; class LocaleUpdated {}');
@@ -120,7 +120,7 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('fr', CarbonInterval::getLocale());
     }
 
-    public function testUpdateLocale()
+    public function testUpdateLocale(): void
     {
         if (class_exists('Illuminate\Support\Carbon')) {
             $this->markTestSkipped('This test cannot be run with Laravel 5.5 classes available via autoload.');
@@ -131,7 +131,7 @@ class ServiceProviderTest extends TestCase
         {
             public static $locale;
 
-            public static function setLocale($locale)
+            public static function setLocale($locale): void
             {
                 static::$locale = $locale;
             }
@@ -148,7 +148,7 @@ class ServiceProviderTest extends TestCase
                 return new static();
             }
 
-            public function setLocale($locale)
+            public function setLocale($locale): void
             {
                 static::$locale = $locale;
 
@@ -174,7 +174,7 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('fr', \Illuminate\Support\Facades\Date::$locale);
 
         eval('namespace Carbon\Laravel;
-        function app()
+        function app():\Tests\Laravel\App
         {
             $app = new \Tests\Laravel\App();
             $app->setEventDispatcher(new \Illuminate\Events\Dispatcher());

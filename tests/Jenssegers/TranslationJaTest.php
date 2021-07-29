@@ -10,7 +10,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_month()
+    public function it_can_translate_month(): void
     {
         $jan = JenssegersDate::createFromFormat('m-d', '01-01');
         $feb = JenssegersDate::createFromFormat('m-d', '02-01');
@@ -42,7 +42,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_weekdays()
+    public function it_can_translate_weekdays(): void
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -64,7 +64,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_weekdays_short_form()
+    public function it_can_translate_weekdays_short_form(): void
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -86,7 +86,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_seconds_ago()
+    public function it_can_translate_seconds_ago(): void
     {
         $oneSecondAgo = JenssegersDate::parse('-1 second');
         $fiveSecondsAgo = JenssegersDate::parse('-5 seconds');
@@ -98,7 +98,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_minutes_ago()
+    public function it_can_translate_minutes_ago(): void
     {
         $oneMinuteAgo = JenssegersDate::parse('-1 minute');
         $fiveMinutesAgo = JenssegersDate::parse('-5 minutes');
@@ -110,7 +110,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_hours_ago()
+    public function it_can_translate_hours_ago(): void
     {
         $oneHourAgo = JenssegersDate::parse('-1 hour');
         $fiveHoursAgo = JenssegersDate::parse('-5 hours');
@@ -122,7 +122,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_days_ago()
+    public function it_can_translate_days_ago(): void
     {
         $oneDayAgo = JenssegersDate::parse('-1 day');
         $threeDaysAgo = JenssegersDate::parse('-3 days');
@@ -134,7 +134,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_weeks_ago()
+    public function it_can_translate_weeks_ago(): void
     {
         $oneWeekAgo = JenssegersDate::parse('-1 week');
         $threeWeeksAgo = JenssegersDate::parse('-3 weeks');
@@ -146,7 +146,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_months_ago()
+    public function it_can_translate_months_ago(): void
     {
         JenssegersDate::setTestNow('2019-03-27');
 
@@ -160,7 +160,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_years_ago()
+    public function it_can_translate_years_ago(): void
     {
         $oneYearAgo = JenssegersDate::parse('-1 year');
         $towYearsAgo = JenssegersDate::parse('-2 years');
@@ -172,7 +172,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_seconds_from_now()
+    public function it_can_translate_seconds_from_now(): void
     {
         $oneSecondFromNow = JenssegersDate::parse('1 second');
         $fiveSecondsFromNow = JenssegersDate::parse('5 seconds');
@@ -184,7 +184,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_minutes_from_now()
+    public function it_can_translate_minutes_from_now(): void
     {
         $oneMinuteFromNow = JenssegersDate::parse('1 minute');
         $fiveMinutesFromNow = JenssegersDate::parse('5 minutes');
@@ -196,7 +196,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_hours_from_now()
+    public function it_can_translate_hours_from_now(): void
     {
         $oneHourFromNow = JenssegersDate::parse('1 hour');
         $fiveHoursFromNow = JenssegersDate::parse('5 hours');
@@ -208,7 +208,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_days_from_now()
+    public function it_can_translate_days_from_now(): void
     {
         $oneDayFromNow = JenssegersDate::parse('1 day');
         $threeDaysFromNow = JenssegersDate::parse('3 days');
@@ -220,7 +220,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_weeks_from_now()
+    public function it_can_translate_weeks_from_now(): void
     {
         $oneWeekFromNow = JenssegersDate::parse('1 week');
         $threeWeeksFromNow = JenssegersDate::parse('3 weeks');
@@ -232,7 +232,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_months_from_now()
+    public function it_can_translate_months_from_now(): void
     {
         $oneMonthFromNow = JenssegersDate::parse('1 month');
         $twoMonthsFromNow = JenssegersDate::parse('2 months');
@@ -244,7 +244,7 @@ class TranslationJaTest extends TestCaseBase
     /**
      * @test
      */
-    public function it_can_translate_years_from_now()
+    public function it_can_translate_years_from_now(): void
     {
         $oneYearFromNow = JenssegersDate::parse('1 year');
         $towYearsFromNow = JenssegersDate::parse('2 years');

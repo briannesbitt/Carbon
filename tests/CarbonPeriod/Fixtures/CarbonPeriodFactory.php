@@ -18,7 +18,7 @@ class CarbonPeriodFactory
     /**
      * @return CarbonPeriod
      */
-    public static function withStartIntervalEnd()
+    public static function withStartIntervalEnd(): CarbonPeriod
     {
         $period = CarbonPeriod::create(
             '2012-07-01 17:30:00',
@@ -32,7 +32,7 @@ class CarbonPeriodFactory
     /**
      * @return CarbonPeriod
      */
-    public static function withEvenDaysFilter()
+    public static function withEvenDaysFilter(): CarbonPeriod
     {
         $period = CarbonPeriod::create(
             '2012-07-01',
@@ -51,7 +51,7 @@ class CarbonPeriodFactory
     /**
      * @return CarbonPeriod
      */
-    public static function withCounter(&$counter)
+    public static function withCounter(&$counter): CarbonPeriod
     {
         $counter = 0;
 
@@ -72,7 +72,7 @@ class CarbonPeriodFactory
     /**
      * @return CarbonPeriod
      */
-    public static function withStackFilter()
+    public static function withStackFilter(): CarbonPeriod
     {
         $period = CarbonPeriod::create(
             '2001-01-01'

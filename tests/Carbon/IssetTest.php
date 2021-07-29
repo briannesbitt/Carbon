@@ -16,12 +16,12 @@ use Tests\AbstractTestCase;
 
 class IssetTest extends AbstractTestCase
 {
-    public function testIssetReturnFalseForUnknownProperty()
+    public function testIssetReturnFalseForUnknownProperty(): void
     {
         $this->assertFalse(isset(Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
     }
 
-    public function providerTestIssetReturnTrueForProperties()
+    public function providerTestIssetReturnTrueForProperties(): array
     {
         return [
             ['age'],
@@ -56,7 +56,7 @@ class IssetTest extends AbstractTestCase
      *
      * @param string $property
      */
-    public function testIssetReturnTrueForProperties($property)
+    public function testIssetReturnTrueForProperties($property): void
     {
         $this->assertTrue(isset(Carbon::now()->$property));
     }

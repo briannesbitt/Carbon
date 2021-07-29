@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
-    public function testGetAbbr()
+    public function testGetAbbr(): void
     {
         $tz = new CarbonTimeZone('Europe/London');
 
@@ -24,7 +24,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('bst', $tz->getAbbr(false));
     }
 
-    public function testGetAbbreviatedName()
+    public function testGetAbbreviatedName(): void
     {
         $tz = new CarbonTimeZone('Europe/London');
 

@@ -17,7 +17,7 @@ use Tests\CarbonInterval\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCaseWithOldNow
 {
-    public function testCarbonIsMacroableWhenNotCalledStatically()
+    public function testCarbonIsMacroableWhenNotCalledStatically(): void
     {
         CarbonInterval::macro('twice', function () {
             /** @var CarbonInterval $interval */
@@ -63,7 +63,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertTrue($interval->otherParameterName());
     }
 
-    public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
+    public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis(): void
     {
         CarbonInterval::macro('repeatInvert2', function ($count = 0) {
             /** @var CarbonInterval $interval */
@@ -88,7 +88,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame(0, $interval->repeatInvert2(4)->invert);
     }
 
-    public function testCarbonIsMacroableWhenCalledStatically()
+    public function testCarbonIsMacroableWhenCalledStatically(): void
     {
         CarbonInterval::macro('quarter', function () {
             return CarbonInterval::months(3);
@@ -105,7 +105,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('3 months', CarbonInterval::quarterIfEven(-6)->forHumans());
     }
 
-    public function testCarbonIsMacroableWhithNonClosureCallables()
+    public function testCarbonIsMacroableWhithNonClosureCallables(): void
     {
         CarbonInterval::macro('lower', 'strtolower');
 
@@ -116,7 +116,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('abc', CarbonInterval::lower('ABC'));
     }
 
-    public function testCarbonIsMixinable()
+    public function testCarbonIsMixinable(): void
     {
         include_once __DIR__.'/Fixtures/Mixin.php';
         $mixin = new Mixin();

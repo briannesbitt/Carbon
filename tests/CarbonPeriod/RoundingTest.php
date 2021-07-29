@@ -10,7 +10,7 @@ use Tests\AbstractTestCase;
 
 class RoundingTest extends AbstractTestCase
 {
-    public function testThrowsExceptionForCompositeInterval()
+    public function testThrowsExceptionForCompositeInterval(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Rounding is only possible with single unit intervals.'
@@ -19,7 +19,7 @@ class RoundingTest extends AbstractTestCase
         CarbonPeriod::days(2)->round('2 hours 50 minutes');
     }
 
-    public function testFloor()
+    public function testFloor(): void
     {
         $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817')->floor();
 
@@ -65,7 +65,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame('2019-12-12 03:10:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
     }
 
-    public function testCeil()
+    public function testCeil(): void
     {
         $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817')->ceil();
 
@@ -111,7 +111,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame('2019-12-12 03:20:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
     }
 
-    public function testRound()
+    public function testRound(): void
     {
         $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817')->round();
 
@@ -157,7 +157,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame('2019-12-12 03:10:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
     }
 
-    public function testRoundCalculatedEnd()
+    public function testRoundCalculatedEnd(): void
     {
         $period = CarbonPeriod::create('2019-02-01 12:52:23.123456', '3 hours')->setRecurrences(3);
 

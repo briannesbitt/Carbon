@@ -15,14 +15,14 @@ class FromStringTest extends AbstractTestCase
      * @param string         $string
      * @param CarbonInterval $expected
      */
-    public function testReturnsInterval($string, $expected)
+    public function testReturnsInterval($string, $expected): void
     {
         $result = CarbonInterval::fromString($string);
 
         $this->assertEquals($expected, $result, "'$string' does not return expected interval.");
     }
 
-    public function provideValidStrings()
+    public function provideValidStrings(): array
     {
         return [
             // zero interval
@@ -104,7 +104,7 @@ class FromStringTest extends AbstractTestCase
      * @param string $string
      * @param string $part
      */
-    public function testThrowsExceptionForUnknownValues($string, $part)
+    public function testThrowsExceptionForUnknownValues($string, $part): void
     {
         $message = null;
 
@@ -117,7 +117,7 @@ class FromStringTest extends AbstractTestCase
         $this->assertStringContainsString($part, $message);
     }
 
-    public function provideInvalidStrings()
+    public function provideInvalidStrings(): array
     {
         return [
             ['1q', '1q'],

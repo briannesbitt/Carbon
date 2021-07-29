@@ -37,7 +37,7 @@ class CarbonTypesTest extends AbstractTestCase
         }
     }
 
-    public static function getTypes()
+    public static function getTypes(): array
     {
         return [
             ['datetime', Carbon::class, DateTimeType::class, false],
@@ -56,7 +56,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws DBALException
      */
-    public function testGetSQLDeclaration(string $name)
+    public function testGetSQLDeclaration(string $name): void
     {
         $type = Type::getType($name);
 
@@ -98,7 +98,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws DBALException
      */
-    public function testConvertToPHPValue(string $name, string $class)
+    public function testConvertToPHPValue(string $name, string $class): void
     {
         $type = Type::getType($name);
 
@@ -127,7 +127,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws ConversionException|DBALException
      */
-    public function testConvertToPHPValueFailure(string $name, string $class)
+    public function testConvertToPHPValueFailure(string $name, string $class): void
     {
         $this->expectExceptionObject(new ConversionException(
             "Could not convert database value \"2020-0776-23 18:47\" to Doctrine Type $name. ".
@@ -146,7 +146,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws DBALException
      */
-    public function testConvertToDatabaseValue(string $name)
+    public function testConvertToDatabaseValue(string $name): void
     {
         $type = Type::getType($name);
 
@@ -166,7 +166,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws ConversionException|DBALException
      */
-    public function testConvertToDatabaseValueFailure(string $name)
+    public function testConvertToDatabaseValueFailure(string $name): void
     {
         $this->expectExceptionObject(new ConversionException(
             "Could not convert PHP value of type 'array' to type '$name'. ".
@@ -188,7 +188,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws DBALException
      */
-    public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
+    public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired): void
     {
         $type = Type::getType($name);
 

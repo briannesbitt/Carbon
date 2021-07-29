@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class TranslatorTest extends AbstractTestCase
 {
-    public function testSetLocale()
+    public function testSetLocale(): void
     {
         $currentLocale = setlocale(LC_TIME, '0');
         $currentLocaleAll = setlocale(LC_ALL, '0');
@@ -47,7 +47,7 @@ class TranslatorTest extends AbstractTestCase
         setlocale(LC_TIME, $currentLocale);
     }
 
-    public function testMethodsPriorities()
+    public function testMethodsPriorities(): void
     {
         Carbon::setLocale('nl');
         $text = Carbon::parse('2019-08-06')->locale('en')->isoFormat('dddd D MMMM');
@@ -55,7 +55,7 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame('Tuesday 6 August', $text);
     }
 
-    public function testCompareChunkLists()
+    public function testCompareChunkLists(): void
     {
         $method = new ReflectionMethod(Translator::class, 'compareChunkLists');
         $method->setAccessible(true);
@@ -66,7 +66,7 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame(10, $method->invoke(null, ['a'], ['a']));
     }
 
-    public function testNotLocaleAwareException()
+    public function testNotLocaleAwareException(): void
     {
         $exception = new NotLocaleAwareException('foobar');
         $this->assertSame(

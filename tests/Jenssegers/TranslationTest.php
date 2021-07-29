@@ -8,7 +8,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 
 class TranslationTest extends TestCaseBase
 {
-    public function testGetsAndSetsTranslator()
+    public function testGetsAndSetsTranslator(): void
     {
         $translator = new Translator('nl');
         $translator->addLoader('array', new ArrayLoader());
@@ -18,7 +18,7 @@ class TranslationTest extends TestCaseBase
         $this->assertEquals($translator, JenssegersDate::getTranslator());
     }
 
-    public function testFallback()
+    public function testFallback(): void
     {
         JenssegersDate::setLocale('xx');
 
@@ -26,7 +26,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('5 years ago', $date->ago());
     }
 
-    public function testFallbackWithRegion()
+    public function testFallbackWithRegion(): void
     {
         JenssegersDate::setFallbackLocale('en_US');
         JenssegersDate::setLocale('xx');
@@ -35,7 +35,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('5 years ago', $date->ago());
     }
 
-    public function testMultiplePluralForms()
+    public function testMultiplePluralForms(): void
     {
         JenssegersDate::setLocale('hr');
 
@@ -52,7 +52,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('prije 5 godina', $date->ago());
     }
 
-    public function testCustomSuffix()
+    public function testCustomSuffix(): void
     {
         JenssegersDate::setLocale('de');
 
@@ -67,7 +67,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('vor 5 Sekunden', $date->ago());
     }
 
-    public function testTimespanTranslated()
+    public function testTimespanTranslated(): void
     {
         JenssegersDate::setLocale('nl');
 
@@ -77,7 +77,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('3 maanden, 1 week, 1 dag, 3 uur, 20 minuten', $date->timespan(1403619368));
     }
 
-    public function testParse()
+    public function testParse(): void
     {
         JenssegersDate::setLocale('nl');
         $date = JenssegersDate::parse('1 januari 2015');
@@ -88,7 +88,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('2015-03-21', $date->format('Y-m-d'));
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         JenssegersDate::setLocale('nl');
         $date = JenssegersDate::createFromFormat('d F Y', '1 januari 2015');
@@ -99,7 +99,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('2015-03-21', $date->format('Y-m-d'));
     }
 
-    public function testAgoTranslated()
+    public function testAgoTranslated(): void
     {
         JenssegersDate::setLocale('nl');
         JenssegersDate::setTestNow(JenssegersDate::now());
@@ -155,7 +155,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('11 часов до', $date->ago(JenssegersDate::now()));
     }
 
-    public function testFormatTranslated()
+    public function testFormatTranslated(): void
     {
         JenssegersDate::setLocale('nl');
 
@@ -169,7 +169,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('zo. 28 apr. 2013 21:58:16', $date->format('D j M Y H:i:s'));
     }
 
-    public function testFormatDeclensions()
+    public function testFormatDeclensions(): void
     {
         JenssegersDate::setLocale('ru');
 
@@ -183,7 +183,7 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('10. марта 2015', $date->format('j. F Y'));
     }
 
-    public function testTranslateTimeString()
+    public function testTranslateTimeString(): void
     {
         JenssegersDate::setLocale('ru');
         $date = JenssegersDate::translateTimeString('понедельник 21 март 2015');

@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class ToDatePeriodTest extends AbstractTestCase
 {
-    public function testToArrayIsNotEmptyArray()
+    public function testToArrayIsNotEmptyArray(): void
     {
         $period = CarbonPeriod::create('2021-01-05', '2021-02-15');
         $result = $period->toDatePeriod();

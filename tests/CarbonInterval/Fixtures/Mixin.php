@@ -17,7 +17,7 @@ class Mixin
 {
     public $factor;
 
-    public function setFactor()
+    public function setFactor(): \Closure
     {
         $mixin = $this;
 
@@ -26,7 +26,7 @@ class Mixin
         };
     }
 
-    public function doMultiply()
+    public function doMultiply(): \Closure
     {
         $mixin = $this;
 

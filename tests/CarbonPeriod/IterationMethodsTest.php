@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class IterationMethodsTest extends AbstractTestCase
 {
-    public function testForEach()
+    public function testForEach(): void
     {
         $result = '';
         Carbon::create('2020-12-22')->daysUntil('2020-12-24')->forEach(function (Carbon $date) use (&$result) {
@@ -28,7 +28,7 @@ class IterationMethodsTest extends AbstractTestCase
             "1 days before Christmas!\n", $result);
     }
 
-    public function testMap()
+    public function testMap(): void
     {
         $result = iterator_to_array(Carbon::create('2020-12-22')->daysUntil('2020-12-24')->map(function (Carbon $date) {
             return $date->diffInDays('2020-12-25').' days before Christmas!';

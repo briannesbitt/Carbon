@@ -19,7 +19,7 @@ use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
 {
-    public function getMacroableClasses()
+    public function getMacroableClasses(): array
     {
         return [
             [Carbon::class, Carbon::parse('2010-05-23'), null],
@@ -36,7 +36,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
      * @param mixed       $sample
      * @param string|null $reference
      */
-    public function testMacroContextNesting($class, $sample, $reference)
+    public function testMacroContextNesting($class, $sample, $reference): void
     {
         $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
         $class::macro($macro1, static function () {
@@ -68,7 +68,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
      * @param string $class
      * @param mixed  $sample
      */
-    public function testMacroContextDetectionNesting($class, $sample)
+    public function testMacroContextDetectionNesting($class, $sample): void
     {
         $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
         $class::macro($macro1, static function () {

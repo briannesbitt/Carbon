@@ -14,7 +14,7 @@ class CascadeTest extends AbstractTestCase
      * @param string         $spec
      * @param bool|int       $inverted
      */
-    protected function assertIntervalSpec(CarbonInterval $interval, string $spec, $inverted = false)
+    protected function assertIntervalSpec(CarbonInterval $interval, string $spec, $inverted = false): void
     {
         $this->assertSame(
             ($inverted ? '- ' : '+ ').$spec,
@@ -25,7 +25,7 @@ class CascadeTest extends AbstractTestCase
     /**
      * @dataProvider provideIntervalSpecs
      */
-    public function testCascadesOverflowedValues($spec, $expected)
+    public function testCascadesOverflowedValues($spec, $expected): void
     {
         $interval = CarbonInterval::fromString($spec)->cascade();
         $this->assertIntervalSpec($interval, $expected);
@@ -34,7 +34,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, true);
     }
 
-    public function provideIntervalSpecs()
+    public function provideIntervalSpecs(): array
     {
         return [
             ['3600s',                        'PT1H'],
@@ -50,7 +50,7 @@ class CascadeTest extends AbstractTestCase
      *
      * @throws \Exception
      */
-    public function testMixedSignsCascadesOverflowedValues($units, $expected, $expectingInversion)
+    public function testMixedSignsCascadesOverflowedValues($units, $expected, $expectingInversion): void
     {
         $interval = new CarbonInterval(0);
         foreach ($units as $unit => $value) {
@@ -67,7 +67,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, 1 - $expectingInversion);
     }
 
-    public function provideMixedSignsIntervalSpecs()
+    public function provideMixedSignsIntervalSpecs(): array
     {
         return [
             [
@@ -202,7 +202,7 @@ class CascadeTest extends AbstractTestCase
         ];
     }
 
-    public function testCascadesWithMicroseconds()
+    public function testCascadesWithMicroseconds(): void
     {
         $interval = CarbonInterval::fromString('1040ms 3012µs')->cascade();
 
@@ -214,7 +214,7 @@ class CascadeTest extends AbstractTestCase
     /**
      * @dataProvider provideCustomIntervalSpecs
      */
-    public function testCustomCascadesOverflowedValues($spec, $expected)
+    public function testCustomCascadesOverflowedValues($spec, $expected): void
     {
         $cascades = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -229,7 +229,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideCustomIntervalSpecs()
+    public function provideCustomIntervalSpecs(): array
     {
         return [
             ['3600s',                        '1h'],
@@ -243,7 +243,7 @@ class CascadeTest extends AbstractTestCase
     /**
      * @dataProvider provideCustomIntervalSpecsLongFormat
      */
-    public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
+    public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected): void
     {
         $cascades = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -258,7 +258,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideCustomIntervalSpecsLongFormat()
+    public function provideCustomIntervalSpecsLongFormat(): array
     {
         return [
             ['3600s',                        '1 hour'],
@@ -269,7 +269,7 @@ class CascadeTest extends AbstractTestCase
         ];
     }
 
-    public function testMultipleAdd()
+    public function testMultipleAdd(): void
     {
         $cascades = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -287,7 +287,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame('1w 4h', $actual);
     }
 
-    public function testFactorsGroups()
+    public function testFactorsGroups(): void
     {
         $cascades = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -304,7 +304,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame('1w 4d 14h 20m', $actual);
     }
 
-    public function testGetFactor()
+    public function testGetFactor(): void
     {
         $this->assertSame(28, CarbonInterval::getFactor('day', 'months'));
         $this->assertSame(28, CarbonInterval::getFactor('day', 'month'));
@@ -313,7 +313,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame(28, CarbonInterval::getFactor('dayz', 'months'));
     }
 
-    public function testComplexInterval()
+    public function testComplexInterval(): void
     {
         $interval = CarbonInterval::create(0);
         $this->assertFalse($interval->hasNegativeValues());

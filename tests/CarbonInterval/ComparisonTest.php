@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class ComparisonTest extends AbstractTestCase
 {
-    public function testEqualToTrue()
+    public function testEqualToTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->equalTo($oneDay));
@@ -30,7 +30,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->eq('P1D'));
     }
 
-    public function testEqualToFalse()
+    public function testEqualToFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->equalTo(CarbonInterval::hours(24)->microsecond(1)));
@@ -38,7 +38,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
     }
 
-    public function testNotEqualToTrue()
+    public function testNotEqualToTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->notEqualTo(CarbonInterval::hours(24)->microsecond(1)));
@@ -46,7 +46,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->ne(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
     }
 
-    public function testNotEqualToFalse()
+    public function testNotEqualToFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->notEqualTo($oneDay));
@@ -59,7 +59,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->ne('P1D'));
     }
 
-    public function testGreaterThanToTrue()
+    public function testGreaterThanToTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->greaterThan(CarbonInterval::day()->sub(1, 'microseconds')));
@@ -71,7 +71,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->gt('xxx'));
     }
 
-    public function testGreaterThanToFalse()
+    public function testGreaterThanToFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->greaterThan($oneDay));
@@ -84,7 +84,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->gt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
     }
 
-    public function testGreaterThanOrEqualToTrue()
+    public function testGreaterThanOrEqualToTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->greaterThanOrEqualTo($oneDay));
@@ -99,7 +99,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->gte('xxx'));
     }
 
-    public function testGreaterThanOrEqualToFalse()
+    public function testGreaterThanOrEqualToFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->greaterThanOrEqualTo(CarbonInterval::day()->add(1, 'microseconds')));
@@ -110,7 +110,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->gte('P0DT23H59M61S'));
     }
 
-    public function testLessThanToTrue()
+    public function testLessThanToTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->lessThan(CarbonInterval::day()->add(1, 'microseconds')));
@@ -121,7 +121,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->lt('P0DT23H59M61S'));
     }
 
-    public function testLessThanToFalse()
+    public function testLessThanToFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->lessThan($oneDay));
@@ -135,7 +135,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lt('xxx'));
     }
 
-    public function testLessThanOrEqualToTrue()
+    public function testLessThanOrEqualToTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->lessThanOrEqualTo($oneDay));
@@ -148,7 +148,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->lte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
     }
 
-    public function testLessThanOrEqualToFalse()
+    public function testLessThanOrEqualToFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->lessThanOrEqualTo(CarbonInterval::day()->sub(1, 'microseconds')));
@@ -160,7 +160,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lte('xxx'));
     }
 
-    public function testBetweenFalse()
+    public function testBetweenFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->between(CarbonInterval::days(2), CarbonInterval::days(3)));
@@ -169,7 +169,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($twoDays->between(CarbonInterval::day(), CarbonInterval::days(2), false));
     }
 
-    public function testBetweenTrue()
+    public function testBetweenTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->between(CarbonInterval::hours(12), CarbonInterval::hours(36)));
@@ -181,13 +181,13 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($twoDays->between(CarbonInterval::day(), CarbonInterval::days(2)));
     }
 
-    public function testBetweenIncludedFalse()
+    public function testBetweenIncludedFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->betweenIncluded(CarbonInterval::days(2), CarbonInterval::days(3)));
     }
 
-    public function testBetweenIncludedTrue()
+    public function testBetweenIncludedTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->betweenIncluded(CarbonInterval::hours(12), CarbonInterval::hours(36)));
@@ -196,7 +196,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($twoDays->betweenIncluded(CarbonInterval::day(), CarbonInterval::days(2)));
     }
 
-    public function testBetweenExcludedFalse()
+    public function testBetweenExcludedFalse(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertFalse($oneDay->betweenExcluded(CarbonInterval::days(2), CarbonInterval::days(3)));
@@ -205,7 +205,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($twoDays->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)));
     }
 
-    public function testIsBetweenTrue()
+    public function testIsBetweenTrue(): void
     {
         $oneDay = CarbonInterval::day();
         $this->assertTrue($oneDay->isBetween(CarbonInterval::hours(12), CarbonInterval::hours(36)));

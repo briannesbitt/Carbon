@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class ObjectsTest extends AbstractTestCase
 {
-    public function testToObject()
+    public function testToObject(): void
     {
         $dt = Carbon::now();
         $dtToObject = $dt->toObject();
@@ -63,7 +63,7 @@ class ObjectsTest extends AbstractTestCase
         $this->assertSame($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToObject->formatted);
     }
 
-    public function testToDateTime()
+    public function testToDateTime(): void
     {
         $dt = Carbon::create(2000, 3, 26);
         $date = $dt->toDateTime();
@@ -79,7 +79,7 @@ class ObjectsTest extends AbstractTestCase
         $this->assertSame('2000-03-26', $date->format('Y-m-d'));
     }
 
-    public function testToDateTimeImmutable()
+    public function testToDateTimeImmutable(): void
     {
         $dt = Carbon::create(2000, 3, 26);
         $date = $dt->toDateTimeImmutable();

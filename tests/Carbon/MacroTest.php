@@ -21,13 +21,13 @@ use Tests\Carbon\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCaseWithOldNow
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(DateTime::class, $this->now);
         $this->assertInstanceOf(Carbon::class, $this->now);
     }
 
-    public function testCarbonIsMacroableWhenNotCalledDynamically()
+    public function testCarbonIsMacroableWhenNotCalledDynamically(): void
     {
         if (!\function_exists('easter_days')) {
             $this->markTestSkipped('This test requires ext-calendar to be enabled.');
@@ -50,7 +50,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertTrue($now->otherParameterName());
     }
 
-    public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis()
+    public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis(): void
     {
         if (!\function_exists('easter_days')) {
             $this->markTestSkipped('This test requires ext-calendar to be enabled.');
@@ -74,7 +74,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame(1020, $now->diffFromEaster(2020)->days);
     }
 
-    public function testCarbonIsMacroableWhenCalledStatically()
+    public function testCarbonIsMacroableWhenCalledStatically(): void
     {
         if (!\function_exists('easter_days')) {
             $this->markTestSkipped('This test requires ext-calendar to be enabled.');
@@ -87,7 +87,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('05/04', Carbon::easterDate(2015)->format('d/m'));
     }
 
-    public function testCarbonIsMacroableWhithNonClosureCallables()
+    public function testCarbonIsMacroableWhithNonClosureCallables(): void
     {
         Carbon::macro('lower', 'strtolower');
 
@@ -98,7 +98,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('abc', Carbon::lower('ABC'));
     }
 
-    public function testCarbonIsMixinable()
+    public function testCarbonIsMixinable(): void
     {
         include_once __DIR__.'/Fixtures/Mixin.php';
         $mixin = new Mixin('America/New_York');
@@ -111,7 +111,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('06:00 America/Belize', $date->userFormat('H:i e'));
     }
 
-    public function testMacroProperties()
+    public function testMacroProperties(): void
     {
         // Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
         // Then you can create get/set method this way:
@@ -161,7 +161,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('2019-09-01', $date->format('Y-m-d'));
     }
 
-    public function testLocalMacroProperties()
+    public function testLocalMacroProperties(): void
     {
         /** @var mixed $date */
         $date = Carbon::parse('2016-06-01')->settings([
@@ -212,7 +212,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('2019-09-01', $date->format('Y-m-d'));
     }
 
-    public function testMacroOverridingMethod()
+    public function testMacroOverridingMethod(): void
     {
         Carbon::macro('setDate', function ($dateString) {
             /** @var CarbonInterface $date */
@@ -232,7 +232,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('2001-04-13 04:13:56', $date->format('Y-m-d H:i:s'));
     }
 
-    public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()
+    public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method Carbon\Carbon::nonExistingStaticMacro does not exist.'
@@ -241,7 +241,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         Carbon::nonExistingStaticMacro();
     }
 
-    public function testCarbonRaisesExceptionWhenMacroIsNotFound()
+    public function testCarbonRaisesExceptionWhenMacroIsNotFound(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method nonExistingMacro does not exist.'
@@ -252,7 +252,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $date->nonExistingMacro();
     }
 
-    public function testTraitMixin()
+    public function testTraitMixin(): void
     {
         Carbon::mixin(FooBar::class);
         Carbon::setTestNow('2019-07-19 00:00:00');

@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class SetStateTest extends AbstractTestCase
 {
-    public function testSteState()
+    public function testSteState(): void
     {
         $obj = new class() {
             use Serialization;

@@ -49,7 +49,7 @@ abstract class AbstractTestCase extends TestCase
      */
     private $saveTz;
 
-    protected function getTimestamp()
+    protected function getTimestamp(): int
     {
         return (new DateTime())->getTimestamp();
     }
@@ -101,7 +101,7 @@ abstract class AbstractTestCase extends TestCase
         $translator->resetMessages();
     }
 
-    public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null): void
     {
         $expected = [
             'years' => $year,
@@ -138,7 +138,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function assertCarbonTime(CarbonInterface $d, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbonTime(CarbonInterface $d, $hour = null, $minute = null, $second = null, $micro = null): void
     {
         $actual = [];
 
@@ -167,12 +167,12 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function assertInstanceOfCarbon($d)
+    public function assertInstanceOfCarbon($d): void
     {
         $this->assertInstanceOf(CarbonInterface::class, $d);
     }
 
-    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null, $inverted = null)
+    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null, $inverted = null): void
     {
         $actual = ['years' => $ci->years];
 
@@ -215,7 +215,7 @@ abstract class AbstractTestCase extends TestCase
         }
     }
 
-    public function assertInstanceOfCarbonInterval($d)
+    public function assertInstanceOfCarbonInterval($d): void
     {
         $this->assertInstanceOf(CarbonInterval::class, $d);
     }
@@ -232,12 +232,12 @@ abstract class AbstractTestCase extends TestCase
         CarbonImmutable::setTestNow($immutableTest);
     }
 
-    public function wrapWithNonDstDate(Closure $func)
+    public function wrapWithNonDstDate(Closure $func): void
     {
         $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
     }
 
-    public function wrapWithUtf8LcTimeLocale($locale, Closure $func)
+    public function wrapWithUtf8LcTimeLocale($locale, Closure $func): void
     {
         $currentLocale = setlocale(LC_TIME, '0');
         $locales = ["$locale.UTF-8", "$locale.utf8"];
@@ -276,7 +276,7 @@ abstract class AbstractTestCase extends TestCase
      *
      * @return array
      */
-    public function standardizeDates($dates)
+    public function standardizeDates($dates): array
     {
         $result = [];
 
@@ -293,7 +293,7 @@ abstract class AbstractTestCase extends TestCase
         return $result;
     }
 
-    protected function areSameLocales($a, $b)
+    protected function areSameLocales($a, $b): bool
     {
         static $aliases = null;
 

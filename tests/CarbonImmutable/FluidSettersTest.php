@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class FluidSettersTest extends AbstractTestCase
 {
-    public function testFluidYearSetter()
+    public function testFluidYearSetter(): void
     {
         $d = Carbon::now();
         $d2 = $d->year(1995);
@@ -26,7 +26,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(1995, $d2->year);
     }
 
-    public function testFluidMonthSetter()
+    public function testFluidMonthSetter(): void
     {
         $d = Carbon::now();
         $d2 = $d->month(3);
@@ -36,7 +36,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(3, $d2->month);
     }
 
-    public function testFluidMonthSetterWithWrap()
+    public function testFluidMonthSetterWithWrap(): void
     {
         $d = Carbon::createFromDate(2012, 8, 21);
         $d2 = $d->month(13);
@@ -46,7 +46,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(1, $d2->month);
     }
 
-    public function testFluidDaySetter()
+    public function testFluidDaySetter(): void
     {
         $d = Carbon::now();
         $d2 = $d->day(2);
@@ -56,7 +56,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(2, $d2->day);
     }
 
-    public function testFluidDaySetterWithWrap()
+    public function testFluidDaySetterWithWrap(): void
     {
         $d = Carbon::createFromDate(2000, 1, 3);
         $d2 = $d->day(32);
@@ -66,7 +66,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(1, $d2->day);
     }
 
-    public function testFluidSetDate()
+    public function testFluidSetDate(): void
     {
         $d = Carbon::createFromDate(2000, 1, 1);
         $d2 = $d->setDate(1995, 13, 32);
@@ -76,7 +76,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertCarbon($d2, 1996, 2, 1);
     }
 
-    public function testFluidHourSetter()
+    public function testFluidHourSetter(): void
     {
         $d = Carbon::now();
         $d2 = $d->hour(2);
@@ -86,7 +86,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(2, $d2->hour);
     }
 
-    public function testFluidHourSetterWithWrap()
+    public function testFluidHourSetterWithWrap(): void
     {
         $d = Carbon::now();
         $d2 = $d->hour(25);
@@ -96,7 +96,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(1, $d2->hour);
     }
 
-    public function testFluidMinuteSetter()
+    public function testFluidMinuteSetter(): void
     {
         $d = Carbon::now();
         $d2 = $d->minute(2);
@@ -106,7 +106,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(2, $d2->minute);
     }
 
-    public function testFluidMinuteSetterWithWrap()
+    public function testFluidMinuteSetterWithWrap(): void
     {
         $d = Carbon::now();
         $d2 = $d->minute(61);
@@ -116,7 +116,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(1, $d2->minute);
     }
 
-    public function testFluidSecondSetter()
+    public function testFluidSecondSetter(): void
     {
         $d = Carbon::now();
         $d2 = $d->second(2);
@@ -126,7 +126,7 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(2, $d2->second);
     }
 
-    public function testFluidSecondSetterWithWrap()
+    public function testFluidSecondSetterWithWrap(): void
     {
         $d = Carbon::now();
         $d2 = $d->second(62);
@@ -136,14 +136,14 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertSame(2, $d2->second);
     }
 
-    public function testFluidSetTime()
+    public function testFluidSetTime(): void
     {
         $d = Carbon::createFromDate(2000, 1, 1);
         $this->assertInstanceOfCarbon($d2 = $d->setTime(25, 61, 61));
         $this->assertCarbon($d2, 2000, 1, 2, 2, 2, 1);
     }
 
-    public function testFluidTimestampSetter()
+    public function testFluidTimestampSetter(): void
     {
         $d = Carbon::now();
         $this->assertInstanceOfCarbon($d2 = $d->timestamp(10));

@@ -17,98 +17,98 @@ use Tests\AbstractTestCase;
 
 class CreateSafeTest extends AbstractTestCase
 {
-    public function testInvalidDateExceptionProperties()
+    public function testInvalidDateExceptionProperties(): void
     {
         $e = new InvalidDateException('day', 'foo');
         $this->assertSame('day', $e->getField());
         $this->assertSame('foo', $e->getValue());
     }
 
-    public function testCreateSafeThrowsExceptionForSecondLowerThanZero()
+    public function testCreateSafeThrowsExceptionForSecondLowerThanZero(): void
     {
         $this->expectExceptionObject(new InvalidDateException('second', -1));
 
         Carbon::createSafe(null, null, null, null, null, -1);
     }
 
-    public function testCreateSafeThrowsExceptionForSecondGreaterThan59()
+    public function testCreateSafeThrowsExceptionForSecondGreaterThan59(): void
     {
         $this->expectExceptionObject(new InvalidDateException('second', 60));
 
         Carbon::createSafe(null, null, null, null, null, 60);
     }
 
-    public function testCreateSafeThrowsExceptionForMinuteLowerThanZero()
+    public function testCreateSafeThrowsExceptionForMinuteLowerThanZero(): void
     {
         $this->expectExceptionObject(new InvalidDateException('minute', -1));
 
         Carbon::createSafe(null, null, null, null, -1);
     }
 
-    public function testCreateSafeThrowsExceptionForMinuteGreaterThan59()
+    public function testCreateSafeThrowsExceptionForMinuteGreaterThan59(): void
     {
         $this->expectExceptionObject(new InvalidDateException('minute', 60));
 
         Carbon::createSafe(null, null, null, null, 60, 25);
     }
 
-    public function testCreateSafeThrowsExceptionForHourLowerThanZero()
+    public function testCreateSafeThrowsExceptionForHourLowerThanZero(): void
     {
         $this->expectExceptionObject(new InvalidDateException('hour', -6));
 
         Carbon::createSafe(null, null, null, -6);
     }
 
-    public function testCreateSafeThrowsExceptionForHourGreaterThan24()
+    public function testCreateSafeThrowsExceptionForHourGreaterThan24(): void
     {
         $this->expectExceptionObject(new InvalidDateException('hour', 25));
 
         Carbon::createSafe(null, null, null, 25, 16, 15);
     }
 
-    public function testCreateSafeThrowsExceptionForDayLowerThanZero()
+    public function testCreateSafeThrowsExceptionForDayLowerThanZero(): void
     {
         $this->expectExceptionObject(new InvalidDateException('day', -5));
 
         Carbon::createSafe(null, null, -5);
     }
 
-    public function testCreateSafeThrowsExceptionForDayGreaterThan31()
+    public function testCreateSafeThrowsExceptionForDayGreaterThan31(): void
     {
         $this->expectExceptionObject(new InvalidDateException('day', 32));
 
         Carbon::createSafe(null, null, 32, 17, 16, 15);
     }
 
-    public function testCreateSafeThrowsExceptionForMonthLowerThanZero()
+    public function testCreateSafeThrowsExceptionForMonthLowerThanZero(): void
     {
         $this->expectExceptionObject(new InvalidDateException('month', -4));
 
         Carbon::createSafe(null, -4);
     }
 
-    public function testCreateSafeThrowsExceptionForMonthGreaterThan12()
+    public function testCreateSafeThrowsExceptionForMonthGreaterThan12(): void
     {
         $this->expectExceptionObject(new InvalidDateException('month', 13));
 
         Carbon::createSafe(null, 13, 5, 17, 16, 15);
     }
 
-    public function testCreateSafeThrowsExceptionForYearLowerThanZero()
+    public function testCreateSafeThrowsExceptionForYearLowerThanZero(): void
     {
         $this->expectExceptionObject(new InvalidDateException('year', -5));
 
         Carbon::createSafe(-5);
     }
 
-    public function testCreateSafeThrowsExceptionForYearGreaterThan12()
+    public function testCreateSafeThrowsExceptionForYearGreaterThan12(): void
     {
         $this->expectExceptionObject(new InvalidDateException('year', 10000));
 
         Carbon::createSafe(10000, 12, 5, 17, 16, 15);
     }
 
-    public function testCreateSafeThrowsExceptionForInvalidDayInShortMonth()
+    public function testCreateSafeThrowsExceptionForInvalidDayInShortMonth(): void
     {
         $this->expectExceptionObject(new InvalidDateException('day', 31));
 
@@ -116,7 +116,7 @@ class CreateSafeTest extends AbstractTestCase
         Carbon::createSafe(2016, 4, 31, 17, 16, 15);
     }
 
-    public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInLeapYear()
+    public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInLeapYear(): void
     {
         $this->expectExceptionObject(new InvalidDateException('day', 30));
 
@@ -125,13 +125,13 @@ class CreateSafeTest extends AbstractTestCase
         Carbon::createSafe(2016, 2, 30, 17, 16, 15);
     }
 
-    public function testCreateSafePassesForFebruaryInLeapYear()
+    public function testCreateSafePassesForFebruaryInLeapYear(): void
     {
         // 29 days in February for a leap year
         $this->assertSame(29, Carbon::createSafe(2016, 2, 29, 17, 16, 15)->day);
     }
 
-    public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInNonLeapYear()
+    public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInNonLeapYear(): void
     {
         $this->expectExceptionObject(new InvalidDateException('day', 29));
 
@@ -140,7 +140,7 @@ class CreateSafeTest extends AbstractTestCase
         Carbon::createSafe(2015, 2, 29, 17, 16, 15);
     }
 
-    public function testCreateSafePassesForInvalidDSTTime()
+    public function testCreateSafePassesForInvalidDSTTime(): void
     {
         $message = '';
         $date = null;
@@ -155,27 +155,27 @@ class CreateSafeTest extends AbstractTestCase
         $this->assertStringContainsString('hour : 1 is not a valid value.', $message);
     }
 
-    public function testCreateSafePassesForValidDSTTime()
+    public function testCreateSafePassesForValidDSTTime(): void
     {
         $this->assertSame(0, Carbon::createSafe(2014, 3, 30, 0, 30, 0, 'Europe/London')->hour);
         $this->assertSame(2, Carbon::createSafe(2014, 3, 30, 2, 30, 0, 'Europe/London')->hour);
         $this->assertSame(1, Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'UTC')->hour);
     }
 
-    public function testCreateSafeThrowsExceptionForWithNonIntegerValue()
+    public function testCreateSafeThrowsExceptionForWithNonIntegerValue(): void
     {
         $this->expectExceptionObject(new InvalidDateException('second', 15.1));
 
         Carbon::createSafe(2015, 2, 10, 17, 16, 15.1);
     }
 
-    public function testCreateSafePassesForFebruaryInNonLeapYear()
+    public function testCreateSafePassesForFebruaryInNonLeapYear(): void
     {
         // 28 days in February for a non-leap year
         $this->assertSame(28, Carbon::createSafe(2015, 2, 28, 17, 16, 15)->day);
     }
 
-    public function testCreateSafePasses()
+    public function testCreateSafePasses(): void
     {
         $sd = Carbon::createSafe(2015, 2, 15, 17, 16, 15);
         $d = Carbon::create(2015, 2, 15, 17, 16, 15);

@@ -48,7 +48,7 @@ class CreateFromFormatTest extends AbstractTestCase
         ];
     }
 
-    public function testCreateFromFormatReturnsCarbon()
+    public function testCreateFromFormatReturnsCarbon(): void
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
@@ -58,7 +58,7 @@ class CreateFromFormatTest extends AbstractTestCase
     /**
      * Work-around for https://bugs.php.net/bug.php?id=80141
      */
-    public function testCFormat()
+    public function testCFormat(): void
     {
         $d = Carbon::createFromFormat('c', Carbon::parse('2020-02-02')->format('c'));
         $this->assertCarbon($d, 2020, 2, 2, 0, 0, 0, 0);
@@ -75,14 +75,14 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbon($d, 2020, 2, 2, 23, 45, 12, 0);
     }
 
-    public function testCreateFromFormatWithMillisecondsAlone()
+    public function testCreateFromFormatWithMillisecondsAlone(): void
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s.v', '1975-05-21 22:32:11.321');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11, 321000);
         $this->assertInstanceOfCarbon($d);
     }
 
-    public function testCreateFromFormatWithMillisecondsMerged()
+    public function testCreateFromFormatWithMillisecondsMerged(): void
     {
         if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
             $this->markTestSkipped('Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.');
@@ -93,27 +93,27 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($d);
     }
 
-    public function testCreateFromFormatWithTimezoneString()
+    public function testCreateFromFormatWithTimezoneString(): void
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', 'Europe/London');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromFormatWithTimezone()
+    public function testCreateFromFormatWithTimezone(): void
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11', new DateTimeZone('Europe/London'));
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromFormatWithMillis()
+    public function testCreateFromFormatWithMillis(): void
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.254687');
         $this->assertSame(254687, $d->micro);
     }
 
-    public function testCreateFromFormatWithTestNow()
+    public function testCreateFromFormatWithTestNow(): void
     {
         Carbon::setTestNow();
         $nativeDate = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
@@ -123,7 +123,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($mockedDate->micro === 0, $nativeDate->micro === 0);
     }
 
-    public function testCreateLastErrorsCanBeAccessedByExtendingClass()
+    public function testCreateLastErrorsCanBeAccessedByExtendingClass(): void
     {
         $this->assertSame([
             'warning_count' => 0,
@@ -133,7 +133,7 @@ class CreateFromFormatTest extends AbstractTestCase
         ], MyCarbon::getLastErrors());
     }
 
-    public function testCreateFromFormatHandlesLastErrors()
+    public function testCreateFromFormatHandlesLastErrors(): void
     {
         $carbon = Carbon::createFromFormat('d/m/Y', '41/02/1900');
         $datetime = DateTime::createFromFormat('d/m/Y', '41/02/1900');
@@ -142,7 +142,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
     }
 
-    public function testCreateFromFormatResetLastErrors()
+    public function testCreateFromFormatResetLastErrors(): void
     {
         $carbon = Carbon::createFromFormat('d/m/Y', '41/02/1900');
         $this->assertSame($this->lastErrors, $carbon->getLastErrors());

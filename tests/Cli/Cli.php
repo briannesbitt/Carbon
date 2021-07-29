@@ -6,7 +6,7 @@ class Cli
 {
     public static $lastParameters = [];
 
-    public function __invoke(...$parameters)
+    public function __invoke(...$parameters): bool
     {
         static::$lastParameters = $parameters;
 

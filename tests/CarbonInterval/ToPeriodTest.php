@@ -13,7 +13,7 @@ class ToPeriodTest extends AbstractTestCase
     /**
      * @dataProvider provideToPeriodParameters
      */
-    public function testConvertToDatePeriod($interval, $arguments, $expected)
+    public function testConvertToDatePeriod($interval, $arguments, $expected): void
     {
         $period = ([$interval, 'toPeriod'])(...$arguments);
 
@@ -22,7 +22,7 @@ class ToPeriodTest extends AbstractTestCase
         $this->assertSame($expected, $period->spec());
     }
 
-    public function provideToPeriodParameters()
+    public function provideToPeriodParameters(): array
     {
         return [
             [

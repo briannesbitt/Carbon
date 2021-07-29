@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    public function testSet()
+    public function testSet(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->set('seconds', 34);
@@ -31,7 +31,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(33, $ci->minutes);
     }
 
-    public function testYearsSetter()
+    public function testYearsSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->years = 2;
@@ -40,7 +40,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(5, $ci->years);
     }
 
-    public function testMonthsSetter()
+    public function testMonthsSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->months = 11;
@@ -49,7 +49,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(8, $ci->months);
     }
 
-    public function testWeeksSetter()
+    public function testWeeksSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->weeks = 11;
@@ -59,7 +59,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(4, $ci->weeks);
     }
 
-    public function testDayzSetter()
+    public function testDayzSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->dayz = 11;
@@ -72,7 +72,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(3, $ci->dayz);
     }
 
-    public function testHoursSetter()
+    public function testHoursSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->hours = 12;
@@ -81,7 +81,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(0, $ci->hours);
     }
 
-    public function testMinutesSetter()
+    public function testMinutesSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->minutes = 11;
@@ -90,7 +90,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(9, $ci->minutes);
     }
 
-    public function testSecondsSetter()
+    public function testSecondsSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->seconds = 34;
@@ -101,7 +101,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(1, $ci->seconds);
     }
 
-    public function testMillisecondsSetter()
+    public function testMillisecondsSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->milliseconds = 34;
@@ -112,7 +112,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(1, $ci->milliseconds);
     }
 
-    public function testMicrosecondsSetter()
+    public function testMicrosecondsSetter(): void
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->microseconds = 34;
@@ -123,7 +123,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(1, $ci->microseconds);
     }
 
-    public function testFluentSetters()
+    public function testFluentSetters(): void
     {
         $ci = CarbonInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -134,19 +134,19 @@ class SettersTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 2, 14, 3, 1, 59);
     }
 
-    public function testFluentSettersDaysOverwritesWeeks()
+    public function testFluentSettersDaysOverwritesWeeks(): void
     {
         $ci = CarbonInterval::weeks(3)->days(5);
         $this->assertCarbonInterval($ci, 0, 0, 5, 0, 0, 0);
     }
 
-    public function testFluentSettersWeeksOverwritesDays()
+    public function testFluentSettersWeeksOverwritesDays(): void
     {
         $ci = CarbonInterval::days(5)->weeks(3);
         $this->assertCarbonInterval($ci, 0, 0, 3 * 7, 0, 0, 0);
     }
 
-    public function testFluentSettersWeeksAndDaysIsCumulative()
+    public function testFluentSettersWeeksAndDaysIsCumulative(): void
     {
         $ci = CarbonInterval::year(5)->weeksAndDays(2, 6);
         $this->assertCarbonInterval($ci, 5, 0, 20, 0, 0, 0);
@@ -155,7 +155,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(6, $ci->dayzExcludeWeeks);
     }
 
-    public function testInvert()
+    public function testInvert(): void
     {
         $ci = new CarbonInterval;
 
@@ -178,7 +178,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(0, $ci->invert);
     }
 
-    public function testInvalidSetter()
+    public function testInvalidSetter(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown setter \'doesNotExit\''
@@ -189,7 +189,7 @@ class SettersTest extends AbstractTestCase
         $ci->doesNotExit = 123;
     }
 
-    public function testInvalidFluentSetter()
+    public function testInvalidFluentSetter(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Unknown fluent setter \'doesNotExit\''
@@ -200,7 +200,7 @@ class SettersTest extends AbstractTestCase
         $ci->doesNotExit(123);
     }
 
-    public function testInvalidStaticFluentSetter()
+    public function testInvalidStaticFluentSetter(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Unknown fluent constructor \'doesNotExit\''
@@ -209,7 +209,7 @@ class SettersTest extends AbstractTestCase
         CarbonInterval::doesNotExit(123);
     }
 
-    public function testLocale()
+    public function testLocale(): void
     {
         /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->locale('de');
@@ -217,7 +217,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('de', $interval->locale);
     }
 
-    public function testTimezone()
+    public function testTimezone(): void
     {
         /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->shiftTimezone('America/Toronto');

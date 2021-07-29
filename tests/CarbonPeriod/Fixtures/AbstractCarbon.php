@@ -28,13 +28,13 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     }
 
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, $overflow = null)
+    public function add($unit, $value = 1, $overflow = null): self
     {
         return parent::add($unit);
     }
 
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, $overflow = null)
+    public function sub($unit, $value = 1, $overflow = null): self
     {
         return parent::sub($unit);
     }
@@ -46,13 +46,13 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     }
 
     #[ReturnTypeWillChange]
-    public function setDate($year, $month, $day)
+    public function setDate($year, $month, $day): self
     {
         return parent::setDate($year, $month, $day);
     }
 
     #[ReturnTypeWillChange]
-    public function setISODate($year, $month, $day = 1)
+    public function setISODate($year, $month, $day = 1): self
     {
         return parent::setISODate($year, $month, $day = 1);
     }
@@ -64,13 +64,13 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     }
 
     #[ReturnTypeWillChange]
-    public function setTimestamp($unixTimestamp)
+    public function setTimestamp($unixTimestamp): self
     {
         return parent::setTimestamp($unixTimestamp);
     }
 
     #[ReturnTypeWillChange]
-    public function setTimezone($value)
+    public function setTimezone($value): self
     {
         return parent::setTimezone($value);
     }

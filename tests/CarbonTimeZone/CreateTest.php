@@ -18,7 +18,7 @@ use Tests\CarbonTimeZone\Fixtures\UnknownZone;
 
 class CreateTest extends AbstractTestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $tz = new CarbonTimeZone(6);
 
@@ -29,21 +29,21 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('+06:00', $tz->getName());
     }
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $tz = new CarbonTimeZone();
 
         $this->assertSame($tz, CarbonTimeZone::instance($tz));
     }
 
-    public function testUnknown()
+    public function testUnknown(): void
     {
         $tz = new UnknownZone();
 
         $this->assertSame('unknown', $tz->getAbbreviatedName());
     }
 
-    public function testSafeCreateDateTimeZoneWithoutStrictMode()
+    public function testSafeCreateDateTimeZoneWithoutStrictMode(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Absolute timezone offset cannot be greater than 100.'

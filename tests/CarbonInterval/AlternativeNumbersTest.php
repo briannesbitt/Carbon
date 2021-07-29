@@ -8,7 +8,7 @@ use Tests\AbstractTestCase;
 
 class AlternativeNumbersTest extends AbstractTestCase
 {
-    public function testAlternativesNumbers()
+    public function testAlternativesNumbers(): void
     {
         $this->assertSame(
             '۵۲ ساعت',

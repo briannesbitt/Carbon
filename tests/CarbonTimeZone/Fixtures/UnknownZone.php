@@ -17,7 +17,7 @@ use ReturnTypeWillChange;
 class UnknownZone extends CarbonTimeZone
 {
     #[ReturnTypeWillChange]
-    public function getName()
+    public function getName(): string
     {
         return 'foobar';
     }

@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class DateTest extends TestCaseBase
 {
-    public function testConstructFromString()
+    public function testConstructFromString(): void
     {
         Carbon::setTestNow();
 
@@ -21,27 +21,27 @@ class DateTest extends TestCaseBase
         $this->assertLessThanOrEqual($after - 86400, $date->getTimestamp());
     }
 
-    public function testConstructTimestamp()
+    public function testConstructTimestamp(): void
     {
         $date = new Carbon(1367186296);
         $this->assertSame(1367186296, $date->getTimestamp());
     }
 
-    public function testMake()
+    public function testMake(): void
     {
         $date1 = Carbon::make('Sunday 28 April 2013 21:58:16');
         $date2 = new Carbon('Sunday 28 April 2013 21:58:16');
         $this->assertEquals($date1, $date2);
     }
 
-    public function testCreateFromCarbon()
+    public function testCreateFromCarbon(): void
     {
         $date = Carbon::make(Carbon::createFromFormat('U', '1367186296'));
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame(1367186296, $date->getTimestamp());
     }
 
-    public function testManipulation()
+    public function testManipulation(): void
     {
         $now = Carbon::now();
 
@@ -55,13 +55,13 @@ class DateTest extends TestCaseBase
         $this->assertSame(-10 * 86400, $now->copy()->sub('P10D')->getTimestamp() - $now->getTimestamp());
     }
 
-    public function testFormat()
+    public function testFormat(): void
     {
         $date = new Carbon(1367186296);
         $this->assertSame('Sunday 28 April 2013 21:58:16', $date->format('l j F Y H:i:s'));
     }
 
-    public function testAge()
+    public function testAge(): void
     {
         // Age test can't work on February 29th
         if (Carbon::now()->format('m-d') === '02-29') {
@@ -72,7 +72,7 @@ class DateTest extends TestCaseBase
         $this->assertSame(5, $date->age);
     }
 
-    public function testAgo()
+    public function testAgo(): void
     {
         // Ago test can't work on February 29th
         if (Carbon::now()->format('m-d') === '02-29') {
@@ -122,7 +122,7 @@ class DateTest extends TestCaseBase
         $this->assertSame('5 days before', $date->ago(Carbon::now()));
     }
 
-    public function testAbsoluteAgo()
+    public function testAbsoluteAgo(): void
     {
         $date = Carbon::parse('-5 days');
         $this->assertSame('5 days', $date->ago(Carbon::now(), true));
@@ -131,7 +131,7 @@ class DateTest extends TestCaseBase
         $this->assertSame('5 days', $date->ago(Carbon::now(), true));
     }
 
-    public function testDiffForHumans()
+    public function testDiffForHumans(): void
     {
         // Diff for humans test can't work on February 29th
         if (Carbon::now()->format('m-d') === '02-29') {
@@ -159,7 +159,7 @@ class DateTest extends TestCaseBase
         $this->assertSame('2 weeks before', $date->diffForHumans($future));
     }
 
-    public function testTimespan()
+    public function testTimespan(): void
     {
         $date = new Carbon(1403619368);
         $date = $date->sub('-100 days -3 hours -20 minutes');
@@ -167,7 +167,7 @@ class DateTest extends TestCaseBase
         $this->assertSame('3 months, 1 week, 1 day, 3 hours, 20 minutes', $date->timespan(1403619368));
     }
 
-    public function testTranslateTimeString()
+    public function testTranslateTimeString(): void
     {
         Carbon::setLocale('ru');
         $date = Carbon::translateTimeString('понедельник 21 март 2015');

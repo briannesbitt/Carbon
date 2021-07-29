@@ -18,7 +18,7 @@ use Tests\Carbon\Fixtures\DumpCarbon;
 
 class ArraysTest extends AbstractTestCase
 {
-    public function testToArray()
+    public function testToArray(): void
     {
         $dt = Carbon::now();
         $dtToArray = $dt->toArray();
@@ -62,7 +62,7 @@ class ArraysTest extends AbstractTestCase
         $this->assertSame($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToArray['formatted']);
     }
 
-    public function testDebugInfo()
+    public function testDebugInfo(): void
     {
         $dt = Carbon::parse('2019-04-09 11:10:10.667952');
         $debug = $dt->__debugInfo();
@@ -92,14 +92,14 @@ class ArraysTest extends AbstractTestCase
         ], $debug);
     }
 
-    public function testDebuggingWithFormatException()
+    public function testDebuggingWithFormatException(): void
     {
         $date = new DumpCarbon();
         $date->breakFormat();
         $this->assertIsArray($date->__debugInfo());
     }
 
-    public function testDebuggingUninitializedInstances()
+    public function testDebuggingUninitializedInstances(): void
     {
         $date = new DumpCarbon();
         $this->assertStringContainsString(DumpCarbon::class, $date->getDump());

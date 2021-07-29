@@ -15,7 +15,7 @@ class Mixin
 {
     public $foo;
 
-    public function setFoo()
+    public function setFoo(): \Closure
     {
         $mixin = $this;
 
@@ -24,7 +24,7 @@ class Mixin
         };
     }
 
-    public function getFoo()
+    public function getFoo(): \Closure
     {
         $mixin = $this;
 

@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class RelativeTest extends AbstractTestCase
 {
-    public function testSecondsSinceMidnight()
+    public function testSecondsSinceMidnight(): void
     {
         $d = Carbon::today()->addSeconds(30);
         $this->assertSame(30, $d->secondsSinceMidnight());
@@ -31,7 +31,7 @@ class RelativeTest extends AbstractTestCase
         $this->assertSame(42, $d->secondsSinceMidnight());
     }
 
-    public function testSecondsUntilEndOfDay()
+    public function testSecondsUntilEndOfDay(): void
     {
         $d = Carbon::today()->endOfDay();
         $this->assertSame(0, $d->secondsUntilEndOfDay());

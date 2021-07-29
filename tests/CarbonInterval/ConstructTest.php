@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
 {
-    public function testInheritedConstruct()
+    public function testInheritedConstruct(): void
     {
         $ci = new CarbonInterval('PT0S');
         $this->assertSame('PT0S', $ci->spec());
@@ -31,7 +31,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame('P1Y2M3D', $ci->spec());
     }
 
-    public function testConstructWithDateInterval()
+    public function testConstructWithDateInterval(): void
     {
         $ci = new CarbonInterval(new DateInterval('P1Y2M3D'));
         $this->assertSame('P1Y2M3D', $ci->spec());
@@ -45,14 +45,14 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(1, $ci->invert);
     }
 
-    public function testDefaults()
+    public function testDefaults(): void
     {
         $ci = new CarbonInterval();
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 1, 0, 0, 0, 0, 0);
     }
 
-    public function testNulls()
+    public function testNulls(): void
     {
         $ci = new CarbonInterval(null, null, null, null, null, null);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
@@ -61,7 +61,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
-    public function testZeroes()
+    public function testZeroes(): void
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
@@ -71,14 +71,14 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
-    public function testZeroesChained()
+    public function testZeroesChained(): void
     {
         $ci = CarbonInterval::days(0)->week(0)->minutes(0);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
-    public function testYears()
+    public function testYears(): void
     {
         $ci = new CarbonInterval(1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -97,7 +97,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 3, 0, 0, 0, 0, 0);
     }
 
-    public function testMonths()
+    public function testMonths(): void
     {
         $ci = new CarbonInterval(0, 1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -116,7 +116,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 3, 0, 0, 0, 0);
     }
 
-    public function testWeeks()
+    public function testWeeks(): void
     {
         $ci = new CarbonInterval(0, 0, 1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -135,7 +135,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
     }
 
-    public function testDays()
+    public function testDays(): void
     {
         $ci = new CarbonInterval(0, 0, 0, 1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -158,7 +158,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 3, 0, 0, 0);
     }
 
-    public function testHours()
+    public function testHours(): void
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -177,7 +177,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 3, 0, 0);
     }
 
-    public function testMinutes()
+    public function testMinutes(): void
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -196,7 +196,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 3, 0);
     }
 
-    public function testSeconds()
+    public function testSeconds(): void
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 1);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -215,7 +215,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 3);
     }
 
-    public function testMilliseconds()
+    public function testMilliseconds(): void
     {
         $ci = CarbonInterval::milliseconds(2);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -228,7 +228,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(1, $ci->milliseconds);
     }
 
-    public function testMicroseconds()
+    public function testMicroseconds(): void
     {
         $ci = CarbonInterval::microseconds(2);
         $this->assertInstanceOfCarbonInterval($ci);
@@ -241,28 +241,28 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(1, $ci->microseconds);
     }
 
-    public function testYearsAndHours()
+    public function testYearsAndHours(): void
     {
         $ci = new CarbonInterval(5, 0, 0, 0, 3, 0, 0);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 5, 0, 0, 3, 0, 0);
     }
 
-    public function testAll()
+    public function testAll(): void
     {
         $ci = new CarbonInterval(5, 6, 2, 5, 9, 10, 11);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 5, 6, 19, 9, 10, 11);
     }
 
-    public function testAllWithCreate()
+    public function testAllWithCreate(): void
     {
         $ci = CarbonInterval::create(5, 6, 2, 5, 9, 10, 11);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 5, 6, 19, 9, 10, 11);
     }
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $ci = CarbonInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
         $this->assertInstanceOfCarbonInterval($ci);
@@ -270,7 +270,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertFalse($ci->days);
     }
 
-    public function testInstanceWithNegativeDateInterval()
+    public function testInstanceWithNegativeDateInterval(): void
     {
         $di = new DateInterval('P2Y1M5DT22H33M44S');
         $di->invert = 1;
@@ -281,13 +281,13 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(1, $ci->invert);
     }
 
-    public function testInstanceWithDays()
+    public function testInstanceWithDays(): void
     {
         $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
     }
 
-    public function testCopy()
+    public function testCopy(): void
     {
         $one = CarbonInterval::days(10);
         $two = $one->hours(6)->copy()->hours(3);
@@ -295,7 +295,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($two, 0, 0, 10, 3, 0, 0);
     }
 
-    public function testMake()
+    public function testMake(): void
     {
         $this->assertCarbonInterval(CarbonInterval::make(3, 'hours'), 0, 0, 0, 3, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::make('3 hours 30 m'), 0, 0, 0, 3, 30, 0);
@@ -313,7 +313,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(3000, CarbonInterval::make('3 millennia')->totalYears);
     }
 
-    public function testCallInvalidStaticMethod()
+    public function testCallInvalidStaticMethod(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Unknown fluent constructor \'anything\''

@@ -21,27 +21,27 @@ use Tests\AbstractTestCase;
 
 class AddTest extends AbstractTestCase
 {
-    public function testAdd()
+    public function testAdd(): void
     {
         $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add(new DateInterval('P2Y1M5DT22H33M44S'));
         $this->assertCarbonInterval($ci, 6, 4, 54, 30, 43, 55);
     }
 
-    public function testAddWithDiffDateInterval()
+    public function testAddWithDiffDateInterval(): void
     {
         $diff = Carbon::now()->diff(Carbon::now()->addWeeks(3));
         $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
         $this->assertCarbonInterval($ci, 4, 3, 70, 8, 10, 11);
     }
 
-    public function testAddWithNegativeDiffDateInterval()
+    public function testAddWithNegativeDiffDateInterval(): void
     {
         $diff = Carbon::now()->diff(Carbon::now()->subWeeks(3));
         $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    public function testAddMicroseconds()
+    public function testAddMicroseconds(): void
     {
         $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
         $ci = CarbonInterval::create(1, 0, 0, 2, 0, 0, 0, 222333)->add($diff);
@@ -62,7 +62,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 1, 0, 5, 0, 0, 0, 111222);
     }
 
-    public function testAddWithRawDiffDateInterval()
+    public function testAddWithRawDiffDateInterval(): void
     {
         date_default_timezone_set('UTC');
 
@@ -72,7 +72,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 70, 8, 10, 11);
     }
 
-    public function testAddWithRawNegativeDiffDateInterval()
+    public function testAddWithRawNegativeDiffDateInterval(): void
     {
         date_default_timezone_set('UTC');
 
@@ -82,7 +82,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    public function provideAddsResults()
+    public function provideAddsResults(): array
     {
         return [
             [5, 2, 7],
@@ -103,7 +103,7 @@ class AddTest extends AbstractTestCase
      * @param int $increment
      * @param int $expectedResult
      */
-    public function testAddSign($base, $increment, $expectedResult)
+    public function testAddSign($base, $increment, $expectedResult): void
     {
         $interval = new CarbonInterval();
         $interval->hours(abs($base));
@@ -124,7 +124,7 @@ class AddTest extends AbstractTestCase
         $this->assertSame($expectedResult, $actualResult);
     }
 
-    public function testAddAndSubMultipleFormats()
+    public function testAddAndSubMultipleFormats(): void
     {
         $this->assertCarbonInterval(CarbonInterval::day()->add('hours', 3), 0, 0, 1, 3, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::day()->add(5, 'hours'), 0, 0, 1, 5, 0, 0);
@@ -142,7 +142,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::hours(4)->sub(CarbonInterval::minutes(30)), 0, 0, 0, 4, -30, 0);
     }
 
-    public function testAddWrongFormat()
+    public function testAddWrongFormat(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'This type of data cannot be added/subtracted.'
@@ -151,7 +151,7 @@ class AddTest extends AbstractTestCase
         CarbonInterval::day()->add(Carbon::now());
     }
 
-    public function testConvertDate()
+    public function testConvertDate(): void
     {
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTime('2020-06-14')), 2020, 6, 17, 0, 0, 0);
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTimeImmutable('2020-06-14')), 2020, 6, 17, 0, 0, 0);
@@ -159,7 +159,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTimeImmutable('2020-06-14'), true), 2020, 6, 11, 0, 0, 0);
     }
 
-    public function testMagicAddAndSubMethods()
+    public function testMagicAddAndSubMethods(): void
     {
         $this->assertCarbonInterval(CarbonInterval::days(3)->addWeeks(2), 0, 0, 17, 0, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::weeks(3)->addDays(2), 0, 0, 23, 0, 0, 0);
@@ -168,7 +168,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::hours(2)->subMinutes(15)->cascade(), 0, 0, 0, 1, 45, 0);
     }
 
-    public function testPlus()
+    public function testPlus(): void
     {
         $this->assertCarbonInterval(CarbonInterval::days(3)->plus(0, 0, 2, 0, 26), 0, 0, 17, 26, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::days(3)->plus(0, 0, 0.25), 0, 0, 4, 18, 0, 0);
@@ -176,7 +176,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($interval, 0, 0, 6, 12, 0, 0);
     }
 
-    public function testPlusWithPHP8Syntax()
+    public function testPlusWithPHP8Syntax(): void
     {
         if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
             $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
@@ -187,12 +187,12 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
     }
 
-    public function testMinus()
+    public function testMinus(): void
     {
         $this->assertCarbonInterval(CarbonInterval::days(3)->minus(0, 0, 2, 0, 26), 0, 0, 11, 26, 0, 0, 0, true);
     }
 
-    public function testMinusWithPHP8Syntax()
+    public function testMinusWithPHP8Syntax(): void
     {
         if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
             $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');

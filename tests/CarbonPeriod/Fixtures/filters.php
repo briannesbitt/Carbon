@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 use Carbon\Carbon;
 
-function foobar_filter($date)
+function foobar_filter($date): bool
 {
     return $date < Carbon::parse('2017-03-13') || $date > Carbon::parse('2017-03-14');
 }

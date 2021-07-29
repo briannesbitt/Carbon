@@ -13,7 +13,7 @@ class TotalTest extends AbstractTestCase
     /**
      * @dataProvider provideIntervalSpecs
      */
-    public function testReturnsTotalValue($spec, $unit, $expected)
+    public function testReturnsTotalValue($spec, $unit, $expected): void
     {
         $this->assertSame(
             $expected,
@@ -22,7 +22,7 @@ class TotalTest extends AbstractTestCase
         );
     }
 
-    public function provideIntervalSpecs()
+    public function provideIntervalSpecs(): array
     {
         return [
             ['10s',                'seconds', 10],
@@ -44,7 +44,7 @@ class TotalTest extends AbstractTestCase
         ];
     }
 
-    public function testThrowsExceptionForInvalidUnits()
+    public function testThrowsExceptionForInvalidUnits(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown unit \'foo\'.'
@@ -53,7 +53,7 @@ class TotalTest extends AbstractTestCase
         CarbonInterval::create()->total('foo');
     }
 
-    public function testGetTotalsViaGetters()
+    public function testGetTotalsViaGetters(): void
     {
         $interval = CarbonInterval::create(0, 0, 0, 0, 150, 0, 0);
 
@@ -78,7 +78,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(-12312, $interval->totalMilliseconds);
     }
 
-    public function getNegativeIntervals()
+    public function getNegativeIntervals(): array
     {
         return [
             [-1, CarbonInterval::hours(0)->hours(-150)],
@@ -90,7 +90,7 @@ class TotalTest extends AbstractTestCase
     /**
      * @dataProvider getNegativeIntervals
      */
-    public function testGetNegativeTotalsViaGetters($factor, $interval)
+    public function testGetNegativeTotalsViaGetters($factor, $interval): void
     {
         $this->assertSame($factor * 150 * 60 * 60 * 1000 * 1000, $interval->totalMicroseconds);
         $this->assertSame($factor * 150 * 60 * 60 * 1000, $interval->totalMilliseconds);
@@ -103,7 +103,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame($factor * 150 / 24 / 7 / 4 / 12, $interval->totalYears);
     }
 
-    public function testTotalsWithCustomFactors()
+    public function testTotalsWithCustomFactors(): void
     {
         $factors = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -120,7 +120,7 @@ class TotalTest extends AbstractTestCase
         CarbonInterval::setCascadeFactors($factors);
     }
 
-    public function testGetTotalsViaGettersWithCustomFactors()
+    public function testGetTotalsViaGettersWithCustomFactors(): void
     {
         $cascades = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -162,7 +162,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame('Unit years have no configuration to get total from other units.', $yearsError);
     }
 
-    public function testGetTotalsViaGettersWithFalseFactor()
+    public function testGetTotalsViaGettersWithFalseFactor(): void
     {
         $cascades = CarbonInterval::getCascadeFactors();
         CarbonInterval::setCascadeFactors([
@@ -189,7 +189,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(1146 / 30 / 12, $totalYears);
     }
 
-    public function testMicrosecondsInterval()
+    public function testMicrosecondsInterval(): void
     {
         $interval = CarbonInterval::milliseconds(500);
 

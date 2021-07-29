@@ -7,7 +7,7 @@ class TranslationUkTest extends TestCaseBase
 {
     public const LOCALE = 'uk';
 
-    public function testTimespanTranslated()
+    public function testTimespanTranslated(): void
     {
         $date = new JenssegersDate(1403619368);
         $date = $date->sub('-100 days -3 hours -20 minutes');
@@ -15,7 +15,7 @@ class TranslationUkTest extends TestCaseBase
         $this->assertSame('3 місяці, 1 тиждень, 1 день, 3 години, 20 хвилин', $date->timespan(1403619368));
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         $date = JenssegersDate::createFromFormat('d F Y', '01 січня 2015');
         $this->assertSame('2015-01-01', $date->format('Y-m-d'));
@@ -24,7 +24,7 @@ class TranslationUkTest extends TestCaseBase
         $this->assertSame('2015-03-21', $date->format('Y-m-d'));
     }
 
-    public function testAgoTranslated()
+    public function testAgoTranslated(): void
     {
         // Ago test can't work on February 29th
         if (JenssegersDate::now()->format('m-d') === '02-29') {
@@ -47,7 +47,7 @@ class TranslationUkTest extends TestCaseBase
         $this->assertSame('10 років тому', $date->ago());
     }
 
-    public function testFormatDeclensions()
+    public function testFormatDeclensions(): void
     {
         $date = new JenssegersDate('10 march 2015');
         $this->assertSame('березень 2015', $date->format('F Y'));
@@ -56,7 +56,7 @@ class TranslationUkTest extends TestCaseBase
         $this->assertSame('10 березня 2015', $date->format('j F Y'));
     }
 
-    public function testFormatShortNotation()
+    public function testFormatShortNotation(): void
     {
         $date = new JenssegersDate('10 january 2015');
         $this->assertSame('10 січ 2015', $date->format('j M Y'));
@@ -74,7 +74,7 @@ class TranslationUkTest extends TestCaseBase
         $this->assertSame('10 тра 2015', $date->format('j M Y'));
     }
 
-    public function testAfterTranslated()
+    public function testAfterTranslated(): void
     {
         $date = JenssegersDate::parse('+21 hours');
         $this->assertSame('за 21 годину', $date->ago());

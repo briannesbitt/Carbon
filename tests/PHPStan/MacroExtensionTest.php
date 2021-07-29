@@ -12,7 +12,7 @@ use Tests\AbstractTestCase;
 
 class MacroExtensionTest extends AbstractTestCase
 {
-    public function testHasMacro()
+    public function testHasMacro(): void
     {
         $scanner = new MacroScanner();
 
@@ -26,7 +26,7 @@ class MacroExtensionTest extends AbstractTestCase
         $this->assertFalse($scanner->hasMethod(CarbonInterface::class, 'foo'));
     }
 
-    public function testGetMacro()
+    public function testGetMacro(): void
     {
         $scanner = new MacroScanner();
         Carbon::macro('foo', function (): CarbonInterval {

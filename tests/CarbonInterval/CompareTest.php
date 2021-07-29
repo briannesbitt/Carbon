@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class CompareTest extends AbstractTestCase
 {
-    public function testNegative()
+    public function testNegative(): void
     {
         $first = CarbonInterval::minute();
         $second = CarbonInterval::minutes(2);
@@ -24,7 +24,7 @@ class CompareTest extends AbstractTestCase
         $this->assertSame(-1, $result);
     }
 
-    public function testPositive()
+    public function testPositive(): void
     {
         $first = CarbonInterval::day();
         $second = CarbonInterval::hour();
@@ -32,7 +32,7 @@ class CompareTest extends AbstractTestCase
         $this->assertSame(1, $result);
     }
 
-    public function testEqual()
+    public function testEqual(): void
     {
         $first = CarbonInterval::year();
         $second = CarbonInterval::year();

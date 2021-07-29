@@ -18,7 +18,7 @@ use Throwable;
 
 class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
-    public function testGenericMacroBinding()
+    public function testGenericMacroBinding(): void
     {
         if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
             $this->markTestSkipped('Use of $this in macros is deprecated and may not work in PHP 8.');
@@ -72,7 +72,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('Method barBiz does not exist.', $message);
     }
 
-    public function testGenericMacro()
+    public function testGenericMacro(): void
     {
         Carbon::genericMacro(function ($method) {
             $time = preg_replace('/[A-Z]/', ' $0', $method);
@@ -115,7 +115,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('Method barBiz does not exist.', $message);
     }
 
-    public function testGenericMacroPriority()
+    public function testGenericMacroPriority(): void
     {
         Carbon::genericMacro(function ($method) {
             if (!str_starts_with($method, 'myPrefix')) {
@@ -151,7 +151,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('myPrefixFooBar', Carbon::myPrefixFooBar());
     }
 
-    public function testLocalGenericMacroPriority()
+    public function testLocalGenericMacroPriority(): void
     {
         Carbon::genericMacro(function ($method) {
             if (!str_starts_with($method, 'mlp')) {

@@ -16,14 +16,14 @@ class ParseFromLocaleTest extends AbstractTestCase
      * @param string         $locale
      * @param CarbonInterval $expected
      */
-    public function testReturnsInterval($string, $locale, $expected)
+    public function testReturnsInterval($string, $locale, $expected): void
     {
         $result = CarbonInterval::parseFromLocale($string, $locale);
 
         $this->assertEquals($expected, $result, "'{$string}' does not return expected interval.");
     }
 
-    public function provideValidStrings()
+    public function provideValidStrings(): array
     {
         return [
             // zero interval
@@ -109,7 +109,7 @@ class ParseFromLocaleTest extends AbstractTestCase
      * @param string $part
      * @param string $locale
      */
-    public function testThrowsExceptionForUnknownValues($string, $part, $locale)
+    public function testThrowsExceptionForUnknownValues($string, $part, $locale): void
     {
         $message = null;
 
@@ -122,7 +122,7 @@ class ParseFromLocaleTest extends AbstractTestCase
         $this->assertStringContainsString($part, $message);
     }
 
-    public function provideInvalidStrings()
+    public function provideInvalidStrings(): array
     {
         return [
             ['1q', '1q', 'en'],

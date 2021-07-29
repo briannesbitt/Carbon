@@ -8,7 +8,7 @@ class TranslationTaTest extends TestCaseBase
     public const LOCALE = 'ta';
 
     /** @test */
-    public function it_translates_month()
+    public function it_translates_month(): void
     {
         $jan = JenssegersDate::createFromFormat('m-d', '01-01');
         $feb = JenssegersDate::createFromFormat('m-d', '02-01');
@@ -38,7 +38,7 @@ class TranslationTaTest extends TestCaseBase
     }
 
     /** @test */
-    public function it_translates_weekdays()
+    public function it_translates_weekdays(): void
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -58,7 +58,7 @@ class TranslationTaTest extends TestCaseBase
     }
 
     /** @test */
-    public function it_translates_weekdays_shortform()
+    public function it_translates_weekdays_shortform(): void
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -78,7 +78,7 @@ class TranslationTaTest extends TestCaseBase
     }
 
     /** @test */
-    public function it_translates_ago()
+    public function it_translates_ago(): void
     {
         JenssegersDate::setTestNow('2019-03-27');
 
@@ -138,7 +138,7 @@ class TranslationTaTest extends TestCaseBase
     }
 
     /** @test */
-    public function it_translates_from_now()
+    public function it_translates_from_now(): void
     {
         $oneAgo = JenssegersDate::parse('1 second');
         $fiveAgo = JenssegersDate::parse('5 seconds');

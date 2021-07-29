@@ -18,28 +18,28 @@ use TypeError;
 
 class CreateStrictTest extends AbstractTestCase
 {
-    public function testCreateStrictThrowsExceptionForSecondLowerThanZero()
+    public function testCreateStrictThrowsExceptionForSecondLowerThanZero(): void
     {
         $this->expectExceptionObject(new OutOfRangeException('second', 0, 99, -1));
 
         Carbon::createStrict(null, null, null, null, null, -1);
     }
 
-    public function testCreateStrictThrowsExceptionForMonthOverRange()
+    public function testCreateStrictThrowsExceptionForMonthOverRange(): void
     {
         $this->expectExceptionObject(new OutOfRangeException('month', 0, 99, 9001));
 
         Carbon::createStrict(null, 9001);
     }
 
-    public function testCreateStrictDoesNotAllowFormatString()
+    public function testCreateStrictDoesNotAllowFormatString(): void
     {
         $this->expectException(TypeError::class);
 
         Carbon::createStrict('2021-05-25', 'Y-m-d');
     }
 
-    public function testCreateStrictResetsStrictModeOnSuccess()
+    public function testCreateStrictResetsStrictModeOnSuccess(): void
     {
         Carbon::useStrictMode(false);
 
@@ -48,7 +48,7 @@ class CreateStrictTest extends AbstractTestCase
         $this->assertFalse(Carbon::isStrictModeEnabled());
     }
 
-    public function testCreateStrictResetsStrictModeOnFailure()
+    public function testCreateStrictResetsStrictModeOnFailure(): void
     {
         Carbon::useStrictMode(false);
 
