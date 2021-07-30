@@ -256,7 +256,7 @@ class SettersTest extends AbstractTestCase
     public function testSetTimezoneWithInvalidTimezone()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (sdf)'
+            'Unknown or bad timezone (sdf)',
         ));
 
         $d = Carbon::now();
@@ -484,7 +484,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidSetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Unknown setter 'doesNotExit'"
+            "Unknown setter 'doesNotExit'",
         ));
 
         /** @var mixed $date */

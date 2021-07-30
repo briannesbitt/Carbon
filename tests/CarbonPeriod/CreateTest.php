@@ -113,7 +113,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromInvalidIso8601String($iso)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Invalid ISO 8601 specification: $iso"
+            "Invalid ISO 8601 specification: $iso",
         ));
 
         CarbonPeriod::create($iso);
@@ -587,7 +587,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromCarbonInstanceInvalidMethod()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method unknownUnitsUntil does not exist.'
+            'Method unknownUnitsUntil does not exist.',
         ));
 
         /** @var object $date */
@@ -662,7 +662,7 @@ class CreateTest extends AbstractTestCase
     public function testBadCast()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'DateTime has not the instance() method needed to cast the date.'
+            'DateTime has not the instance() method needed to cast the date.',
         ));
 
         CarbonPeriod::create('2010-08-24', CarbonInterval::weeks(2), '2012-07-19')
