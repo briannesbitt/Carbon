@@ -41,8 +41,8 @@ class SerializationTest extends AbstractTestCase
     public function testSerialize()
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
-        $this->assertTrue(\in_array($dt->serialize(), $this->serialized, true));
-        $this->assertTrue(\in_array(serialize($dt), $this->serialized, true));
+        $this->assertContains($dt->serialize(), $this->serialized);
+        $this->assertContains(serialize($dt), $this->serialized);
     }
 
     public function testFromUnserialized()
@@ -77,10 +77,9 @@ class SerializationTest extends AbstractTestCase
      */
     public function testFromUnserializedWithInvalidValue($value)
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             "Invalid serialized value: $value",
-        );
+        ));
 
         Carbon::fromSerialized($value);
     }

@@ -16,6 +16,7 @@ use Carbon\CarbonInterval;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class AddTest extends AbstractTestCase
@@ -143,10 +144,9 @@ class AddTest extends AbstractTestCase
 
     public function testAddWrongFormat()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'This type of data cannot be added/subtracted.',
-        );
+        ));
 
         CarbonInterval::day()->add(Carbon::now());
     }
@@ -182,7 +182,7 @@ class AddTest extends AbstractTestCase
             $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
         }
 
-        $interval = eval('return \Carbon\CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
+        $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
     }
@@ -198,7 +198,7 @@ class AddTest extends AbstractTestCase
             $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
         }
 
-        $interval = eval('return \Carbon\CarbonInterval::days(3)->minus(weeks: 2, hours: 26);');
+        $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->minus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 11, 26, 0, 0, 0, true);
     }

@@ -1601,20 +1601,18 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffWithInvalidType()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Expected null, string, DateTime or DateTimeInterface, integer given',
-        );
+        ));
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(10);
     }
 
     public function testDiffWithInvalidObject()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given',
-        );
+        ));
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(new CarbonInterval());
     }

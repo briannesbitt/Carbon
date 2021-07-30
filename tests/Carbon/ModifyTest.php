@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class ModifyTest extends AbstractTestCase
@@ -174,10 +175,9 @@ class ModifyTest extends AbstractTestCase
 
     public function testAddRealUnitException()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid unit for real timestamp add/sub: \'foobar\'',
-        );
+        ));
 
         (new Carbon('2014-03-30 00:00:00'))->addRealUnit('foobar');
     }

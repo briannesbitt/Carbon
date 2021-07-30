@@ -719,12 +719,11 @@ class LocalizationTest extends AbstractTestCase
 
     public function testTranslationCustomWithCustomTranslator()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
             'Symfony\Component\Translation\IdentityTranslator has been given.',
-        );
+        ));
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
         $date->setLocalTranslator(new IdentityTranslator());

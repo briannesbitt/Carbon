@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTimeZone;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class CreateFromTimeTest extends AbstractTestCase
@@ -46,8 +47,9 @@ class CreateFromTimeTest extends AbstractTestCase
 
     public function testCreateFromTimeGreaterThan99()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('second must be between 0 and 99, 100 given');
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'second must be between 0 and 99, 100 given'
+        ));
 
         Carbon::createFromTime(23, 5, 100);
     }

@@ -15,7 +15,7 @@ class ToDateIntervalTest extends AbstractTestCase
     {
         $interval = CarbonInterval::days(5)->hours(3)->minutes(50)->microseconds(123456)->invert()->toDateInterval();
 
-        $this->assertSame('DateInterval', \get_class($interval));
+        $this->assertSame(DateInterval::class, \get_class($interval));
 
         $this->assertSame(1, $interval->invert);
         $this->assertSame(5, $interval->d);
@@ -29,7 +29,7 @@ class ToDateIntervalTest extends AbstractTestCase
     {
         $interval = CarbonInterval::days(5)->hours(3)->minutes(50)->microseconds(123456)->invert()->cast(DateInterval::class);
 
-        $this->assertSame('DateInterval', \get_class($interval));
+        $this->assertSame(DateInterval::class, \get_class($interval));
 
         $this->assertSame(1, $interval->invert);
         $this->assertSame(5, $interval->d);
@@ -41,8 +41,10 @@ class ToDateIntervalTest extends AbstractTestCase
 
     public function testBadCast()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('DateTime is not a sub-class of DateInterval.');
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'DateTime is not a sub-class of DateInterval.'
+        ));
+
         CarbonInterval::days(5)->hours(3)->minutes(50)->microseconds(123456)->invert()->cast(DateTime::class);
     }
 }

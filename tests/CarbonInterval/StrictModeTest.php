@@ -11,18 +11,19 @@ declare(strict_types=1);
  */
 namespace Tests\CarbonInterval;
 
+use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class StrictModeTest extends AbstractTestCase
 {
     public function testSetWithStrictMode()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown setter \'foobar\'',
-        );
+        ));
 
         /** @var mixed $interval */
         $interval = CarbonInterval::day();
@@ -31,10 +32,9 @@ class StrictModeTest extends AbstractTestCase
 
     public function testGetWithStrictMode()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown getter \'foobar\'',
-        );
+        ));
 
         /** @var mixed $interval */
         $interval = CarbonInterval::day();
@@ -52,10 +52,9 @@ class StrictModeTest extends AbstractTestCase
 
     public function testStaticCallWithStrictMode()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new BadMethodCallException(
             'Unknown fluent constructor \'foobar\'',
-        );
+        ));
 
         CarbonInterval::foobar();
     }

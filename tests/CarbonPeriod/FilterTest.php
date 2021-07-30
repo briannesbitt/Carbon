@@ -16,6 +16,7 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use DateInterval;
 use DateTime;
+use RuntimeException;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 use Tests\CarbonPeriod\Fixtures\FooFilters;
@@ -258,10 +259,9 @@ class FilterTest extends AbstractTestCase
 
     public function testThrowExceptionWhenNextValidDateCannotBeFound()
     {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new RuntimeException(
             'Could not find next valid date.',
-        );
+        ));
 
         $period = CarbonPeriod::create(
             new Carbon('2000-01-01'),

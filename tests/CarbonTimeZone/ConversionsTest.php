@@ -140,8 +140,9 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
 
     public function testCastException()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('stdClass has not the instance() method needed to cast the date.');
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'stdClass has not the instance() method needed to cast the date.'
+        ));
 
         (new CarbonTimeZone('America/Toronto'))->cast(stdClass::class);
     }
@@ -154,10 +155,9 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
 
     public function testInvalidRegionForOffsetInStrictMode()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown timezone for offset -54000 seconds.',
-        );
+        ));
 
         (new CarbonTimeZone(-15))->toRegionTimeZone();
     }

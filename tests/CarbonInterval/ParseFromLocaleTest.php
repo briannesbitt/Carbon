@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class ParseFromLocaleTest extends AbstractTestCase
@@ -114,7 +115,7 @@ class ParseFromLocaleTest extends AbstractTestCase
 
         try {
             CarbonInterval::parseFromLocale($string, $locale);
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $message = $exception->getMessage();
         }
 

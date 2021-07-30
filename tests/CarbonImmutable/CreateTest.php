@@ -12,7 +12,9 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use DateTime;
 use DateTimeZone;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
@@ -73,7 +75,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidMonth()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'month must be between 0 and 99, -5 given'
+        ));
 
         Carbon::create(null, -5);
     }
@@ -92,7 +96,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidDay()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'day must be between 0 and 99, -4 given'
+        ));
 
         Carbon::create(null, null, -4);
     }
@@ -113,7 +119,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidHour()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'hour must be between 0 and 99, -1 given'
+        ));
 
         Carbon::create(null, null, null, -1);
     }
@@ -132,7 +140,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidMinute()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'minute must be between 0 and 99, -2 given'
+        ));
 
         Carbon::create(2011, 1, 1, 0, -2, 0);
     }
@@ -151,7 +161,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidSecond()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'second must be between 0 and 99, -2 given'
+        ));
 
         Carbon::create(null, null, null, null, null, -2);
     }
@@ -179,14 +191,16 @@ class CreateTest extends AbstractTestCase
     public function testMake()
     {
         $this->assertCarbon(Carbon::make('2017-01-05'), 2017, 1, 5, 0, 0, 0);
-        $this->assertCarbon(Carbon::make(new \DateTime('2017-01-05')), 2017, 1, 5, 0, 0, 0);
+        $this->assertCarbon(Carbon::make(new DateTime('2017-01-05')), 2017, 1, 5, 0, 0, 0);
         $this->assertCarbon(Carbon::make(new Carbon('2017-01-05')), 2017, 1, 5, 0, 0, 0);
         $this->assertNull(Carbon::make(3));
     }
 
     public function testCreateWithInvalidTimezoneOffset()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'Unknown or bad timezone (-28236)'
+        ));
 
         Carbon::createFromDate(2000, 1, 1, -28236);
     }
@@ -258,8 +272,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateFromIsoFormatException()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Format wo not supported for creation.');
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'Format wo not supported for creation.'
+        ));
 
         Carbon::createFromIsoFormat('YY D wo', '2019 April 4');
     }

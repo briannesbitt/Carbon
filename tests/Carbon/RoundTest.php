@@ -66,9 +66,9 @@ class RoundTest extends AbstractTestCase
 
     public function testRoundWithStringsException()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Rounding is only possible with single unit intervals.');
-
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'Rounding is only possible with single unit intervals.',
+        ));
         Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round('2 hours 5 minutes');
     }
 
@@ -83,8 +83,9 @@ class RoundTest extends AbstractTestCase
 
     public function testRoundWithIntervalException()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Rounding is only possible with single unit intervals.');
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'Rounding is only possible with single unit intervals.'
+        ));
 
         Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round(CarbonInterval::day()->minutes(5));
     }
@@ -155,10 +156,9 @@ class RoundTest extends AbstractTestCase
 
     public function testRoundInvalidArgument()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown unit \'foobar\'.',
-        );
+        ));
 
         Carbon::now()->roundUnit('foobar');
     }
