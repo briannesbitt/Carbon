@@ -84,7 +84,7 @@ class RoundTest extends AbstractTestCase
     public function testRoundWithIntervalException()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Rounding is only possible with single unit intervals.'
+            'Rounding is only possible with single unit intervals.',
         ));
 
         Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round(CarbonInterval::day()->minutes(5));

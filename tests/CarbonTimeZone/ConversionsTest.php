@@ -141,7 +141,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
     public function testCastException()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'stdClass has not the instance() method needed to cast the date.'
+            'stdClass has not the instance() method needed to cast the date.',
         ));
 
         (new CarbonTimeZone('America/Toronto'))->cast(stdClass::class);

@@ -21,7 +21,7 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         $this->expectExceptionObject(new ParseErrorException(
             'number',
-            ''
+            '',
         ));
 
         CarbonInterval::createFromFormat('H:i:s', '');
@@ -31,7 +31,7 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         $this->expectExceptionObject(new ParseErrorException(
             'number',
-            ''
+            '',
         ));
 
         CarbonInterval::createFromFormat('H:i:s', null);
@@ -41,7 +41,7 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         $this->expectExceptionObject(new ParseErrorException(
             'end of string',
-            ':25'
+            ':25',
         ));
 
         CarbonInterval::createFromFormat('H:i', '01:30:25');
