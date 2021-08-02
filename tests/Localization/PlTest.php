@@ -245,7 +245,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago',
-        '1 min. temu',
+        '1 min temu',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago',
@@ -253,7 +253,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago',
-        '2 min. temu',
+        '2 min temu',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago',
