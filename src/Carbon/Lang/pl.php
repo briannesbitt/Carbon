@@ -25,6 +25,7 @@
  * - Peter (UnrulyNatives)
  * - Qrzysio
  * - Jan (aso824)
+ * - diverpl
  */
 return [
     'year' => ':count rok|:count lata|:count lat',
