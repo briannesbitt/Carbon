@@ -3,13 +3,33 @@ preset: psr2
 risky: true
 
 enabled:
+  - blank_line_after_opening_tag
+  - compact_nullable_typehint
+  - concat_with_spaces
   - concat_without_spaces
+  - const_visibility_required
+  - declare_equal_normalize
   - extra_empty_lines
+  - function_typehint_space
   - is_null
+  - lowercase_cast
+  - lowercase_static_reference
   - method_separation
+  - method_visibility_required
   - modernize_types_casting
   - multiline_array_trailing_comma
+  - new_with_braces
+  - no_blank_lines_after_class_opening
+  - no_break_comment
+  - no_closing_tag
   - no_empty_lines_after_phpdocs
+  - no_leading_import_slash
+  - no_leading_namespace_whitespace
+  - no_spaces_after_function_name
+  - no_spaces_inside_parenthesis
+  - no_trailing_whitespace
+  - no_trailing_whitespace_in_comment
+  - no_whitespace_in_blank_line
   - operators_spaces
   - ordered_use
   - phpdoc_indent
@@ -24,18 +44,33 @@ enabled:
   - phpdoc_type_to_var
   - phpdoc_types
   - phpdoc_var_without_name
+  - property_visibility_required
+  - psr12_braces
+  - psr12_braces
   - return
+  - return_type_declaration
   - short_array_syntax
   - short_bool_cast
+  - short_scalar_cast
+  - single_blank_line_at_eof
+  - single_blank_line_before_namespace
+  - single_class_element_per_statement
+  - single_import_per_statement
+  - single_line_after_imports
   - single_quote
+  - single_trait_insert_per_statement
   - spaces_after_semicolon
   - spaces_cast
   - standardize_not_equal
+  - switch_case_semicolon_to_colon
+  - switch_case_space
+  - ternary_operator_spaces
   - ternary_spaces
   - trim_array_spaces
   - unalign_double_arrow
   - unalign_equals
   - unary_operators_spaces
+  - unix_line_endings
   - unneeded_control_parentheses
   - unused_use
   - whitespacy_lines

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,11 +10,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
-use \DateTime;
 use BadMethodCallException;
 use Carbon\Carbon;
+use DateTime;
 use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;

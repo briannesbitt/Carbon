@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon\Exceptions;
 
 use Carbon\Exceptions\NotACarbonClassException;
@@ -15,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class NotACarbonClassExceptionTest extends AbstractTestCase
 {
-    public function testNotACarbonClassException():void
+    public function testNotACarbonClassException(): void
     {
         $exception = new NotACarbonClassException('foo');
 

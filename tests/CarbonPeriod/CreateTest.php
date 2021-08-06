@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use BadMethodCallException;
@@ -342,9 +344,9 @@ class CreateTest extends AbstractTestCase
     public function provideInvalidParameters()
     {
         return [
-            [new stdClass, CarbonInterval::days(1), Carbon::tomorrow()],
-            [Carbon::now(), new stdClass, Carbon::tomorrow()],
-            [Carbon::now(), CarbonInterval::days(1), new stdClass],
+            [new stdClass(), CarbonInterval::days(1), Carbon::tomorrow()],
+            [Carbon::now(), new stdClass(), Carbon::tomorrow()],
+            [Carbon::now(), CarbonInterval::days(1), new stdClass()],
             [Carbon::yesterday(), Carbon::now(), Carbon::tomorrow()],
             [CarbonInterval::day(), CarbonInterval::hour()],
             [5, CarbonPeriod::EXCLUDE_START_DATE, CarbonPeriod::EXCLUDE_END_DATE],
@@ -456,9 +458,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateEmpty()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
-        $this->assertEquals(new Carbon, $period->getStartDate());
+        $this->assertEquals(new Carbon(), $period->getStartDate());
         $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
