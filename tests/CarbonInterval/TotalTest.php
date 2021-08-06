@@ -5,6 +5,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Generator;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -22,26 +23,24 @@ class TotalTest extends AbstractTestCase
         );
     }
 
-    public function provideIntervalSpecs()
+    public function provideIntervalSpecs(): Generator
     {
-        return [
-            ['10s',                'seconds', 10],
-            ['100s',               'seconds', 100],
-            ['2d 4h 17m 35s',      'seconds', ((2 * 24 + 4) * 60 + 17) * 60 + 35],
-            ['1y',                 'Seconds', 12 * 4 * 7 * 24 * 60 * 60],
-            ['1000y',              'SECONDS', 1000 * 12 * 4 * 7 * 24 * 60 * 60],
-            ['235s',               'minutes', 235 / 60],
-            ['3h 14m 235s',        'minutes', 3 * 60 + 14 + 235 / 60],
-            ['27h 150m 4960s',     'hours',   27 + (150 + 4960 / 60) / 60],
-            ['1w',                 'days',    7],
-            ['2w 15d',             'weeks',   29 / 7],
-            ['5mo 54d 185h 7680m', 'days',    5 * 4 * 7 + 54 + (185 + 7680 / 60) / 24],
-            ['4y 2mo',             'days',    (4 * 12 + 2) * 4 * 7],
-            ['165d',               'weeks',   165 / 7],
-            ['5mo',                'weeks',   5 * 4],
-            ['6897d',              'months',  6897 / 7 / 4],
-            ['35mo',               'years',   35 / 12],
-        ];
+        yield ['10s',                'seconds', 10];
+        yield ['100s',               'seconds', 100];
+        yield ['2d 4h 17m 35s',      'seconds', ((2 * 24 + 4) * 60 + 17) * 60 + 35];
+        yield ['1y',                 'Seconds', 12 * 4 * 7 * 24 * 60 * 60];
+        yield ['1000y',              'SECONDS', 1000 * 12 * 4 * 7 * 24 * 60 * 60];
+        yield ['235s',               'minutes', 235 / 60];
+        yield ['3h 14m 235s',        'minutes', 3 * 60 + 14 + 235 / 60];
+        yield ['27h 150m 4960s',     'hours',   27 + (150 + 4960 / 60) / 60];
+        yield ['1w',                 'days',    7];
+        yield ['2w 15d',             'weeks',   29 / 7];
+        yield ['5mo 54d 185h 7680m', 'days',    5 * 4 * 7 + 54 + (185 + 7680 / 60) / 24];
+        yield ['4y 2mo',             'days',    (4 * 12 + 2) * 4 * 7];
+        yield ['165d',               'weeks',   165 / 7];
+        yield ['5mo',                'weeks',   5 * 4];
+        yield ['6897d',              'months',  6897 / 7 / 4];
+        yield ['35mo',               'years',   35 / 12];
     }
 
     public function testThrowsExceptionForInvalidUnits()
@@ -78,13 +77,11 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(-12312, $interval->totalMilliseconds);
     }
 
-    public function getNegativeIntervals()
+    public function getNegativeIntervals(): Generator
     {
-        return [
-            [-1, CarbonInterval::hours(0)->hours(-150)],
-            [-1, CarbonInterval::hours(150)->invert()],
-            [1, CarbonInterval::hours(0)->hours(-150)->invert()],
-        ];
+        yield [-1, CarbonInterval::hours(0)->hours(-150)];
+        yield [-1, CarbonInterval::hours(150)->invert()];
+        yield [1, CarbonInterval::hours(0)->hours(-150)->invert()];
     }
 
     /**

@@ -15,18 +15,17 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Generator;
 use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
 {
-    public function getMacroableClasses()
+    public function getMacroableClasses(): Generator
     {
-        return [
-            [Carbon::class, Carbon::parse('2010-05-23'), null],
-            [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null],
-            [CarbonInterval::class, CarbonInterval::make('P1M6D'), (string) (CarbonInterval::second())],
-            [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null],
-        ];
+        yield [Carbon::class, Carbon::parse('2010-05-23'), null];
+        yield [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null];
+        yield [CarbonInterval::class, CarbonInterval::make('P1M6D'), (string) (CarbonInterval::second())];
+        yield [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null];
     }
 
     /**

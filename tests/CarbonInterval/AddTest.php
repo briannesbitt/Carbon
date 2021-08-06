@@ -16,6 +16,7 @@ use Carbon\CarbonInterval;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
+use Generator;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -82,18 +83,16 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    public function provideAddsResults()
+    public function provideAddsResults(): Generator
     {
-        return [
-            [5, 2, 7],
-            [-5, -2, -7],
-            [-5, 2, -3],
-            [5, -2, 3],
-            [2, 5, 7],
-            [-2, -5, -7],
-            [-2, 5, 3],
-            [2, -5, -3],
-        ];
+        yield [5, 2, 7];
+        yield [-5, -2, -7];
+        yield [-5, 2, -3];
+        yield [5, -2, 3];
+        yield [2, 5, 7];
+        yield [-2, -5, -7];
+        yield [-2, 5, 3];
+        yield [2, -5, -3];
     }
 
     /**
