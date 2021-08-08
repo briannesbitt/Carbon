@@ -14,6 +14,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use DateTimeZone;
 use Exception;
+use Generator;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -507,16 +508,14 @@ class SettersTest extends AbstractTestCase
         $this->assertCarbon($d, 2016, 2, 12, $hour, $minute, $second);
     }
 
-    public function dataProviderTestSetTimeFromTimeString()
+    public function dataProviderTestSetTimeFromTimeString(): Generator
     {
-        return [
-            [9, 15, 30, '09:15:30'],
-            [9, 15, 0, '09:15'],
-            [9, 0, 0, '09'],
-            [9, 5, 3, '9:5:3'],
-            [9, 5, 0, '9:5'],
-            [9, 0, 0, '9'],
-        ];
+        yield [9, 15, 30, '09:15:30'];
+        yield [9, 15, 0, '09:15'];
+        yield [9, 0, 0, '09'];
+        yield [9, 5, 3, '9:5:3'];
+        yield [9, 5, 0, '9:5'];
+        yield [9, 0, 0, '9'];
     }
 
     public function testWeekendDaysSetter()

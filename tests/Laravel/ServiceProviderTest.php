@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Laravel\ServiceProvider;
+use Generator;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Events\EventDispatcher;
 use Illuminate\Support\Carbon as SupportCarbon;
@@ -17,7 +18,7 @@ use stdClass;
 
 class ServiceProviderTest extends TestCase
 {
-    public function getDispatchers()
+    public function getDispatchers(): Generator
     {
         if (!class_exists(Dispatcher::class)) {
             include_once __DIR__.'/Dispatcher.php';
@@ -27,10 +28,8 @@ class ServiceProviderTest extends TestCase
             include_once __DIR__.'/EventDispatcher.php';
         }
 
-        return [
-            [new Dispatcher()],
-            [new EventDispatcher()],
-        ];
+        yield [new Dispatcher()];
+        yield [new EventDispatcher()];
     }
 
     /**

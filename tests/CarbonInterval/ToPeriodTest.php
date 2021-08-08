@@ -6,6 +6,7 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Generator;
 use Tests\AbstractTestCase;
 
 class ToPeriodTest extends AbstractTestCase
@@ -22,30 +23,28 @@ class ToPeriodTest extends AbstractTestCase
         $this->assertSame($expected, $period->spec());
     }
 
-    public function provideToPeriodParameters()
+    public function provideToPeriodParameters(): Generator
     {
-        return [
-            [
+        yield [
                 CarbonInterval::days(3),
                 ['2017-10-15', 4],
                 'R4/2017-10-15T00:00:00-04:00/P3D',
-            ],
-            [
+            ];
+        yield [
                 CarbonInterval::hours(7),
                 ['2017-10-15', '2017-10-17'],
                 '2017-10-15T00:00:00-04:00/PT7H/2017-10-17T00:00:00-04:00',
-            ],
-            [
+            ];
+        yield [
                 CarbonInterval::months(3)->days(2)->hours(10)->minutes(20),
                 ['2017-10-15'],
                 '2017-10-15T00:00:00-04:00/P3M2DT10H20M',
-            ],
-            [
+            ];
+        yield [
                 CarbonInterval::minutes(30),
                 [new Carbon('2018-05-14 17:30 UTC'), new Carbon('2018-05-14 18:00 Europe/Oslo')],
                 '2018-05-14T17:30:00+00:00/PT30M/2018-05-14T18:00:00+02:00',
-            ],
-        ];
+            ];
     }
 
     public function testStepBy()

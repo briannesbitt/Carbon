@@ -5,6 +5,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Generator;
 use Tests\AbstractTestCase;
 
 class CascadeTest extends AbstractTestCase
@@ -34,15 +35,13 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, true);
     }
 
-    public function provideIntervalSpecs()
+    public function provideIntervalSpecs(): Generator
     {
-        return [
-            ['3600s',                        'PT1H'],
-            ['10000s',                       'PT2H46M40S'],
-            ['1276d',                        'P3Y9M16D'],
-            ['47d 14h',                      'P1M19DT14H'],
-            ['2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'],
-        ];
+        yield ['3600s', 'PT1H'];
+        yield ['10000s', 'PT2H46M40S'];
+        yield ['1276d', 'P3Y9M16D'];
+        yield ['47d 14h', 'P1M19DT14H'];
+        yield ['2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'];
     }
 
     /**
@@ -67,138 +66,136 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, 1 - $expectingInversion);
     }
 
-    public function provideMixedSignsIntervalSpecs()
+    public function provideMixedSignsIntervalSpecs(): Generator
     {
-        return [
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'minutes' => -30,
-                ],
-                'PT30M',
-                0,
+                'hours' => 1,
+                'minutes' => -30,
             ],
+            'PT30M',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'minutes' => -90,
-                ],
-                'PT30M',
-                1,
+                'hours' => 1,
+                'minutes' => -90,
             ],
+            'PT30M',
+            1,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'minutes' => -90,
-                    'seconds' => 3660,
-                ],
-                'PT31M',
-                0,
+                'hours' => 1,
+                'minutes' => -90,
+                'seconds' => 3660,
             ],
+            'PT31M',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'minutes' => -90,
-                    'seconds' => 3540,
-                ],
-                'PT29M',
-                0,
+                'hours' => 1,
+                'minutes' => -90,
+                'seconds' => 3540,
             ],
+            'PT29M',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'minutes' => 90,
-                    'seconds' => -3540,
-                ],
-                'PT1H31M',
-                0,
+                'hours' => 1,
+                'minutes' => 90,
+                'seconds' => -3540,
             ],
+            'PT1H31M',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'minutes' => 90,
-                    'seconds' => -3660,
-                ],
-                'PT1H29M',
-                0,
+                'hours' => 1,
+                'minutes' => 90,
+                'seconds' => -3660,
             ],
+            'PT1H29M',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => -1,
-                    'minutes' => 90,
-                    'seconds' => -3660,
-                ],
-                'PT31M',
-                1,
+                'hours' => -1,
+                'minutes' => 90,
+                'seconds' => -3660,
             ],
+            'PT31M',
+            1,
+        ];
+        yield [
             [
-                [
-                    'hours' => -1,
-                    'minutes' => 61,
-                    'seconds' => -120,
-                ],
-                'PT1M',
-                1,
+                'hours' => -1,
+                'minutes' => 61,
+                'seconds' => -120,
             ],
+            'PT1M',
+            1,
+        ];
+        yield [
             [
-                [
-                    'days' => 48,
-                    'hours' => -8,
-                ],
-                'P1M19DT16H',
-                0,
+                'days' => 48,
+                'hours' => -8,
             ],
+            'P1M19DT16H',
+            0,
+        ];
+        yield [
             [
-                [
-                    'days' => 48,
-                    'hours' => -28,
-                ],
-                'P1M18DT20H',
-                0,
+                'days' => 48,
+                'hours' => -28,
             ],
+            'P1M18DT20H',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'seconds' => -3615,
-                ],
-                'PT15S',
-                1,
+                'hours' => 1,
+                'seconds' => -3615,
             ],
+            'PT15S',
+            1,
+        ];
+        yield [
             [
-                [
-                    'hours' => -1,
-                    'seconds' => 3615,
-                ],
-                'PT15S',
-                0,
+                'hours' => -1,
+                'seconds' => 3615,
             ],
+            'PT15S',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => 1,
-                    'seconds' => -59,
-                ],
-                'PT59M1S',
-                0,
+                'hours' => 1,
+                'seconds' => -59,
             ],
+            'PT59M1S',
+            0,
+        ];
+        yield [
             [
-                [
-                    'hours' => -1,
-                    'seconds' => 59,
-                ],
-                'PT59M1S',
-                1,
+                'hours' => -1,
+                'seconds' => 59,
             ],
+            'PT59M1S',
+            1,
+        ];
+        yield [
             [
-                [
-                    'years' => 94,
-                    'months' => 11,
-                    'days' => 24,
-                    'hours' => 3848,
-                    'microseconds' => 7991,
-                ],
-                'P95Y5M16DT8H',
-                0,
+                'years' => 94,
+                'months' => 11,
+                'days' => 24,
+                'hours' => 3848,
+                'microseconds' => 7991,
             ],
+            'P95Y5M16DT8H',
+            0,
         ];
     }
 
@@ -229,15 +226,13 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideCustomIntervalSpecs()
+    public function provideCustomIntervalSpecs(): Generator
     {
-        return [
-            ['3600s',                        '1h'],
-            ['10000s',                       '2h 46m 40s'],
-            ['1276d',                        '255w 1d'],
-            ['47d 14h',                      '9w 3d 6h'],
-            ['2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'],
-        ];
+        yield ['3600s', '1h'];
+        yield ['10000s', '2h 46m 40s'];
+        yield ['1276d', '255w 1d'];
+        yield ['47d 14h', '9w 3d 6h'];
+        yield ['2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'];
     }
 
     /**
