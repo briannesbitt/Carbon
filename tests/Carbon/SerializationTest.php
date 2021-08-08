@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTime;
+use Generator;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionObject;
@@ -63,15 +64,13 @@ class SerializationTest extends AbstractTestCase
         $this->assertSame('mercredi 18:30:11.654321', $copy->tz('Europe/Paris')->isoFormat('dddd HH:mm:ss.SSSSSS'));
     }
 
-    public function providerTestFromUnserializedWithInvalidValue()
+    public function providerTestFromUnserializedWithInvalidValue(): Generator
     {
-        return [
-            [null],
-            [true],
-            [false],
-            [123],
-            ['foobar'],
-        ];
+        yield [null];
+        yield [true];
+        yield [false];
+        yield [123];
+        yield ['foobar'];
     }
 
     /**

@@ -14,6 +14,7 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Generator;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
@@ -126,29 +127,27 @@ class IteratorTest extends AbstractTestCase
         );
     }
 
-    public function provideIterateBackwardsArguments()
+    public function provideIterateBackwardsArguments(): Generator
     {
-        return [
-            [
-                ['2015-10-15', '2015-10-06'],
-                ['2015-10-15', '2015-10-12', '2015-10-09', '2015-10-06'],
-            ],
-            [
-                ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE],
-                ['2015-10-12', '2015-10-09', '2015-10-06'],
-            ],
-            [
-                ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_END_DATE],
-                ['2015-10-15', '2015-10-12', '2015-10-09'],
-            ],
-            [
-                ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE],
-                ['2015-10-12', '2015-10-09'],
-            ],
-            [
-                ['2015-10-15', 3],
-                ['2015-10-15', '2015-10-12', '2015-10-09'],
-            ],
+        yield [
+            ['2015-10-15', '2015-10-06'],
+            ['2015-10-15', '2015-10-12', '2015-10-09', '2015-10-06'],
+        ];
+        yield [
+            ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE],
+            ['2015-10-12', '2015-10-09', '2015-10-06'],
+        ];
+        yield [
+            ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_END_DATE],
+            ['2015-10-15', '2015-10-12', '2015-10-09'],
+        ];
+        yield [
+            ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE],
+            ['2015-10-12', '2015-10-09'],
+        ];
+        yield [
+            ['2015-10-15', 3],
+            ['2015-10-15', '2015-10-12', '2015-10-09'],
         ];
     }
 
