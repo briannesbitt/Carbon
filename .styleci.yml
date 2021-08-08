@@ -3,12 +3,25 @@ preset: psr2
 risky: true
 
 enabled:
-  - concat_without_spaces
+  - blank_line_after_opening_tag
+  - compact_nullable_typehint
+  - concat_with_spaces
+  - const_visibility_required
+  - declare_equal_normalize
   - extra_empty_lines
+  - function_typehint_space
   - is_null
+  - lowercase_cast
+  - lowercase_static_reference
   - method_separation
   - modernize_types_casting
+  - multiline_array_trailing_comma
+  - new_with_braces
+  - no_blank_lines_after_class_opening
   - no_empty_lines_after_phpdocs
+  - no_leading_import_slash
+  - no_leading_namespace_whitespace
+  - no_whitespace_in_blank_line
   - operators_spaces
   - ordered_use
   - phpdoc_indent
@@ -23,23 +36,25 @@ enabled:
   - phpdoc_type_to_var
   - phpdoc_types
   - phpdoc_var_without_name
+  - psr12_braces
   - return
+  - return_type_declaration
   - short_array_syntax
   - short_bool_cast
+  - short_scalar_cast
+  - single_blank_line_before_namespace
   - single_quote
+  - single_trait_insert_per_statement
   - spaces_after_semicolon
   - spaces_cast
   - standardize_not_equal
-  - ternary_spaces
-  - trailing_comma_in_multiline_array
-  - trailing_comma_in_multiline_call
+  - ternary_operator_spaces
   - trim_array_spaces
   - unalign_double_arrow
   - unalign_equals
   - unary_operators_spaces
   - unneeded_control_parentheses
   - unused_use
-  - whitespacy_lines
 
 finder:
   not-path:
