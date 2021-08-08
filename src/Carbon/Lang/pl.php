@@ -25,6 +25,7 @@
  * - Peter (UnrulyNatives)
  * - Qrzysio
  * - Jan (aso824)
+ * - diverpl
  */
 return [
     'year' => ':count rok|:count lata|:count lat',
@@ -44,7 +45,7 @@ return [
     'h' => ':count godz.',
     'minute' => ':count minuta|:count minuty|:count minut',
     'a_minute' => 'minuta|:count minuty|:count minut',
-    'min' => ':count min.',
+    'min' => ':count min',
     'second' => ':count sekunda|:count sekundy|:count sekund',
     'a_second' => '{1}kilka sekund|:count sekunda|:count sekundy|:count sekund',
     's' => ':count sek.',
