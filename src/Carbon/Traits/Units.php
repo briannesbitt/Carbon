@@ -252,6 +252,7 @@ trait Units
             return $date->isMutable() ? $date : $date->avoidMutation();
         }
 
+        $unit = self::singularUnit($unit);
         $metaUnits = [
             'millennium' => [static::YEARS_PER_MILLENNIUM, 'year'],
             'century' => [static::YEARS_PER_CENTURY, 'year'],
