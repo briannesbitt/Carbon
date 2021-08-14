@@ -290,7 +290,7 @@ class Factory
                 return \in_array($parameter->getName(), ['tz', 'timezone'], true);
             });
 
-            if (isset($arguments[0]) && in_array($name, ['instance', 'make', 'create', 'parse'], true)) {
+            if (isset($arguments[0]) && \in_array($name, ['instance', 'make', 'create', 'parse'], true)) {
                 if ($arguments[0] instanceof DateTimeInterface) {
                     $settings['innerTimezone'] = $settings['timezone'];
                 } elseif (\is_string($arguments[0]) && date_parse($arguments[0])['is_localtime']) {

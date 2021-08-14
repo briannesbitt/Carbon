@@ -1689,7 +1689,28 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     * Set the instance's timezone from a string or object and apply it to start/end.
+     *
+     * @param \DateTimeZone|string $timezone
+     *
+     * @return static
+     */
+    public function setTimezone($timezone)
+    {
+        $this->tzName = $timezone;
+        $this->timezone = $timezone;
+        $this->setStartDate($this->getStartDate()->setTimezone($timezone));
+        $end = $this->getEndDate();
+
+        if ($end) {
+            $this->setEndDate($end->setTimezone($timezone));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference to start/end.
      *
      * @param \DateTimeZone|string $timezone
      *
@@ -1699,6 +1720,12 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     {
         $this->tzName = $timezone;
         $this->timezone = $timezone;
+        $this->setStartDate($this->getStartDate()->shiftTimezone($timezone));
+        $end = $this->getEndDate();
+
+        if ($end) {
+            $this->setEndDate($end->shiftTimezone($timezone));
+        }
 
         return $this;
     }

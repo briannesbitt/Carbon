@@ -253,6 +253,24 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected $tzName;
 
     /**
+     * @internal
+     *
+     * Set the instance's timezone from a string or object.
+     *
+     * @param \DateTimeZone|string $tzName
+     *
+     * @return static
+     */
+    public function setTimezone($tzName)
+    {
+        $this->tzName = $tzName;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     *
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
      * @param \DateTimeZone|string $tzName

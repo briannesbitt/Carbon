@@ -425,4 +425,48 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(20, $period->getDateInterval()->dayz);
         $this->assertSame($opt, $period->getOptions());
     }
+
+    public function testSetTimezone(): void
+    {
+        $period = CarbonPeriod::create(
+            '2018-03-25 00:00 America/Toronto',
+            'PT1H',
+            '2018-03-25 12:00 Europe/London'
+        )->setTimezone('Europe/Oslo');
+
+        $this->assertSame('2018-03-25 06:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
+        $this->assertSame('2018-03-25 13:00 Europe/Oslo', $period->getEndDate()->format('Y-m-d H:i e'));
+
+        $period = CarbonPeriod::create(
+            '2018-03-25 00:00 America/Toronto',
+            'PT1H',
+            5
+        )->setTimezone('Europe/Oslo');
+
+        $this->assertSame('2018-03-25 06:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
+        $this->assertNull($period->getEndDate());
+        $this->assertSame('2018-03-25 10:00 Europe/Oslo', $period->calculateEnd()->format('Y-m-d H:i e'));
+    }
+
+    public function testShiftTimezone(): void
+    {
+        $period = CarbonPeriod::create(
+            '2018-03-25 00:00 America/Toronto',
+            'PT1H',
+            '2018-03-25 12:00 Europe/London'
+        )->shiftTimezone('Europe/Oslo');
+
+        $this->assertSame('2018-03-25 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
+        $this->assertSame('2018-03-25 12:00 Europe/Oslo', $period->getEndDate()->format('Y-m-d H:i e'));
+
+        $period = CarbonPeriod::create(
+            '2018-03-25 00:00 America/Toronto',
+            'PT1H',
+            5
+        )->shiftTimezone('Europe/Oslo');
+
+        $this->assertSame('2018-03-25 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
+        $this->assertNull($period->getEndDate());
+        $this->assertSame('2018-03-25 04:00 Europe/Oslo', $period->calculateEnd()->format('Y-m-d H:i e'));
+    }
 }
