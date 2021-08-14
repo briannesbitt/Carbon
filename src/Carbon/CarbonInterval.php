@@ -25,6 +25,8 @@ use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
+use DateTimeInterface;
+use DateTimeZone;
 use Exception;
 use ReflectionException;
 use ReturnTypeWillChange;
@@ -253,6 +255,22 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected $tzName;
 
     /**
+     * Set the instance's timezone from a string or object.
+     *
+     * @param \DateTimeZone|string $tzName
+     *
+     * @return static
+     */
+    public function setTimezone($tzName)
+    {
+        $this->tzName = $tzName;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     *
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
      * @param \DateTimeZone|string $tzName
@@ -1763,12 +1781,20 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Convert the interval to a CarbonPeriod.
      *
-     * @param array ...$params Start date, [end date or recurrences] and optional settings.
+     * @param DateTimeInterface|string|int ...$params Start date, [end date or recurrences] and optional settings.
      *
      * @return CarbonPeriod
      */
     public function toPeriod(...$params)
     {
+        if ($this->tzName) {
+            $tz = \is_string($this->tzName) ? new DateTimeZone($this->tzName) : $this->tzName;
+
+            if ($tz instanceof DateTimeZone) {
+                array_unshift($params, $tz);
+            }
+        }
+
         return CarbonPeriod::create($this, ...$params);
     }
 
