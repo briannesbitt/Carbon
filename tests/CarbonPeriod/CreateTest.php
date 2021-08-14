@@ -321,7 +321,7 @@ class CreateTest extends AbstractTestCase
                 '2018-05-16 00:00:00 -04:00',
                 '2018-06-16 00:00:00 -04:00',
             ],
-            $this->standardizeDates($period)m
+            $this->standardizeDates($period),
         );
     }
 

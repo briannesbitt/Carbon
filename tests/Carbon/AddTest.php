@@ -90,15 +90,15 @@ class AddTest extends AbstractTestCase
     {
         $this->assertSame(
             '2021-03-03',
-            Carbon::parse('2021-01-31')->add(1, 'months', true)->format('Y-m-d')
+            Carbon::parse('2021-01-31')->add(1, 'months', true)->format('Y-m-d'),
         );
         $this->assertSame(
             '2021-03-03',
-            Carbon::parse('2021-01-31')->add(1, 'months')->format('Y-m-d')
+            Carbon::parse('2021-01-31')->add(1, 'months')->format('Y-m-d'),
         );
         $this->assertSame(
             '2021-02-28',
-            Carbon::parse('2021-01-31')->add(1, 'months', false)->format('Y-m-d')
+            Carbon::parse('2021-01-31')->add(1, 'months', false)->format('Y-m-d'),
         );
     }
 
