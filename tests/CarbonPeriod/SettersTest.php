@@ -460,13 +460,13 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2018-03-25 12:00 Europe/Oslo', $period->getEndDate()->format('Y-m-d H:i e'));
 
         $period = CarbonPeriod::create(
-            '2018-03-25 00:00 America/Toronto',
+            '2018-03-26 00:00 America/Toronto',
             'PT1H',
             5
         )->shiftTimezone('Europe/Oslo');
 
-        $this->assertSame('2018-03-25 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
+        $this->assertSame('2018-03-26 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
         $this->assertNull($period->getEndDate());
-        $this->assertSame('2018-03-25 04:00 Europe/Oslo', $period->calculateEnd()->format('Y-m-d H:i e'));
+        $this->assertSame('2018-03-26 04:00 Europe/Oslo', $period->calculateEnd()->format('Y-m-d H:i e'));
     }
 }
