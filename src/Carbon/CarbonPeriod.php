@@ -28,6 +28,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
+use DateTimeZone;
 use Generator;
 use InvalidArgumentException;
 use JsonSerializable;
@@ -666,7 +667,11 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         }
 
         foreach ($arguments as $argument) {
-            if ($this->dateInterval === null &&
+            $parsedDate = null;
+
+            if ($argument instanceof DateTimeZone) {
+                $this->setTimezone($argument);
+            } elseif ($this->dateInterval === null &&
                 (
                     \is_string($argument) && preg_match(
                         '/^(-?\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
@@ -675,13 +680,13 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
                     $argument instanceof DateInterval ||
                     $argument instanceof Closure
                 ) &&
-                $parsed = @CarbonInterval::make($argument)
+                $parsedInterval = @CarbonInterval::make($argument)
             ) {
-                $this->setDateInterval($parsed);
-            } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
-                $this->setStartDate($parsed);
-            } elseif ($this->endDate === null && $parsed = Carbon::make($argument)) {
-                $this->setEndDate($parsed);
+                $this->setDateInterval($parsedInterval);
+            } elseif ($this->startDate === null && $parsedDate = $this->makeDateTime($argument)) {
+                $this->setStartDate($parsedDate);
+            } elseif ($this->endDate === null && ($parsedDate = $parsedDate ?? $this->makeDateTime($argument))) {
+                $this->setEndDate($parsedDate);
             } elseif ($this->carbonRecurrences === null && $this->endDate === null && is_numeric($argument) && $argument >= 0) {
                 $this->setRecurrences($argument);
             } elseif ($this->options === null && ((\is_int($argument) && $argument >= 0) || $argument === null)) {
@@ -1713,7 +1718,30 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     }
 
     /**
-     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     * Set the instance's timezone from a string or object and apply it to start/end.
+     *
+     * @param \DateTimeZone|string $timezone
+     *
+     * @return static
+     */
+    public function setTimezone($timezone)
+    {
+        $this->tzName = $timezone;
+        $this->timezone = $timezone;
+
+        if ($this->startDate) {
+            $this->setStartDate($this->startDate->setTimezone($timezone));
+        }
+
+        if ($this->endDate) {
+            $this->setEndDate($this->endDate->setTimezone($timezone));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference to start/end.
      *
      * @param \DateTimeZone|string $timezone
      *
@@ -1723,6 +1751,14 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     {
         $this->tzName = $timezone;
         $this->timezone = $timezone;
+
+        if ($this->startDate) {
+            $this->setStartDate($this->startDate->shiftTimezone($timezone));
+        }
+
+        if ($this->endDate) {
+            $this->setEndDate($this->endDate->shiftTimezone($timezone));
+        }
 
         return $this;
     }
@@ -2511,5 +2547,25 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     private function orderCouple($first, $second): array
     {
         return $first > $second ? [$second, $first] : [$first, $second];
+    }
+
+    private function makeDateTime($value): ?DateTimeInterface
+    {
+        if ($value instanceof DateTimeInterface) {
+            return $value;
+        }
+
+        if (\is_string($value)) {
+            $value = trim($value);
+
+            if (!preg_match('/^P[0-9T]/', $value) &&
+                !preg_match('/^R[0-9]/', $value) &&
+                preg_match('/[a-z0-9]/i', $value)
+            ) {
+                return Carbon::parse($value, $this->tzName);
+            }
+        }
+
+        return null;
     }
 }

@@ -47,7 +47,17 @@ class ToPeriodTest extends AbstractTestCase
             ];
     }
 
-    public function testStepBy()
+    public function testToDatePeriodWithTimezone(): void
+    {
+        $period = CarbonInterval::minutes(30)
+            ->setTimezone('Asia/Tokyo')
+            ->toPeriod('2021-08-14 00:00', '2021-08-14 02:00');
+
+        $this->assertSame('2021-08-14 00:00 Asia/Tokyo', $period->start->format('Y-m-d H:i e'));
+        $this->assertSame('2021-08-14 02:00 Asia/Tokyo', $period->end->format('Y-m-d H:i e'));
+    }
+
+    public function testStepBy(): void
     {
         $days = [];
 

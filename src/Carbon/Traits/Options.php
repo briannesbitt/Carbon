@@ -364,6 +364,10 @@ trait Options
             $this->locale(...$locales);
         }
 
+        if (isset($settings['innerTimezone'])) {
+            return $this->setTimezone($settings['innerTimezone']);
+        }
+
         if (isset($settings['timezone'])) {
             return $this->shiftTimezone($settings['timezone']);
         }

@@ -272,6 +272,9 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(21600, $d2->getTimestamp() - $d->getTimestamp());
         $this->assertSame('America/Toronto', $d2->tzName);
         $this->assertSame('10:53:12', $d2->format('H:i:s'));
+
+        $d = Carbon::parse('2018-03-25 00:53:12.321654 America/Toronto')->shiftTimezone('Europe/Oslo');
+        $this->assertSame('2018-03-25 00:53:12.321654 Europe/Oslo', $d->format('Y-m-d H:i:s.u e'));
     }
 
     public function testTimezoneUsingString()

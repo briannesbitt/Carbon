@@ -25,6 +25,8 @@ use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
+use DateTimeInterface;
+use DateTimeZone;
 use Exception;
 use ReflectionException;
 use ReturnTypeWillChange;
@@ -298,6 +300,32 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected $endDate;
 
     /**
+     * Set the instance's timezone from a string or object.
+     *
+     * @param \DateTimeZone|string $tzName
+     *
+     * @return static
+     */
+    public function setTimezone($tzName)
+    {
+        $this->tzName = $tzName;
+
+        if ($this->startDate) {
+            $this->startDate = $this->startDate
+                ->avoidMutation()
+                ->setTimezone($tzName);
+        }
+
+        if ($this->endDate) {
+            $this->endDate = $this->endDate
+                ->avoidMutation()
+                ->setTimezone($tzName);
+        }
+
+        return $this;
+    }
+
+    /**
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
      * @param \DateTimeZone|string $tzName
@@ -307,6 +335,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public function shiftTimezone($tzName)
     {
         $this->tzName = $tzName;
+
+        if ($this->startDate) {
+            $this->startDate->shiftTimezone($tzName);
+        }
+
+        if ($this->endDate) {
+            $this->endDate->shiftTimezone($tzName);
+        }
 
         return $this;
     }
@@ -1844,12 +1880,20 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Convert the interval to a CarbonPeriod.
      *
-     * @param array ...$params Start date, [end date or recurrences] and optional settings.
+     * @param DateTimeInterface|string|int ...$params Start date, [end date or recurrences] and optional settings.
      *
      * @return CarbonPeriod
      */
     public function toPeriod(...$params): CarbonPeriod
     {
+        if ($this->tzName) {
+            $tz = \is_string($this->tzName) ? new DateTimeZone($this->tzName) : $this->tzName;
+
+            if ($tz instanceof DateTimeZone) {
+                array_unshift($params, $tz);
+            }
+        }
+
         return CarbonPeriod::create($this, ...$params);
     }
 

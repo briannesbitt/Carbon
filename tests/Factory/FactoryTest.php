@@ -107,5 +107,41 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame('2020-09-03 00:00:00.000000 America/Toronto', $factory->today()->format('Y-m-d H:i:s.u e'));
         $this->assertSame('2020-09-04 00:00:00.000000 America/Toronto', $factory->tomorrow()->format('Y-m-d H:i:s.u e'));
         $this->assertSame('2020-09-04 09:39:04.123456 America/Toronto', $factory->parse('2020-09-04 09:39:04.123456')->format('Y-m-d H:i:s.u e'));
+
+        $factory = new Factory([
+            'timezone' => 'Asia/Shanghai',
+        ]);
+
+        $baseDate = Carbon::parse('2021-08-01 08:00:00', 'UTC');
+
+        $date = $factory->createFromTimestamp($baseDate->getTimestamp());
+        $this->assertSame('2021-08-01T16:00:00+08:00', $date->format('c'));
+
+        $date = $factory->make('2021-08-01 08:00:00');
+        $this->assertSame('2021-08-01T08:00:00+08:00', $date->format('c'));
+
+        $date = $factory->make($baseDate);
+        $this->assertSame('2021-08-01T16:00:00+08:00', $date->format('c'));
+
+        $date = $factory->create($baseDate);
+        $this->assertSame('2021-08-01T16:00:00+08:00', $date->format('c'));
+
+        $date = $factory->parse($baseDate);
+        $this->assertSame('2021-08-01T16:00:00+08:00', $date->format('c'));
+
+        $date = $factory->instance($baseDate);
+        $this->assertSame('2021-08-01T16:00:00+08:00', $date->format('c'));
+
+        $date = $factory->make('2021-08-01 08:00:00+00:20');
+        $this->assertSame('2021-08-01T08:00:00+00:20', $date->format('c'));
+
+        $date = $factory->parse('2021-08-01T08:00:00Z');
+        $this->assertSame('2021-08-01T08:00:00+00:00', $date->format('c'));
+
+        $date = $factory->create('2021-08-01 08:00:00 UTC');
+        $this->assertSame('2021-08-01T08:00:00+00:00', $date->format('c'));
+
+        $date = $factory->make('2021-08-01 08:00:00 Europe/Paris');
+        $this->assertSame('2021-08-01T08:00:00+02:00', $date->format('c'));
     }
 }
