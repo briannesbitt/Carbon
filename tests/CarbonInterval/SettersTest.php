@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonInterval;
 
 use BadMethodCallException;
+use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
@@ -231,11 +232,39 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('de', $interval->locale);
     }
 
-    public function testTimezone()
+    public function testShiftTimezone()
     {
         /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->shiftTimezone('America/Toronto');
 
         $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::diff(
+            Carbon::parse('2020-02-02 20:20 Asia/Tokyo'),
+            Carbon::parse('2020-02-03 22:22 Europe/Madrid'),
+        )->shiftTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+        $this->assertSame('2020-02-02 20:20 America/Toronto', $interval->start()->format('Y-m-d H:i e'));
+        $this->assertSame('2020-02-03 22:22 America/Toronto', $interval->end()->format('Y-m-d H:i e'));
+    }
+
+    public function testSetTimezone()
+    {
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::hour()->setTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::diff(
+            Carbon::parse('2020-02-02 20:20 Asia/Tokyo'),
+            Carbon::parse('2020-02-03 22:22 Europe/Madrid'),
+        )->setTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+        $this->assertSame('2020-02-02 06:20 America/Toronto', $interval->start()->format('Y-m-d H:i e'));
+        $this->assertSame('2020-02-03 16:22 America/Toronto', $interval->end()->format('Y-m-d H:i e'));
     }
 }
