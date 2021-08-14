@@ -314,7 +314,11 @@ class CreateTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            $this->standardizeDates(['2018-04-16', '2018-05-16', '2018-06-16']),
+            [
+                '2018-04-16 00:00:00 -04:00',
+                '2018-05-16 00:00:00 -04:00',
+                '2018-06-16 00:00:00 -04:00',
+            ],
             $this->standardizeDates($period)
         );
     }
