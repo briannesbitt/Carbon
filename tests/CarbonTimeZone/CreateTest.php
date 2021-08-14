@@ -49,7 +49,7 @@ class CreateTest extends AbstractTestCase
     public function testSafeCreateDateTimeZoneWithoutStrictMode()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Absolute timezone offset cannot be greater than 100.',
+            'Absolute timezone offset cannot be greater than 99.',
         ));
 
         new CarbonTimeZone(-15e15);
