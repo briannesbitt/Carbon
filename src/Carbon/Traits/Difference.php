@@ -121,17 +121,7 @@ trait Difference
     #[ReturnTypeWillChange]
     public function diff($date = null, $absolute = false)
     {
-        $other = $this->resolveCarbon($date);
-
-        // Can be removed if https://github.com/derickr/timelib/pull/110
-        // is merged
-        // @codeCoverageIgnoreStart
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
-            $other = $other->avoidMutation()->tz($this->tz);
-        }
-        // @codeCoverageIgnoreEnd
-
-        return parent::diff($other, (bool) $absolute);
+        return parent::diff($this->resolveCarbon($date), (bool) $absolute);
     }
 
     /**
