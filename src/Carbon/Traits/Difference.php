@@ -44,17 +44,7 @@ trait Difference
      */
     public function diffAsDateInterval($date = null, bool $absolute = false): DateInterval
     {
-        $other = $this->resolveCarbon($date);
-
-        // Can be removed if https://github.com/derickr/timelib/pull/110
-        // is merged
-        // @codeCoverageIgnoreStart
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
-            $other = $other->avoidMutation()->tz($this->tz);
-        }
-        // @codeCoverageIgnoreEnd
-
-        return parent::diff($other, $absolute);
+        return parent::diff($this->resolveCarbon($date), $absolute);
     }
 
     /**
