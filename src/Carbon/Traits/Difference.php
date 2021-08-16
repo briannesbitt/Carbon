@@ -48,6 +48,8 @@ trait Difference
 
         // Can be removed if https://github.com/derickr/timelib/pull/110
         // is merged
+        // https://bugs.php.net/bug.php?id=80998 was announced fixed in PHP 8.1.0beta3
+        // but created a reverse-regression when using UTC, so we still need this hack
         // @codeCoverageIgnoreStart
         if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
             $other = $other->avoidMutation()->tz($this->tz);
