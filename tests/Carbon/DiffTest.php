@@ -1783,6 +1783,14 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(0.322766, $startDate->diffInSeconds($endDate));
     }
 
+    public function testPHPBug80974()
+    {
+        $this->assertSame(3, Carbon::parse('2018-07-01 America/Toronto')->diff('2018-07-02 America/Vancouver')->h);
+        $this->assertSame(0, Carbon::parse('2018-07-01')->utc()->diff('2018-07-02')->days);
+        $this->assertSame(1, Carbon::parse('2018-07-01')->utc()->diff(Carbon::parse('2018-07-02'))->days);
+        $this->assertSame(1, Carbon::parse('2018-07-01')->diff(Carbon::parse('2018-07-02')->utc())->days);
+    }
+
     public function testDiffWithZeroAndNonZeroMicroseconds()
     {
         $requestTime = new Carbon('2018-11-14 18:23:12.0 +00:00');
