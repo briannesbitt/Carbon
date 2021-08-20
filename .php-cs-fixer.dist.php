@@ -64,7 +64,7 @@ $rules = [
 
 return (new Config())->setRules($rules)
              ->setFinder(
-                Finder::create()
+                 Finder::create()
                     ->in(__DIR__)
                     ->notPath([
                         'src/Carbon/Doctrine/DateTimeImmutableType.php',
