@@ -2398,11 +2398,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         }
 
         // Check after the first rewind to avoid repeating the initial validation.
-        if ($this->validationResult !== null) {
-            return $this->validationResult;
-        }
-
-        return $this->validationResult = $this->checkFilters();
+        return $this->validationResult ?? ($this->validationResult = $this->checkFilters());
     }
 
     /**
