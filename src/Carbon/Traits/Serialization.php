@@ -81,7 +81,7 @@ trait Serialization
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function fromSerialized($value)
     {
@@ -99,7 +99,7 @@ trait Serialization
      *
      * @param string|array $dump
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public static function __set_state($dump)

@@ -32,7 +32,7 @@ trait Units
      * @param string $unit
      * @param int    $value
      *
-     * @return static
+     * @return self
      */
     public function addRealUnit($unit, $value = 1)
     {
@@ -174,7 +174,7 @@ trait Units
      *
      * @param DateInterval $interval
      *
-     * @return static
+     * @return self
      */
     public function rawAdd(DateInterval $interval)
     {
@@ -192,7 +192,7 @@ trait Units
      * @param int                                                  $value
      * @param bool|null                                            $overflow
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function add($unit, $value = 1, $overflow = null)
@@ -227,7 +227,7 @@ trait Units
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return static
+     * @return self
      */
     public function addUnit($unit, $value = 1, $overflow = null)
     {
@@ -323,7 +323,7 @@ trait Units
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return static
+     * @return self
      */
     public function subUnit($unit, $value = 1, $overflow = null)
     {
@@ -335,7 +335,7 @@ trait Units
      *
      * @param DateInterval $interval
      *
-     * @return static
+     * @return self
      */
     public function rawSub(DateInterval $interval)
     {
@@ -353,7 +353,7 @@ trait Units
      * @param int                                                  $value
      * @param bool|null                                            $overflow
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function sub($unit, $value = 1, $overflow = null)
@@ -390,7 +390,7 @@ trait Units
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return static
+     * @return self
      */
     public function subtract($unit, $value = 1, $overflow = null)
     {

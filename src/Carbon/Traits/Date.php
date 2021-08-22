@@ -665,7 +665,7 @@ trait Date
     /**
      * Get a copy of the instance.
      *
-     * @return static
+     * @return self
      */
     public function copy()
     {
@@ -677,7 +677,7 @@ trait Date
      *
      * Get a copy of the instance.
      *
-     * @return static
+     * @return self
      */
     public function clone()
     {
@@ -690,7 +690,7 @@ trait Date
      * This method is convenient to ensure you don't mutate the initial object
      * but avoid to make a useless copy of it if it's already immutable.
      *
-     * @return static
+     * @return self
      */
     public function avoidMutation(): self
     {
@@ -704,7 +704,7 @@ trait Date
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static
+     * @return self
      */
     public function nowWithSameTz()
     {
@@ -740,7 +740,7 @@ trait Date
      *
      * @param Carbon|DateTimeInterface|string|null $date
      *
-     * @return static
+     * @return self
      */
     protected function resolveCarbon($date = null)
     {
@@ -764,7 +764,7 @@ trait Date
      *
      * @param Carbon|DateTimeInterface|string|null $date
      *
-     * @return static
+     * @return self
      */
     protected function resolveUTC($date = null): self
     {
@@ -787,7 +787,7 @@ trait Date
      *
      * @param Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|DateTimeInterface|string|null $date
      *
-     * @return static
+     * @return self
      */
     public function carbonize($date = null)
     {
@@ -1109,7 +1109,7 @@ trait Date
      *
      * @throws ImmutableException|UnknownSetterException
      *
-     * @return $this
+     * @return self
      */
     public function set($name, $value = null)
     {
@@ -1321,7 +1321,7 @@ trait Date
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return static|int
+     * @return self|int
      */
     public function dayOfYear($value = null)
     {
@@ -1335,7 +1335,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return self|int
      */
     public function weekday($value = null)
     {
@@ -1349,7 +1349,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return self|int
      */
     public function isoWeekday($value = null)
     {
@@ -1365,7 +1365,7 @@ trait Date
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return self
      */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1394,7 +1394,7 @@ trait Date
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return self
      */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1408,7 +1408,7 @@ trait Date
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return self
      */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1440,7 +1440,7 @@ trait Date
      * @param int $month
      * @param int $day
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setDate($year, $month, $day)
@@ -1457,7 +1457,7 @@ trait Date
      * @param int $week
      * @param int $day
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setISODate($year, $week, $day = 1)
@@ -1476,7 +1476,7 @@ trait Date
      * @param int $second
      * @param int $microseconds
      *
-     * @return static
+     * @return self
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
@@ -1493,7 +1493,7 @@ trait Date
      * @param int $second
      * @param int $microseconds
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setTime($hour, $minute, $second = 0, $microseconds = 0)
@@ -1508,7 +1508,7 @@ trait Date
      *
      * @param float|int|string $unixTimestamp
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setTimestamp($unixTimestamp)
@@ -1523,7 +1523,7 @@ trait Date
      *
      * @param string $time
      *
-     * @return static
+     * @return self
      */
     public function setTimeFromTimeString($time)
     {
@@ -1539,7 +1539,7 @@ trait Date
      *
      * @param DateTimeZone|string $value
      *
-     * @return static
+     * @return self
      */
     public function timezone($value)
     {
@@ -1551,7 +1551,7 @@ trait Date
      *
      * @param DateTimeZone|string $value
      *
-     * @return static|string
+     * @return self|string
      */
     public function tz($value = null)
     {
@@ -1567,7 +1567,7 @@ trait Date
      *
      * @param DateTimeZone|string $value
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setTimezone($value)
@@ -1580,7 +1580,7 @@ trait Date
      *
      * @param DateTimeZone|string $value
      *
-     * @return static
+     * @return self
      */
     public function shiftTimezone($value)
     {
@@ -1594,7 +1594,7 @@ trait Date
     /**
      * Set the instance's timezone to UTC.
      *
-     * @return static
+     * @return self
      */
     public function utc()
     {
@@ -1606,7 +1606,7 @@ trait Date
      *
      * @param Carbon|DateTimeInterface $date now if null
      *
-     * @return static
+     * @return self
      */
     public function setDateFrom($date = null)
     {
@@ -1620,7 +1620,7 @@ trait Date
      *
      * @param Carbon|DateTimeInterface $date now if null
      *
-     * @return static
+     * @return self
      */
     public function setTimeFrom($date = null)
     {
@@ -1634,7 +1634,7 @@ trait Date
      *
      * @param Carbon|DateTimeInterface $date
      *
-     * @return static
+     * @return self
      */
     public function setDateTimeFrom($date = null)
     {
@@ -2388,7 +2388,7 @@ trait Date
      * @param string $unit  year, month, day, hour, minute, second or microsecond
      * @param int    $value new value for given unit
      *
-     * @return static
+     * @return self
      */
     public function setUnit($unit, $value = null)
     {

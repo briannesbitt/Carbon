@@ -23,7 +23,7 @@ trait Timestamp
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestamp($timestamp, $tz = null)
     {
@@ -37,7 +37,7 @@ trait Timestamp
      *
      * @param float|int|string $timestamp
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestampUTC($timestamp)
     {
@@ -57,7 +57,7 @@ trait Timestamp
      *
      * @param float|int|string $timestamp
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestampMsUTC($timestamp)
     {
@@ -82,7 +82,7 @@ trait Timestamp
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestampMs($timestamp, $tz = null)
     {
@@ -97,7 +97,7 @@ trait Timestamp
      *
      * @param float|int|string $unixTimestamp
      *
-     * @return static
+     * @return self
      */
     public function timestamp($unixTimestamp)
     {

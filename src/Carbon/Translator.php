@@ -60,7 +60,7 @@ class Translator extends Translation\Translator
      *
      * @param string|null $locale optional initial locale ("en" - english by default)
      *
-     * @return static
+     * @return self
      */
     public static function get($locale = null)
     {
@@ -97,7 +97,7 @@ class Translator extends Translation\Translator
      *
      * @param array $directories new directories list
      *
-     * @return $this
+     * @return self
      */
     public function setDirectories(array $directories)
     {
@@ -111,7 +111,7 @@ class Translator extends Translation\Translator
      *
      * @param string $directory new directory
      *
-     * @return $this
+     * @return self
      */
     public function addDirectory(string $directory)
     {
@@ -125,7 +125,7 @@ class Translator extends Translation\Translator
      *
      * @param string $directory directory path
      *
-     * @return $this
+     * @return self
      */
     public function removeDirectory(string $directory)
     {
@@ -265,7 +265,7 @@ class Translator extends Translation\Translator
      * @param string $locale
      * @param array  $messages
      *
-     * @return $this
+     * @return self
      */
     public function setMessages($locale, $messages)
     {
@@ -284,7 +284,7 @@ class Translator extends Translation\Translator
      *
      * @param array $messages
      *
-     * @return $this
+     * @return self
      */
     public function setTranslations($messages)
     {

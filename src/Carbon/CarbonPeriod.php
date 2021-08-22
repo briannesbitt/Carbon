@@ -326,7 +326,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param mixed $var
      *
-     * @return static|null
+     * @return self|null
      */
     public static function make($var)
     {
@@ -342,7 +342,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param CarbonPeriod|DatePeriod $period
      *
-     * @return static
+     * @return self
      */
     public static function instance($period)
     {
@@ -381,7 +381,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Create a new instance.
      *
-     * @return static
+     * @return self
      */
     public static function create(...$params)
     {
@@ -393,7 +393,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param array $params
      *
-     * @return static
+     * @return self
      */
     public static function createFromArray(array $params)
     {
@@ -406,7 +406,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param string   $iso
      * @param int|null $options
      *
-     * @return static
+     * @return self
      */
     public static function createFromIso($iso, $options = null)
     {
@@ -687,7 +687,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Get a copy of the instance.
      *
-     * @return static
+     * @return self
      */
     public function copy()
     {
@@ -773,7 +773,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * Get a copy of the instance.
      *
-     * @return static
+     * @return self
      */
     public function clone()
     {
@@ -785,7 +785,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param string $dateClass
      *
-     * @return $this
+     * @return self
      */
     public function setDateClass(string $dateClass)
     {
@@ -821,7 +821,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @throws InvalidIntervalException
      *
-     * @return $this
+     * @return self
      */
     public function setDateInterval($interval)
     {
@@ -845,7 +845,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Invert the period date interval.
      *
-     * @return $this
+     * @return self
      */
     public function invertDateInterval()
     {
@@ -860,7 +860,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param DateTime|DateTimeInterface|string      $start
      * @param DateTime|DateTimeInterface|string|null $end
      *
-     * @return $this
+     * @return self
      */
     public function setDates($start, $end)
     {
@@ -877,7 +877,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @throws InvalidArgumentException
      *
-     * @return $this
+     * @return self
      */
     public function setOptions($options)
     {
@@ -910,7 +910,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @throws \InvalidArgumentException
      *
-     * @return $this
+     * @return self
      */
     public function toggleOptions($options, $state = null)
     {
@@ -930,7 +930,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param bool $state
      *
-     * @return $this
+     * @return self
      */
     public function excludeStartDate($state = true)
     {
@@ -942,7 +942,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param bool $state
      *
-     * @return $this
+     * @return self
      */
     public function excludeEndDate($state = true)
     {
@@ -1086,7 +1086,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param callable $callback
      * @param string   $name
      *
-     * @return $this
+     * @return self
      */
     public function addFilter($callback, $name = null)
     {
@@ -1107,7 +1107,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param callable $callback
      * @param string   $name
      *
-     * @return $this
+     * @return self
      */
     public function prependFilter($callback, $name = null)
     {
@@ -1125,7 +1125,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param callable|string $filter
      *
-     * @return $this
+     * @return self
      */
     public function removeFilter($filter)
     {
@@ -1180,7 +1180,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param array $filters
      *
-     * @return $this
+     * @return self
      */
     public function setFilters(array $filters)
     {
@@ -1196,7 +1196,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Reset filters stack.
      *
-     * @return $this
+     * @return self
      */
     public function resetFilters()
     {
@@ -1222,7 +1222,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @throws InvalidArgumentException
      *
-     * @return $this
+     * @return self
      */
     public function setRecurrences($recurrences)
     {
@@ -1253,7 +1253,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @throws InvalidPeriodDateException
      *
-     * @return $this
+     * @return self
      */
     public function setStartDate($date, $inclusive = null)
     {
@@ -1278,7 +1278,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @throws \InvalidArgumentException
      *
-     * @return $this
+     * @return self
      */
     public function setEndDate($date, $inclusive = null)
     {
@@ -1698,7 +1698,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param \DateTimeZone|string $timezone
      *
-     * @return static
+     * @return self
      */
     public function setTimezone($timezone)
     {
@@ -1721,7 +1721,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param \DateTimeZone|string $timezone
      *
-     * @return static
+     * @return self
      */
     public function shiftTimezone($timezone)
     {
@@ -2115,7 +2115,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param float|int|string|\DateInterval|null $precision
      * @param string                              $function
      *
-     * @return $this
+     * @return self
      */
     public function roundUnit($unit, $precision = 1, $function = 'round')
     {
@@ -2136,7 +2136,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param string                              $unit
      * @param float|int|string|\DateInterval|null $precision
      *
-     * @return $this
+     * @return self
      */
     public function floorUnit($unit, $precision = 1)
     {
@@ -2149,7 +2149,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param string                              $unit
      * @param float|int|string|\DateInterval|null $precision
      *
-     * @return $this
+     * @return self
      */
     public function ceilUnit($unit, $precision = 1)
     {
@@ -2162,7 +2162,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param float|int|string|\DateInterval|null $precision
      * @param string                              $function
      *
-     * @return $this
+     * @return self
      */
     public function round($precision = null, $function = 'round')
     {
@@ -2174,7 +2174,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param float|int|string|\DateInterval|null $precision
      *
-     * @return $this
+     * @return self
      */
     public function floor($precision = null)
     {
@@ -2186,7 +2186,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param float|int|string|\DateInterval|null $precision
      *
-     * @return $this
+     * @return self
      */
     public function ceil($precision = null)
     {
@@ -2510,7 +2510,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param mixed $period
      * @param mixed ...$arguments
      *
-     * @return static
+     * @return self
      */
     protected function resolveCarbonPeriod($period, ...$arguments)
     {

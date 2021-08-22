@@ -720,7 +720,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|array $dump
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public static function __set_state($dump);
@@ -755,7 +755,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                                                  $value
      * @param bool|null                                            $overflow
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function add($unit, $value = 1, $overflow = null);
@@ -767,7 +767,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string $unit
      * @param int    $value
      *
-     * @return static
+     * @return self
      */
     public function addRealUnit($unit, $value = 1);
 
@@ -778,7 +778,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return static
+     * @return self
      */
     public function addUnit($unit, $value = 1, $overflow = null);
 
@@ -789,7 +789,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return self
      */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
@@ -829,7 +829,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date
      *
-     * @return static
+     * @return self
      */
     public function average($date = null);
 
@@ -839,7 +839,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * This method is convenient to ensure you don't mutate the initial object
      * but avoid to make a useless copy of it if it's already immutable.
      *
-     * @return static
+     * @return self
      */
     public function avoidMutation();
 
@@ -936,7 +936,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|DateTimeInterface|string|null $date
      *
-     * @return static
+     * @return self
      */
     public function carbonize($date = null);
 
@@ -989,7 +989,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $modifier
      *
-     * @return static
+     * @return self
      */
     public function change($modifier);
 
@@ -1007,7 +1007,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * Get a copy of the instance.
      *
-     * @return static
+     * @return self
      */
     public function clone();
 
@@ -1017,14 +1017,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return self
      */
     public function closest($date1, $date2);
 
     /**
      * Get a copy of the instance.
      *
-     * @return static
+     * @return self
      */
     public function copy();
 
@@ -1050,7 +1050,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
@@ -1064,7 +1064,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null);
 
@@ -1077,7 +1077,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     #[ReturnTypeWillChange]
     public static function createFromFormat($format, $time, $tz = null);
@@ -1093,7 +1093,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null);
 
@@ -1107,7 +1107,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createFromLocaleFormat($format, $locale, $time, $tz = null);
 
@@ -1121,7 +1121,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null);
 
@@ -1135,7 +1135,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null);
 
@@ -1147,7 +1147,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimeString($time, $tz = null);
 
@@ -1159,7 +1159,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestamp($timestamp, $tz = null);
 
@@ -1171,7 +1171,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestampMs($timestamp, $tz = null);
 
@@ -1182,7 +1182,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param float|int|string $timestamp
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestampMsUTC($timestamp);
 
@@ -1193,7 +1193,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param float|int|string $timestamp
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimestampUTC($timestamp);
 
@@ -1207,7 +1207,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null);
 
@@ -1236,7 +1236,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidDateException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null);
 
@@ -1255,7 +1255,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null);
 
@@ -1264,7 +1264,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return static|int
+     * @return self|int
      */
     public function dayOfYear($value = null);
 
@@ -1557,7 +1557,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string            $unit
      * @param array<int, mixed> $params
      *
-     * @return static
+     * @return self
      */
     public function endOf($unit, ...$params);
 
@@ -1569,7 +1569,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfCentury();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfCentury();
 
@@ -1581,7 +1581,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfDay();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfDay();
 
@@ -1593,7 +1593,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfDecade();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfDecade();
 
@@ -1605,7 +1605,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfHour();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfHour();
 
@@ -1617,7 +1617,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfMillennium();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfMillennium();
 
@@ -1629,7 +1629,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfMinute();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfMinute();
 
@@ -1641,7 +1641,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfMonth();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfMonth();
 
@@ -1653,7 +1653,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfQuarter();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfQuarter();
 
@@ -1667,7 +1667,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *   ->format('H:i:s.u');
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfSecond();
 
@@ -1683,7 +1683,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
      *
-     * @return static
+     * @return self
      */
     public function endOfWeek($weekEndsAt = null);
 
@@ -1695,7 +1695,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfYear();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function endOfYear();
 
@@ -1750,7 +1750,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return self
      */
     public function farthest($date1, $date2);
 
@@ -1762,7 +1762,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return self
      */
     public function firstOfMonth($dayOfWeek = null);
 
@@ -1774,7 +1774,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function firstOfQuarter($dayOfWeek = null);
 
@@ -1786,7 +1786,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function firstOfYear($dayOfWeek = null);
 
@@ -2041,7 +2041,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function fromSerialized($value);
 
@@ -2507,7 +2507,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeInterface $date
      *
-     * @return static
+     * @return self
      */
     public static function instance($date);
 
@@ -3001,7 +3001,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return self|int
      */
     public function isoWeekday($value = null);
 
@@ -3033,7 +3033,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return self
      */
     public function lastOfMonth($dayOfWeek = null);
 
@@ -3045,7 +3045,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function lastOfQuarter($dayOfWeek = null);
 
@@ -3057,7 +3057,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function lastOfYear($dayOfWeek = null);
 
@@ -3099,7 +3099,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null $locale
      * @param string      ...$fallbackLocales
      *
-     * @return $this|string
+     * @return self|string
      */
     public function locale(?string $locale = null, ...$fallbackLocales);
 
@@ -3221,7 +3221,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return self|null
      */
     public static function make($var);
 
@@ -3230,14 +3230,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return self
      */
     public function max($date = null);
 
     /**
      * Create a Carbon instance for the greatest supported date.
      *
-     * @return static
+     * @return self
      */
     public static function maxValue();
 
@@ -3248,7 +3248,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @see max()
      *
-     * @return static
+     * @return self
      */
     public function maximum($date = null);
 
@@ -3264,7 +3264,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to midday, default to self::$midDayAt
      *
-     * @return static
+     * @return self
      */
     public function midDay();
 
@@ -3273,14 +3273,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return self
      */
     public function min($date = null);
 
     /**
      * Create a Carbon instance for the lowest supported date.
      *
-     * @return static
+     * @return self
      */
     public static function minValue();
 
@@ -3291,7 +3291,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @see min()
      *
-     * @return static
+     * @return self
      */
     public function minimum($date = null);
 
@@ -3362,21 +3362,21 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|int|null $modifier
      *
-     * @return static
+     * @return self
      */
     public function next($modifier = null);
 
     /**
      * Go forward to the next weekday.
      *
-     * @return static
+     * @return self
      */
     public function nextWeekday();
 
     /**
      * Go forward to the next weekend day.
      *
-     * @return static
+     * @return self
      */
     public function nextWeekendDay();
 
@@ -3401,14 +3401,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function now($tz = null);
 
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static
+     * @return self
      */
     public function nowWithSameTz();
 
@@ -3473,7 +3473,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function parse($time = null, $tz = null);
 
@@ -3487,7 +3487,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function parseFromLocale($time, $locale = null, $tz = null);
 
@@ -3508,21 +3508,21 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|int|null $modifier
      *
-     * @return static
+     * @return self
      */
     public function previous($modifier = null);
 
     /**
      * Go backward to the previous weekday.
      *
-     * @return static
+     * @return self
      */
     public function previousWeekday();
 
     /**
      * Go backward to the previous weekend day.
      *
-     * @return static
+     * @return self
      */
     public function previousWeekendDay();
 
@@ -3542,7 +3542,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateInterval $interval
      *
-     * @return static
+     * @return self
      */
     public function rawAdd(DateInterval $interval);
 
@@ -3555,7 +3555,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function rawCreateFromFormat($format, $time, $tz = null);
 
@@ -3580,7 +3580,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function rawParse($time = null, $tz = null);
 
@@ -3589,7 +3589,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateInterval $interval
      *
-     * @return static
+     * @return self
      */
     public function rawSub(DateInterval $interval);
 
@@ -3702,7 +3702,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws ImmutableException|UnknownSetterException
      *
-     * @return $this
+     * @return self
      */
     public function set($name, $value = null);
 
@@ -3715,7 +3715,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int $month
      * @param int $day
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setDate($year, $month, $day);
@@ -3725,7 +3725,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param Carbon|DateTimeInterface $date now if null
      *
-     * @return static
+     * @return self
      */
     public function setDateFrom($date = null);
 
@@ -3740,7 +3740,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int $second
      * @param int $microseconds
      *
-     * @return static
+     * @return self
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0);
 
@@ -3749,7 +3749,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param Carbon|DateTimeInterface $date
      *
-     * @return static
+     * @return self
      */
     public function setDateTimeFrom($date = null);
 
@@ -3780,7 +3780,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int $week
      * @param int $day
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setISODate($year, $week, $day = 1);
@@ -3790,7 +3790,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
-     * @return $this
+     * @return self
      */
     public function setLocalTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
 
@@ -3851,7 +3851,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int $second
      * @param int $microseconds
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setTime($hour, $minute, $second = 0, $microseconds = 0);
@@ -3861,7 +3861,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param Carbon|DateTimeInterface $date now if null
      *
-     * @return static
+     * @return self
      */
     public function setTimeFrom($date = null);
 
@@ -3870,7 +3870,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $time
      *
-     * @return static
+     * @return self
      */
     public function setTimeFromTimeString($time);
 
@@ -3881,7 +3881,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param float|int|string $unixTimestamp
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setTimestamp($unixTimestamp);
@@ -3891,7 +3891,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string $value
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function setTimezone($value);
@@ -3925,7 +3925,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string $unit  year, month, day, hour, minute, second or microsecond
      * @param int    $value new value for given unit
      *
-     * @return static
+     * @return self
      */
     public function setUnit($unit, $value = null);
 
@@ -3936,7 +3936,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return self
      */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
@@ -4023,7 +4023,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param array $settings
      *
-     * @return $this|static
+     * @return self|static
      */
     public function settings(array $settings);
 
@@ -4032,7 +4032,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string $value
      *
-     * @return static
+     * @return self
      */
     public function shiftTimezone($value);
 
@@ -4080,7 +4080,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string            $unit
      * @param array<int, mixed> $params
      *
-     * @return static
+     * @return self
      */
     public function startOf($unit, ...$params);
 
@@ -4092,7 +4092,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfCentury();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfCentury();
 
@@ -4104,7 +4104,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfDay();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfDay();
 
@@ -4116,7 +4116,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfDecade();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfDecade();
 
@@ -4128,7 +4128,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfHour();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfHour();
 
@@ -4140,7 +4140,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfMillennium();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfMillennium();
 
@@ -4152,7 +4152,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfMinute();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfMinute();
 
@@ -4164,7 +4164,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfMonth();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfMonth();
 
@@ -4176,7 +4176,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfQuarter();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfQuarter();
 
@@ -4190,7 +4190,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *   ->format('H:i:s.u');
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfSecond();
 
@@ -4206,7 +4206,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
      *
-     * @return static
+     * @return self
      */
     public function startOfWeek($weekStartsAt = null);
 
@@ -4218,7 +4218,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->startOfYear();
      * ```
      *
-     * @return static
+     * @return self
      */
     public function startOfYear();
 
@@ -4233,7 +4233,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                                                  $value
      * @param bool|null                                            $overflow
      *
-     * @return static
+     * @return self
      */
     #[ReturnTypeWillChange]
     public function sub($unit, $value = 1, $overflow = null);
@@ -4247,7 +4247,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return static
+     * @return self
      */
     public function subUnit($unit, $value = 1, $overflow = null);
 
@@ -4258,7 +4258,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return self
      */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
@@ -4271,7 +4271,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return static
+     * @return self
      */
     public function subtract($unit, $value = 1, $overflow = null);
 
@@ -4290,7 +4290,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param float|int|string $unixTimestamp
      *
-     * @return static
+     * @return self
      */
     public function timestamp($unixTimestamp);
 
@@ -4299,7 +4299,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string $value
      *
-     * @return static
+     * @return self
      */
     public function timezone($value);
 
@@ -4756,7 +4756,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function today($tz = null);
 
@@ -4765,7 +4765,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function tomorrow($tz = null);
 
@@ -4845,7 +4845,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string $value
      *
-     * @return static|string
+     * @return self|string
      */
     public function tz($value = null);
 
@@ -4938,7 +4938,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the instance's timezone to UTC.
      *
-     * @return static
+     * @return self
      */
     public function utc();
 
@@ -4989,7 +4989,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return self|int
      */
     public function weekday($value = null);
 
@@ -5024,7 +5024,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function yesterday($tz = null);
 

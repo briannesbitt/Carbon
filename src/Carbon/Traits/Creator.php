@@ -135,7 +135,7 @@ trait Creator
      *
      * @param DateTimeInterface $date
      *
-     * @return static
+     * @return self
      */
     public static function instance($date)
     {
@@ -172,7 +172,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function rawParse($time = null, $tz = null)
     {
@@ -205,7 +205,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function parse($time = null, $tz = null)
     {
@@ -232,7 +232,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function parseFromLocale($time, $locale = null, $tz = null)
     {
@@ -244,7 +244,7 @@ trait Creator
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function now($tz = null)
     {
@@ -256,7 +256,7 @@ trait Creator
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function today($tz = null)
     {
@@ -268,7 +268,7 @@ trait Creator
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function tomorrow($tz = null)
     {
@@ -280,7 +280,7 @@ trait Creator
      *
      * @param DateTimeZone|string|null $tz
      *
-     * @return static
+     * @return self
      */
     public static function yesterday($tz = null)
     {
@@ -290,7 +290,7 @@ trait Creator
     /**
      * Create a Carbon instance for the greatest supported date.
      *
-     * @return static
+     * @return self
      */
     public static function maxValue()
     {
@@ -306,7 +306,7 @@ trait Creator
     /**
      * Create a Carbon instance for the lowest supported date.
      *
-     * @return static
+     * @return self
      */
     public static function minValue()
     {
@@ -363,7 +363,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
@@ -447,7 +447,7 @@ trait Creator
      *
      * @throws InvalidDateException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
@@ -493,7 +493,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null): self
     {
@@ -519,7 +519,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
     {
@@ -536,7 +536,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null)
     {
@@ -553,7 +553,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)
     {
@@ -568,7 +568,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return self
      */
     public static function createFromTimeString($time, $tz = null)
     {
@@ -617,7 +617,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function rawCreateFromFormat($format, $time, $tz = null)
     {
@@ -687,7 +687,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     #[ReturnTypeWillChange]
     public static function createFromFormat($format, $time, $tz = null)
@@ -716,7 +716,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null)
     {
@@ -857,7 +857,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
     {
@@ -874,7 +874,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|false
+     * @return self|false
      */
     public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null)
     {
@@ -893,7 +893,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return self|null
      */
     public static function make($var)
     {

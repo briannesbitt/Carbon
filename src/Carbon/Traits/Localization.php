@@ -149,7 +149,7 @@ trait Localization
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
-     * @return $this
+     * @return self
      */
     public function setLocalTranslator(TranslatorInterface $translator)
     {
@@ -428,7 +428,7 @@ trait Localization
      * @param string|null $locale
      * @param string      ...$fallbackLocales
      *
-     * @return $this|string
+     * @return self|string
      */
     public function locale(string $locale = null, ...$fallbackLocales)
     {

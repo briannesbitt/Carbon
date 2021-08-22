@@ -171,7 +171,7 @@ trait Mixin
     /**
      * Return the current context from inside a macro callee or a null if static.
      *
-     * @return static|null
+     * @return self|null
      */
     protected static function context()
     {
@@ -181,7 +181,7 @@ trait Mixin
     /**
      * Return the current context from inside a macro callee or a new one if static.
      *
-     * @return static
+     * @return self
      */
     protected static function this()
     {

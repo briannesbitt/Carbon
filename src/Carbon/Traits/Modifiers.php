@@ -59,7 +59,7 @@ trait Modifiers
     /**
      * Modify to midday, default to self::$midDayAt
      *
-     * @return static
+     * @return self
      */
     public function midDay()
     {
@@ -74,7 +74,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static
+     * @return self
      */
     public function next($modifier = null)
     {
@@ -93,7 +93,7 @@ trait Modifiers
      * @param bool $weekday
      * @param bool $forward
      *
-     * @return static
+     * @return self
      */
     private function nextOrPreviousDay($weekday = true, $forward = true)
     {
@@ -111,7 +111,7 @@ trait Modifiers
     /**
      * Go forward to the next weekday.
      *
-     * @return static
+     * @return self
      */
     public function nextWeekday()
     {
@@ -121,7 +121,7 @@ trait Modifiers
     /**
      * Go backward to the previous weekday.
      *
-     * @return static
+     * @return self
      */
     public function previousWeekday()
     {
@@ -131,7 +131,7 @@ trait Modifiers
     /**
      * Go forward to the next weekend day.
      *
-     * @return static
+     * @return self
      */
     public function nextWeekendDay()
     {
@@ -141,7 +141,7 @@ trait Modifiers
     /**
      * Go backward to the previous weekend day.
      *
-     * @return static
+     * @return self
      */
     public function previousWeekendDay()
     {
@@ -156,7 +156,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static
+     * @return self
      */
     public function previous($modifier = null)
     {
@@ -177,7 +177,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return self
      */
     public function firstOfMonth($dayOfWeek = null)
     {
@@ -198,7 +198,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return self
      */
     public function lastOfMonth($dayOfWeek = null)
     {
@@ -239,7 +239,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
@@ -254,7 +254,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
@@ -290,7 +290,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function firstOfYear($dayOfWeek = null)
     {
@@ -305,7 +305,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return self
      */
     public function lastOfYear($dayOfWeek = null)
     {
@@ -336,7 +336,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date
      *
-     * @return static
+     * @return self
      */
     public function average($date = null)
     {
@@ -349,7 +349,7 @@ trait Modifiers
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return self
      */
     public function closest($date1, $date2)
     {
@@ -362,7 +362,7 @@ trait Modifiers
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return self
      */
     public function farthest($date1, $date2)
     {
@@ -374,7 +374,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return self
      */
     public function min($date = null)
     {
@@ -390,7 +390,7 @@ trait Modifiers
      *
      * @see min()
      *
-     * @return static
+     * @return self
      */
     public function minimum($date = null)
     {
@@ -402,7 +402,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return self
      */
     public function max($date = null)
     {
@@ -418,7 +418,7 @@ trait Modifiers
      *
      * @see max()
      *
-     * @return static
+     * @return self
      */
     public function maximum($date = null)
     {
@@ -448,7 +448,7 @@ trait Modifiers
      *
      * @param string $modifier
      *
-     * @return static
+     * @return self
      */
     public function change($modifier)
     {

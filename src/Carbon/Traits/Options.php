@@ -361,7 +361,7 @@ trait Options
      *
      * @param array $settings
      *
-     * @return $this|static
+     * @return self|static
      */
     public function settings(array $settings)
     {
