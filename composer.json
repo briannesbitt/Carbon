@@ -82,7 +82,6 @@
         "phpstan": "phpstan analyse --configuration phpstan.neon",
         "phpunit": "phpunit --verbose",
         "style-check": [
-            "@phpcs",
             "@phpstan",
             "@phpmd"
         ],
