@@ -33,7 +33,7 @@ return [
     'a_second' => '{1}තත්පර කිහිපයකට|තත්පර :count',
     'ago' => ':time කට පෙර',
     'from_now' => function ($time) {
-        if (preg_match('/දින \d+/', $time)) {
+        if (preg_match('/දින \d/u', $time)) {
             return $time.' න්';
         }
 
@@ -41,7 +41,7 @@ return [
     },
     'before' => ':time කට පෙර',
     'after' => function ($time) {
-        if (preg_match('/දින \d+/', $time)) {
+        if (preg_match('/දින \d/u', $time)) {
             return $time.' න්';
         }
 
