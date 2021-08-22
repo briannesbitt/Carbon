@@ -389,12 +389,12 @@ trait Creator
             return $defaults[$unit];
         };
 
-        $year = $year === null ? $getDefault('year') : $year;
-        $month = $month === null ? $getDefault('month') : $month;
-        $day = $day === null ? $getDefault('day') : $day;
-        $hour = $hour === null ? $getDefault('hour') : $hour;
-        $minute = $minute === null ? $getDefault('minute') : $minute;
-        $second = (float) ($second === null ? $getDefault('second') : $second);
+        $year = $year ?? $getDefault('year');
+        $month = $month ?? $getDefault('month');
+        $day = $day ?? $getDefault('day');
+        $hour = $hour ?? $getDefault('hour');
+        $minute = $minute ?? $getDefault('minute');
+        $second = (float) ($second ?? $getDefault('second'));
 
         self::assertBetween('month', $month, 0, 99);
         self::assertBetween('day', $day, 0, 99);

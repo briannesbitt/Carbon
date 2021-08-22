@@ -272,7 +272,7 @@ class Translator extends Translation\Translator
         $this->loadMessagesFromFile($locale);
         $this->addResource('array', $messages, $locale);
         $this->messages[$locale] = array_merge(
-            isset($this->messages[$locale]) ? $this->messages[$locale] : [],
+            $this->messages[$locale] ?? [],
             $messages
         );
 
