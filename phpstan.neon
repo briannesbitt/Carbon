@@ -9,7 +9,7 @@ parameters:
         - '#^Call to an undefined static method#'
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-        - '#^Unary operation "\~" on mixed results in an error\.$#'
+        - '#^Access to an undefined property Carbon\\CarbonPeriod::\$locale\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
         - '#Class Symfony\\Component\\Translation\\IdentityTranslator does not have a constructor and must be instantiated without any parameters\.#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
