@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-    xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
     colors="true"
 >
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    <coverage processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">src/Carbon</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 
     <testsuites>
         <testsuite name="carbon">
@@ -52,7 +52,6 @@
             <directory phpVersion="8.0.9999" phpVersionOperator="&lt;=">tests/PHPStan</directory>
         </testsuite>
     </testsuites>
-
     <php>
         <ini name="max_execution_time" value="0"/>
     </php>
