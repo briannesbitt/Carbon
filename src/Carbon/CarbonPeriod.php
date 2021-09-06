@@ -1310,6 +1310,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return bool
      */
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return $this->validateCurrentDate() === true;
@@ -1320,6 +1321,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return int|null
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->valid()
@@ -1332,6 +1334,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return CarbonInterface|null
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->valid()
@@ -1346,6 +1349,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function next()
     {
         if ($this->current === null) {
@@ -1372,6 +1376,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         $this->key = 0;
