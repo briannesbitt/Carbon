@@ -1,0 +1,16 @@
+name: Linting
+
+on: [ pull_request, push ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Check for code style violation with PHP-CS-Fixer
+        uses: OskarStark/php-cs-fixer-ga@3.0.0
+        with:
+          args: --diff --dry-run
