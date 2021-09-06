@@ -14,12 +14,12 @@ parameters:
         - '#^Access to an undefined property Carbon\\CarbonPeriod::\$locale\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
-        - '#should return (\S*)static\(Carbon\\CarbonInterval\) but returns Carbon\\CarbonInterval\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonInterval\)\|null but returns Carbon\\CarbonInterval(\|null)?\.$#'
         - '#should return (\S*)\$this\(Carbon\\CarbonInterval\) but returns Carbon\\CarbonInterval\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
         - '#should return (\S*)static\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
+        - '#should return (\S*)static\(Carbon\\CarbonImmutable\)\|null but returns Carbon\\Carbon(Immutable|Interface)\|null\.$#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Carbon/SerializationTest.php'

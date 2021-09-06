@@ -806,7 +806,7 @@ class SettersTest extends AbstractTestCase
 
             if ($value === $date->$valueUnit ||
                 $modulo === $date->$valueUnit ||
-                (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
+                (method_exists($date, "diffInReal$unit") && $value === $date->{"diffInReal$unit"}($original, false)) ||
                 ((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
