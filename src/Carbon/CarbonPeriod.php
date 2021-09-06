@@ -1550,6 +1550,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function count()
     {
         return \count($this->toArray());
