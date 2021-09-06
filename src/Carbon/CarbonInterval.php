@@ -2807,47 +2807,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     }
 
     /**
-     * @codeCoverageIgnore
-     */
-    private function fixNegativeMicroseconds(): void
-    {
-        if ($this->s !== 0 || $this->i !== 0 || $this->h !== 0 || $this->d !== 0 || $this->m !== 0 || $this->y !== 0) {
-            $this->f = (round($this->f * 1000000) + 1000000) / 1000000;
-            $this->s--;
-
-            if ($this->s < 0) {
-                $this->s += 60;
-                $this->i--;
-
-                if ($this->i < 0) {
-                    $this->i += 60;
-                    $this->h--;
-
-                    if ($this->h < 0) {
-                        $this->h += 24;
-                        $this->d--;
-
-                        if ($this->d < 0) {
-                            $this->d += 30;
-                            $this->m--;
-
-                            if ($this->m < 0) {
-                                $this->m += 12;
-                                $this->y--;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return;
-        }
-
-        $this->f *= self::NEGATIVE;
-        $this->invert();
-    }
-
-    /**
      * @template T of DateInterval
      *
      * @param DateInterval $interval

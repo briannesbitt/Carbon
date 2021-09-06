@@ -546,7 +546,7 @@ function getMethodReturnType(ReflectionMethod $method)
 foreach ($carbonMethods as $method) {
     if (!method_exists(\Carbon\CarbonImmutable::class, $method) ||
         method_exists(DateTimeInterface::class, $method) ||
-        in_array($method, ['diff', 'createFromInterface'], true)
+        \in_array($method, ['diff', 'createFromInterface'], true)
     ) {
         continue;
     }

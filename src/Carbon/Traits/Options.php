@@ -427,7 +427,7 @@ trait Options
 
         $this->addExtraDebugInfos($infos);
 
-        if (array_key_exists('carbonRecurrences', $infos)) {
+        if (\array_key_exists('carbonRecurrences', $infos)) {
             $infos['recurrences'] = $infos['carbonRecurrences'];
             unset($infos['carbonRecurrences']);
         }
