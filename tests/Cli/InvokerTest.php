@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class InvokerTest extends AbstractTestCase
 {
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $invoker = new Invoker();
         $lastCommand = null;
@@ -27,8 +27,7 @@ class InvokerTest extends AbstractTestCase
 
         ob_start();
         $return = $invoker('file', 'install', $exec);
-        $contents = ob_get_contents();
-        ob_end_clean();
+        $contents = ob_get_clean();
 
         $this->assertSame('composer require carbon-cli/carbon-cli --no-interaction', $lastCommand);
         $this->assertSame('Installation succeeded.', $contents);
@@ -41,8 +40,7 @@ class InvokerTest extends AbstractTestCase
 
         ob_start();
         $return = $invoker('file', 'install', $exec);
-        $contents = ob_get_contents();
-        ob_end_clean();
+        $contents = ob_get_clean();
 
         $this->assertNull($lastCommand);
         $this->assertSame('', $contents);

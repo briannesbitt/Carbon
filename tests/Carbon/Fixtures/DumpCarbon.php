@@ -25,8 +25,7 @@ final class DumpCarbon extends Carbon
     {
         ob_start();
         var_dump($this);
-        $this->dump = ob_get_contents() ?: '';
-        ob_end_clean();
+        $this->dump = ob_get_clean() ?: '';
 
         parent::__construct($time, $tz);
     }
