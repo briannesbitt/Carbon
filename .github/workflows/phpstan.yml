@@ -1,0 +1,36 @@
+name: PHPStan
+
+on: [ pull_request, push ]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: 7.4
+
+    name: PHPStan
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, msgpack
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
+          composer remove --no-update kylekatarnls/multi-tester --no-interaction;
+          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+
+      - name: Run phpstan
+        run: composer phpstan

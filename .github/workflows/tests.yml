@@ -59,10 +59,7 @@ jobs:
           - php: 8.0
             laravel: true
 
-          - php: 7.4
-            styleCheck: true
-
-    name: ${{ matrix.styleCheck && 'Style check - ' || '' }}${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
+    name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
     steps:
       - uses: actions/checkout@v2
@@ -85,9 +82,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [[ "${{ matrix.styleCheck }}" != 'true' ]]; then
-            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-          fi;
+          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
           if [[ "${{ matrix.laravel }}" != 'true' ]]; then
             composer remove --no-update kylekatarnls/multi-tester --no-interaction;
           fi;
@@ -96,14 +91,11 @@ jobs:
 
       - name: Run test suite
         run: |
-          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
+          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
             php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
           fi;
-          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
+          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
             php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
-          fi;
-          if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.styleCheck }}" = 'true' ]]; then
-            composer style-check;
           fi;
           if [[ "${{ matrix.laravel }}" = 'true' ]]; then
             vendor/bin/multi-tester;
