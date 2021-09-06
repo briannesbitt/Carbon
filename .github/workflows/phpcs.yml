@@ -4,6 +4,8 @@ on: [ pull_request, push ]
 
 jobs:
   lint:
+    name: PHP-CS-Fixer
+
     runs-on: ubuntu-latest
 
     steps:
