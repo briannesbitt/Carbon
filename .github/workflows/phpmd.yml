@@ -1,9 +1,11 @@
-name: PHPMD
+name: Linting
 
 on: [ pull_request, push ]
 
 jobs:
   ubuntu:
+    name: PHPMD
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -11,8 +13,6 @@ jobs:
       matrix:
         include:
           - php: 7.4
-
-    name: PHPMD
 
     steps:
       - uses: actions/checkout@v2
