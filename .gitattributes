@@ -3,7 +3,6 @@
 /.gitignore              export-ignore
 /.multi-tester.yml       export-ignore
 /.php-cs-fixer.dist.php  export-ignore
-/.styleci.yml            export-ignore
 /.travis.yml             export-ignore
 /build.php               export-ignore
 /contributing.md         export-ignore

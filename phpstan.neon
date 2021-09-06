@@ -11,7 +11,7 @@ parameters:
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::diffInReal([A-Za-z]+)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-        - '#^Unary operation "\~" on mixed results in an error\.$#'
+        - '#^Access to an undefined property Carbon\\CarbonPeriod::\$locale\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
         - '#should return (\S*)static\(Carbon\\CarbonInterval\) but returns Carbon\\CarbonInterval\.$#'

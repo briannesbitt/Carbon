@@ -467,7 +467,7 @@ trait Difference
             $intSyntax = &$syntax['syntax'];
         }
 
-        $intSyntax = (int) ($intSyntax === null ? static::DIFF_RELATIVE_AUTO : $intSyntax);
+        $intSyntax = (int) ($intSyntax ?? static::DIFF_RELATIVE_AUTO);
         $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
         $parts = min(7, max(1, (int) $parts));

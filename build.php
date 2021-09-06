@@ -13,7 +13,7 @@ $tagsCommand = \count($remotes)
 $tags = array_map(function ($ref) {
     $ref = explode('refs/tags/', $ref);
 
-    return isset($ref[1]) ? $ref[1] : $ref[0];
+    return $ref[1] ?? $ref[0];
 }, array_filter(explode("\n", trim(shell_exec($tagsCommand))), function ($ref) {
     return substr($ref, -3) !== '^{}';
 }));
