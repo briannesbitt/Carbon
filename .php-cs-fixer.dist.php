@@ -5,6 +5,7 @@ use PhpCsFixer\Finder;
 
 $rules = [
     '@PSR2' => true,
+    '@PHP71Migration' => true,
     'array_syntax' => [
         'syntax' => 'short',
     ],
