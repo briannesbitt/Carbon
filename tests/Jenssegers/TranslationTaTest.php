@@ -7,8 +7,7 @@ class TranslationTaTest extends TestCaseBase
 {
     public const LOCALE = 'ta';
 
-    /** @test */
-    public function it_translates_month()
+    public function testItTranslatesMonth()
     {
         $jan = JenssegersDate::createFromFormat('m-d', '01-01');
         $feb = JenssegersDate::createFromFormat('m-d', '02-01');
@@ -37,8 +36,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('டிசம்பர்', $dec->format('F'));
     }
 
-    /** @test */
-    public function it_translates_weekdays()
+    public function testItTranslatesWeekdays()
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -57,8 +55,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('ஞாயிற்றுக்கிழமை', $sun->format('l'));
     }
 
-    /** @test */
-    public function it_translates_weekdays_shortform()
+    public function testItTranslatesWeekdaysShortform()
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -77,8 +74,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('ஞாயிறு', $sun->format('D'));
     }
 
-    /** @test */
-    public function it_translates_ago()
+    public function testItTranslatesAgo()
     {
         JenssegersDate::setTestNow('2019-03-27');
 
@@ -88,15 +84,11 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('1 சில விநாடிகள் முன்', $oneAgo->ago());
         $this->assertSame('5 விநாடிகள் முன்', $fiveAgo->ago());
 
-        ///
-
         $oneAgo = JenssegersDate::parse('-1 minute');
         $fiveAgo = JenssegersDate::parse('-5 minutes');
 
         $this->assertSame('1 நிமிடம் முன்', $oneAgo->ago());
         $this->assertSame('5 நிமிடங்கள் முன்', $fiveAgo->ago());
-
-        ///
 
         $oneAgo = JenssegersDate::parse('-1 hour');
         $fiveAgo = JenssegersDate::parse('-5 hours');
@@ -104,15 +96,11 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('1 மணி நேரம் முன்', $oneAgo->ago());
         $this->assertSame('5 மணி நேரம் முன்', $fiveAgo->ago());
 
-        ///
-
         $oneAgo = JenssegersDate::parse('-1 day');
         $fiveAgo = JenssegersDate::parse('-5 days');
 
         $this->assertSame('1 நாள் முன்', $oneAgo->ago());
         $this->assertSame('5 நாட்கள் முன்', $fiveAgo->ago());
-
-        ///
 
         $oneAgo = JenssegersDate::parse('-1 week');
         $fiveAgo = JenssegersDate::parse('-3 weeks');
@@ -120,15 +108,11 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('1 வாரம் முன்', $oneAgo->ago());
         $this->assertSame('3 வாரங்கள் முன்', $fiveAgo->ago());
 
-        ///
-
         $oneAgo = JenssegersDate::now()->subMonthNoOverflow();
         $threeAgo = JenssegersDate::now()->subMonthsNoOverflow(3);
 
         $this->assertSame('1 மாதம் முன்', $oneAgo->ago());
         $this->assertSame('3 மாதங்கள் முன்', $threeAgo->ago());
-
-        ///
 
         $oneAgo = JenssegersDate::parse('-1 year');
         $fiveAgo = JenssegersDate::parse('-3 years');
@@ -137,8 +121,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('3 ஆண்டுகள் முன்', $fiveAgo->ago());
     }
 
-    /** @test */
-    public function it_translates_from_now()
+    public function testItTranslatesFromNow()
     {
         $oneAgo = JenssegersDate::parse('1 second');
         $fiveAgo = JenssegersDate::parse('5 seconds');
@@ -146,15 +129,11 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('1 சில விநாடிகள் இல்', $oneAgo->ago());
         $this->assertSame('5 விநாடிகள் இல்', $fiveAgo->ago());
 
-        ///
-
         $oneAgo = JenssegersDate::parse('1 minute');
         $fiveAgo = JenssegersDate::parse('5 minutes');
 
         $this->assertSame('1 நிமிடம் இல்', $oneAgo->ago());
         $this->assertSame('5 நிமிடங்கள் இல்', $fiveAgo->ago());
-
-        ///
 
         $oneAgo = JenssegersDate::parse('1 hour');
         $fiveAgo = JenssegersDate::parse('5 hours');
@@ -162,15 +141,11 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('1 மணி நேரம் இல்', $oneAgo->ago());
         $this->assertSame('5 மணி நேரம் இல்', $fiveAgo->ago());
 
-        ///
-
         $oneAgo = JenssegersDate::parse('1 day');
         $fiveAgo = JenssegersDate::parse('5 days');
 
         $this->assertSame('1 நாள் இல்', $oneAgo->ago());
         $this->assertSame('5 நாட்கள் இல்', $fiveAgo->ago());
-
-        ///
 
         $oneAgo = JenssegersDate::parse('1 week');
         $fiveAgo = JenssegersDate::parse('3 weeks');
@@ -178,15 +153,11 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('1 வாரம் இல்', $oneAgo->ago());
         $this->assertSame('3 வாரங்கள் இல்', $fiveAgo->ago());
 
-        ///
-
         $oneAgo = JenssegersDate::parse('1 month');
         $fiveAgo = JenssegersDate::parse('3 months');
 
         $this->assertSame('1 மாதம் இல்', $oneAgo->ago());
         $this->assertSame('3 மாதங்கள் இல்', $fiveAgo->ago());
-
-        ///
 
         $oneAgo = JenssegersDate::parse('1 year');
         $fiveAgo = JenssegersDate::parse('3 years');
