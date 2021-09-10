@@ -40,7 +40,16 @@ $rules = [
     'php_unit_test_case_static_method_calls' => [
         'call_type' => 'this',
     ],
-    'phpdoc_align' => false,
+    'phpdoc_align' => [
+        'align' => 'vertical',
+        'tags' => [
+            'param',
+            'return',
+            'throws',
+            'type',
+            'var',
+        ],
+    ],
     'phpdoc_indent' => true,
     'phpdoc_inline_tag_normalizer' => true,
     'phpdoc_no_access' => true,
