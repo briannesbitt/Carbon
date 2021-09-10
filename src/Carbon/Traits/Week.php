@@ -88,6 +88,7 @@ trait Week
             $date = match ($date->weekYear(null, $dayOfWeek, $dayOfYear) - $year) {
                 CarbonInterval::POSITIVE => $date->subWeeks(static::WEEKS_PER_YEAR / 2),
                 CarbonInterval::NEGATIVE => $date->addWeeks(static::WEEKS_PER_YEAR / 2),
+                default => $date,
             };
 
             $date = $date
