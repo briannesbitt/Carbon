@@ -27,6 +27,9 @@
  * - Jan (aso824)
  * - diverpl
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count rok|:count lata|:count lat',
     'a_year' => 'rok|:count lata|:count lat',
@@ -73,7 +76,7 @@ return [
     'calendar' => [
         'sameDay' => '[Dziś o] LT',
         'nextDay' => '[Jutro o] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $date) {
+        'nextWeek' => function (CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[W niedzielę o] LT';
@@ -88,7 +91,7 @@ return [
             }
         },
         'lastDay' => '[Wczoraj o] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => function (CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[W zeszłą niedzielę o] LT';

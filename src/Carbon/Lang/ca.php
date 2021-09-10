@@ -21,6 +21,9 @@
  * - Xavi
  * - qcardona
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count any|:count anys',
     'a_year' => 'un any|:count anys',
@@ -69,19 +72,19 @@ return [
         'LLLL' => 'dddd D MMMM [de] YYYY [a les] H:mm',
     ],
     'calendar' => [
-        'sameDay' => function (\Carbon\CarbonInterface $current) {
+        'sameDay' => function (CarbonInterface $current) {
             return '[avui a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'nextDay' => function (\Carbon\CarbonInterface $current) {
+        'nextDay' => function (CarbonInterface $current) {
             return '[demà a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'nextWeek' => function (\Carbon\CarbonInterface $current) {
+        'nextWeek' => function (CarbonInterface $current) {
             return 'dddd [a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'lastDay' => function (\Carbon\CarbonInterface $current) {
+        'lastDay' => function (CarbonInterface $current) {
             return '[ahir a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => function (CarbonInterface $current) {
             return '[el] dddd [passat a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
         'sameElse' => 'L',

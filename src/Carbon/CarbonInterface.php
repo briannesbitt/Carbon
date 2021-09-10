@@ -27,6 +27,7 @@ use DateTimeZone;
 use JsonSerializable;
 use ReflectionException;
 use ReturnTypeWillChange;
+use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
 
 /**
@@ -3792,7 +3793,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return $this
      */
-    public function setLocalTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+    public function setLocalTranslator(TranslatorInterface $translator);
 
     /**
      * Set the current translator locale and indicate if the source locale file exists.
@@ -3917,7 +3918,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return void
      */
-    public static function setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+    public static function setTranslator(TranslatorInterface $translator);
 
     /**
      * Set specified unit to new given value.
@@ -4779,7 +4780,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, ?\Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false): string;
+    public function translate(string $key, array $parameters = [], $number = null, ?TranslatorInterface $translator = null, bool $altNumbers = false): string;
 
     /**
      * Returns the alternative number for a given integer if available in the current locale.
@@ -4828,7 +4829,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function translateWith(\Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
+    public static function translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
 
     /**
      * Format as ->format() do (using date replacements patterns from https://php.net/manual/en/function.date.php)

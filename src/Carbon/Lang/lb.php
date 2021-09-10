@@ -16,6 +16,9 @@
  * - dan-nl
  * - Simon Lelorrain (slelorrain)
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count Joer',
     'y' => ':countJ',
@@ -57,7 +60,7 @@ return [
         'nextDay' => '[Muer um] LT',
         'nextWeek' => 'dddd [um] LT',
         'lastDay' => '[Gëschter um] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => function (CarbonInterface $date) {
             // Different date string for 'Dënschdeg' (Tuesday) and 'Donneschdeg' (Thursday) due to phonological rule
             switch ($date->dayOfWeek) {
                 case 2:

@@ -24,6 +24,9 @@
  * - Avtandil Kikabidze (akalongman)
  * - Levan Velijanashvili (Stichoza)
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count წელი',
     'y' => ':count წელი',
@@ -149,7 +152,7 @@ return [
     'calendar' => [
         'sameDay' => '[დღეს], LT[-ზე]',
         'nextDay' => '[ხვალ], LT[-ზე]',
-        'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+        'nextWeek' => function (CarbonInterface $current, CarbonInterface $other) {
             return ($current->isSameWeek($other) ? '' : '[შემდეგ] ').'dddd, LT[-ზე]';
         },
         'lastDay' => '[გუშინ], LT[-ზე]',
