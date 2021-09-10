@@ -140,31 +140,19 @@ return [
             return $processHoursFunction($date, '[Вчора ');
         },
         'lastWeek' => static function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
-            switch ($date->dayOfWeek) {
-                case 0:
-                case 3:
-                case 5:
-                case 6:
-                    return $processHoursFunction($date, '[Минулої] dddd [');
-                default:
-                    return $processHoursFunction($date, '[Минулого] dddd [');
-            }
+            return match ($date->dayOfWeek) {
+                0, 3, 5, 6 => $processHoursFunction($date, '[Минулої] dddd ['),
+                default => $processHoursFunction($date, '[Минулого] dddd ['),
+            };
         },
         'sameElse' => 'L',
     ],
     'ordinal' => static function ($number, $period) {
-        switch ($period) {
-            case 'M':
-            case 'd':
-            case 'DDD':
-            case 'w':
-            case 'W':
-                return $number.'-й';
-            case 'D':
-                return $number.'-го';
-            default:
-                return $number;
-        }
+        return match ($period) {
+            'M', 'd', 'DDD', 'w', 'W' => $number.'-й',
+            'D' => $number.'-го',
+            default => $number,
+        };
     },
     'meridiem' => static function ($hour) {
         if ($hour < 4) {

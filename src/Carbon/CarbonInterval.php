@@ -1122,49 +1122,23 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return $this->total(substr($name, 5));
         }
 
-        switch (Carbon::singularUnit(rtrim($name, 'z'))) {
-            case 'year':
-                return $this->y;
-
-            case 'month':
-                return $this->m;
-
-            case 'day':
-                return $this->d;
-
-            case 'hour':
-                return $this->h;
-
-            case 'minute':
-                return $this->i;
-
-            case 'second':
-                return $this->s;
-
-            case 'milli':
-            case 'millisecond':
-                return (int) (round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
-
-            case 'micro':
-            case 'microsecond':
-                return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND);
-
-            case 'microexcludemilli':
-                return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND) % Carbon::MICROSECONDS_PER_MILLISECOND;
-
-            case 'week':
-                return (int) ($this->d / static::getDaysPerWeek());
-
-            case 'daysexcludeweek':
-            case 'dayzexcludeweek':
-                return $this->d % static::getDaysPerWeek();
-
-            case 'locale':
-                return $this->getTranslatorLocale();
-
-            default:
-                throw new UnknownGetterException($name);
-        }
+        return match (Carbon::singularUnit(rtrim($name, 'z'))) {
+            'year' => $this->y,
+            'month' => $this->m,
+            'day' => $this->d,
+            'hour' => $this->h,
+            'minute' => $this->i,
+            'second' => $this->s,
+            'milli', 'millisecond' => (int) (round($this->f * Carbon::MICROSECONDS_PER_SECOND) /
+                Carbon::MICROSECONDS_PER_MILLISECOND),
+            'micro', 'microsecond' => (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND),
+            'microexcludemilli' => (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND) %
+                Carbon::MICROSECONDS_PER_MILLISECOND,
+            'week' => (int) ($this->d / static::getDaysPerWeek()),
+            'daysexcludeweek', 'dayzexcludeweek' => $this->d % static::getDaysPerWeek(),
+            'locale' => $this->getTranslatorLocale(),
+            default => throw new UnknownGetterException($name),
+        };
     }
 
     /**

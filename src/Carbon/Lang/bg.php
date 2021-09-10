@@ -64,14 +64,10 @@ return [
         'nextWeek' => 'dddd [в] LT',
         'lastDay' => '[Вчера в] LT',
         'lastWeek' => static function (\Carbon\CarbonInterface $current) {
-            switch ($current->dayOfWeek) {
-                case 0:
-                case 3:
-                case 6:
-                    return '[В изминалата] dddd [в] LT';
-                default:
-                    return '[В изминалия] dddd [в] LT';
-            }
+            return match ($current->dayOfWeek) {
+                0, 3, 6 => '[В изминалата] dddd [в] LT',
+                default => '[В изминалия] dddd [в] LT',
+            };
         },
         'sameElse' => 'L',
     ],

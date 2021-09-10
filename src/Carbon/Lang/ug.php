@@ -47,17 +47,11 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => static function ($number, $period) {
-        switch ($period) {
-            case 'd':
-            case 'D':
-            case 'DDD':
-                return $number.'-كۈنى';
-            case 'w':
-            case 'W':
-                return $number.'-ھەپتە';
-            default:
-                return $number;
-        }
+        return match ($period) {
+            'd', 'D', 'DDD' => $number.'-كۈنى',
+            'w', 'W' => $number.'-ھەپتە',
+            default => $number,
+        };
     },
     'meridiem' => static function ($hour, $minute) {
         $time = $hour * 100 + $minute;

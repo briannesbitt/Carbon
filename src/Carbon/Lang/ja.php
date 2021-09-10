@@ -74,14 +74,10 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => static function ($number, $period) {
-        switch ($period) {
-            case 'd':
-            case 'D':
-            case 'DDD':
-                return $number.'日';
-            default:
-                return $number;
-        }
+        return match ($period) {
+            'd', 'D', 'DDD' => $number.'日',
+            default => $number,
+        };
     },
     'meridiem' => ['午前', '午後'],
     'months' => ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
