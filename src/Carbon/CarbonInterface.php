@@ -5013,8 +5013,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
-     * @param Closure|null $callback
+     * @param Closure|static|string|false|null $testNow  real or mock Carbon instance
+     * @param Closure|null                     $callback
      *
      * @return mixed
      */
