@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\UnitException;
 use DateTimeZone;
 use Exception;
 use Generator;
@@ -650,6 +651,19 @@ class SettersTest extends AbstractTestCase
         ));
 
         Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
+    }
+
+    public function testAddUnitError()
+    {
+        $this->expectExceptionObject(new UnitException(implode("\n", [
+            'Unable to add unit array (',
+            "  0 => 'foobar',",
+            '  1 => 1,',
+            ')',
+        ])));
+
+        $date = Carbon::parse('2021-09-13');
+        @$date->addUnit('foobar', 1);
     }
 
     public function testAddUnitNoOverflow()
