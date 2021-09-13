@@ -82,13 +82,10 @@ return [
         'nextWeek' => 'dddd [às] LT',
         'lastDay' => '[Ontem às] LT',
         'lastWeek' => static function (\Carbon\CarbonInterface $date) {
-            switch ($date->dayOfWeek) {
-                case 0:
-                case 6:
-                    return '[Último] dddd [às] LT';
-                default:
-                    return '[Última] dddd [às] LT';
-            }
+            return match ($date->dayOfWeek) {
+                0, 6 => '[Último] dddd [às] LT',
+                default => '[Última] dddd [às] LT',
+            };
         },
         'sameElse' => 'L',
     ],

@@ -65,35 +65,24 @@ return [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
         'nextWeek' => static function (\Carbon\CarbonInterface $date) {
-            switch ($date->dayOfWeek) {
-                case 0:
-                    return '[u nedelju u] LT';
-                case 3:
-                    return '[u sredu u] LT';
-                case 6:
-                    return '[u subotu u] LT';
-                default:
-                    return '[u] dddd [u] LT';
-            }
+            return match ($date->dayOfWeek) {
+                0 => '[u nedelju u] LT',
+                3 => '[u sredu u] LT',
+                6 => '[u subotu u] LT',
+                default => '[u] dddd [u] LT',
+            };
         },
         'lastDay' => '[juče u] LT',
         'lastWeek' => static function (\Carbon\CarbonInterface $date) {
-            switch ($date->dayOfWeek) {
-                case 0:
-                    return '[prošle nedelje u] LT';
-                case 1:
-                    return '[prošlog ponedeljka u] LT';
-                case 2:
-                    return '[prošlog utorka u] LT';
-                case 3:
-                    return '[prošle srede u] LT';
-                case 4:
-                    return '[prošlog četvrtka u] LT';
-                case 5:
-                    return '[prošlog petka u] LT';
-                default:
-                    return '[prošle subote u] LT';
-            }
+            return match ($date->dayOfWeek) {
+                0 => '[prošle nedelje u] LT',
+                1 => '[prošlog ponedeljka u] LT',
+                2 => '[prošlog utorka u] LT',
+                3 => '[prošle srede u] LT',
+                4 => '[prošlog četvrtka u] LT',
+                5 => '[prošlog petka u] LT',
+                default => '[prošle subote u] LT',
+            };
         },
         'sameElse' => 'L',
     ],

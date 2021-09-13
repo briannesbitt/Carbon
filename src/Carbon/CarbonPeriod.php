@@ -733,27 +733,16 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     protected function getGetter(string $name)
     {
-        switch (strtolower(preg_replace('/[A-Z]/', '_$0', $name))) {
-            case 'start':
-            case 'start_date':
-                return [$this, 'getStartDate'];
-            case 'end':
-            case 'end_date':
-                return [$this, 'getEndDate'];
-            case 'interval':
-            case 'date_interval':
-                return [$this, 'getDateInterval'];
-            case 'recurrences':
-                return [$this, 'getRecurrences'];
-            case 'include_start_date':
-                return [$this, 'isStartIncluded'];
-            case 'include_end_date':
-                return [$this, 'isEndIncluded'];
-            case 'current':
-                return [$this, 'current'];
-            default:
-                return null;
-        }
+        return match (strtolower(preg_replace('/[A-Z]/', '_$0', $name))) {
+            'start', 'start_date' => [$this, 'getStartDate'],
+            'end', 'end_date' => [$this, 'getEndDate'],
+            'interval', 'date_interval' => [$this, 'getDateInterval'],
+            'recurrences' => [$this, 'getRecurrences'],
+            'include_start_date' => [$this, 'isStartIncluded'],
+            'include_end_date' => [$this, 'isEndIncluded'],
+            'current' => [$this, 'current'],
+            default => null,
+        };
     }
 
     /**

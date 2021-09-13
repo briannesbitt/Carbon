@@ -66,12 +66,10 @@ return [
         'nextWeek' => 'dddd [{}] LT',
         'lastDay' => '[Χθες {}] LT',
         'lastWeek' => static function (\Carbon\CarbonInterface $current) {
-            switch ($current->dayOfWeek) {
-                case 6:
-                    return '[το προηγούμενο] dddd [{}] LT';
-                default:
-                    return '[την προηγούμενη] dddd [{}] LT';
-            }
+            return match ($current->dayOfWeek) {
+                6 => '[το προηγούμενο] dddd [{}] LT',
+                default => '[την προηγούμενη] dddd [{}] LT',
+            };
         },
         'sameElse' => 'L',
     ],

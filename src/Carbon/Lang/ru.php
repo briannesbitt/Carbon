@@ -135,19 +135,12 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => static function ($number, $period) {
-        switch ($period) {
-            case 'M':
-            case 'd':
-            case 'DDD':
-                return $number.'-й';
-            case 'D':
-                return $number.'-го';
-            case 'w':
-            case 'W':
-                return $number.'-я';
-            default:
-                return $number;
-        }
+        return match ($period) {
+            'M', 'd', 'DDD' => $number.'-й',
+            'D' => $number.'-го',
+            'w', 'W' => $number.'-я',
+            default => $number,
+        };
     },
     'meridiem' => static function ($hour) {
         if ($hour < 4) {
