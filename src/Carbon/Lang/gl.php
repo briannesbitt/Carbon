@@ -17,6 +17,9 @@
  * - Diego Vilariño
  * - Sebastian Thierer
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count ano|:count anos',
     'a_year' => 'un ano|:count anos',
@@ -65,19 +68,19 @@ return [
         'LLLL' => 'dddd, D [de] MMMM [de] YYYY H:mm',
     ],
     'calendar' => [
-        'sameDay' => static function (\Carbon\CarbonInterface $current) {
+        'sameDay' => static function (CarbonInterface $current) {
             return '[hoxe '.($current->hour !== 1 ? 'ás' : 'á').'] LT';
         },
-        'nextDay' => static function (\Carbon\CarbonInterface $current) {
+        'nextDay' => static function (CarbonInterface $current) {
             return '[mañá '.($current->hour !== 1 ? 'ás' : 'á').'] LT';
         },
-        'nextWeek' => static function (\Carbon\CarbonInterface $current) {
+        'nextWeek' => static function (CarbonInterface $current) {
             return 'dddd ['.($current->hour !== 1 ? 'ás' : 'á').'] LT';
         },
-        'lastDay' => static function (\Carbon\CarbonInterface $current) {
+        'lastDay' => static function (CarbonInterface $current) {
             return '[onte '.($current->hour !== 1 ? 'á' : 'a').'] LT';
         },
-        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => static function (CarbonInterface $current) {
             return '[o] dddd [pasado '.($current->hour !== 1 ? 'ás' : 'á').'] LT';
         },
         'sameElse' => 'L',

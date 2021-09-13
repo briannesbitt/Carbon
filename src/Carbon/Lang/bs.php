@@ -18,6 +18,9 @@
  * - Serhan Apaydın
  * - JD Isaacks
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
@@ -55,21 +58,17 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
-        'nextWeek' => static function (\Carbon\CarbonInterface $current) {
-            return match ($current->dayOfWeek) {
-                0 => '[u] [nedjelju] [u] LT',
-                3 => '[u] [srijedu] [u] LT',
-                6 => '[u] [subotu] [u] LT',
-                default => '[u] dddd [u] LT',
-            };
+        'nextWeek' => static function (CarbonInterface $current) => match ($current->dayOfWeek) {
+            0 => '[u] [nedjelju] [u] LT',
+            3 => '[u] [srijedu] [u] LT',
+            6 => '[u] [subotu] [u] LT',
+            default => '[u] dddd [u] LT',
         },
         'lastDay' => '[jučer u] LT',
-        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
-            return match ($current->dayOfWeek) {
-                0, 3 => '[prošlu] dddd [u] LT',
-                6 => '[prošle] [subote] [u] LT',
-                default => '[prošli] dddd [u] LT',
-            };
+        'lastWeek' => static function (CarbonInterface $current) => match ($current->dayOfWeek) {
+            0, 3 => '[prošlu] dddd [u] LT',
+            6 => '[prošle] [subote] [u] LT',
+            default => '[prošli] dddd [u] LT',
         },
         'sameElse' => 'L',
     ],

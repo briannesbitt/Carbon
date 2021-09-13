@@ -27,6 +27,9 @@
  * - Daniel Commesse Liévanos (danielcommesse)
  * - Pete Scopes (pdscopes)
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count año|:count años',
     'a_year' => 'un año|:count años',
@@ -77,19 +80,19 @@ return [
         'LLLL' => 'dddd, D [de] MMMM [de] YYYY H:mm',
     ],
     'calendar' => [
-        'sameDay' => static function (\Carbon\CarbonInterface $current) {
+        'sameDay' => static function (CarbonInterface $current) {
             return '[hoy a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'nextDay' => static function (\Carbon\CarbonInterface $current) {
+        'nextDay' => static function (CarbonInterface $current) {
             return '[mañana a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'nextWeek' => static function (\Carbon\CarbonInterface $current) {
+        'nextWeek' => static function (CarbonInterface $current) {
             return 'dddd [a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'lastDay' => static function (\Carbon\CarbonInterface $current) {
+        'lastDay' => static function (CarbonInterface $current) {
             return '[ayer a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => static function (CarbonInterface $current) {
             return '[el] dddd [pasado a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'sameElse' => 'L',

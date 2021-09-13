@@ -27,6 +27,9 @@
  * - Jan (aso824)
  * - diverpl
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count rok|:count lata|:count lat',
     'a_year' => 'rok|:count lata|:count lat',
@@ -73,23 +76,19 @@ return [
     'calendar' => [
         'sameDay' => '[Dziś o] LT',
         'nextDay' => '[Jutro o] LT',
-        'nextWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0 => '[W niedzielę o] LT',
-                2 => '[We wtorek o] LT',
-                3 => '[W środę o] LT',
-                6 => '[W sobotę o] LT',
-                default => '[W] dddd [o] LT',
-            };
+        'nextWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[W niedzielę o] LT',
+            2 => '[We wtorek o] LT',
+            3 => '[W środę o] LT',
+            6 => '[W sobotę o] LT',
+            default => '[W] dddd [o] LT',
         },
         'lastDay' => '[Wczoraj o] LT',
-        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0 => '[W zeszłą niedzielę o] LT',
-                3 => '[W zeszłą środę o] LT',
-                6 => '[W zeszłą sobotę o] LT',
-                default => '[W zeszły] dddd [o] LT',
-            };
+        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[W zeszłą niedzielę o] LT',
+            3 => '[W zeszłą środę o] LT',
+            6 => '[W zeszłą sobotę o] LT',
+            default => '[W zeszły] dddd [o] LT',
         },
         'sameElse' => 'L',
     ],

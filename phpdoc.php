@@ -1,5 +1,9 @@
 <?php
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+
 $tags = [
     'property',
     'property-read',
@@ -72,7 +76,7 @@ function dumpValue($value)
         return 'null';
     }
 
-    if ($value === \Carbon\CarbonInterface::TRANSLATE_ALL) {
+    if ($value === CarbonInterface::TRANSLATE_ALL) {
         return 'CarbonInterface::TRANSLATE_ALL';
     }
 
@@ -203,7 +207,7 @@ foreach ($tags as $tag) {
                     $unitName = unitName($unit);
                     $method = 'isSame'.ucFirst($unit);
 
-                    if (!method_exists(\Carbon\Carbon::class, $method)) {
+                    if (!method_exists(Carbon::class, $method)) {
                         $autoDocLines[] = [
                             '@method',
                             'bool',
@@ -529,7 +533,7 @@ foreach ([$trait, $carbon, $immutable, $interface] as $file) {
 $staticMethods = [];
 $staticImmutableMethods = [];
 $methods = '';
-$carbonMethods = get_class_methods(\Carbon\Carbon::class);
+$carbonMethods = get_class_methods(Carbon::class);
 sort($carbonMethods);
 
 function getMethodReturnType(ReflectionMethod $method)
@@ -544,14 +548,14 @@ function getMethodReturnType(ReflectionMethod $method)
 }
 
 foreach ($carbonMethods as $method) {
-    if (!method_exists(\Carbon\CarbonImmutable::class, $method) ||
+    if (!method_exists(CarbonImmutable::class, $method) ||
         method_exists(DateTimeInterface::class, $method) ||
         \in_array($method, ['diff', 'createFromInterface'], true)
     ) {
         continue;
     }
 
-    $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
+    $function = new ReflectionMethod(Carbon::class, $method);
     $static = $function->isStatic() ? ' static' : '';
     $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
         return dumpParameter($method, $parameter);

@@ -223,11 +223,11 @@ trait Localization
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                $key        key to find
-     * @param array                 $parameters replacement parameters
-     * @param string|int|float|null $number     number if plural
-     * @param TranslatorInterface   $translator an optional translator to use
-     * @param bool                  $altNumbers pass true to use alternative numbers
+     * @param string                   $key        key to find
+     * @param array                    $parameters replacement parameters
+     * @param string|int|float|null    $number     number if plural
+     * @param TranslatorInterface|null $translator an optional translator to use
+     * @param bool                     $altNumbers pass true to use alternative numbers
      *
      * @return string
      */

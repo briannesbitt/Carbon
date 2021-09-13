@@ -19,6 +19,9 @@
  * - JD Isaacks
  * - Tomi Atanasoski
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count година|:count години',
     'a_year' => 'година|:count години',
@@ -65,11 +68,9 @@ return [
         'nextDay' => '[Утре во] LT',
         'nextWeek' => '[Во] dddd [во] LT',
         'lastDay' => '[Вчера во] LT',
-        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0, 3, 6 => '[Изминатата] dddd [во] LT',
-                default => '[Изминатиот] dddd [во] LT',
-            };
+        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0, 3, 6 => '[Изминатата] dddd [во] LT',
+            default => '[Изминатиот] dddd [во] LT',
         },
         'sameElse' => 'L',
     ],
