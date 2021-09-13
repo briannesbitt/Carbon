@@ -9,8 +9,12 @@
  * file that was distributed with this source code.
  */
 // @codeCoverageIgnoreStart
+
+use Carbon\CarbonInterface;
+use Symfony\Component\Translation\PluralizationRules;
+
 if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
-    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    PluralizationRules::set(function ($number) {
         return (($number % 10 == 1) && ($number % 100 != 11)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
     }, 'be');
 }
@@ -113,29 +117,27 @@ return [
         'nextDay' => '[Заўтра ў] LT',
         'nextWeek' => '[У] dddd [ў] LT',
         'lastDay' => '[Учора ў] LT',
-        'lastWeek' => static function (\Carbon\CarbonInterface $current) {
-            return match ($current->dayOfWeek) {
-                1, 2, 4 => '[У мінулы] dddd [ў] LT',
-                default => '[У мінулую] dddd [ў] LT',
-            };
+        'lastWeek' => static fn (CarbonInterface $current) => match ($current->dayOfWeek) {
+            1, 2, 4 => '[У мінулы] dddd [ў] LT',
+            default => '[У мінулую] dddd [ў] LT',
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => static function ($number, $period) {
-        return match ($period) {
-            'M', 'd', 'DDD', 'w', 'W' => ($number % 10 === 2 || $number % 10 === 3) &&
-                    ($number % 100 !== 12 && $number % 100 !== 13) ? $number.'-і' : $number.'-ы',
-            'D' => $number.'-га',
-            default => $number,
-        };
+    'ordinal' => static fn ($number, $period) => match ($period) {
+        'M', 'd', 'DDD', 'w', 'W' => ($number % 10 === 2 || $number % 10 === 3) &&
+                ($number % 100 !== 12 && $number % 100 !== 13) ? $number.'-і' : $number.'-ы',
+        'D' => $number.'-га',
+        default => $number,
     },
     'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'ночы';
         }
+
         if ($hour < 12) {
             return 'раніцы';
         }
+
         if ($hour < 17) {
             return 'дня';
         }

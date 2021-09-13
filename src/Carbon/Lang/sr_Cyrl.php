@@ -20,6 +20,9 @@
  * - Nikola Zeravcic
  * - Milos Sakovic
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count године|[0,Inf[:count година',
     'y' => ':count г.',
@@ -63,25 +66,21 @@ return [
     'calendar' => [
         'sameDay' => '[данас у] LT',
         'nextDay' => '[сутра у] LT',
-        'nextWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0 => '[у недељу у] LT',
-                3 => '[у среду у] LT',
-                6 => '[у суботу у] LT',
-                default => '[у] dddd [у] LT',
-            };
+        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[у недељу у] LT',
+            3 => '[у среду у] LT',
+            6 => '[у суботу у] LT',
+            default => '[у] dddd [у] LT',
         },
         'lastDay' => '[јуче у] LT',
-        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0 => '[прошле недеље у] LT',
-                1 => '[прошлог понедељка у] LT',
-                2 => '[прошлог уторка у] LT',
-                3 => '[прошле среде у] LT',
-                4 => '[прошлог четвртка у] LT',
-                5 => '[прошлог петка у] LT',
-                default => '[прошле суботе у] LT',
-            };
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[прошле недеље у] LT',
+            1 => '[прошлог понедељка у] LT',
+            2 => '[прошлог уторка у] LT',
+            3 => '[прошле среде у] LT',
+            4 => '[прошлог четвртка у] LT',
+            5 => '[прошлог петка у] LT',
+            default => '[прошле суботе у] LT',
         },
         'sameElse' => 'L',
     ],

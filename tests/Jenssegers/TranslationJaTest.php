@@ -7,10 +7,7 @@ class TranslationJaTest extends TestCaseBase
 {
     public const LOCALE = 'ja';
 
-    /**
-     * @test
-     */
-    public function it_can_translate_month()
+    public function testItCanTranslateMonth()
     {
         $jan = JenssegersDate::createFromFormat('m-d', '01-01');
         $feb = JenssegersDate::createFromFormat('m-d', '02-01');
@@ -39,10 +36,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('12月', $dec->format('F'));
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_weekdays()
+    public function testItCanTranslateWeekdays()
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -61,10 +55,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('日曜日', $sun->format('l'));
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_weekdays_short_form()
+    public function testItCanTranslateWeekdaysShortForm()
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -83,10 +74,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('日', $sun->format('D'));
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_seconds_ago()
+    public function testItCanTranslateSecondsAgo()
     {
         $oneSecondAgo = JenssegersDate::parse('-1 second');
         $fiveSecondsAgo = JenssegersDate::parse('-5 seconds');
@@ -95,10 +83,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('5秒前', $fiveSecondsAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_minutes_ago()
+    public function testItCanTranslateMinutesAgo()
     {
         $oneMinuteAgo = JenssegersDate::parse('-1 minute');
         $fiveMinutesAgo = JenssegersDate::parse('-5 minutes');
@@ -107,10 +92,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('5分前', $fiveMinutesAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_hours_ago()
+    public function testItCanTranslateHoursAgo()
     {
         $oneHourAgo = JenssegersDate::parse('-1 hour');
         $fiveHoursAgo = JenssegersDate::parse('-5 hours');
@@ -119,10 +101,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('5時間前', $fiveHoursAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_days_ago()
+    public function testItCanTranslateDaysAgo()
     {
         $oneDayAgo = JenssegersDate::parse('-1 day');
         $threeDaysAgo = JenssegersDate::parse('-3 days');
@@ -131,10 +110,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('3日前', $threeDaysAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_weeks_ago()
+    public function testItCanTranslateWeeksAgo()
     {
         $oneWeekAgo = JenssegersDate::parse('-1 week');
         $threeWeeksAgo = JenssegersDate::parse('-3 weeks');
@@ -143,10 +119,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('3週間前', $threeWeeksAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_months_ago()
+    public function testItCanTranslateMonthsAgo()
     {
         JenssegersDate::setTestNow('2019-03-27');
 
@@ -157,10 +130,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('2ヶ月前', $twoMonthsAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_years_ago()
+    public function testItCanTranslateYearsAgo()
     {
         $oneYearAgo = JenssegersDate::parse('-1 year');
         $towYearsAgo = JenssegersDate::parse('-2 years');
@@ -169,10 +139,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('2年前', $towYearsAgo->ago());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_seconds_from_now()
+    public function testItCanTranslateSecondsFromNow()
     {
         $oneSecondFromNow = JenssegersDate::parse('1 second');
         $fiveSecondsFromNow = JenssegersDate::parse('5 seconds');
@@ -181,10 +148,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('5秒後', $fiveSecondsFromNow->diffForHumans());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_minutes_from_now()
+    public function testItCanTranslateMinutesFromNow()
     {
         $oneMinuteFromNow = JenssegersDate::parse('1 minute');
         $fiveMinutesFromNow = JenssegersDate::parse('5 minutes');
@@ -193,10 +157,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('5分後', $fiveMinutesFromNow->diffForHumans());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_hours_from_now()
+    public function testItCanTranslateHoursFromNow()
     {
         $oneHourFromNow = JenssegersDate::parse('1 hour');
         $fiveHoursFromNow = JenssegersDate::parse('5 hours');
@@ -205,10 +166,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('5時間後', $fiveHoursFromNow->diffForHumans());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_days_from_now()
+    public function testItCanTranslateDaysFromNow()
     {
         $oneDayFromNow = JenssegersDate::parse('1 day');
         $threeDaysFromNow = JenssegersDate::parse('3 days');
@@ -217,10 +175,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('3日後', $threeDaysFromNow->diffForHumans());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_weeks_from_now()
+    public function testItCanTranslateWeeksFromNow()
     {
         $oneWeekFromNow = JenssegersDate::parse('1 week');
         $threeWeeksFromNow = JenssegersDate::parse('3 weeks');
@@ -229,10 +184,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('3週間後', $threeWeeksFromNow->diffForHumans());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_months_from_now()
+    public function testItCanTranslateMonthsFromNow()
     {
         $oneMonthFromNow = JenssegersDate::parse('1 month');
         $twoMonthsFromNow = JenssegersDate::parse('2 months');
@@ -241,10 +193,7 @@ class TranslationJaTest extends TestCaseBase
         $this->assertSame('2ヶ月後', $twoMonthsFromNow->diffForHumans());
     }
 
-    /**
-     * @test
-     */
-    public function it_can_translate_years_from_now()
+    public function testItCanTranslateYearsFromNow()
     {
         $oneYearFromNow = JenssegersDate::parse('1 year');
         $towYearsFromNow = JenssegersDate::parse('2 years');

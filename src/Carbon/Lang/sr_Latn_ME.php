@@ -14,6 +14,9 @@
  * - Glavić
  * - Milos Sakovic
  */
+
+use Carbon\CarbonInterface;
+
 return array_replace_recursive(require __DIR__.'/sr.php', [
     'month' => ':count mjesec|:count mjeseca|:count mjeseci',
     'week' => ':count nedjelja|:count nedjelje|:count nedjelja',
@@ -27,24 +30,20 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
     'diff_tomorrow' => 'sjutra',
     'calendar' => [
         'nextDay' => '[sjutra u] LT',
-        'nextWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0 => '[u nedjelju u] LT',
-                3 => '[u srijedu u] LT',
-                6 => '[u subotu u] LT',
-                default => '[u] dddd [u] LT',
-            };
+        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[u nedjelju u] LT',
+            3 => '[u srijedu u] LT',
+            6 => '[u subotu u] LT',
+            default => '[u] dddd [u] LT',
         },
-        'lastWeek' => static function (\Carbon\CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                0 => '[prošle nedjelje u] LT',
-                1 => '[prošle nedjelje u] LT',
-                2 => '[prošlog utorka u] LT',
-                3 => '[prošle srijede u] LT',
-                4 => '[prošlog četvrtka u] LT',
-                5 => '[prošlog petka u] LT',
-                default => '[prošle subote u] LT',
-            };
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[prošle nedjelje u] LT',
+            1 => '[prošle nedjelje u] LT',
+            2 => '[prošlog utorka u] LT',
+            3 => '[prošle srijede u] LT',
+            4 => '[prošlog četvrtka u] LT',
+            5 => '[prošlog petka u] LT',
+            default => '[prošle subote u] LT',
         },
     ],
     'weekdays' => ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota'],

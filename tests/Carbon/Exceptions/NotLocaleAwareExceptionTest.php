@@ -32,8 +32,8 @@ class NotLocaleAwareExceptionTest extends AbstractTestCase
     /**
      * @dataProvider dataProviderTestNotAPeriodException
      *
-     * @param  mixed  $object
-     * @param  string  $message
+     * @param mixed  $object
+     * @param string $message
      *
      * @return void
      */

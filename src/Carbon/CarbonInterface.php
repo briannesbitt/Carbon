@@ -1456,9 +1456,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInSeconds($date = null, bool $absolute = false): float;
 
     /**
-     * @param string                                                 $unit microsecond, millisecond, second, minute,
-     *                                                                     hour, day, week, months, quarter, years,
-     *                                                                     century, millennium
+     * @param string                                                 $unit     microsecond, millisecond, second, minute,
+     *                                                                         hour, day, week, months, quarter, years,
+     *                                                                         century, millennium
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
      *
@@ -4821,8 +4821,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
-     * @param Closure|null $callback
+     * @param Closure|static|string|false|null $testNow  real or mock Carbon instance
+     * @param Closure|null                     $callback
      *
      * @return mixed
      */
