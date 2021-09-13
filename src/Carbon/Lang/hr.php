@@ -27,6 +27,9 @@
  * - Stjepan Majdak
  * - Vanja Retkovac (vr00)
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count godinu|:count godine|:count godina',
     'y' => ':count god.|:count god.|:count god.',
@@ -67,7 +70,7 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $date) {
+        'nextWeek' => function (CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -80,7 +83,7 @@ return [
             }
         },
         'lastDay' => '[jučer u] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => function (CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                 case 3:

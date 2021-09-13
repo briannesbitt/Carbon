@@ -14,6 +14,9 @@
  * - Glavić
  * - Milos Sakovic
  */
+
+use Carbon\CarbonInterface;
+
 return array_replace_recursive(require __DIR__.'/sr.php', [
     'month' => ':count mjesec|:count mjeseca|:count mjeseci',
     'week' => ':count nedjelja|:count nedjelje|:count nedjelja',
@@ -27,7 +30,7 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
     'diff_tomorrow' => 'sjutra',
     'calendar' => [
         'nextDay' => '[sjutra u] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $date) {
+        'nextWeek' => function (CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[u nedjelju u] LT';
@@ -39,7 +42,7 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
                     return '[u] dddd [u] LT';
             }
         },
-        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+        'lastWeek' => function (CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
                     return '[prošle nedjelje u] LT';

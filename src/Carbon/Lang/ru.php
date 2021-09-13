@@ -35,6 +35,9 @@
  * - Vladislav UnsealedOne
  * - dima-bzz
  */
+
+use Carbon\CarbonInterface;
+
 $transformDiff = function ($input) {
     return strtr($input, [
         'неделя' => 'неделю',
@@ -97,7 +100,7 @@ return [
     'calendar' => [
         'sameDay' => '[Сегодня, в] LT',
         'nextDay' => '[Завтра, в] LT',
-        'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+        'nextWeek' => function (CarbonInterface $current, CarbonInterface $other) {
             if ($current->week !== $other->week) {
                 switch ($current->dayOfWeek) {
                     case 0:
@@ -120,7 +123,7 @@ return [
             return '[В] dddd, [в] LT';
         },
         'lastDay' => '[Вчера, в] LT',
-        'lastWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+        'lastWeek' => function (CarbonInterface $current, CarbonInterface $other) {
             if ($current->week !== $other->week) {
                 switch ($current->dayOfWeek) {
                     case 0:
