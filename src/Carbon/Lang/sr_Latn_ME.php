@@ -30,13 +30,13 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
     'diff_tomorrow' => 'sjutra',
     'calendar' => [
         'nextDay' => '[sjutra u] LT',
-        'nextWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0 => '[u nedjelju u] LT',
             3 => '[u srijedu u] LT',
             6 => '[u subotu u] LT',
             default => '[u] dddd [u] LT',
         },
-        'lastWeek' => static function (\Carbon\CarbonInterface $date) => match ($date->dayOfWeek) {
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0 => '[prošle nedjelje u] LT',
             1 => '[prošle nedjelje u] LT',
             2 => '[prošlog utorka u] LT',

@@ -11,7 +11,7 @@
 
 use Carbon\CarbonInterface;
 
-$processHoursFunction = function (CarbonInterface $date, string $format) {
+$processHoursFunction = static function (CarbonInterface $date, string $format) {
     return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
 };
 
@@ -130,30 +130,30 @@ return [
         'LLLL' => 'dddd, D MMMM YYYY, HH:mm',
     ],
     'calendar' => [
-        'sameDay' => static function (CarbonInterface $date) => $processHoursFunction($date, '[Сьогодні '),
-        'nextDay' => static function (CarbonInterface $date) => $processHoursFunction($date, '[Завтра '),
-        'nextWeek' => static function (CarbonInterface $date) => $processHoursFunction($date, '[У] dddd ['),
-        'lastDay' => static function (CarbonInterface $date) => $processHoursFunction($date, '[Вчора '),
-        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'sameDay' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[Сьогодні '),
+        'nextDay' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[Завтра '),
+        'nextWeek' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[У] dddd ['),
+        'lastDay' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[Вчора '),
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0, 3, 5, 6 => $processHoursFunction($date, '[Минулої] dddd ['),
             default => $processHoursFunction($date, '[Минулого] dddd ['),
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => static function ($number, $period) {
-        return match ($period) {
-            'M', 'd', 'DDD', 'w', 'W' => $number.'-й',
-            'D' => $number.'-го',
-            default => $number,
-        };
+    'ordinal' => static fn ($number, $period) => match ($period) {
+        'M', 'd', 'DDD', 'w', 'W' => $number.'-й',
+        'D' => $number.'-го',
+        default => $number,
     },
     'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'ночі';
         }
+
         if ($hour < 12) {
             return 'ранку';
         }
+
         if ($hour < 17) {
             return 'дня';
         }

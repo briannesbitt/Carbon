@@ -76,7 +76,7 @@ return [
     'calendar' => [
         'sameDay' => '[Dziś o] LT',
         'nextDay' => '[Jutro o] LT',
-        'nextWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0 => '[W niedzielę o] LT',
             2 => '[We wtorek o] LT',
             3 => '[W środę o] LT',
@@ -84,7 +84,7 @@ return [
             default => '[W] dddd [o] LT',
         },
         'lastDay' => '[Wczoraj o] LT',
-        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0 => '[W zeszłą niedzielę o] LT',
             3 => '[W zeszłą środę o] LT',
             6 => '[W zeszłą sobotę o] LT',

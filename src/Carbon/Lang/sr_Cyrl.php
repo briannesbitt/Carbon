@@ -66,14 +66,14 @@ return [
     'calendar' => [
         'sameDay' => '[данас у] LT',
         'nextDay' => '[сутра у] LT',
-        'nextWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0 => '[у недељу у] LT',
             3 => '[у среду у] LT',
             6 => '[у суботу у] LT',
             default => '[у] dddd [у] LT',
         },
         'lastDay' => '[јуче у] LT',
-        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0 => '[прошле недеље у] LT',
             1 => '[прошлог понедељка у] LT',
             2 => '[прошлог уторка у] LT',

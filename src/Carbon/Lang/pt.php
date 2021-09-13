@@ -84,7 +84,7 @@ return [
         'nextDay' => '[Amanhã às] LT',
         'nextWeek' => 'dddd [às] LT',
         'lastDay' => '[Ontem às] LT',
-        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0, 6 => '[Último] dddd [às] LT',
             default => '[Última] dddd [às] LT',
         },

@@ -68,7 +68,7 @@ return [
         'nextDay' => '[Утре во] LT',
         'nextWeek' => '[Во] dddd [во] LT',
         'lastDay' => '[Вчера во] LT',
-        'lastWeek' => static function (CarbonInterface $date) => match ($date->dayOfWeek) {
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
             0, 3, 6 => '[Изминатата] dddd [во] LT',
             default => '[Изминатиот] dddd [во] LT',
         },
