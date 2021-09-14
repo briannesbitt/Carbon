@@ -429,6 +429,8 @@ trait Modifiers
      * Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.
      *
      * @see https://php.net/manual/en/datetime.modify.php
+     *
+     * @return static|false
      */
     #[ReturnTypeWillChange]
     public function modify($modify)

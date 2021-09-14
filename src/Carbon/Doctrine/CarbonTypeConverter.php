@@ -26,6 +26,9 @@ trait CarbonTypeConverter
         return Carbon::class;
     }
 
+    /**
+     * @return string
+     */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
         $precision = ($fieldDeclaration['precision'] ?: 10) === 10

@@ -148,6 +148,8 @@ final class Macro implements BuiltinMethodReflection
 
     /**
      * {@inheritdoc}
+     *
+     * @return string|false
      */
     public function getFileName()
     {
@@ -180,6 +182,8 @@ final class Macro implements BuiltinMethodReflection
 
     /**
      * {@inheritdoc}
+     *
+     * @return int|false
      */
     public function getStartLine()
     {
@@ -188,6 +192,8 @@ final class Macro implements BuiltinMethodReflection
 
     /**
      * {@inheritdoc}
+     *
+     * @return int|false
      */
     public function getEndLine()
     {
