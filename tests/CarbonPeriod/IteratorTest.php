@@ -536,7 +536,6 @@ class IteratorTest extends AbstractTestCase
 
     public function testTimezone()
     {
-        /** @var CarbonPeriod $period */
         $period = CarbonPeriodFactory::withStackFilter()->shiftTimezone('America/Toronto');
         $str = null;
 

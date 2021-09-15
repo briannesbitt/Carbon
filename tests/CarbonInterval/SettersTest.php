@@ -219,7 +219,6 @@ class SettersTest extends AbstractTestCase
 
     public function testTimezone()
     {
-        /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->shiftTimezone('America/Toronto');
 
         $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);

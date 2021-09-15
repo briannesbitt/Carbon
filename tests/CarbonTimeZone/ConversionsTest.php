@@ -120,7 +120,6 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
 
     public function testCast()
     {
-        /** @var DateTimeZone $tz */
         $tz = (new CarbonTimeZone('America/Toronto'))->cast(DateTimeZone::class);
 
         $this->assertSame(DateTimeZone::class, \get_class($tz));
@@ -130,7 +129,6 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         };
         $class = \get_class($obj);
 
-        /** @var DateTimeZone $tz */
         $tz = (new CarbonTimeZone('America/Toronto'))->cast($class);
 
         $this->assertSame($class, \get_class($tz));
