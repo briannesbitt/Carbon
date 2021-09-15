@@ -3,6 +3,15 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
+$header = <<<'EOF'
+This file is part of the Carbon package.
+
+(c) Brian Nesbitt <brian@nesbot.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+EOF;
+
 $rules = [
     '@PSR2' => true,
     '@PHP71Migration' => true,
@@ -17,6 +26,12 @@ $rules = [
     ],
     'ereg_to_preg' => true,
     'general_phpdoc_tag_rename' => true,
+    'header_comment' => [
+        'comment_type' => 'PHPDoc',
+        'header' => $header,
+        'location' => 'after_declare_strict',
+        'separate' => 'both',
+    ],
     'is_null' => true,
     'line_ending' => true,
     'modernize_types_casting' => true,
