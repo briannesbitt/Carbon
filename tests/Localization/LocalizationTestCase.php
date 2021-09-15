@@ -343,10 +343,8 @@ abstract class LocalizationTestCase extends AbstractTestCase
     public function testLanguage()
     {
         $this->wrapWithNonDstDate(function () {
-            /** @var Carbon $date */
             $date = Carbon::parse('2018-05-15 20:49:13.881726');
             Carbon::setTestNow($this->now = $date);
-            /** @var CarbonImmutable $date */
             $date = CarbonImmutable::parse('2018-05-15 20:49:13.881726');
             CarbonImmutable::setTestNow($this->immutableNow = $date);
 

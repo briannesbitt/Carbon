@@ -297,7 +297,6 @@ class SettersTest extends AbstractTestCase
         /** @var mixed $date */
         $date = new Carbon('2020-01-01', 'America/Vancouver');
 
-        /** @var mixed $new */
         $new = clone $date;
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());

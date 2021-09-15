@@ -26,7 +26,6 @@ class AddMonthsTest extends AbstractTestCase
     {
         parent::setUp();
 
-        /** @var Carbon $date */
         $date = Carbon::create(2016, 1, 31);
 
         $this->carbon = $date;

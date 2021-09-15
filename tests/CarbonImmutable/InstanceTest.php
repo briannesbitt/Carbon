@@ -73,7 +73,6 @@ class InstanceTest extends AbstractTestCase
 
     public function testInstanceStateSetBySetStateMethod()
     {
-        /** @var Carbon $carbon */
         $carbon = Carbon::__set_state([
             'date' => '2017-05-18 13:02:15.273420',
             'timezone_type' => 3,
@@ -85,7 +84,6 @@ class InstanceTest extends AbstractTestCase
 
     public function testInstanceStateSetBySetStateString()
     {
-        /** @var Carbon $carbon */
         $carbon = Carbon::__set_state('2017-05-18 13:02:15.273420');
         $this->assertInstanceOf(Carbon::class, $carbon);
         $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
