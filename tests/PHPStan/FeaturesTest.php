@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\PHPStan;
 
 use Tests\AbstractTestCase;
@@ -34,7 +43,7 @@ class FeaturesTest extends AbstractTestCase
     public function testAnalysesWithAnError(): void
     {
         $this->assertStringContainsString(
-            '17     Static call to instance method Carbon\Carbon::foo().',
+            '26     Static call to instance method Carbon\Carbon::foo().',
             $this->analyze(__DIR__.'/BadFixture.php'),
         );
     }

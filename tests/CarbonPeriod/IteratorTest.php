@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
@@ -536,7 +538,6 @@ class IteratorTest extends AbstractTestCase
 
     public function testTimezone()
     {
-        /** @var CarbonPeriod $period */
         $period = CarbonPeriodFactory::withStackFilter()->shiftTimezone('America/Toronto');
         $str = null;
 

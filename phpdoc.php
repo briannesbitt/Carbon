@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
@@ -562,7 +571,7 @@ foreach ($carbonMethods as $method) {
     }, $function->getParameters()));
     $methodDocBlock = $function->getDocComment() ?: '';
 
-    if (str_starts_with($method, '__') && $function->isStatic()) {
+    if (!str_starts_with($method, '__') && $function->isStatic()) {
         $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
         $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
         $doc = explode("\n@", $doc, 2);

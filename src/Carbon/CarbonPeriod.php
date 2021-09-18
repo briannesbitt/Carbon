@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon;
 
 use Carbon\Exceptions\InvalidCastException;
@@ -1642,14 +1643,14 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
                 return $this->setStartDate($first, $second);
 
             case 'sinceNow':
-                return $this->setStartDate(new Carbon, $first);
+                return $this->setStartDate(new Carbon(), $first);
 
             case 'end':
             case 'until':
                 return $this->setEndDate($first, $second);
 
             case 'untilNow':
-                return $this->setEndDate(new Carbon, $first);
+                return $this->setEndDate(new Carbon(), $first);
 
             case 'dates':
             case 'between':

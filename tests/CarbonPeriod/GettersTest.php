@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
@@ -58,7 +60,7 @@ class GettersTest extends AbstractTestCase
 
     public function testGetRecurrences()
     {
-        $recurrences = CarbonPeriod::create(new DateTime, 5)->getRecurrences();
+        $recurrences = CarbonPeriod::create(new DateTime(), 5)->getRecurrences();
 
         $this->assertSame(5, $recurrences);
     }
@@ -101,13 +103,13 @@ class GettersTest extends AbstractTestCase
 
     public function testGetOptions()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $this->assertSame(0, $period->getOptions());
         $this->assertTrue($period->include_start_date);
         $this->assertTrue($period->include_end_date);
 
-        $period = new CarbonPeriod(new DateTime, new DateTime, $options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
+        $period = new CarbonPeriod(new DateTime(), new DateTime(), $options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
 
         $this->assertSame($options, $period->getOptions());
         $this->assertFalse($period->include_start_date);

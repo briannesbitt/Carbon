@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon;
 
 use BadMethodCallException;
@@ -1988,6 +1989,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * {@inheritdoc}
+     *
+     * @return array
      */
     #[ReturnTypeWillChange]
     public static function getLastErrors();
@@ -2098,6 +2101,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return string
      */
     public static function getTimeFormatByPrecision($unitPrecision);
+
+    /**
+     * Returns the timestamp with millisecond precision.
+     *
+     * @return int
+     */
+    public function getTimestampMs();
 
     /**
      * Get the translation of the current week day name (with context for languages with multiple forms).
@@ -3160,6 +3170,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.
      *
      * @see https://php.net/manual/en/datetime.modify.php
+     *
+     * @return static|false
      */
     #[ReturnTypeWillChange]
     public function modify($modify);
