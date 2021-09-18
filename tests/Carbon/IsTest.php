@@ -973,11 +973,6 @@ class IsTest extends AbstractTestCase
     public function testHasFormatWithSingleLetter($letter)
     {
         $output = Carbon::now()->format($letter);
-
-        if ($output === '1000' && $letter === 'v' && version_compare(PHP_VERSION, '7.2.12', '<')) {
-            $output = '000';
-        }
-
         $this->assertTrue(Carbon::hasFormat($output, $letter), "'$letter' format should match '$output'");
     }
 
