@@ -47,10 +47,10 @@ trait Difference
     {
         $other = $this->resolveCarbon($date);
 
-        // Can be removed if https://github.com/derickr/timelib/pull/110
-        // is merged
-        // https://bugs.php.net/bug.php?id=80998 was announced fixed in PHP 8.1.0beta3
-        // but created a reverse-regression when using UTC, so we still need this hack
+        // Work-around for https://bugs.php.net/bug.php?id=81458
+        // It was initially introduced for https://bugs.php.net/bug.php?id=80998
+        // The very specific case of 80998 was fixed in PHP 8.1beta3, but it introduced 81458
+        // So we still need to keep this for now
         // @codeCoverageIgnoreStart
         if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
             $other = $other->avoidMutation()->tz($this->tz);
