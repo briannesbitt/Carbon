@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon;
 
 use Closure;
@@ -72,7 +73,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @method array               getFormatsToIsoReplacements()                                                                                                  List of replacements from date() format to isoFormat().
  * @method int                 getHumanDiffOptions()                                                                                                          Return default humanDiff() options (merged flags as integer).
  * @method array               getIsoUnits()                                                                                                                  Returns list of locale units for ISO formatting.
- * @method Carbon              getLastErrors()                                                                                                                {@inheritdoc}
+ * @method array               getLastErrors()                                                                                                                {@inheritdoc}
  * @method string              getLocale()                                                                                                                    Get the current translator locale.
  * @method callable|null       getMacro($name)                                                                                                                Get the raw callable macro registered globally for a given name.
  * @method int                 getMidDayAt()                                                                                                                  get midday/noon hour

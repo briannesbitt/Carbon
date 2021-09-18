@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -120,17 +121,15 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
 
     public function testCast()
     {
-        /** @var DateTimeZone $tz */
         $tz = (new CarbonTimeZone('America/Toronto'))->cast(DateTimeZone::class);
 
         $this->assertSame(DateTimeZone::class, \get_class($tz));
         $this->assertSame('America/Toronto', $tz->getName());
 
-        $obj = new class extends CarbonTimeZone {
+        $obj = new class() extends CarbonTimeZone {
         };
         $class = \get_class($obj);
 
-        /** @var DateTimeZone $tz */
         $tz = (new CarbonTimeZone('America/Toronto'))->cast($class);
 
         $this->assertSame($class, \get_class($tz));

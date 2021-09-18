@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Carbon\PHPStan;
 
 use Closure;
@@ -72,9 +81,8 @@ final class Macro implements BuiltinMethodReflection
 
         if ($this->reflectionFunction->isClosure()) {
             try {
-                /** @var Closure $closure */
                 $closure = $this->reflectionFunction->getClosure();
-                $boundClosure = Closure::bind($closure, new stdClass);
+                $boundClosure = Closure::bind($closure, new stdClass());
                 $this->static = (!$boundClosure || (new ReflectionFunction($boundClosure))->getClosureThis() === null);
             } catch (Throwable $e) {
                 $this->static = true;
@@ -148,6 +156,8 @@ final class Macro implements BuiltinMethodReflection
 
     /**
      * {@inheritdoc}
+     *
+     * @return string|false
      */
     public function getFileName()
     {
@@ -180,6 +190,8 @@ final class Macro implements BuiltinMethodReflection
 
     /**
      * {@inheritdoc}
+     *
+     * @return int|false
      */
     public function getStartLine()
     {
@@ -188,6 +200,8 @@ final class Macro implements BuiltinMethodReflection
 
     /**
      * {@inheritdoc}
+     *
+     * @return int|false
      */
     public function getEndLine()
     {

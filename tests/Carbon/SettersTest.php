@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
@@ -297,7 +299,6 @@ class SettersTest extends AbstractTestCase
         /** @var mixed $date */
         $date = new Carbon('2020-01-01', 'America/Vancouver');
 
-        /** @var mixed $new */
         $new = clone $date;
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());

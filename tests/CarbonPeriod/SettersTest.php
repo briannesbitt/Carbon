@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
@@ -25,7 +27,7 @@ class SettersTest extends AbstractTestCase
 {
     public function testSetStartDate()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setStartDate('2018-03-25');
 
@@ -34,7 +36,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetEndDate()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setEndDate('2018-04-25');
 
@@ -43,7 +45,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetDateInterval()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setDateInterval('P3D');
 
@@ -52,7 +54,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetDateIntervalFromStringFormat()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setDateInterval('1w 3d 4h 32m 23s');
 
@@ -61,7 +63,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetRecurrences()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setRecurrences(5);
 
@@ -70,7 +72,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetDates()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setDates('2019-04-12', '2019-04-19');
 
@@ -80,7 +82,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetOptions()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setOptions($options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
 
@@ -130,7 +132,7 @@ class SettersTest extends AbstractTestCase
             'Invalid interval.',
         ));
 
-        CarbonPeriod::create()->setDateInterval(new DateTime);
+        CarbonPeriod::create()->setDateInterval(new DateTime());
     }
 
     public function testEmptyInterval()
@@ -201,7 +203,7 @@ class SettersTest extends AbstractTestCase
         $start = CarbonPeriod::EXCLUDE_START_DATE;
         $end = CarbonPeriod::EXCLUDE_END_DATE;
 
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->toggleOptions($start, true);
         $this->assertSame($start, $period->getOptions());
@@ -221,7 +223,7 @@ class SettersTest extends AbstractTestCase
         $start = CarbonPeriod::EXCLUDE_START_DATE;
         $end = CarbonPeriod::EXCLUDE_END_DATE;
 
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->toggleOptions($start);
         $this->assertSame($start, $period->getOptions());
@@ -245,7 +247,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetStartDateInclusiveOrExclusive()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setStartDate('2018-03-25');
         $this->assertFalse($period->isStartExcluded());
@@ -259,7 +261,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetEndDateInclusiveOrExclusive()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setEndDate('2018-04-25');
         $this->assertFalse($period->isEndExcluded());
@@ -273,7 +275,7 @@ class SettersTest extends AbstractTestCase
 
     public function testInvertDateInterval()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->invertDateInterval();
         $this->assertSame(1, $period->getDateInterval()->invert);
@@ -297,7 +299,7 @@ class SettersTest extends AbstractTestCase
 
     public function testExcludeStartDate()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->excludeStartDate();
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
@@ -311,7 +313,7 @@ class SettersTest extends AbstractTestCase
 
     public function testExcludeEndDate()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->excludeEndDate();
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
@@ -325,7 +327,7 @@ class SettersTest extends AbstractTestCase
 
     public function testSetRelativeDates()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
         $period->setDates('first monday of may 2018', 'last day of may 2018 noon');
 
