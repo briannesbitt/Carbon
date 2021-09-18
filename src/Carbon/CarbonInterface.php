@@ -2261,6 +2261,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function getTimeFormatByPrecision($unitPrecision);
 
     /**
+     * Returns the timestamp with millisecond precision.
+     *
+     * @return int
+     */
+    public function getTimestampMs();
+
+    /**
      * Get the translation of the current week day name (with context for languages with multiple forms).
      *
      * @param string|null $context      whole format string

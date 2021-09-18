@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 $tags = [
     'property',
@@ -90,6 +91,10 @@ function cleanClassName($name)
 {
     if (preg_match('/^[A-Z]/', $name)) {
         $name = "\\$name";
+    }
+
+    if (ltrim($name, '\\') === TranslatorInterface::class) {
+        return 'TranslatorInterface';
     }
 
     return preg_replace('/^\\\\(Date(?:Time(?:Immutable|Interface|Zone)?|Interval)|[A-Za-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
