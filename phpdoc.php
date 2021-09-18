@@ -550,7 +550,7 @@ foreach ($carbonMethods as $method) {
     }, $function->getParameters()));
     $methodDocBlock = $function->getDocComment() ?: '';
 
-    if (str_starts_with($method, '__') && $function->isStatic()) {
+    if (!str_starts_with($method, '__') && $function->isStatic()) {
         $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
         $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
         $doc = explode("\n@", $doc, 2);
