@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 return array_replace_recursive(require __DIR__.'/en.php', [
     'meridiem' => ['Muhi', 'Chilo'],
     'weekdays' => ['Liduva lyapili', 'Liduva lyatatu', 'Liduva lyanchechi', 'Liduva lyannyano', 'Liduva lyannyano na linji', 'Liduva lyannyano na mavili', 'Liduva litandi'],
