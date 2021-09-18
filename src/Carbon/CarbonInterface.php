@@ -2107,7 +2107,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function getTimestampMs();
+    public function getTimestampMs(): int;
 
     /**
      * Get the translation of the current week day name (with context for languages with multiple forms).
@@ -4592,11 +4592,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                $key        key to find
-     * @param array                 $parameters replacement parameters
-     * @param string|int|float|null $number     number if plural
-     * @param TranslatorInterface   $translator an optional translator to use
-     * @param bool                  $altNumbers pass true to use alternative numbers
+     * @param string                   $key        key to find
+     * @param array                    $parameters replacement parameters
+     * @param string|int|float|null    $number     number if plural
+     * @param TranslatorInterface|null $translator an optional translator to use
+     * @param bool                     $altNumbers pass true to use alternative numbers
      *
      * @return string
      */
