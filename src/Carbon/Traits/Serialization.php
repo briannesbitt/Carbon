@@ -135,6 +135,8 @@ trait Serialization
 
     /**
      * Set locale if specified on unserialize() called.
+     *
+     * @return void
      */
     #[ReturnTypeWillChange]
     public function __wakeup()

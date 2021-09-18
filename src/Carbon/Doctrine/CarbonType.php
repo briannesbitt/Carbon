@@ -12,6 +12,8 @@ class CarbonType extends DateTimeType implements CarbonDoctrineType
 {
     /**
      * {@inheritdoc}
+     *
+     * @return string
      */
     public function getName()
     {
@@ -20,6 +22,8 @@ class CarbonType extends DateTimeType implements CarbonDoctrineType
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {

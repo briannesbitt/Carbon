@@ -931,6 +931,8 @@ trait Creator
 
     /**
      * {@inheritdoc}
+     *
+     * @return array
      */
     #[ReturnTypeWillChange]
     public static function getLastErrors()

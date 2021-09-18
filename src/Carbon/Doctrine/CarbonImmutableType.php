@@ -12,6 +12,8 @@ class CarbonImmutableType extends DateTimeImmutableType implements CarbonDoctrin
 {
     /**
      * {@inheritdoc}
+     *
+     * @return string
      */
     public function getName()
     {
@@ -20,6 +22,8 @@ class CarbonImmutableType extends DateTimeImmutableType implements CarbonDoctrin
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
