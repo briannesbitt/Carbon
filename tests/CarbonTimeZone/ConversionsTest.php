@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -125,7 +126,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame(DateTimeZone::class, \get_class($tz));
         $this->assertSame('America/Toronto', $tz->getName());
 
-        $obj = new class extends CarbonTimeZone {
+        $obj = new class() extends CarbonTimeZone {
         };
         $class = \get_class($obj);
 

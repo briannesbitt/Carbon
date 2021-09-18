@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon\Exceptions;
 
 use Carbon\Exceptions\BadComparisonUnitException;
@@ -15,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class BadComparisonUnitExceptionTest extends AbstractTestCase
 {
-    public function testComparisonUnitException():void
+    public function testComparisonUnitException(): void
     {
         $exception = new BadComparisonUnitException('foo');
 

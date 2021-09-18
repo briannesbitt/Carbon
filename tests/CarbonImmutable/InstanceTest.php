@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonImmutable;
 
 use Carbon\Carbon as CarbonMutable;
@@ -139,7 +141,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testChildCast()
     {
-        $class = \get_class(new class extends Carbon {
+        $class = \get_class(new class() extends Carbon {
             public function foo()
             {
                 return 42;
@@ -157,7 +159,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testSiblingCast()
     {
-        $class = \get_class(new class extends DateTime {
+        $class = \get_class(new class() extends DateTime {
             public function foo()
             {
                 return 42;

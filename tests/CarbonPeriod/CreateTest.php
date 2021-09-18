@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use BadMethodCallException;
@@ -337,9 +339,9 @@ class CreateTest extends AbstractTestCase
 
     public function provideInvalidParameters(): Generator
     {
-        yield [new stdClass, CarbonInterval::days(1), Carbon::tomorrow()];
-        yield [Carbon::now(), new stdClass, Carbon::tomorrow()];
-        yield [Carbon::now(), CarbonInterval::days(1), new stdClass];
+        yield [new stdClass(), CarbonInterval::days(1), Carbon::tomorrow()];
+        yield [Carbon::now(), new stdClass(), Carbon::tomorrow()];
+        yield [Carbon::now(), CarbonInterval::days(1), new stdClass()];
         yield [Carbon::yesterday(), Carbon::now(), Carbon::tomorrow()];
         yield [CarbonInterval::day(), CarbonInterval::hour()];
         yield [5, CarbonPeriod::EXCLUDE_START_DATE, CarbonPeriod::EXCLUDE_END_DATE];
@@ -450,9 +452,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateEmpty()
     {
-        $period = new CarbonPeriod;
+        $period = new CarbonPeriod();
 
-        $this->assertEquals(new Carbon, $period->getStartDate());
+        $this->assertEquals(new Carbon(), $period->getStartDate());
         $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
