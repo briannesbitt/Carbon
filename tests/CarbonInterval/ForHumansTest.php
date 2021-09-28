@@ -16,7 +16,7 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
-use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Tests\AbstractTestCase;
 use Tests\CarbonInterval\Fixtures\MyCarbonInterval;

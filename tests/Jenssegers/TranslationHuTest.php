@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Tests\Jenssegers;
 
 use Carbon\Translator;
-use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\ArrayLoader;
 
 class TranslationHuTest extends TestCaseBase
 {

@@ -21,7 +21,7 @@ use Carbon\Translator;
 use Generator;
 use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
-use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\TranslatorInterface;

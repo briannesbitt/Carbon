@@ -78,7 +78,7 @@ class Translator extends Translation\Translator
     {
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
-        $this->addLoader('array', new Translation\Loader\ArrayLoader());
+        $this->addLoader('array', new Translation\ArrayLoader());
         parent::__construct($locale, $formatter, $cacheDir, $debug);
         $this->initializing = false;
     }
