@@ -13,53 +13,92 @@ declare(strict_types=1);
 
 namespace Tests\CarbonImmutable;
 
-use Carbon\CarbonImmutable as Carbon;
+use Generator;
 use Tests\AbstractTestCase;
 
 class IssetTest extends AbstractTestCase
 {
-    public function testIssetReturnFalseForUnknownProperty()
+    public function testIssetReturnFalseForUnknownProperty(): void
     {
-        $this->assertFalse(isset(Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));
+        $this->assertFalse(isset($this->immutableNow->sdfsdfss));
     }
 
-    public function providerTestIssetReturnTrueForProperties()
+    public function providerTestIssetReturnTrueForProperties(): Generator
     {
-        return [
-            ['age'],
-            ['day'],
-            ['dayOfWeek'],
-            ['dayOfYear'],
-            ['daysInMonth'],
-            ['dst'],
-            ['hour'],
-            ['local'],
-            ['micro'],
-            ['minute'],
-            ['month'],
-            ['offset'],
-            ['offsetHours'],
-            ['quarter'],
-            ['second'],
-            ['timestamp'],
-            ['timezone'],
-            ['timezoneName'],
-            ['tz'],
-            ['tzName'],
-            ['utc'],
-            ['weekOfMonth'],
-            ['weekOfYear'],
-            ['year'],
-        ];
+        yield ['age'];
+        yield ['century'];
+        yield ['day'];
+        yield ['dayName'];
+        yield ['dayOfWeek'];
+        yield ['dayOfWeekIso'];
+        yield ['dayOfYear'];
+        yield ['daysInMonth'];
+        yield ['daysInYear'];
+        yield ['decade'];
+        yield ['dst'];
+        yield ['englishDayOfWeek'];
+        yield ['englishMonth'];
+        yield ['firstWeekDay'];
+        yield ['hour'];
+        yield ['isoWeek'];
+        yield ['isoWeekYear'];
+        yield ['isoWeeksInYear'];
+        yield ['lastWeekDay'];
+        yield ['latinMeridiem'];
+        yield ['latinUpperMeridiem'];
+        yield ['local'];
+        yield ['locale'];
+        yield ['localeDayOfWeek'];
+        yield ['localeMonth'];
+        yield ['meridiem'];
+        yield ['micro'];
+        yield ['microsecond'];
+        yield ['millennium'];
+        yield ['milli'];
+        yield ['millisecond'];
+        yield ['milliseconds'];
+        yield ['minDayName'];
+        yield ['minute'];
+        yield ['month'];
+        yield ['monthName'];
+        yield ['noZeroHour'];
+        yield ['offset'];
+        yield ['offsetHours'];
+        yield ['offsetMinutes'];
+        yield ['quarter'];
+        yield ['second'];
+        yield ['shortDayName'];
+        yield ['shortEnglishDayOfWeek'];
+        yield ['shortEnglishMonth'];
+        yield ['shortLocaleDayOfWeek'];
+        yield ['shortLocaleMonth'];
+        yield ['shortMonthName'];
+        yield ['timestamp'];
+        yield ['timezone'];
+        yield ['timezoneAbbreviatedName'];
+        yield ['timezoneName'];
+        yield ['tz'];
+        yield ['tzAbbrName'];
+        yield ['tzName'];
+        yield ['upperMeridiem'];
+        yield ['utc'];
+        yield ['week'];
+        yield ['weekNumberInMonth'];
+        yield ['weekOfMonth'];
+        yield ['weekOfYear'];
+        yield ['weekYear'];
+        yield ['weeksInYear'];
+        yield ['year'];
+        yield ['yearIso'];
     }
 
     /**
-     * @dataProvider \Tests\Carbon\IssetTest::providerTestIssetReturnTrueForProperties
+     * @dataProvider \Tests\CarbonImmutable\IssetTest::providerTestIssetReturnTrueForProperties
      *
      * @param string $property
      */
-    public function testIssetReturnTrueForProperties($property)
+    public function testIssetReturnTrueForProperties(string $property): void
     {
-        $this->assertTrue(isset(Carbon::now()->$property));
+        $this->assertTrue(isset($this->immutableNow->{$property}));
     }
 }
