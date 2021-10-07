@@ -1452,7 +1452,7 @@ Carbonite::freeze('2019-12-22'); // Freeze the time to a given date)}}
 {{::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{eval}}
 // Millisecond-precise timestamp as int
 {{::exec(var_dump($dt->getTimestampMs());/*pad(60)*/)}} // {{eval}}
-// Millisecond-precise timestamp (useful to pass it to JavaScript)
+// Millisecond-precise timestamp as float (useful to pass it to JavaScript)
 {{::exec(var_dump($dt->valueOf());/*pad(60)*/)}} // {{eval}}
 // Custom-precision timestamp
 {{::exec(var_dump($dt->getPreciseTimestamp(6));/*pad(60)*/)}} // {{eval}}
