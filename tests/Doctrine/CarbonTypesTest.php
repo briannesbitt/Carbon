@@ -21,11 +21,11 @@ use Carbon\Doctrine\DateTimeDefaultPrecision;
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
 use DateTimeImmutable;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use Exception;
 use Generator;
 use Tests\AbstractTestCase;
 
@@ -55,7 +55,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @dataProvider getTypes
      *
-     * @throws DBALException
+     * @throws Exception
      */
     public function testGetSQLDeclaration(string $name)
     {
@@ -97,7 +97,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @dataProvider getTypes
      *
-     * @throws DBALException
+     * @throws Exception
      */
     public function testConvertToPHPValue(string $name, string $class)
     {
@@ -126,7 +126,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @dataProvider getTypes
      *
-     * @throws ConversionException|DBALException
+     * @throws Exception
      */
     public function testConvertToPHPValueFailure(string $name, string $class)
     {
@@ -145,7 +145,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @dataProvider getTypes
      *
-     * @throws DBALException
+     * @throws Exception
      */
     public function testConvertToDatabaseValue(string $name)
     {
@@ -165,12 +165,13 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @dataProvider getTypes
      *
-     * @throws ConversionException|DBALException
+     * @throws Exception
      */
     public function testConvertToDatabaseValueFailure(string $name)
     {
+        $quote = class_exists('Doctrine\\DBAL\\Version') ? "'" : '';
         $this->expectExceptionObject(new ConversionException(
-            "Could not convert PHP value of type 'array' to type '$name'. ".
+            "Could not convert PHP value of type {$quote}array{$quote} to type {$quote}$name{$quote}. ".
             'Expected one of the following types: null, DateTime, Carbon',
         ));
 
@@ -187,7 +188,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @dataProvider getTypes
      *
-     * @throws DBALException
+     * @throws Exception
      */
     public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
     {
