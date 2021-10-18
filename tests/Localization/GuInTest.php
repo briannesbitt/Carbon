@@ -168,7 +168,7 @@ class GuInTest extends LocalizationTestCase
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1મહિનો પેહલા',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 મહિનો પેહલા',
+        '2 મહિના પેહલા',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2મહિના પેહલા',
         // Carbon::now()->subYears(1)->diffForHumans()
