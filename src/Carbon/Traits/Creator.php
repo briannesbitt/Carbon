@@ -253,6 +253,25 @@ trait Creator
     }
 
     /**
+     * Create a random date.
+     *
+     * @param CarbonInterface|null     $after
+     * @param CarbonInterface|null     $before
+     * @param DateTimeZone|string|null $tz
+     *
+     * @return static
+     */
+    public static function random($after = null, $before = null, $tz = null)
+    {
+        $afterTs = $after instanceof CarbonInterface ? $after->getTimestamp() : self::minValue()->getTimestamp();
+        $beforeTs = $before instanceof CarbonInterface ? $before->getTimestamp() : self::maxValue()->getTimestamp();
+
+        $timestamp = $afterTs < $beforeTs ? random_int($afterTs, $beforeTs) : random_int($beforeTs, $afterTs);
+
+        return static::createFromTimestamp($timestamp, $tz);
+    }
+
+    /**
      * Create a Carbon instance for today.
      *
      * @param DateTimeZone|string|null $tz

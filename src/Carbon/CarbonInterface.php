@@ -3540,6 +3540,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function previousWeekendDay();
 
     /**
+     * Create a random date.
+     *
+     * @param \Carbon\CarbonInterface|null $after
+     * @param \Carbon\CarbonInterface|null $before
+     * @param \DateTimeZone|string|null    $tz
+     *
+     * @return static
+     */
+    public static function random($after = null, $before = null, $tz = null);
+
+    /**
      * Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).
      *
      * @param \DateTimeInterface|Carbon|CarbonImmutable|null $end      period end date
