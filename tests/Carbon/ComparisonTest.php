@@ -263,7 +263,7 @@ class ComparisonTest extends AbstractTestCase
 
         // Birthday test can't work on February 29th
         if ($dt->format('m-d') === '02-29') {
-            Carbon::setTestNow($dt->subDay());
+            Carbon::setTestNowAndTimezone($dt->subDay());
             $dt = Carbon::now();
         }
 

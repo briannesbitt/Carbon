@@ -11,8 +11,10 @@
 
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
 use Closure;
 use DateTimeImmutable;
+use DateTimeInterface;
 
 trait Test
 {
@@ -53,6 +55,21 @@ trait Test
         }
 
         static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
+    }
+
+    public static function setTestNowAndTimezone($testNow = null, $tz = null)
+    {
+        $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;
+
+        if ($useDateInstanceTimezone) {
+            date_default_timezone_set($testNow->getTimezone()->getName());
+        }
+
+        static::setTestNow($testNow);
+
+        if (!$useDateInstanceTimezone) {
+            date_default_timezone_set(static::getMockedTestNow(func_num_args() === 1 ? null : $tz)->timezone);
+        }
     }
 
     /**
@@ -139,7 +156,9 @@ trait Test
         }
         /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
 
-        return $testNow;
+        return $testNow instanceof CarbonInterface
+            ? $testNow->avoidMutation()->tz($tz)
+            : $testNow;
     }
 
     protected static function mockConstructorParameters(&$time, &$tz)
@@ -147,12 +166,14 @@ trait Test
         /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
         $testInstance = clone static::getMockedTestNow($tz);
 
-        $tz = static::handleMockTimezone($tz, $testInstance);
+        // static::handleMockTimezone($tz, $testInstance);
 
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);
         }
 
-        $time = $testInstance instanceof self ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT) : $testInstance->format(static::MOCK_DATETIME_FORMAT);
+        $time = $testInstance instanceof self
+            ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT)
+            : $testInstance->format(static::MOCK_DATETIME_FORMAT);
     }
 }

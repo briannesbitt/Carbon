@@ -84,6 +84,9 @@ trait Creator
         }
 
         try {
+            if (isset($GLOBALS['debug'])) {
+                var_dump($tz);
+            }
             parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz) ?: null);
         } catch (Exception $exception) {
             throw new InvalidFormatException($exception->getMessage(), 0, $exception);
