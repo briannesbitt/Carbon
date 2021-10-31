@@ -68,7 +68,7 @@ trait Test
         static::setTestNow($testNow);
 
         if (!$useDateInstanceTimezone) {
-            date_default_timezone_set(static::getMockedTestNow(func_num_args() === 1 ? null : $tz)->timezone);
+            date_default_timezone_set(static::getMockedTestNow(\func_num_args() === 1 ? null : $tz)->timezone);
         }
     }
 
