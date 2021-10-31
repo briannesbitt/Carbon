@@ -34,11 +34,6 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->equalTo(Carbon::create(2000, 1, 1, 9, 0, 0, 'America/Vancouver')));
     }
 
-    public function testEqualWithTimezoneFalse()
-    {
-        $this->assertFalse(Carbon::createFromDate(2000, 1, 1, 'America/Toronto')->equalTo(Carbon::createFromDate(2000, 1, 1, 'America/Vancouver')));
-    }
-
     public function testNotEqualToTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->notEqualTo(Carbon::createFromDate(2000, 1, 2)));
@@ -47,11 +42,6 @@ class ComparisonTest extends AbstractTestCase
     public function testNotEqualToFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->notEqualTo(Carbon::createFromDate(2000, 1, 1)));
-    }
-
-    public function testNotEqualWithTimezone()
-    {
-        $this->assertTrue(Carbon::createFromDate(2000, 1, 1, 'America/Toronto')->notEqualTo(Carbon::createFromDate(2000, 1, 1, 'America/Vancouver')));
     }
 
     public function testGreaterThanTrue()
