@@ -339,7 +339,7 @@ trait Creator
             return $now(static::now($tz));
         }
 
-        return $now;
+        return $now->avoidMutation()->tz($tz);
     }
 
     /**
@@ -375,9 +375,7 @@ trait Creator
         $defaults = null;
         $getDefault = function ($unit) use ($tz, &$defaults) {
             if ($defaults === null) {
-                $now = static::hasTestNow()
-                    ? static::getTestNow()->avoidMutation()->tz($tz)
-                    : self::createNowInstance($tz);
+                $now = self::createNowInstance($tz);
 
                 $defaults = array_combine([
                     'year',
