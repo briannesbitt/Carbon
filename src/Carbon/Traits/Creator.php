@@ -375,7 +375,9 @@ trait Creator
         $defaults = null;
         $getDefault = function ($unit) use ($tz, &$defaults) {
             if ($defaults === null) {
-                $now = self::createNowInstance($tz);
+                $now = static::hasTestNow()
+                    ? static::getTestNow()->avoidMutation()->tz($tz)
+                    : self::createNowInstance($tz);
 
                 $defaults = array_combine([
                     'year',
