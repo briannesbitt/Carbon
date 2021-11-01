@@ -140,7 +140,7 @@ trait Test
             : $testNow;
     }
 
-    protected static function mockConstructorParameters(&$time, &$tz)
+    protected static function mockConstructorParameters(&$time, $tz)
     {
         /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
         $testInstance = clone static::getMockedTestNow($tz);
