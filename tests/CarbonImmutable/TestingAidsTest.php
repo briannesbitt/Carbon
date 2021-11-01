@@ -210,7 +210,7 @@ class TestingAidsTest extends AbstractTestCase
 
     public function testCreateFromPartialFormat()
     {
-        Carbon::setTestNow($now = Carbon::parse('2013-09-01 05:10:15', 'America/Vancouver'));
+        Carbon::setTestNowAndTimezone(Carbon::parse('2013-09-01 05:10:15', 'America/Vancouver'));
 
         // Simple partial time.
         $this->assertSame('2018-05-06T05:10:15-07:00', Carbon::createFromFormat('Y-m-d', '2018-05-06')->toIso8601String());
@@ -253,7 +253,7 @@ class TestingAidsTest extends AbstractTestCase
 
     public function testCreateFromPartialFormatWithMicroseconds()
     {
-        Carbon::setTestNow($now = Carbon::parse('2013-09-01 05:10:15.123456', 'America/Vancouver'));
+        Carbon::setTestNowAndTimezone(Carbon::parse('2013-09-01 05:10:15.123456', 'America/Vancouver'));
 
         // Set microseconds to zero to match behavior of DateTime::createFromFormat()
         // See https://bugs.php.net/bug.php?id=74332

@@ -84,7 +84,7 @@ class FactoryTest extends AbstractTestCase
 
     public function testFactoryTimezone()
     {
-        Carbon::setTestNow(Carbon::parse('2020-09-04 03:39:04.123456', 'UTC'));
+        Carbon::setTestNowAndTimezone(Carbon::parse('2020-09-04 03:39:04.123456', 'UTC'));
 
         $factory = new Factory();
 
