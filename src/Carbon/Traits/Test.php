@@ -116,27 +116,6 @@ trait Test
     }
 
     /**
-     * Return the given timezone and set it to the test instance if not null.
-     * If null, get the timezone from the test instance and return it.
-     *
-     * @param string|\DateTimeZone    $tz
-     * @param \Carbon\CarbonInterface $testInstance
-     *
-     * @return string|\DateTimeZone
-     */
-    protected static function handleMockTimezone($tz, &$testInstance)
-    {
-        //shift the time according to the given time zone
-        if ($tz !== null && $tz !== static::getMockedTestNow($tz)->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz);
-
-            return $tz;
-        }
-
-        return $testInstance->getTimezone();
-    }
-
-    /**
      * Get the mocked date passed in setTestNow() and if it's a Closure, execute it.
      *
      * @param string|\DateTimeZone $tz
@@ -165,8 +144,6 @@ trait Test
     {
         /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
         $testInstance = clone static::getMockedTestNow($tz);
-
-        // static::handleMockTimezone($tz, $testInstance);
 
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);
