@@ -631,7 +631,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCast()
     {
-        $period = new class('2012-07-01', CarbonInterval::days(2), '2012-07-07') extends CarbonPeriod {
+        $period = new class ('2012-07-01', CarbonInterval::days(2), '2012-07-07') extends CarbonPeriod {
             public function foo()
             {
                 return $this->getStartDate()->format('j').' '.

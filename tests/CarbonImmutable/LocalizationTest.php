@@ -673,7 +673,7 @@ class LocalizationTest extends AbstractTestCase
             $this->markTestSkipped('In Symfony < 5, NotLocaleAwareException will never been thrown.');
         }
 
-        $translator = new class() implements TranslatorInterface {
+        $translator = new class () implements TranslatorInterface {
             public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
             {
                 return 'x';
