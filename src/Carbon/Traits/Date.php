@@ -1489,7 +1489,7 @@ trait Date
     {
         $tz = static::safeCreateDateTimeZone($value);
 
-        if ($tz === false && !self::isStrictModeEnabled()) {
+        if ($tz === null && !self::isStrictModeEnabled()) {
             $tz = new CarbonTimeZone();
         }
 
