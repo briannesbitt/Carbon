@@ -337,7 +337,7 @@ class SettersTest extends AbstractTestCase
 
     public function testFluentSetters()
     {
-        Carbon::setTestNow(Carbon::now('UTC'));
+        Carbon::setTestNowAndTimezone(Carbon::now('UTC'));
 
         $period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
         $dates = [];

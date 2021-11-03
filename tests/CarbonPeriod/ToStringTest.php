@@ -35,7 +35,7 @@ class ToStringTest extends AbstractTestCase
 
     public function provideToString(): Generator
     {
-        Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
+        Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         yield [
                 CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D'),
@@ -101,7 +101,7 @@ class ToStringTest extends AbstractTestCase
 
     public function provideToIso8601String(): Generator
     {
-        Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
+        Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         yield [
                 CarbonPeriod::create('R4/2012-07-01T00:00:00-04:00/P7D'),
