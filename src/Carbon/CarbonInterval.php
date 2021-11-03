@@ -432,6 +432,35 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     }
 
     /**
+     * Returns the factor for a given source-to-target couple if set,
+     * else try to find the appropriate constant as the factor, such as Carbon::DAYS_PER_WEEK.
+     *
+     * @param string $source
+     * @param string $target
+     *
+     * @return int|null
+     */
+    public function getFactorWithDefault($source, $target)
+    {
+        $factor = self::getFactor($source, $target);
+
+        if ($factor) {
+            return $factor;
+        }
+
+        static $defaults = [
+            'dayz' => ['weeks' => Carbon::DAYS_PER_WEEK],
+            'hours' => ['dayz' => Carbon::HOURS_PER_DAY],
+            'minutes' => ['hours' => Carbon::MINUTES_PER_HOUR],
+            'seconds' => ['minutes' => Carbon::SECONDS_PER_MINUTE],
+            'milliseconds' => ['seconds' => Carbon::MILLISECONDS_PER_SECOND],
+            'microseconds' => ['milliseconds' => Carbon::MICROSECONDS_PER_MILLISECOND],
+        ];
+
+        return $defaults[$source][$target] ?? null;
+    }
+
+    /**
      * Returns current config for days per week.
      *
      * @return int
@@ -1377,7 +1406,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $altNumbers = false;
         $aUnit = false;
         $minimumUnit = 's';
+        $skip = [];
         extract($this->getForHumansInitialVariables($syntax, $short));
+        $skip = array_filter((array) $skip, static function ($value) {
+            return \is_string($value) && $value !== '';
+        });
 
         if ($syntax === null) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
@@ -1440,7 +1473,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             ':optional-space' => $optionalSpace,
         ];
 
-        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit];
+        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit, $skip];
     }
 
     protected static function getRoundingMethodFromOptions(int $options): ?string
@@ -1570,7 +1603,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit] = $this->getForHumansParameters($syntax, $short, $parts, $options);
+        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit, $skip] = $this
+            ->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
 
@@ -1636,6 +1670,21 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             ['value' => $intervalValues->microExcludeMilli, 'unit' => 'microsecond', 'unitShort' => 'µs'],
         ];
 
+        if (!empty($skip)) {
+            foreach ($diffIntervalArray as $index => &$unitData) {
+                $nextIndex = $index + 1;
+
+                if ($unitData['value'] &&
+                    isset($diffIntervalArray[$nextIndex]) &&
+                    \count(array_intersect([$unitData['unit'], $unitData['unit'].'s', $unitData['unitShort']], $skip))
+                ) {
+                    $diffIntervalArray[$nextIndex]['value'] += $unitData['value'] *
+                        self::getFactorWithDefault($diffIntervalArray[$nextIndex]['unit'], $unitData['unit']);
+                    $unitData['value'] = 0;
+                }
+            }
+        }
+
         $transChoice = function ($short, $unitData) use ($absolute, $handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
             $count = $unitData['value'];
 
@@ -1661,6 +1710,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         };
 
         $fallbackUnit = ['second', 's'];
+
         foreach ($diffIntervalArray as $diffIntervalData) {
             if ($diffIntervalData['value'] > 0) {
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
