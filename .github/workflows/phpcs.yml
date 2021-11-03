@@ -13,6 +13,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check for code style violation with PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@3.0.0
+        uses: OskarStark/php-cs-fixer-ga@3.2.1
         with:
           args: --diff --dry-run
