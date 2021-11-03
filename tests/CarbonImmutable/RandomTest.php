@@ -20,7 +20,7 @@ class RandomTest extends AbstractTestCase
 {
     public function testRandomWithTimezone(): void
     {
-        $carbon = CarbonImmutable::random(CarbonImmutable::yesterday(), null, $tz= 'Europe/Berlin');
+        $carbon = CarbonImmutable::random(CarbonImmutable::yesterday(), null, $tz = 'Europe/Berlin');
 
         $this->assertSame($tz, $carbon->timezoneName);
     }
