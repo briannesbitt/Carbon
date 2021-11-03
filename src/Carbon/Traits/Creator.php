@@ -263,12 +263,14 @@ trait Creator
      */
     public static function random($after = null, $before = null, $tz = null)
     {
-        $afterTs = $after instanceof CarbonInterface ? $after->getTimestamp() : self::minValue()->getTimestamp();
-        $beforeTs = $before instanceof CarbonInterface ? $before->getTimestamp() : self::maxValue()->getTimestamp();
+        $boundaries = [
+            $after instanceof CarbonInterface ? $after->getTimestamp() : static::minValue()->getTimestamp(),
+            $before instanceof CarbonInterface ? $before->getTimestamp() : static::maxValue()->getTimestamp(),
+        ];
 
-        $timestamp = $afterTs < $beforeTs ? random_int($afterTs, $beforeTs) : random_int($beforeTs, $afterTs);
+        sort($boundaries);
 
-        return static::createFromTimestamp($timestamp, $tz);
+        return static::createFromTimestamp(random_int($boundaries[0], $boundaries[1]), $tz);
     }
 
     /**
