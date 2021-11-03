@@ -32,6 +32,13 @@ class RandomTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $carbon->timezoneName);
     }
 
+    public function testRandomMilliseconds(): void
+    {
+        $carbon = CarbonImmutable::random();
+
+        $this->assertGreaterThan(0, $carbon->milliseconds);
+    }
+
     public function testRandomGreaterThanAfter(): void
     {
         $carbon = CarbonImmutable::random($after = CarbonImmutable::yesterday());

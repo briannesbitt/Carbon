@@ -270,7 +270,7 @@ trait Creator
 
         sort($boundaries);
 
-        return static::createFromTimestamp(random_int($boundaries[0], $boundaries[1]), $tz);
+        return static::createFromTimestampMs(random_int($boundaries[0], $boundaries[1]), $tz);
     }
 
     /**
