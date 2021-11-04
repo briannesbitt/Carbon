@@ -147,6 +147,8 @@ function dumpParameter($method, ReflectionParameter $parameter)
     return $output;
 }
 
+$deprecated = [];
+
 foreach ($tags as $tag) {
     if (\is_array($tag)) {
         [$tag, $pattern] = $tag;
@@ -160,10 +162,35 @@ foreach ($tags as $tag) {
         continue;
     }
 
-    preg_match_all('/\/\/ @'.$tag.'\s+(?<type>'.$pattern.')(?:\s+\$(?<name>\S+)(?:[^\S\n](?<description>.*))?\n|(?:[^\S\n](?<description2>.*))?\n[^\']*\'(?<name2>[^\']+)\')/', $code, $matches, PREG_SET_ORDER);
+    preg_match_all('/\/\/ @'.$tag.'\s+(?<type>'.$pattern.')(?:\s+\$(?<name>\S+)(?:[^\S\n](?<description>.*))?\n|(?:[^\S\n](?<description2>.*))?\n(?<comments>(?:[ \t]+\/\/[^\n]*\n)*)[^\']*\'(?<name2>[^\']+)\')/', $code, $matches, PREG_SET_ORDER);
 
     foreach ($matches as $match) {
         $vars = (object) $match;
+        $deprecation = null;
+
+        if (isset($vars->comments) && preg_match(
+            '`^[ \t]+(//|/*|#)[ \t]*@deprecated(?:\s(?<deprecation>[\s\S]*))?$`',
+            $vars->comments,
+            $comments
+        )) {
+            ['deprecation' => $deprecation] = $comments;
+            $deprecation = preg_replace('/^\s*(\/\/|#|\*) {0,3}/m', '', trim($deprecation));
+
+            if (preg_match('/^(?:[a-z]+:[^\n]+\n)+$/', "$deprecation\n")) {
+                $data = [];
+
+                foreach (explode("\n", $deprecation) as $line) {
+                    [$name, $value] = array_map('trim', explode(':', $line, 2));
+
+                    $data[$name] = $value;
+                }
+
+                $deprecation = $data;
+            } else {
+                $deprecation = ['reason' => $deprecation];
+            }
+        }
+
         $vars->name = $vars->name ?: $vars->name2;
         $vars->description = $vars->description ?: $vars->description2;
 
@@ -459,11 +486,25 @@ foreach ($tags as $tag) {
 
         $description = trim($vars->description);
         $variable = $vars->name;
+
         if (str_starts_with($description, '$')) {
             [$variable, $description] = explode(' ', $description, 2);
             $variable = ltrim($variable, '$');
             $description = ltrim($description);
         }
+
+        if ($deprecation !== null) {
+            $deprecated[$tag] = $deprecated[$tag] ?? [];
+            $deprecated[$tag][] = [
+                'deprecation' => $deprecation,
+                'type' => $vars->type,
+                'variable' => $variable,
+                'description' => $description ?: '',
+            ];
+
+            continue;
+        }
+
         $autoDocLines[] = [
             '@'.$tag,
             $vars->type,
@@ -472,6 +513,64 @@ foreach ($tags as $tag) {
         ];
     }
 }
+
+$fileTemplate = <<<EOF
+<?php
+
+declare(strict_types=1);
+
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Carbon\Traits;
+
+trait DeprecatedProperties
+{/* content */}
+
+EOF;
+
+$propertyTemplate = '
+    /**
+     * %description%
+     *
+     * @var %type%
+     *
+     * @deprecated %line1%
+     *             %line2%
+     */
+    public $%variable%;
+';
+
+$lineGlue = preg_replace('/^[\s\S]*%line1%([\s\S]*)%line2%[\s\S]*$/', '$1', $propertyTemplate);
+$propertyTemplate = preg_replace('/(%line1%[\s\S]*%line2%)/', '%deprecation%', $propertyTemplate);
+
+file_put_contents(
+    __DIR__.'/src/Carbon/Traits/DeprecatedProperties.php',
+    strtr($fileTemplate, [
+        '/* content */' => implode('', array_map(static function (array $property) use ($lineGlue, $propertyTemplate) {
+            if (isset($property['deprecation']['since'])) {
+                $property['deprecation']['since'] = 'Deprecated since '.$property['deprecation']['since'];
+            }
+
+            return strtr($propertyTemplate, [
+                '%description%' => $property['description'],
+                '%type%' => $property['type'],
+                '%variable%' => $property['variable'],
+                '%deprecation%' => implode($lineGlue, array_filter([
+                    $property['deprecation']['reason'] ?? null,
+                    $property['deprecation']['replacement'] ?? null,
+                    $property['deprecation']['since'] ?? null,
+                ])),
+            ]);
+        }, array_merge($deprecated['property'] ?? [], $deprecated['property-read'] ?? []))),
+    ])
+);
 
 function compileDoc($autoDocLines, $file)
 {

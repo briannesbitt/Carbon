@@ -53,7 +53,30 @@ return [
     'a_second' => '{1}kilka sekund|:count sekunda|:count sekundy|:count sekund',
     's' => ':count sek.',
     'ago' => ':time temu',
-    'from_now' => 'za :time',
+    'from_now' => static function ($time) {
+        switch ($time) {
+            case '1 godzina':
+                return 'za 1 godzinę';
+
+            case '1 minuta':
+                return 'za 1 minutę';
+
+            case '1 sekunda':
+                return 'za 1 sekundę';
+
+            case 'godzina':
+                return 'za godzinę';
+
+            case 'minuta':
+                return 'za minutę';
+
+            case 'sekunda':
+                return 'za sekundę';
+
+            default:
+                return "za $time";
+        }
+    },
     'after' => ':time po',
     'before' => ':time przed',
     'diff_now' => 'przed chwilą',
