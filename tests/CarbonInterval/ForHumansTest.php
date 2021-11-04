@@ -392,6 +392,50 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
     }
 
+    public function testSkipUnits()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(15)->hours(11)->minutes(15);
+        $this->assertSame('15 days 11 hours', $interval->forHumans([
+            'parts' => 2,
+            'skip' => 'week',
+        ]));
+
+        $this->assertSame('15 days 675 minutes', $interval->forHumans([
+            'parts' => 2,
+            'skip' => ['weeks', 'hours'],
+        ]));
+
+        $interval = CarbonInterval::days(15)->hours(11)->minutes(15);
+        $this->assertSame('15 days 675 minutes', $interval->forHumans([
+            'parts' => 2,
+            'skip' => ['weeks', 'hours'],
+        ]));
+
+        $factors = CarbonInterval::getCascadeFactors();
+
+        CarbonInterval::setCascadeFactors(['weeks' => [5, 'days']]);
+
+        $interval = CarbonInterval::days(15)->hours(11)->minutes(15);
+        $this->assertSame('15 days 675 minutes', $interval->forHumans([
+            'parts' => 2,
+            'skip' => ['weeks', 'hours'],
+        ]));
+
+        CarbonInterval::setCascadeFactors([
+            'weeks' => [5, 'days'],
+            'hours' => [30, 'minutes'],
+        ]);
+
+        $interval = CarbonInterval::days(15)->hours(11)->minutes(15);
+        $this->assertSame('15 days 345 minutes', $interval->forHumans([
+            'parts' => 2,
+            'skip' => ['weeks', 'hours'],
+        ]));
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
     public function testGetValuesSequence()
     {
         $this->assertSame([], CarbonInterval::days(0)->getValuesSequence());
