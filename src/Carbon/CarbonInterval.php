@@ -449,12 +449,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         static $defaults = [
-            'dayz' => ['weeks' => Carbon::DAYS_PER_WEEK],
-            'hours' => ['dayz' => Carbon::HOURS_PER_DAY],
-            'minutes' => ['hours' => Carbon::MINUTES_PER_HOUR],
-            'seconds' => ['minutes' => Carbon::SECONDS_PER_MINUTE],
-            'milliseconds' => ['seconds' => Carbon::MILLISECONDS_PER_SECOND],
-            'microseconds' => ['milliseconds' => Carbon::MICROSECONDS_PER_MILLISECOND],
+            'month' => ['year' => Carbon::MONTHS_PER_YEAR],
+            'week' => ['month' => Carbon::WEEKS_PER_MONTH],
+            'day' => ['week' => Carbon::DAYS_PER_WEEK],
+            'hour' => ['day' => Carbon::HOURS_PER_DAY],
+            'minute' => ['hour' => Carbon::MINUTES_PER_HOUR],
+            'second' => ['minute' => Carbon::SECONDS_PER_MINUTE],
+            'millisecond' => ['second' => Carbon::MILLISECONDS_PER_SECOND],
+            'microsecond' => ['millisecond' => Carbon::MICROSECONDS_PER_MILLISECOND],
         ];
 
         return $defaults[$source][$target] ?? null;

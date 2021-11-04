@@ -571,6 +571,37 @@ class DiffTest extends AbstractTestCase
         );
     }
 
+    public function testDiffWithSkippedUnits()
+    {
+        Carbon::setTestNow('2021-11-04 15:42');
+
+        $this->assertSame(
+            '26 weeks from now',
+            Carbon::parse('2022-05-25')
+                ->diffForHumans(['skip' => ['y', 'm']])
+        );
+        $this->assertSame(
+            '188 days from now',
+            Carbon::parse('2022-05-25')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+        $this->assertSame(
+            '4 hours from now',
+            Carbon::parse('2021-11-04 20:00')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+        $this->assertSame(
+            '6 hours ago',
+            Carbon::parse('2021-11-04 09:00')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+        $this->assertSame(
+            '486 days ago',
+            Carbon::parse('2020-05-25')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+    }
+
     public function testDiffForHumansNowAndSecondWithTimezone()
     {
         $vanNow = Carbon::now('America/Vancouver');
