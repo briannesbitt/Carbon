@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidTimeZoneException;
 use Carbon\Exceptions\OutOfRangeException;
 use DateTime;
 use DateTimeZone;
@@ -223,8 +224,8 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidTimezoneOffset()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (-28236)',
+        $this->expectExceptionObject(new InvalidTimeZoneException(
+            'Absolute timezone offset cannot be greater than 99.',
         ));
 
         Carbon::createFromDate(2000, 1, 1, -28236);

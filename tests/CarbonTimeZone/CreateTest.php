@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Tests\CarbonTimeZone;
 
 use Carbon\CarbonTimeZone;
+use Carbon\Exceptions\InvalidTimeZoneException;
 use DateTimeZone;
-use InvalidArgumentException;
 use Tests\AbstractTestCase;
 use Tests\CarbonTimeZone\Fixtures\UnknownZone;
 
@@ -50,7 +50,7 @@ class CreateTest extends AbstractTestCase
 
     public function testSafeCreateDateTimeZoneWithoutStrictMode()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
+        $this->expectExceptionObject(new InvalidTimeZoneException(
             'Absolute timezone offset cannot be greater than 99.',
         ));
 

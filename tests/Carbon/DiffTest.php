@@ -541,6 +541,10 @@ class DiffTest extends AbstractTestCase
     {
         $dtOttawa = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $dtVancouver = Carbon::createFromDate(2000, 1, 1, 'America/Vancouver');
+        $this->assertSame(0, $dtOttawa->diffInSeconds($dtVancouver) % (24 * 3600));
+
+        $dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');
+        $dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');
         $this->assertSame(3 * 60 * 60, (int) $dtOttawa->diffInSeconds($dtVancouver));
     }
 

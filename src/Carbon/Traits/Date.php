@@ -1487,7 +1487,13 @@ trait Date
     #[ReturnTypeWillChange]
     public function setTimezone($value)
     {
-        return parent::setTimezone(static::safeCreateDateTimeZone($value));
+        $tz = static::safeCreateDateTimeZone($value);
+
+        if ($tz === null && !self::isStrictModeEnabled()) {
+            $tz = new CarbonTimeZone();
+        }
+
+        return parent::setTimezone($tz);
     }
 
     /**

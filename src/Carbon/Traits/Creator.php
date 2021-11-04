@@ -298,7 +298,7 @@ trait Creator
             return $now(static::now($tz));
         }
 
-        return $now;
+        return $now->avoidMutation()->tz($tz);
     }
 
     /**
