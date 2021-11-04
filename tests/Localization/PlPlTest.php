@@ -423,7 +423,7 @@ class PlPlTest extends LocalizationTestCase
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',
-        'za godzina',
+        'za godzinę',
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days',

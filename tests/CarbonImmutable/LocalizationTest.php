@@ -854,8 +854,14 @@ class LocalizationTest extends AbstractTestCase
 
     public function testPolishDeclensions()
     {
-        $this->assertSame('za 1 godzinę', Carbon::now()->addHour()->locale('pl')->diffForHumans());
-        $this->assertSame('za 1 minutę', Carbon::now()->addMinute()->locale('pl')->diffForHumans());
-        $this->assertSame('za 1 sekundę', Carbon::now()->addSecond()->locale('pl')->diffForHumans());
+        $hour = Carbon::now()->addHour()->locale('pl');
+        $minute = Carbon::now()->addMinute()->locale('pl');
+        $second = Carbon::now()->addSecond()->locale('pl');
+        $this->assertSame('za 1 godzinę', $hour->diffForHumans());
+        $this->assertSame('za 1 minutę', $minute->diffForHumans());
+        $this->assertSame('za 1 sekundę', $second->diffForHumans());
+        $this->assertSame('za godzinę', $hour->diffForHumans(['aUnit' => true]));
+        $this->assertSame('za minutę', $minute->diffForHumans(['aUnit' => true]));
+        $this->assertSame('za sekundę', $second->translate('from_now', ['time' => 'sekunda']));
     }
 }

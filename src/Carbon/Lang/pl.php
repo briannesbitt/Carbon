@@ -64,6 +64,15 @@ return [
             case '1 sekunda':
                 return 'za 1 sekundę';
 
+            case 'godzina':
+                return 'za godzinę';
+
+            case 'minuta':
+                return 'za minutę';
+
+            case 'sekunda':
+                return 'za sekundę';
+
             default:
                 return "za $time";
         }
