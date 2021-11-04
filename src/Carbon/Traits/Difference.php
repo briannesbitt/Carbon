@@ -112,7 +112,7 @@ trait Difference
 
     /**
      * Get the difference as a DateInterval instance.
-     * Return relative interval (negative if
+     * Return relative interval (negative unless you pass true to the second argument.)
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
