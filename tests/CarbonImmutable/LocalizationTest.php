@@ -851,4 +851,11 @@ class LocalizationTest extends AbstractTestCase
             Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true])
         );
     }
+
+    public function testPolishDeclensions()
+    {
+        $this->assertSame('za 1 godzinę', Carbon::now()->addHour()->locale('pl')->diffForHumans());
+        $this->assertSame('za 1 minutę', Carbon::now()->addMinute()->locale('pl')->diffForHumans());
+        $this->assertSame('za 1 sekundę', Carbon::now()->addSecond()->locale('pl')->diffForHumans());
+    }
 }
