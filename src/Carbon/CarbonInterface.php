@@ -50,10 +50,6 @@ use Throwable;
  * @property      string           $shortEnglishDayOfWeek                                                             the abbreviated day of week in English
  * @property      string           $englishMonth                                                                      the month in English
  * @property      string           $shortEnglishMonth                                                                 the abbreviated month in English
- * @property      string           $localeDayOfWeek                                                                   the day of week in current locale LC_TIME
- * @property      string           $shortLocaleDayOfWeek                                                              the abbreviated day of week in current locale LC_TIME
- * @property      string           $localeMonth                                                                       the month in current locale LC_TIME
- * @property      string           $shortLocaleMonth                                                                  the abbreviated month in current locale LC_TIME
  * @property      int              $milliseconds
  * @property      int              $millisecond
  * @property      int              $milli
@@ -1964,6 +1960,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance with the current locale.  You can set the current
      * locale using setlocale() https://php.net/setlocale.
+     *
+     * @deprecated It uses OS language package and strftime() which is deprecated since PHP 8.1.
+     *             Use ->isoFormat() instead.
+     *             Deprecated since 2.55.0
      *
      * @param string $format
      *
