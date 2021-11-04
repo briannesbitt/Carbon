@@ -41,6 +41,9 @@ trait Test
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
      *
+     * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
+     * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
+     *
      * To clear the test instance call this method using the default
      * parameter of null.
      *
@@ -57,6 +60,25 @@ trait Test
         static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
     }
 
+    /**
+     * Set a Carbon instance (real or mock) to be returned when a "now"
+     * instance is created.  The provided instance will be returned
+     * specifically under the following conditions:
+     *   - A call to the static now() method, ex. Carbon::now()
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a string containing the desired time is passed to Carbon::parse().
+     *
+     * It will also align default timezone (e.g. call date_default_timezone_set()) with
+     * the second argument or if null, with the timezone of the given date object.
+     *
+     * To clear the test instance call this method using the default
+     * parameter of null.
+     *
+     * /!\ Use this method for unit tests only.
+     *
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
+     */
     public static function setTestNowAndTimezone($testNow = null, $tz = null)
     {
         $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;
