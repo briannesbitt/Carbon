@@ -339,7 +339,7 @@ class PlPlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
-        'za 1 sekunda',
+        'za 1 sekundę',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now',
