@@ -16,9 +16,9 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidFormatException;
 use Closure;
 use DateTime;
-use Exception;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -1577,7 +1577,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
-        $this->expectExceptionObject(new Exception(
+        $this->expectExceptionObject(new InvalidFormatException(
             'Failed to parse time string (2018-04-13-08:00:00) at position 16'
         ));
 
