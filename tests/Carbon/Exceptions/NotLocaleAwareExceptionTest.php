@@ -31,7 +31,7 @@ class NotLocaleAwareExceptionTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider dataProviderTestNotAPeriodException
+     * @dataProvider \Tests\Carbon\Exceptions\NotLocaleAwareExceptionTest::dataProviderTestNotAPeriodException
      *
      * @param mixed  $object
      * @param string $message

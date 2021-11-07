@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 class FromStringTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideValidStrings
+     * @dataProvider \Tests\CarbonInterval\FromStringTest::provideValidStrings
      *
      * @param string         $string
      * @param CarbonInterval $expected
@@ -108,7 +108,7 @@ class FromStringTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideInvalidStrings
+     * @dataProvider \Tests\CarbonInterval\FromStringTest::provideInvalidStrings
      *
      * @param string $string
      * @param string $part

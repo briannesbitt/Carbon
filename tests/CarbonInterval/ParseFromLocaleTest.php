@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 class ParseFromLocaleTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideValidStrings
+     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::provideValidStrings
      *
      * @param string         $string
      * @param string         $locale
@@ -112,7 +112,7 @@ class ParseFromLocaleTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideInvalidStrings
+     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::provideInvalidStrings
      *
      * @param string $string
      * @param string $part

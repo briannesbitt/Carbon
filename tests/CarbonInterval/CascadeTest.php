@@ -34,7 +34,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::provideIntervalSpecs
      */
     public function testCascadesOverflowedValues($spec, $expected)
     {
@@ -55,7 +55,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideMixedSignsIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::provideMixedSignsIntervalSpecs
      *
      * @throws \Exception
      */
@@ -219,7 +219,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideCustomIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::provideCustomIntervalSpecs
      */
     public function testCustomCascadesOverflowedValues($spec, $expected)
     {
@@ -246,7 +246,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideCustomIntervalSpecsLongFormat
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::provideCustomIntervalSpecsLongFormat
      */
     public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
     {

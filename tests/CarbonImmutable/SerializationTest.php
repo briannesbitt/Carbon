@@ -75,7 +75,7 @@ class SerializationTest extends AbstractTestCase
     /**
      * @param mixed $value
      *
-     * @dataProvider \Tests\Carbon\SerializationTest::providerTestFromUnserializedWithInvalidValue
+     * @dataProvider \Tests\CarbonImmutable\SerializationTest::providerTestFromUnserializedWithInvalidValue
      */
     public function testFromUnserializedWithInvalidValue($value)
     {

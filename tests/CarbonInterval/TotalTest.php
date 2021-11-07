@@ -22,7 +22,7 @@ use Tests\AbstractTestCase;
 class TotalTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\TotalTest::provideIntervalSpecs
      */
     public function testReturnsTotalValue($spec, $unit, $expected)
     {
@@ -95,7 +95,7 @@ class TotalTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getNegativeIntervals
+     * @dataProvider \Tests\CarbonInterval\TotalTest::getNegativeIntervals
      */
     public function testGetNegativeTotalsViaGetters($factor, $interval)
     {

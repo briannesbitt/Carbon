@@ -98,7 +98,7 @@ class AddTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideAddsResults
+     * @dataProvider \Tests\CarbonInterval\AddTest::provideAddsResults
      *
      * @param int $base
      * @param int $increment

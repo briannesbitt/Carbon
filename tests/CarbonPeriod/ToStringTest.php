@@ -23,7 +23,7 @@ use Tests\AbstractTestCase;
 class ToStringTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideToString
+     * @dataProvider \Tests\CarbonPeriod\ToStringTest::provideToString
      */
     public function testToString($period, $expected)
     {
@@ -89,7 +89,7 @@ class ToStringTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideToIso8601String
+     * @dataProvider \Tests\CarbonPeriod\ToStringTest::provideToIso8601String
      */
     public function testToIso8601String($period, $expected)
     {

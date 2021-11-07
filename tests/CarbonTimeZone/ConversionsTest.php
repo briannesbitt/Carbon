@@ -82,7 +82,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
      * @param string     $date
      * @param string     $expectedOffset
      * @param string|int $timezone
-     * @dataProvider dataProviderToOffsetName
+     * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataProviderToOffsetName
      */
     public function testToOffsetName($date, $expectedOffset, $timezone)
     {
@@ -96,7 +96,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
      * @param string     $date
      * @param string     $expectedOffset
      * @param string|int $timezone
-     * @dataProvider dataProviderToOffsetName
+     * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataProviderToOffsetName
      */
     public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone)
     {

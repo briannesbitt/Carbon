@@ -342,7 +342,7 @@ class SettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\SettersTest::dataProviderTestSetTimeFromTimeString
+     * @dataProvider \Tests\CarbonImmutable\SettersTest::dataProviderTestSetTimeFromTimeString
      *
      * @param int    $hour
      * @param int    $minute

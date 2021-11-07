@@ -31,7 +31,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
     }
 
     /**
-     * @dataProvider getMacroableClasses
+     * @dataProvider \Tests\CommonTraits\MacroContextNestingTest::getMacroableClasses
      *
      * @param string      $class
      * @param mixed       $sample
@@ -64,7 +64,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
     }
 
     /**
-     * @dataProvider getMacroableClasses
+     * @dataProvider \Tests\CommonTraits\MacroContextNestingTest::getMacroableClasses
      *
      * @param string $class
      * @param mixed  $sample

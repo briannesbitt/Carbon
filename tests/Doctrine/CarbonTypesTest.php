@@ -53,7 +53,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @param string $name
      *
-     * @dataProvider getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
      *
      * @throws Exception
      */
@@ -95,7 +95,7 @@ class CarbonTypesTest extends AbstractTestCase
      * @param string $name
      * @param string $class
      *
-     * @dataProvider getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
      *
      * @throws Exception
      */
@@ -124,7 +124,7 @@ class CarbonTypesTest extends AbstractTestCase
      * @param string $name
      * @param string $class
      *
-     * @dataProvider getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
      *
      * @throws Exception
      */
@@ -143,7 +143,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @param string $name
      *
-     * @dataProvider getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
      *
      * @throws Exception
      */
@@ -163,7 +163,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @param string $name
      *
-     * @dataProvider getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
      *
      * @throws Exception
      */
@@ -186,7 +186,7 @@ class CarbonTypesTest extends AbstractTestCase
      * @param string $typeClass
      * @param bool   $hintRequired
      *
-     * @dataProvider getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
      *
      * @throws Exception
      */

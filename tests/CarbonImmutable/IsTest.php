@@ -958,7 +958,7 @@ class IsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getFormatLetters
+     * @dataProvider \Tests\CarbonImmutable\IsTest::getFormatLetters
      */
     public function testHasFormatWithSingleLetter($letter)
     {

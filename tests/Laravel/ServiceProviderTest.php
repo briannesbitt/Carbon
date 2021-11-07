@@ -43,7 +43,7 @@ class ServiceProviderTest extends TestCase
     }
 
     /**
-     * @dataProvider getDispatchers
+     * @dataProvider \Tests\Laravel\ServiceProviderTest::getDispatchers
      */
     public function testBoot($dispatcher)
     {

@@ -112,7 +112,7 @@ class IteratorTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideIterateBackwardsArguments
+     * @dataProvider \Tests\CarbonPeriod\IteratorTest::provideIterateBackwardsArguments
      */
     public function testIterateBackwards($arguments, $expected)
     {

@@ -168,8 +168,8 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @see \Tests\Carbon\LocalizationTest::testSetLocale
-     * @see \Tests\Carbon\LocalizationTest::testSetTranslator
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocale
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetTranslator
      *
      * @return array
      */
@@ -316,7 +316,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::providerLocales
      *
      * @param string $locale
      */
@@ -327,7 +327,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::providerLocales
      *
      * @param string $locale
      */
@@ -351,7 +351,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocaleWithMalformedLocale
      *
      * @return array
      */
@@ -370,7 +370,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
      *
      * @param string $malformedLocale
      */

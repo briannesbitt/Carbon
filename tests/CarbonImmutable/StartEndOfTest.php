@@ -377,7 +377,7 @@ class StartEndOfTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestStartOfQuarter
+     * @dataProvider \Tests\CarbonImmutable\StartEndOfTest::dataProviderTestStartOfQuarter
      *
      * @param int $month
      * @param int $startOfQuarterMonth
@@ -413,7 +413,7 @@ class StartEndOfTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestEndOfQuarter
+     * @dataProvider \Tests\CarbonImmutable\StartEndOfTest::dataProviderTestEndOfQuarter
      *
      * @param int $month
      * @param int $endOfQuarterMonth

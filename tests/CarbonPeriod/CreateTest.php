@@ -30,7 +30,7 @@ use Tests\AbstractTestCase;
 class CreateTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideIso8601String
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideIso8601String
      */
     public function testCreateFromIso8601String($arguments, $expected)
     {
@@ -79,7 +79,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider providePartialIso8601String
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::providePartialIso8601String
      */
     public function testCreateFromPartialIso8601String($iso, $from, $to)
     {
@@ -105,7 +105,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideInvalidIso8601String
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideInvalidIso8601String
      */
     public function testCreateFromInvalidIso8601String($iso)
     {
@@ -127,7 +127,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndEndDate
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideStartDateAndEndDate
      */
     public function testCreateFromStartDateAndEndDate($arguments, $expected)
     {
@@ -181,7 +181,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndIntervalAndEndDate
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideStartDateAndIntervalAndEndDate
      */
     public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
     {
@@ -241,7 +241,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndIntervalAndRecurrences
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideStartDateAndIntervalAndRecurrences
      */
     public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
     {
@@ -271,7 +271,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndRecurrences
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideStartDateAndRecurrences
      */
     public function testCreateFromStartDateAndRecurrences($arguments, $expected)
     {
@@ -326,7 +326,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideInvalidParameters
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::provideInvalidParameters
      */
     public function testCreateFromInvalidParameters(...$arguments)
     {

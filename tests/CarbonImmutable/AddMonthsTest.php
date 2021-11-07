@@ -45,7 +45,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -58,7 +58,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -82,7 +82,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -95,7 +95,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -119,7 +119,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -132,7 +132,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -156,7 +156,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -169,7 +169,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -208,7 +208,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -222,7 +222,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -236,7 +236,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -250,7 +250,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -264,7 +264,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -278,7 +278,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -292,7 +292,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -306,7 +306,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\CarbonImmutable\AddMonthsTest::providerTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y

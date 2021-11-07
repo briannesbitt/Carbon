@@ -22,7 +22,7 @@ use Tests\AbstractTestCase;
 class ToPeriodTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideToPeriodParameters
+     * @dataProvider \Tests\CarbonInterval\ToPeriodTest::provideToPeriodParameters
      */
     public function testConvertToDatePeriod($interval, $arguments, $expected)
     {
