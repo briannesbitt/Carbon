@@ -22,6 +22,7 @@ $rules = [
     'blank_line_after_namespace' => true,
     'blank_line_before_statement' => true,
     'cast_spaces' => true,
+    'class_definition' => false,
     'concat_space' => [
         'spacing' => 'none',
     ],
