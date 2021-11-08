@@ -21,7 +21,7 @@ class SetStateTest extends AbstractTestCase
 {
     public function testSteState()
     {
-        $obj = new class () {
+        $obj = new class() {
             use Serialization;
 
             public static function instance($value)
