@@ -20,6 +20,7 @@ parameters:
         - '#should return (\S*)static\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonImmutable\)\|null but returns Carbon\\Carbon(Immutable|Interface)\|null\.$#'
+        - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Carbon/SerializationTest.php'

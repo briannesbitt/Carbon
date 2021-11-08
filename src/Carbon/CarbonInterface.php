@@ -50,10 +50,6 @@ use Throwable;
  * @property      string           $shortEnglishDayOfWeek                                                             the abbreviated day of week in English
  * @property      string           $englishMonth                                                                      the month in English
  * @property      string           $shortEnglishMonth                                                                 the abbreviated month in English
- * @property      string           $localeDayOfWeek                                                                   the day of week in current locale LC_TIME
- * @property      string           $shortLocaleDayOfWeek                                                              the abbreviated day of week in current locale LC_TIME
- * @property      string           $localeMonth                                                                       the month in current locale LC_TIME
- * @property      string           $shortLocaleMonth                                                                  the abbreviated month in current locale LC_TIME
  * @property      int              $milliseconds
  * @property      int              $millisecond
  * @property      int              $milli
@@ -1279,7 +1275,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Get the difference as a CarbonInterval instance.
-     * Return absolute interval (always positive) unless you pass false to the second argument.
+     * Return relative interval (negative if $absolute flag is not set to true and the given date is before
+     * current one).
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1332,6 +1329,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                             - 'short' entry (see below)
      *                                                             - 'parts' entry (see below)
      *                                                             - 'options' entry (see below)
+     *                                                             - 'skip' entry, list of units to skip (array of strings or a single string,
+     *                                                             ` it can be the unit name (singular or plural) or its shortcut
+     *                                                             ` (y, m, w, d, h, min, s, ms, µs).
+     *                                                             - 'aUnit' entry, prefer "an hour" over "1 hour" if true
      *                                                             - 'join' entry determines how to join multiple parts of the string
      *                                                             `  - if $join is a string, it's used as a joiner glue
      *                                                             `  - if $join is a callable/closure, it get the list of string and should return a string
@@ -1340,6 +1341,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                             `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
      *                                                             `  - if $join is missing, a space will be used as glue
      *                                                             - 'other' entry (see above)
+     *                                                             - 'minimumUnit' entry determines the smallest unit of time to display can be long or
+     *                                                             `  short form of the units, e.g. 'hour' or 'h' (default value: s)
      *                                                             if int passed, it add modifiers:
      *                                                             Possible values:
      *                                                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
@@ -1802,6 +1805,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance with the current locale.  You can set the current
      * locale using setlocale() https://php.net/setlocale.
+     *
+     * @deprecated It uses OS language package and strftime() which is deprecated since PHP 8.1.
+     *             Use ->isoFormat() instead.
+     *             Deprecated since 2.55.0
      *
      * @param string $format
      *
@@ -3672,6 +3679,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
      *
+     * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
+     * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
+     *
      * To clear the test instance call this method using the default
      * parameter of null.
      *
@@ -3680,6 +3690,27 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param Closure|static|string|false|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null);
+
+    /**
+     * Set a Carbon instance (real or mock) to be returned when a "now"
+     * instance is created.  The provided instance will be returned
+     * specifically under the following conditions:
+     *   - A call to the static now() method, ex. Carbon::now()
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a string containing the desired time is passed to Carbon::parse().
+     *
+     * It will also align default timezone (e.g. call date_default_timezone_set()) with
+     * the second argument or if null, with the timezone of the given date object.
+     *
+     * To clear the test instance call this method using the default
+     * parameter of null.
+     *
+     * /!\ Use this method for unit tests only.
+     *
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
+     */
+    public static function setTestNowAndTimezone($testNow = null, $tz = null);
 
     /**
      * Resets the current time of the DateTime object to a different time.
