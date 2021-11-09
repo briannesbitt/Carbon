@@ -355,7 +355,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return \Generator
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale(): Generator
+    public function providerTestSetLocaleWithMalformedLocale(): Generator
     {
         yield ['DE'];
         yield ['pt-BR'];
@@ -368,7 +368,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     * @dataProvider \Tests\Carbon\LocalizationTest::providerTestSetLocaleWithMalformedLocale
      *
      * @param string $malformedLocale
      */

@@ -355,7 +355,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return array
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale()
+    public function providerTestSetLocaleWithMalformedLocale()
     {
         return [
             ['DE'],
@@ -370,7 +370,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::providerTestSetLocaleWithMalformedLocale
      *
      * @param string $malformedLocale
      */

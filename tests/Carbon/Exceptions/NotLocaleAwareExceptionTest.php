@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class NotLocaleAwareExceptionTest extends AbstractTestCase
 {
-    public function dataProviderTestNotAPeriodException(): Generator
+    public function providerTestNotAPeriodException(): Generator
     {
         yield [
             new stdClass(),
@@ -31,7 +31,7 @@ class NotLocaleAwareExceptionTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\Exceptions\NotLocaleAwareExceptionTest::dataProviderTestNotAPeriodException
+     * @dataProvider \Tests\Carbon\Exceptions\NotLocaleAwareExceptionTest::providerTestNotAPeriodException
      *
      * @param mixed  $object
      * @param string $message

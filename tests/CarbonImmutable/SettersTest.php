@@ -342,7 +342,7 @@ class SettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonImmutable\SettersTest::dataProviderTestSetTimeFromTimeString
+     * @dataProvider \Tests\CarbonImmutable\SettersTest::providerTestSetTimeFromTimeString
      *
      * @param int    $hour
      * @param int    $minute
@@ -356,7 +356,7 @@ class SettersTest extends AbstractTestCase
         $this->assertCarbon($d, 2016, 2, 12, $hour, $minute, $second);
     }
 
-    public function dataProviderTestSetTimeFromTimeString()
+    public function providerTestSetTimeFromTimeString()
     {
         return [
             [9, 15, 30, '09:15:30'],

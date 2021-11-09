@@ -22,7 +22,7 @@ use Tests\AbstractTestCase;
 class ToPeriodTest extends AbstractTestCase
 {
     /**
-     * @dataProvider \Tests\CarbonInterval\ToPeriodTest::provideToPeriodParameters
+     * @dataProvider \Tests\CarbonInterval\ToPeriodTest::providerToPeriodParameters
      */
     public function testConvertToDatePeriod($interval, $arguments, $expected)
     {
@@ -33,7 +33,7 @@ class ToPeriodTest extends AbstractTestCase
         $this->assertSame($expected, $period->spec());
     }
 
-    public function provideToPeriodParameters(): Generator
+    public function providerToPeriodParameters(): Generator
     {
         yield [
                 CarbonInterval::days(3),

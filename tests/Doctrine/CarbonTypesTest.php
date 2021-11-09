@@ -33,14 +33,14 @@ class CarbonTypesTest extends AbstractTestCase
 {
     public static function setUpBeforeClass(): void
     {
-        foreach (static::getTypes() as [$name, , $typeClass]) {
+        foreach (static::providerTypes() as [$name, , $typeClass]) {
             Type::hasType($name)
                 ? Type::overrideType($name, $typeClass)
                 : Type::addType($name, $typeClass);
         }
     }
 
-    public static function getTypes(): Generator
+    public static function providerTypes(): Generator
     {
         yield ['datetime', Carbon::class, DateTimeType::class, false];
         yield ['datetime_immutable', CarbonImmutable::class, DateTimeImmutableType::class, true];
@@ -53,7 +53,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @param string $name
      *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::providerTypes
      *
      * @throws Exception
      */
@@ -95,7 +95,7 @@ class CarbonTypesTest extends AbstractTestCase
      * @param string $name
      * @param string $class
      *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::providerTypes
      *
      * @throws Exception
      */
@@ -124,7 +124,7 @@ class CarbonTypesTest extends AbstractTestCase
      * @param string $name
      * @param string $class
      *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::providerTypes
      *
      * @throws Exception
      */
@@ -143,7 +143,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @param string $name
      *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::providerTypes
      *
      * @throws Exception
      */
@@ -163,7 +163,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @param string $name
      *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::providerTypes
      *
      * @throws Exception
      */
@@ -186,7 +186,7 @@ class CarbonTypesTest extends AbstractTestCase
      * @param string $typeClass
      * @param bool   $hintRequired
      *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::getTypes
+     * @dataProvider \Tests\Doctrine\CarbonTypesTest::providerTypes
      *
      * @throws Exception
      */

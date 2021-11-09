@@ -23,7 +23,7 @@ use Tests\AbstractTestCase;
 class ToStringTest extends AbstractTestCase
 {
     /**
-     * @dataProvider \Tests\CarbonPeriod\ToStringTest::provideToString
+     * @dataProvider \Tests\CarbonPeriod\ToStringTest::providerToString
      */
     public function testToString($period, $expected)
     {
@@ -33,7 +33,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function provideToString(): Generator
+    public function providerToString(): Generator
     {
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
@@ -89,7 +89,7 @@ class ToStringTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonPeriod\ToStringTest::provideToIso8601String
+     * @dataProvider \Tests\CarbonPeriod\ToStringTest::providerToIso8601String
      */
     public function testToIso8601String($period, $expected)
     {
@@ -99,7 +99,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function provideToIso8601String(): Generator
+    public function providerToIso8601String(): Generator
     {
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 

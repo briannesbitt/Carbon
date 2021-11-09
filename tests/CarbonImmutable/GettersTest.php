@@ -166,7 +166,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
-    public function dataProviderTestQuarter()
+    public function providerTestQuarter()
     {
         return [
             [1, 1],
@@ -185,7 +185,7 @@ class GettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonImmutable\GettersTest::dataProviderTestQuarter
+     * @dataProvider \Tests\CarbonImmutable\GettersTest::providerTestQuarter
      *
      * @param int $month
      * @param int $quarter
@@ -197,7 +197,7 @@ class GettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonImmutable\GettersTest::dataProviderTestQuarter
+     * @dataProvider \Tests\CarbonImmutable\GettersTest::providerTestQuarter
      *
      * @param int $month
      * @param int $quarter
@@ -209,7 +209,7 @@ class GettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonImmutable\GettersTest::dataProviderTestQuarter
+     * @dataProvider \Tests\CarbonImmutable\GettersTest::providerTestQuarter
      *
      * @param int $month
      * @param int $quarter
