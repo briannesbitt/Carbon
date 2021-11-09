@@ -23,7 +23,7 @@ class IssetTest extends AbstractTestCase
         $this->assertFalse(isset($this->immutableNow->sdfsdfss));
     }
 
-    public function providerTestIssetReturnTrueForProperties(): Generator
+    public function dataForTestIssetReturnTrueForProperties(): Generator
     {
         yield ['age'];
         yield ['century'];
@@ -93,7 +93,7 @@ class IssetTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonImmutable\IssetTest::providerTestIssetReturnTrueForProperties
+     * @dataProvider \Tests\CarbonImmutable\IssetTest::dataForTestIssetReturnTrueForProperties
      *
      * @param string $property
      */

@@ -33,7 +33,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->carbon = $date;
     }
 
-    public function providerTestAddMonthNoOverflow(): Generator
+    public function dataForTestAddMonthNoOverflow(): Generator
     {
         yield [-2, 2015, 11, 30];
         yield [-1, 2015, 12, 31];
@@ -43,7 +43,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -56,7 +56,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -68,7 +68,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertCarbon($this->carbon->addMonthsNoOverflow($months), $y, $m, $d);
     }
 
-    public function providerTestSubMonthNoOverflow(): Generator
+    public function dataForTestSubMonthNoOverflow(): Generator
     {
         yield [-2, 2016, 3, 31];
         yield [-1, 2016, 2, 29];
@@ -78,7 +78,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -91,7 +91,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -103,7 +103,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertCarbon($this->carbon->subMonthsNoOverflow($months), $y, $m, $d);
     }
 
-    public function providerTestAddMonthWithOverflow(): Generator
+    public function dataForTestAddMonthWithOverflow(): Generator
     {
         yield [-2, 2015, 12, 1];
         yield [-1, 2015, 12, 31];
@@ -113,7 +113,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -126,7 +126,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -138,7 +138,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertCarbon($this->carbon->addMonthsWithOverflow($months), $y, $m, $d);
     }
 
-    public function providerTestSubMonthWithOverflow(): Generator
+    public function dataForTestSubMonthWithOverflow(): Generator
     {
         yield [-2, 2016, 3, 31];
         yield [-1, 2016, 3, 2];
@@ -148,7 +148,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -161,7 +161,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -200,7 +200,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -214,7 +214,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -228,7 +228,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -242,7 +242,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthWithOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
      *
      * @param int $months
      * @param int $y
@@ -256,7 +256,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -270,7 +270,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -284,7 +284,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y
@@ -298,7 +298,7 @@ class AddMonthsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestSubMonthNoOverflow
+     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
      *
      * @param int $months
      * @param int $y

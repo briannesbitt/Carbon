@@ -928,7 +928,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormatWithModifiers('1975705-01', 'Y#m#d'));
     }
 
-    public function providerFormatLetters(): Generator
+    public function dataForFormatLetters(): Generator
     {
         yield ['d'];
         yield ['D'];
@@ -971,7 +971,7 @@ class IsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\IsTest::providerFormatLetters
+     * @dataProvider \Tests\Carbon\IsTest::dataForFormatLetters
      */
     public function testHasFormatWithSingleLetter($letter)
     {

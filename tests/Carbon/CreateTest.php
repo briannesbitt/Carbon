@@ -308,7 +308,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\CreateTest::providerLocales
+     * @dataProvider \Tests\Carbon\CreateTest::dataForLocales
      * @group localization
      */
     public function testParseFromLocaleForEachLocale($locale)
@@ -385,7 +385,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2018-07-24 08:34', $date->format('Y-m-d H:i'));
     }
 
-    public function providerLocales(): Generator
+    public function dataForLocales(): Generator
     {
         yield ['aa_ER'];
         yield ['aa_ER@saaho'];

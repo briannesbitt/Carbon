@@ -85,7 +85,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    public function providerAddsResults(): Generator
+    public function dataForAddsResults(): Generator
     {
         yield [5, 2, 7];
         yield [-5, -2, -7];
@@ -98,7 +98,7 @@ class AddTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonInterval\AddTest::providerAddsResults
+     * @dataProvider \Tests\CarbonInterval\AddTest::dataForAddsResults
      *
      * @param int $base
      * @param int $increment

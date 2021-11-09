@@ -112,7 +112,7 @@ class IteratorTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonPeriod\IteratorTest::providerIterateBackwardsArguments
+     * @dataProvider \Tests\CarbonPeriod\IteratorTest::dataForIterateBackwardsArguments
      */
     public function testIterateBackwards($arguments, $expected)
     {
@@ -129,7 +129,7 @@ class IteratorTest extends AbstractTestCase
         );
     }
 
-    public function providerIterateBackwardsArguments(): Generator
+    public function dataForIterateBackwardsArguments(): Generator
     {
         yield [
             ['2015-10-15', '2015-10-06'],

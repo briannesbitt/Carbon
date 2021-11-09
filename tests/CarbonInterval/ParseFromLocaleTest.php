@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 class ParseFromLocaleTest extends AbstractTestCase
 {
     /**
-     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::providerValidStrings
+     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::dataForValidStrings
      *
      * @param string         $string
      * @param string         $locale
@@ -34,7 +34,7 @@ class ParseFromLocaleTest extends AbstractTestCase
         $this->assertEquals($expected, $result, "'{$string}' does not return expected interval.");
     }
 
-    public function providerValidStrings(): Generator
+    public function dataForValidStrings(): Generator
     {
         // zero interval
         yield ['', 'en', new CarbonInterval(0)];
@@ -112,7 +112,7 @@ class ParseFromLocaleTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::providerInvalidStrings
+     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::dataForInvalidStrings
      *
      * @param string $string
      * @param string $part
@@ -131,7 +131,7 @@ class ParseFromLocaleTest extends AbstractTestCase
         $this->assertStringContainsString($part, $message);
     }
 
-    public function providerInvalidStrings(): Generator
+    public function dataForInvalidStrings(): Generator
     {
         yield ['1q', '1q', 'en'];
         yield ['about 12..14m', '12..', 'en'];

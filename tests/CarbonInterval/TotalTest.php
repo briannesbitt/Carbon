@@ -22,7 +22,7 @@ use Tests\AbstractTestCase;
 class TotalTest extends AbstractTestCase
 {
     /**
-     * @dataProvider \Tests\CarbonInterval\TotalTest::providerIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\TotalTest::dataForIntervalSpecs
      */
     public function testReturnsTotalValue($spec, $unit, $expected)
     {
@@ -33,7 +33,7 @@ class TotalTest extends AbstractTestCase
         );
     }
 
-    public function providerIntervalSpecs(): Generator
+    public function dataForIntervalSpecs(): Generator
     {
         yield ['10s',                'seconds', 10];
         yield ['100s',               'seconds', 100];
@@ -87,7 +87,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(-12312, $interval->totalMilliseconds);
     }
 
-    public function providerNegativeIntervals(): Generator
+    public function dataForNegativeIntervals(): Generator
     {
         yield [-1, CarbonInterval::hours(0)->hours(-150)];
         yield [-1, CarbonInterval::hours(150)->invert()];
@@ -95,7 +95,7 @@ class TotalTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\CarbonInterval\TotalTest::providerNegativeIntervals
+     * @dataProvider \Tests\CarbonInterval\TotalTest::dataForNegativeIntervals
      */
     public function testGetNegativeTotalsViaGetters($factor, $interval)
     {
