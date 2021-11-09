@@ -30,7 +30,7 @@ use Tests\AbstractTestCase;
 class CreateTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideIso8601String
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForIso8601String
      */
     public function testCreateFromIso8601String($arguments, $expected)
     {
@@ -44,7 +44,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function provideIso8601String(): Generator
+    public static function dataForIso8601String(): Generator
     {
         yield [
             ['R4/2012-07-01T00:00:00/P7D'],
@@ -79,7 +79,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider providePartialIso8601String
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForPartialIso8601String
      */
     public function testCreateFromPartialIso8601String($iso, $from, $to)
     {
@@ -98,14 +98,14 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function providePartialIso8601String(): Generator
+    public static function dataForPartialIso8601String(): Generator
     {
         yield ['2008-02-15/03-14', '2008-02-15', '2008-03-14'];
         yield ['2007-12-14T13:30/15:30', '2007-12-14 13:30', '2007-12-14 15:30'];
     }
 
     /**
-     * @dataProvider provideInvalidIso8601String
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForInvalidIso8601String
      */
     public function testCreateFromInvalidIso8601String($iso)
     {
@@ -116,7 +116,7 @@ class CreateTest extends AbstractTestCase
         CarbonPeriod::create($iso);
     }
 
-    public function provideInvalidIso8601String(): Generator
+    public static function dataForInvalidIso8601String(): Generator
     {
         yield ['R2/R4'];
         yield ['2008-02-15/2008-02-16/2008-02-17'];
@@ -127,7 +127,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndEndDate
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndEndDate
      */
     public function testCreateFromStartDateAndEndDate($arguments, $expected)
     {
@@ -144,7 +144,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function provideStartDateAndEndDate(): Generator
+    public static function dataForStartDateAndEndDate(): Generator
     {
         yield [
                 ['2015-09-30', '2015-10-03'],
@@ -181,7 +181,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndIntervalAndEndDate
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndIntervalAndEndDate
      */
     public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
     {
@@ -199,7 +199,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function provideStartDateAndIntervalAndEndDate(): Generator
+    public static function dataForStartDateAndIntervalAndEndDate(): Generator
     {
         yield [
             ['2018-04-21', 'P3D', '2018-04-26'],
@@ -241,7 +241,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndIntervalAndRecurrences
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndIntervalAndRecurrences
      */
     public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
     {
@@ -258,7 +258,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function provideStartDateAndIntervalAndRecurrences(): Generator
+    public static function dataForStartDateAndIntervalAndRecurrences(): Generator
     {
         yield [
             ['2018-04-16', 'P2D', 3],
@@ -271,7 +271,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideStartDateAndRecurrences
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndRecurrences
      */
     public function testCreateFromStartDateAndRecurrences($arguments, $expected)
     {
@@ -287,7 +287,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function provideStartDateAndRecurrences(): Generator
+    public static function dataForStartDateAndRecurrences(): Generator
     {
         yield [
                 ['2018-04-16', 2],
@@ -326,7 +326,7 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideInvalidParameters
+     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForInvalidParameters
      */
     public function testCreateFromInvalidParameters(...$arguments)
     {
@@ -337,7 +337,7 @@ class CreateTest extends AbstractTestCase
         CarbonPeriod::create(...$arguments);
     }
 
-    public function provideInvalidParameters(): Generator
+    public static function dataForInvalidParameters(): Generator
     {
         yield [new stdClass(), CarbonInterval::days(1), Carbon::tomorrow()];
         yield [Carbon::now(), new stdClass(), Carbon::tomorrow()];

@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 class FromStringTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideValidStrings
+     * @dataProvider \Tests\CarbonInterval\FromStringTest::dataForValidStrings
      *
      * @param string         $string
      * @param CarbonInterval $expected
@@ -33,7 +33,7 @@ class FromStringTest extends AbstractTestCase
         $this->assertEquals($expected, $result, "'$string' does not return expected interval.");
     }
 
-    public function provideValidStrings(): Generator
+    public static function dataForValidStrings(): Generator
     {
         // zero interval
         yield ['', new CarbonInterval(0)];
@@ -108,7 +108,7 @@ class FromStringTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideInvalidStrings
+     * @dataProvider \Tests\CarbonInterval\FromStringTest::dataForInvalidStrings
      *
      * @param string $string
      * @param string $part
@@ -126,7 +126,7 @@ class FromStringTest extends AbstractTestCase
         $this->assertStringContainsString($part, $message);
     }
 
-    public function provideInvalidStrings(): Generator
+    public static function dataForInvalidStrings(): Generator
     {
         yield ['1q', '1q'];
         yield ['about 12..14m', '12..'];

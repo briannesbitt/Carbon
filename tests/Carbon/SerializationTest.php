@@ -66,7 +66,7 @@ class SerializationTest extends AbstractTestCase
         $this->assertSame('mercredi 18:30:11.654321', $copy->tz('Europe/Paris')->isoFormat('dddd HH:mm:ss.SSSSSS'));
     }
 
-    public function providerTestFromUnserializedWithInvalidValue(): Generator
+    public static function dataForTestFromUnserializedWithInvalidValue(): Generator
     {
         yield [null];
         yield [true];
@@ -78,7 +78,7 @@ class SerializationTest extends AbstractTestCase
     /**
      * @param mixed $value
      *
-     * @dataProvider \Tests\Carbon\SerializationTest::providerTestFromUnserializedWithInvalidValue
+     * @dataProvider \Tests\Carbon\SerializationTest::dataForTestFromUnserializedWithInvalidValue
      */
     public function testFromUnserializedWithInvalidValue($value)
     {

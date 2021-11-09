@@ -34,7 +34,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForIntervalSpecs
      */
     public function testCascadesOverflowedValues($spec, $expected)
     {
@@ -45,7 +45,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, true);
     }
 
-    public function provideIntervalSpecs(): Generator
+    public static function dataForIntervalSpecs(): Generator
     {
         yield ['3600s', 'PT1H'];
         yield ['10000s', 'PT2H46M40S'];
@@ -55,7 +55,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideMixedSignsIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForMixedSignsIntervalSpecs
      *
      * @throws \Exception
      */
@@ -76,7 +76,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, 1 - $expectingInversion);
     }
 
-    public function provideMixedSignsIntervalSpecs(): Generator
+    public static function dataForMixedSignsIntervalSpecs(): Generator
     {
         yield [
             [
@@ -219,7 +219,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideCustomIntervalSpecs
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForCustomIntervalSpecs
      */
     public function testCustomCascadesOverflowedValues($spec, $expected)
     {
@@ -236,7 +236,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideCustomIntervalSpecs(): Generator
+    public static function dataForCustomIntervalSpecs(): Generator
     {
         yield ['3600s', '1h'];
         yield ['10000s', '2h 46m 40s'];
@@ -246,7 +246,7 @@ class CascadeTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider provideCustomIntervalSpecsLongFormat
+     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForCustomIntervalSpecsLongFormat
      */
     public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
     {
@@ -263,7 +263,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideCustomIntervalSpecsLongFormat()
+    public static function dataForCustomIntervalSpecsLongFormat()
     {
         return [
             ['3600s',                        '1 hour'],

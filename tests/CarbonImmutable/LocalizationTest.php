@@ -168,12 +168,12 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @see \Tests\Carbon\LocalizationTest::testSetLocale
-     * @see \Tests\Carbon\LocalizationTest::testSetTranslator
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocale
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetTranslator
      *
      * @return array
      */
-    public function providerLocales()
+    public static function dataForLocales()
     {
         return [
             ['af'],
@@ -316,7 +316,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForLocales
      *
      * @param string $locale
      */
@@ -327,7 +327,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForLocales
      *
      * @param string $locale
      */
@@ -351,11 +351,11 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocaleWithMalformedLocale
      *
      * @return array
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale()
+    public static function dataForTestSetLocaleWithMalformedLocale()
     {
         return [
             ['DE'],
@@ -370,7 +370,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForTestSetLocaleWithMalformedLocale
      *
      * @param string $malformedLocale
      */

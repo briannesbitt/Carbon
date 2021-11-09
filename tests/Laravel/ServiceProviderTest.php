@@ -28,7 +28,7 @@ use stdClass;
 
 class ServiceProviderTest extends TestCase
 {
-    public function getDispatchers(): Generator
+    public static function dataForDispatchers(): Generator
     {
         if (!class_exists(Dispatcher::class)) {
             include_once __DIR__.'/Dispatcher.php';
@@ -43,7 +43,7 @@ class ServiceProviderTest extends TestCase
     }
 
     /**
-     * @dataProvider getDispatchers
+     * @dataProvider \Tests\Laravel\ServiceProviderTest::dataForDispatchers
      */
     public function testBoot($dispatcher)
     {
