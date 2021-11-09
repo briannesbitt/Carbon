@@ -263,15 +263,13 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public static function dataForCustomIntervalSpecsLongFormat()
+    public static function dataForCustomIntervalSpecsLongFormat(): Generator
     {
-        return [
-            ['3600s',                        '1 hour'],
-            ['10000s',                       '2 hours 46 minutes 40 seconds'],
-            ['1276d',                        '255 weeks 1 day'],
-            ['47d 14h',                      '9 weeks 3 days 6 hours'],
-            ['2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'],
-        ];
+        yield ['3600s',                        '1 hour'];
+        yield ['10000s',                       '2 hours 46 minutes 40 seconds'];
+        yield ['1276d',                        '255 weeks 1 day'];
+        yield ['47d 14h',                      '9 weeks 3 days 6 hours'];
+        yield ['2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'];
     }
 
     public function testMultipleAdd()

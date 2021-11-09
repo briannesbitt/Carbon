@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
+use Generator;
 use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -170,149 +171,145 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocale
      * @see \Tests\CarbonImmutable\LocalizationTest::testSetTranslator
-     *
-     * @return array
      */
-    public static function dataForLocales()
+    public static function dataForLocales(): Generator
     {
-        return [
-            ['af'],
-            ['ar'],
-            ['ar_DZ'],
-            ['ar_KW'],
-            ['ar_LY'],
-            ['ar_MA'],
-            ['ar_SA'],
-            ['ar_Shakl'],
-            ['ar_TN'],
-            ['az'],
-            ['be'],
-            ['bg'],
-            ['bm'],
-            ['bn'],
-            ['bo'],
-            ['br'],
-            ['bs'],
-            ['bs_BA'],
-            ['ca'],
-            ['cs'],
-            ['cv'],
-            ['cy'],
-            ['da'],
-            ['de'],
-            ['de_AT'],
-            ['de_CH'],
-            ['dv'],
-            ['dv_MV'],
-            ['el'],
-            ['en'],
-            ['en_AU'],
-            ['en_CA'],
-            ['en_GB'],
-            ['en_IE'],
-            ['en_IL'],
-            ['en_NZ'],
-            ['eo'],
-            ['es'],
-            ['es_DO'],
-            ['es_US'],
-            ['et'],
-            ['eu'],
-            ['fa'],
-            ['fi'],
-            ['fo'],
-            ['fr'],
-            ['fr_CA'],
-            ['fr_CH'],
-            ['fy'],
-            ['gd'],
-            ['gl'],
-            ['gom_Latn'],
-            ['gu'],
-            ['he'],
-            ['hi'],
-            ['hr'],
-            ['hu'],
-            ['hy'],
-            ['hy_AM'],
-            ['id'],
-            ['is'],
-            ['it'],
-            ['ja'],
-            ['jv'],
-            ['ka'],
-            ['kk'],
-            ['km'],
-            ['kn'],
-            ['ko'],
-            ['ku'],
-            ['ky'],
-            ['lb'],
-            ['lo'],
-            ['lt'],
-            ['lv'],
-            ['me'],
-            ['mi'],
-            ['mk'],
-            ['ml'],
-            ['mn'],
-            ['mr'],
-            ['ms'],
-            ['ms_MY'],
-            ['mt'],
-            ['my'],
-            ['nb'],
-            ['ne'],
-            ['nl'],
-            ['nl_BE'],
-            ['nn'],
-            ['no'],
-            ['oc'],
-            ['pa_IN'],
-            ['pl'],
-            ['ps'],
-            ['pt'],
-            ['pt_BR'],
-            ['ro'],
-            ['ru'],
-            ['sd'],
-            ['se'],
-            ['sh'],
-            ['si'],
-            ['sk'],
-            ['sl'],
-            ['sq'],
-            ['sr'],
-            ['sr_Cyrl'],
-            ['sr_Cyrl_ME'],
-            ['sr_Latn_ME'],
-            ['sr_ME'],
-            ['ss'],
-            ['sv'],
-            ['sw'],
-            ['ta'],
-            ['te'],
-            ['tet'],
-            ['tg'],
-            ['th'],
-            ['tl_PH'],
-            ['tlh'],
-            ['tr'],
-            ['tzl'],
-            ['tzm'],
-            ['tzm_Latn'],
-            ['ug_CN'],
-            ['uk'],
-            ['ur'],
-            ['uz'],
-            ['uz_Latn'],
-            ['vi'],
-            ['yo'],
-            ['zh'],
-            ['zh_CN'],
-            ['zh_HK'],
-            ['zh_TW'],
-        ];
+        yield ['af'];
+        yield ['ar'];
+        yield ['ar_DZ'];
+        yield ['ar_KW'];
+        yield ['ar_LY'];
+        yield ['ar_MA'];
+        yield ['ar_SA'];
+        yield ['ar_Shakl'];
+        yield ['ar_TN'];
+        yield ['az'];
+        yield ['be'];
+        yield ['bg'];
+        yield ['bm'];
+        yield ['bn'];
+        yield ['bo'];
+        yield ['br'];
+        yield ['bs'];
+        yield ['bs_BA'];
+        yield ['ca'];
+        yield ['cs'];
+        yield ['cv'];
+        yield ['cy'];
+        yield ['da'];
+        yield ['de'];
+        yield ['de_AT'];
+        yield ['de_CH'];
+        yield ['dv'];
+        yield ['dv_MV'];
+        yield ['el'];
+        yield ['en'];
+        yield ['en_AU'];
+        yield ['en_CA'];
+        yield ['en_GB'];
+        yield ['en_IE'];
+        yield ['en_IL'];
+        yield ['en_NZ'];
+        yield ['eo'];
+        yield ['es'];
+        yield ['es_DO'];
+        yield ['es_US'];
+        yield ['et'];
+        yield ['eu'];
+        yield ['fa'];
+        yield ['fi'];
+        yield ['fo'];
+        yield ['fr'];
+        yield ['fr_CA'];
+        yield ['fr_CH'];
+        yield ['fy'];
+        yield ['gd'];
+        yield ['gl'];
+        yield ['gom_Latn'];
+        yield ['gu'];
+        yield ['he'];
+        yield ['hi'];
+        yield ['hr'];
+        yield ['hu'];
+        yield ['hy'];
+        yield ['hy_AM'];
+        yield ['id'];
+        yield ['is'];
+        yield ['it'];
+        yield ['ja'];
+        yield ['jv'];
+        yield ['ka'];
+        yield ['kk'];
+        yield ['km'];
+        yield ['kn'];
+        yield ['ko'];
+        yield ['ku'];
+        yield ['ky'];
+        yield ['lb'];
+        yield ['lo'];
+        yield ['lt'];
+        yield ['lv'];
+        yield ['me'];
+        yield ['mi'];
+        yield ['mk'];
+        yield ['ml'];
+        yield ['mn'];
+        yield ['mr'];
+        yield ['ms'];
+        yield ['ms_MY'];
+        yield ['mt'];
+        yield ['my'];
+        yield ['nb'];
+        yield ['ne'];
+        yield ['nl'];
+        yield ['nl_BE'];
+        yield ['nn'];
+        yield ['no'];
+        yield ['oc'];
+        yield ['pa_IN'];
+        yield ['pl'];
+        yield ['ps'];
+        yield ['pt'];
+        yield ['pt_BR'];
+        yield ['ro'];
+        yield ['ru'];
+        yield ['sd'];
+        yield ['se'];
+        yield ['sh'];
+        yield ['si'];
+        yield ['sk'];
+        yield ['sl'];
+        yield ['sq'];
+        yield ['sr'];
+        yield ['sr_Cyrl'];
+        yield ['sr_Cyrl_ME'];
+        yield ['sr_Latn_ME'];
+        yield ['sr_ME'];
+        yield ['ss'];
+        yield ['sv'];
+        yield ['sw'];
+        yield ['ta'];
+        yield ['te'];
+        yield ['tet'];
+        yield ['tg'];
+        yield ['th'];
+        yield ['tl_PH'];
+        yield ['tlh'];
+        yield ['tr'];
+        yield ['tzl'];
+        yield ['tzm'];
+        yield ['tzm_Latn'];
+        yield ['ug_CN'];
+        yield ['uk'];
+        yield ['ur'];
+        yield ['uz'];
+        yield ['uz_Latn'];
+        yield ['vi'];
+        yield ['yo'];
+        yield ['zh'];
+        yield ['zh_CN'];
+        yield ['zh_HK'];
+        yield ['zh_TW'];
     }
 
     /**
@@ -352,21 +349,17 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocaleWithMalformedLocale
-     *
-     * @return array
      */
-    public static function dataForTestSetLocaleWithMalformedLocale()
+    public static function dataForTestSetLocaleWithMalformedLocale(): Generator
     {
-        return [
-            ['DE'],
-            ['pt-BR'],
-            ['pt-br'],
-            ['PT-br'],
-            ['PT-BR'],
-            ['pt_br'],
-            ['PT_br'],
-            ['PT_BR'],
-        ];
+        yield ['DE'];
+        yield ['pt-BR'];
+        yield ['pt-br'];
+        yield ['PT-br'];
+        yield ['PT-BR'];
+        yield ['pt_br'];
+        yield ['PT_br'];
+        yield ['PT_BR'];
     }
 
     /**

@@ -15,6 +15,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use DateTime;
+use Generator;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionObject;
@@ -61,15 +62,13 @@ class SerializationTest extends AbstractTestCase
         $this->assertEquals(Carbon::now(), unserialize(serialize(Carbon::now())));
     }
 
-    public static function dataForTestFromUnserializedWithInvalidValue()
+    public static function dataForTestFromUnserializedWithInvalidValue(): Generator
     {
-        return [
-            [null],
-            [true],
-            [false],
-            [123],
-            ['foobar'],
-        ];
+        yield [null];
+        yield [true];
+        yield [false];
+        yield [123];
+        yield ['foobar'];
     }
 
     /**
