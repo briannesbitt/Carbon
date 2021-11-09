@@ -915,7 +915,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
     }
 
-    public function dataForFormatLetters(): Generator
+    public static function dataForFormatLetters(): Generator
     {
         yield ['d'];
         yield ['D'];

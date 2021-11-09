@@ -23,7 +23,7 @@ class IssetTest extends AbstractTestCase
         $this->assertFalse(isset($this->now->sdfsdfss));
     }
 
-    public function dataForTestIssetReturnTrueForProperties(): Generator
+    public static function dataForTestIssetReturnTrueForProperties(): Generator
     {
         yield ['age'];
         yield ['century'];

@@ -28,7 +28,7 @@ use stdClass;
 
 class ServiceProviderTest extends TestCase
 {
-    public function dataForDispatchers(): Generator
+    public static function dataForDispatchers(): Generator
     {
         if (!class_exists(Dispatcher::class)) {
             include_once __DIR__.'/Dispatcher.php';

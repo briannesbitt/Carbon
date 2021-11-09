@@ -33,7 +33,7 @@ class FromStringTest extends AbstractTestCase
         $this->assertEquals($expected, $result, "'$string' does not return expected interval.");
     }
 
-    public function dataForValidStrings(): Generator
+    public static function dataForValidStrings(): Generator
     {
         // zero interval
         yield ['', new CarbonInterval(0)];
@@ -126,7 +126,7 @@ class FromStringTest extends AbstractTestCase
         $this->assertStringContainsString($part, $message);
     }
 
-    public function dataForInvalidStrings(): Generator
+    public static function dataForInvalidStrings(): Generator
     {
         yield ['1q', '1q'];
         yield ['about 12..14m', '12..'];

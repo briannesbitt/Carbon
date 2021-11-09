@@ -51,7 +51,7 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
         $this->assertSame($expected, $date->format('c'));
     }
 
-    public function dataForTransitionTests(): Generator
+    public static function dataForTransitionTests(): Generator
     {
         // arguments:
         // - Date string to Carbon::parse in America/New_York.

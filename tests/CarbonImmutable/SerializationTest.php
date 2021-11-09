@@ -61,7 +61,7 @@ class SerializationTest extends AbstractTestCase
         $this->assertEquals(Carbon::now(), unserialize(serialize(Carbon::now())));
     }
 
-    public function dataForTestFromUnserializedWithInvalidValue()
+    public static function dataForTestFromUnserializedWithInvalidValue()
     {
         return [
             [null],

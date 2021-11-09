@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class NotLocaleAwareExceptionTest extends AbstractTestCase
 {
-    public function dataForTestNotAPeriodException(): Generator
+    public static function dataForTestNotAPeriodException(): Generator
     {
         yield [
             new stdClass(),

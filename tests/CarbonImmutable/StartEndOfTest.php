@@ -358,7 +358,7 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->startOfQuarter());
     }
 
-    public function dataForTestStartOfQuarter()
+    public static function dataForTestStartOfQuarter()
     {
         return [
             [1, 1],
@@ -394,7 +394,7 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->endOfQuarter());
     }
 
-    public function dataForTestEndOfQuarter()
+    public static function dataForTestEndOfQuarter()
     {
         return [
             [1, 3, 31],

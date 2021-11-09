@@ -356,7 +356,7 @@ class SettersTest extends AbstractTestCase
         $this->assertCarbon($d, 2016, 2, 12, $hour, $minute, $second);
     }
 
-    public function dataForTestSetTimeFromTimeString()
+    public static function dataForTestSetTimeFromTimeString()
     {
         return [
             [9, 15, 30, '09:15:30'],

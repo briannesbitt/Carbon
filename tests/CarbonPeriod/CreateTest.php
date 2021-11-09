@@ -44,7 +44,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function dataForIso8601String(): Generator
+    public static function dataForIso8601String(): Generator
     {
         yield [
             ['R4/2012-07-01T00:00:00/P7D'],
@@ -98,7 +98,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function dataForPartialIso8601String(): Generator
+    public static function dataForPartialIso8601String(): Generator
     {
         yield ['2008-02-15/03-14', '2008-02-15', '2008-03-14'];
         yield ['2007-12-14T13:30/15:30', '2007-12-14 13:30', '2007-12-14 15:30'];
@@ -116,7 +116,7 @@ class CreateTest extends AbstractTestCase
         CarbonPeriod::create($iso);
     }
 
-    public function dataForInvalidIso8601String(): Generator
+    public static function dataForInvalidIso8601String(): Generator
     {
         yield ['R2/R4'];
         yield ['2008-02-15/2008-02-16/2008-02-17'];
@@ -144,7 +144,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function dataForStartDateAndEndDate(): Generator
+    public static function dataForStartDateAndEndDate(): Generator
     {
         yield [
                 ['2015-09-30', '2015-10-03'],
@@ -199,7 +199,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function dataForStartDateAndIntervalAndEndDate(): Generator
+    public static function dataForStartDateAndIntervalAndEndDate(): Generator
     {
         yield [
             ['2018-04-21', 'P3D', '2018-04-26'],
@@ -258,7 +258,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function dataForStartDateAndIntervalAndRecurrences(): Generator
+    public static function dataForStartDateAndIntervalAndRecurrences(): Generator
     {
         yield [
             ['2018-04-16', 'P2D', 3],
@@ -287,7 +287,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function dataForStartDateAndRecurrences(): Generator
+    public static function dataForStartDateAndRecurrences(): Generator
     {
         yield [
                 ['2018-04-16', 2],
@@ -337,7 +337,7 @@ class CreateTest extends AbstractTestCase
         CarbonPeriod::create(...$arguments);
     }
 
-    public function dataForInvalidParameters(): Generator
+    public static function dataForInvalidParameters(): Generator
     {
         yield [new stdClass(), CarbonInterval::days(1), Carbon::tomorrow()];
         yield [Carbon::now(), new stdClass(), Carbon::tomorrow()];

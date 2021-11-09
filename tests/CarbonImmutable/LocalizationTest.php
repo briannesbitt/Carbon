@@ -173,7 +173,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return array
      */
-    public function dataForLocales()
+    public static function dataForLocales()
     {
         return [
             ['af'],
@@ -355,7 +355,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return array
      */
-    public function dataForTestSetLocaleWithMalformedLocale()
+    public static function dataForTestSetLocaleWithMalformedLocale()
     {
         return [
             ['DE'],

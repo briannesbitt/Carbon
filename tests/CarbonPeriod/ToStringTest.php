@@ -33,7 +33,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function dataForToString(): Generator
+    public static function dataForToString(): Generator
     {
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
@@ -99,7 +99,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function dataForToIso8601String(): Generator
+    public static function dataForToIso8601String(): Generator
     {
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 

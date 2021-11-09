@@ -129,7 +129,7 @@ class IteratorTest extends AbstractTestCase
         );
     }
 
-    public function dataForIterateBackwardsArguments(): Generator
+    public static function dataForIterateBackwardsArguments(): Generator
     {
         yield [
             ['2015-10-15', '2015-10-06'],

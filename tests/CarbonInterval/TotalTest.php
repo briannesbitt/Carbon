@@ -33,7 +33,7 @@ class TotalTest extends AbstractTestCase
         );
     }
 
-    public function dataForIntervalSpecs(): Generator
+    public static function dataForIntervalSpecs(): Generator
     {
         yield ['10s',                'seconds', 10];
         yield ['100s',               'seconds', 100];
@@ -87,7 +87,7 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(-12312, $interval->totalMilliseconds);
     }
 
-    public function dataForNegativeIntervals(): Generator
+    public static function dataForNegativeIntervals(): Generator
     {
         yield [-1, CarbonInterval::hours(0)->hours(-150)];
         yield [-1, CarbonInterval::hours(150)->invert()];

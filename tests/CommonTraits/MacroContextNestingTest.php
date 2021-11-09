@@ -22,7 +22,7 @@ use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
 {
-    public function dataForMacroableClasses(): Generator
+    public static function dataForMacroableClasses(): Generator
     {
         yield [Carbon::class, Carbon::parse('2010-05-23'), null];
         yield [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null];

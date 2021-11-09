@@ -33,7 +33,7 @@ class ToPeriodTest extends AbstractTestCase
         $this->assertSame($expected, $period->spec());
     }
 
-    public function dataForToPeriodParameters(): Generator
+    public static function dataForToPeriodParameters(): Generator
     {
         yield [
                 CarbonInterval::days(3),

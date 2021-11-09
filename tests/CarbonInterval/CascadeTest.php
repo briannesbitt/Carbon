@@ -45,7 +45,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, true);
     }
 
-    public function dataForIntervalSpecs(): Generator
+    public static function dataForIntervalSpecs(): Generator
     {
         yield ['3600s', 'PT1H'];
         yield ['10000s', 'PT2H46M40S'];
@@ -76,7 +76,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, 1 - $expectingInversion);
     }
 
-    public function dataForMixedSignsIntervalSpecs(): Generator
+    public static function dataForMixedSignsIntervalSpecs(): Generator
     {
         yield [
             [
@@ -236,7 +236,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function dataForCustomIntervalSpecs(): Generator
+    public static function dataForCustomIntervalSpecs(): Generator
     {
         yield ['3600s', '1h'];
         yield ['10000s', '2h 46m 40s'];
@@ -263,7 +263,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function dataForCustomIntervalSpecsLongFormat()
+    public static function dataForCustomIntervalSpecsLongFormat()
     {
         return [
             ['3600s',                        '1 hour'],

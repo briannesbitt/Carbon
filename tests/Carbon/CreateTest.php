@@ -385,7 +385,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2018-07-24 08:34', $date->format('Y-m-d H:i'));
     }
 
-    public function dataForLocales(): Generator
+    public static function dataForLocales(): Generator
     {
         yield ['aa_ER'];
         yield ['aa_ER@saaho'];

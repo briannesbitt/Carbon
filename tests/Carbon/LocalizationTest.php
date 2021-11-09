@@ -174,7 +174,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return \Generator
      */
-    public function dataForLocales(): Generator
+    public static function dataForLocales(): Generator
     {
         yield ['af'];
         yield ['ar'];
@@ -355,7 +355,7 @@ class LocalizationTest extends AbstractTestCase
      *
      * @return \Generator
      */
-    public function dataForTestSetLocaleWithMalformedLocale(): Generator
+    public static function dataForTestSetLocaleWithMalformedLocale(): Generator
     {
         yield ['DE'];
         yield ['pt-BR'];

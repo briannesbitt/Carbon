@@ -166,7 +166,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
-    public function dataForTestQuarter()
+    public static function dataForTestQuarter()
     {
         return [
             [1, 1],

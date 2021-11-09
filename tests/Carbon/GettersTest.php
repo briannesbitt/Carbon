@@ -242,7 +242,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
-    public function dataForTestQuarter(): Generator
+    public static function dataForTestQuarter(): Generator
     {
         yield [1, 1];
         yield [2, 1];

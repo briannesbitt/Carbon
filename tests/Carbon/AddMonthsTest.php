@@ -33,7 +33,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->carbon = $date;
     }
 
-    public function dataForTestAddMonthNoOverflow(): Generator
+    public static function dataForTestAddMonthNoOverflow(): Generator
     {
         yield [-2, 2015, 11, 30];
         yield [-1, 2015, 12, 31];
@@ -68,7 +68,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertCarbon($this->carbon->addMonthsNoOverflow($months), $y, $m, $d);
     }
 
-    public function dataForTestSubMonthNoOverflow(): Generator
+    public static function dataForTestSubMonthNoOverflow(): Generator
     {
         yield [-2, 2016, 3, 31];
         yield [-1, 2016, 2, 29];
@@ -103,7 +103,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertCarbon($this->carbon->subMonthsNoOverflow($months), $y, $m, $d);
     }
 
-    public function dataForTestAddMonthWithOverflow(): Generator
+    public static function dataForTestAddMonthWithOverflow(): Generator
     {
         yield [-2, 2015, 12, 1];
         yield [-1, 2015, 12, 31];
@@ -138,7 +138,7 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertCarbon($this->carbon->addMonthsWithOverflow($months), $y, $m, $d);
     }
 
-    public function dataForTestSubMonthWithOverflow(): Generator
+    public static function dataForTestSubMonthWithOverflow(): Generator
     {
         yield [-2, 2016, 3, 31];
         yield [-1, 2016, 3, 2];
