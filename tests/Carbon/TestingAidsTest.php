@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
 
@@ -197,6 +198,17 @@ class TestingAidsTest extends AbstractTestCase
             $this->assertSame('2013-07-01T11:00:00-05:00', Carbon::parse('now', 'America/Mexico_City')->toIso8601String());
             $this->assertSame('2013-07-01T09:00:00-07:00', Carbon::parse('now', 'America/Vancouver')->toIso8601String());
         }, $testNow);
+    }
+
+    public function testSetTestNowAndTimezoneWithBadTimezone(): void
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            "Timezone ID '-05:00' is invalid, did you mean 'America/Chicago'?\n".
+            "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
+            'For the record, hours/minutes offset are relevant only for a particular moment, but not as a default timezone.'
+        ));
+
+        Carbon::setTestNowAndTimezone(Carbon::parse('2018-05-06T12:00:00-05:00'));
     }
 
     public function testCreateFromPartialFormat()
