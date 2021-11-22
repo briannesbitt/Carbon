@@ -12,9 +12,12 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\CarbonTimeZone;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
+use InvalidArgumentException;
+use Throwable;
 
 trait Test
 {
@@ -84,13 +87,14 @@ trait Test
         $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;
 
         if ($useDateInstanceTimezone) {
-            date_default_timezone_set($testNow->getTimezone()->getName());
+            self::setDefaultTimezone($testNow->getTimezone()->getName(), $testNow);
         }
 
         static::setTestNow($testNow);
 
         if (!$useDateInstanceTimezone) {
-            date_default_timezone_set(static::getMockedTestNow(\func_num_args() === 1 ? null : $tz)->timezone);
+            $now = static::getMockedTestNow(\func_num_args() === 1 ? null : $tz);
+            self::setDefaultTimezone($now->tzName, $now);
         }
     }
 
@@ -174,5 +178,31 @@ trait Test
         $time = $testInstance instanceof self
             ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT)
             : $testInstance->format(static::MOCK_DATETIME_FORMAT);
+    }
+
+    private static function setDefaultTimezone($timezone, DateTimeInterface $date = null)
+    {
+        $previous = null;
+        $success = false;
+
+        try {
+            $success = date_default_timezone_set($timezone);
+        } catch (Throwable $exception) {
+            $previous = $exception;
+        }
+
+        if (!$success) {
+            $suggestion = @CarbonTimeZone::create($timezone)->toRegionName($date);
+
+            throw new InvalidArgumentException(
+                "Timezone ID '$timezone' is invalid".
+                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.')."\n".
+                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
+                'For the record, hours/minutes offset are relevant only for a particular moment, '.
+                'but not as a default timezone.',
+                0,
+                $previous
+            );
+        }
     }
 }

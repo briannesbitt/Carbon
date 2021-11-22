@@ -50,7 +50,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionTimeZone($date)->getName());
     }
 
-    public function dataProviderToOffsetName(): Generator
+    public static function dataForToOffsetName(): Generator
     {
         // timezone - number
         yield ['2018-12-20', '-05:00', -5];
@@ -82,7 +82,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
      * @param string     $date
      * @param string     $expectedOffset
      * @param string|int $timezone
-     * @dataProvider dataProviderToOffsetName
+     * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataForToOffsetName
      */
     public function testToOffsetName($date, $expectedOffset, $timezone)
     {
@@ -96,7 +96,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
      * @param string     $date
      * @param string     $expectedOffset
      * @param string|int $timezone
-     * @dataProvider dataProviderToOffsetName
+     * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataForToOffsetName
      */
     public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone)
     {

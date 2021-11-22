@@ -912,7 +912,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
     }
 
-    public function getFormatLetters(): Generator
+    public static function dataForFormatLetters(): Generator
     {
         yield ['d'];
         yield ['D'];
@@ -955,7 +955,7 @@ class IsTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getFormatLetters
+     * @dataProvider \Tests\CarbonImmutable\IsTest::dataForFormatLetters
      */
     public function testHasFormatWithSingleLetter($letter)
     {

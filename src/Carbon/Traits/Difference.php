@@ -236,7 +236,7 @@ trait Difference
             return $hoursDiff / static::HOURS_PER_DAY;
         }
 
-        $daysDiff = (int) $interval->format('%r%a');
+        $daysDiff = $this->getIntervalDayDiff($interval->format('%r%a'));
 
         return $daysDiff + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
     }
@@ -796,5 +796,18 @@ trait Difference
         }
 
         return $this->isoFormat((string) $format);
+    }
+
+    private function getIntervalDayDiff(DateInterval $interval): int
+    {
+        $daysDiff = (int) $interval->format('%r%a');
+
+        // Work around PHP 8.1 regression (see https://bugs.php.net/bug.php?id=81458)
+        if ($daysDiff === 0) {
+            $daysDiff = ($interval->invert ? -1 : 1) *
+                ($interval->y * static::DAYS_PER_YEAR + $interval->m * 30 + $interval->d);
+        }
+
+        return $daysDiff;
     }
 }

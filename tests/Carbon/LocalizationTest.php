@@ -164,7 +164,7 @@ class LocalizationTest extends AbstractTestCase
      * @see \Tests\Carbon\LocalizationTest::testSetLocale
      * @see \Tests\Carbon\LocalizationTest::testSetTranslator
      */
-    public function providerLocales(): Generator
+    public static function dataForLocales(): Generator
     {
         yield ['af'];
         yield ['ar'];
@@ -305,7 +305,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\Carbon\LocalizationTest::dataForLocales
      */
     public function testSetLocale(string $locale)
     {
@@ -314,7 +314,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\Carbon\LocalizationTest::dataForLocales
      */
     public function testSetTranslator(string $locale)
     {
@@ -339,7 +339,7 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale(): Generator
+    public static function dataForTestSetLocaleWithMalformedLocale(): Generator
     {
         yield ['DE'];
         yield ['pt-BR'];
@@ -352,7 +352,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     * @dataProvider \Tests\Carbon\LocalizationTest::dataForTestSetLocaleWithMalformedLocale
      */
     public function testSetLocaleWithMalformedLocale(string $malformedLocale)
     {

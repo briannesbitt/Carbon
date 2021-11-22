@@ -358,7 +358,7 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->startOfQuarter());
     }
 
-    public function dataProviderTestStartOfQuarter()
+    public static function dataForTestStartOfQuarter()
     {
         return [
             [1, 1],
@@ -377,7 +377,7 @@ class StartEndOfTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestStartOfQuarter
+     * @dataProvider \Tests\CarbonImmutable\StartEndOfTest::dataForTestStartOfQuarter
      *
      * @param int $month
      * @param int $startOfQuarterMonth
@@ -394,7 +394,7 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->endOfQuarter());
     }
 
-    public function dataProviderTestEndOfQuarter()
+    public static function dataForTestEndOfQuarter()
     {
         return [
             [1, 3, 31],
@@ -413,7 +413,7 @@ class StartEndOfTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestEndOfQuarter
+     * @dataProvider \Tests\CarbonImmutable\StartEndOfTest::dataForTestEndOfQuarter
      *
      * @param int $month
      * @param int $endOfQuarterMonth
