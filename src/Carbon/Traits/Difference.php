@@ -236,7 +236,7 @@ trait Difference
             return $hoursDiff / static::HOURS_PER_DAY;
         }
 
-        $daysDiff = (int) $this->diff($interval->format('%r%a')->format('%r%a');
+        $daysDiff = (int) $this->diff($interval)->format('%r%a');
 
         return $daysDiff + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
     }
