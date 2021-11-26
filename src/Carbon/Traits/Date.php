@@ -1848,7 +1848,7 @@ trait Date
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
-        $formatted = strftime($format, strtotime($this->toDateTimeString()));
+        $formatted = date_format(date_create($this->toDateTimeString()), $format);
 
         return static::$utf8 ? utf8_encode($formatted) : $formatted;
     }
