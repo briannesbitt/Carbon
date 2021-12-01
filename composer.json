@@ -25,7 +25,8 @@
         "ext-json": "*",
         "symfony/polyfill-mbstring": "^1.0",
         "symfony/polyfill-php80": "^1.16",
-        "symfony/translation": "^3.4 || ^4.0 || ^5.0"
+        "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0",
+        "symfony/http-kernel": "^3.4 || ^4.0 || ^5.0 || ^6.0"
     },
     "require-dev": {
         "doctrine/dbal": "^2.0 || ^3.0",
