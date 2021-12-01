@@ -15,6 +15,6 @@ class Translator extends AbstractTranslator
 {
     public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
-        return parent::trans($id, $parameters, $domain, $locale);
+        return $this->translate($id, $parameters, $domain, $locale);
     }
 }

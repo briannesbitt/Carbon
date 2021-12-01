@@ -76,6 +76,7 @@ class AbstractTranslator extends Translation\Translator
 
     public function __construct($locale, Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
+        parent::setLocale($locale);
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
         $this->addLoader('array', new Translation\Loader\ArrayLoader());
@@ -137,7 +138,7 @@ class AbstractTranslator extends Translation\Translator
         }));
     }
 
-    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
+    public function translate(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         if ($domain === null) {
             $domain = 'messages';
