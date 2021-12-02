@@ -13,7 +13,33 @@ declare(strict_types=1);
 
 namespace Tests\Carbon\Fixtures;
 
+use ReflectionMethod;
+use Symfony\Component\Translation;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+$transMethod = new ReflectionMethod(
+    class_exists(TranslatorInterface::class)
+        ? TranslatorInterface::class
+        : Translation\Translator::class,
+    'trans',
+);
+
+if ($transMethod->hasReturnType()) {
+    class NoLocaleTranslator implements TranslatorInterface
+    {
+        public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
+        {
+            return $id;
+        }
+
+        public function getLocale(): string
+        {
+            return 'en';
+        }
+    }
+
+    return;
+}
 
 class NoLocaleTranslator implements TranslatorInterface
 {
