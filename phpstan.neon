@@ -23,11 +23,13 @@ parameters:
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
+        - '*/src/Carbon/TranslatorWeakType.php'
         - '*/tests/Carbon/SerializationTest.php'
         - '*/tests/CarbonImmutable/SetStateTest.php'
         - '*/tests/CarbonImmutable/SerializationTest.php'
         - '*/tests/Laravel/*.php'
         - '*/tests/Cli/*.php'
+        - '*/tests/Carbon/Fixtures/NoLocaleTranslator.php'
         - '*/tests/CarbonPeriod/Fixtures/filters.php'
         - '*/tests/Fixtures/dynamicInterval.php'
         - '*/tests/PHPStan/*.php'

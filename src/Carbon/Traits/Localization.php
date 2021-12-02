@@ -735,8 +735,8 @@ trait Localization
     private static function getFromCatalogue($translator, $catalogue, string $id, string $domain = 'messages')
     {
         return $translator instanceof TranslatorStrongTypeInterface
-            ? $translator->getFromCatalogue($catalogue, $id, $domain) // @codeCoverageIgnore
-            : $catalogue->get($id, $domain);
+            ? $translator->getFromCatalogue($catalogue, $id, $domain)
+            : $catalogue->get($id, $domain); // @codeCoverageIgnore
     }
 
     /**
