@@ -25,7 +25,7 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
      * @param string $dateString
      * @param int    $addHours
      * @param string $expected
-     * @dataProvider getTransitionTests
+     * @dataProvider \Tests\CarbonImmutable\ModifyNearDSTChangeTest::dataForTransitionTests
      */
     public function testTransitionInNonDefaultTimezone($dateString, $addHours, $expected)
     {
@@ -41,7 +41,7 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
      * @param string $dateString
      * @param int    $addHours
      * @param string $expected
-     * @dataProvider getTransitionTests
+     * @dataProvider \Tests\CarbonImmutable\ModifyNearDSTChangeTest::dataForTransitionTests
      */
     public function testTransitionInDefaultTimezone($dateString, $addHours, $expected)
     {
@@ -51,7 +51,7 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
         $this->assertSame($expected, $date->format('c'));
     }
 
-    public function getTransitionTests(): Generator
+    public static function dataForTransitionTests(): Generator
     {
         // arguments:
         // - Date string to Carbon::parse in America/New_York.

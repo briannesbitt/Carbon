@@ -57,6 +57,7 @@ class CreateFromFormatTest extends AbstractTestCase
             "Allowed substitutes for interval formats are y, Y, o, m, n, W, d, j, z, h, g, H, G, i, s, u, v\n".
             'See https://php.net/manual/en/function.date.php for their meaning',
         );
+        $this->expectExceptionCode(0);
 
         CarbonInterval::createFromFormat('N', '4');
     }

@@ -24,11 +24,11 @@
         "php": "^8.0",
         "ext-json": "*",
         "symfony/polyfill-mbstring": "^1.0",
-        "symfony/translation": "^4.4.18 || ^5.2.1"
+        "symfony/translation": "^4.4.18 || ^5.2.1|| ^6.0"
     },
     "require-dev": {
-        "doctrine/orm": "^2.7",
         "doctrine/dbal": "^2.0 || ^3.0",
+        "doctrine/orm": "^2.7",
         "friendsofphp/php-cs-fixer": "^3.1",
         "kylekatarnls/multi-tester": "^2.0",
         "phpmd/phpmd": "^2.9",
@@ -93,6 +93,7 @@
     },
     "support": {
         "issues": "https://github.com/briannesbitt/Carbon/issues",
-        "source": "https://github.com/briannesbitt/Carbon"
+        "source": "https://github.com/briannesbitt/Carbon",
+        "docs": "https://carbon.nesbot.com/docs"
     }
 }

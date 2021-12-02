@@ -242,7 +242,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
-    public function dataProviderTestQuarter(): Generator
+    public static function dataForTestQuarter(): Generator
     {
         yield [1, 1];
         yield [2, 1];
@@ -259,7 +259,7 @@ class GettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\GettersTest::dataProviderTestQuarter
+     * @dataProvider \Tests\Carbon\GettersTest::dataForTestQuarter
      *
      * @param int $month
      * @param int $quarter
@@ -271,7 +271,7 @@ class GettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\GettersTest::dataProviderTestQuarter
+     * @dataProvider \Tests\Carbon\GettersTest::dataForTestQuarter
      *
      * @param int $month
      * @param int $quarter
@@ -283,7 +283,7 @@ class GettersTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\GettersTest::dataProviderTestQuarter
+     * @dataProvider \Tests\Carbon\GettersTest::dataForTestQuarter
      *
      * @param int $month
      * @param int $quarter
