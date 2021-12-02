@@ -173,17 +173,23 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     use Options;
 
     /**
-     * Built-in filters.
+     * Built-in filter for limit by recurrences.
      *
-     * @var string
+     * @var callable
      */
     public const RECURRENCES_FILTER = [self::class, 'filterRecurrences'];
+
+    /**
+     * Built-in filter for limit to an end.
+     *
+     * @var callable
+     */
     public const END_DATE_FILTER = [self::class, 'filterEndDate'];
 
     /**
      * Special value which can be returned by filters to end iteration. Also a filter.
      *
-     * @var string
+     * @var callable
      */
     public const END_ITERATION = [self::class, 'endIteration'];
 
