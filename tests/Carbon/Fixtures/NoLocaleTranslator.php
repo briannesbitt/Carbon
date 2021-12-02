@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Carbon\Fixtures;
 
+use Carbon\Exceptions\NotLocaleAwareException;
 use ReflectionMethod;
 use Symfony\Component\Translation;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -34,7 +35,7 @@ if ($transMethod->hasReturnType()) {
 
         public function getLocale(): string
         {
-            return 'en';
+            throw new NotLocaleAwareException($this);
         }
     }
 
