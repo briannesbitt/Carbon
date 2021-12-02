@@ -7,6 +7,11 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src/Carbon</directory>
+            <exclude>
+                <file>src/Carbon/Translator.php</file>
+                <file>src/Carbon/TranslatorStrongType.php</file>
+                <file>src/Carbon/TranslatorWeakType.php</file>
+            </exclude>
         </whitelist>
     </filter>
 

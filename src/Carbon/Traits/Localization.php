@@ -16,6 +16,7 @@ use Carbon\Exceptions\InvalidTypeException;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
+use Carbon\TranslatorStrongTypeInterface;
 use Closure;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -182,7 +183,7 @@ trait Localization
             $locale = $translator->getLocale();
         }
 
-        $result = $translator->getCatalogue($locale)->get($key);
+        $result = self::getFromCatalogue($translator, $translator->getCatalogue($locale), $key);
 
         return $result === $key ? $default : $result;
     }
@@ -584,7 +585,9 @@ trait Localization
             }
 
             foreach (['ago', 'from_now', 'before', 'after'] as $key) {
-                if ($translator instanceof TranslatorBagInterface && $translator->getCatalogue($newLocale)->get($key) instanceof Closure) {
+                if ($translator instanceof TranslatorBagInterface &&
+                    self::getFromCatalogue($translator, $translator->getCatalogue($newLocale), $key) instanceof Closure
+                ) {
                     continue;
                 }
 
@@ -735,6 +738,19 @@ trait Localization
         }
 
         return $translator;
+    }
+
+    /**
+     * @param mixed                                                    $translator
+     * @param \Symfony\Component\Translation\MessageCatalogueInterface $catalogue
+     *
+     * @return mixed
+     */
+    private static function getFromCatalogue($translator, $catalogue, string $id, string $domain = 'messages')
+    {
+        return $translator instanceof TranslatorStrongTypeInterface
+            ? $translator->getFromCatalogue($catalogue, $id, $domain) // @codeCoverageIgnore
+            : $catalogue->get($id, $domain);
     }
 
     /**
