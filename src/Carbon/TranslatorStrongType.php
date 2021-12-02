@@ -13,38 +13,40 @@ namespace Carbon;
 
 use Symfony\Component\Translation\MessageCatalogueInterface;
 
-class Translator extends AbstractTranslator implements TranslatorStrongTypeInterface
-{
-    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+if (!class_exists(Translator::class)) {
+    class Translator extends AbstractTranslator implements TranslatorStrongTypeInterface
     {
-        return $this->translate($id, $parameters, $domain, $locale);
-    }
-
-    public function getFromCatalogue(MessageCatalogueInterface $catalogue, string $id, string $domain = 'messages')
-    {
-        $messages = $this->getPrivateProperty($catalogue, 'messages');
-
-        if (isset($messages[$domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX][$id])) {
-            return $messages[$domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX][$id];
+        public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+        {
+            return $this->translate($id, $parameters, $domain, $locale);
         }
 
-        if (isset($messages[$domain][$id])) {
-            return $messages[$domain][$id];
+        public function getFromCatalogue(MessageCatalogueInterface $catalogue, string $id, string $domain = 'messages')
+        {
+            $messages = $this->getPrivateProperty($catalogue, 'messages');
+
+            if (isset($messages[$domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX][$id])) {
+                return $messages[$domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX][$id];
+            }
+
+            if (isset($messages[$domain][$id])) {
+                return $messages[$domain][$id];
+            }
+
+            $fallbackCatalogue = $this->getPrivateProperty($catalogue, 'fallbackCatalogue');
+
+            if ($fallbackCatalogue !== null) {
+                return $this->getFromCatalogue($fallbackCatalogue, $id, $domain);
+            }
+
+            return $id;
         }
 
-        $fallbackCatalogue = $this->getPrivateProperty($catalogue, 'fallbackCatalogue');
-
-        if ($fallbackCatalogue !== null) {
-            return $this->getFromCatalogue($fallbackCatalogue, $id, $domain);
+        private function getPrivateProperty($instance, string $field)
+        {
+            return (function (string $field) {
+                return $this->$field;
+            })->call($instance, $field);
         }
-
-        return $id;
-    }
-
-    private function getPrivateProperty($instance, string $field)
-    {
-        return (function (string $field) {
-            return $this->$field;
-        })->call($instance, $field);
     }
 }
