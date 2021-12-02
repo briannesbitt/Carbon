@@ -217,7 +217,7 @@ class AbstractTranslator extends Translation\Translator
 
         $catalogue = $this->getCatalogue($locale);
         $format = $this instanceof TranslatorStrongTypeInterface
-            ? $this->getFromCatalogue($catalogue, (string) $id, $domain)
+            ? $this->getFromCatalogue($catalogue, (string) $id, $domain) // @codeCoverageIgnore
             : $this->getCatalogue($locale)->get((string) $id, $domain);
 
         if ($format instanceof Closure) {

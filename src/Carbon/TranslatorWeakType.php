@@ -18,7 +18,7 @@ if (!class_exists(Translator::class)) {
          * Returns the translation.
          *
          * @param string|null $id
-         * @param array $parameters
+         * @param array       $parameters
          * @param string|null $domain
          * @param string|null $locale
          *
