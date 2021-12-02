@@ -138,32 +138,6 @@ class AbstractTranslator extends Translation\Translator
         }));
     }
 
-    public function translate(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
-    {
-        if ($domain === null) {
-            $domain = 'messages';
-        }
-
-        $format = $this->getCatalogue($locale)->get((string) $id, $domain);
-
-        if ($format instanceof Closure) {
-            // @codeCoverageIgnoreStart
-            try {
-                $count = (new ReflectionFunction($format))->getNumberOfRequiredParameters();
-            } catch (ReflectionException $exception) {
-                $count = 0;
-            }
-            // @codeCoverageIgnoreEnd
-
-            return $format(
-                ...array_values($parameters),
-                ...array_fill(0, max(0, $count - \count($parameters)), null)
-            );
-        }
-
-        return parent::trans($id, $parameters, $domain, $locale);
-    }
-
     /**
      * Reset messages of a locale (all locale if no locale passed).
      * Remove custom messages and reload initial messages from matching
@@ -233,6 +207,35 @@ class AbstractTranslator extends Translation\Translator
         }
 
         return array_unique(array_merge($locales, array_keys($this->messages)));
+    }
+
+    protected function translate(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+    {
+        if ($domain === null) {
+            $domain = 'messages';
+        }
+
+        $catalogue = $this->getCatalogue($locale);
+        $format = $this instanceof TranslatorStrongTypeInterface
+            ? $this->getFromCatalogue($catalogue, (string) $id, $domain)
+            : $this->getCatalogue($locale)->get((string) $id, $domain);
+
+        if ($format instanceof Closure) {
+            // @codeCoverageIgnoreStart
+            try {
+                $count = (new ReflectionFunction($format))->getNumberOfRequiredParameters();
+            } catch (ReflectionException $exception) {
+                $count = 0;
+            }
+            // @codeCoverageIgnoreEnd
+
+            return $format(
+                ...array_values($parameters),
+                ...array_fill(0, max(0, $count - \count($parameters)), null)
+            );
+        }
+
+        return parent::trans($id, $parameters, $domain, $locale);
     }
 
     /**

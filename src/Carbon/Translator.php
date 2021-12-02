@@ -12,9 +12,16 @@
 namespace Carbon;
 
 use ReflectionMethod;
+use Symfony\Component\Translation;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-require class_exists(TranslatorInterface::class) &&
-    (new ReflectionMethod(TranslatorInterface::class, 'trans'))->hasReturnType()
-    ? __DIR__ . '/TranslatorStrongType.php'
-    : __DIR__ . '/TranslatorWeakType.php';
+$transMethod = new ReflectionMethod(
+    class_exists(TranslatorInterface::class)
+        ? TranslatorInterface::class
+        : Translation\Translator::class,
+    'trans'
+);
+
+require $transMethod->hasReturnType()
+    ? __DIR__.'/TranslatorStrongType.php'
+    : __DIR__.'/TranslatorWeakType.php';
