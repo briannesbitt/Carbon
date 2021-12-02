@@ -18,6 +18,8 @@ use Symfony\Component\Translation;
 
 class AbstractTranslator extends Translation\Translator
 {
+    public const REGION_CODE_LENGTH = 2;
+
     /**
      * Translator singletons for each language.
      *
@@ -312,7 +314,7 @@ class AbstractTranslator extends Translation\Translator
             // _2-letters or YUE is a region, _3+-letters is a variant
             $upper = strtoupper($matches[1]);
 
-            if ($upper === 'YUE' || $upper === 'ISO' || \strlen($upper) < 3) {
+            if ($upper === 'YUE' || $upper === 'ISO' || \strlen($upper) <= static::REGION_CODE_LENGTH) {
                 return "_$upper";
             }
 
