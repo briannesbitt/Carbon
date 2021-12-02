@@ -16,9 +16,14 @@ class Translator extends AbstractTranslator
     /**
      * Returns the translation.
      *
+     * @param string|null $id
+     * @param array       $parameters
+     * @param string|null $domain
+     * @param string|null $locale
+     *
      * @return string
      */
-    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->translate($id, $parameters, $domain, $locale);
     }
