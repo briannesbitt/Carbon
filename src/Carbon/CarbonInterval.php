@@ -2904,7 +2904,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         unset($originalData['days']);
         $newData = $originalData;
 
-        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
+        foreach (self::getFlipCascadeFactors() as $source => [$target, $factor]) {
             foreach (['source', 'target'] as $key) {
                 if ($$key === 'dayz') {
                     $$key = 'daysExcludeWeeks';

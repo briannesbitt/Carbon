@@ -23,6 +23,9 @@ parameters:
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
         - '#^Implementing PHPStan\\Reflection\\Php\\BuiltinMethodReflection is not covered by backward compatibility promise\.#'
         - '#^Calling PHPStan\\Reflection\\Php\\PhpMethodReflectionFactory::create\(\) is not covered by backward compatibility promise\.#'
+        - '#^Protected property Carbon\\CarbonPeriod::\$.+ overriding public property DatePeriod::\$.+ should also be public\.$#'
+        - '#^Method Carbon\\CarbonInterval::withOriginal\(\) should return T but returns \(Carbon\\CarbonInterval&T\)\|T\.$#'
+        - '#^Method Carbon\\CarbonInterval::castIntervalToClass\(\) should return T of DateInterval but returns \(Carbon\CarbonInterval&T of DateInterval\)|T of DateInterval\.$#'
     excludePaths:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/TranslatorWeakType.php'
