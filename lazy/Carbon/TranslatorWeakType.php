@@ -11,8 +11,8 @@
 
 namespace Carbon;
 
-if (!class_exists(Translator::class)) {
-    class Translator extends AbstractTranslator
+if (!class_exists(LazyTranslator::class, false)) {
+    class LazyTranslator extends AbstractTranslator
     {
         /**
          * Returns the translation.

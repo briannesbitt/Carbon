@@ -9,6 +9,7 @@
       <directory suffix=".php">src/Carbon</directory>
     </include>
     <exclude>
+      <file>src/Carbon/PHPStan/Macro.php</file>
       <file>src/Carbon/Translator.php</file>
       <file>src/Carbon/TranslatorStrongType.php</file>
       <file>src/Carbon/TranslatorWeakType.php</file>

@@ -22,6 +22,11 @@ $transMethod = new ReflectionMethod(
     'trans',
 );
 
-require_once $transMethod->hasReturnType()
-    ? __DIR__.'/TranslatorStrongType.php'
-    : __DIR__.'/TranslatorWeakType.php';
+require $transMethod->hasReturnType()
+    ? __DIR__.'/../../lazy/Carbon/TranslatorStrongType.php'
+    : __DIR__.'/../../lazy/Carbon/TranslatorWeakType.php';
+
+class Translator extends LazyTranslator
+{
+    // Proxy dynamically loaded LazyTranslator in a static way
+}
