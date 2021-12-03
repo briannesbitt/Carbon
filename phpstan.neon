@@ -18,6 +18,7 @@ parameters:
         - '#should return (\S*)static\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
         - '#^Implementing PHPStan\\Reflection\\Php\\BuiltinMethodReflection is not covered by backward compatibility promise\.#'
+        - '#^Calling PHPStan\\Reflection\\Php\\PhpMethodReflectionFactory::create\(\) is not covered by backward compatibility promise\.#'
     excludePaths:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/PHPStan/Macro.php'
