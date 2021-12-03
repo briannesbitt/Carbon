@@ -49,6 +49,9 @@ jobs:
             setup: lowest
 
           - php: 8.0
+            classmap-authoritative: true
+
+          - php: 8.0
           - php: 8.0
             setup: lowest
 
