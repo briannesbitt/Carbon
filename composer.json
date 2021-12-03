@@ -34,7 +34,7 @@
         "kylekatarnls/multi-tester": "^2.0",
         "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^0.12.54",
+        "phpstan/phpstan": "^0.12.54 || ^1.0",
         "phpunit/phpunit": "^7.5.20 || ^8.5.14",
         "squizlabs/php_codesniffer": "^3.4"
     },

@@ -792,7 +792,7 @@ trait Localization
             $parts = explode('|', $message);
 
             return $key === 'to'
-                ? static::cleanWordFromTranslationString(end($parts))
+                ? self::cleanWordFromTranslationString(end($parts))
                 : '(?:'.implode('|', array_map([static::class, 'cleanWordFromTranslationString'], $parts)).')';
         }, $keys);
     }

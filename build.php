@@ -67,7 +67,7 @@ foreach ($tags as $tag) {
 
     $zip->open($archive, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-    foreach (['src', 'vendor', 'Carbon'] as $directory) {
+    foreach (['src', 'vendor', 'Carbon', 'lazy'] as $directory) {
         if (is_dir($directory)) {
             $directory = realpath($directory);
             $base = \dirname($directory);
