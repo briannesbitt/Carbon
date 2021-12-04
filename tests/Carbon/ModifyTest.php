@@ -27,20 +27,22 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(24.0, $a->diffInHours($b));
     }
 
+    /** @group php-8.1 */
     public function testTimezoneModify()
     {
+        $php81Fix = version_compare(PHP_VERSION, '8.1.0-dev', '>=') ? 1.0 : 0.0;
         // For daylight saving time reason 2014-03-30 0h59 is immediately followed by 2h00
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
         $b->addHours(24);
-        $this->assertSame(23.0, $a->diffInRealHours($b));
-        $this->assertSame(23.0, $b->diffInRealHours($a, true));
-        $this->assertSame(-23.0, $b->diffInRealHours($a));
-        $this->assertSame(-23.0 * 60, $b->diffInRealMinutes($a));
-        $this->assertSame(-23.0 * 60 * 60, $b->diffInRealSeconds($a));
-        $this->assertSame(-23.0 * 60 * 60 * 1000, $b->diffInRealMilliseconds($a));
-        $this->assertSame(-23.0 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a));
+        $this->assertSame(23.0 + $php81Fix, $a->diffInRealHours($b));
+        $this->assertSame(23.0 + $php81Fix, $b->diffInRealHours($a, true));
+        $this->assertSame(-(23.0 + $php81Fix), $b->diffInRealHours($a));
+        $this->assertSame(-(23.0 + $php81Fix) * 60, $b->diffInRealMinutes($a));
+        $this->assertSame(-(23.0 + $php81Fix) * 60 * 60, $b->diffInRealSeconds($a));
+        $this->assertSame(-(23.0 + $php81Fix) * 60 * 60 * 1000, $b->diffInRealMilliseconds($a));
+        $this->assertSame(-(23.0 + $php81Fix) * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a));
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
