@@ -36,7 +36,7 @@ trait Units
      *
      * @return static
      */
-    public function addRealUnit(string $unit, $value = 1): self
+    public function addRealUnit(string $unit, $value = 1): static
     {
         switch ($unit) {
             // @call addRealUnit
@@ -151,7 +151,7 @@ trait Units
      *
      * @return static
      */
-    public function subRealUnit($unit, $value = 1): self
+    public function subRealUnit($unit, $value = 1): static
     {
         return $this->addRealUnit($unit, -$value);
     }
@@ -190,7 +190,7 @@ trait Units
      *
      * @return static
      */
-    public function rawAdd(DateInterval $interval): self
+    public function rawAdd(DateInterval $interval): static
     {
         return parent::add($interval);
     }
@@ -209,7 +209,7 @@ trait Units
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, ?bool $overflow = null): self
+    public function add($unit, $value = 1, ?bool $overflow = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
@@ -243,7 +243,7 @@ trait Units
      *
      * @return static
      */
-    public function addUnit(string $unit, $value = 1, ?bool $overflow = null): self
+    public function addUnit(string $unit, $value = 1, ?bool $overflow = null): static
     {
         $date = $this;
 
@@ -333,7 +333,7 @@ trait Units
      *
      * @return static
      */
-    public function subUnit(string $unit, $value = 1, ?bool $overflow = null): self
+    public function subUnit(string $unit, $value = 1, ?bool $overflow = null): static
     {
         return $this->addUnit($unit, -$value, $overflow);
     }
@@ -345,7 +345,7 @@ trait Units
      *
      * @return static
      */
-    public function rawSub(DateInterval $interval): self
+    public function rawSub(DateInterval $interval): static
     {
         return parent::sub($interval);
     }
@@ -364,7 +364,7 @@ trait Units
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, ?bool $overflow = null): self
+    public function sub($unit, $value = 1, ?bool $overflow = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
@@ -400,7 +400,7 @@ trait Units
      *
      * @return static
      */
-    public function subtract($unit, $value = 1, ?bool $overflow = null): self
+    public function subtract($unit, $value = 1, ?bool $overflow = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);

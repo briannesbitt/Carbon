@@ -343,7 +343,7 @@ trait Options
      *
      * @return $this|static
      */
-    public function settings(array $settings): self
+    public function settings(array $settings): static
     {
         $this->localStrictModeEnabled = $settings['strictMode'] ?? null;
         $this->localMonthsOverflow = $settings['monthOverflow'] ?? null;

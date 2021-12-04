@@ -174,7 +174,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return CarbonTimeZone
      */
-    public function toOffsetTimeZone(DateTimeInterface $date = null): self
+    public function toOffsetTimeZone(DateTimeInterface $date = null): static
     {
         return new static($this->toOffsetName($date));
     }

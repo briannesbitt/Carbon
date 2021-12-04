@@ -692,7 +692,7 @@ trait Date
      *
      * @return static
      */
-    public function avoidMutation(): self
+    public function avoidMutation(): static
     {
         if ($this instanceof DateTimeImmutable) {
             return $this;
@@ -706,7 +706,7 @@ trait Date
      *
      * @return static
      */
-    public function nowWithSameTz()
+    public function nowWithSameTz(): static
     {
         return static::now($this->getTimezone());
     }
@@ -2577,7 +2577,7 @@ trait Date
      *
      * @return static
      */
-    protected function resolveUTC($date = null): self
+    protected function resolveUTC($date = null): static
     {
         if (!$date) {
             return static::now('UTC');

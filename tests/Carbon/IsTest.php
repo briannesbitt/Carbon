@@ -605,6 +605,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subDay()->isCurrentSecond());
     }
 
+    /** @group i */
     public function testIsSameMicrosecond()
     {
         $current = new Carbon('2018-05-06T13:30:54.123456');

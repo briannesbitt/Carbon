@@ -525,7 +525,7 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
      *
      * @return static
      */
-    public static function startOfTime(): self
+    public static function startOfTime(): static
     {
         $date = static::parse('0001-01-01')->years(self::getStartOfTimeYear());
         $date->startOfTime = true;
@@ -538,7 +538,7 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
      *
      * @return static
      */
-    public static function endOfTime(): self
+    public static function endOfTime(): static
     {
         $date = static::parse('9999-12-31 23:59:59.999999')->years(self::getEndOfTimeYear());
         $date->endOfTime = true;

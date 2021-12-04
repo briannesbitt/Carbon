@@ -25,7 +25,7 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
         parent::__construct($time, $tz);
     }
 
-    public static function __set_state($dump): self
+    public static function __set_state($dump): static
     {
         return new static($dump);
     }

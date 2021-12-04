@@ -26,7 +26,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestamp($timestamp, $tz = null): self
+    public static function createFromTimestamp($timestamp, $tz = null): static
     {
         return static::createFromTimestampUTC($timestamp)->setTimezone($tz);
     }
@@ -40,7 +40,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampUTC($timestamp): self
+    public static function createFromTimestampUTC($timestamp): static
     {
         [$integer, $decimal] = self::getIntegerAndDecimalParts($timestamp);
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
@@ -60,7 +60,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampMsUTC($timestamp): self
+    public static function createFromTimestampMsUTC($timestamp): static
     {
         [$milliseconds, $microseconds] = self::getIntegerAndDecimalParts($timestamp, 3);
         $sign = $milliseconds < 0 || $milliseconds === 0.0 && $microseconds < 0 ? -1 : 1;
@@ -85,7 +85,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampMs($timestamp, $tz = null): self
+    public static function createFromTimestampMs($timestamp, $tz = null): static
     {
         return static::createFromTimestampMsUTC($timestamp)
             ->setTimezone($tz);
@@ -100,7 +100,7 @@ trait Timestamp
      *
      * @return static
      */
-    public function timestamp($unixTimestamp): self
+    public function timestamp($unixTimestamp): static
     {
         return $this->setTimestamp($unixTimestamp);
     }
