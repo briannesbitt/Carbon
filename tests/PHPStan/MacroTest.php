@@ -252,10 +252,12 @@ class MacroTest extends AbstractTestCase
             $macro->getReflection()->getDeclaringClass()->getName(),
         );
         $this->assertSame('foo', $macro->getReflection()->getName());
+        $this->assertNull($macro->getTentativeReturnType());
 
         $macro = new Macro(Carbon::class, 'bar', function () {
         });
 
         $this->assertNull($macro->getReflection());
+        $this->assertNull($macro->getTentativeReturnType());
     }
 }

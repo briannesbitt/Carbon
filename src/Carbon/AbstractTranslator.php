@@ -15,8 +15,10 @@ use Closure;
 use ReflectionException;
 use ReflectionFunction;
 use Symfony\Component\Translation;
+use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 
-class AbstractTranslator extends Translation\Translator
+abstract class AbstractTranslator extends Translation\Translator
 {
     public const REGION_CODE_LENGTH = 2;
 
@@ -70,18 +72,18 @@ class AbstractTranslator extends Translation\Translator
         $locale = $locale ?: 'en';
 
         if (!isset(static::$singletons[$locale])) {
-            static::$singletons[$locale] = new static($locale ?: 'en');
+            static::$singletons[$locale] = new static($locale);
         }
 
         return static::$singletons[$locale];
     }
 
-    public function __construct($locale, Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
+    public function __construct($locale, MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
         parent::setLocale($locale);
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
-        $this->addLoader('array', new Translation\Loader\ArrayLoader());
+        $this->addLoader('array', new ArrayLoader());
         parent::__construct($locale, $formatter, $cacheDir, $debug);
         $this->initializing = false;
     }
@@ -337,7 +339,7 @@ class AbstractTranslator extends Translation\Translator
             $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
 
             $getScore = function ($language) use ($completeLocaleChunks) {
-                return static::compareChunkLists($completeLocaleChunks, preg_split('/[_.-]+/', $language));
+                return self::compareChunkLists($completeLocaleChunks, preg_split('/[_.-]+/', $language));
             };
 
             usort($locales, function ($first, $second) use ($getScore) {

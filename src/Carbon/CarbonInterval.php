@@ -410,7 +410,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if ($years instanceof DateInterval) {
             parent::__construct(static::getDateIntervalSpec($years));
             $this->f = $years->f;
-            static::copyNegativeUnits($years, $this);
+            self::copyNegativeUnits($years, $this);
 
             return;
         }
@@ -461,7 +461,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $source = self::standardizeUnit($source);
         $target = self::standardizeUnit($target);
-        $factors = static::getFlipCascadeFactors();
+        $factors = self::getFlipCascadeFactors();
 
         if (isset($factors[$source])) {
             [$to, $factor] = $factors[$source];
@@ -2351,7 +2351,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $result = 0;
         $cumulativeFactor = 0;
         $unitFound = false;
-        $factors = static::getFlipCascadeFactors();
+        $factors = self::getFlipCascadeFactors();
         $daysPerWeek = static::getDaysPerWeek();
 
         $values = [
@@ -2828,7 +2828,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if (!self::$flipCascadeFactors) {
             self::$flipCascadeFactors = [];
 
-            foreach (static::getCascadeFactors() as $to => [$factor, $from]) {
+            foreach (self::getCascadeFactors() as $to => [$factor, $from]) {
                 self::$flipCascadeFactors[self::standardizeUnit($from)] = [self::standardizeUnit($to), $factor];
             }
         }
@@ -2864,10 +2864,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         if ($interval instanceof self && is_a($className, self::class, true)) {
-            static::copyStep($interval, $instance);
+            self::copyStep($interval, $instance);
         }
 
-        static::copyNegativeUnits($interval, $instance);
+        self::copyNegativeUnits($interval, $instance);
 
         return self::withOriginal($instance, $interval);
     }
@@ -2904,7 +2904,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         unset($originalData['days']);
         $newData = $originalData;
 
-        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
+        foreach (self::getFlipCascadeFactors() as $source => [$target, $factor]) {
             foreach (['source', 'target'] as $key) {
                 if ($$key === 'dayz') {
                     $$key = 'daysExcludeWeeks';
