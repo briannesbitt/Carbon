@@ -31,13 +31,13 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     }
 
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, $overflow = null)
+    public function add($unit, $value = 1, ?bool $overflow = null): static
     {
         return parent::add($unit);
     }
 
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, $overflow = null)
+    public function sub($unit, $value = 1, ?bool $overflow = null): static
     {
         return parent::sub($unit);
     }

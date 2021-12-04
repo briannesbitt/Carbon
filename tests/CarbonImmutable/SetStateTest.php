@@ -41,7 +41,7 @@ class SetStateTest extends AbstractTestCase
 
         $data = $obj->callSetState(['foo' => 'bar']);
 
-        $this->assertInstanceOf(get_class($obj), $data);
+        $this->assertInstanceOf(\get_class($obj), $data);
         $this->assertInstanceOf(stdClass::class, $data->data);
         $this->assertSame('bar', $data->data->foo);
         $this->assertSame(['foo' => 'bar'], (array) $data->data);

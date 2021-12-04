@@ -605,7 +605,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subDay()->isCurrentSecond());
     }
 
-    /** @group php-8.1 */
+    /** @group php-8.1b */
     public function testIsSameMicrosecond()
     {
         $current = new Carbon('2018-05-06T13:30:54.123456');
@@ -617,6 +617,12 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isCurrentMicrosecond());
         $this->assertFalse(Carbon::now()->subMicrosecond()->isCurrentMicrosecond());
         $this->assertFalse(Carbon::now()->isLastMicrosecond());
+        $this->assertSame(
+            Carbon::now()->subMicrosecond()->avoidMutation()->addUnit('microsecond', 1, false)
+                ->format('Y-m-d H:i:s.u'),
+            Carbon::now()
+                ->format('Y-m-d H:i:s.u'),
+        );
         $this->assertTrue(Carbon::now()->subMicrosecond()->isLastMicrosecond());
         $this->assertFalse(Carbon::now()->isNextMicrosecond());
         $this->assertTrue(Carbon::now()->addMicrosecond()->isNextMicrosecond());
