@@ -27,6 +27,8 @@ class ToStringTest extends AbstractTestCase
      */
     public function testToString($period, $expected)
     {
+        Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
+
         $this->assertSame(
             $expected,
             $period->toString(),
@@ -72,6 +74,8 @@ class ToStringTest extends AbstractTestCase
                 CarbonPeriod::create('2015-10-01', '2015-10-05', 'PT30M'),
                 'Every 30 minutes from 2015-10-01 to 2015-10-05',
             ];
+
+        Carbon::setTestNowAndTimezone();
     }
 
     public function testMagicToString()
@@ -93,6 +97,8 @@ class ToStringTest extends AbstractTestCase
      */
     public function testToIso8601String($period, $expected)
     {
+        Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
+
         $this->assertSame(
             $expected,
             $period->toIso8601String(),
@@ -133,6 +139,8 @@ class ToStringTest extends AbstractTestCase
                 CarbonPeriod::create(),
                 '2015-09-01T00:00:00-04:00/P1D',
             ];
+
+        Carbon::setTestNowAndTimezone();
     }
 
     public function testSpec()
