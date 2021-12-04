@@ -608,6 +608,8 @@ class IsTest extends AbstractTestCase
     /** @group php-8.1 */
     public function testIsSameMicrosecond()
     {
+        Carbon::setTestNow('now');
+
         $current = new Carbon('2018-05-06T13:30:54.123456');
         $this->assertTrue($current->isSameMicrosecond(new DateTime('2018-05-06T13:30:54.123456')));
         $this->assertFalse($current->isSameMicrosecond(new DateTime('2018-05-06T13:30:54.123457')));
