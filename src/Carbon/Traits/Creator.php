@@ -62,7 +62,7 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (substr($time, 0, 1) === '@') {
+        if (\is_string($time) && substr($time, 0, 1) === '@') {
             $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
         }
 
@@ -129,7 +129,7 @@ trait Creator
      *
      * @return static
      */
-    public static function instance($date): self
+    public static function instance($date): static
     {
         if ($date instanceof static) {
             return clone $date;
@@ -455,7 +455,7 @@ trait Creator
      *
      * @return static
      */
-    public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null): self
+    public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null): static
     {
         $initialStrictMode = static::isStrictModeEnabled();
         static::useStrictMode(true);

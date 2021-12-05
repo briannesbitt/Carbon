@@ -44,6 +44,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
+    /** @group php-8.1 */
     public function testAddMicroseconds()
     {
         $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
@@ -186,6 +187,14 @@ class AddTest extends AbstractTestCase
         $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
+
+        $interval = eval('return \Carbon\CarbonInterval::days(3)->plus(hours: 1, minutes: 1.5);');
+
+        $this->assertCarbonInterval($interval, 0, 0, 3, 1, 1, 30);
+
+        $interval = eval('return \Carbon\CarbonInterval::days(3)->plus(hours: 1, minutes: -1.5);');
+
+        $this->assertCarbonInterval($interval, 0, 0, 3, 1, -1, -30);
     }
 
     public function testMinus()

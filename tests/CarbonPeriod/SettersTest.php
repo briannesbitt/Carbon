@@ -144,15 +144,6 @@ class SettersTest extends AbstractTestCase
         CarbonPeriod::create()->setDateInterval(new DateInterval('P0D'));
     }
 
-    public function testInvalidNumberOfRecurrencesString()
-    {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid number of recurrences.',
-        ));
-
-        CarbonPeriod::create()->setRecurrences('foo');
-    }
-
     public function testInvalidNegativeNumberOfRecurrences()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
@@ -160,15 +151,6 @@ class SettersTest extends AbstractTestCase
         ));
 
         CarbonPeriod::create()->setRecurrences(-4);
-    }
-
-    public function testInvalidOptions()
-    {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid options.',
-        ));
-
-        CarbonPeriod::create()->setOptions('1');
     }
 
     public function testInvalidConstructorParameters()

@@ -103,7 +103,7 @@ trait Serialization
      * @return static
      */
     #[ReturnTypeWillChange]
-    public static function __set_state($dump)
+    public static function __set_state($dump): static
     {
         if (\is_string($dump)) {
             return static::parse($dump);

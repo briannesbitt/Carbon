@@ -634,6 +634,25 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subDay()->isCurrentSecond());
     }
 
+    /** @group php-8.1 */
+    public function testIsSameMicrosecond()
+    {
+        $current = new Carbon('2018-05-06T13:30:54.123456');
+        $this->assertTrue($current->isSameMicrosecond(new DateTime('2018-05-06T13:30:54.123456')));
+        $this->assertFalse($current->isSameMicrosecond(new DateTime('2018-05-06T13:30:54.123457')));
+        $this->assertFalse($current->isSameMicrosecond(new DateTime('2019-05-06T13:30:54.123456')));
+        $this->assertFalse($current->isSameMicrosecond(new DateTime('2018-05-06T13:30:55.123456')));
+        $this->assertTrue($current->isSameSecond($current->copy()));
+        $this->assertTrue(Carbon::now()->isCurrentMicrosecond());
+        $this->assertFalse(Carbon::now()->subMicrosecond()->isCurrentMicrosecond());
+        $this->assertFalse(Carbon::now()->isLastMicrosecond());
+        $this->assertTrue(Carbon::now()->subMicrosecond()->isLastMicrosecond());
+        $this->assertFalse(Carbon::now()->isNextMicrosecond());
+        $this->assertTrue(Carbon::now()->addMicrosecond()->isNextMicrosecond());
+        $this->assertTrue(Carbon::now()->subMicroseconds(Carbon::MICROSECONDS_PER_SECOND)->isLastSecond());
+        $this->assertSame(4.0, Carbon::now()->subMicroseconds(4 * Carbon::MICROSECONDS_PER_SECOND)->diffInSeconds(Carbon::now()));
+    }
+
     public function testIsDayOfWeek()
     {
         // True in the past past

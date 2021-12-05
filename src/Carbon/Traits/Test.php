@@ -94,7 +94,7 @@ trait Test
 
         if (!$useDateInstanceTimezone) {
             $now = static::getMockedTestNow(\func_num_args() === 1 ? null : $tz);
-            self::setDefaultTimezone($now->tzName, $now);
+            self::setDefaultTimezone($now?->tzName ?? null, $now);
         }
     }
 
@@ -186,7 +186,7 @@ trait Test
         $success = false;
 
         try {
-            $success = date_default_timezone_set($timezone);
+            $success = date_default_timezone_set($timezone ?? 'UTC');
         } catch (Throwable $exception) {
             $previous = $exception;
         }
