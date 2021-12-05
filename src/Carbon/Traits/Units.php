@@ -192,6 +192,21 @@ trait Units
      */
     public function rawAdd(DateInterval $interval): static
     {
+        if (isset($GLOBALS['debug']) && !isset($GLOBALS['nested'])) {
+            $GLOBALS['nested'] = true;
+            echo "DEBUG " . __LINE__ . "\n";
+            $d = new static($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+            var_dump($this->format('Y-m-d H:i:s.u'));
+            var_dump($d->format('Y-m-d H:i:s.u'));
+            echo "\n\n";
+            var_dump($d);
+            echo "\n\n";
+            var_dump($this);
+            echo "\n\n";
+            var_dump($d->add($interval)->format('Y-m-d H:i:s.u'));
+            var_dump(parent::add($interval)->format('Y-m-d H:i:s.u'));
+            exit;
+        }
         return parent::add($interval);
     }
 
@@ -294,7 +309,8 @@ trait Units
                 $overflow === null &&
                 ($ucUnit = ucfirst($unit).'s') &&
                 !($this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}())
-            ))) {
+            ))
+        ) {
             $day = $date->day;
         }
 
@@ -303,13 +319,14 @@ trait Units
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        try {
-            $date = $date->rawAdd(
-                CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
-            );
-        } catch (InvalidIntervalException $exception) {
-            $date = $date->modify("$value $unit");
-        }
+        $date = $date->modify("$value $unit");
+//        try {
+//            $date = $date->rawAdd(
+//                CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
+//            );
+//        } catch (InvalidIntervalException $exception) {
+//            $date = $date->modify("$value $unit");
+//        }
 
         if (isset($timeString)) {
             $date = $date->setTimeFromTimeString($timeString);
