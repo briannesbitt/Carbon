@@ -802,6 +802,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @param string $intervalDefinition
      *
+     * @throws InvalidIntervalException
+     *
      * @return static
      */
     public static function fromString(string $intervalDefinition): static

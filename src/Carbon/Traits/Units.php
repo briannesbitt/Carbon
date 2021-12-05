@@ -408,7 +408,6 @@ trait Units
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
     {
         try {
-
             if ($unit === 'microsecond' && version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
                 throw new UnsupportedUnitException($unit, '8.1'); // @codeCoverageIgnore
             }
