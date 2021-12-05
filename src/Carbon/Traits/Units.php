@@ -308,9 +308,9 @@ trait Units
         $date = self::rawAddUnit($date, $unit, $value);
 
         if (isset($timeString)) {
-            $date = $date->setTimeFromTimeString($timeString);
-        } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date->day) {
-            $date = $date->modify('last day of previous month');
+            $date = $date?->setTimeFromTimeString($timeString);
+        } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
+            $date = $date?->modify('last day of previous month');
         }
 
         if (!$date) {
@@ -405,7 +405,7 @@ trait Units
         return $this->sub($unit, $value, $overflow);
     }
 
-    private static function rawAddUnit(self $date, string $unit, int|float $value): static
+    private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
     {
         try {
 
@@ -417,7 +417,7 @@ trait Units
                 CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
             );
         } catch (InvalidIntervalException|UnsupportedUnitException) {
-            return $date->modify("$value $unit");
+            return $date->modify("$value $unit") ?: null;
         }
     }
 }
