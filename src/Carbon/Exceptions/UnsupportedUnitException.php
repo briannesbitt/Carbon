@@ -13,6 +13,9 @@ namespace Carbon\Exceptions;
 
 use Exception;
 
+/**
+ * @codeCoverageIgnore
+ */
 class UnsupportedUnitException extends UnitException
 {
     public function __construct(string $unit, string $phpVersion, int $code = 0, Exception $previous = null)

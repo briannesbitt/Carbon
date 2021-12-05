@@ -305,17 +305,7 @@ trait Units
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        try {
-            if ($unit === 'microsecond' && version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
-                throw new UnsupportedUnitException($unit, '8.1');
-            }
-
-            $date = $date->rawAdd(
-                CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
-            );
-        } catch (InvalidIntervalException|UnsupportedUnitException $exception) {
-            $date = $date->modify("$value $unit");
-        }
+        $date = self::rawAddUnit($date, $unit, $value);
 
         if (isset($timeString)) {
             $date = $date->setTimeFromTimeString($timeString);
@@ -413,5 +403,21 @@ trait Units
         }
 
         return $this->sub($unit, $value, $overflow);
+    }
+
+    private static function rawAddUnit(self $date, string $unit, int|float $value): static
+    {
+        try {
+
+            if ($unit === 'microsecond' && version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
+                throw new UnsupportedUnitException($unit, '8.1'); // @codeCoverageIgnore
+            }
+
+            return $date->rawAdd(
+                CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
+            );
+        } catch (InvalidIntervalException|UnsupportedUnitException) {
+            return $date->modify("$value $unit");
+        }
     }
 }
