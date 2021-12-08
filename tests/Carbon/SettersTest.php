@@ -724,7 +724,7 @@ class SettersTest extends AbstractTestCase
             }
             if ($value === $date->$valueUnit ||
                 $modulo === $date->$valueUnit ||
-                (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
+                (method_exists($date, "diffInUTC$unit") && -$date->{"diffInUTC$unit"}($original, false) === $value) ||
                 -((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
@@ -821,7 +821,7 @@ class SettersTest extends AbstractTestCase
 
             if ($value === $date->$valueUnit ||
                 $modulo === $date->$valueUnit ||
-                (method_exists($date, "diffInReal$unit") && $value === $date->{"diffInReal$unit"}($original, false)) ||
+                (method_exists($date, "diffInUTC$unit") && $value === $date->{"diffInUTC$unit"}($original, false)) ||
                 ((int) round($date->{"diffIn$unit"}($original, false))) === $value
             ) {
                 $results['current']++;
@@ -890,10 +890,10 @@ class SettersTest extends AbstractTestCase
             'Nor '.$end->$valueUnit." (from $end)",
             "Nor $value (from value)",
             "Nor $modulo (from modulo)",
-            method_exists($date, "diffInReal$unit")
-                ? "diffInReal$unit() exists and returns ".$date->{"diffInReal$unit"}($original, false)
+            method_exists($date, "diffInUTC$unit")
+                ? "diffInUTC$unit() exists and returns ".$date->{"diffInUTC$unit"}($original, false)
                     ." while expecting $variableValue"
-                : "diffInReal$unit() does not exist",
+                : "diffInUTC$unit() does not exist",
             "diffIn$unit() exists and returns ".$date->{"diffIn$unit"}($original, false)
             ." while expecting $variableValue",
         ]));

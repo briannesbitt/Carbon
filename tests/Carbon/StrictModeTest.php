@@ -91,19 +91,19 @@ class StrictModeTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isSameUnit('foobar'));
     }
 
-    public function testAddRealUnitWithStrictMode()
+    public function testAddUTCUnitWithStrictMode()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid unit for real timestamp add/sub: \'foobar\'',
         ));
 
-        Carbon::now()->addRealUnit('foobar');
+        Carbon::now()->addUTCUnit('foobar');
     }
 
-    public function testAddRealUnitWithoutStrictMode()
+    public function testAddUTCUnitWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
-        $d = Carbon::create(2000, 1, 2, 3, 4, 5)->addRealUnit('foobar');
+        $d = Carbon::create(2000, 1, 2, 3, 4, 5)->addUTCUnit('foobar');
         $this->assertCarbon($d, 2000, 1, 2, 3, 4, 5);
     }
 

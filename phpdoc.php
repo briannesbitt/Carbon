@@ -23,7 +23,7 @@ $tags = [
     ['call', 'isSameUnit'],
     ['call', 'setUnit'],
     ['call', 'addUnit'],
-    ['call', 'addRealUnit'],
+    ['call', 'addUTCUnit'],
     ['call', 'roundUnit'],
     ['call', 'diffForHumans'],
 ];
@@ -399,7 +399,7 @@ foreach ($tags as $tag) {
 
                     break;
 
-                case 'addRealUnit':
+                case 'addUTCUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
@@ -407,25 +407,25 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'addReal'.ucFirst($plUnit).'(int|float $value = 1)',
+                        'addUTC'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Add $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'addReal'.ucFirst($unit).'()',
+                        'addUTC'.ucFirst($unit).'()',
                         "Add one $unitName to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'subReal'.ucFirst($plUnit).'(int|float $value = 1)',
+                        'subUTC'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'subReal'.ucFirst($unit).'()',
+                        'subUTC'.ucFirst($unit).'()',
                         "Sub one $unitName to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
