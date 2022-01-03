@@ -89,6 +89,14 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($dt1->gt($dt2));
     }
 
+    public function testGreaterThanWithString()
+    {
+        Carbon::setToStringFormat('d.m.Y \a\t h:i a');
+        $this->assertTrue(Carbon::parse('2022-05-03')->gt('2021-05-03'));
+        $this->assertFalse(Carbon::parse('2021-05-03')->gt('2022-05-03'));
+        Carbon::setToStringFormat(null);
+    }
+
     public function testGreaterThanWithTimezoneFalse()
     {
         $dt1 = Carbon::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
