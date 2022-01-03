@@ -124,21 +124,21 @@ class SzlTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 Sekůnda ago',
+        '1 sekůnda ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 Sekůnda ago',
+        '1 sekůnda ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 Sekůnda ago',
+        '2 sekůnda ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 Sekůnda ago',
+        '2 sekůnda ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 Minuta ago',
+        '1 minuta ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 Minuta ago',
+        '1 minuta ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 Minuta ago',
+        '2 minuta ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 Minuta ago',
+        '2 minuta ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 godzina ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -156,13 +156,13 @@ class SzlTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 dźyń ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 Tydźyń ago',
+        '1 tydźyń ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 Tydźyń ago',
+        '1 tydźyń ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 Tydźyń ago',
+        '2 tydźyń ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 Tydźyń ago',
+        '2 tydźyń ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 mjeśůnc ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -180,47 +180,47 @@ class SzlTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 rok ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 Sekůnda from now',
+        '1 sekůnda from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 Sekůnda from now',
+        '1 sekůnda from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 Sekůnda after',
+        '1 sekůnda after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 Sekůnda after',
+        '1 sekůnda after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 Sekůnda before',
+        '1 sekůnda before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 Sekůnda before',
+        '1 sekůnda before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 Sekůnda',
+        '1 sekůnda',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 Sekůnda',
+        '1 sekůnda',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 Sekůnda',
+        '2 sekůnda',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 Sekůnda',
+        '2 sekůnda',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 Sekůnda from now',
+        '1 sekůnda from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 Minuta 1 Sekůnda',
+        '1 minuta 1 sekůnda',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 rok 3 mjeśůnc 1 dźyń 1 Sekůnda',
+        '2 rok 3 mjeśůnc 1 dźyń 1 sekůnda',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 rok from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 mjeśůnc ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 rok 3 mjeśůnc 1 dźyń 1 Sekůnda ago',
+        '2 rok 3 mjeśůnc 1 dźyń 1 sekůnda ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 Tydźyń 10 godzina',
+        '1 tydźyń 10 godzina',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 Tydźyń 6 dźyń',
+        '1 tydźyń 6 dźyń',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 Tydźyń 6 dźyń',
+        '1 tydźyń 6 dźyń',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 Tydźyń and 6 dźyń from now',
+        '1 tydźyń and 6 dźyń from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 Tydźyń 1 godzina',
+        '2 tydźyń 1 godzina',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 godzina from now',
         // CarbonInterval::days(2)->forHumans()
