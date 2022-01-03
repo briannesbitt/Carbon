@@ -341,7 +341,7 @@ trait Modifiers
      */
     public function average($date = null)
     {
-        return $this->addRealMicroseconds((int) ($this->diffInMicroseconds($this->resolveCarbon($date), false) / 2));
+        return $this->addUTCMicroseconds((int) ($this->diffInMicroseconds($this->resolveCarbon($date), false) / 2));
     }
 
     /**

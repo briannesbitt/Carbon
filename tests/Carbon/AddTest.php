@@ -252,8 +252,13 @@ class AddTest extends AbstractTestCase
         );
         $this->assertSame(
             '1999-12-31 23:59:58.500000',
-            Carbon::parse('2000-01-01 00:00:00')->addRealSeconds(-1.5)->format('Y-m-d H:i:s.u'),
+            Carbon::parse('2000-01-01 00:00:00')->addUTCSeconds(-1.5)->format('Y-m-d H:i:s.u'),
         );
+        $this->assertSame(
+            '2000-01-01 00:00:01.500000',
+            Carbon::parse('2000-01-01 00:00:00')->addUTCSeconds(1.5)->format('Y-m-d H:i:s.u'),
+        );
+        // Alias for backward compatibility
         $this->assertSame(
             '2000-01-01 00:00:01.500000',
             Carbon::parse('2000-01-01 00:00:00')->addRealSeconds(1.5)->format('Y-m-d H:i:s.u'),
