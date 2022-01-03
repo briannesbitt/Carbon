@@ -78,6 +78,15 @@ class CreateTest extends AbstractTestCase
         $this->assertNull($period->getRecurrences());
     }
 
+    public function testCreateFromIso8601StringWithInfiniteRecurrences()
+    {
+        $period = CarbonPeriod::create('RINF/2012-07-01T00:00:00/P7D');
+        $this->assertSame('2012-07-01', $period->getStartDate()->toDateString());
+        $this->assertSame('P7D', $period->getDateInterval()->spec());
+        $this->assertNull($period->getEndDate());
+        $this->assertInfinite($period->getRecurrences());
+    }
+
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForPartialIso8601String
      */
