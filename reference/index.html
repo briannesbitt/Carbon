@@ -102,7 +102,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">Carbon::</span>setTimezone</h2>
     <code>$value</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Set the instance's timezone from a string or object.</p>
+    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$value</code></td></tr></table>
 </div>
 
@@ -372,7 +372,7 @@ if null given or parse the input if string given.</p>
     <h2><span class="class-name">Carbon::</span>shiftTimezone</h2>
     <code>$value</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
+    <p class="doc-description">Set the instance's timezone from a string or object.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value</code></td></tr></table>
 </div>
 
@@ -4455,7 +4455,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <h2><span class="class-name">CarbonInterval::</span>shiftTimezone</h2>
     <code>$tzName</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
-    <p class="doc-description">@internal<br><br>Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
+    <p class="doc-description">@internal<br><br>Set the instance's timezone from a string or object.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.3.0</td><td><code>$tzName</code></td></tr></table>
 </div>
 
@@ -6027,7 +6027,7 @@ Warning: if the period has no fixed end, this method will iterate the period to 
     <h2><span class="class-name">CarbonPeriod::</span>setTimezone</h2>
     <code>$timezone</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
-    <p class="doc-description">Set the instance's timezone from a string or object and apply it to start/end.</p>
+    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.52.0</td><td><code>$timezone</code></td></tr></table>
 </div>
 
@@ -6035,7 +6035,7 @@ Warning: if the period has no fixed end, this method will iterate the period to 
     <h2><span class="class-name">CarbonPeriod::</span>shiftTimezone</h2>
     <code>$timezone</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
-    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference to start/end.</p>
+    <p class="doc-description">Set the instance's timezone from a string or object.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.3.0</td><td><code>$timezone</code></td></tr></table>
 </div>
 
