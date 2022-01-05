@@ -1641,6 +1641,10 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffDayMinusOneMicrosecond()
     {
+        if (version_compare(PHP_VERSION, '7.2.0-dev', '<')) {
+            $this->markTestSkipped('PHP 7.1 return incorrect value for this case');
+        }
+
         $now = new Carbon('2019-07-29 14:02:54.000000 UTC');
         $then1 = new Carbon('2019-07-28 14:02:54.000001 UTC');
         $then2 = new Carbon('2019-07-27 14:02:54.000001 UTC');

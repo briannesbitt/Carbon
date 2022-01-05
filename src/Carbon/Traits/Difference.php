@@ -1155,7 +1155,7 @@ trait Difference
         $daysDiff = (int) $interval->format('%a');
         $sign = $interval->format('%r') === '-' ? -1 : 1;
 
-        if (is_int($interval->days) &&
+        if (\is_int($interval->days) &&
             $interval->y === 0 &&
             $interval->m === 0 &&
             version_compare(PHP_VERSION, '8.1.0-dev', '<') &&
