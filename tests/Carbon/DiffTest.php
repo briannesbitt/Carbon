@@ -1639,6 +1639,18 @@ class DiffTest extends AbstractTestCase
         }
     }
 
+    public function testDiffDayMinusOneMicrosecond()
+    {
+        $now = new Carbon('2019-07-29 14:02:54.000000 UTC');
+        $then1 = new Carbon('2019-07-28 14:02:54.000001 UTC');
+        $then2 = new Carbon('2019-07-27 14:02:54.000001 UTC');
+
+        $this->assertEqualsWithDelta(-0.99999999998843, $now->floatDiffInDays($then1, false), 0.001);
+        $this->assertEqualsWithDelta(-1.99999999998843, $now->floatDiffInDays($then2, false), 0.001);
+        $this->assertSame(0, $now->diffInDays($then1, false));
+        $this->assertSame(-1, $now->diffInDays($then2, false));
+    }
+
     public function testFloatDiffWithRealUnits()
     {
         $from = Carbon::parse('2021-03-27 20:00 Europe/Warsaw');
