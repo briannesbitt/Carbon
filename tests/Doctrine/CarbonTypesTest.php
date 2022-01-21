@@ -82,6 +82,14 @@ class CarbonTypesTest extends AbstractTestCase
             'precision' => null,
         ], new DB2Platform()));
 
+        $this->assertSame('TIMESTAMP(6)', $type->getSQLDeclaration([
+            'precision' => 0,
+        ], new DB2Platform()));
+
+        $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
+            'precision' => 0,
+        ], new MySQL57Platform()));
+
         $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
             'precision' => null,
         ], new MySQL57Platform()));
