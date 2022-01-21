@@ -36,9 +36,16 @@ trait CarbonTypeConverter
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $precision = ($fieldDeclaration['precision'] ?: 10) === 10
-            ? DateTimeDefaultPrecision::get()
-            : $fieldDeclaration['precision'];
+        $precision = $fieldDeclaration['precision'] ?: 10;
+
+        if ($fieldDeclaration['secondPrecision'] ?? false) {
+            $precision = 0;
+        }
+
+        if ($precision === 10) {
+            $precision = DateTimeDefaultPrecision::get();
+        }
+
         $type = parent::getSQLDeclaration($fieldDeclaration, $platform);
 
         if (!$precision) {
