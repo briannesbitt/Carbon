@@ -7,11 +7,13 @@ include_once __DIR__.'/config.php';
 set_time_limit(0);
 chdir(__DIR__.'/..');
 $arguments = $argv ?? [];
+$verbose = in_array('--verbose', $arguments, true);
 $target = $arguments[1] ?? null;
 
 function loadDependencies()
 {
-    require_once __DIR__.'/../vendor/autoload.php';
+    // load from either .. or ../sandbox
+    require_once 'vendor/autoload.php';
     require_once __DIR__.'/methods.php';
 }
 
@@ -124,6 +126,8 @@ function removeDirectory($dir)
 
 function requireCarbon($branch)
 {
+    global $verbose;
+
     @unlink('composer.lock');
 
     if (!removeDirectory('vendor')) {
@@ -132,8 +136,9 @@ function requireCarbon($branch)
 
     $path = realpath(__DIR__.'/../composer.phar');
     $path = $path ? 'php '.$path : 'composer';
+    $suffix = $verbose ? '' : ' 2>&1';
 
-    return executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
+    return executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
 }
 
 foreach (methods() as [$carbonObject, $className, $method]) {
