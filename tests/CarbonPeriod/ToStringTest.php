@@ -72,6 +72,8 @@ class ToStringTest extends AbstractTestCase
                 CarbonPeriod::create('2015-10-01', '2015-10-05', 'PT30M'),
                 'Every 30 minutes from 2015-10-01 to 2015-10-05',
             ];
+
+        Carbon::setTestNowAndTimezone();
     }
 
     public function testMagicToString()

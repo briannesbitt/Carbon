@@ -25,6 +25,7 @@ abstract class TestCaseBase extends TestCase
         parent::setUp();
 
         date_default_timezone_set('UTC');
+
         Carbon::setLocale(static::LOCALE);
 
         // Freeze the time for the test duration

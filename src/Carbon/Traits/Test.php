@@ -33,6 +33,13 @@ trait Test
     protected static $testNow;
 
     /**
+     * The timezone to resto to when clearing the time mock.
+     *
+     * @var string|null
+     */
+    protected static $testDefaultTimezone;
+
+    /**
      * Set a Carbon instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
@@ -84,6 +91,10 @@ trait Test
      */
     public static function setTestNowAndTimezone($testNow = null, $tz = null)
     {
+        if ($testNow) {
+            self::$testDefaultTimezone = self::$testDefaultTimezone ?? date_default_timezone_get();
+        }
+
         $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;
 
         if ($useDateInstanceTimezone) {
@@ -94,7 +105,12 @@ trait Test
 
         if (!$useDateInstanceTimezone) {
             $now = static::getMockedTestNow(\func_num_args() === 1 ? null : $tz);
-            self::setDefaultTimezone($now->tzName, $now);
+            $tzName = $now ? $now->tzName : null;
+            self::setDefaultTimezone($tzName ?? self::$testDefaultTimezone ?? 'UTC', $now);
+        }
+
+        if (!$testNow) {
+            self::$testDefaultTimezone = null;
         }
     }
 
