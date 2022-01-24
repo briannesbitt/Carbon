@@ -73,13 +73,26 @@
  */
 private $created_at;</code></pre>
 
-<p>But for consistency, we recommend to set it rather globally and use the maximum precision
+<p>But for consistency, we recommend setting it rather globally and use the maximum precision
     allowed by your DB engine(s).</p>
 
 <p><code>DateTimeImmutableType</code> and <code>DateTimeType</code> comes with microseconds
     precision (6) as default value used if precision is not set or set to 0. If you want to
     increase/decrease it, you can call <code>\Carbon\Doctrine\DateTimeDefaultPrecision::set(7)</code>
     from <code>registerBundles()</code> in <strong>src/Kernel.php</strong>,</p>
+
+<p>We chose on purpose to set the precision to 6 by default (while default ORM precision for
+    datetime is 0) because this is the precision you have from a carbon/datetime objects
+    created with PHP. In many situation this precision is needed (to make proper sorting,
+    accurate difference calculations, etc.) and we consider using defaults should be the
+    safest option, not lead to precision loss.</p>
+
+<p>Still if you want explicitly 0-precision (integer second), you can use:</p>
+
+<pre><code class="php">/**
+ * @ORM\Column(type="datetime", secondPrecision=true)
+ */
+private $created_at;</code></pre>
 
 <h1 id="localization">Localization</h1>
 
