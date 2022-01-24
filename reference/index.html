@@ -53,6 +53,7 @@ for more on the possibility of this constructor returning a test instance.</p>
 <div class="doc-method " id="doc-method-Carbon-getLastErrors">
     <h2><span class="class-name">Carbon::</span>getLastErrors</h2>
     <em>no arguments</em>
+    <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">{@inheritdoc}</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -68,6 +69,7 @@ for more on the possibility of this constructor returning a test instance.</p>
 <div class="doc-method " id="doc-method-Carbon-modify">
     <h2><span class="class-name">Carbon::</span>modify</h2>
     <code>$modify</code>
+    <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$modify</code></td></tr></table>
 </div>
@@ -153,7 +155,8 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$date = null, $absolute = false</code>
     <div class="doc-return">returns <code>DateInterval</code></div>
     <p class="doc-description">Get the difference as a DateInterval instance.
-Return relative interval (negative if</p>
+Return relative interval (negative if $absolute flag is not set to true and the given date is before
+current one).</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$date = null, $absolute = false</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$object, $absolute</code></td></tr></table>
 </div>
 
@@ -1757,7 +1760,8 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Get the difference as a CarbonInterval instance.
-Return absolute interval (always positive) unless you pass false to the second argument.</p>
+Return relative interval (negative if $absolute flag is not set to true and the given date is before
+current one).</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = null, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -2981,9 +2985,25 @@ specifically under the following conditions:
 - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
 - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
 - When a string containing the desired time is passed to Carbon::parse().<br><br>Note the timezone parameter was left out of the examples above and
-has no affect as the mock value will be returned regardless of its value.<br><br>To clear the test instance call this method using the default
+has no affect as the mock value will be returned regardless of its value.<br><br>Only the moment is mocked with setTestNow(), the timezone will still be the one passed
+as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).<br><br>To clear the test instance call this method using the default
 parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$testNow = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $testNow = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-setTestNowAndTimezone">
+    <h2><span class="class-name">Carbon::</span>setTestNowAndTimezone</h2>
+    <code>$testNow = null, $tz = null</code>
+    <p class="doc-description">Set a Carbon instance (real or mock) to be returned when a "now"
+instance is created.  The provided instance will be returned
+specifically under the following conditions:
+- A call to the static now() method, ex. Carbon::now()
+- When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
+- When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+- When a string containing the desired time is passed to Carbon::parse().<br><br>It will also align default timezone (e.g. call date_default_timezone_set()) with
+the second argument or if null, with the timezone of the given date object.<br><br>To clear the test instance call this method using the default
+parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.51.0</td><td><code>$testNow = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-withTestNow">
@@ -3068,6 +3088,14 @@ is anything that is not null.</p>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Returns the milliseconds timestamps used amongst other by Date javascript objects.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getTimestampMs">
+    <h2><span class="class-name">Carbon::</span>getTimestampMs</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>int</code></div>
+    <p class="doc-description">Returns the timestamp with millisecond precision.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.51.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-unix">
@@ -3596,6 +3624,14 @@ or false if it's not a holiday.</p>
     <em>no arguments</em>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Return a standardized region name.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getHolidaysAvailableRegions">
+    <h2><span class="class-name">Carbon::</span>getHolidaysAvailableRegions</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>array</code></div>
+    <p class="doc-description">Get the current holidays region.</p>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setHolidaysRegion">
@@ -4425,11 +4461,19 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
 return a date, then convert it into a Carbon/sub-class instance.</p>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-setTimezone">
+    <h2><span class="class-name">CarbonInterval::</span>setTimezone</h2>
+    <code>$tzName</code>
+    <div class="doc-return">returns <code>CarbonInterval</code></div>
+    <p class="doc-description">Set the instance's timezone from a string or object.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.51.0</td><td><code>$tzName</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-shiftTimezone">
     <h2><span class="class-name">CarbonInterval::</span>shiftTimezone</h2>
     <code>$tzName</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
-    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
+    <p class="doc-description">@internal<br><br>Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.3.0</td><td><code>$tzName</code></td></tr></table>
 </div>
 
@@ -4461,6 +4505,15 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <div class="doc-return">returns <code>int|null</code></div>
     <p class="doc-description">Returns the factor for a given source-to-target couple.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$source, $target</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-getFactorWithDefault">
+    <h2><span class="class-name">CarbonInterval::</span>getFactorWithDefault</h2>
+    <code>$source, $target</code>
+    <div class="doc-return">returns <code>int|null</code></div>
+    <p class="doc-description">Returns the factor for a given source-to-target couple if set,
+else try to find the appropriate constant as the factor, such as Carbon::DAYS_PER_WEEK.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.51.0</td><td><code>$source, $target</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-getDaysPerWeek">
@@ -5997,11 +6050,19 @@ Warning: if the period has no fixed end, this method will iterate the period to 
     <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonPeriod-setTimezone">
+    <h2><span class="class-name">CarbonPeriod::</span>setTimezone</h2>
+    <code>$timezone</code>
+    <div class="doc-return">returns <code>CarbonPeriod</code></div>
+    <p class="doc-description">Set the instance's timezone from a string or object and apply it to start/end.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.51.0</td><td><code>$timezone</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonPeriod-shiftTimezone">
     <h2><span class="class-name">CarbonPeriod::</span>shiftTimezone</h2>
     <code>$timezone</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
-    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference.</p>
+    <p class="doc-description">Set the instance's timezone from a string or object and add/subtract the offset difference to start/end.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.3.0</td><td><code>$timezone</code></td></tr></table>
 </div>
 
@@ -6811,6 +6872,14 @@ false if no match is found.</p>
     <p class="doc-description">See <a href="http://php.net/manual/en/datetimezone.__set_state.php">PHP documentation for DateTimeZone::__set_state</a></p>
 </div>
 
+<div class="doc-method " id="doc-method-Translator-trans">
+    <h2><span class="class-name">Translator::</span>trans</h2>
+    <code>$id, array $parameters = [], $domain = null, $locale = null</code>
+    <div class="doc-return">returns <code>string</code></div>
+    <p class="doc-description">Returns the translation.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$id, array $parameters = [], $domain = null, $locale = null</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Translator-get">
     <h2><span class="class-name">Translator::</span>get</h2>
     <code>$locale = null</code>
@@ -6857,14 +6926,6 @@ for more on the possibility of this constructor returning a test instance.</p>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Remove a directory from the list translation files are searched in.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $directory</code></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-Translator-trans">
-    <h2><span class="class-name">Translator::</span>trans</h2>
-    <code>$id, array $parameters = [], $domain = null, $locale = null</code>
-    <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">Returns the translation.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$id, array $parameters = [], $domain = null, $locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-resetMessages">

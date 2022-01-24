@@ -1340,6 +1340,23 @@ $product = new SeasonalProduct(100);
 </code></pre>
     </p>
 
+    <p>Since Carbon 2.56.0, <code>setTestNow()</code> no longer impact the timezone of the <code>Carbon::now()</code>
+        instance you'll get. This was done because in real life, <code>Carbon::now()</code> returns a date with the
+        timezone from <code>date_default_timezone_get()</code>. And tests should reflect this.</p>
+
+    <p>You can use <code>setTestNowAndTimezone()</code> to mock the time and change the default timezone
+        using <code>date_default_timezone_set()</code>:</p>
+
+    <p>
+    <pre><code class="php">{{::lint(Carbon::setTestNowAndTimezone(Carbon::parse('2022-01-24 10:45 America/Toronto'));)}}
+// or
+{{::lint(Carbon::setTestNowAndTimezone('2022-01-24 10:45', 'America/Toronto');)}}
+{{::exec(echo Carbon::now()->format('Y-m-d e');)}} // {{eval}}
+{{::exec(Carbon::setTestNow();)}} // clear time mock
+{{::exec(date_default_timezone_set('UTC');)}} // restore default timezone
+</code></pre>
+    </p>
+
     <p>The list of words that are considered to be relative modifiers are:</p>
 
     <ul>
@@ -1450,7 +1467,9 @@ Carbonite::freeze('2019-12-22'); // Freeze the time to a given date)}}
 {{::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->getTimestamp());/*pad(60)*/)}} // {{eval}}
 // Millisecond-precise timestamp (useful to pass it to JavaScript)
+{{::exec(var_dump($dt->getTimestampMs());/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->valueOf());/*pad(60)*/)}} // {{eval}}
 // Custom-precision timestamp
 {{::exec(var_dump($dt->getPreciseTimestamp(6));/*pad(60)*/)}} // {{eval}}
