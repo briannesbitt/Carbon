@@ -211,6 +211,29 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNowAndTimezone(Carbon::parse('2018-05-06T12:00:00-05:00'));
     }
 
+    public function testSetTestNowAndTimezoneWithNull(): void
+    {
+        Carbon::setTestNowAndTimezone();
+        Carbon::setTestNowAndTimezone(); // replay-able with no effect
+
+        foreach ([null, 'UTC', 'Asia/Tokyo'] as $originalTimezone) {
+            $originalTimezone
+                ? date_default_timezone_set($originalTimezone)
+                : ($originalTimezone = date_default_timezone_get());
+
+            Carbon::setTestNowAndTimezone('2013-09-01 05:10:15 America/Vancouver', 'America/Vancouver');
+
+            $this->assertSame('America/Vancouver', date_default_timezone_get());
+            $this->assertSame('America/Vancouver', Carbon::now()->tzName);
+
+            Carbon::setTestNowAndTimezone();
+
+            $this->assertFalse(Carbon::hasTestNow());
+            $this->assertSame($originalTimezone, date_default_timezone_get());
+            $this->assertSame($originalTimezone, Carbon::now()->tzName);
+        }
+    }
+
     public function testCreateFromPartialFormat()
     {
         Carbon::setTestNowAndTimezone('2013-09-01 05:10:15 America/Vancouver', 'America/Vancouver');
