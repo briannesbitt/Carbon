@@ -1,4 +1,8 @@
 parameters:
+    scanFiles:
+        - lazy/Carbon/PHPStan/MacroStrongType.php
+        - lazy/Carbon/TranslatorStrongType.php
+        - vendor/autoload.php
     level: 3
     paths:
         - src
@@ -11,7 +15,6 @@ parameters:
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
         - '#^Access to an undefined property Carbon\\CarbonPeriod::\$locale\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
-        - '#Class Symfony\\Component\\Translation\\IdentityTranslator does not have a constructor and must be instantiated without any parameters\.#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
@@ -26,7 +29,10 @@ parameters:
     excludePaths:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/PHPStan/Macro.php'
+        - '*/tests/Carbon/Fixtures/DumpCarbon.php'
+        - '*/tests/Carbon/LocalizationTest.php'
         - '*/tests/Carbon/SerializationTest.php'
+        - '*/tests/CarbonImmutable/LocalizationTest.php'
         - '*/tests/CarbonImmutable/SetStateTest.php'
         - '*/tests/CarbonImmutable/SerializationTest.php'
         - '*/tests/Laravel/*.php'
