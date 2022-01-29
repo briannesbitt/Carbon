@@ -1,4 +1,8 @@
 parameters:
+    scanFiles:
+        - lazy/Carbon/PHPStan/MacroStrongType.php
+        - lazy/Carbon/TranslatorStrongType.php
+        - vendor/autoload.php
     level: 3
     paths:
         - src
@@ -30,7 +34,10 @@ parameters:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/TranslatorWeakType.php'
         - '*/src/Carbon/PHPStan/Macro.php'
+        - '*/tests/Carbon/Fixtures/DumpCarbon.php'
+        - '*/tests/Carbon/LocalizationTest.php'
         - '*/tests/Carbon/SerializationTest.php'
+        - '*/tests/CarbonImmutable/LocalizationTest.php'
         - '*/tests/CarbonImmutable/SetStateTest.php'
         - '*/tests/CarbonImmutable/SerializationTest.php'
         - '*/tests/Laravel/*.php'

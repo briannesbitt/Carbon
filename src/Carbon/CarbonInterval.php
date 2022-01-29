@@ -491,7 +491,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return int|null
      */
-    public function getFactorWithDefault($source, $target)
+    public static function getFactorWithDefault($source, $target)
     {
         $factor = self::getFactor($source, $target);
 
