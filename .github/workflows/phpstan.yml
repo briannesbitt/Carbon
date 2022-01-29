@@ -34,4 +34,4 @@ jobs:
           composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
 
       - name: Run phpstan
-        run: ls -alh lazy/Carbon
+        run: composer phpstan

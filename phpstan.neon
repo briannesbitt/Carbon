@@ -1,4 +1,8 @@
 parameters:
+    scanFiles:
+        - lazy/Carbon/PHPStan/MacroStrongType.php
+        - lazy/Carbon/TranslatorStrongType.php
+        - vendor/autoload.php
     level: 3
     paths:
         - src
