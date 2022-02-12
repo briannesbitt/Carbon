@@ -1653,6 +1653,15 @@ class DiffTest extends AbstractTestCase
         $this->assertEqualsWithDelta(-1.99999999998843, $now->floatDiffInDays($then2, false), 0.001);
         $this->assertSame(0, $now->diffInDays($then1, false));
         $this->assertSame(-1, $now->diffInDays($then2, false));
+
+        $this->assertSame(
+            6.99999273113426,
+            Carbon::parse('2022-01-04 13:32:30.628030')->floatDiffInDays('2022-01-11 13:32:30.000000')
+        );
+        $this->assertSame(
+            6.999734949884259,
+            Carbon::parse('2022-01-04 13:32:52.900330')->floatDiffInDays('2022-01-11 13:32:30.000000')
+        );
     }
 
     public function testFloatDiffWithRealUnits()
