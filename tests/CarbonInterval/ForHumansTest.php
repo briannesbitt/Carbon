@@ -392,6 +392,19 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
     }
 
+    public function testCeilShortMonth()
+    {
+        Carbon::setTestNow('2022-02-08T10:27:03Z');
+        $this->assertSame(
+            '4 weeks ago',
+            Carbon::parse('2022-01-11 15:36:29')->diffForHumans(['parts' => 1, 'options' => Carbon::CEIL])
+        );
+        $this->assertSame(
+            '1 month ago',
+            Carbon::parse('2022-01-10 16:57:38')->diffForHumans(['parts' => 1, 'options' => Carbon::CEIL])
+        );
+    }
+
     public function testSkipUnits()
     {
         CarbonInterval::setLocale('en');
