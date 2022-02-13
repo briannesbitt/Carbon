@@ -180,10 +180,6 @@ class AddTest extends AbstractTestCase
 
     public function testPlusWithPHP8Syntax()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
@@ -204,10 +200,6 @@ class AddTest extends AbstractTestCase
 
     public function testMinusWithPHP8Syntax()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->minus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 11, 26, 0, 0, 0, true);
