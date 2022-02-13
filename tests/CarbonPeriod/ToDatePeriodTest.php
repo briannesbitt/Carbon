@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\CarbonPeriod;
 
+use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\Translator;
 use DatePeriod;
 use Tests\AbstractTestCase;
 
@@ -57,5 +59,42 @@ class ToDatePeriodTest extends AbstractTestCase
         $this->assertSame('2021-01-08', end($dates)->format('Y-m-d'));
         $this->assertSame('2021-01-05', $newInstance->getStartDate()->format('Y-m-d'));
         $this->assertSame(3, $newInstance->getRecurrences());
+    }
+
+    public function testWithIntervalLocalized()
+    {
+        CarbonInterval::setLocale('fr');
+        $period = CarbonPeriod::create('2021-01-05', 3);
+        $result = $period->floor()->toDatePeriod();
+
+        $this->assertSame(DatePeriod::class, \get_class($result));
+        $this->assertSame('2021-01-05', $result->getStartDate()->format('Y-m-d'));
+        $this->assertNull($result->getEndDate());
+
+        if (method_exists($result, 'getRecurrences')) {
+            $this->assertSame(3, $result->getRecurrences());
+        }
+
+        CarbonInterval::setLocale('en');
+    }
+
+    public function testWithModifiedEnglish()
+    {
+        $translator = Translator::get('en');
+        $translator->setTranslations([
+            'day' => ':count boring day|:count boring days',
+        ]);
+        $period = CarbonPeriod::create('2021-01-05', 3);
+        $result = $period->floor()->toDatePeriod();
+
+        $this->assertSame(DatePeriod::class, \get_class($result));
+        $this->assertSame('2021-01-05', $result->getStartDate()->format('Y-m-d'));
+        $this->assertNull($result->getEndDate());
+
+        if (method_exists($result, 'getRecurrences')) {
+            $this->assertSame(3, $result->getRecurrences());
+        }
+
+        $translator->resetMessages();
     }
 }

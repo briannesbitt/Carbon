@@ -163,6 +163,8 @@ use RuntimeException;
  * @method $this floorMicroseconds(float $precision = 1) Truncate the current instance microsecond with given precision.
  * @method $this ceilMicrosecond(float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(float $precision = 1) Ceil the current instance microsecond with given precision.
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
@@ -2179,7 +2181,10 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function round($precision = null, $function = 'round')
     {
-        return $this->roundWith($precision ?? (string) $this->getDateInterval(), $function);
+        return $this->roundWith(
+            $precision ?? $this->getDateInterval()->setLocalTranslator(TranslatorImmutable::get('en'))->forHumans(),
+            $function
+        );
     }
 
     /**
