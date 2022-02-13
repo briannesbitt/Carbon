@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Tests\Language;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Translator;
+use Carbon\TranslatorImmutable;
 use ReflectionMethod;
 use Tests\AbstractTestCase;
 
@@ -75,5 +77,13 @@ class TranslatorTest extends AbstractTestCase
             'string does neither implements Symfony\Contracts\Translation\LocaleAwareInterface nor getLocale() method.',
             $exception->getMessage(),
         );
+    }
+
+    public function testTranslatorImmutable()
+    {
+        $this->expectExceptionObject(
+            new ImmutableException('setTranslations not allowed on '.TranslatorImmutable::class)
+        );
+        TranslatorImmutable::get('en')->setTranslations([]);
     }
 }

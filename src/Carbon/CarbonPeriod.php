@@ -166,6 +166,7 @@ use RuntimeException;
  *
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
 {
@@ -2189,7 +2190,10 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     public function round(DateInterval|float|int|string|null $precision = null, string $function = 'round'): static
     {
-        return $this->roundWith($precision ?? (string) $this->getDateInterval(), $function);
+        return $this->roundWith(
+            $precision ?? $this->getDateInterval()->setLocalTranslator(TranslatorImmutable::get('en'))->forHumans(),
+            $function
+        );
     }
 
     /**

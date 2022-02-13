@@ -33,11 +33,6 @@
         <exclude name="CouplingBetweenObjects" />
         <exclude name="CountInLoopExpression" />
     </rule>
-    <rule ref="rulesets/design.xml/CouplingBetweenObjects">
-        <properties>
-            <property name="maximum" value="26" />
-        </properties>
-    </rule>
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
             <property name="exceptions" value="ci,id,to,tz" />
