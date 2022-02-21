@@ -23,7 +23,10 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface as ContractsTranslatorInterface;
 
-if (!interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')) {
+if (
+    PHP_VERSION_ID < 72000 && !interface_exists('Symfony\\Component\\Translation\\TranslatorInterface') ||
+    PHP_VERSION_ID >= 72000 && interface_exists('Symfony\\Contracts\\Translation\\TranslatorInterface')
+) {
     class_alias(
         'Symfony\\Contracts\\Translation\\TranslatorInterface',
         'Symfony\\Component\\Translation\\TranslatorInterface'
