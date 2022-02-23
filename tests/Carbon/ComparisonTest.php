@@ -360,4 +360,17 @@ class ComparisonTest extends AbstractTestCase
 
         $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
     }
+
+    public function testWithNullOrEmpty()
+    {
+        $dt = Carbon::now();
+        $this->assertFalse($dt->lessThan(null));
+        $this->assertFalse($dt->lessThan(''));
+
+        $this->assertFalse($dt->lessThanOrEqualTo(null));
+        $this->assertFalse($dt->lessThanOrEqualTo(''));
+
+        $this->assertTrue($dt->greaterThan(null));
+        $this->assertTrue($dt->greaterThan(''));
+    }
 }

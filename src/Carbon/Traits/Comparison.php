@@ -155,7 +155,7 @@ trait Comparison
      */
     public function greaterThan($date): bool
     {
-        return $this > $this->resolveCarbon($date);
+        return !$date || $this > $this->resolveCarbon($date);
     }
 
     /**
@@ -256,7 +256,7 @@ trait Comparison
      */
     public function lessThan($date): bool
     {
-        return $this < $this->resolveCarbon($date);
+        return $date && $this < $this->resolveCarbon($date);
     }
 
     /**
