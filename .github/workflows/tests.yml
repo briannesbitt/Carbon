@@ -94,8 +94,8 @@ jobs:
           if [[ "${{ matrix.laravel }}" != 'true' ]]; then
             composer remove --no-update kylekatarnls/multi-tester --no-interaction;
           fi;
-          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
+          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.23 --no-interaction;' || '' }}
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
 
       - name: Run test suite
         run: |
@@ -185,8 +185,8 @@ jobs:
       - name: Install dependencies
         run: |
           composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.23 --no-interaction;' || '' }}
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
 
       - name: Run test suite
         run: |
