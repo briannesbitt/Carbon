@@ -197,6 +197,8 @@ class GettersTest extends AbstractTestCase
 
     public function testLocalizedGetters()
     {
+        Carbon::useStrictMode(false);
+
         $currentLocale = setlocale(LC_ALL, '0');
         if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
