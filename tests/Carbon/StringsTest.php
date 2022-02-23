@@ -157,16 +157,16 @@ class StringsTest extends AbstractTestCase
 
     public function testToLocalizedFormattedDeprecation()
     {
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8.1 to test deprecation.');
+        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
+            $this->expectExceptionObject(
+                new ErrorException('Function strftime() is deprecated', E_DEPRECATED)
+            );
         }
 
-        $this->expectExceptionObject(
-            new ErrorException('Function strftime() is deprecated', E_DEPRECATED)
-        );
-
         $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            Carbon::now()->formatLocalized('%A %d %B %Y');
+            $date = Carbon::parse('2021-05-26')->formatLocalized('%A %d %B %Y');
+
+            $this->assertSame('mercredi 26 mai 2021', $date);
         });
     }
 
