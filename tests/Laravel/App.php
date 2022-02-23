@@ -88,21 +88,25 @@ class App implements ArrayAccess
         return isset($this->{$service});
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->$offset);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->$offset;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         // noop
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         // noop

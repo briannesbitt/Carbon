@@ -100,10 +100,10 @@ jobs:
       - name: Run test suite
         run: |
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
+            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
           fi;
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
           fi;
           if [[ "${{ matrix.laravel }}" = 'true' ]]; then
             vendor/bin/multi-tester;
@@ -190,7 +190,7 @@ jobs:
 
       - name: Run test suite
         run: |
-          php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
         env:
           PHP_VERSION: ${{ matrix.php }}
           REDIS_HOST: 127.0.0.1
