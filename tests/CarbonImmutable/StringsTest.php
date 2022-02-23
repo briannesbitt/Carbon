@@ -93,6 +93,8 @@ class StringsTest extends AbstractTestCase
 
     public function testToLocalizedFormattedDateString()
     {
+        Carbon::useStrictMode(false);
+
         $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
             $d = Carbon::create(1975, 12, 25, 14, 15, 16);
             $date = $d->formatLocalized('%A %d %B %Y');
@@ -103,6 +105,8 @@ class StringsTest extends AbstractTestCase
 
     public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
     {
+        Carbon::useStrictMode(false);
+
         $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
             $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/Paris');
             Carbon::setUtf8(false);
@@ -118,6 +122,7 @@ class StringsTest extends AbstractTestCase
 
     public function testToLocalizedFormattedTimezonedDateString()
     {
+        Carbon::useStrictMode(false);
         $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
         $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));
     }
@@ -270,6 +275,11 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('ene.', $d->locale('es')->isoFormat('MMM'));
         $this->assertSame('1 de enero de 2017', $d->locale('es')->isoFormat('LL'));
         $this->assertSame('1 de ene. de 2017', $d->locale('es')->isoFormat('ll'));
+
+        $this->assertSame('1st', Carbon::parse('2018-06-01')->isoFormat('Do'));
+        $this->assertSame('11th', Carbon::parse('2018-06-11')->isoFormat('Do'));
+        $this->assertSame('21st', Carbon::parse('2018-06-21')->isoFormat('Do'));
+        $this->assertSame('15th', Carbon::parse('2018-06-15')->isoFormat('Do'));
     }
 
     public function testBadIsoFormat()

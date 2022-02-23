@@ -35,14 +35,16 @@
         "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.54 || ^1.0",
-        "phpunit/phpunit": "^7.5.20 || ^8.5.14",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.23",
+        "phpunit/php-file-iterator": "^2.0.5",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "config": {
         "process-timeout": 0,
         "sort-packages": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "composer/package-versions-deprecated": true
         }
     },
     "extra": {
