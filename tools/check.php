@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Translator;
+
 define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
@@ -38,13 +40,17 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         (startOf|endOf)$upperUnit |
         $lowerUnit
     )$/x", $method);
+    $methodFQCN = "$className::$method";
+    $exclusion = $exclusion || in_array($methodFQCN, [
+            Translator::class . '::getFromCatalogue',
+        ], true);
     $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
     if (!$documented) {
         $missingMethodsCount++;
     }
     $color = $documented ? 32 : 31;
     $message = $documented ? 'documented' : 'missing';
-    $methodPad = str_pad("$className::$method", 45);
+    $methodPad = str_pad($methodFQCN, 45);
 
     $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 

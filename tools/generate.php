@@ -8,7 +8,15 @@ ini_set('html_errors', 0);
 
 if (function_exists('xdebug_disable')) {
     ini_set('xdebug.overload_var_dump', 0);
+    ini_set('xdebug.mode', 'none');
     xdebug_disable();
+}
+
+if (!in_array('--wrapped', $argv ?? [], true) &&
+    @in_array(ini_get('xdebug.mode'), ['develop', 'coverage', 'debug', 'gcstats', 'profile', 'trace'], true)
+) {
+    passthru(PHP_BINARY . ' -d xdebug.mode=none ' . escapeshellarg(__FILE__) . ' --wrapped', $resultCode);
+    exit($resultCode);
 }
 
 chdir(__DIR__.'/..');
