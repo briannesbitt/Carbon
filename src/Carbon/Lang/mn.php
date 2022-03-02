@@ -26,6 +26,7 @@
  * - Nicolás Hock Isaza
  * - Ochirkhuyag
  * - Batmandakh
+ * - lucifer-crybaby
  */
 return [
     'year' => ':count жил',
@@ -47,6 +48,7 @@ return [
     'year_ago' => ':count жилий',
     'month_ago' => ':count сары',
     'day_ago' => ':count хоногий',
+    'week_ago' => ':count долоо хоногий',
     'hour_ago' => ':count цагий',
     'minute_ago' => ':count минуты',
     'second_ago' => ':count секунды',
