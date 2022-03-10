@@ -61,9 +61,20 @@ jobs:
 
           - php: 8.0
             laravel: true
+            reference: 9.x
 
           - php: 8.0
             laravel: true
+            reference: 9.x
+            classmap-authoritative: true
+
+          - php: 8.1
+            laravel: true
+            reference: master
+
+          - php: 8.1
+            laravel: true
+            reference: master
             classmap-authoritative: true
 
     name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
@@ -106,7 +117,7 @@ jobs:
             php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
           fi;
           if [[ "${{ matrix.laravel }}" = 'true' ]]; then
-            vendor/bin/multi-tester;
+            vendor/bin/multi-tester tests/Laravel/laravel-${{ matrix.reference }}.multi-tester.yml;
           fi;
         env:
           PHP_VERSION: ${{ matrix.php }}
