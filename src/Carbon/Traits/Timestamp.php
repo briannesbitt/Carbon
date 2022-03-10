@@ -125,7 +125,7 @@ trait Timestamp
      */
     public function getPreciseTimestamp($precision = 6)
     {
-        return round($this->rawFormat('Uu') / pow(10, 6 - $precision));
+        return round(((float) $this->rawFormat('Uu')) / pow(10, 6 - $precision));
     }
 
     /**

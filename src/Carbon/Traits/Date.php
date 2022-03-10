@@ -940,7 +940,7 @@ trait Date
             case $name === 'millisecond':
             // @property int
             case $name === 'milli':
-                return (int) floor($this->rawFormat('u') / 1000);
+                return (int) floor(((int) $this->rawFormat('u')) / 1000);
 
             // @property int 1 through 53
             case $name === 'week':
