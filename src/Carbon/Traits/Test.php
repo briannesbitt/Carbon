@@ -129,6 +129,7 @@ trait Test
     public static function withTestNow($testNow = null, $callback = null)
     {
         static::setTestNow($testNow);
+
         try {
             $result = $callback();
         } finally {
