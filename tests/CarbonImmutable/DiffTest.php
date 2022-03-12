@@ -1791,7 +1791,7 @@ class DiffTest extends AbstractTestCase
         $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
         $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
 
-        $this->assertSame(-86399.999999, $d2->diffInSeconds($d1));
+        $this->assertEqualsWithDelta(-86399.999999, $d2->diffInSeconds($d1), 0.00001);
     }
 
     public function testNearlyFullDayDiffInMicroseconds()
@@ -1799,7 +1799,7 @@ class DiffTest extends AbstractTestCase
         $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
         $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
 
-        $this->assertSame(-86399999999.0, $d2->diffInMicroseconds($d1));
+        $this->assertEqualsWithDelta(-86399999999.0, $d2->diffInMicroseconds($d1), 0.00001);
     }
 
     public function testExactMonthDiffInSeconds()
