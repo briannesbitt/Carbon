@@ -90,7 +90,7 @@ return [
     'weekdays_min' => ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'],
     'ordinal' => static function ($number, $period) {
         return match ($period) {
-            // In french, only the first has be ordinal, other number remains cardinal
+            // In French, only the first has to be ordinal, other number remains cardinal
             // @link https://fr.wikihow.com/%C3%A9crire-la-date-en-fran%C3%A7ais
             'D' => $number.($number === 1 ? 'er' : ''),
             default => $number.($number === 1 ? 'er' : 'e'),

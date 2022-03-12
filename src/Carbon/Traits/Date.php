@@ -871,7 +871,7 @@ trait Date
             case $name === 'millisecond':
             // @property int
             case $name === 'milli':
-                return (int) floor($this->rawFormat('u') / 1000);
+                return (int) floor(((int) $this->rawFormat('u')) / 1000);
 
             // @property int 1 through 53
             case $name === 'week':
@@ -1716,7 +1716,10 @@ trait Date
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
-        $formatted = strftime($format, strtotime($this->toDateTimeString()));
+        $time = strtotime($this->toDateTimeString());
+        $formatted = ($this->localStrictModeEnabled ?? static::isStrictModeEnabled())
+            ? strftime($format, $time)
+            : @strftime($format, $time);
 
         return static::$utf8 ? utf8_encode($formatted) : $formatted;
     }
@@ -2227,7 +2230,7 @@ trait Date
         $symbol = $second < 0 ? '-' : '+';
         $minute = abs($second) / static::SECONDS_PER_MINUTE;
         $hour = str_pad((string) floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
-        $minute = str_pad((string) ($minute % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
+        $minute = str_pad((string) (((int) $minute) % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
 
         return "$symbol$hour$separator$minute";
     }

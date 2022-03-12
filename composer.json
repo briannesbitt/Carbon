@@ -41,7 +41,8 @@
         "process-timeout": 0,
         "sort-packages": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "composer/package-versions-deprecated": true
         }
     },
     "extra": {

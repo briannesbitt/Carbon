@@ -126,59 +126,59 @@ class MnMnTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 секундын өмнө',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1сн өмнө',
+        '1с өмнө',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 секундын өмнө',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2сн өмнө',
+        '2с өмнө',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 минутын өмнө',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1мн өмнө',
+        '1м өмнө',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 минутын өмнө',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2мн өмнө',
+        '2м өмнө',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 цагийн өмнө',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1цн өмнө',
+        '1ц өмнө',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 цагийн өмнө',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2цн өмнө',
+        '2ц өмнө',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 хоногийн өмнө',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 өдөрн өмнө',
+        '1 хоногийн өмнө',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 хоногийн өмнө',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 өдөрн өмнө',
+        '2 хоногийн өмнө',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 долоо хоногн өмнө',
+        '1 долоо хоногийн өмнө',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 долоо хоногн өмнө',
+        '1 долоо хоногийн өмнө',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 долоо хоногн өмнө',
+        '2 долоо хоногийн өмнө',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 долоо хоногн өмнө',
+        '2 долоо хоногийн өмнө',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 сарын өмнө',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 сарн өмнө',
+        '1 сарын өмнө',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 сарын өмнө',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 сарн өмнө',
+        '2 сарын өмнө',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 жилийн өмнө',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 жилн өмнө',
+        '1 жилийн өмнө',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 жилийн өмнө',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 жилн өмнө',
+        '2 жилийн өмнө',
         // Carbon::now()->addSecond()->diffForHumans()
         'одоогоос 1 секундын дараа',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -186,11 +186,11 @@ class MnMnTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 секундын дараа',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1сн дараа',
+        '1с дараа',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 секундын өмнө',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1сн өмнө',
+        '1с өмнө',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 секунд',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
@@ -208,9 +208,9 @@ class MnMnTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'одоогоос 3 жилийн дараа',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 сарн өмнө',
+        '5 сарын өмнө',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 жил 3 сар 1 өдөр 1сн өмнө',
+        '2 жилийн 3 сарын 1 хоногийн 1с өмнө',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 долоо хоног 10 цаг',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
