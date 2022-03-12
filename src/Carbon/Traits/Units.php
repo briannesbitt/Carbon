@@ -39,6 +39,8 @@ trait Units
      */
     public function addRealUnit(string $unit, $value = 1): static
     {
+        $value ??= 0;
+
         switch ($unit) {
             // @call addRealUnit
             case 'micro':
