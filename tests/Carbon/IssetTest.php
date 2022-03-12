@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Carbon;
 
-use Carbon\CarbonImmutable as Carbon;
+use Carbon\Carbon;
 use Generator;
 use Tests\AbstractTestCase;
 
@@ -101,6 +101,6 @@ class IssetTest extends AbstractTestCase
     public function testIssetReturnTrueForProperties(string $property): void
     {
         Carbon::useStrictMode(false);
-        $this->assertTrue(isset($this->immutableNow->{$property}));
+        $this->assertTrue(isset($this->now->{$property}));
     }
 }
