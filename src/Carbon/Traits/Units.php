@@ -32,8 +32,8 @@ trait Units
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
-     * @param string    $unit
-     * @param int|float $value
+     * @param string         $unit
+     * @param int|float|null $value
      *
      * @return static
      */
