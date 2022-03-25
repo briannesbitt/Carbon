@@ -586,6 +586,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const YEARS_PER_DECADE = 10;
     public const MONTHS_PER_YEAR = 12;
     public const MONTHS_PER_QUARTER = 3;
+    public const QUARTERS_PER_YEAR = 4;
     public const WEEKS_PER_YEAR = 52;
     public const WEEKS_PER_MONTH = 4;
     public const DAYS_PER_YEAR = 365;
