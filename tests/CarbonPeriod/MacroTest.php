@@ -24,7 +24,7 @@ class MacroTest extends AbstractTestCase
 {
     protected function tearDown(): void
     {
-        $reflection = new ReflectionClass('Carbon\CarbonPeriod');
+        $reflection = new ReflectionClass(CarbonPeriod::class);
 
         $macrosProperty = $reflection->getProperty('macros');
 

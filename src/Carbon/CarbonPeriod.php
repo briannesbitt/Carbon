@@ -377,7 +377,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             );
         }
 
-        $class = \get_called_class();
+        $class = static::class;
         $type = \gettype($period);
 
         throw new NotAPeriodException(
