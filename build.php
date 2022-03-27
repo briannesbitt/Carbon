@@ -31,7 +31,7 @@ usort($tags, 'version_compare');
 $tag = isset($argv[1]) && !\in_array($argv[1], ['last', 'latest']) ? $argv[1] : end($tags);
 
 if (strtolower($tag) !== 'all') {
-    if (! \in_array($tag, $tags, true)) {
+    if (!\in_array($tag, $tags, true)) {
         echo "Tag must be one of remote tags available:\n";
         foreach ($tags as $_tag) {
             echo "  - $_tag\n";
