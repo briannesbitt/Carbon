@@ -44,7 +44,6 @@ jobs:
             setup: lowest
 
           - php: 7.4
-            coverage: true
           - php: 7.4
             setup: lowest
 
@@ -67,6 +66,9 @@ jobs:
             laravel: true
             reference: 9.x
             classmap-authoritative: true
+
+          - php: 8.1
+            coverage: true
 
           - php: 8.1
             laravel: true
