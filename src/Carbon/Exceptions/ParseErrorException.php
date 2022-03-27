@@ -11,8 +11,8 @@
 
 namespace Carbon\Exceptions;
 
-use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 
 class ParseErrorException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
@@ -22,9 +22,9 @@ class ParseErrorException extends BaseInvalidArgumentException implements Invali
      * @param string         $expected
      * @param string         $actual
      * @param int            $code
-     * @param Exception|null $previous
+     * @param Throwable|null $previous
      */
-    public function __construct($expected, $actual, $help = '', $code = 0, Exception $previous = null)
+    public function __construct($expected, $actual, $help = '', $code = 0, Throwable $previous = null)
     {
         $actual = $actual === '' ? 'data is missing' : "get '$actual'";
 

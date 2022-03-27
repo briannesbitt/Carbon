@@ -12,7 +12,7 @@
 namespace Carbon\Exceptions;
 
 use BadMethodCallException as BaseBadMethodCallException;
-use Exception;
+use Throwable;
 
 class BadFluentConstructorException extends BaseBadMethodCallException implements BadMethodCallException
 {
@@ -21,9 +21,9 @@ class BadFluentConstructorException extends BaseBadMethodCallException implement
      *
      * @param string         $method
      * @param int            $code
-     * @param Exception|null $previous
+     * @param Throwable|null $previous
      */
-    public function __construct($method, $code = 0, Exception $previous = null)
+    public function __construct($method, $code = 0, Throwable $previous = null)
     {
         parent::__construct(sprintf("Unknown fluent constructor '%s'.", $method), $code, $previous);
     }

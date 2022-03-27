@@ -11,8 +11,8 @@
 
 namespace Carbon\Exceptions;
 
-use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 
 class UnknownSetterException extends BaseInvalidArgumentException implements BadMethodCallException
 {
@@ -21,9 +21,9 @@ class UnknownSetterException extends BaseInvalidArgumentException implements Bad
      *
      * @param string         $name     setter name
      * @param int            $code
-     * @param Exception|null $previous
+     * @param Throwable|null $previous
      */
-    public function __construct($name, $code = 0, Exception $previous = null)
+    public function __construct($name, $code = 0, Throwable $previous = null)
     {
         parent::__construct("Unknown setter '$name'", $code, $previous);
     }

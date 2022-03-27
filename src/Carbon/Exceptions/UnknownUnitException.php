@@ -11,7 +11,7 @@
 
 namespace Carbon\Exceptions;
 
-use Exception;
+use Throwable;
 
 class UnknownUnitException extends UnitException
 {
@@ -20,9 +20,9 @@ class UnknownUnitException extends UnitException
      *
      * @param string         $unit
      * @param int            $code
-     * @param Exception|null $previous
+     * @param Throwable|null $previous
      */
-    public function __construct($unit, $code = 0, Exception $previous = null)
+    public function __construct($unit, $code = 0, Throwable $previous = null)
     {
         parent::__construct("Unknown unit '$unit'.", $code, $previous);
     }
