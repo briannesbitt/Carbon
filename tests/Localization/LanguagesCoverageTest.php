@@ -28,7 +28,8 @@ class LanguagesCoverageTest extends AbstractTestCase
             $file = basename($language);
             $covered = \in_array(
                 str_replace(['_', '-', '@'], '', strtolower(substr($file, 0, -4))),
-                $tests
+                $tests,
+                true
             );
             $tester->assertTrue($covered, "Expect $file language file to be covered.");
 

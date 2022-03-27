@@ -2569,7 +2569,7 @@ trait Date
         if (str_starts_with($unit, 'is')) {
             $word = substr($unit, 2);
 
-            if (\in_array($word, static::$days)) {
+            if (\in_array($word, static::$days, true)) {
                 return $this->isDayOfWeek($word);
             }
 
@@ -2597,7 +2597,7 @@ trait Date
             $unit = strtolower(substr($unit, 3));
         }
 
-        if (\in_array($unit, static::$units)) {
+        if (\in_array($unit, static::$units, true)) {
             return $this->setUnit($unit, ...$parameters);
         }
 
