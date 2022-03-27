@@ -18,7 +18,9 @@ class UnitNotConfiguredExceptionTest extends AbstractTestCase
 {
     public function testUnitNotConfiguredException(): void
     {
-        $exception = new UnitNotConfiguredException('foo');
+        $exception = new UnitNotConfiguredException($unit = 'foo');
+
+        $this->assertSame($unit, $exception->getUnit());
 
         $this->assertSame('Unit foo have no configuration to get total from other units.', $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

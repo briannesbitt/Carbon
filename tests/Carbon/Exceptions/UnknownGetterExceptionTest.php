@@ -18,7 +18,9 @@ class UnknownGetterExceptionTest extends AbstractTestCase
 {
     public function testUnknownGetterException(): void
     {
-        $exception = new UnknownGetterException('foo');
+        $exception = new UnknownGetterException($getter = 'foo');
+
+        $this->assertSame($getter, $exception->getGetter());
 
         $this->assertSame("Unknown getter 'foo'", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());
