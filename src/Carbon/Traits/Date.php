@@ -643,7 +643,7 @@ trait Date
      *
      * @return array
      */
-    protected static function getRangesByUnit()
+    protected static function getRangesByUnit(int $daysInMonth = 31): array
     {
         return [
             // @call roundUnit
@@ -651,7 +651,7 @@ trait Date
             // @call roundUnit
             'month' => [1, static::MONTHS_PER_YEAR],
             // @call roundUnit
-            'day' => [1, 31],
+            'day' => [1, $daysInMonth],
             // @call roundUnit
             'hour' => [0, static::HOURS_PER_DAY - 1],
             // @call roundUnit
