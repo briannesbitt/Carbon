@@ -161,7 +161,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
                 )
             ) ?: null;
 
-            $docReturn = preg_match('/@return (\S+)/', $docComment, $returnMatch)
+            $docReturn = preg_match('/@return (\S+)/', $docComment ?? '', $returnMatch)
                 ? convertReturnType($returnMatch[1], $className)
                 : null;
 
