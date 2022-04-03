@@ -169,7 +169,7 @@ private $created_at;</code></pre>
 <p>Still if you want explicitly 0-precision (integer second), you can use:</p>
 
 <pre><code class="php">/**
- * @ORM\Column(type="datetime", secondPrecision=true)
+ * @ORM\Column(type="datetime", options={"secondPrecision"=true})
  */
 private $created_at;</code></pre>
 
