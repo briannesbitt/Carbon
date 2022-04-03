@@ -183,7 +183,7 @@ trait Units
             'weekday',
         ];
 
-        return \in_array($unit, $modifiableUnits) || \in_array($unit, static::$units);
+        return \in_array($unit, $modifiableUnits, true) || \in_array($unit, static::$units, true);
     }
 
     /**
@@ -280,7 +280,7 @@ trait Units
                     /** @var static $date */
                     $date = $date->addDays($sign);
 
-                    while (\in_array($date->dayOfWeek, $weekendDays)) {
+                    while (\in_array($date->dayOfWeek, $weekendDays, true)) {
                         $date = $date->addDays($sign);
                     }
                 }

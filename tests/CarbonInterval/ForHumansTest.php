@@ -378,18 +378,18 @@ class ForHumansTest extends AbstractTestCase
 
         $this->assertSame('2 years 6 months', $interval);
 
-        $interval = CarbonInterval::months(1)->days(30);
-        $this->assertSame('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
-        $interval = CarbonInterval::months(1)->days(31);
-        $this->assertSame('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
-        $interval = CarbonInterval::months(1)->days(32);
-        $this->assertSame('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
-        $interval = CarbonInterval::months(1)->days(30);
-        $this->assertSame('2 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
-        $interval = CarbonInterval::months(1)->days(31);
+        $interval = CarbonInterval::months(2)->days(30);
+        $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::months(2)->days(31);
+        $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::months(2)->days(32);
+        $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::months(2)->days(30);
         $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
-        $interval = CarbonInterval::months(1)->days(32);
+        $interval = CarbonInterval::months(2)->days(31);
         $this->assertSame('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
+        $interval = CarbonInterval::months(2)->days(32);
+        $this->assertSame('4 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::CEIL]));
     }
 
     public function testCeilShortMonth()
