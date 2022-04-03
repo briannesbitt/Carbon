@@ -167,7 +167,7 @@ trait Units
             'weekday',
         ];
 
-        return \in_array($unit, $modifiableUnits) || \in_array($unit, static::$units, true);
+        return \in_array($unit, $modifiableUnits, true) || \in_array($unit, static::$units, true);
     }
 
     /**
