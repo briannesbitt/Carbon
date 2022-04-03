@@ -124,61 +124,61 @@ class DaDkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 sekund siden',
+        'for 1 sekund siden',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 s. siden',
+        'for 1 s. siden',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 sekunder siden',
+        'for 2 sekunder siden',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 s. siden',
+        'for 2 s. siden',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minut siden',
+        'for 1 minut siden',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 min. siden',
+        'for 1 min. siden',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutter siden',
+        'for 2 minutter siden',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 min. siden',
+        'for 2 min. siden',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 time siden',
+        'for 1 time siden',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 t. siden',
+        'for 1 t. siden',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 timer siden',
+        'for 2 timer siden',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 t. siden',
+        'for 2 t. siden',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 dag siden',
+        'for 1 dag siden',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 d. siden',
+        'for 1 d. siden',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 dage siden',
+        'for 2 dage siden',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 d. siden',
+        'for 2 d. siden',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 uge siden',
+        'for 1 uge siden',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 u. siden',
+        'for 1 u. siden',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 uger siden',
+        'for 2 uger siden',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 u. siden',
+        'for 2 u. siden',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 måned siden',
+        'for 1 måned siden',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 mdr. siden',
+        'for 1 mdr. siden',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 måneder siden',
+        'for 2 måneder siden',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 mdr. siden',
+        'for 2 mdr. siden',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 år siden',
+        'for 1 år siden',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 år siden',
+        'for 1 år siden',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 år siden',
+        'for 2 år siden',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 år siden',
+        'for 2 år siden',
         // Carbon::now()->addSecond()->diffForHumans()
         'om 1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -208,9 +208,9 @@ class DaDkTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'om 3 år',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 mdr. siden',
+        'for 5 mdr. siden',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 år 3 mdr. 1 d. 1 s. siden',
+        'for 2 år 3 mdr. 1 d. 1 s. siden',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 uge 10 timer',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
