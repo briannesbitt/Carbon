@@ -23,7 +23,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface as ContractsTranslatorInterface;
 
-if (!interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')) {
+if (interface_exists('Symfony\\Contracts\\Translation\\TranslatorInterface') &&
+    !interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')
+) {
     class_alias(
         'Symfony\\Contracts\\Translation\\TranslatorInterface',
         'Symfony\\Component\\Translation\\TranslatorInterface'
@@ -454,7 +456,7 @@ trait Localization
                 }
             }
 
-            $this->setLocalTranslator($translator);
+            $this->localTranslator = $translator;
         }
 
         return $this;
