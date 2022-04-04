@@ -440,7 +440,7 @@ trait Localization
                 }
             }
 
-            $this->setLocalTranslator($translator);
+            $this->localTranslator = $translator;
         }
 
         return $this;
