@@ -113,6 +113,12 @@ class RoundTest extends AbstractTestCase
 
         $this->assertCarbon($dt->copy()->roundMonth(), 2315, 8, 1, 0, 0, 0, 0);
         $this->assertCarbon($dt->copy()->floorMonth(), 2315, 7, 1, 0, 0, 0, 0);
+
+        for ($i = 1; $i <= Carbon::MONTHS_PER_YEAR; $i++) {
+            $dt = Carbon::parse("2021-$i-01")->endOfMonth()->floorMonth();
+
+            $this->assertCarbon($dt, 2021, $i, 1, 0, 0, 0, 0);
+        }
     }
 
     public function testRoundWithMetaUnit()

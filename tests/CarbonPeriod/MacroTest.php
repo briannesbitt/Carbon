@@ -24,7 +24,7 @@ class MacroTest extends AbstractTestCase
 {
     protected function tearDown(): void
     {
-        $reflection = new ReflectionClass('Carbon\CarbonPeriod');
+        $reflection = new ReflectionClass(CarbonPeriod::class);
 
         $macrosProperty = $reflection->getProperty('macros');
 
@@ -41,7 +41,7 @@ class MacroTest extends AbstractTestCase
             $period = $this;
 
             return $period->addFilter(function ($date) {
-                return !\in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
+                return !\in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY], true);
             });
         });
 
@@ -104,7 +104,7 @@ class MacroTest extends AbstractTestCase
         CarbonPeriod::macro('countWeekdaysBetween', function ($from, $to) {
             return CarbonPeriod::create($from, $to)
                 ->addFilter(function ($date) {
-                    return !\in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
+                    return !\in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY], true);
                 })
                 ->count();
         });

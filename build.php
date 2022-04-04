@@ -17,7 +17,7 @@ if (preg_match('/On branch ([^\n]+)\n/', shell_exec('git status'), $match)) {
 shell_exec('git fetch --all --tags --prune');
 $remotes = explode("\n", trim(shell_exec('git remote')));
 $tagsCommand = \count($remotes)
-    ? 'git ls-remote --tags '.(\in_array('upstream', $remotes) ? 'upstream' : (\in_array('origin', $remotes) ? 'origin' : $remotes[0]))
+    ? 'git ls-remote --tags '.(\in_array('upstream', $remotes, true) ? 'upstream' : (\in_array('origin', $remotes, true) ? 'origin' : $remotes[0]))
     : 'git tag';
 $tags = array_map(function ($ref) {
     $ref = explode('refs/tags/', $ref);
@@ -31,7 +31,7 @@ usort($tags, 'version_compare');
 $tag = isset($argv[1]) && !\in_array($argv[1], ['last', 'latest']) ? $argv[1] : end($tags);
 
 if (strtolower($tag) !== 'all') {
-    if (!\in_array($tag, $tags)) {
+    if (!\in_array($tag, $tags, true)) {
         echo "Tag must be one of remote tags available:\n";
         foreach ($tags as $_tag) {
             echo "  - $_tag\n";

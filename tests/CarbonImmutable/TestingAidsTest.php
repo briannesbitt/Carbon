@@ -287,4 +287,20 @@ class TestingAidsTest extends AbstractTestCase
         $currentTime = Carbon::now();
         $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
+
+    public function testWithTestNowWithException()
+    {
+        $testNow = '2020-09-16 10:20:00';
+
+        try {
+            Carbon::withTestNow($testNow, static function () {
+                throw new \Exception();
+            });
+        } catch (\Exception $e) {
+            // ignore
+        }
+
+        $currentTime = Carbon::now();
+        $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
+    }
 }

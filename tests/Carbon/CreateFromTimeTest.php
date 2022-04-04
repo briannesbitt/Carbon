@@ -97,14 +97,14 @@ class CreateFromTimeTest extends AbstractTestCase
     public function testCreateFromTimeWithDateTimeZone()
     {
         $d = Carbon::createFromTime(12, 0, 0, new DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
+        $this->assertCarbon($d, Carbon::now('Europe/London')->year, Carbon::now('Europe/London')->month, Carbon::now('Europe/London')->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
     public function testCreateFromTimeWithTimeZoneString()
     {
         $d = Carbon::createFromTime(12, 0, 0, 'Europe/London');
-        $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
+        $this->assertCarbon($d, Carbon::now('Europe/London')->year, Carbon::now('Europe/London')->month, Carbon::now('Europe/London')->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 

@@ -128,8 +128,12 @@ trait Test
     public static function withTestNow($testNow = null, $callback = null)
     {
         static::setTestNow($testNow);
-        $result = $callback();
-        static::setTestNow();
+
+        try {
+            $result = $callback();
+        } finally {
+            static::setTestNow();
+        }
 
         return $result;
     }

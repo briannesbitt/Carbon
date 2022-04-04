@@ -644,7 +644,7 @@ trait Date
      *
      * @return array
      */
-    protected static function getRangesByUnit()
+    protected static function getRangesByUnit(int $daysInMonth = 31): array
     {
         return [
             // @call roundUnit
@@ -652,7 +652,7 @@ trait Date
             // @call roundUnit
             'month' => [1, static::MONTHS_PER_YEAR],
             // @call roundUnit
-            'day' => [1, 31],
+            'day' => [1, $daysInMonth],
             // @call roundUnit
             'hour' => [0, static::HOURS_PER_DAY - 1],
             // @call roundUnit
@@ -871,7 +871,7 @@ trait Date
             case $name === 'millisecond':
             // @property int
             case $name === 'milli':
-                return (int) floor($this->rawFormat('u') / 1000);
+                return (int) floor(((int) $this->rawFormat('u')) / 1000);
 
             // @property int 1 through 53
             case $name === 'week':
@@ -1716,7 +1716,10 @@ trait Date
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
-        $formatted = strftime($format, strtotime($this->toDateTimeString()));
+        $time = strtotime($this->toDateTimeString());
+        $formatted = ($this->localStrictModeEnabled ?? static::isStrictModeEnabled())
+            ? strftime($format, $time)
+            : @strftime($format, $time);
 
         return static::$utf8 ? utf8_encode($formatted) : $formatted;
     }
@@ -2227,7 +2230,7 @@ trait Date
         $symbol = $second < 0 ? '-' : '+';
         $minute = abs($second) / static::SECONDS_PER_MINUTE;
         $hour = str_pad((string) floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
-        $minute = str_pad((string) ($minute % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
+        $minute = str_pad((string) (((int) $minute) % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
 
         return "$symbol$hour$separator$minute";
     }
@@ -2402,7 +2405,7 @@ trait Date
         if (str_starts_with($unit, 'is')) {
             $word = substr($unit, 2);
 
-            if (\in_array($word, static::$days)) {
+            if (\in_array($word, static::$days, true)) {
                 return $this->isDayOfWeek($word);
             }
 
@@ -2430,7 +2433,7 @@ trait Date
             $unit = strtolower(substr($unit, 3));
         }
 
-        if (\in_array($unit, static::$units)) {
+        if (\in_array($unit, static::$units, true)) {
             return $this->setUnit($unit, ...$parameters);
         }
 

@@ -39,11 +39,25 @@ jobs:
           - php: 8.1
             setup: lowest
 
-          - php: 8.0
-            laravel: true
+          - php: 8.1
+            coverage: true
 
           - php: 8.0
             laravel: true
+            reference: 9.x
+
+          - php: 8.0
+            laravel: true
+            reference: 9.x
+            classmap-authoritative: true
+
+          - php: 8.1
+            laravel: true
+            reference: master
+
+          - php: 8.1
+            laravel: true
+            reference: master
             classmap-authoritative: true
 
     name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
@@ -74,18 +88,18 @@ jobs:
           if [[ "${{ matrix.laravel }}" != 'true' ]]; then
             composer remove --no-update kylekatarnls/multi-tester --no-interaction;
           fi;
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ (matrix.php >= 8.1 || matrix.php < 8) && '--ignore-platform-req=php' || '' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
 
       - name: Run test suite
         run: |
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
+            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
           fi;
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
           fi;
           if [[ "${{ matrix.laravel }}" = 'true' ]]; then
-            vendor/bin/multi-tester;
+            vendor/bin/multi-tester tests/Laravel/laravel-${{ matrix.reference }}.multi-tester.yml;
           fi;
         env:
           PHP_VERSION: ${{ matrix.php }}
@@ -144,7 +158,7 @@ jobs:
 
       - name: Run test suite
         run: |
-          php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
         env:
           PHP_VERSION: ${{ matrix.php }}
           REDIS_HOST: 127.0.0.1

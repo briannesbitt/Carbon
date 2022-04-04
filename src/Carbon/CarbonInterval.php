@@ -1526,7 +1526,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if ($altNumbers) {
             if ($altNumbers !== true) {
                 $language = new Language($this->locale);
-                $altNumbers = \in_array($language->getCode(), (array) $altNumbers);
+                $altNumbers = \in_array($language->getCode(), (array) $altNumbers, true);
             }
         }
 
@@ -1825,7 +1825,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
 
             // break the loop after we have reached the minimum unit
-            if (\in_array($minimumUnit, [$diffIntervalData['unit'], $diffIntervalData['unitShort']])) {
+            if (\in_array($minimumUnit, [$diffIntervalData['unit'], $diffIntervalData['unitShort']], true)) {
                 $fallbackUnit = [$diffIntervalData['unit'], $diffIntervalData['unitShort']];
 
                 break;

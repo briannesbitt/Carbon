@@ -18,6 +18,7 @@
  * - Jens Herlevsen
  * - Ulrik McArdle (mcardle)
  * - Frederik Sauer (FrittenKeeZ)
+ * - Janus Bahs Jacquet (kokoshneta)
  */
 return [
     'year' => ':count år|:count år',
@@ -41,7 +42,7 @@ return [
     'second' => ':count sekund|:count sekunder',
     'a_second' => 'få sekunder|:count sekunder',
     's' => ':count s.',
-    'ago' => ':time siden',
+    'ago' => 'for :time siden',
     'from_now' => 'om :time',
     'after' => ':time efter',
     'before' => ':time før',
@@ -70,9 +71,9 @@ return [
     ],
     'ordinal' => ':number.',
     'months' => ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'],
-    'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+    'months_short' => ['jan.', 'feb.', 'mar.', 'apr.', 'maj.', 'jun.', 'jul.', 'aug.', 'sep.', 'okt.', 'nov.', 'dec.'],
     'weekdays' => ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'],
-    'weekdays_short' => ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'],
+    'weekdays_short' => ['søn.', 'man.', 'tir.', 'ons.', 'tor.', 'fre.', 'lør.'],
     'weekdays_min' => ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,

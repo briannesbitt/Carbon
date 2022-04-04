@@ -339,8 +339,16 @@ class DiffTest extends AbstractTestCase
 
     public function testNearlyOneDayDiff()
     {
-        $this->assertSame(-0.99999999998843, Carbon::parse('2020-09-15 23:29:59.123456')->diffInDays('2020-09-14 23:29:59.123457'));
-        $this->assertSame(0.99999999998843, Carbon::parse('2020-09-14 23:29:59.123457')->diffInDays('2020-09-15 23:29:59.123456'));
+        $this->assertEqualsWithDelta(
+            -0.99999999998843,
+            Carbon::parse('2020-09-15 23:29:59.123456')->diffInDays('2020-09-14 23:29:59.123457'),
+            0.00001,
+        );
+        $this->assertEqualsWithDelta(
+            0.99999999998843,
+            Carbon::parse('2020-09-14 23:29:59.123457')->diffInDays('2020-09-15 23:29:59.123456'),
+            0.00001,
+        );
     }
 
     public function testDiffInWeekdaysPositive()
@@ -455,7 +463,7 @@ class DiffTest extends AbstractTestCase
         usleep(2);
         $dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');
 
-        $this->assertSame(0, (int) $dtVancouver->diffInHours($dtToronto) % 24);
+        $this->assertSame(0, ((int) round($dtVancouver->diffInHours($dtToronto))) % 24);
 
         $dtToronto = Carbon::createMidnightDate(2012, 1, 1, 'America/Toronto');
         $dtVancouver = Carbon::createMidnightDate(2012, 1, 1, 'America/Vancouver');
@@ -1722,18 +1730,20 @@ class DiffTest extends AbstractTestCase
         $then1 = new Carbon('2019-07-28 14:02:54.000001 UTC');
         $then2 = new Carbon('2019-07-27 14:02:54.000001 UTC');
 
-        $this->assertEqualsWithDelta(-0.99999999998843, $now->floatDiffInDays($then1, false), 0.001);
-        $this->assertEqualsWithDelta(-1.99999999998843, $now->floatDiffInDays($then2, false), 0.001);
-        $this->assertSame(-0.9999999999884258, $now->diffInDays($then1, false));
-        $this->assertSame(-1.99999999998843, $now->diffInDays($then2, false));
+        $this->assertEqualsWithDelta(-0.99999999998843, $now->floatDiffInDays($then1, false), 0.00001);
+        $this->assertEqualsWithDelta(-1.99999999998843, $now->floatDiffInDays($then2, false), 0.00001);
+        $this->assertEqualsWithDelta(-0.9999999999884258, $now->diffInDays($then1, false), 0.00001);
+        $this->assertEqualsWithDelta(-1.9999999999884261, $now->diffInDays($then2, false), 0.00001);
 
-        $this->assertSame(
+        $this->assertEqualsWithDelta(
             6.99999273113426,
-            Carbon::parse('2022-01-04 13:32:30.628030')->floatDiffInDays('2022-01-11 13:32:30.000000')
+            Carbon::parse('2022-01-04 13:32:30.628030')->floatDiffInDays('2022-01-11 13:32:30.000000'),
+            0.00001,
         );
-        $this->assertSame(
+        $this->assertEqualsWithDelta(
             6.999734949884259,
-            Carbon::parse('2022-01-04 13:32:52.900330')->floatDiffInDays('2022-01-11 13:32:30.000000')
+            Carbon::parse('2022-01-04 13:32:52.900330')->floatDiffInDays('2022-01-11 13:32:30.000000'),
+            0.00001,
         );
     }
 
@@ -1867,7 +1877,7 @@ class DiffTest extends AbstractTestCase
         $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
         $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
 
-        $this->assertSame(-86399.999999, $d2->diffInSeconds($d1));
+        $this->assertEqualsWithDelta(-86399.999999, $d2->diffInSeconds($d1), 0.00001);
     }
 
     public function testNearlyFullDayDiffInMicroseconds()
@@ -1875,7 +1885,7 @@ class DiffTest extends AbstractTestCase
         $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
         $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
 
-        $this->assertSame(-86399999999.0, $d2->diffInMicroseconds($d1));
+        $this->assertEqualsWithDelta(-86399999999.0, $d2->diffInMicroseconds($d1), 0.00001);
     }
 
     public function testExactMonthDiffInSeconds()

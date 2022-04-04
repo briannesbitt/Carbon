@@ -403,7 +403,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
             );
         }
 
-        $class = \get_called_class();
+        $class = static::class;
         $type = \gettype($period);
 
         throw new NotAPeriodException(

@@ -32,13 +32,15 @@ trait Units
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
-     * @param string    $unit
-     * @param int|float $value
+     * @param string         $unit
+     * @param int|float|null $value
      *
      * @return static
      */
     public function addRealUnit(string $unit, $value = 1): static
     {
+        $value ??= 0;
+
         switch ($unit) {
             // @call addRealUnit
             case 'micro':
@@ -181,7 +183,7 @@ trait Units
             'weekday',
         ];
 
-        return \in_array($unit, $modifiableUnits) || \in_array($unit, static::$units);
+        return \in_array($unit, $modifiableUnits, true) || \in_array($unit, static::$units, true);
     }
 
     /**
@@ -278,7 +280,7 @@ trait Units
                     /** @var static $date */
                     $date = $date->addDays($sign);
 
-                    while (\in_array($date->dayOfWeek, $weekendDays)) {
+                    while (\in_array($date->dayOfWeek, $weekendDays, true)) {
                         $date = $date->addDays($sign);
                     }
                 }
