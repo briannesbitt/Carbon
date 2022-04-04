@@ -12,3 +12,8 @@ projects:
       - composer require psr/log:2.0.0 --no-update
       - composer update --prefer-dist --no-interaction --prefer-stable
       - echo -e "\nREDIS_HOST=127.0.0.1\nREDIS_PORT=6379" >> .env
+    script:
+      - ls vendor/nesbot/carbon/tests/
+      - ls vendor/nesbot/carbon/tests/Laravel/
+      - php vendor/nesbot/carbon/tests/Laravel/patch-tests-files.php
+      - vendor/bin/phpunit --no-coverage
