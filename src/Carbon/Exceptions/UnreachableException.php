@@ -11,20 +11,9 @@
 
 namespace Carbon\Exceptions;
 
-use Exception;
 use RuntimeException as BaseRuntimeException;
 
 class UnreachableException extends BaseRuntimeException implements RuntimeException
 {
-    /**
-     * Constructor.
-     *
-     * @param string         $message
-     * @param int            $code
-     * @param Exception|null $previous
-     */
-    public function __construct($message, $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    //
 }
