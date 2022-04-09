@@ -914,4 +914,28 @@ class LocalizationTest extends AbstractTestCase
             Carbon::parse('2020-02-15')->locale('de')->monthName
         );
     }
+
+    public function testDeclensionModes()
+    {
+        $this->assertSame(
+            '2 жил 3 сар 1 өдөр 1с өмнө',
+            Carbon::now()
+                ->subYears(2)
+                ->subMonths(3)
+                ->subDay()
+                ->subSecond()
+                ->locale('mn')
+                ->diffForHumans(null, null, true, 4)
+        );
+        $this->assertSame(
+            '2 жил 3 сар 1 өдөр 1 секундын өмнө',
+            Carbon::now()
+                ->subYears(2)
+                ->subMonths(3)
+                ->subDay()
+                ->subSecond()
+                ->locale('mn')
+                ->diffForHumans(null, null, false, 4)
+        );
+    }
 }
