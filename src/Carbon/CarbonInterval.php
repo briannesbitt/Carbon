@@ -1620,18 +1620,23 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $unit = $short ? 's' : 'second';
         $isFuture = $this->invert === 1;
         $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
+        $declensionMode = null;
 
         /** @var \Symfony\Component\Translation\Translator $translator */
         $translator = $this->getLocalTranslator();
 
-        $handleDeclensions = function ($unit, $count) use ($interpolations, $transId, $translator, $altNumbers, $absolute) {
+        $handleDeclensions = function ($unit, $count, $index = 0, $parts = 1) use ($interpolations, $transId, $translator, $altNumbers, $absolute, &$declensionMode) {
             if (!$absolute) {
-                // Some languages have special pluralization for past and future tense.
-                $key = $unit.'_'.$transId;
-                $result = $this->translate($key, $interpolations, $count, $translator, $altNumbers);
+                $declensionMode = $declensionMode ?? $this->translate($transId.'_mode');
 
-                if ($result !== $key) {
-                    return $result;
+                if ($this->needsDeclension($declensionMode, $index, $parts)) {
+                    // Some languages have special pluralization for past and future tense.
+                    $key = $unit.'_'.$transId;
+                    $result = $this->translate($key, $interpolations, $count, $translator, $altNumbers);
+
+                    if ($result !== $key) {
+                        return $result;
+                    }
                 }
             }
 
@@ -1696,17 +1701,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
         }
 
-        $transChoice = function ($short, $unitData) use ($absolute, $handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
+        $transChoice = function ($short, $unitData, $index, $parts) use ($absolute, $handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $handleDeclensions($unitData['unitShort'], $count);
+                $result = $handleDeclensions($unitData['unitShort'], $count, $index, $parts);
 
                 if ($result !== null) {
                     return $result;
                 }
             } elseif ($aUnit) {
-                $result = $handleDeclensions('a_'.$unitData['unit'], $count);
+                $result = $handleDeclensions('a_'.$unitData['unit'], $count, $index, $parts);
 
                 if ($result !== null) {
                     return $result;
@@ -1714,7 +1719,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
 
             if (!$absolute) {
-                return $handleDeclensions($unitData['unit'], $count);
+                return $handleDeclensions($unitData['unit'], $count, $index, $parts);
             }
 
             return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
@@ -1726,7 +1731,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             if ($diffIntervalData['value'] > 0) {
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
-                $interval[] = $transChoice($short, $diffIntervalData);
+                $interval[] = [$short, $diffIntervalData];
             } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && \count($interval) > 0) {
                 break;
             }
@@ -1742,6 +1747,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
                 break;
             }
+        }
+
+        $actualParts = \count($interval);
+
+        foreach ($interval as $index => &$item) {
+            $item = $transChoice($item[0], $item[1], $index, $actualParts);
         }
 
         if (\count($interval) === 0) {
@@ -2751,5 +2762,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public function ceil($precision = 1)
     {
         return $this->round($precision, 'ceil');
+    }
+
+    private function needsDeclension(string $mode, int $index, int $parts): bool
+    {
+        switch ($mode) {
+            case 'last':
+                return $index === $parts - 1;
+            default:
+                return true;
+        }
     }
 }
