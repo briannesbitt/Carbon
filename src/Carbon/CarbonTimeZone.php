@@ -30,7 +30,7 @@ class CarbonTimeZone extends DateTimeZone
             throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than 100.');
         }
 
-        return ($timezone >= 0 ? '+' : '').$timezone.':00';
+        return ($timezone >= 0 ? '+' : '').ltrim($timezone, '+').':00';
     }
 
     protected static function getDateTimeZoneNameFromMixed($timezone)
