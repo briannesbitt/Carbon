@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
@@ -283,6 +284,14 @@ class TestingAidsTest extends AbstractTestCase
 
         // Set microseconds to zero to match behavior of DateTime::createFromFormat()
         // See https://bugs.php.net/bug.php?id=74332
+        $this->assertSame('2018-05-06 05:10:15.000000', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
+    }
+
+    public function testCreateFromDateTimeInterface()
+    {
+        Carbon::setTestNowAndTimezone(date_create('2013-09-01 05:10:15.123456', new DateTimeZone('America/Vancouver')));
+
         $this->assertSame('2018-05-06 05:10:15.000000', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
