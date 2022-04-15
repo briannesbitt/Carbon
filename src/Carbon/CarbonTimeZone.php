@@ -35,7 +35,7 @@ class CarbonTimeZone extends DateTimeZone
             );
         }
 
-        return ($timezone >= 0 ? '+' : '').$timezone.':00';
+        return ($timezone >= 0 ? '+' : '').ltrim($timezone, '+').':00';
     }
 
     protected static function getDateTimeZoneNameFromMixed($timezone): string

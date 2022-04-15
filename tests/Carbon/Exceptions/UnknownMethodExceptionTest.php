@@ -18,7 +18,9 @@ class UnknownMethodExceptionTest extends AbstractTestCase
 {
     public function testUnknownMethodException(): void
     {
-        $exception = new UnknownMethodException('foo');
+        $exception = new UnknownMethodException($method = 'foo');
+
+        $this->assertSame($method, $exception->getMethod());
 
         $this->assertSame('Method foo does not exist.', $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

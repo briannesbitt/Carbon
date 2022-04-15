@@ -18,7 +18,9 @@ class ImmutableExceptionTest extends AbstractTestCase
 {
     public function testImmutableException(): void
     {
-        $exception = new ImmutableException('foo');
+        $exception = new ImmutableException($value = 'foo');
+
+        $this->assertSame($value, $exception->getValue());
 
         $this->assertSame('foo is immutable.', $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

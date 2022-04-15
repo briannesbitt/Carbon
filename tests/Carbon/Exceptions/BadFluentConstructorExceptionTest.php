@@ -18,7 +18,9 @@ class BadFluentConstructorExceptionTest extends AbstractTestCase
 {
     public function testBadFluentConstructorException(): void
     {
-        $exception = new BadFluentConstructorException('foo');
+        $exception = new BadFluentConstructorException($method = 'foo');
+
+        $this->assertSame($method, $exception->getMethod());
 
         $this->assertSame("Unknown fluent constructor 'foo'.", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

@@ -32,6 +32,22 @@ class CreateTest extends AbstractTestCase
         $tz = CarbonTimeZone::create(6);
 
         $this->assertSame('+06:00', $tz->getName());
+
+        $tz = CarbonTimeZone::create('+01');
+
+        $this->assertSame('+01:00', $tz->getName());
+
+        $tz = new CarbonTimeZone('+01');
+
+        $this->assertSame('+01:00', $tz->getName());
+
+        $tz = CarbonTimeZone::create('-01');
+
+        $this->assertSame('-01:00', $tz->getName());
+
+        $tz = new CarbonTimeZone('-01');
+
+        $this->assertSame('-01:00', $tz->getName());
     }
 
     public function testInstance()

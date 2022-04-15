@@ -18,7 +18,9 @@ class BadFluentSetterExceptionTest extends AbstractTestCase
 {
     public function testBadFluentSetterException(): void
     {
-        $exception = new BadFluentSetterException('foo');
+        $exception = new BadFluentSetterException($setter = 'foo');
+
+        $this->assertSame($setter, $exception->getSetter());
 
         $this->assertSame("Unknown fluent setter 'foo'", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

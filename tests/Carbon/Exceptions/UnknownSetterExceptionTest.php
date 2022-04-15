@@ -18,7 +18,9 @@ class UnknownSetterExceptionTest extends AbstractTestCase
 {
     public function testUnknownSetterException(): void
     {
-        $exception = new UnknownSetterException('foo');
+        $exception = new UnknownSetterException($setter = 'foo');
+
+        $this->assertSame($setter, $exception->getSetter());
 
         $this->assertSame("Unknown setter 'foo'", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());
