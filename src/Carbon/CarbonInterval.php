@@ -2967,11 +2967,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
     private function needsDeclension(string $mode, int $index, int $parts): bool
     {
-        switch ($mode) {
-            case 'last':
-                return $index === $parts - 1;
-            default:
-                return true;
-        }
+        return match ($mode) {
+            'last' => $index === $parts - 1,
+            default => true,
+        };
     }
 }
