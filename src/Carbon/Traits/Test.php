@@ -63,17 +63,9 @@ trait Test
      */
     public static function setTestNow($testNow = null)
     {
-        if ($testNow === false) {
-            $testNow = null;
-        }
-
-        if (\is_string($testNow) ||
-            ($testNow instanceof DateTimeInterface && !$testNow instanceof CarbonInterface)
-        ) {
-            static::$testNow = static::parse($testNow);
-        } else {
-            static::$testNow = $testNow;
-        }
+        static::$testNow = $testNow instanceof self
+            ? $testNow
+            : static::make($testNow);
     }
 
     /**
