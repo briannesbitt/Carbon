@@ -63,7 +63,7 @@ trait Test
      */
     public static function setTestNow($testNow = null)
     {
-        static::$testNow = $testNow instanceof self
+        static::$testNow = $testNow instanceof self || $testNow instanceof Closure
             ? $testNow
             : static::make($testNow);
     }
