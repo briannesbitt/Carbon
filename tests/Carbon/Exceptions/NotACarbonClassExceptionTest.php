@@ -18,7 +18,9 @@ class NotACarbonClassExceptionTest extends AbstractTestCase
 {
     public function testNotACarbonClassException(): void
     {
-        $exception = new NotACarbonClassException('foo');
+        $exception = new NotACarbonClassException($className = 'foo');
+
+        $this->assertSame($className, $exception->getClassName());
 
         $this->assertSame('Given class does not implement Carbon\CarbonInterface: foo', $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

@@ -829,4 +829,28 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('za minutę', $minute->diffForHumans(['aUnit' => true]));
         $this->assertSame('za sekundę', $second->translate('from_now', ['time' => 'sekunda']));
     }
+
+    public function testDeclensionModes()
+    {
+        $this->assertSame(
+            '2 жил 3 сар 1 өдөр 1с өмнө',
+            Carbon::now()
+                ->subYears(2)
+                ->subMonths(3)
+                ->subDay()
+                ->subSecond()
+                ->locale('mn')
+                ->diffForHumans(null, null, true, 4)
+        );
+        $this->assertSame(
+            '2 жил 3 сар 1 өдөр 1 секундын өмнө',
+            Carbon::now()
+                ->subYears(2)
+                ->subMonths(3)
+                ->subDay()
+                ->subSecond()
+                ->locale('mn')
+                ->diffForHumans(null, null, false, 4)
+        );
+    }
 }

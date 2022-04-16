@@ -210,7 +210,7 @@ class MnMnTest extends LocalizationTestCase
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 сарын өмнө',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 жилийн 3 сарын 1 хоногийн 1с өмнө',
+        '2 жил 3 сар 1 өдөр 1с өмнө',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 долоо хоног 10 цаг',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

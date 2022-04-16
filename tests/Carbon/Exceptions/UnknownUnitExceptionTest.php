@@ -18,7 +18,9 @@ class UnknownUnitExceptionTest extends AbstractTestCase
 {
     public function testUnknownUnitException(): void
     {
-        $exception = new UnknownUnitException('foo');
+        $exception = new UnknownUnitException($unit = 'foo');
+
+        $this->assertSame($unit, $exception->getUnit());
 
         $this->assertSame("Unknown unit 'foo'.", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());

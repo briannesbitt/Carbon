@@ -18,7 +18,9 @@ class BadComparisonUnitExceptionTest extends AbstractTestCase
 {
     public function testComparisonUnitException(): void
     {
-        $exception = new BadComparisonUnitException('foo');
+        $exception = new BadComparisonUnitException($unit = 'foo');
+
+        $this->assertSame($unit, $exception->getUnit());
 
         $this->assertSame("Bad comparison unit: 'foo'", $exception->getMessage());
         $this->assertSame(0, $exception->getCode());
