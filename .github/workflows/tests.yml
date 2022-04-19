@@ -102,6 +102,17 @@ jobs:
         if: matrix.laravel
         uses: niden/actions-memcached@v7
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+
       - name: Install dependencies
         run: |
           composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
@@ -196,6 +207,17 @@ jobs:
           extensions: json
           tools: composer:v2
           coverage: none
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         run: |
