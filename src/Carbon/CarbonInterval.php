@@ -1435,7 +1435,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             ];
         }
 
-        if (isset($altNumbers) && $altNumbers !== true) {
+        if ($altNumbers !== true) {
             $language = new Language($this->locale);
             $altNumbers = \in_array($language->getCode(), (array) $altNumbers, true);
         }
