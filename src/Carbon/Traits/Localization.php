@@ -563,7 +563,7 @@ trait Localization
             ) || (
                 ($y = static::translateWith($translator, 'h')) !== 'h' &&
                     $y !== static::translateWith($translator, 'hour')
-           );
+            );
         });
     }
 
