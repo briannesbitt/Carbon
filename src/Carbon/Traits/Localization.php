@@ -557,14 +557,10 @@ trait Localization
     public static function localeHasShortUnits($locale)
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            return $newLocale &&
-                (
-                    ($y = static::translateWith($translator, 'y')) !== 'y' &&
-                    $y !== static::translateWith($translator, 'year')
-                ) || (
-                    ($y = static::translateWith($translator, 'd')) !== 'd' &&
+            return ($newLocale && (($y = static::translateWith($translator, 'y')) !== 'y' && $y !== static::translateWith($translator, 'year'))) || (
+                ($y = static::translateWith($translator, 'd')) !== 'd' &&
                     $y !== static::translateWith($translator, 'day')
-                ) || (
+            ) || (
                     ($y = static::translateWith($translator, 'h')) !== 'h' &&
                     $y !== static::translateWith($translator, 'hour')
                 );
