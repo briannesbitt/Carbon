@@ -561,9 +561,9 @@ trait Localization
                 ($y = static::translateWith($translator, 'd')) !== 'd' &&
                     $y !== static::translateWith($translator, 'day')
             ) || (
-                    ($y = static::translateWith($translator, 'h')) !== 'h' &&
+                ($y = static::translateWith($translator, 'h')) !== 'h' &&
                     $y !== static::translateWith($translator, 'hour')
-                );
+           );
         });
     }
 
