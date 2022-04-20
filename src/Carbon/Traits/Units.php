@@ -60,8 +60,6 @@ trait Units
             case 'millisecond':
                 return $this->addRealUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
 
-                break;
-
             // @call addRealUnit
             case 'second':
                 break;
