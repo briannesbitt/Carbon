@@ -18,7 +18,7 @@ use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 class TranslatorImmutable extends Translator
 {
     /** @var bool */
-    private $constructed = false;
+    private $constructed;
 
     public function __construct($locale, MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
