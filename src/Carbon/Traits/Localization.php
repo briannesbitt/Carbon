@@ -235,7 +235,7 @@ trait Localization
             : $translator->transChoice($key, $number, $parameters);
         // @codeCoverageIgnoreEnd
 
-        return (string) $choice;
+        return $choice;
     }
 
     /**
