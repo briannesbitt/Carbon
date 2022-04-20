@@ -31,6 +31,7 @@
  * - jofi
  * - Jakub ADAMEC
  * - Marek Adamický
+ * - AlterwebStudio
  */
 return [
     'year' => 'rok|:count roky|:count rokov',
@@ -48,8 +49,8 @@ return [
     'second' => 'sekundu|:count sekundy|:count sekúnd',
     's' => ':count s',
     'ago' => 'pred :time',
-    'from_now' => 'za :time',
-    'after' => 'o :time neskôr',
+    'from_now' => 'o :time',
+    'after' => ':time potom',
     'before' => ':time predtým',
     'year_ago' => 'rokom|:count rokmi|:count rokmi',
     'month_ago' => 'mesiacom|:count mesiacmi|:count mesiacmi',

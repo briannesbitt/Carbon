@@ -180,13 +180,13 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'pred 2 r',
         // Carbon::now()->addSecond()->diffForHumans()
-        'za sekundu',
+        'o sekundu',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'za 1 s',
+        'o 1 s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'o sekundu neskôr',
+        'sekundu potom',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'o 1 s neskôr',
+        '1 s potom',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'sekundu predtým',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
@@ -200,13 +200,13 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'za 1 s',
+        'o 1 s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'minútu sekundu',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 r 3 m 1 d 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'za 3 roky',
+        'o 3 roky',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'pred 5 m',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -218,11 +218,11 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'týždeň 6 dní',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'za týždeň a 6 dní',
+        'o týždeň a 6 dní',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 týždne hodinu',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'za hodinu',
+        'o hodinu',
         // CarbonInterval::days(2)->forHumans()
         '2 dni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
