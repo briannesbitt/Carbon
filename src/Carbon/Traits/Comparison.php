@@ -622,7 +622,6 @@ trait Comparison
         ];
 
         if (isset($units[$unit])) {
-
             return $this->isSameAs($units[$unit], $date);
         }
 
