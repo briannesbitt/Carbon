@@ -1,14 +1,13 @@
 {
     "name": "nesbot/carbon",
-    "type": "library",
     "description": "An API extension for DateTime that supports 281 different languages.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "date",
         "time",
         "DateTime"
     ],
-    "homepage": "https://carbon.nesbot.com",
-    "license": "MIT",
     "authors": [
         {
             "name": "Brian Nesbitt",
@@ -20,6 +19,12 @@
             "homepage": "https://github.com/kylekatarnls"
         }
     ],
+    "homepage": "https://carbon.nesbot.com",
+    "support": {
+        "issues": "https://github.com/briannesbitt/Carbon/issues",
+        "source": "https://github.com/briannesbitt/Carbon",
+        "docs": "https://carbon.nesbot.com/docs"
+    },
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
@@ -35,17 +40,35 @@
         "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.54 || ^1.0",
-        "phpunit/phpunit": "^7.5.20 || ^8.5.23",
         "phpunit/php-file-iterator": "^2.0.5",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.23",
         "squizlabs/php_codesniffer": "^3.4"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Carbon\\": "src/Carbon/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "tests/Laravel/ServiceProvider.php"
+        ]
+    },
+    "bin": [
+        "bin/carbon"
+    ],
     "config": {
-        "process-timeout": 0,
-        "sort-packages": true,
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "composer/package-versions-deprecated": true
-        }
+        },
+        "process-timeout": 0,
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
@@ -63,24 +86,6 @@
             ]
         }
     },
-    "autoload": {
-        "psr-4": {
-            "Carbon\\": "src/Carbon/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        },
-        "files": [
-            "tests/Laravel/ServiceProvider.php"
-        ]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "bin": [
-        "bin/carbon"
-    ],
     "scripts": {
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpdoc": "php phpdoc.php",
@@ -96,10 +101,5 @@
             "@phpunit",
             "@style-check"
         ]
-    },
-    "support": {
-        "issues": "https://github.com/briannesbitt/Carbon/issues",
-        "source": "https://github.com/briannesbitt/Carbon",
-        "docs": "https://carbon.nesbot.com/docs"
     }
 }
