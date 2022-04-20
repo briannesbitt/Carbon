@@ -250,11 +250,7 @@ abstract class AbstractTranslator extends Translation\Translator
      */
     protected function loadMessagesFromFile($locale)
     {
-        if (isset($this->messages[$locale])) {
-            return true;
-        }
-
-        return $this->resetMessages($locale);
+        return isset($this->messages[$locale]) || $this->resetMessages($locale);
     }
 
     /**
@@ -359,13 +355,13 @@ abstract class AbstractTranslator extends Translation\Translator
             parent::setLocale($macroLocale);
         }
 
-        if ($this->loadMessagesFromFile($locale) || $this->initializing) {
-            parent::setLocale($locale);
-
-            return true;
+        if (!$this->loadMessagesFromFile($locale) && !$this->initializing) {
+            return false;
         }
 
-        return false;
+        parent::setLocale($locale);
+
+        return true;
     }
 
     /**
