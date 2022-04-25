@@ -1823,7 +1823,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $format = $this->localToStringFormat;
 
-        if ($format === null) {
+        if (!$format) {
             return $this->forHumans();
         }
 
