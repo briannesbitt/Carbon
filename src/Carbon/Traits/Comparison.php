@@ -621,19 +621,19 @@ trait Comparison
             'microsecond' => 'Y-m-d H:i:s.u',
         ];
 
-        if (!isset($units[$unit])) {
-            if (isset($this->$unit)) {
-                return $this->resolveCarbon($date)->$unit === $this->$unit;
-            }
-
-            if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
-                throw new BadComparisonUnitException($unit);
-            }
-
-            return false;
+        if (isset($units[$unit])) {
+            return $this->isSameAs($units[$unit], $date);
         }
 
-        return $this->isSameAs($units[$unit], $date);
+        if (isset($this->$unit)) {
+            return $this->resolveCarbon($date)->$unit === $this->$unit;
+        }
+
+        if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
+            throw new BadComparisonUnitException($unit);
+        }
+
+        return false;
     }
 
     /**
