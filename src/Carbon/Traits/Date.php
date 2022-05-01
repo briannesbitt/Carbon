@@ -2477,7 +2477,7 @@ trait Date
         if ($sixFirstLetters === 'isSame') {
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
-            } catch (BadComparisonUnitException $exception) {
+            } catch (BadComparisonUnitException) {
                 // Try next
             }
         }
@@ -2485,7 +2485,7 @@ trait Date
         if (str_starts_with($unit, 'isCurrent')) {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (BadComparisonUnitException | BadMethodCallException $exception) {
+            } catch (BadComparisonUnitException | BadMethodCallException) {
                 // Try next
             }
         }
@@ -2495,7 +2495,7 @@ trait Date
                 $unit = static::singularUnit(substr($method, 0, -5));
 
                 return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
-            } catch (InvalidArgumentException $exception) {
+            } catch (InvalidArgumentException) {
                 // Try macros
             }
         }
@@ -2508,7 +2508,7 @@ trait Date
                     foreach ($list as $callback) {
                         try {
                             return $this->executeCallable($callback, $method, ...$parameters);
-                        } catch (BadMethodCallException $exception) {
+                        } catch (BadMethodCallException) {
                             continue;
                         }
                     }

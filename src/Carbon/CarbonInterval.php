@@ -1498,21 +1498,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $minimumUnit = 's';
         $skip = [];
         extract($this->getForHumansInitialVariables($syntax, $short));
-        $skip = array_filter((array) $skip, static function ($value) {
-            return \is_string($value) && $value !== '';
-        });
+        $skip = array_filter((array) $skip, static fn ($value) => \is_string($value) && $value !== '');
 
-        if ($syntax === null) {
-            $syntax = CarbonInterface::DIFF_ABSOLUTE;
-        }
+        $syntax ??= CarbonInterface::DIFF_ABSOLUTE;
 
         if ($parts === self::NO_LIMIT) {
             $parts = INF;
         }
 
-        if ($options === null) {
-            $options = static::getHumanDiffOptions();
-        }
+        $options ??= static::getHumanDiffOptions();
 
         if ($join === false) {
             $join = ' ';
