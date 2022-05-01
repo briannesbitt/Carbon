@@ -440,14 +440,9 @@ trait Options
     {
         if ($this instanceof DateTimeInterface) {
             try {
-                if (!isset($infos['date'])) {
-                    $infos['date'] = $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
-                }
-
-                if (!isset($infos['timezone'])) {
-                    $infos['timezone'] = $this->tzName;
-                }
-            } catch (Throwable $exception) {
+                $infos['date'] ??= $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
+                $infos['timezone'] ??= $this->tzName;
+            } catch (Throwable) {
                 // noop
             }
         }

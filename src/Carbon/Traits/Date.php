@@ -1021,7 +1021,7 @@ trait Date
     {
         try {
             $this->__get($name);
-        } catch (UnknownGetterException | ReflectionException $e) {
+        } catch (UnknownGetterException | ReflectionException) {
             return false;
         }
 
@@ -2076,7 +2076,7 @@ trait Date
                 } elseif (\is_array($sequence)) {
                     try {
                         $sequence = $this->{$sequence[0]}(...$sequence[1]);
-                    } catch (ReflectionException | InvalidArgumentException | BadMethodCallException $e) {
+                    } catch (ReflectionException | InvalidArgumentException | BadMethodCallException) {
                         $sequence = '';
                     }
                 } elseif (\is_string($sequence)) {
@@ -2271,7 +2271,7 @@ trait Date
             foreach (static::getGenericMacros() as $callback) {
                 try {
                     return static::executeStaticCallable($callback, $method, ...$parameters);
-                } catch (BadMethodCallException $exception) {
+                } catch (BadMethodCallException) {
                     continue;
                 }
             }

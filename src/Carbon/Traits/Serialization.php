@@ -146,7 +146,7 @@ trait Serialization
             // @codeCoverageIgnoreStart
             try {
                 parent::__wakeup();
-            } catch (Throwable $exception) {
+            } catch (Throwable) {
                 // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                 ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
                 parent::__construct($date, unserialize($timezone));

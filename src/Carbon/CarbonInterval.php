@@ -1546,9 +1546,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
 
             $glue = $join;
-            $join = function ($list) use ($glue) {
-                return implode($glue, $list);
-            };
+            $join = static fn ($list) => implode($glue, $list);
         }
 
         $interpolations = [

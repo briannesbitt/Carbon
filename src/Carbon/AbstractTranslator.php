@@ -71,10 +71,7 @@ abstract class AbstractTranslator extends Translation\Translator
     {
         $locale = $locale ?: 'en';
         $key = static::class === Translator::class ? $locale : static::class.'|'.$locale;
-
-        if (!isset(static::$singletons[$key])) {
-            static::$singletons[$key] = new static($locale);
-        }
+        static::$singletons[$key] ??= new static($locale);
 
         return static::$singletons[$key];
     }
@@ -229,7 +226,7 @@ abstract class AbstractTranslator extends Translation\Translator
             // @codeCoverageIgnoreStart
             try {
                 $count = (new ReflectionFunction($format))->getNumberOfRequiredParameters();
-            } catch (ReflectionException $exception) {
+            } catch (ReflectionException) {
                 $count = 0;
             }
             // @codeCoverageIgnoreEnd

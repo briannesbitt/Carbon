@@ -367,7 +367,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     {
         try {
             return static::instance($var);
-        } catch (NotAPeriodException $e) {
+        } catch (NotAPeriodException) {
             return static::create($var);
         }
     }

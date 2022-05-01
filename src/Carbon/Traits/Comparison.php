@@ -914,7 +914,7 @@ trait Comparison
             if (!static::rawCreateFromFormat($format, $date)) {
                 return false;
             }
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 

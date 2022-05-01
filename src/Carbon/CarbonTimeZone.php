@@ -205,7 +205,7 @@ class CarbonTimeZone extends DateTimeZone
         // @codeCoverageIgnoreStart
         try {
             $offset = @$this->getOffset($date) ?: 0;
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $offset = 0;
         }
         // @codeCoverageIgnoreEnd
