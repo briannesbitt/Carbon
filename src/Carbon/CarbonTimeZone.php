@@ -106,16 +106,16 @@ class CarbonTimeZone extends DateTimeZone
             $tz = static::getDateTimeZoneFromName($object);
         }
 
-        if ($tz === null) {
-            if (Carbon::isStrictModeEnabled()) {
-                throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
-            }
+        if ($tz !== null) {
+            return new static($tz->getName());
+        }
+
+        if (Carbon::isStrictModeEnabled()) {
+            throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
+        }
 
             return null;
         }
-
-        return new static($tz->getName());
-    }
 
     /**
      * Returns abbreviated name of the current timezone according to DST setting.
@@ -236,15 +236,15 @@ class CarbonTimeZone extends DateTimeZone
     {
         $tz = $this->toRegionName($date);
 
-        if ($tz === null) {
-            if (Carbon::isStrictModeEnabled()) {
-                throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
-            }
-
-            return null;
+        if ($tz !== null) {
+            return new static($tz);
         }
 
-        return new static($tz);
+        if (Carbon::isStrictModeEnabled()) {
+            throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
+        }
+
+        return null;
     }
 
     /**

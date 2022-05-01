@@ -42,7 +42,7 @@ class ComparisonTest extends AbstractTestCase
             foreach ($timezones as $b) {
                 $from = Carbon::createFromDate(2000, 1, 1, $a);
                 $to = Carbon::createFromDate(2000, 1, 1, $b);
-                $diff = (float) ($from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst);
+                $diff = $from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst;
 
                 $this->assertTrue(\in_array($diff, $a === $b ? [0.0] : [0.0, 24.0, -24.0], true));
             }
@@ -54,7 +54,7 @@ class ComparisonTest extends AbstractTestCase
             foreach ($timezones as $b) {
                 $from = Carbon::createFromDate(2000, 1, 1, $a);
                 $to = Carbon::createFromDate(2000, 1, 1, $b);
-                $diff = (float) ($from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst);
+                $diff = $from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst;
                 $diff = round($diff * 1800) / 1800; // 2-seconds precision
 
                 $this->assertTrue(\in_array($diff, $a === $b ? [0.0] : [0.0, 24.0, -24.0], true));

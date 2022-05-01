@@ -682,10 +682,10 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
                 $this->setTimezone($argument);
             } elseif ($this->dateInterval === null &&
                 (
-                    \is_string($argument) && preg_match(
+                    (\is_string($argument) && preg_match(
                         '/^(-?\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
                         $argument,
-                    ) ||
+                    )) ||
                     $argument instanceof DateInterval ||
                     $argument instanceof Closure
                 ) &&
@@ -1250,6 +1250,10 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     public function setRecurrences(int|float|null $recurrences): static
     {
         if ($recurrences === null) {
+            throw new InvalidPeriodParameterException('Invalid number of recurrences.');
+        }
+
+        if ($recurrences === null) {
             return $this->removeFilter(static::RECURRENCES_FILTER);
         }
 
@@ -1470,7 +1474,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
 
         $parts = [];
 
-        $format = !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
+        $format = !$this->startDate->isStartOfDay() || ($this->endDate && !$this->endDate->isStartOfDay())
             ? 'Y-m-d H:i:s'
             : 'Y-m-d';
 
