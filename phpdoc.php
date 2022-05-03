@@ -154,7 +154,7 @@ foreach ($tags as $tag) {
         [$tag, $pattern] = $tag;
     }
 
-    $pattern = $pattern ?? '\S+';
+    $pattern ??= '\S+';
 
     if ($tag === PHP_EOL) {
         $autoDocLines[] = '';
