@@ -88,7 +88,7 @@ Carbon::macro('getAvailableMacroLocales', function () {
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
     foreach (@methods(false, false) as [$carbonObject, $className, $method, $parameters, $return, $description, $dateTimeObject, $info]) {
         $classes = trim(implode(' ', [
-            strpos($description, '@deprecated') !== false ? 'deprecated' : '',
+            strpos($description ?? '', '@deprecated') !== false ? 'deprecated' : '',
         ]));
 
         if (method_exists($dateTimeObject, $method)) {
@@ -149,7 +149,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         $description = preg_replace(
             '/@deprecated\s(([^\n]+)(\n [^\n])*)\n/',
             '<div class="alert alert-warning">$1</div>',
-            $description
+            $description ?? ''
         );
         $description = preg_replace(
             '/@see\s+(https?:\/\/(\S+))/',
