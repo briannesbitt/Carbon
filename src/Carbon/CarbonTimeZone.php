@@ -114,8 +114,8 @@ class CarbonTimeZone extends DateTimeZone
             throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
         }
 
-            return null;
-        }
+        return null;
+    }
 
     /**
      * Returns abbreviated name of the current timezone according to DST setting.
