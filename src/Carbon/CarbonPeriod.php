@@ -1250,10 +1250,6 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     public function setRecurrences(int|float|null $recurrences): static
     {
         if ($recurrences === null) {
-            throw new InvalidPeriodParameterException('Invalid number of recurrences.');
-        }
-
-        if ($recurrences === null) {
             return $this->removeFilter(static::RECURRENCES_FILTER);
         }
 
