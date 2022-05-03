@@ -333,7 +333,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame($object, $result);
 
         $currentTime = Carbon::now();
-        $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
+        $this->assertNotSame($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
 
     public function testWithTestNowWithException()
@@ -349,6 +349,19 @@ class TestingAidsTest extends AbstractTestCase
         }
 
         $currentTime = Carbon::now();
-        $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
+        $this->assertNotSame($testNow, $currentTime->format('Y-m-d H:i:s'));
+    }
+
+    public function testWithModifyReturningDateTime()
+    {
+        Carbon::setTestNowAndTimezone(new class ('2000-01-01 00:00 UTC') extends Carbon {
+            public function modify($modify)
+            {
+                return $this->toDateTimeImmutable()->modify($modify);
+            }
+        });
+
+        $currentTime = new Carbon('tomorrow');
+        $this->assertSame('2000-01-02 00:00:00 UTC', $currentTime->format('Y-m-d H:i:s e'));
     }
 }
