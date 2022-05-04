@@ -141,7 +141,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
         if ($parameter->isDefaultValueAvailable()) {
             $output .= ' = '.dumpValue($parameter->getDefaultValue());
         }
-    } catch (ReflectionException $exp) {
+    } catch (ReflectionException) {
     }
 
     return $output;
@@ -154,7 +154,7 @@ foreach ($tags as $tag) {
         [$tag, $pattern] = $tag;
     }
 
-    $pattern = $pattern ?? '\S+';
+    $pattern ??= '\S+';
 
     if ($tag === PHP_EOL) {
         $autoDocLines[] = '';
@@ -195,10 +195,7 @@ foreach ($tags as $tag) {
         $vars->description = $vars->description ?: $vars->description2;
 
         if ($tag === 'mode') {
-            if (!isset($modes[$vars->type])) {
-                $modes[$vars->type] = [];
-            }
-
+            $modes[$vars->type] ??= [];
             $modes[$vars->type][] = $vars->name;
 
             continue;

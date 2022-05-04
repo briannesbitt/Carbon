@@ -1021,7 +1021,7 @@ trait Date
     {
         try {
             $this->__get($name);
-        } catch (UnknownGetterException | ReflectionException $e) {
+        } catch (UnknownGetterException | ReflectionException) {
             return false;
         }
 
@@ -2056,7 +2056,7 @@ trait Date
                 } elseif (\is_array($sequence)) {
                     try {
                         $sequence = $this->{$sequence[0]}(...$sequence[1]);
-                    } catch (ReflectionException | InvalidArgumentException | BadMethodCallException $e) {
+                    } catch (ReflectionException | InvalidArgumentException | BadMethodCallException) {
                         $sequence = '';
                     }
                 } elseif (\is_string($sequence)) {
@@ -2251,7 +2251,7 @@ trait Date
             foreach (static::getGenericMacros() as $callback) {
                 try {
                     return static::executeStaticCallable($callback, $method, ...$parameters);
-                } catch (BadMethodCallException $exception) {
+                } catch (BadMethodCallException) {
                     continue;
                 }
             }
@@ -2477,7 +2477,7 @@ trait Date
         if ($sixFirstLetters === 'isSame') {
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
-            } catch (BadComparisonUnitException $exception) {
+            } catch (BadComparisonUnitException) {
                 // Try next
             }
         }
@@ -2485,7 +2485,7 @@ trait Date
         if (str_starts_with($unit, 'isCurrent')) {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (BadComparisonUnitException | BadMethodCallException $exception) {
+            } catch (BadComparisonUnitException | BadMethodCallException) {
                 // Try next
             }
         }
@@ -2495,7 +2495,7 @@ trait Date
                 $unit = static::singularUnit(substr($method, 0, -5));
 
                 return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
-            } catch (InvalidArgumentException $exception) {
+            } catch (InvalidArgumentException) {
                 // Try macros
             }
         }
@@ -2508,7 +2508,7 @@ trait Date
                     foreach ($list as $callback) {
                         try {
                             return $this->executeCallable($callback, $method, ...$parameters);
-                        } catch (BadMethodCallException $exception) {
+                        } catch (BadMethodCallException) {
                             continue;
                         }
                     }
@@ -2652,7 +2652,7 @@ trait Date
 
         if (
             $this->getTranslationMessage("$standaloneKey.$subKey") &&
-            (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))
+            (!$context || (($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context)))
         ) {
             $key = $standaloneKey;
         }

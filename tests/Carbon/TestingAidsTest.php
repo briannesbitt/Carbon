@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
@@ -287,6 +288,14 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
 
+    public function testCreateFromDateTimeInterface()
+    {
+        Carbon::setTestNowAndTimezone(date_create('2013-09-01 05:10:15.123456', new DateTimeZone('America/Vancouver')));
+
+        $this->assertSame('2018-05-06 05:10:15.000000', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
+    }
+
     public function testSetTestNow()
     {
         Carbon::setTestNow(null);
@@ -324,7 +333,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame($object, $result);
 
         $currentTime = Carbon::now();
-        $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
+        $this->assertNotSame($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
 
     public function testWithTestNowWithException()
@@ -340,6 +349,20 @@ class TestingAidsTest extends AbstractTestCase
         }
 
         $currentTime = Carbon::now();
-        $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
+        $this->assertNotSame($testNow, $currentTime->format('Y-m-d H:i:s'));
+    }
+
+    public function testWithModifyReturningDateTime()
+    {
+        Carbon::setTestNowAndTimezone(new class('2000-01-01 00:00 UTC') extends Carbon {
+            public function modify($modify)
+            {
+                /* @phpstan-ignore-next-line */
+                return $this->toDateTimeImmutable()->modify($modify);
+            }
+        });
+
+        $currentTime = new Carbon('tomorrow');
+        $this->assertSame('2000-01-02 00:00:00 UTC', $currentTime->format('Y-m-d H:i:s e'));
     }
 }

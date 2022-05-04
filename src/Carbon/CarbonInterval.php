@@ -624,7 +624,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $interval = implode($match[1], $interval);
         }
 
-        $interval = $interval ?? '';
+        $interval ??= '';
 
         for ($index = 0; $index < $length; $index++) {
             $expected = mb_substr($format, $index, 1);
@@ -1498,21 +1498,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $minimumUnit = 's';
         $skip = [];
         extract($this->getForHumansInitialVariables($syntax, $short));
-        $skip = array_filter((array) $skip, static function ($value) {
-            return \is_string($value) && $value !== '';
-        });
+        $skip = array_filter((array) $skip, static fn ($value) => \is_string($value) && $value !== '');
 
-        if ($syntax === null) {
-            $syntax = CarbonInterface::DIFF_ABSOLUTE;
-        }
+        $syntax ??= CarbonInterface::DIFF_ABSOLUTE;
 
         if ($parts === self::NO_LIMIT) {
             $parts = INF;
         }
 
-        if ($options === null) {
-            $options = static::getHumanDiffOptions();
-        }
+        $options ??= static::getHumanDiffOptions();
 
         if ($join === false) {
             $join = ' ';
@@ -1523,11 +1517,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             ];
         }
 
-        if ($altNumbers) {
-            if ($altNumbers !== true) {
-                $language = new Language($this->locale);
-                $altNumbers = \in_array($language->getCode(), (array) $altNumbers, true);
-            }
+        if ($altNumbers && $altNumbers !== true) {
+            $language = new Language($this->locale);
+            $altNumbers = \in_array($language->getCode(), (array) $altNumbers, true);
         }
 
         if (\is_array($join)) {
@@ -1554,9 +1546,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
 
             $glue = $join;
-            $join = function ($list) use ($glue) {
-                return implode($glue, $list);
-            };
+            $join = static fn ($list) => implode($glue, $list);
         }
 
         $interpolations = [
@@ -1906,15 +1896,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $format = $this->localToStringFormat;
 
-        if ($format) {
-            if ($format instanceof Closure) {
-                return $format($this);
-            }
-
-            return $this->format($format);
+        if (!$format) {
+            return $this->forHumans();
         }
 
-        return $this->forHumans();
+        if ($format instanceof Closure) {
+            return $format($this);
+        }
+
+        return $this->format($format);
     }
 
     /**

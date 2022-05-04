@@ -367,7 +367,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     {
         try {
             return static::instance($var);
-        } catch (NotAPeriodException $e) {
+        } catch (NotAPeriodException) {
             return static::create($var);
         }
     }
@@ -682,10 +682,10 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
                 $this->setTimezone($argument);
             } elseif ($this->dateInterval === null &&
                 (
-                    \is_string($argument) && preg_match(
+                    (\is_string($argument) && preg_match(
                         '/^(-?\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
                         $argument,
-                    ) ||
+                    )) ||
                     $argument instanceof DateInterval ||
                     $argument instanceof Closure
                 ) &&
@@ -1470,7 +1470,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
 
         $parts = [];
 
-        $format = !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
+        $format = !$this->startDate->isStartOfDay() || ($this->endDate && !$this->endDate->isStartOfDay())
             ? 'Y-m-d H:i:s'
             : 'Y-m-d';
 

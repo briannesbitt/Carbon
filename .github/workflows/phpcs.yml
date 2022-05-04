@@ -10,9 +10,9 @@ jobs:
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Check for code style violation with PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@3.2.1
+        uses: OskarStark/php-cs-fixer-ga@3.7.0
         with:
           args: --diff --dry-run

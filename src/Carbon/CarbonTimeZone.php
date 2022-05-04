@@ -106,15 +106,15 @@ class CarbonTimeZone extends DateTimeZone
             $tz = static::getDateTimeZoneFromName($object);
         }
 
-        if ($tz === null) {
-            if (Carbon::isStrictModeEnabled()) {
-                throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
-            }
-
-            return null;
+        if ($tz !== null) {
+            return new static($tz->getName());
         }
 
-        return new static($tz->getName());
+        if (Carbon::isStrictModeEnabled()) {
+            throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
+        }
+
+        return null;
     }
 
     /**
@@ -205,7 +205,7 @@ class CarbonTimeZone extends DateTimeZone
         // @codeCoverageIgnoreStart
         try {
             $offset = @$this->getOffset($date) ?: 0;
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $offset = 0;
         }
         // @codeCoverageIgnoreEnd
@@ -236,15 +236,15 @@ class CarbonTimeZone extends DateTimeZone
     {
         $tz = $this->toRegionName($date);
 
-        if ($tz === null) {
-            if (Carbon::isStrictModeEnabled()) {
-                throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
-            }
-
-            return null;
+        if ($tz !== null) {
+            return new static($tz);
         }
 
-        return new static($tz);
+        if (Carbon::isStrictModeEnabled()) {
+            throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
+        }
+
+        return null;
     }
 
     /**
