@@ -357,7 +357,6 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNowAndTimezone(new class('2000-01-01 00:00 UTC') extends Carbon {
             public function modify($modify)
             {
-                /* @phpstan-ignore-next-line */
                 return $this->toDateTimeImmutable()->modify($modify);
             }
         });
