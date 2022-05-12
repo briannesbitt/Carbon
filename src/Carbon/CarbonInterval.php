@@ -344,14 +344,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Create a new CarbonInterval instance.
      *
-     * @param int|null $years
-     * @param int|null $months
-     * @param int|null $weeks
-     * @param int|null $days
-     * @param int|null $hours
-     * @param int|null $minutes
-     * @param int|null $seconds
-     * @param int|null $microseconds
+     * @param Closure|DateInterval|string|int|null $years
+     * @param int|null                             $months
+     * @param int|null                             $weeks
+     * @param int|null                             $days
+     * @param int|null                             $hours
+     * @param int|null                             $minutes
+     * @param int|null                             $seconds
+     * @param int|null                             $microseconds
      *
      * @throws Exception when the interval_spec (passed as $years) cannot be parsed as an interval.
      */
