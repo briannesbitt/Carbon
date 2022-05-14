@@ -12,7 +12,6 @@
 namespace Carbon\Doctrine;
 
 use Carbon\Carbon;
-use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
