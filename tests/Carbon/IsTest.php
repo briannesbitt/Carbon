@@ -977,7 +977,7 @@ class IsTest extends AbstractTestCase
     {
         $output = Carbon::now()->format($letter);
 
-        if ($output === '1000' && $letter === 'v' && version_compare(PHP_VERSION, '7.2.12', '<')) {
+        if ($output === '1000' && $letter === 'v' && PHP_VERSION_ID < 70212) {
             $output = '000';
         }
 
