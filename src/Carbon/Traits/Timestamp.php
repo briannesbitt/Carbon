@@ -182,7 +182,7 @@ trait Timestamp
         $integer = 0;
         $decimal = 0;
 
-        foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
+        foreach (preg_split('`[^\d.]+`', $numbers) as $chunk) {
             [$integerPart, $decimalPart] = explode('.', "$chunk.");
 
             $integer += (int) $integerPart;
