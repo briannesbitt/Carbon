@@ -25,7 +25,7 @@ class CreateFromTimeStringTest extends AbstractTestCase
         Carbon::setTestNow();
     }
 
-    public function testCreateFromTimeString()
+    public function testCreateFromTimeString(): void
     {
         $d = Carbon::createFromTimeString('22:45');
         $this->assertSame(22, $d->hour);
@@ -34,7 +34,7 @@ class CreateFromTimeStringTest extends AbstractTestCase
         $this->assertSame(0, $d->micro);
     }
 
-    public function testCreateFromTimeStringWithSecond()
+    public function testCreateFromTimeStringWithSecond(): void
     {
         $d = Carbon::createFromTimeString('22:45:12');
         $this->assertSame(22, $d->hour);
@@ -43,7 +43,7 @@ class CreateFromTimeStringTest extends AbstractTestCase
         $this->assertSame(0, $d->micro);
     }
 
-    public function testCreateFromTimeStringWithMicroSecond()
+    public function testCreateFromTimeStringWithMicroSecond(): void
     {
         $d = Carbon::createFromTimeString('22:45:00.625341');
         $this->assertSame(22, $d->hour);
@@ -52,14 +52,14 @@ class CreateFromTimeStringTest extends AbstractTestCase
         $this->assertSame(625341, $d->micro);
     }
 
-    public function testCreateFromTimeStringWithDateTimeZone()
+    public function testCreateFromTimeStringWithDateTimeZone(): void
     {
         $d = Carbon::createFromTimeString('12:20:30', new DateTimeZone('Europe/London'));
         $this->assertCarbonTime($d, 12, 20, 30, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromTimeStringWithTimeZoneString()
+    public function testCreateFromTimeStringWithTimeZoneString(): void
     {
         $d = Carbon::createFromTimeString('12:20:30', 'Europe/London');
         $this->assertCarbonTime($d, 12, 20, 30, 0);

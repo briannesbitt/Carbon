@@ -19,44 +19,44 @@ use Tests\AbstractTestCase;
 
 class CreateFromDateTest extends AbstractTestCase
 {
-    public function testCreateFromDateWithDefaults()
+    public function testCreateFromDateWithDefaults(): void
     {
         $d = Carbon::createFromDate();
         $this->assertSame($d->timestamp, Carbon::create(null, null, null, null, null, null)->timestamp);
     }
 
-    public function testCreateFromDate()
+    public function testCreateFromDate(): void
     {
         $d = Carbon::createFromDate(1975, 5, 21);
         $this->assertCarbon($d, 1975, 5, 21);
     }
 
-    public function testCreateFromDateWithYear()
+    public function testCreateFromDateWithYear(): void
     {
         $d = Carbon::createFromDate(1975);
         $this->assertSame(1975, $d->year);
     }
 
-    public function testCreateFromDateWithMonth()
+    public function testCreateFromDateWithMonth(): void
     {
         $d = Carbon::createFromDate(null, 5);
         $this->assertSame(5, $d->month);
     }
 
-    public function testCreateFromDateWithDay()
+    public function testCreateFromDateWithDay(): void
     {
         $d = Carbon::createFromDate(null, null, 21);
         $this->assertSame(21, $d->day);
     }
 
-    public function testCreateFromDateWithTimezone()
+    public function testCreateFromDateWithTimezone(): void
     {
         $d = Carbon::createFromDate(1975, 5, 21, 'Europe/London');
         $this->assertCarbon($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromDateWithDateTimeZone()
+    public function testCreateFromDateWithDateTimeZone(): void
     {
         $d = Carbon::createFromDate(1975, 5, 21, new DateTimeZone('Europe/London'));
         $this->assertCarbon($d, 1975, 5, 21);

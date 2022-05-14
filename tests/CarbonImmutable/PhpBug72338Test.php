@@ -35,7 +35,7 @@ class PhpBug72338Test extends AbstractTestCase
     /**
      * Ensures that modify don't use changed timestamp
      */
-    public function testModify()
+    public function testModify(): void
     {
         $date = Carbon::createFromTimestamp(0)->setTimezone('+02:00')->modify('+1 day');
         $this->assertSame('86400', $date->format('U'));
@@ -44,7 +44,7 @@ class PhpBug72338Test extends AbstractTestCase
     /**
      * Ensures that $date->format('U') returns unchanged timestamp
      */
-    public function testTimestamp()
+    public function testTimestamp(): void
     {
         $date = Carbon::createFromTimestamp(0)->setTimezone('+02:00');
         $this->assertSame('0', $date->format('U'));
@@ -53,7 +53,7 @@ class PhpBug72338Test extends AbstractTestCase
     /**
      * Ensures that date created from string with timezone and with same timezone set by setTimezone() is equal
      */
-    public function testEqualSetAndCreate()
+    public function testEqualSetAndCreate(): void
     {
         $date = Carbon::createFromTimestamp(0)->setTimezone('+02:00');
         $date1 = new Carbon('1970-01-01T02:00:00+02:00');
@@ -63,7 +63,7 @@ class PhpBug72338Test extends AbstractTestCase
     /**
      * Ensures that second call to setTimezone() don't changing timestamp
      */
-    public function testSecondSetTimezone()
+    public function testSecondSetTimezone(): void
     {
         $date = Carbon::createFromTimestamp(0)->setTimezone('+02:00')->setTimezone('Europe/Moscow');
         $this->assertSame('0', $date->format('U'));

@@ -5302,7 +5302,7 @@ class WeekTest extends AbstractTestCase
         ],
     ];
 
-    public function testWeekUtils()
+    public function testWeekUtils(): void
     {
         foreach (static::SAMPLE as $date => [$weekYear, $isoWeekYear, $week, $isoWeek, $weeksInYear, $isoWeeksInYear]) {
             $carbon = Carbon::parse("$date 00:00:00");
@@ -5316,7 +5316,7 @@ class WeekTest extends AbstractTestCase
         }
     }
 
-    public function testSetters()
+    public function testSetters(): void
     {
         $d = Carbon::parse('2018-01-01');
         $this->assertSame(52, $d->weeksInYear);
@@ -5409,7 +5409,7 @@ class WeekTest extends AbstractTestCase
         $this->assertSame('2019-01-25', $d->format('Y-m-d'));
     }
 
-    public function testWeekday()
+    public function testWeekday(): void
     {
         $d = Carbon::parse('2018-08-08');
         $this->assertSame(CarbonInterface::WEDNESDAY, $d->weekday());

@@ -17,7 +17,7 @@ class TranslationTaTest extends TestCaseBase
 {
     public const LOCALE = 'ta';
 
-    public function testItTranslatesMonth()
+    public function testItTranslatesMonth(): void
     {
         $jan = JenssegersDate::createFromFormat('m-d', '01-01');
         $feb = JenssegersDate::createFromFormat('m-d', '02-01');
@@ -46,7 +46,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('டிசம்பர்', $dec->format('F'));
     }
 
-    public function testItTranslatesWeekdays()
+    public function testItTranslatesWeekdays(): void
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -65,7 +65,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('ஞாயிற்றுக்கிழமை', $sun->format('l'));
     }
 
-    public function testItTranslatesWeekdaysShortform()
+    public function testItTranslatesWeekdaysShortform(): void
     {
         $mon = JenssegersDate::parse('next monday');
         $tue = JenssegersDate::parse('next tuesday');
@@ -84,7 +84,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('ஞாயிறு', $sun->format('D'));
     }
 
-    public function testItTranslatesAgo()
+    public function testItTranslatesAgo(): void
     {
         JenssegersDate::setTestNow('2019-03-27');
 
@@ -131,7 +131,7 @@ class TranslationTaTest extends TestCaseBase
         $this->assertSame('3 ஆண்டுகள் முன்', $fiveAgo->ago());
     }
 
-    public function testItTranslatesFromNow()
+    public function testItTranslatesFromNow(): void
     {
         $oneAgo = JenssegersDate::parse('1 second');
         $fiveAgo = JenssegersDate::parse('5 seconds');

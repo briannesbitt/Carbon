@@ -24,55 +24,55 @@ use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
 {
-    public function testCreateReturnsDatingInstance()
+    public function testCreateReturnsDatingInstance(): void
     {
         $d = Carbon::create();
         $this->assertInstanceOfCarbon($d);
     }
 
-    public function testCreateWithDefaults()
+    public function testCreateWithDefaults(): void
     {
         $d = Carbon::create();
         $this->assertSame($d->getTimestamp(), Carbon::create('0000-01-01 00:00:00')->getTimestamp());
     }
 
-    public function testCreateWithNull()
+    public function testCreateWithNull(): void
     {
         $d = Carbon::create(null, null, null, null, null, null);
         $this->assertSame($d->getTimestamp(), Carbon::now()->getTimestamp());
     }
 
-    public function testCreateWithYear()
+    public function testCreateWithYear(): void
     {
         $d = Carbon::create(2012);
         $this->assertSame(2012, $d->year);
     }
 
-    public function testCreateHandlesNegativeYear()
+    public function testCreateHandlesNegativeYear(): void
     {
         $c = Carbon::create(-1, 10, 12, 1, 2, 3);
         $this->assertCarbon($c, -1, 10, 12, 1, 2, 3);
     }
 
-    public function testCreateHandlesFiveDigitsPositiveYears()
+    public function testCreateHandlesFiveDigitsPositiveYears(): void
     {
         $c = Carbon::create(999999999, 10, 12, 1, 2, 3);
         $this->assertCarbon($c, 999999999, 10, 12, 1, 2, 3);
     }
 
-    public function testCreateHandlesFiveDigitsNegativeYears()
+    public function testCreateHandlesFiveDigitsNegativeYears(): void
     {
         $c = Carbon::create(-999999999, 10, 12, 1, 2, 3);
         $this->assertCarbon($c, -999999999, 10, 12, 1, 2, 3);
     }
 
-    public function testCreateWithMonth()
+    public function testCreateWithMonth(): void
     {
         $d = Carbon::create(null, 3);
         $this->assertSame(3, $d->month);
     }
 
-    public function testCreateWithInvalidMonth()
+    public function testCreateWithInvalidMonth(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'month must be between 0 and 99, -5 given'
@@ -81,7 +81,7 @@ class CreateTest extends AbstractTestCase
         Carbon::create(null, -5);
     }
 
-    public function testOutOfRangeException()
+    public function testOutOfRangeException(): void
     {
         /** @var OutOfRangeException $error */
         $error = null;
@@ -99,7 +99,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(99, $error->getMax());
     }
 
-    public function testCreateWithInvalidMonthNonStrictMode()
+    public function testCreateWithInvalidMonthNonStrictMode(): void
     {
         Carbon::useStrictMode(false);
         $this->assertFalse(Carbon::isStrictModeEnabled());
@@ -108,19 +108,19 @@ class CreateTest extends AbstractTestCase
         $this->assertTrue(Carbon::isStrictModeEnabled());
     }
 
-    public function testCreateMonthWraps()
+    public function testCreateMonthWraps(): void
     {
         $d = Carbon::create(2011, 0, 1, 0, 0, 0);
         $this->assertCarbon($d, 2010, 12, 1, 0, 0, 0);
     }
 
-    public function testCreateWithDay()
+    public function testCreateWithDay(): void
     {
         $d = Carbon::create(null, null, 21);
         $this->assertSame(21, $d->day);
     }
 
-    public function testCreateWithInvalidDay()
+    public function testCreateWithInvalidDay(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'day must be between 0 and 99, -4 given'
@@ -129,13 +129,13 @@ class CreateTest extends AbstractTestCase
         Carbon::create(null, null, -4);
     }
 
-    public function testCreateDayWraps()
+    public function testCreateDayWraps(): void
     {
         $d = Carbon::create(2011, 1, 40, 0, 0, 0);
         $this->assertCarbon($d, 2011, 2, 9, 0, 0, 0);
     }
 
-    public function testCreateWithHourAndDefaultMinSecToZero()
+    public function testCreateWithHourAndDefaultMinSecToZero(): void
     {
         $d = Carbon::create(null, null, null, 14);
         $this->assertSame(14, $d->hour);
@@ -143,7 +143,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(0, $d->second);
     }
 
-    public function testCreateWithInvalidHour()
+    public function testCreateWithInvalidHour(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'hour must be between 0 and 99, -1 given'
@@ -152,19 +152,19 @@ class CreateTest extends AbstractTestCase
         Carbon::create(null, null, null, -1);
     }
 
-    public function testCreateHourWraps()
+    public function testCreateHourWraps(): void
     {
         $d = Carbon::create(2011, 1, 1, 24, 0, 0);
         $this->assertCarbon($d, 2011, 1, 2, 0, 0, 0);
     }
 
-    public function testCreateWithMinute()
+    public function testCreateWithMinute(): void
     {
         $d = Carbon::create(null, null, null, null, 58);
         $this->assertSame(58, $d->minute);
     }
 
-    public function testCreateWithInvalidMinute()
+    public function testCreateWithInvalidMinute(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'minute must be between 0 and 99, -2 given'
@@ -173,19 +173,19 @@ class CreateTest extends AbstractTestCase
         Carbon::create(2011, 1, 1, 0, -2, 0);
     }
 
-    public function testCreateMinuteWraps()
+    public function testCreateMinuteWraps(): void
     {
         $d = Carbon::create(2011, 1, 1, 0, 62, 0);
         $this->assertCarbon($d, 2011, 1, 1, 1, 2, 0);
     }
 
-    public function testCreateWithSecond()
+    public function testCreateWithSecond(): void
     {
         $d = Carbon::create(null, null, null, null, null, 59);
         $this->assertSame(59, $d->second);
     }
 
-    public function testCreateWithInvalidSecond()
+    public function testCreateWithInvalidSecond(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'second must be between 0 and 99, -2 given'
@@ -194,27 +194,27 @@ class CreateTest extends AbstractTestCase
         Carbon::create(null, null, null, null, null, -2);
     }
 
-    public function testCreateSecondsWrap()
+    public function testCreateSecondsWrap(): void
     {
         $d = Carbon::create(2012, 1, 1, 0, 0, 61);
         $this->assertCarbon($d, 2012, 1, 1, 0, 1, 1);
     }
 
-    public function testCreateWithDateTimeZone()
+    public function testCreateWithDateTimeZone(): void
     {
         $d = Carbon::create(2012, 1, 1, 0, 0, 0, new DateTimeZone('Europe/London'));
         $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateWithTimeZoneString()
+    public function testCreateWithTimeZoneString(): void
     {
         $d = Carbon::create(2012, 1, 1, 0, 0, 0, 'Europe/London');
         $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testMake()
+    public function testMake(): void
     {
         $this->assertCarbon(Carbon::make('2017-01-05'), 2017, 1, 5, 0, 0, 0);
         $this->assertCarbon(Carbon::make(new DateTime('2017-01-05')), 2017, 1, 5, 0, 0, 0);
@@ -222,7 +222,7 @@ class CreateTest extends AbstractTestCase
         $this->assertNull(Carbon::make(3));
     }
 
-    public function testCreateWithInvalidTimezoneOffset()
+    public function testCreateWithInvalidTimezoneOffset(): void
     {
         $this->expectExceptionObject(new InvalidTimeZoneException(
             'Absolute timezone offset cannot be greater than 100.'
@@ -231,7 +231,7 @@ class CreateTest extends AbstractTestCase
         Carbon::createFromDate(2000, 1, 1, -28236);
     }
 
-    public function testCreateWithValidTimezoneOffset()
+    public function testCreateWithValidTimezoneOffset(): void
     {
         $dt = Carbon::createFromDate(2000, 1, 1, -4);
         $this->assertSame('America/New_York', $dt->tzName);
@@ -240,7 +240,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('-04:00', $dt->tzName);
     }
 
-    public function testParseFromLocale()
+    public function testParseFromLocale(): void
     {
         $dateToday = Carbon::parseFromLocale('now', 'en');
         $dateTest = Carbon::parseFromLocale('à l\'instant', 'fr');
@@ -311,7 +311,7 @@ class CreateTest extends AbstractTestCase
      * @dataProvider \Tests\Carbon\CreateTest::dataForLocales
      * @group localization
      */
-    public function testParseFromLocaleForEachLocale($locale)
+    public function testParseFromLocaleForEachLocale($locale): void
     {
         $expectedDate = Carbon::parse('today 4:26');
 
@@ -320,7 +320,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame($expectedDate->format('Y-m-d H:i'), $date->format('Y-m-d H:i'));
     }
 
-    public function testParseFromLocaleWithDefaultLocale()
+    public function testParseFromLocaleWithDefaultLocale(): void
     {
         Carbon::setLocale('fr');
 
@@ -341,7 +341,7 @@ class CreateTest extends AbstractTestCase
         $this->assertEquals(Carbon::today()->addDays(2), $date);
     }
 
-    public function testCreateFromLocaleFormat()
+    public function testCreateFromLocaleFormat(): void
     {
         $date = Carbon::createFromLocaleFormat('Y M d H,i,s', 'zh_CN', '2019 四月 4 12,04,21');
 
@@ -352,14 +352,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2019年4月4日星期四 中午 12点04分 Asia/Shanghai', $date->isoFormat('LLLL zz'));
     }
 
-    public function testCreateFromIsoFormat()
+    public function testCreateFromIsoFormat(): void
     {
         $date = Carbon::createFromIsoFormat('!YYYYY MMMM D', '2019 April 4');
 
         $this->assertSame('Thursday, April 4, 2019 12:00 AM America/Toronto', $date->isoFormat('LLLL zz'));
     }
 
-    public function testCreateFromIsoFormatException()
+    public function testCreateFromIsoFormatException(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Format wo not supported for creation.'
@@ -368,7 +368,7 @@ class CreateTest extends AbstractTestCase
         Carbon::createFromIsoFormat('YY D wo', '2019 April 4');
     }
 
-    public function testCreateFromLocaleIsoFormat()
+    public function testCreateFromLocaleIsoFormat(): void
     {
         $date = Carbon::createFromLocaleIsoFormat('YYYY MMMM D HH,mm,ss', 'zh_TW', '2019 四月 4 12,04,21');
 

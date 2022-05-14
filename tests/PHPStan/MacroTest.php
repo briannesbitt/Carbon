@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 
 class MacroTest extends AbstractTestCase
 {
-    public function testIsStatic()
+    public function testIsStatic(): void
     {
         $macro = new Macro(Carbon::class, 'calendarBerlin', static function (): string {
             return self::this()->tz('Europe/Berlin')->calendar();
@@ -36,7 +36,7 @@ class MacroTest extends AbstractTestCase
         $this->assertFalse($macro->isStatic());
     }
 
-    public function testGetDeclaringClass()
+    public function testGetDeclaringClass(): void
     {
         $macro = new Macro(Carbon::class, 'lower', 'strtolower');
 
@@ -47,21 +47,21 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(CarbonImmutable::class, $macro->getDeclaringClass()->getName());
     }
 
-    public function testIsPrivate()
+    public function testIsPrivate(): void
     {
         $macro = new Macro(Carbon::class, 'lower', 'strtolower');
 
         $this->assertFalse($macro->isPrivate());
     }
 
-    public function testIsPublic()
+    public function testIsPublic(): void
     {
         $macro = new Macro(Carbon::class, 'lower', 'strtolower');
 
         $this->assertTrue($macro->isPublic());
     }
 
-    public function testIsFinal()
+    public function testIsFinal(): void
     {
         $mixinClass = new class() {
             // Declaring final won't apply for macro, sub-class will always be able to override macros.
@@ -85,21 +85,21 @@ class MacroTest extends AbstractTestCase
         $this->assertFalse($macro->isFinal());
     }
 
-    public function testIsInternal()
+    public function testIsInternal(): void
     {
         $macro = new Macro(Carbon::class, 'lower', 'strtolower');
 
         $this->assertFalse($macro->isInternal());
     }
 
-    public function testIsAbstract()
+    public function testIsAbstract(): void
     {
         $macro = new Macro(Carbon::class, 'lower', 'strtolower');
 
         $this->assertFalse($macro->isAbstract());
     }
 
-    public function testGetDocComment()
+    public function testGetDocComment(): void
     {
         $macro = new Macro(
             Carbon::class,
@@ -120,7 +120,7 @@ class MacroTest extends AbstractTestCase
         );
     }
 
-    public function testGetFileName()
+    public function testGetFileName(): void
     {
         $macro = new Macro(Carbon::class, 'foo', function () {
         });
@@ -128,14 +128,14 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(__FILE__, $macro->getFileName());
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
         $macro = new Macro(Carbon::class, 'lower', 'strtolower');
 
         $this->assertSame('lower', $macro->getName());
     }
 
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $macro = new Macro(Carbon::class, 'lower', function () {
         });
@@ -158,7 +158,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(9, $parameters[1]->getDefaultValue());
     }
 
-    public function testGetReturnType()
+    public function testGetReturnType(): void
     {
         $macro = new Macro(Carbon::class, 'lower', function () {
         });
@@ -171,7 +171,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(Carbon::class, $macro->getReturnType()->getName());
     }
 
-    public function testGetLines()
+    public function testGetLines(): void
     {
         $line = __LINE__;
         $macro = new Macro(Carbon::class, 'foo', function () {
@@ -182,7 +182,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame($line + 3, $macro->getEndLine());
     }
 
-    public function testIsDeprecated()
+    public function testIsDeprecated(): void
     {
         $macro = new Macro(
             Carbon::class,
@@ -209,7 +209,7 @@ class MacroTest extends AbstractTestCase
         $this->assertFalse($macro->isDeprecated()->yes());
     }
 
-    public function testIsVariadic()
+    public function testIsVariadic(): void
     {
         $macro = new Macro(Carbon::class, 'lower', function (...$params) {
         });
@@ -222,7 +222,7 @@ class MacroTest extends AbstractTestCase
         $this->assertFalse($macro->isVariadic());
     }
 
-    public function testGetPrototype()
+    public function testGetPrototype(): void
     {
         $macro = new Macro(Carbon::class, 'lower', function () {
         });
@@ -230,7 +230,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame($macro, $macro->getPrototype());
     }
 
-    public function testGetReflection()
+    public function testGetReflection(): void
     {
         $mixinClass = new class() {
             // Declaring final won't apply for macro, sub-class will always be able to override macros.

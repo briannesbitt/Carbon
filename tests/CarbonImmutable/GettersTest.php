@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
-    public function testGettersThrowExceptionOnUnknownGetter()
+    public function testGettersThrowExceptionOnUnknownGetter(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             "Unknown getter 'doesNotExit'"
@@ -30,56 +30,56 @@ class GettersTest extends AbstractTestCase
         $d->doesNotExit;
     }
 
-    public function testYearGetter()
+    public function testYearGetter(): void
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(1234, $d->year);
     }
 
-    public function testYearIsoGetter()
+    public function testYearIsoGetter(): void
     {
         $d = Carbon::createFromDate(2012, 12, 31);
         $this->assertSame(2013, $d->yearIso);
     }
 
-    public function testMonthGetter()
+    public function testMonthGetter(): void
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(5, $d->month);
     }
 
-    public function testDayGetter()
+    public function testDayGetter(): void
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(6, $d->day);
     }
 
-    public function testHourGetter()
+    public function testHourGetter(): void
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(7, $d->hour);
     }
 
-    public function testMinuteGetter()
+    public function testMinuteGetter(): void
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(8, $d->minute);
     }
 
-    public function testSecondGetter()
+    public function testSecondGetter(): void
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $this->assertSame(9, $d->second);
     }
 
-    public function testMicroGetter()
+    public function testMicroGetter(): void
     {
         $micro = 345678;
         $d = Carbon::parse('2014-01-05 12:34:11.'.$micro);
         $this->assertSame($micro, $d->micro);
     }
 
-    public function testMicroGetterWithDefaultNow()
+    public function testMicroGetterWithDefaultNow(): void
     {
         $now = Carbon::getTestNow();
         Carbon::setTestNow(null);
@@ -97,7 +97,7 @@ class GettersTest extends AbstractTestCase
         Carbon::setTestNow($now);
     }
 
-    public function testDayOfWeekGetter()
+    public function testDayOfWeekGetter(): void
     {
         $d = Carbon::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame(Carbon::MONDAY, $d->dayOfWeek);
@@ -115,7 +115,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(Carbon::SUNDAY, $d->dayOfWeek);
     }
 
-    public function testDayOfWeekIsoGetter()
+    public function testDayOfWeekIsoGetter(): void
     {
         $d = Carbon::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame(1, $d->dayOfWeekIso);
@@ -133,32 +133,32 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(7, $d->dayOfWeekIso);
     }
 
-    public function testDayOfYearGetter()
+    public function testDayOfYearGetter(): void
     {
         $d = Carbon::createFromDate(2012, 5, 7);
         $this->assertSame(128, $d->dayOfYear);
     }
 
-    public function testDaysInMonthGetter()
+    public function testDaysInMonthGetter(): void
     {
         $d = Carbon::createFromDate(2012, 5, 7);
         $this->assertSame(31, $d->daysInMonth);
     }
 
-    public function testTimestampGetter()
+    public function testTimestampGetter(): void
     {
         $d = Carbon::create();
         $d = $d->setTimezone('GMT');
         $this->assertSame(0, $d->setDateTime(1970, 1, 1, 0, 0, 0)->timestamp);
     }
 
-    public function testGetAge()
+    public function testGetAge(): void
     {
         $d = Carbon::now();
         $this->assertSame(0, $d->age);
     }
 
-    public function testGetAgeWithRealAge()
+    public function testGetAgeWithRealAge(): void
     {
         $d = Carbon::createFromDate(1975, 5, 21);
         $age = (int) (substr((string) ((int) (date('Ymd')) - (int) (date('Ymd', $d->timestamp))), 0, -4));
@@ -190,7 +190,7 @@ class GettersTest extends AbstractTestCase
      * @param int $month
      * @param int $quarter
      */
-    public function testQuarterFirstOfMonth($month, $quarter)
+    public function testQuarterFirstOfMonth($month, $quarter): void
     {
         $c = Carbon::create(2015, $month, 1)->startOfMonth();
         $this->assertSame($quarter, $c->quarter);
@@ -202,7 +202,7 @@ class GettersTest extends AbstractTestCase
      * @param int $month
      * @param int $quarter
      */
-    public function testQuarterMiddleOfMonth($month, $quarter)
+    public function testQuarterMiddleOfMonth($month, $quarter): void
     {
         $c = Carbon::create(2015, $month, 15, 12, 13, 14);
         $this->assertSame($quarter, $c->quarter);
@@ -214,13 +214,13 @@ class GettersTest extends AbstractTestCase
      * @param int $month
      * @param int $quarter
      */
-    public function testQuarterLastOfMonth($month, $quarter)
+    public function testQuarterLastOfMonth($month, $quarter): void
     {
         $c = Carbon::create(2015, $month, 1)->endOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
-    public function testGetLocalTrue()
+    public function testGetLocalTrue(): void
     {
         // Default timezone has been set to America/Toronto in AbstractTestCase.php
         // @see : https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
@@ -228,19 +228,19 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/New_York')->local);
     }
 
-    public function testGetLocalFalse()
+    public function testGetLocalFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'UTC')->local);
         $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'Europe/London')->local);
     }
 
-    public function testGetUtcFalse()
+    public function testGetUtcFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
     }
 
-    public function testGetUtcTrue()
+    public function testGetUtcTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
@@ -252,75 +252,75 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'GMT')->utc);
     }
 
-    public function testGetDstFalse()
+    public function testGetDstFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
         $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->isDST());
     }
 
-    public function testGetDstTrue()
+    public function testGetDstTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
         $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->isDST());
     }
 
-    public function testGetMidDayAt()
+    public function testGetMidDayAt(): void
     {
         $d = Carbon::now();
         $this->assertSame(12, $d->getMidDayAt());
     }
 
-    public function testOffsetForTorontoWithDST()
+    public function testOffsetForTorontoWithDST(): void
     {
         $this->assertSame(-18000, Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->offset);
     }
 
-    public function testOffsetForTorontoNoDST()
+    public function testOffsetForTorontoNoDST(): void
     {
         $this->assertSame(-14400, Carbon::createFromDate(2012, 6, 1, 'America/Toronto')->offset);
     }
 
-    public function testOffsetForGMT()
+    public function testOffsetForGMT(): void
     {
         $this->assertSame(0, Carbon::createFromDate(2012, 6, 1, 'GMT')->offset);
     }
 
-    public function testOffsetHoursForTorontoWithDST()
+    public function testOffsetHoursForTorontoWithDST(): void
     {
         $this->assertSame(-5, Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->offsetHours);
     }
 
-    public function testOffsetHoursForTorontoNoDST()
+    public function testOffsetHoursForTorontoNoDST(): void
     {
         $this->assertSame(-4, Carbon::createFromDate(2012, 6, 1, 'America/Toronto')->offsetHours);
     }
 
-    public function testOffsetHoursForGMT()
+    public function testOffsetHoursForGMT(): void
     {
         $this->assertSame(0, Carbon::createFromDate(2012, 6, 1, 'GMT')->offsetHours);
     }
 
-    public function testIsLeapYearTrue()
+    public function testIsLeapYearTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2012, 1, 1)->isLeapYear());
     }
 
-    public function testIsLeapYearFalse()
+    public function testIsLeapYearFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2011, 1, 1)->isLeapYear());
     }
 
-    public function testIsLongYearTrue()
+    public function testIsLongYearTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2015, 1, 1)->isLongYear());
     }
 
-    public function testIsLongYearFalse()
+    public function testIsLongYearFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2016, 1, 1)->isLongYear());
     }
 
-    public function testWeekOfMonth()
+    public function testWeekOfMonth(): void
     {
         $this->assertSame(5, Carbon::createFromDate(2012, 9, 30)->weekOfMonth);
         $this->assertSame(4, Carbon::createFromDate(2012, 9, 28)->weekOfMonth);
@@ -329,7 +329,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(1, Carbon::createFromDate(2012, 9, 1)->weekOfMonth);
     }
 
-    public function testWeekNumberInMonthIsNotFromTheBeginning()
+    public function testWeekNumberInMonthIsNotFromTheBeginning(): void
     {
         $this->assertSame(5, Carbon::createFromDate(2017, 2, 28)->weekNumberInMonth);
         $this->assertSame(5, Carbon::createFromDate(2017, 2, 27)->weekNumberInMonth);
@@ -342,19 +342,19 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(1, Carbon::createFromDate(2017, 2, 1)->weekNumberInMonth);
     }
 
-    public function testWeekOfYearFirstWeek()
+    public function testWeekOfYearFirstWeek(): void
     {
         $this->assertSame(52, Carbon::createFromDate(2012, 1, 1)->weekOfYear);
         $this->assertSame(1, Carbon::createFromDate(2012, 1, 2)->weekOfYear);
     }
 
-    public function testWeekOfYearLastWeek()
+    public function testWeekOfYearLastWeek(): void
     {
         $this->assertSame(52, Carbon::createFromDate(2012, 12, 30)->weekOfYear);
         $this->assertSame(1, Carbon::createFromDate(2012, 12, 31)->weekOfYear);
     }
 
-    public function testGetTimezone()
+    public function testGetTimezone(): void
     {
         $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezone->getName());
@@ -366,7 +366,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('-05:00', $dt->timezone->getName());
     }
 
-    public function testGetTz()
+    public function testGetTz(): void
     {
         $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tz->getName());
@@ -378,7 +378,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('-05:00', $dt->tz->getName());
     }
 
-    public function testGetTimezoneName()
+    public function testGetTimezoneName(): void
     {
         $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->timezoneName);
@@ -390,7 +390,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('-05:00', $dt->timezoneName);
     }
 
-    public function testGetTzName()
+    public function testGetTzName(): void
     {
         $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $this->assertSame('America/Toronto', $dt->tzName);
@@ -402,28 +402,28 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('-05:00', $dt->timezoneName);
     }
 
-    public function testShortDayName()
+    public function testShortDayName(): void
     {
         $dt = Carbon::createFromDate(2018, 8, 6);
         $this->assertSame('Mon', $dt->shortDayName);
         $this->assertSame('lun.', $dt->locale('fr')->shortDayName);
     }
 
-    public function testMinDayName()
+    public function testMinDayName(): void
     {
         $dt = Carbon::createFromDate(2018, 8, 6);
         $this->assertSame('Mo', $dt->minDayName);
         $this->assertSame('lu', $dt->locale('fr')->minDayName);
     }
 
-    public function testShortMonthName()
+    public function testShortMonthName(): void
     {
         $dt = Carbon::createFromDate(2018, 7, 6);
         $this->assertSame('Jul', $dt->shortMonthName);
         $this->assertSame('juil.', $dt->locale('fr')->shortMonthName);
     }
 
-    public function testGetDays()
+    public function testGetDays(): void
     {
         $days = [
             Carbon::SUNDAY => 'Sunday',

@@ -18,32 +18,32 @@ use Tests\AbstractTestCase;
 
 class SharesTest extends AbstractTestCase
 {
-    public function testSharesMoreThanOne()
+    public function testSharesMoreThanOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->shares(1 / 2.75);
         $this->assertCarbonInterval($ci, 11, 8, 52, 14, 28, 30);
     }
 
-    public function testSharesOne()
+    public function testSharesOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->shares(1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
     }
 
-    public function testSharesLessThanOne()
+    public function testSharesLessThanOne(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->shares(3);
         $this->assertCarbonInterval($ci, 1, 1, 6, 2, 3, 4);
     }
 
-    public function testSharesLessThanZero()
+    public function testSharesLessThanZero(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11)->shares(-1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
         $this->assertSame(1, $ci->invert);
     }
 
-    public function testSharesLessThanZeroWithInvertedInterval()
+    public function testSharesLessThanZeroWithInvertedInterval(): void
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11);
         $ci->invert = 1;

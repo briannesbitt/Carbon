@@ -48,7 +48,7 @@ class LastErrorTest extends AbstractTestCase
         ];
     }
 
-    public function testCreateHandlesLastErrors()
+    public function testCreateHandlesLastErrors(): void
     {
         $carbon = new Carbon('2017-02-30');
         $datetime = new DateTime('2017-02-30');

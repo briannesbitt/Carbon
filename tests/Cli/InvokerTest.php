@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class InvokerTest extends AbstractTestCase
 {
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $invoker = new Invoker();
         $lastCommand = null;

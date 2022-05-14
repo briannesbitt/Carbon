@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class SetDateAndTimeFromTest extends AbstractTestCase
 {
-    public function testSetDateFrom()
+    public function testSetDateFrom(): void
     {
         $source = Carbon::now();
         $target = $source->copy()
@@ -38,7 +38,7 @@ class SetDateAndTimeFromTest extends AbstractTestCase
         );
     }
 
-    public function testSetTimeFrom()
+    public function testSetTimeFrom(): void
     {
         $source = Carbon::now();
         $target = $source->copy()

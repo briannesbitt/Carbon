@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 
 class ToDatePeriodTest extends AbstractTestCase
 {
-    public function testToArrayIsNotEmptyArray()
+    public function testToArrayIsNotEmptyArray(): void
     {
         $period = CarbonPeriod::create('2021-01-05', '2021-02-15');
         $result = $period->toDatePeriod();
@@ -61,7 +61,7 @@ class ToDatePeriodTest extends AbstractTestCase
         $this->assertSame(3, $newInstance->getRecurrences());
     }
 
-    public function testWithIntervalLocalized()
+    public function testWithIntervalLocalized(): void
     {
         CarbonInterval::setLocale('fr');
         $period = CarbonPeriod::create('2021-01-05', 3);
@@ -78,7 +78,7 @@ class ToDatePeriodTest extends AbstractTestCase
         CarbonInterval::setLocale('en');
     }
 
-    public function testWithModifiedEnglish()
+    public function testWithModifiedEnglish(): void
     {
         $translator = Translator::get('en');
         $translator->setTranslations([

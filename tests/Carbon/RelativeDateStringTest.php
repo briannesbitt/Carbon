@@ -50,7 +50,7 @@ class RelativeDateStringTest extends AbstractTestCase
         'april' => ['date' => '2017-04-01', 'is_relative' => true],
     ];
 
-    public function testKeywordMatching()
+    public function testKeywordMatching(): void
     {
         foreach ($this->scenarios as $string => $expected) {
             $actual = Carbon::hasRelativeKeywords($string);
@@ -63,7 +63,7 @@ class RelativeDateStringTest extends AbstractTestCase
         }
     }
 
-    public function testRelativeInputStrings()
+    public function testRelativeInputStrings(): void
     {
         Carbon::setTestNow('2017-01-01 12:00:00');
 

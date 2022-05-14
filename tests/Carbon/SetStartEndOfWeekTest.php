@@ -18,21 +18,21 @@ use Tests\AbstractTestCase;
 
 class SetStartEndOfWeekTest extends AbstractTestCase
 {
-    public function testSetStartOfWeekLessThanMin()
+    public function testSetStartOfWeekLessThanMin(): void
     {
         Carbon::setWeekStartsAt(Carbon::SUNDAY - 1);
 
         $this->assertSame(Carbon::SATURDAY, Carbon::getWeekStartsAt());
     }
 
-    public function testSetStartOfWeekMoreThanMax()
+    public function testSetStartOfWeekMoreThanMax(): void
     {
         Carbon::setWeekStartsAt(Carbon::SATURDAY + 1);
 
         $this->assertSame(Carbon::SUNDAY, Carbon::getWeekStartsAt());
     }
 
-    public function testSetStartOfWeekValid()
+    public function testSetStartOfWeekValid(): void
     {
         for ($i = Carbon::SUNDAY; $i < Carbon::SATURDAY; $i++) {
             Carbon::setWeekStartsAt($i);
@@ -40,21 +40,21 @@ class SetStartEndOfWeekTest extends AbstractTestCase
         }
     }
 
-    public function testSetEndOfWeekLessThanMin()
+    public function testSetEndOfWeekLessThanMin(): void
     {
         Carbon::setWeekEndsAt(Carbon::SUNDAY - 1);
 
         $this->assertSame(Carbon::SATURDAY, Carbon::getWeekEndsAt());
     }
 
-    public function testSetEndOfWeekMoreThanMax()
+    public function testSetEndOfWeekMoreThanMax(): void
     {
         Carbon::setWeekEndsAt(Carbon::SATURDAY + 1);
 
         $this->assertSame(Carbon::SUNDAY, Carbon::getWeekEndsAt());
     }
 
-    public function testSetEndOfWeekValid()
+    public function testSetEndOfWeekValid(): void
     {
         for ($i = Carbon::SUNDAY; $i < Carbon::SATURDAY; $i++) {
             Carbon::setWeekEndsAt($i);

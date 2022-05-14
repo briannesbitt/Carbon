@@ -34,7 +34,7 @@ class MacroTest extends AbstractTestCase
         parent::tearDown();
     }
 
-    public function testCallMacro()
+    public function testCallMacro(): void
     {
         CarbonPeriod::macro('onlyWeekdays', function () {
             /** @var CarbonPeriod $period */
@@ -56,7 +56,7 @@ class MacroTest extends AbstractTestCase
         );
     }
 
-    public function testParameterOtherThanSelfIsNotGivenPeriodInstance()
+    public function testParameterOtherThanSelfIsNotGivenPeriodInstance(): void
     {
         CarbonPeriod::macro('foobar', function ($param = 123) {
             return $param;
@@ -68,7 +68,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(123, $period->foobar());
     }
 
-    public function testPassPeriodInstanceAfterOptionalParameters()
+    public function testPassPeriodInstanceAfterOptionalParameters(): void
     {
         CarbonPeriod::macro('formatStartDate', function ($format = 'l, j F Y') {
             /** @var CarbonPeriod $period */
@@ -86,7 +86,7 @@ class MacroTest extends AbstractTestCase
         );
     }
 
-    public function testMacroIsBindedToDatePeriodInstance()
+    public function testMacroIsBindedToDatePeriodInstance(): void
     {
         CarbonPeriod::macro('myself', function () {
             return $this;
@@ -99,7 +99,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame($period, $period->myself());
     }
 
-    public function testCallMacroStatically()
+    public function testCallMacroStatically(): void
     {
         CarbonPeriod::macro('countWeekdaysBetween', function ($from, $to) {
             return CarbonPeriod::create($from, $to)
@@ -115,7 +115,7 @@ class MacroTest extends AbstractTestCase
         );
     }
 
-    public function testMacroIsBindedToDatePeriodClass()
+    public function testMacroIsBindedToDatePeriodClass(): void
     {
         CarbonPeriod::macro('newMyself', function () {
             return new static();
@@ -124,7 +124,7 @@ class MacroTest extends AbstractTestCase
         $this->assertInstanceOf(CarbonPeriod::class, CarbonPeriod::newMyself());
     }
 
-    public function testRegisterNonClosureMacro()
+    public function testRegisterNonClosureMacro(): void
     {
         CarbonPeriod::macro('lower', 'strtolower');
 
@@ -135,7 +135,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('abc', CarbonPeriod::lower('ABC'));
     }
 
-    public function testRegisterMixin()
+    public function testRegisterMixin(): void
     {
         CarbonPeriod::mixin(new Mixin());
 
@@ -145,7 +145,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('bar', CarbonPeriod::getFoo());
     }
 
-    public function testCallNonExistingMacro()
+    public function testCallNonExistingMacro(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method nonExistingMacro does not exist.'
@@ -157,7 +157,7 @@ class MacroTest extends AbstractTestCase
         $period->nonExistingMacro();
     }
 
-    public function testCallNonExistingMacroStatically()
+    public function testCallNonExistingMacroStatically(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method nonExistingMacro does not exist.'
@@ -166,7 +166,7 @@ class MacroTest extends AbstractTestCase
         CarbonPeriod::nonExistingMacro();
     }
 
-    public function testOverrideAlias()
+    public function testOverrideAlias(): void
     {
         CarbonPeriod::macro('recurrences', function () {
             return 'foo';
@@ -175,7 +175,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('foo', CarbonPeriod::recurrences());
     }
 
-    public function testInstatiateViaStaticMacroCall()
+    public function testInstatiateViaStaticMacroCall(): void
     {
         CarbonPeriod::macro('fromTomorrow', function () {
             /** @var CarbonPeriod $period */

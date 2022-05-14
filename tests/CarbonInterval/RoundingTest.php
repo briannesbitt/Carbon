@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class RoundingTest extends AbstractTestCase
 {
-    public function testThrowsExceptionForCompositeInterval()
+    public function testThrowsExceptionForCompositeInterval(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Rounding is only possible with single unit intervals.'
@@ -28,7 +28,7 @@ class RoundingTest extends AbstractTestCase
         CarbonInterval::days(2)->round('2 hours 50 minutes');
     }
 
-    public function testFloor()
+    public function testFloor(): void
     {
         $this->assertSame(21, CarbonInterval::days(21)->floorWeeks()->totalDays);
         $this->assertSame(21, CarbonInterval::days(24)->floorWeeks()->totalDays);
@@ -43,7 +43,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(18, CarbonInterval::days(22)->floorUnit('day', 6)->totalDays);
     }
 
-    public function testRound()
+    public function testRound(): void
     {
         $this->assertSame(21, CarbonInterval::days(21)->roundWeeks()->totalDays);
         $this->assertSame(21, CarbonInterval::days(24)->roundWeeks()->totalDays);
@@ -65,7 +65,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(24, CarbonInterval::days(22)->roundUnit('day', 6)->totalDays);
     }
 
-    public function testCeil()
+    public function testCeil(): void
     {
         $this->assertSame(21, CarbonInterval::days(21)->ceilWeeks()->totalDays);
         $this->assertSame(28, CarbonInterval::days(24)->ceilWeeks()->totalDays);

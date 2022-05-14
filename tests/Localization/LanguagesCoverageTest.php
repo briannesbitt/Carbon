@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 
 class LanguagesCoverageTest extends AbstractTestCase
 {
-    public function testAllLanguagesAreTested()
+    public function testAllLanguagesAreTested(): void
     {
         $languages = glob(__DIR__.'/../../src/Carbon/Lang/*.php');
         $tests = array_map(function ($file) {

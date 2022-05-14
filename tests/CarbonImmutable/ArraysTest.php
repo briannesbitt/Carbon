@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class ArraysTest extends AbstractTestCase
 {
-    public function testToArray()
+    public function testToArray(): void
     {
         $dt = Carbon::now();
         $dtToArray = $dt->toArray();
@@ -63,7 +63,7 @@ class ArraysTest extends AbstractTestCase
         $this->assertSame($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToArray['formatted']);
     }
 
-    public function testDebugInfo()
+    public function testDebugInfo(): void
     {
         $dt = Carbon::parse('2019-04-09 11:10:10.667952');
         $debug = $dt->__debugInfo();

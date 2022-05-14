@@ -50,7 +50,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testAddMonthNoOverflow($months, $y, $m, $d)
+    public function testAddMonthNoOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->addMonthNoOverflow($months), $y, $m, $d);
     }
@@ -63,7 +63,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testAddMonthsNoOverflow($months, $y, $m, $d)
+    public function testAddMonthsNoOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->addMonthsNoOverflow($months), $y, $m, $d);
     }
@@ -85,7 +85,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSubMonthNoOverflow($months, $y, $m, $d)
+    public function testSubMonthNoOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->subMonthNoOverflow($months), $y, $m, $d);
     }
@@ -98,7 +98,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSubMonthsNoOverflow($months, $y, $m, $d)
+    public function testSubMonthsNoOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->subMonthsNoOverflow($months), $y, $m, $d);
     }
@@ -120,7 +120,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testAddMonthWithOverflow($months, $y, $m, $d)
+    public function testAddMonthWithOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->addMonthWithOverflow($months), $y, $m, $d);
     }
@@ -133,7 +133,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testAddMonthsWithOverflow($months, $y, $m, $d)
+    public function testAddMonthsWithOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->addMonthsWithOverflow($months), $y, $m, $d);
     }
@@ -155,7 +155,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSubMonthWithOverflow($months, $y, $m, $d)
+    public function testSubMonthWithOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->subMonthWithOverflow($months), $y, $m, $d);
     }
@@ -168,29 +168,29 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSubMonthsWithOverflow($months, $y, $m, $d)
+    public function testSubMonthsWithOverflow($months, $y, $m, $d): void
     {
         $this->assertCarbon($this->carbon->subMonthsWithOverflow($months), $y, $m, $d);
     }
 
-    public function testSetOverflowIsTrue()
+    public function testSetOverflowIsTrue(): void
     {
         Carbon::useMonthsOverflow(true);
         $this->assertTrue(Carbon::shouldOverflowMonths());
     }
 
-    public function testSetOverflowIsFalse()
+    public function testSetOverflowIsFalse(): void
     {
         Carbon::useMonthsOverflow(false);
         $this->assertFalse(Carbon::shouldOverflowMonths());
     }
 
-    public function testSetOverflowIsResetInTests()
+    public function testSetOverflowIsResetInTests(): void
     {
         $this->assertTrue(Carbon::shouldOverflowMonths());
     }
 
-    public function testSetOverflowIsReset()
+    public function testSetOverflowIsReset(): void
     {
         Carbon::useMonthsOverflow(false);
         $this->assertFalse(Carbon::shouldOverflowMonths());
@@ -207,7 +207,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testUseOverflowAddMonth($months, $y, $m, $d)
+    public function testUseOverflowAddMonth($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->addMonth($months), $y, $m, $d);
@@ -221,7 +221,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testUseOverflowAddMonths($months, $y, $m, $d)
+    public function testUseOverflowAddMonths($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->addMonths($months), $y, $m, $d);
@@ -235,7 +235,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testUseOverflowSubMonth($months, $y, $m, $d)
+    public function testUseOverflowSubMonth($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->subMonth($months), $y, $m, $d);
@@ -249,7 +249,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testUseOverflowSubMonths($months, $y, $m, $d)
+    public function testUseOverflowSubMonths($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->subMonths($months), $y, $m, $d);
@@ -263,7 +263,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSkipOverflowAddMonth($months, $y, $m, $d)
+    public function testSkipOverflowAddMonth($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->addMonth($months), $y, $m, $d);
@@ -277,7 +277,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSkipOverflowAddMonths($months, $y, $m, $d)
+    public function testSkipOverflowAddMonths($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->addMonths($months), $y, $m, $d);
@@ -291,7 +291,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSkipOverflowSubMonth($months, $y, $m, $d)
+    public function testSkipOverflowSubMonth($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->subMonth($months), $y, $m, $d);
@@ -305,7 +305,7 @@ class AddMonthsTest extends AbstractTestCase
      * @param int $m
      * @param int $d
      */
-    public function testSkipOverflowSubMonths($months, $y, $m, $d)
+    public function testSkipOverflowSubMonths($months, $y, $m, $d): void
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->subMonths($months), $y, $m, $d);

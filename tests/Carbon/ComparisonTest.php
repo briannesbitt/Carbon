@@ -19,22 +19,22 @@ use Tests\AbstractTestCase;
 
 class ComparisonTest extends AbstractTestCase
 {
-    public function testEqualToTrue()
+    public function testEqualToTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->eq(Carbon::createFromDate(2000, 1, 1)));
     }
 
-    public function testEqualToFalse()
+    public function testEqualToFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->eq(Carbon::createFromDate(2000, 1, 2)));
     }
 
-    public function testEqualWithTimezoneTrue()
+    public function testEqualWithTimezoneTrue(): void
     {
         $this->assertTrue(Carbon::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->eq(Carbon::create(2000, 1, 1, 9, 0, 0, 'America/Vancouver')));
     }
 
-    public function testEqualWithTimezoneFalse()
+    public function testEqualWithTimezoneFalse(): void
     {
         $timezones = ['Europe/London', 'America/Toronto', 'America/Vancouver', 'Asia/Tokyo'];
 
@@ -62,34 +62,34 @@ class ComparisonTest extends AbstractTestCase
         }
     }
 
-    public function testNotEqualToTrue()
+    public function testNotEqualToTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->ne(Carbon::createFromDate(2000, 1, 2)));
     }
 
-    public function testNotEqualToFalse()
+    public function testNotEqualToFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->ne(Carbon::createFromDate(2000, 1, 1)));
     }
 
-    public function testGreaterThanTrue()
+    public function testGreaterThanTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->gt(Carbon::createFromDate(1999, 12, 31)));
     }
 
-    public function testGreaterThanFalse()
+    public function testGreaterThanFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->gt(Carbon::createFromDate(2000, 1, 2)));
     }
 
-    public function testGreaterThanWithTimezoneTrue()
+    public function testGreaterThanWithTimezoneTrue(): void
     {
         $dt1 = Carbon::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
         $dt2 = Carbon::create(2000, 1, 1, 8, 59, 59, 'America/Vancouver');
         $this->assertTrue($dt1->gt($dt2));
     }
 
-    public function testGreaterThanWithString()
+    public function testGreaterThanWithString(): void
     {
         Carbon::setToStringFormat('d.m.Y \a\t h:i a');
         $this->assertTrue(Carbon::parse('2022-05-03')->gt('2021-05-03'));
@@ -97,54 +97,54 @@ class ComparisonTest extends AbstractTestCase
         Carbon::setToStringFormat(null);
     }
 
-    public function testGreaterThanWithTimezoneFalse()
+    public function testGreaterThanWithTimezoneFalse(): void
     {
         $dt1 = Carbon::create(2000, 1, 1, 12, 0, 0, 'America/Toronto');
         $dt2 = Carbon::create(2000, 1, 1, 9, 0, 1, 'America/Vancouver');
         $this->assertFalse($dt1->gt($dt2));
     }
 
-    public function testGreaterThanOrEqualTrue()
+    public function testGreaterThanOrEqualTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(1999, 12, 31)));
     }
 
-    public function testGreaterThanOrEqualTrueEqual()
+    public function testGreaterThanOrEqualTrueEqual(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(2000, 1, 1)));
     }
 
-    public function testGreaterThanOrEqualFalse()
+    public function testGreaterThanOrEqualFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(2000, 1, 2)));
     }
 
-    public function testLessThanTrue()
+    public function testLessThanTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->lt(Carbon::createFromDate(2000, 1, 2)));
     }
 
-    public function testLessThanFalse()
+    public function testLessThanFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->lt(Carbon::createFromDate(1999, 12, 31)));
     }
 
-    public function testLessThanOrEqualTrue()
+    public function testLessThanOrEqualTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(2000, 1, 2)));
     }
 
-    public function testLessThanOrEqualTrueEqual()
+    public function testLessThanOrEqualTrueEqual(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(2000, 1, 1)));
     }
 
-    public function testLessThanOrEqualFalse()
+    public function testLessThanOrEqualFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(1999, 12, 31)));
     }
 
-    public function testBetweenEqualTrue()
+    public function testBetweenEqualTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
@@ -156,7 +156,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween('2000-01-01', '2000-01-31', true));
     }
 
-    public function testBetweenNotEqualTrue()
+    public function testBetweenNotEqualTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
@@ -168,7 +168,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween('2000-01-01', '2000-01-31', false));
     }
 
-    public function testBetweenExcludedTrue()
+    public function testBetweenExcludedTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->betweenExcluded(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)));
 
@@ -177,7 +177,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->betweenExcluded('2000-01-01', '2000-01-31'));
     }
 
-    public function testBetweenIncludedTrue()
+    public function testBetweenIncludedTrue(): void
     {
         $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)));
 
@@ -188,7 +188,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded('2000-01-01', '2000-01-15'));
     }
 
-    public function testBetweenIncludedFalse()
+    public function testBetweenIncludedFalse(): void
     {
         $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded(Carbon::createFromDate(2000, 1, 16), Carbon::createFromDate(2000, 1, 31)));
 
@@ -197,75 +197,75 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded('2000-01-16', '2000-01-31'));
     }
 
-    public function testBetweenEqualFalse()
+    public function testBetweenEqualFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
     }
 
-    public function testBetweenNotEqualFalse()
+    public function testBetweenNotEqualFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
     }
 
-    public function testBetweenEqualSwitchTrue()
+    public function testBetweenEqualSwitchTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1), true));
     }
 
-    public function testBetweenNotEqualSwitchTrue()
+    public function testBetweenNotEqualSwitchTrue(): void
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1), false));
     }
 
-    public function testBetweenEqualSwitchFalse()
+    public function testBetweenEqualSwitchFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1), true));
     }
 
-    public function testBetweenNotEqualSwitchFalse()
+    public function testBetweenNotEqualSwitchFalse(): void
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1), false));
     }
 
-    public function testMinIsFluid()
+    public function testMinIsFluid(): void
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->min());
     }
 
-    public function testMinWithNow()
+    public function testMinWithNow(): void
     {
         $dt = Carbon::create(2012, 1, 1, 0, 0, 0)->min();
         $this->assertCarbon($dt, 2012, 1, 1, 0, 0, 0);
     }
 
-    public function testMinWithInstance()
+    public function testMinWithInstance(): void
     {
         $dt1 = Carbon::create(2013, 12, 31, 23, 59, 59);
         $dt2 = Carbon::create(2012, 1, 1, 0, 0, 0)->min($dt1);
         $this->assertCarbon($dt2, 2012, 1, 1, 0, 0, 0);
     }
 
-    public function testMaxIsFluid()
+    public function testMaxIsFluid(): void
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->max());
     }
 
-    public function testMaxWithNow()
+    public function testMaxWithNow(): void
     {
         $dt = Carbon::create(2099, 12, 31, 23, 59, 59)->max();
         $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
     }
 
-    public function testMaxWithInstance()
+    public function testMaxWithInstance(): void
     {
         $dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);
         $dt2 = Carbon::create(2099, 12, 31, 23, 59, 59)->max($dt1);
         $this->assertCarbon($dt2, 2099, 12, 31, 23, 59, 59);
     }
 
-    public function testIsBirthday()
+    public function testIsBirthday(): void
     {
         $dt = Carbon::now();
 
@@ -289,7 +289,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($dt3->isBirthday($dt1));
     }
 
-    public function testClosest()
+    public function testClosest(): void
     {
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt1 = Carbon::create(2015, 5, 28, 11, 0, 0);
@@ -298,7 +298,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame($dt1, $closest);
     }
 
-    public function testClosestWithEquals()
+    public function testClosestWithEquals(): void
     {
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt1 = Carbon::create(2015, 5, 28, 12, 0, 0);
@@ -307,7 +307,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame($dt1, $closest);
     }
 
-    public function testClosestWithMicroseconds()
+    public function testClosestWithMicroseconds(): void
     {
         $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
         $closestDate = Carbon::parse('2018-10-11 20:59:06.600000');
@@ -316,7 +316,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame('06.600000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
     }
 
-    public function testClosestWithFarDates()
+    public function testClosestWithFarDates(): void
     {
         $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
         $closestDate = Carbon::parse('-4025-10-11 20:59:06.600000');
@@ -325,7 +325,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame('06.600000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
     }
 
-    public function testFarthest()
+    public function testFarthest(): void
     {
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt1 = Carbon::create(2015, 5, 28, 11, 0, 0);
@@ -334,7 +334,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame($dt2, $farthest);
     }
 
-    public function testFarthestWithEquals()
+    public function testFarthestWithEquals(): void
     {
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt1 = Carbon::create(2015, 5, 28, 12, 0, 0);
@@ -343,7 +343,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame($dt2, $farthest);
     }
 
-    public function testFarthestWithMicroseconds()
+    public function testFarthestWithMicroseconds(): void
     {
         $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
         $closestDate = Carbon::parse('2018-10-11 20:59:06.600000');
@@ -352,7 +352,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
     }
 
-    public function testFarthestWithFarDates()
+    public function testFarthestWithFarDates(): void
     {
         $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
         $closestDate = Carbon::parse('-4025-10-11 20:59:06.600000');

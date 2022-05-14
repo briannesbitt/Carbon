@@ -17,7 +17,7 @@ class TranslationThTest extends TestCaseBase
 {
     public const LOCALE = 'th';
 
-    public function testTimespanTranslated()
+    public function testTimespanTranslated(): void
     {
         $date = new JenssegersDate(1403619368);
         $date = $date->sub('-100 days -3 hours -20 minutes');
@@ -25,7 +25,7 @@ class TranslationThTest extends TestCaseBase
         $this->assertSame('3 เดือน, 1 สัปดาห์, 1 วัน, 3 ชั่วโมง, 20 นาที', $date->timespan(1403619368));
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         $date = JenssegersDate::createFromFormat('d F Y', '1 มกราคม 2015');
         $this->assertSame('2015-01-01', $date->format('Y-m-d'));
@@ -34,7 +34,7 @@ class TranslationThTest extends TestCaseBase
         $this->assertSame('2015-03-21', $date->format('Y-m-d'));
     }
 
-    public function testAgoTranslated()
+    public function testAgoTranslated(): void
     {
         $date = JenssegersDate::parse('-21 hours');
         $this->assertSame('21 ชั่วโมงที่แล้ว', $date->ago());
@@ -52,7 +52,7 @@ class TranslationThTest extends TestCaseBase
         $this->assertSame('10 ปีที่แล้ว', $date->ago());
     }
 
-    public function testFormatDeclensions()
+    public function testFormatDeclensions(): void
     {
         $date = new JenssegersDate('10 march 2015');
         $this->assertSame('มีนาคม 2015', $date->format('F Y'));
@@ -61,7 +61,7 @@ class TranslationThTest extends TestCaseBase
         $this->assertSame('10 มีนาคม 2015', $date->format('j F Y'));
     }
 
-    public function testAfterTranslated()
+    public function testAfterTranslated(): void
     {
         $date = JenssegersDate::parse('+21 hours');
         $this->assertSame('อีก 21 ชั่วโมง', $date->ago());

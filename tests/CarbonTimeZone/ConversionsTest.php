@@ -23,13 +23,13 @@ use Tests\AbstractTestCaseWithOldNow;
 
 class ConversionsTest extends AbstractTestCaseWithOldNow
 {
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertSame('+06:00', (string) (new CarbonTimeZone(6)));
         $this->assertSame('Europe/Paris', (string) (new CarbonTimeZone('Europe/Paris')));
     }
 
-    public function testToRegionName()
+    public function testToRegionName(): void
     {
         $this->assertSame('America/Chicago', (new CarbonTimeZone(-5))->toRegionName());
         $this->assertSame('America/Toronto', (new CarbonTimeZone('America/Toronto'))->toRegionName());
@@ -41,7 +41,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('America/St_Johns', $date->getTimezone()->toRegionName($date));
     }
 
-    public function testToRegionTimeZone()
+    public function testToRegionTimeZone(): void
     {
         $this->assertSame('America/Chicago', (new CarbonTimeZone(-5))->toRegionTimeZone()->getName());
         $this->assertSame('America/Toronto', (new CarbonTimeZone('America/Toronto'))->toRegionTimeZone()->getName());
@@ -84,7 +84,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
      * @param string|int $timezone
      * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataForToOffsetName
      */
-    public function testToOffsetName($date, $expectedOffset, $timezone)
+    public function testToOffsetName($date, $expectedOffset, $timezone): void
     {
         Carbon::setTestNow(Carbon::parse($date));
         $offset = (new CarbonTimeZone($timezone))->toOffsetName();
@@ -98,14 +98,14 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
      * @param string|int $timezone
      * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataForToOffsetName
      */
-    public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone)
+    public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone): void
     {
         $offset = (new CarbonTimeZone($timezone))->toOffsetName(Carbon::parse($date));
 
         $this->assertSame($expectedOffset, $offset);
     }
 
-    public function testToOffsetNameFromDifferentCreationMethods()
+    public function testToOffsetNameFromDifferentCreationMethods(): void
     {
         $summer = Carbon::parse('2020-06-15');
         $winter = Carbon::parse('2018-12-20');
@@ -119,7 +119,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('-09:30', CarbonTimeZone::create('Pacific/Marquesas')->toOffsetName());
     }
 
-    public function testCast()
+    public function testCast(): void
     {
         $tz = (new CarbonTimeZone('America/Toronto'))->cast(DateTimeZone::class);
 
@@ -136,7 +136,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('America/Toronto', $tz->getName());
     }
 
-    public function testCastException()
+    public function testCastException(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'stdClass has not the instance() method needed to cast the date.'
@@ -145,13 +145,13 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         (new CarbonTimeZone('America/Toronto'))->cast(stdClass::class);
     }
 
-    public function testInvalidRegionForOffset()
+    public function testInvalidRegionForOffset(): void
     {
         Carbon::useStrictMode(false);
         $this->assertFalse((new CarbonTimeZone(-15))->toRegionTimeZone());
     }
 
-    public function testInvalidRegionForOffsetInStrictMode()
+    public function testInvalidRegionForOffsetInStrictMode(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Unknown timezone for offset -54000 seconds.'

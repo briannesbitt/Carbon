@@ -20,7 +20,7 @@ use Tests\AbstractTestCase;
 
 class NowAndOtherStaticHelpersTest extends AbstractTestCase
 {
-    public function testNow()
+    public function testNow(): void
     {
         $dt = Carbon::now();
         $this->assertSame($this->immutableNow->getTimestamp(), $dt->timestamp);
@@ -33,7 +33,7 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertLessThanOrEqual($after, $dt->timestamp);
     }
 
-    public function testGetPreciseTimestamp()
+    public function testGetPreciseTimestamp(): void
     {
         $dt = Carbon::parse('2018-01-06 12:34:10.987126');
         $this->assertSame(1515260.0, $dt->getPreciseTimestamp(-3));
@@ -49,13 +49,13 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertSame(1515260050987126000.0, $dt->getPreciseTimestamp(9));
     }
 
-    public function testGetTimestampMs()
+    public function testGetTimestampMs(): void
     {
         $dt = Carbon::parse('2018-01-06 12:34:10.987126');
         $this->assertSame(1515260050987, $dt->getTimestampMs());
     }
 
-    public function testNowWithTimezone()
+    public function testNowWithTimezone(): void
     {
         $dt = Carbon::now('Europe/London');
         $this->assertSame($this->immutableNow->getTimestamp(), $dt->timestamp);
@@ -69,53 +69,53 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertSame('Europe/London', $dt->tzName);
     }
 
-    public function testToday()
+    public function testToday(): void
     {
         $dt = Carbon::today();
         $this->assertSame(date('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testTodayWithTimezone()
+    public function testTodayWithTimezone(): void
     {
         $dt = Carbon::today('Europe/London');
         $dt2 = new DateTime('now', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testTomorrow()
+    public function testTomorrow(): void
     {
         $dt = Carbon::tomorrow();
         $dt2 = new DateTime('tomorrow');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testTomorrowWithTimezone()
+    public function testTomorrowWithTimezone(): void
     {
         $dt = Carbon::tomorrow('Europe/London');
         $dt2 = new DateTime('tomorrow', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testYesterday()
+    public function testYesterday(): void
     {
         $dt = Carbon::yesterday();
         $dt2 = new DateTime('yesterday');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testYesterdayWithTimezone()
+    public function testYesterdayWithTimezone(): void
     {
         $dt = Carbon::yesterday('Europe/London');
         $dt2 = new DateTime('yesterday', new DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
-    public function testMinValue()
+    public function testMinValue(): void
     {
         $this->assertLessThanOrEqual(-2147483647, Carbon::minValue()->getTimestamp());
     }
 
-    public function testMaxValue()
+    public function testMaxValue(): void
     {
         $this->assertGreaterThanOrEqual(2147483647, Carbon::maxValue()->getTimestamp());
     }

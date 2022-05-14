@@ -40,14 +40,14 @@ class SerializationTest extends AbstractTestCase
             : ['O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}'];
     }
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
         $this->assertContains($dt->serialize(), $this->serialized);
         $this->assertContains(serialize($dt), $this->serialized);
     }
 
-    public function testFromUnserialized()
+    public function testFromUnserialized(): void
     {
         $dt = Carbon::fromSerialized($this->serialized[0]);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
@@ -56,7 +56,7 @@ class SerializationTest extends AbstractTestCase
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
     }
 
-    public function testSerialization()
+    public function testSerialization(): void
     {
         $this->assertEquals(Carbon::now(), unserialize(serialize(Carbon::now())));
     }
@@ -77,7 +77,7 @@ class SerializationTest extends AbstractTestCase
      *
      * @dataProvider \Tests\CarbonImmutable\SerializationTest::dataForTestFromUnserializedWithInvalidValue
      */
-    public function testFromUnserializedWithInvalidValue($value)
+    public function testFromUnserializedWithInvalidValue($value): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             "Invalid serialized value: $value"
@@ -86,7 +86,7 @@ class SerializationTest extends AbstractTestCase
         Carbon::fromSerialized($value);
     }
 
-    public function testDateSerializationReflectionCompatibility()
+    public function testDateSerializationReflectionCompatibility(): void
     {
         $reflection = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
 

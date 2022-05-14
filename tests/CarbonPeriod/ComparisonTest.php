@@ -23,7 +23,7 @@ use Tests\AbstractTestCase;
 
 class ComparisonTest extends AbstractTestCase
 {
-    public function testEqualToTrue()
+    public function testEqualToTrue(): void
     {
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
 
@@ -47,7 +47,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01')->setOptions(CarbonPeriod::EXCLUDE_START_DATE)));
     }
 
-    public function testEqualToFalse()
+    public function testEqualToFalse(): void
     {
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
 
@@ -58,7 +58,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-02', CarbonPeriod::EXCLUDE_START_DATE)));
     }
 
-    public function testNotEqualToTrue()
+    public function testNotEqualToTrue(): void
     {
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
 
@@ -69,7 +69,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-02', CarbonPeriod::EXCLUDE_START_DATE)));
     }
 
-    public function testNotEqualToFalse()
+    public function testNotEqualToFalse(): void
     {
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
 
@@ -93,7 +93,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01')->setOptions(CarbonPeriod::EXCLUDE_START_DATE)));
     }
 
-    public function testStartComparisons()
+    public function testStartComparisons(): void
     {
         Carbon::setTestNow('2020-01-01');
 
@@ -117,7 +117,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAt('2020-01-05'));
     }
 
-    public function testEndComparisons()
+    public function testEndComparisons(): void
     {
         Carbon::setTestNow('2020-02-05');
 
@@ -147,7 +147,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-01-05'));
     }
 
-    public function testContains()
+    public function testContains(): void
     {
         $period = CarbonPeriod::create('2019-08-01', '2019-08-10');
 
@@ -166,7 +166,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($period->contains('2019-08-10'));
     }
 
-    public function testConsecutivePeriods()
+    public function testConsecutivePeriods(): void
     {
         $july = CarbonPeriod::create('2019-07-29', '2019-07-31');
         $august = CarbonPeriod::create('2019-08-01', '2019-08-12');
@@ -234,7 +234,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($august->isConsecutiveWith($july));
     }
 
-    public function testConsecutivePeriodsWithExclusion()
+    public function testConsecutivePeriodsWithExclusion(): void
     {
         $july = CarbonPeriod::create('2019-07-29', '2019-08-01', CarbonPeriod::EXCLUDE_END_DATE);
         $august = CarbonPeriod::create('2019-07-31', '2019-08-12', CarbonPeriod::EXCLUDE_START_DATE);
@@ -249,7 +249,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($august->isConsecutiveWith($july));
     }
 
-    public function testConsecutivePeriodsWithDynamicEnd()
+    public function testConsecutivePeriodsWithDynamicEnd(): void
     {
         $july = CarbonPeriod::create('2019-07-29', '1 day', 4);
         $august = CarbonPeriod::create('2019-08-02', '2019-08-12');

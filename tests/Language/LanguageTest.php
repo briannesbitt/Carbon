@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class LanguageTest extends AbstractTestCase
 {
-    public function testAll()
+    public function testAll(): void
     {
         $all = Language::all();
         $this->assertIsArray($all);
@@ -28,7 +28,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('English', $all['en']['isoName']);
     }
 
-    public function testRegions()
+    public function testRegions(): void
     {
         $regions = Language::regions();
         $this->assertIsArray($regions);
@@ -36,7 +36,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('United States of America', $regions['US']);
     }
 
-    public function testGetNames()
+    public function testGetNames(): void
     {
         $ar = new Language('ar');
         $this->assertSame([
@@ -45,7 +45,7 @@ class LanguageTest extends AbstractTestCase
         ], $ar->getNames());
     }
 
-    public function testGetId()
+    public function testGetId(): void
     {
         $ar = new Language('ar');
         $this->assertSame('ar', $ar->getId());
@@ -55,7 +55,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('ar_Shakl', $ar->getId());
     }
 
-    public function testGetCode()
+    public function testGetCode(): void
     {
         $ar = new Language('ar');
         $this->assertSame('ar', $ar->getCode());
@@ -67,7 +67,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('sr', $sr->getCode());
     }
 
-    public function testGetVariant()
+    public function testGetVariant(): void
     {
         $ar = new Language('ar');
         $this->assertNull($ar->getVariant());
@@ -79,7 +79,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('Cyrl', $sr->getVariant());
     }
 
-    public function testGetRegion()
+    public function testGetRegion(): void
     {
         $ar = new Language('ar');
         $this->assertNull($ar->getRegion());
@@ -91,7 +91,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('ME', $sr->getRegion());
     }
 
-    public function testGetRegionName()
+    public function testGetRegionName(): void
     {
         $ar = new Language('ar');
         $this->assertNull($ar->getRegionName());
@@ -103,7 +103,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('Montenegro', $sr->getRegionName());
     }
 
-    public function testGetFullIsoName()
+    public function testGetFullIsoName(): void
     {
         $ar = new Language('ca');
         $this->assertSame('Catalan, Valencian', $ar->getFullIsoName());
@@ -118,7 +118,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('Serbian', $sr->getFullIsoName());
     }
 
-    public function testGetFullNativeName()
+    public function testGetFullNativeName(): void
     {
         $ar = new Language('ca');
         $this->assertSame('català, valencià', $ar->getFullNativeName());
@@ -133,7 +133,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('српски језик', $sr->getFullNativeName());
     }
 
-    public function testGetIsoName()
+    public function testGetIsoName(): void
     {
         $ar = new Language('ca');
         $this->assertSame('Catalan', $ar->getIsoName());
@@ -148,7 +148,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('Serbian', $sr->getIsoName());
     }
 
-    public function testGetNativeName()
+    public function testGetNativeName(): void
     {
         $ar = new Language('ca');
         $this->assertSame('català', $ar->getNativeName());
@@ -163,7 +163,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('српски језик', $sr->getNativeName());
     }
 
-    public function testGetIsoDescription()
+    public function testGetIsoDescription(): void
     {
         $ar = new Language('ca');
         $this->assertSame('Catalan', $ar->getIsoDescription());
@@ -182,7 +182,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('Serbian (Montenegro) (Cyrillic)', $sr->getIsoDescription());
     }
 
-    public function testGetNativeDescription()
+    public function testGetNativeDescription(): void
     {
         $ar = new Language('ca');
         $this->assertSame('català', $ar->getNativeDescription());
@@ -201,7 +201,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('српски језик (Montenegro) (Cyrillic)', $sr->getNativeDescription());
     }
 
-    public function testGetFullIsoDescription()
+    public function testGetFullIsoDescription(): void
     {
         $ar = new Language('ca');
         $this->assertSame('Catalan, Valencian', $ar->getFullIsoDescription());
@@ -220,7 +220,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('Serbian (Montenegro) (Cyrillic)', $sr->getFullIsoDescription());
     }
 
-    public function testGetFullNativeDescription()
+    public function testGetFullNativeDescription(): void
     {
         $ar = new Language('ca');
         $this->assertSame('català, valencià', $ar->getFullNativeDescription());
@@ -239,7 +239,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('српски језик (Montenegro) (Cyrillic)', $sr->getFullNativeDescription());
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $ar = new Language('ar');
         $this->assertSame('ar', (string) $ar);
@@ -249,7 +249,7 @@ class LanguageTest extends AbstractTestCase
         $this->assertSame('ar_Shakl', (string) $ar);
     }
 
-    public function testToJson()
+    public function testToJson(): void
     {
         $ar = new Language('ca');
         $this->assertSame('"Catalan"', json_encode($ar));

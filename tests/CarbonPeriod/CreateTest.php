@@ -32,7 +32,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForIso8601String
      */
-    public function testCreateFromIso8601String($arguments, $expected)
+    public function testCreateFromIso8601String($arguments, $expected): void
     {
         [$iso, $options] = array_pad($arguments, 2, null);
 
@@ -68,7 +68,7 @@ class CreateTest extends AbstractTestCase
         ];
     }
 
-    public function testCreateFromIso8601StringWithUnboundedRecurrences()
+    public function testCreateFromIso8601StringWithUnboundedRecurrences(): void
     {
         $period = CarbonPeriod::create('R/2012-07-01T00:00:00/P7D');
 
@@ -78,7 +78,7 @@ class CreateTest extends AbstractTestCase
         $this->assertNull($period->getRecurrences());
     }
 
-    public function testCreateFromIso8601StringWithInfiniteRecurrences()
+    public function testCreateFromIso8601StringWithInfiniteRecurrences(): void
     {
         $period = CarbonPeriod::create('RINF/2012-07-01T00:00:00/P7D');
         $this->assertSame('2012-07-01', $period->getStartDate()->toDateString());
@@ -90,7 +90,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForPartialIso8601String
      */
-    public function testCreateFromPartialIso8601String($iso, $from, $to)
+    public function testCreateFromPartialIso8601String($iso, $from, $to): void
     {
         $period = CarbonPeriod::create($iso);
 
@@ -116,7 +116,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForInvalidIso8601String
      */
-    public function testCreateFromInvalidIso8601String($iso)
+    public function testCreateFromInvalidIso8601String($iso): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             "Invalid ISO 8601 specification: $iso"
@@ -138,7 +138,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndEndDate
      */
-    public function testCreateFromStartDateAndEndDate($arguments, $expected)
+    public function testCreateFromStartDateAndEndDate($arguments, $expected): void
     {
         [$start, $end, $options] = array_pad($arguments, 3, null);
 
@@ -192,7 +192,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndIntervalAndEndDate
      */
-    public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
+    public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected): void
     {
         [$start, $interval, $end, $options] = array_pad($arguments, 4, null);
 
@@ -252,7 +252,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndIntervalAndRecurrences
      */
-    public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
+    public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected): void
     {
         [$start, $interval, $recurrences, $options] = array_pad($arguments, 4, null);
 
@@ -282,7 +282,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndRecurrences
      */
-    public function testCreateFromStartDateAndRecurrences($arguments, $expected)
+    public function testCreateFromStartDateAndRecurrences($arguments, $expected): void
     {
         [$start, $recurrences, $options] = array_pad($arguments, 4, null);
 
@@ -316,7 +316,7 @@ class CreateTest extends AbstractTestCase
             ];
     }
 
-    public function testCreateFromBaseClasses()
+    public function testCreateFromBaseClasses(): void
     {
         $period = CarbonPeriod::create(
             new DateTime('2018-04-16'),
@@ -337,7 +337,7 @@ class CreateTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForInvalidParameters
      */
-    public function testCreateFromInvalidParameters(...$arguments)
+    public function testCreateFromInvalidParameters(...$arguments): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'Invalid constructor parameters.'
@@ -357,7 +357,7 @@ class CreateTest extends AbstractTestCase
         yield ['2017-10-15/P3D', CarbonInterval::hour()];
     }
 
-    public function testCreateOnDstForwardChange()
+    public function testCreateOnDstForwardChange(): void
     {
         $period = CarbonPeriod::create(
             '2018-03-25 1:30 Europe/Oslo',
@@ -383,7 +383,7 @@ class CreateTest extends AbstractTestCase
      * @see https://bugs.php.net/bug.php?id=74274
      * @see https://wiki.php.net/rfc/datetime_and_daylight_saving_time
      */
-    public function testCreateOnDstBackwardChange()
+    public function testCreateOnDstBackwardChange(): void
     {
         $period = CarbonPeriod::create(
             '2018-10-28 1:30 Europe/Oslo',
@@ -405,7 +405,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function testInternalVariablesCannotBeIndirectlyModified()
+    public function testInternalVariablesCannotBeIndirectlyModified(): void
     {
         $period = CarbonPeriod::create(
             $start = new DateTime('2018-04-16'),
@@ -436,7 +436,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2018-07-15', $period->getEndDate()->toDateString());
     }
 
-    public function testCreateFromArray()
+    public function testCreateFromArray(): void
     {
         $period = CarbonPeriod::createFromArray([
             '2018-03-25', 'P2D', '2018-04-01', CarbonPeriod::EXCLUDE_END_DATE,
@@ -448,7 +448,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
     }
 
-    public function testCreateFromIso()
+    public function testCreateFromIso(): void
     {
         $period = CarbonPeriod::createFromIso('R3/2018-03-25/P2D/2018-04-01', CarbonPeriod::EXCLUDE_END_DATE);
 
@@ -459,7 +459,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
     }
 
-    public function testCreateEmpty()
+    public function testCreateEmpty(): void
     {
         $period = new CarbonPeriod();
 
@@ -470,7 +470,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(0, $period->getOptions());
     }
 
-    public function testCreateFromDateStringsWithTimezones()
+    public function testCreateFromDateStringsWithTimezones(): void
     {
         $period = CarbonPeriod::create(
             $start = '2018-03-25 10:15:30 Europe/Oslo',
@@ -481,7 +481,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame($end, $period->getEndDate()->format('Y-m-d H:i:s e'));
     }
 
-    public function testCreateWithIntervalInFromStringFormat()
+    public function testCreateWithIntervalInFromStringFormat(): void
     {
         $period = CarbonPeriod::create(
             '2018-03-25 12:00',
@@ -506,7 +506,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    public function testCreateFromRelativeDates()
+    public function testCreateFromRelativeDates(): void
     {
         $period = CarbonPeriod::create(
             $start = 'previous friday',
@@ -517,7 +517,7 @@ class CreateTest extends AbstractTestCase
         $this->assertEquals(new Carbon($end), $period->getEndDate());
     }
 
-    public function testCreateFromCarbonInstances()
+    public function testCreateFromCarbonInstances(): void
     {
         $period = Carbon::create('2019-01-02')->toPeriod(7);
 
@@ -587,7 +587,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('1000 years', Carbon::create('2019-01-02')->millenniaUntil('2019-02-05')->getDateInterval()->forHumans());
     }
 
-    public function testCreateFromCarbonInstanceInvalidMethod()
+    public function testCreateFromCarbonInstanceInvalidMethod(): void
     {
         $this->expectExceptionObject(new BadMethodCallException(
             'Method unknownUnitsUntil does not exist.'
@@ -598,7 +598,7 @@ class CreateTest extends AbstractTestCase
         $date->unknownUnitsUntil('2019-02-05');
     }
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $source = new DatePeriod(
             Carbon::parse('2012-07-01'),
@@ -638,7 +638,7 @@ class CreateTest extends AbstractTestCase
         $this->assertNotSame($period, $period4);
     }
 
-    public function testCast()
+    public function testCast(): void
     {
         $period = new class('2012-07-01', CarbonInterval::days(2), '2012-07-07') extends CarbonPeriod {
             public function foo()
@@ -662,7 +662,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('24 14 19', $period->foo());
     }
 
-    public function testBadCast()
+    public function testBadCast(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'DateTime has not the instance() method needed to cast the date.'
@@ -672,7 +672,7 @@ class CreateTest extends AbstractTestCase
             ->cast(DateTime::class);
     }
 
-    public function testMake()
+    public function testMake(): void
     {
         $period = CarbonPeriod::make(new DatePeriod(
             Carbon::parse('2012-07-01'),
@@ -701,7 +701,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2012-07-07', $period2->getEndDate()->format('Y-m-d'));
     }
 
-    public function testInstanceInvalidType()
+    public function testInstanceInvalidType(): void
     {
         $this->expectExceptionObject(new NotAPeriodException(
             'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
@@ -711,7 +711,7 @@ class CreateTest extends AbstractTestCase
         CarbonPeriod::instance('hello');
     }
 
-    public function testInstanceInvalidInstance()
+    public function testInstanceInvalidInstance(): void
     {
         $this->expectExceptionObject(new NotAPeriodException(
             'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.

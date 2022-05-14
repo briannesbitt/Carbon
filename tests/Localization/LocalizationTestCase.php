@@ -342,7 +342,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
     /**
      * @group language
      */
-    public function testLanguage()
+    public function testLanguage(): void
     {
         $this->wrapWithNonDstDate(function () {
             $date = Carbon::parse('2018-05-15 20:49:13.881726');

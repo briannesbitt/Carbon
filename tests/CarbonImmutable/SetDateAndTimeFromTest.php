@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class SetDateAndTimeFromTest extends AbstractTestCase
 {
-    public function testSetDateFrom()
+    public function testSetDateFrom(): void
     {
         $this->assertCarbon(
             Carbon::create(2001, 1, 1, 1, 1, 1)
@@ -32,7 +32,7 @@ class SetDateAndTimeFromTest extends AbstractTestCase
         );
     }
 
-    public function testSetTimeFrom()
+    public function testSetTimeFrom(): void
     {
         $this->assertCarbon(
             Carbon::create(2001, 1, 1, 1, 1, 1)

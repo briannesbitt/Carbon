@@ -19,7 +19,7 @@ use Tests\AbstractTestCase;
 
 class DynamicIntervalTest extends AbstractTestCase
 {
-    public function testDynamicIntervalInPeriod()
+    public function testDynamicIntervalInPeriod(): void
     {
         $weekDayStep = function (Carbon $date, bool $negated = false): Carbon {
             if ($negated) {

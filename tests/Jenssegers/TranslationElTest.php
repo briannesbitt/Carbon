@@ -17,7 +17,7 @@ class TranslationElTest extends TestCaseBase
 {
     public const LOCALE = 'el';
 
-    public function testTimespanTranslated()
+    public function testTimespanTranslated(): void
     {
         $date = new JenssegersDate(1403619368);
         $date = $date->sub('-100 days -3 hours -20 minutes');
@@ -25,7 +25,7 @@ class TranslationElTest extends TestCaseBase
         $this->assertSame('3 μήνες, 1 εβδομάδα, 1 μέρα, 3 ώρες, 20 λεπτά', $date->timespan(1403619368));
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         $date = JenssegersDate::createFromFormat('d F Y', '1 Ιανουαρίου 2015');
         $this->assertSame('2015-01-01', $date->format('Y-m-d'));
@@ -34,7 +34,7 @@ class TranslationElTest extends TestCaseBase
         $this->assertSame('2015-03-21', $date->format('Y-m-d'));
     }
 
-    public function testAgoTranslated()
+    public function testAgoTranslated(): void
     {
         // Ago test can't work on February 29th
         if (JenssegersDate::now()->format('m-d') === '02-29') {
@@ -57,7 +57,7 @@ class TranslationElTest extends TestCaseBase
         $this->assertSame('πριν 10 χρόνια', $date->ago());
     }
 
-    public function testFormatDeclensions()
+    public function testFormatDeclensions(): void
     {
         $date = new JenssegersDate('10 march 2015');
         $this->assertSame('Μάρτιος 2015', $date->format('F Y'));
@@ -66,7 +66,7 @@ class TranslationElTest extends TestCaseBase
         $this->assertSame('10 Μαρτίου 2015', $date->format('j F Y'));
     }
 
-    public function testFormatShortNotation()
+    public function testFormatShortNotation(): void
     {
         $date = new JenssegersDate('10 january 2015');
         $this->assertSame('10 Ιαν 2015', $date->format('j M Y'));
@@ -105,7 +105,7 @@ class TranslationElTest extends TestCaseBase
         $this->assertSame('10 Δεκ 2015', $date->format('j M Y'));
     }
 
-    public function testAfterTranslated()
+    public function testAfterTranslated(): void
     {
         $date = JenssegersDate::parse('+21 hours');
         $this->assertSame('σε 21 ώρες', $date->ago());

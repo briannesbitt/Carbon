@@ -26,7 +26,7 @@ class FromStringTest extends AbstractTestCase
      * @param string         $string
      * @param CarbonInterval $expected
      */
-    public function testReturnsInterval($string, $expected)
+    public function testReturnsInterval($string, $expected): void
     {
         $result = CarbonInterval::fromString($string);
 
@@ -113,7 +113,7 @@ class FromStringTest extends AbstractTestCase
      * @param string $string
      * @param string $part
      */
-    public function testThrowsExceptionForUnknownValues($string, $part)
+    public function testThrowsExceptionForUnknownValues($string, $part): void
     {
         $message = null;
 

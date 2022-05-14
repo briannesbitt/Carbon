@@ -57,7 +57,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testGetSQLDeclaration(string $name)
+    public function testGetSQLDeclaration(string $name): void
     {
         $type = Type::getType($name);
 
@@ -117,7 +117,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testConvertToPHPValue(string $name, string $class)
+    public function testConvertToPHPValue(string $name, string $class): void
     {
         $type = Type::getType($name);
 
@@ -146,7 +146,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testConvertToPHPValueFailure(string $name, string $class)
+    public function testConvertToPHPValueFailure(string $name, string $class): void
     {
         $this->expectExceptionObject(new ConversionException(
             "Could not convert database value \"2020-0776-23 18:47\" to Doctrine Type $name. ".
@@ -165,7 +165,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testConvertToDatabaseValue(string $name)
+    public function testConvertToDatabaseValue(string $name): void
     {
         $type = Type::getType($name);
 
@@ -185,7 +185,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testConvertToDatabaseValueFailure(string $name)
+    public function testConvertToDatabaseValueFailure(string $name): void
     {
         $quote = class_exists('Doctrine\\DBAL\\Version') ? "'" : '';
         $this->expectExceptionObject(new ConversionException(
@@ -208,7 +208,7 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
+    public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired): void
     {
         $type = Type::getType($name);
 

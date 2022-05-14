@@ -231,7 +231,7 @@ class JaTest extends LocalizationTestCase
         '1日 3時間',
     ];
 
-    public function testYearWithJapaneseNumbers()
+    public function testYearWithJapaneseNumbers(): void
     {
         $this->assertSame('二千十五', Carbon::parse('2015-12-23 00:00:00')->locale('ja')->getAltNumber('year'));
     }

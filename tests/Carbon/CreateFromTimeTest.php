@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 
 class CreateFromTimeTest extends AbstractTestCase
 {
-    public function testCreateWithTestNow()
+    public function testCreateWithTestNow(): void
     {
         Carbon::setTestNow($testNow = Carbon::create(2011, 1, 1, 12, 13, 14));
         $dt = Carbon::create(null, null, null, null, null, null);
@@ -30,25 +30,25 @@ class CreateFromTimeTest extends AbstractTestCase
         $this->assertTrue($testNow->eq($dt));
     }
 
-    public function testCreateFromDateWithDefaults()
+    public function testCreateFromDateWithDefaults(): void
     {
         $d = Carbon::createFromTime();
         $this->assertSame($d->timestamp, Carbon::create(null, null, null, 0, 0, 0)->timestamp);
     }
 
-    public function testCreateFromDateWithNull()
+    public function testCreateFromDateWithNull(): void
     {
         $d = Carbon::createFromTime(null, null, null);
         $this->assertSame($d->timestamp, Carbon::create(null, null, null, null, null, null)->timestamp);
     }
 
-    public function testCreateFromTime()
+    public function testCreateFromTime(): void
     {
         $d = Carbon::createFromTime(23, 5, 21);
         $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
     }
 
-    public function testCreateFromTimeWithTestNow()
+    public function testCreateFromTimeWithTestNow(): void
     {
         Carbon::setTestNow();
         $testTime = Carbon::createFromTime(12, 0, 0, 'GMT-25');
@@ -65,7 +65,7 @@ class CreateFromTimeTest extends AbstractTestCase
         $this->assertSame($testTime->toIso8601String(), $today->toIso8601String());
     }
 
-    public function testCreateFromTimeGreaterThan99()
+    public function testCreateFromTimeGreaterThan99(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'second must be between 0 and 99, 100 given'
@@ -74,7 +74,7 @@ class CreateFromTimeTest extends AbstractTestCase
         Carbon::createFromTime(23, 5, 100);
     }
 
-    public function testCreateFromTimeWithHour()
+    public function testCreateFromTimeWithHour(): void
     {
         $d = Carbon::createFromTime(22);
         $this->assertSame(22, $d->hour);
@@ -82,33 +82,33 @@ class CreateFromTimeTest extends AbstractTestCase
         $this->assertSame(0, $d->second);
     }
 
-    public function testCreateFromTimeWithMinute()
+    public function testCreateFromTimeWithMinute(): void
     {
         $d = Carbon::createFromTime(null, 5);
         $this->assertSame(5, $d->minute);
     }
 
-    public function testCreateFromTimeWithSecond()
+    public function testCreateFromTimeWithSecond(): void
     {
         $d = Carbon::createFromTime(null, null, 21);
         $this->assertSame(21, $d->second);
     }
 
-    public function testCreateFromTimeWithDateTimeZone()
+    public function testCreateFromTimeWithDateTimeZone(): void
     {
         $d = Carbon::createFromTime(12, 0, 0, new DateTimeZone('Europe/London'));
         $this->assertCarbon($d, Carbon::now('Europe/London')->year, Carbon::now('Europe/London')->month, Carbon::now('Europe/London')->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromTimeWithTimeZoneString()
+    public function testCreateFromTimeWithTimeZoneString(): void
     {
         $d = Carbon::createFromTime(12, 0, 0, 'Europe/London');
         $this->assertCarbon($d, Carbon::now('Europe/London')->year, Carbon::now('Europe/London')->month, Carbon::now('Europe/London')->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromTimeWithTimeZoneOnNow()
+    public function testCreateFromTimeWithTimeZoneOnNow(): void
     {
         // disable test for now
         // because we need Carbon::now() in Carbon::create() to work with given TZ

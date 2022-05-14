@@ -29,7 +29,7 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNow();
     }
 
-    public function testTestingAidsWithTestNowNotSet()
+    public function testTestingAidsWithTestNowNotSet(): void
     {
         Carbon::setTestNow();
 
@@ -37,7 +37,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertNull(Carbon::getTestNow());
     }
 
-    public function testTestingAidsWithTestNowSet()
+    public function testTestingAidsWithTestNowSet(): void
     {
         Carbon::setTestNow($yesterday = Carbon::yesterday());
 
@@ -45,14 +45,14 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame($yesterday, Carbon::getTestNow());
     }
 
-    public function testTestingAidsWithTestNowSetToString()
+    public function testTestingAidsWithTestNowSetToString(): void
     {
         Carbon::setTestNow('2016-11-23');
         $this->assertTrue(Carbon::hasTestNow());
         $this->assertEquals(Carbon::getTestNow(), Carbon::parse('2016-11-23'));
     }
 
-    public function testConstructorWithTestValueSet()
+    public function testConstructorWithTestValueSet(): void
     {
         Carbon::setTestNow($yesterday = Carbon::yesterday());
 
@@ -62,14 +62,14 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertEquals($yesterday, new Carbon('now'));
     }
 
-    public function testNowWithTestValueSet()
+    public function testNowWithTestValueSet(): void
     {
         Carbon::setTestNow($yesterday = Carbon::yesterday());
 
         $this->assertEquals($yesterday, Carbon::now());
     }
 
-    public function testNowWithClosureValue()
+    public function testNowWithClosureValue(): void
     {
         $mockedNow = Carbon::parse('2019-09-21 12:34:56.123456');
         $delta = 0;
@@ -118,7 +118,7 @@ class TestingAidsTest extends AbstractTestCase
         date_default_timezone_set('America/Toronto');
     }
 
-    public function testParseWithTestValueSet()
+    public function testParseWithTestValueSet(): void
     {
         $testNow = Carbon::yesterday();
 
@@ -130,7 +130,7 @@ class TestingAidsTest extends AbstractTestCase
         }, $testNow);
     }
 
-    public function testParseRelativeWithTestValueSet()
+    public function testParseRelativeWithTestValueSet(): void
     {
         $testNow = Carbon::parse('2013-09-01 05:15:05');
 
@@ -174,7 +174,7 @@ class TestingAidsTest extends AbstractTestCase
         }, $testNow);
     }
 
-    public function testHasRelativeKeywords()
+    public function testHasRelativeKeywords(): void
     {
         $this->assertFalse(Carbon::hasRelativeKeywords('sunday 2015-02-23'));
         $this->assertTrue(Carbon::hasRelativeKeywords('today +2014 days'));
@@ -185,7 +185,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasRelativeKeywords('first sunday of January 2017'));
     }
 
-    public function testParseRelativeWithMinusSignsInDate()
+    public function testParseRelativeWithMinusSignsInDate(): void
     {
         $testNow = Carbon::parse('2013-09-01 05:15:05');
 
@@ -198,7 +198,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
     }
 
-    public function testTimeZoneWithTestValueSet()
+    public function testTimeZoneWithTestValueSet(): void
     {
         $testNow = Carbon::parse('2013-07-01 12:00:00', 'America/New_York');
 
@@ -209,7 +209,7 @@ class TestingAidsTest extends AbstractTestCase
         }, $testNow);
     }
 
-    public function testCreateFromPartialFormat()
+    public function testCreateFromPartialFormat(): void
     {
         Carbon::setTestNowAndTimezone(Carbon::parse('2013-09-01 05:10:15', 'America/Vancouver'));
 
@@ -252,7 +252,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', 'Europe/Kiev !')->toIso8601String());
     }
 
-    public function testCreateFromPartialFormatWithMicroseconds()
+    public function testCreateFromPartialFormatWithMicroseconds(): void
     {
         Carbon::setTestNowAndTimezone(Carbon::parse('2013-09-01 05:10:15.123456', 'America/Vancouver'));
 
@@ -262,7 +262,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
 
-    public function testCreateFromDateTimeInterface()
+    public function testCreateFromDateTimeInterface(): void
     {
         Carbon::setTestNowAndTimezone(date_create_immutable('2013-09-01 05:10:15.123456', new DateTimeZone('America/Vancouver')));
 
@@ -270,7 +270,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
 
-    public function testWithTestNow()
+    public function testWithTestNow(): void
     {
         $self = $this;
         $testNow = '2020-09-16 10:20:00';
@@ -289,7 +289,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertNotEquals($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
 
-    public function testWithTestNowWithException()
+    public function testWithTestNowWithException(): void
     {
         $testNow = '2020-09-16 10:20:00';
 

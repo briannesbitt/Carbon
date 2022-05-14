@@ -27,7 +27,7 @@ class ParseFromLocaleTest extends AbstractTestCase
      * @param string         $locale
      * @param CarbonInterval $expected
      */
-    public function testReturnsInterval($string, $locale, $expected)
+    public function testReturnsInterval($string, $locale, $expected): void
     {
         $result = CarbonInterval::parseFromLocale($string, $locale);
 
@@ -118,7 +118,7 @@ class ParseFromLocaleTest extends AbstractTestCase
      * @param string $part
      * @param string $locale
      */
-    public function testThrowsExceptionForUnknownValues($string, $part, $locale)
+    public function testThrowsExceptionForUnknownValues($string, $part, $locale): void
     {
         $message = null;
 

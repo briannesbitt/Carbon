@@ -25,7 +25,7 @@ use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
 class GettersTest extends AbstractTestCase
 {
-    public function testGetStartDate()
+    public function testGetStartDate(): void
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd();
 
@@ -36,7 +36,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-01 17:30:00', $date->format('Y-m-d H:i:s'));
     }
 
-    public function testGetEndDate()
+    public function testGetEndDate(): void
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd();
 
@@ -47,7 +47,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-15 11:15:00', $date->format('Y-m-d H:i:s'));
     }
 
-    public function testGetDateInterval()
+    public function testGetDateInterval(): void
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd();
 
@@ -58,14 +58,14 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('P3DT5H', $interval->spec());
     }
 
-    public function testGetRecurrences()
+    public function testGetRecurrences(): void
     {
         $recurrences = CarbonPeriod::create(new DateTime(), 5)->getRecurrences();
 
         $this->assertSame(5, $recurrences);
     }
 
-    public function testGetDefaultDateInterval()
+    public function testGetDefaultDateInterval(): void
     {
         $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
 
@@ -74,7 +74,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('P1D', $period->getDateInterval()->spec());
     }
 
-    public function testModifyStartDate()
+    public function testModifyStartDate(): void
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd();
 
@@ -83,7 +83,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-01', $period->getStartDate()->format('Y-m-d'));
     }
 
-    public function testModifyEndDate()
+    public function testModifyEndDate(): void
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd();
 
@@ -92,7 +92,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-15', $period->getEndDate()->format('Y-m-d'));
     }
 
-    public function testModifyDateInterval()
+    public function testModifyDateInterval(): void
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd();
 
@@ -101,7 +101,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('P3DT5H', $period->getDateInterval()->spec());
     }
 
-    public function testGetOptions()
+    public function testGetOptions(): void
     {
         $period = new CarbonPeriod();
 
@@ -116,7 +116,7 @@ class GettersTest extends AbstractTestCase
         $this->assertFalse($period->include_end_date);
     }
 
-    public function testOverlaps()
+    public function testOverlaps(): void
     {
         $range1 = CarbonPeriod::create('2019-01-26', '2019-03-03');
         $range2 = CarbonPeriod::create('2019-02-15', '2019-04-01');
@@ -253,7 +253,7 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue($range2->overlaps($range1));
     }
 
-    public function testOverlapsErrorForNullEnd()
+    public function testOverlapsErrorForNullEnd(): void
     {
         $this->expectExceptionObject(new UnreachableException(
             "Could not calculate period end without either explicit end or recurrences.\n".
@@ -263,7 +263,7 @@ class GettersTest extends AbstractTestCase
         CarbonPeriod::create('2019-01-26 10:30:12', null)->overlaps('R2/2019-01-31T10:30:45Z/P2D');
     }
 
-    public function testOverlapsErrorForMaxAttempts()
+    public function testOverlapsErrorForMaxAttempts(): void
     {
         $this->expectExceptionObject(new UnreachableException(
             'Could not calculate period end after iterating 10000 times.'
@@ -276,7 +276,7 @@ class GettersTest extends AbstractTestCase
         $period->overlaps('R2/2019-01-31T10:30:45Z/P2D');
     }
 
-    public function testOverlapsCalculated()
+    public function testOverlapsCalculated(): void
     {
         $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R2/2019-01-31T10:30:45Z/P2D'));
         $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('2018-12-31/2019-02-01'));
@@ -286,7 +286,7 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('R7/2018-12-31/P1D')->overlaps('R3/2019-01-05/PT3H'));
     }
 
-    public function testOverlapsWithDatesCouple()
+    public function testOverlapsWithDatesCouple(): void
     {
         $this->assertTrue(Carbon::parse('2019-01-26')->toPeriod('2019-03-03')->overlaps('2019-02-15', '2019-04-01'));
         $this->assertTrue(Carbon::parse('2019-02-15')->toPeriod('2019-04-01')->overlaps('2019-02-15', '2019-04-01'));
@@ -305,7 +305,7 @@ class GettersTest extends AbstractTestCase
         $this->assertFalse(CarbonPeriod::create('2018-01-26', '2018-02-13')->overlaps(new DateTime('2019-02-15'), new DateTime('2019-04-01')));
     }
 
-    public function testIsStarted()
+    public function testIsStarted(): void
     {
         Carbon::setTestNow('2019-08-03 11:47:00');
 
@@ -317,7 +317,7 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('2019-08-03 11:47:00', '2019-08-15 11:47:00')->isStarted());
     }
 
-    public function testIsEnded()
+    public function testIsEnded(): void
     {
         Carbon::setTestNow('2019-08-03 11:47:00');
 
@@ -330,7 +330,7 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('2019-08-02 11:47:00', '2019-08-03 11:47:00')->isEnded());
     }
 
-    public function testIsInProgress()
+    public function testIsInProgress(): void
     {
         Carbon::setTestNow('2019-08-03 11:47:00');
 
@@ -343,13 +343,13 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('2019-08-01', '2019-08-15')->isInProgress());
     }
 
-    public function testIsset()
+    public function testIsset(): void
     {
         $this->assertTrue(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->start));
         $this->assertFalse(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->middle));
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $this->assertSame(
             '2019-08-01',
@@ -357,7 +357,7 @@ class GettersTest extends AbstractTestCase
         );
     }
 
-    public function testUnknownGetter()
+    public function testUnknownGetter(): void
     {
         $this->expectExceptionObject(new UnknownGetterException('middle'));
 

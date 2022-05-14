@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class CloneTest extends AbstractTestCase
 {
-    public function testClone()
+    public function testClone(): void
     {
         $first = CarbonInterval::minute();
         $second = $first->clone();
@@ -28,7 +28,7 @@ class CloneTest extends AbstractTestCase
         $this->assertEquals($second, $first);
     }
 
-    public function testCopy()
+    public function testCopy(): void
     {
         $first = CarbonInterval::minute();
         $second = $first->copy();

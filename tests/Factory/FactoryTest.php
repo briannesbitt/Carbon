@@ -22,7 +22,7 @@ use Tests\Carbon\Fixtures\MyCarbon;
 
 class FactoryTest extends AbstractTestCase
 {
-    public function testFactory()
+    public function testFactory(): void
     {
         $factory = new Factory();
 
@@ -50,7 +50,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame('01/01/2018', $factory->parse('2018-01-01')->format('d/m/Y'));
     }
 
-    public function testFactoryModification()
+    public function testFactoryModification(): void
     {
         $factory = new Factory();
 
@@ -82,7 +82,7 @@ class FactoryTest extends AbstractTestCase
         ], $factory->settings());
     }
 
-    public function testFactoryTimezone()
+    public function testFactoryTimezone(): void
     {
         Carbon::setTestNowAndTimezone(Carbon::parse('2020-09-04 03:39:04.123456', 'UTC'));
 

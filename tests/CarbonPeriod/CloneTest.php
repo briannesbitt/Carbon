@@ -18,7 +18,7 @@ use Tests\AbstractTestCase;
 
 class CloneTest extends AbstractTestCase
 {
-    public function testClone()
+    public function testClone(): void
     {
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->clone();
@@ -28,7 +28,7 @@ class CloneTest extends AbstractTestCase
         $this->assertEquals($period, $clone);
     }
 
-    public function testCopy()
+    public function testCopy(): void
     {
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->copy();

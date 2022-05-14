@@ -32,7 +32,7 @@ class FilterTest extends AbstractTestCase
         };
     }
 
-    public function testGetAndSetFilters()
+    public function testGetAndSetFilters(): void
     {
         $period = new CarbonPeriod();
 
@@ -43,7 +43,7 @@ class FilterTest extends AbstractTestCase
         $this->assertSame($filters, $period->getFilters());
     }
 
-    public function testUpdateInternalStateWhenBuiltInFiltersAreRemoved()
+    public function testUpdateInternalStateWhenBuiltInFiltersAreRemoved(): void
     {
         $period = new CarbonPeriod(
             $start = new DateTime('2018-04-16'),
@@ -62,7 +62,7 @@ class FilterTest extends AbstractTestCase
         $this->assertNull($period->getRecurrences());
     }
 
-    public function testResetFilters()
+    public function testResetFilters(): void
     {
         $period = new CarbonPeriod(
             $start = new DateTime('2018-04-16'),
@@ -79,7 +79,7 @@ class FilterTest extends AbstractTestCase
         ], $period->getFilters());
     }
 
-    public function testAddAndPrependFilters()
+    public function testAddAndPrependFilters(): void
     {
         $period = new CarbonPeriod();
 
@@ -94,7 +94,7 @@ class FilterTest extends AbstractTestCase
         ], $period->getFilters());
     }
 
-    public function testRemoveFilterByInstance()
+    public function testRemoveFilterByInstance(): void
     {
         $period = new CarbonPeriod();
 
@@ -110,7 +110,7 @@ class FilterTest extends AbstractTestCase
         ], $period->getFilters());
     }
 
-    public function testRemoveFilterByName()
+    public function testRemoveFilterByName(): void
     {
         $period = new CarbonPeriod();
 
@@ -129,7 +129,7 @@ class FilterTest extends AbstractTestCase
         ], $period->getFilters());
     }
 
-    public function testAcceptOnlyWeekdays()
+    public function testAcceptOnlyWeekdays(): void
     {
         Carbon::setWeekendDays([
             Carbon::SATURDAY,
@@ -151,7 +151,7 @@ class FilterTest extends AbstractTestCase
     /**
      * @throws \Exception
      */
-    public function testAcceptOnlySingleYear()
+    public function testAcceptOnlySingleYear(): void
     {
         $period = new CarbonPeriod(
             new DateTime('2017-04-16'),
@@ -172,7 +172,7 @@ class FilterTest extends AbstractTestCase
     /**
      * @throws \Exception
      */
-    public function testEndIteration()
+    public function testEndIteration(): void
     {
         $period = new CarbonPeriod(
             new DateTime('2018-04-16'),
@@ -190,7 +190,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testRecurrences()
+    public function testRecurrences(): void
     {
         $period = new CarbonPeriod(
             new DateTime('2018-04-16'),
@@ -219,7 +219,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testChangeNumberOfRecurrences()
+    public function testChangeNumberOfRecurrences(): void
     {
         $period = new CarbonPeriod(
             new DateTime('2018-04-16'),
@@ -236,7 +236,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testCallbackArguments()
+    public function testCallbackArguments(): void
     {
         $period = new CarbonPeriod(
             new DateTime('2018-04-16'),
@@ -259,7 +259,7 @@ class FilterTest extends AbstractTestCase
         $this->assertTrue($wasCalled);
     }
 
-    public function testThrowExceptionWhenNextValidDateCannotBeFound()
+    public function testThrowExceptionWhenNextValidDateCannotBeFound(): void
     {
         $this->expectExceptionObject(new RuntimeException(
             'Could not find next valid date.'
@@ -278,7 +278,7 @@ class FilterTest extends AbstractTestCase
         iterator_to_array($period);
     }
 
-    public function testRemoveBuildInFilters()
+    public function testRemoveBuildInFilters(): void
     {
         $period = CarbonPeriod::create(new DateTime('2018-04-16'), new DateTime('2018-07-15'))->setRecurrences(3);
 
@@ -288,7 +288,7 @@ class FilterTest extends AbstractTestCase
         $this->assertEmpty($period->getFilters());
     }
 
-    public function testAcceptEveryOther()
+    public function testAcceptEveryOther(): void
     {
         $period = new CarbonPeriod(
             new DateTime('2018-04-16'),
@@ -309,7 +309,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testEndIterationFilter()
+    public function testEndIterationFilter(): void
     {
         $period = new CarbonPeriod('2018-04-16', 5);
 
@@ -318,7 +318,7 @@ class FilterTest extends AbstractTestCase
         $this->assertEmpty($this->standardizeDates($period));
     }
 
-    public function testAcceptOnlyEvenDays()
+    public function testAcceptOnlyEvenDays(): void
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
@@ -328,7 +328,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testAddFilterFromCarbonMethod()
+    public function testAddFilterFromCarbonMethod(): void
     {
         $period = CarbonPeriod::create('2018-01-01', '2018-06-01');
 
@@ -340,7 +340,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testAddFilterFromCarbonMacro()
+    public function testAddFilterFromCarbonMacro(): void
     {
         $period = CarbonPeriod::create('2018-01-01', '2018-06-01');
 
@@ -359,7 +359,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testAddFilterFromCarbonMethodWithArguments()
+    public function testAddFilterFromCarbonMethodWithArguments(): void
     {
         $period = CarbonPeriod::create('2017-01-01', 'P2M16D', '2018-12-31');
 
@@ -371,7 +371,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testRemoveFilterFromCarbonMethod()
+    public function testRemoveFilterFromCarbonMethod(): void
     {
         $period = CarbonPeriod::create('1970-01-01', '1970-01-03')->addFilter('isFuture');
 
@@ -383,7 +383,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testInvalidCarbonMethodShouldNotBeConvertedToCallback()
+    public function testInvalidCarbonMethodShouldNotBeConvertedToCallback(): void
     {
         $period = new CarbonPeriod();
 
@@ -394,7 +394,7 @@ class FilterTest extends AbstractTestCase
         ], $period->getFilters());
     }
 
-    public function testAddCallableFilters()
+    public function testAddCallableFilters(): void
     {
         $period = new CarbonPeriod();
 
@@ -407,7 +407,7 @@ class FilterTest extends AbstractTestCase
         ], $period->getFilters());
     }
 
-    public function testRemoveCallableFilters()
+    public function testRemoveCallableFilters(): void
     {
         $period = new CarbonPeriod();
 
@@ -421,7 +421,7 @@ class FilterTest extends AbstractTestCase
         $this->assertEmpty($period->getFilters());
     }
 
-    public function testRunCallableFilters()
+    public function testRunCallableFilters(): void
     {
         include_once 'Fixtures/filters.php';
 

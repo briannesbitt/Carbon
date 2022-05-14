@@ -19,13 +19,13 @@ use Tests\AbstractTestCase;
 
 class CreateFromTimestampTest extends AbstractTestCase
 {
-    public function testCreateReturnsDatingInstance()
+    public function testCreateReturnsDatingInstance(): void
     {
         $d = Carbon::createFromTimestamp(Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp);
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5);
     }
 
-    public function testCreateFromTimestampMs()
+    public function testCreateFromTimestampMs(): void
     {
         $baseTimestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000;
 
@@ -54,7 +54,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321848);
     }
 
-    public function testCreateFromTimestampMsUTC()
+    public function testCreateFromTimestampMsUTC(): void
     {
         // Toronto is GMT-04:00 in May
         $baseTimestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000;
@@ -96,7 +96,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1969, 12, 31, 23, 59, 59, 999960);
     }
 
-    public function testComaDecimalSeparatorLocale()
+    public function testComaDecimalSeparatorLocale(): void
     {
         $date = new Carbon('2017-07-29T13:57:27.123456Z');
         $this->assertSame('2017-07-29 13:57:27.123456 Z', $date->format('Y-m-d H:i:s.u e'));
@@ -128,7 +128,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         setlocale(LC_ALL, $locale);
     }
 
-    public function testCreateFromTimestampWithTimezone()
+    public function testCreateFromTimestampWithTimezone(): void
     {
         $carbon = Carbon::createFromTimestamp('468370800', '+0100');
 
@@ -136,7 +136,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('+01:00', $carbon->tzName);
     }
 
-    public function testCreateFromTimestampUsesDefaultTimezone()
+    public function testCreateFromTimestampUsesDefaultTimezone(): void
     {
         $d = Carbon::createFromTimestamp(0);
 
@@ -145,14 +145,14 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame(-5 * 3600, $d->offset);
     }
 
-    public function testCreateFromTimestampWithDateTimeZone()
+    public function testCreateFromTimestampWithDateTimeZone(): void
     {
         $d = Carbon::createFromTimestamp(0, new DateTimeZone('UTC'));
         $this->assertSame('UTC', $d->tzName);
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
     }
 
-    public function testCreateFromTimestampWithString()
+    public function testCreateFromTimestampWithString(): void
     {
         $d = Carbon::createFromTimestamp(0, 'UTC');
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
@@ -160,7 +160,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('UTC', $d->tzName);
     }
 
-    public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone()
+    public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone(): void
     {
         $d = Carbon::createFromTimestampUTC(0);
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
@@ -172,7 +172,7 @@ class CreateFromTimestampTest extends AbstractTestCase
      *
      * @see https://github.com/briannesbitt/Carbon/issues/1951
      */
-    public function testCreateFromTimestampInDstChange()
+    public function testCreateFromTimestampInDstChange(): void
     {
         $this->assertSame(
             '2019-11-03T01:00:00-04:00',
@@ -192,7 +192,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         );
     }
 
-    public function testCreateFromMicrotimeFloat()
+    public function testCreateFromMicrotimeFloat(): void
     {
         $microtime = 1600887164.88952298;
         $d = Carbon::createFromTimestamp($microtime);
@@ -201,7 +201,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('1600887164.889523', $d->format('U.u'));
     }
 
-    public function testCreateFromMicrotimeStrings()
+    public function testCreateFromMicrotimeStrings(): void
     {
         $microtime = '0.88951247 1600887164';
         $d = Carbon::createFromTimestamp($microtime);
@@ -222,7 +222,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('1969-12-31 23:59:49.400000 +00:00', $d->format('Y-m-d H:i:s.u P'));
     }
 
-    public function testCreateFromMicrotimeUTCFloat()
+    public function testCreateFromMicrotimeUTCFloat(): void
     {
         $microtime = 1600887164.88952298;
         $d = Carbon::createFromTimestampUTC($microtime);
@@ -231,7 +231,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('1600887164.889523', $d->format('U.u'));
     }
 
-    public function testCreateFromMicrotimeUTCStrings()
+    public function testCreateFromMicrotimeUTCStrings(): void
     {
         $microtime = '0.88951247 1600887164';
         $d = Carbon::createFromTimestampUTC($microtime);
@@ -246,7 +246,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertSame('1600887177.449512', $d->format('U.u'));
     }
 
-    public function testNegativeIntegerTimestamp()
+    public function testNegativeIntegerTimestamp(): void
     {
         $this->assertSame(
             '1969-12-31 18:59:59.000000 -05:00',

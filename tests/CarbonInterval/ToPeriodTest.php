@@ -24,7 +24,7 @@ class ToPeriodTest extends AbstractTestCase
     /**
      * @dataProvider \Tests\CarbonInterval\ToPeriodTest::dataForToPeriodParameters
      */
-    public function testConvertToDatePeriod($interval, $arguments, $expected)
+    public function testConvertToDatePeriod($interval, $arguments, $expected): void
     {
         $period = ([$interval, 'toPeriod'])(...$arguments);
 
