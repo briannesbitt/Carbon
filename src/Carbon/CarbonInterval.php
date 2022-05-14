@@ -372,7 +372,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $spec = $years;
 
-        if (!\is_string($spec) || (float) $years || preg_match('/^[0-9.]/', $years)) {
+        if (!\is_string($spec) || (float) $years || preg_match('/^[\d.]/', $years)) {
             $spec = static::PERIOD_PREFIX;
 
             $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
@@ -984,7 +984,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $interval = preg_replace('/\s+/', ' ', trim($interval));
 
-        if (preg_match('/^P[T0-9]/', $interval)) {
+        if (preg_match('/^P[T\d]/', $interval)) {
             return new static($interval);
         }
 
