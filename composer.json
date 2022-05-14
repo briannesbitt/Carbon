@@ -25,6 +25,20 @@
         "source": "https://github.com/briannesbitt/Carbon",
         "docs": "https://carbon.nesbot.com/docs"
     },
+    "funding": [
+        {
+            "url": "https://github.com/sponsors/kylekatarnls",
+            "type": "github"
+        },
+        {
+            "url": "https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme",
+            "type": "tidelift"
+        },
+        {
+            "url": "https://opencollective.com/Carbon#sponsor",
+            "type": "opencollective"
+        }
+    ],
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
