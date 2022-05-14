@@ -387,14 +387,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Create a new CarbonInterval instance.
      *
-     * @param int|null $years
-     * @param int|null $months
-     * @param int|null $weeks
-     * @param int|null $days
-     * @param int|null $hours
-     * @param int|null $minutes
-     * @param int|null $seconds
-     * @param int|null $microseconds
+     * @param Closure|DateInterval|string|int|null $years
+     * @param int|null                             $months
+     * @param int|null                             $weeks
+     * @param int|null                             $days
+     * @param int|null                             $hours
+     * @param int|null                             $minutes
+     * @param int|null                             $seconds
+     * @param int|null                             $microseconds
      *
      * @throws Exception when the interval_spec (passed as $years) cannot be parsed as an interval.
      */
@@ -417,7 +417,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $spec = $years;
 
-        if (!\is_string($spec) || (float) $years || preg_match('/^[0-9.]/', $years)) {
+        if (!\is_string($spec) || (float) $years || preg_match('/^[\d.]/', $years)) {
             $spec = static::PERIOD_PREFIX;
 
             $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
@@ -1096,7 +1096,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $interval = preg_replace('/\s+/', ' ', trim($interval));
 
-        if (preg_match('/^P[T0-9]/', $interval)) {
+        if (preg_match('/^P[T\d]/', $interval)) {
             return new static($interval);
         }
 
