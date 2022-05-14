@@ -355,7 +355,9 @@ abstract class AbstractTranslator extends Translation\Translator
             parent::setLocale($macroLocale);
         }
 
-        if (!$this->loadMessagesFromFile($locale) && !$this->initializing) {
+        $loaded = $this->loadMessagesFromFile($locale);
+
+        if (!$loaded && !$this->initializing) {
             return false;
         }
 

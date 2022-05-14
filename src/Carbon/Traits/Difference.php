@@ -130,7 +130,7 @@ trait Difference
         // The very specific case of 80998 was fixed in PHP 8.1beta3, but it introduced 81458
         // So we still need to keep this for now
         // @codeCoverageIgnoreStart
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
+        if ($other->tz !== $this->tz && version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
             $other = $other->avoidMutation()->tz($this->tz);
         }
         // @codeCoverageIgnoreEnd

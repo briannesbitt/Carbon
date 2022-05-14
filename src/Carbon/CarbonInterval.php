@@ -1886,7 +1886,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
     protected function solveNegativeInterval()
     {
-        if (!$this->isEmpty() && $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0) {
+        if ($this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0 && !$this->isEmpty()) {
             $this->years *= -1;
             $this->months *= -1;
             $this->dayz *= -1;

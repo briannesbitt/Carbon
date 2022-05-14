@@ -838,7 +838,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             throw new InvalidIntervalException('Invalid interval.');
         }
 
-        if ($interval->spec() === 'PT0S' && !$interval->f && !$interval->getStep()) {
+        if (!$interval->f && $interval->spec() === 'PT0S' && !$interval->getStep()) {
             throw new InvalidIntervalException('Empty interval is not accepted.');
         }
 
@@ -2366,7 +2366,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     protected function filterEndDate($current)
     {
-        if (!$this->isEndExcluded() && $current == $this->endDate) {
+        if ($current == $this->endDate && !$this->isEndExcluded()) {
             return true;
         }
 
@@ -2392,9 +2392,9 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     protected function handleChangedParameters()
     {
-        if (($this->getOptions() & static::IMMUTABLE) && $this->dateClass === Carbon::class) {
+        if ($this->dateClass === Carbon::class && ($this->getOptions() & static::IMMUTABLE)) {
             $this->setDateClass(CarbonImmutable::class);
-        } elseif (!($this->getOptions() & static::IMMUTABLE) && $this->dateClass === CarbonImmutable::class) {
+        } elseif ($this->dateClass === CarbonImmutable::class && !($this->getOptions() & static::IMMUTABLE)) {
             $this->setDateClass(Carbon::class);
         }
 

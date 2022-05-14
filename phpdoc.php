@@ -644,9 +644,9 @@ $methods = '';
 $carbonMethods = get_class_methods(Carbon::class);
 sort($carbonMethods);
 foreach ($carbonMethods as $method) {
-    if (!method_exists(CarbonImmutable::class, $method) ||
-        method_exists(DateTimeInterface::class, $method) ||
-        $method === 'createFromInterface'
+    if ($method === 'createFromInterface' ||
+        !method_exists(CarbonImmutable::class, $method) ||
+        method_exists(DateTimeInterface::class, $method)
     ) {
         continue;
     }
@@ -706,7 +706,7 @@ foreach ($carbonMethods as $method) {
             '     */';
     }
 
-    if (str_contains($return, 'self') && $phpLevel < 7.4) {
+    if ($phpLevel < 7.4 && str_contains($return, 'self')) {
         $return = '';
     }
 

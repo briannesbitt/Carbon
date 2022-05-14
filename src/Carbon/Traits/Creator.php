@@ -322,7 +322,7 @@ trait Creator
 
     private static function assertBetween($unit, $value, $min, $max)
     {
-        if (static::isStrictModeEnabled() && ($value < $min || $value > $max)) {
+        if (($value < $min || $value > $max) && static::isStrictModeEnabled()) {
             throw new OutOfRangeException($unit, $min, $max, $value);
         }
     }
