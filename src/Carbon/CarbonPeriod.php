@@ -294,7 +294,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     /**
      * Limit for number of recurrences. Applied via a filter.
      *
-     * @var int|null
+     * @var int|float|null
      */
     protected $carbonRecurrences;
 
