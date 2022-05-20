@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use Carbon\Exceptions\EndLessPeriodException;
 use Carbon\Exceptions\InvalidCastException;
 use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\InvalidPeriodDateException;
@@ -1266,7 +1267,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function setStartDate($date, $inclusive = null)
     {
-        if (!$date = ([$this->dateClass, 'make'])($date)) {
+        if (!$this->isInfiniteDate($date) && !($date = ([$this->dateClass, 'make'])($date))) {
             throw new InvalidPeriodDateException('Invalid start date.');
         }
 
@@ -1291,7 +1292,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function setEndDate($date, $inclusive = null)
     {
-        if ($date !== null && !$date = ([$this->dateClass, 'make'])($date)) {
+        if ($date !== null && !$this->isInfiniteDate($date) && !$date = ([$this->dateClass, 'make'])($date)) {
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
@@ -1535,12 +1536,49 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
+     * Return `true` if the period has no custom filter and is guaranteed to be endless.
+     *
+     * Note that we can't check if a period is endless as soon as it has custom filters
+     * because filters can emit `CarbonPeriod::END_ITERATION` to stop the iteration in
+     * a way we can't predict without actually iterating the period.
+     */
+    public function isUnfilteredAndEndLess(): bool
+    {
+        foreach ($this->filters as $filter) {
+            switch ($filter) {
+                case [static::RECURRENCES_FILTER, null]:
+                    if ($this->recurrences !== null && is_finite($this->recurrences)) {
+                        return false;
+                    }
+
+                    break;
+
+                case [static::END_DATE_FILTER, null]:
+                    if ($this->endDate !== null && !$this->endDate->isEndOfTime()) {
+                        return false;
+                    }
+
+                    break;
+
+                default:
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Convert the date period into an array without changing current iteration state.
      *
      * @return CarbonInterface[]
      */
     public function toArray()
     {
+        if ($this->isUnfilteredAndEndLess()) {
+            throw new EndLessPeriodException("Endless period can't be converted to array nor counted.");
+        }
+
         $state = [
             $this->key,
             $this->current ? $this->current->avoidMutation() : null,
@@ -1572,6 +1610,16 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function first()
     {
+        if ($this->isUnfilteredAndEndLess()) {
+            foreach ($this as $date) {
+                $this->rewind();
+
+                return $date;
+            }
+
+            return null;
+        }
+
         return ($this->toArray() ?: [])[0] ?? null;
     }
 
@@ -2564,5 +2612,10 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         }
 
         return null;
+    }
+
+    private function isInfiniteDate($date): bool
+    {
+        return $date instanceof CarbonInterface && ($date->isEndOfTime() || $date->isStartOfTime());
     }
 }

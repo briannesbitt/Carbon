@@ -54,8 +54,8 @@
         "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.54 || ^1.0",
-        "phpunit/php-file-iterator": "^2.0.5",
-        "phpunit/phpunit": "^7.5.20 || ^8.5.23",
+        "phpunit/php-file-iterator": "^2.0.5 || ^3.0.6",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "minimum-stability": "dev",
