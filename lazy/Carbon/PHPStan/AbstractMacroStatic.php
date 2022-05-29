@@ -25,8 +25,6 @@ if (!class_exists(AbstractReflectionMacro::class, false)) {
         public function getReflection(): ?Reflection\Adapter\ReflectionMethod
         {
             if ($this->reflectionFunction instanceof ReflectionMethod) {
-                var_dump($this);
-                exit;
                 return new Reflection\Adapter\ReflectionMethod(
                     new Reflection\ReflectionMethod()
                 );
