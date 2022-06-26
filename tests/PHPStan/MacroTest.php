@@ -232,7 +232,7 @@ class MacroTest extends AbstractTestCase
 
     public function testGetReflection()
     {
-        require_once __DIR__ . '/MixinClass.php';
+        require_once __DIR__.'/MixinClass.php';
 
         $mixinClass = MixinClass::class;
 
