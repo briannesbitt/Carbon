@@ -32,9 +32,8 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command:  |
-            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
-            composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
-            composer require --no-update doctrine/orm --no-interaction;
+            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer kylekatarnls/multi-tester --no-interaction --dev;
+            composer require --no-update doctrine/orm symfony/config --no-interaction;
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
 
       - name: Run phpstan

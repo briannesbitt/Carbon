@@ -32,8 +32,7 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command:  |
-            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
-            composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
+            composer remove --no-update phpstan/extension-installer phpstan/phpstan ondrejmirtes/better-reflection friendsofphp/php-cs-fixer kylekatarnls/multi-tester --no-interaction --dev;
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
 
       - name: Run phpmd
