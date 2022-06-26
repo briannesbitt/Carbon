@@ -184,13 +184,13 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'o 1 s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'sekundu potom',
+        'sekundu po',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 s potom',
+        '1 s po',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'sekundu predtým',
+        'sekundu pred',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 s predtým',
+        '1 s pred',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'sekundu',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
