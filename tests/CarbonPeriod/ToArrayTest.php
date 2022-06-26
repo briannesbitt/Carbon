@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\Exceptions\EndLessPeriodException;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
@@ -67,6 +69,59 @@ class ToArrayTest extends AbstractTestCase
         $result = json_encode(CarbonPeriodFactory::withEvenDaysFilter());
 
         $this->assertSame('["2012-07-04T04:00:00.000000Z","2012-07-10T04:00:00.000000Z","2012-07-16T04:00:00.000000Z"]', $result);
+    }
+
+    public function testCountEmptyPeriod()
+    {
+        $assertThrow = function (CarbonPeriod $period) {
+            $message = null;
+
+            try {
+                $period->count();
+            } catch (EndLessPeriodException $exception) {
+                $message = $exception->getMessage();
+            }
+
+            $this->assertSame("Endless period can't be converted to array nor counted.", $message);
+        };
+
+        $period = new CarbonPeriod();
+        $this->assertTrue($period->isUnfilteredAndEndLess());
+        $assertThrow($period);
+        $this->assertSame(Carbon::now()->format('Y-m-d H:i:s'), $period->first()->format('Y-m-d H:i:s'));
+
+        foreach ($period as $date) {
+            break;
+        }
+
+        $this->assertInstanceOfCarbon($date ?? null);
+        $this->assertSame(Carbon::now()->format('Y-m-d H:i:s'), $date->format('Y-m-d H:i:s'));
+
+        $period = new CarbonPeriod(INF);
+        $this->assertTrue($period->isUnfilteredAndEndLess());
+        $assertThrow($period);
+
+        $period = new CarbonPeriod('2022-05-18', '1 day');
+        $this->assertTrue($period->isUnfilteredAndEndLess());
+        $assertThrow($period);
+
+        $period = new CarbonPeriod('2022-05-18', '1 day', CarbonImmutable::endOfTime());
+        $this->assertTrue($period->isUnfilteredAndEndLess());
+        $assertThrow($period);
+
+        $period = new CarbonPeriod('2022-05-18', '1 day');
+        $period->setDateClass(CarbonImmutable::class);
+        $period->setEndDate(CarbonImmutable::endOfTime());
+        $this->assertTrue($period->isUnfilteredAndEndLess());
+        $assertThrow($period);
+
+        $period = new CarbonPeriod(3);
+        $this->assertFalse($period->isUnfilteredAndEndLess());
+        $this->assertSame(3, $period->count());
+
+        $period = new CarbonPeriod('2022-05-18', '2022-05-23');
+        $this->assertFalse($period->isUnfilteredAndEndLess());
+        $this->assertSame(6, $period->count());
     }
 
     public function testCountByMethod()

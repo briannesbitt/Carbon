@@ -118,12 +118,12 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command:  |
+          command: |
             composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
             if [[ "${{ matrix.laravel }}" != 'true' ]]; then
-            composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
+              composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
             fi;
-            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.23 --no-interaction;' || '' }}
+            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction;' || '' }}
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
 
       - name: Run test suite
@@ -228,9 +228,9 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command:  |
+          command: |
             composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
-            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.23 --no-interaction;' || '' }}
+            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction;' || '' }}
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
 
       - name: Run test suite
