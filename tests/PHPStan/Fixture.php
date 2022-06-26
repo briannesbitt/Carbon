@@ -15,10 +15,6 @@ namespace Tests\PHPStan;
 
 use Carbon\Carbon;
 
-Carbon::macro('foo', static function (): string {
-    return 'foo';
-});
-
 class Fixture
 {
     public function testCarbonMacroCalledStatically(): string
