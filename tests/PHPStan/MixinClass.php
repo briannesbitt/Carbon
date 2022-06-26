@@ -13,21 +13,16 @@ declare(strict_types=1);
 
 namespace Tests\PHPStan;
 
-use Carbon\Carbon;
-
-Carbon::macro('foo', function (): string {
-    return 'foo';
-});
-
-class BadFixture
+class MixinClass
 {
-    public function testCarbonMacroCalledStatically(): string
+    // Declaring final won't apply for macro, sub-class will always be able to override macros.
+    final public static function foo(): string
     {
-        return Carbon::foo();
+        return 'foo';
     }
 
-    public function testCarbonMacroCalledDynamically(): string
+    public static function bar(): string
     {
-        return Carbon::now()->foo();
+        return 'bar';
     }
 }
