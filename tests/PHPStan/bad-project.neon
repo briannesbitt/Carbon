@@ -1,0 +1,5 @@
+includes:
+    - ../../extension.neon
+parameters:
+    bootstrapFiles:
+        - ./bootstrap-non-static.php
