@@ -1853,7 +1853,13 @@ trait Date
             ? strftime($format, $time)
             : @strftime($format, $time);
 
-        return static::$utf8 ? utf8_encode($formatted) : $formatted;
+        return static::$utf8
+            ? (
+                \function_exists('mb_convert_encoding')
+                ? mb_convert_encoding($formatted, 'UTF-8', mb_list_encodings())
+                : utf8_encode($formatted)
+            )
+            : $formatted;
     }
 
     /**
