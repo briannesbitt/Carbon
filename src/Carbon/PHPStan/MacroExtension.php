@@ -50,11 +50,6 @@ final class MacroExtension implements MethodsClassReflectionExtension
      */
     public function hasMethod(ClassReflection $classReflection, string $methodName): bool
     {
-        var_dump($classReflection->getName(), $methodName, $this->scanner->hasMethod($classReflection->getName(), $methodName));
-        echo "\n\n";
-
-//        echo (new \Exception())->getTraceAsString();
-//        exit();
         return $this->scanner->hasMethod($classReflection->getName(), $methodName);
     }
 
