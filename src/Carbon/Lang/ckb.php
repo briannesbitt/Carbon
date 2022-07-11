@@ -43,7 +43,7 @@ return [
     'a_minute' => implode('|', ['{0}:count خولەکێک', '{1}خولەکێک', '{2}دوو خولەک', ']2,11[:count خولەک', ']10,Inf[:count خولەک']),
     'second' => implode('|', ['{0}:count چرکەیەک', '{1}چرکەیەک', '{2}دوو چرکە', ']2,11[:count چرکە', ']10,Inf[:count چرکە']),
     'a_second' => implode('|', ['{0}:count چرکەیەک', '{1}چرکەیەک', '{2}دوو چرکە', ']2,11[:count چرکە', ']10,Inf[:count چرکە']),
-     'ago' => 'پێش :time',
+    'ago' => 'پێش :time',
     'from_now' => ':time لە ئێستاوە',
     'after' => 'دوای :time',
     'before' => 'پێش :time',
