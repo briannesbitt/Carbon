@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Events\EventDispatcher;
@@ -26,25 +27,28 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot()
     {
-        $this->updateLocale();
+        $this->forApp(function ($app) {
+            $this->updateLocale($app);
 
-        if (!$this->app->bound('events')) {
-            return;
-        }
+            if (!$app->bound('events')) {
+                return;
+            }
 
-        $service = $this;
-        $events = $this->app['events'];
+            $service = $this;
+            $events = $app['events'];
 
-        if ($this->isEventDispatcher($events)) {
-            $events->listen(class_exists('Illuminate\Foundation\Events\LocaleUpdated') ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
-                $service->updateLocale();
-            });
-        }
+            if ($this->isEventDispatcher($events)) {
+                $events->listen(class_exists('Illuminate\Foundation\Events\LocaleUpdated') ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service, $app) {
+                    $service->updateLocale($app);
+                });
+            }
+        });
     }
 
-    public function updateLocale()
+    public function updateLocale($app = null)
     {
-        $app = $this->app && method_exists($this->app, 'getLocale') ? $this->app : app('translator');
+        $app = $app ?? $this->app;
+        $app = $app && method_exists($app, 'getLocale') ? $app : app('translator');
         $locale = $app->getLocale();
         Carbon::setLocale($locale);
         CarbonImmutable::setLocale($locale);
@@ -75,5 +79,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         return $instance instanceof EventDispatcher
             || $instance instanceof Dispatcher
             || $instance instanceof DispatcherContract;
+    }
+
+    private function forApp(callable $callback)
+    {
+        $callback($this->app);
+
+        $app = method_exists(Container::class, 'getInstance') ? Container::getInstance() : null;
+
+        if ($app && $app !== $this->app) {
+            $callback($app);
+        }
     }
 }
