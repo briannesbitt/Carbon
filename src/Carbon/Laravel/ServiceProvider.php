@@ -44,7 +44,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function updateLocale()
     {
-        $app = $this->app && method_exists($this->app, 'getLocale') ? $this->app : app('translator');
+        $app = function_exists('app') ? app() : $this->app;
+        $app = $app && method_exists($app, 'getLocale') ? $app : app('translator');
+
         $locale = $app->getLocale();
         Carbon::setLocale($locale);
         CarbonImmutable::setLocale($locale);
