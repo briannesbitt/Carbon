@@ -103,9 +103,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return ($this->appGetter)();
         }
 
-        return \function_exists('config') && \is_array(config('octane'))
-            ? ($this->getGlobalApp() ?? $this->app)
-            : ($this->app ?? $this->getGlobalApp());
+        return $this->app ?? $this->getGlobalApp();
     }
 
     protected function getGlobalApp()
