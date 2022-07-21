@@ -58,6 +58,10 @@ jobs:
           - php: 8.1
             setup: lowest
 
+          - php: 8.2
+          - php: 8.2
+            setup: lowest
+
           - php: 8.0
             laravel: true
             reference: 9.x
@@ -196,7 +200,9 @@ jobs:
           - php: 8.1
             setup: lowest
 
-          - php: 7.3.0
+          - php: 8.2
+          - php: 8.2
+            setup: lowest
 
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 
