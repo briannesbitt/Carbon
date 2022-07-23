@@ -18,6 +18,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\EndLessPeriodException;
+use DateTimeInterface;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
@@ -122,6 +123,17 @@ class ToArrayTest extends AbstractTestCase
         $period = new CarbonPeriod('2022-05-18', '2022-05-23');
         $this->assertFalse($period->isUnfilteredAndEndLess());
         $this->assertSame(6, $period->count());
+
+        $period = new CarbonPeriod('2022-05-18', INF);
+        $period->addFilter(static function (DateTimeInterface $date) {
+            if ($date->format('Y-m-d') > '2022-05-20') {
+                return CarbonPeriod::END_ITERATION;
+            }
+
+            return true;
+        });
+        $this->assertFalse($period->isUnfilteredAndEndLess());
+        $this->assertSame(3, $period->count());
     }
 
     public function testCountByMethod()
@@ -170,6 +182,15 @@ class ToArrayTest extends AbstractTestCase
     public function testFirstOfEmptyPeriod()
     {
         $period = CarbonPeriod::create(0);
+
+        $this->assertNull($period->first());
+
+        $period = new class(0) extends CarbonPeriod {
+            public function isUnfilteredAndEndLess(): bool
+            {
+                return true;
+            }
+        };
 
         $this->assertNull($period->first());
     }
