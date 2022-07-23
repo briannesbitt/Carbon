@@ -24,31 +24,31 @@ class KuTrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Tomorrow at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'یەک شەممە at 12:00 AM',
+        'şemî at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'دوو شەممە at 12:00 AM',
+        'yekşem at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'سێ شەممە at 12:00 AM',
+        'duşem at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'چوار شەممە at 12:00 AM',
+        'sêşem at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'پێنج شەممە at 12:00 AM',
+        'çarşem at 12:00 AM',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'هەینی at 12:00 AM',
+        'pêncşem at 12:00 AM',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'شەممە at 12:00 AM',
+        'în at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'چوار شەممە at 12:00 AM',
+        'sêşem at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'پێنج شەممە at 12:00 AM',
+        'çarşem at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'هەینی at 12:00 AM',
+        'pêncşem at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'شەممە at 12:00 AM',
+        'în at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'یەک شەممە at 12:00 AM',
+        'şemî at 12:00 AM',
         // Carbon::now()->subDays(2)->calendar()
-        'Last دوو شەممە at 8:49 PM',
+        'Last yekşem at 8:49 PM',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Yesterday at 10:00 PM',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
@@ -58,27 +58,27 @@ class KuTrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
         'Tomorrow at 1:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'چوار شەممە at 12:00 AM',
+        'sêşem at 12:00 AM',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
         'Yesterday at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Yesterday at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last چوار شەممە at 12:00 AM',
+        'Last sêşem at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last سێ شەممە at 12:00 AM',
+        'Last duşem at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last دوو شەممە at 12:00 AM',
+        'Last yekşem at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last یەک شەممە at 12:00 AM',
+        'Last şemî at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last شەممە at 12:00 AM',
+        'Last în at 12:00 AM',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Last هەینی at 12:00 AM',
+        'Last pêncşem at 12:00 AM',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'Last پێنج شەممە at 12:00 AM',
+        'Last çarşem at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Last شەممە at 12:00 AM',
+        'Last în at 12:00 AM',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -124,108 +124,108 @@ class KuTrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'پێش چرکەیەک',
+        'berî 1 saniye',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'پێش چرکەیەک',
+        'berî 1 saniye',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'پێش ٢ چرکە',
+        'berî 2 saniye',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'پێش ٢ چرکە',
+        'berî 2 saniye',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'پێش خولەکێک',
+        'berî 1 deqîqe',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'پێش خولەکێک',
+        'berî 1 deqîqe',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'پێش ٢ خولەک',
+        'berî 2 deqîqe',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'پێش ٢ خولەک',
+        'berî 2 deqîqe',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'پێش کاتژمێرێک',
+        'berî 1 saet',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'پێش کاتژمێرێک',
+        'berî 1 saet',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'پێش ٢ کاتژمێر',
+        'berî 2 saet',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'پێش ٢ کاتژمێر',
+        'berî 2 saet',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'پێش ڕۆژێک',
+        'berî 1 roj',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'پێش ڕۆژێک',
+        'berî 1 roj',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'پێش ٢ ڕۆژ',
+        'berî 2 roj',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'پێش ٢ ڕۆژ',
+        'berî 2 roj',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'پێش هەفتەیەک',
+        'berî 1 hefte',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'پێش هەفتەیەک',
+        'berî 1 hefte',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'پێش ٢ هەفتە',
+        'berî 2 hefte',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'پێش ٢ هەفتە',
+        'berî 2 hefte',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'پێش مانگێک',
+        'berî 1 meh',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'پێش مانگێک',
+        'berî 1 meh',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'پێش ٢ مانگ',
+        'berî 2 meh',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'پێش ٢ مانگ',
+        'berî 2 meh',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'پێش ساڵێک',
+        'berî 1 salê',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'پێش ساڵێک',
+        'berî 1 salê',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'پێش ٢ ساڵ',
+        'berî 2 salan',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'پێش ٢ ساڵ',
+        'berî 2 salan',
         // Carbon::now()->addSecond()->diffForHumans()
-        'چرکەیەک لە ئێستاوە',
+        'di 1 saniye de',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'چرکەیەک لە ئێستاوە',
+        'di 1 saniye de',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'دوای چرکەیەک',
+        '1 saniye piştî',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'دوای چرکەیەک',
+        '1 saniye piştî',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'پێش چرکەیەک',
+        '1 saniye berê',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'پێش چرکەیەک',
+        '1 saniye berê',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'چرکەیەک',
+        '1 saniye',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'چرکەیەک',
+        '1 saniye',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '٢ چرکە',
+        '2 saniye',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '٢ چرکە',
+        '2 saniye',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'چرکەیەک لە ئێستاوە',
+        'di 1 saniye de',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'خولەکێک چرکەیەک',
+        '1 deqîqe 1 saniye',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '٢ ساڵ 3 مانگ ڕۆژێک چرکەیەک',
+        '2 sal 3 meh 1 roj 1 saniye',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 ساڵ لە ئێستاوە',
+        'di 3 salan de',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'پێش 5 مانگ',
+        'berî 5 meh',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'پێش ٢ ساڵ 3 مانگ ڕۆژێک چرکەیەک',
+        'berî 2 salan 3 meh 1 roj 1 saniye',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'هەفتەیەک 10 کاتژمێر',
+        '1 hefte 10 saet',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'هەفتەیەک 6 ڕۆژ',
+        '1 hefte 6 roj',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'هەفتەیەک 6 ڕۆژ',
+        '1 hefte 6 roj',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'هەفتەیەک û 6 ڕۆژ لە ئێستاوە',
+        'di 1 hefte û 6 roj de',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '٢ هەفتە کاتژمێرێک',
+        '2 hefte 1 saet',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'کاتژمێرێک لە ئێستاوە',
+        'di 1 saet de',
         // CarbonInterval::days(2)->forHumans()
-        '٢ ڕۆژ',
+        '2 roj',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ڕۆژێک 3 کاتژمێر',
+        '1 roj 3 saet',
     ];
 }
