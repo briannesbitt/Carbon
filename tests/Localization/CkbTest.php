@@ -124,108 +124,108 @@ class CkbTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'پێشتر چرکە',
+        'پێش چرکەیەک',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'پێشتر چرکە',
+        'پێش چرکەیەک',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'پێشتر چرکە',
+        'پێش دوو چرکە',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'پێشتر چرکە',
+        'پێش دوو چرکە',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'پێشتر خولەک',
+        'پێش خولەکێک',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'پێشتر خولەک',
+        'پێش خولەکێک',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'پێشتر خولەک',
+        'پێش دوو خولەک',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'پێشتر خولەک',
+        'پێش دوو خولەک',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'پێشتر کاتژمێر',
+        'پێش کاتژمێرێک',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'پێشتر کاتژمێر',
+        'پێش کاتژمێرێک',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'پێشتر کاتژمێر',
+        'پێش دوو کاتژمێر',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'پێشتر کاتژمێر',
+        'پێش دوو کاتژمێر',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'پێشتر ڕۆژ',
+        'پێش ڕۆژێک',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'پێشتر ڕۆژ',
+        'پێش ڕۆژێک',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'پێشتر ڕۆژ',
+        'پێش دوو ڕۆژ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'پێشتر ڕۆژ',
+        'پێش دوو ڕۆژ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'پێشتر هەفتە',
+        'پێش هەفتەیەک',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'پێشتر هەفتە',
+        'پێش هەفتەیەک',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'پێشتر هەفتە',
+        'پێش دوو هەفتە',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'پێشتر هەفتە',
+        'پێش دوو هەفتە',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'پێشتر مانگ',
+        'پێش مانگێک',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'پێشتر مانگ',
+        'پێش مانگێک',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'پێشتر مانگين',
+        'پێش دوو مانگ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'پێشتر مانگين',
+        'پێش دوو مانگ',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'پێشتر ساڵ',
+        'پێش ساڵێک',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'پێشتر ساڵ',
+        'پێش ساڵێک',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'پێشتر ساڵ',
+        'پێش دوو ساڵ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'پێشتر ساڵ',
+        'پێش دوو ساڵ',
         // Carbon::now()->addSecond()->diffForHumans()
-        'چرکە لە ئێستاوە',
+        'چرکەیەک لە ئێستاوە',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'چرکە لە ئێستاوە',
+        'چرکەیەک لە ئێستاوە',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'دوای چرکە',
+        'دوای چرکەیەک',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'دوای چرکە',
+        'دوای چرکەیەک',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'پێش چرکە',
+        'پێش چرکەیەک',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'پێش چرکە',
+        'پێش چرکەیەک',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'چرکە',
+        'چرکەیەک',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'چرکە',
+        'چرکەیەک',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        'چرکە',
+        'دوو چرکە',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        'چرکە',
+        'دوو چرکە',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'چرکە لە ئێستاوە',
+        'چرکەیەک لە ئێستاوە',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'خولەک چرکە',
+        'خولەکێک چرکەیەک',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'ساڵ 3 مانگ ڕۆژ چرکە',
+        'دوو ساڵ 3 مانگ ڕۆژێک چرکەیەک',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ساڵ لە ئێستاوە',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'پێشتر 5 مانگ',
+        'پێش 5 مانگ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'پێشتر ساڵ 3 مانگ ڕۆژ چرکە',
+        'پێش دوو ساڵ 3 مانگ ڕۆژێک چرکەیەک',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'هەفتە 10 کاتژمێر',
+        'هەفتەیەک 10 کاتژمێر',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'هەفتە 6 ڕۆژ',
+        'هەفتەیەک 6 ڕۆژ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'هەفتە 6 ڕۆژ',
+        'هەفتەیەک 6 ڕۆژ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'هەفتە و 6 ڕۆژ لە ئێستاوە',
+        'هەفتەیەک و 6 ڕۆژ لە ئێستاوە',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'هەفتە کاتژمێر',
+        'دوو هەفتە کاتژمێرێک',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'کاتژمێر لە ئێستاوە',
+        'کاتژمێرێک لە ئێستاوە',
         // CarbonInterval::days(2)->forHumans()
-        'ڕۆژ',
+        'دوو ڕۆژ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ڕۆژ 3 کاتژمێر',
+        'ڕۆژێک 3 کاتژمێر',
     ];
 }
