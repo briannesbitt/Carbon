@@ -1161,7 +1161,7 @@ trait Difference
             version_compare(PHP_VERSION, '8.1.0-dev', '<') &&
             abs($interval->d - $daysDiff) === 1
         ) {
-            $daysDiff = abs($interval->d);
+            $daysDiff = abs($interval->d); // @codeCoverageIgnore
         }
 
         return $daysDiff * $sign;
