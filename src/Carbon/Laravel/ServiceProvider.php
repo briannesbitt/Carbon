@@ -61,6 +61,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function updateLocale()
     {
         $locale = $this->getLocale();
+
+        if ($locale === null) {
+            return;
+        }
+
         Carbon::setLocale($locale);
         CarbonImmutable::setLocale($locale);
         CarbonPeriod::setLocale($locale);
@@ -92,9 +97,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
 
         $app = $this->getApp();
-        $app = $app && method_exists($app, 'getLocale') ? $app : app('translator');
+        $app = $app && method_exists($app, 'getLocale')
+            ? $app
+            : $this->getGlobalApp('translator');
 
-        return $app->getLocale();
+        return $app ? $app->getLocale() : null;
     }
 
     protected function getApp()
@@ -106,9 +113,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         return $this->app ?? $this->getGlobalApp();
     }
 
-    protected function getGlobalApp()
+    protected function getGlobalApp(...$args)
     {
-        return \function_exists('app') ? app() : null;
+        return \function_exists('app') ? \app(...$args) : null;
     }
 
     protected function isEventDispatcher($instance)

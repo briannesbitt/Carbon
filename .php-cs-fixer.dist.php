@@ -38,7 +38,7 @@ $rules = [
     'line_ending' => true,
     'modernize_types_casting' => true,
     'native_function_invocation' => [
-        'include' => ['@compiler_optimized'],
+        'include' => ['@compiler_optimized', 'app'],
     ],
     'no_blank_lines_after_phpdoc' => true,
     'no_empty_phpdoc' => true,
