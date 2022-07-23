@@ -36,15 +36,15 @@ class FeaturesTest extends AbstractTestCase
     {
         $this->assertStringContainsString(
             '[OK] No errors',
-            $this->analyze(__DIR__.'/Fixture.php')
+            $this->analyze(__DIR__.'/project.neon')
         );
     }
 
     public function testAnalysesWithAnError(): void
     {
         $this->assertStringContainsString(
-            '26     Static call to instance method Carbon\Carbon::foo().',
-            $this->analyze(__DIR__.'/BadFixture.php')
+            '22     Static call to instance method Carbon\Carbon::foo().',
+            $this->analyze(__DIR__.'/bad-project.neon')
         );
     }
 
@@ -53,11 +53,11 @@ class FeaturesTest extends AbstractTestCase
         return shell_exec(implode(' ', [
             implode(DIRECTORY_SEPARATOR, ['.', 'vendor', 'bin', 'phpstan']),
             'analyse',
-            '--configuration='.escapeshellarg(realpath(__DIR__.'/../../extension.neon')),
+            '--configuration='.escapeshellarg(realpath($file)),
             '--no-progress',
             '--no-interaction',
             '--level=0',
-            escapeshellarg(realpath($file)),
+            escapeshellarg(realpath(__DIR__.'/Fixture.php')),
         ]));
     }
 }

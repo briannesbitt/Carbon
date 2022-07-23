@@ -183,7 +183,7 @@ class StringsTest extends AbstractTestCase
             Carbon::setUtf8(false);
 
             $this->assertSame('décembre', $nonUtf8Date);
-            $this->assertSame(utf8_encode('décembre'), $utf8Date);
+            $this->assertSame(mb_convert_encoding('décembre', 'UTF-8', mb_list_encodings()), $utf8Date);
         });
     }
 

@@ -24,6 +24,22 @@ use Throwable;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
+    /** @var callable|null */
+    protected $appGetter = null;
+
+    /** @var callable|null */
+    protected $localeGetter = null;
+
+    public function setAppGetter(?callable $appGetter): void
+    {
+        $this->appGetter = $appGetter;
+    }
+
+    public function setLocaleGetter(?callable $localeGetter): void
+    {
+        $this->localeGetter = $localeGetter;
+    }
+
     public function boot()
     {
         $this->updateLocale();
@@ -44,8 +60,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function updateLocale()
     {
-        $app = $this->app && method_exists($this->app, 'getLocale') ? $this->app : app('translator');
-        $locale = $app->getLocale();
+        $locale = $this->getLocale();
         Carbon::setLocale($locale);
         CarbonImmutable::setLocale($locale);
         CarbonPeriod::setLocale($locale);
@@ -68,6 +83,32 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         // Needed for Laravel < 5.3 compatibility
+    }
+
+    protected function getLocale()
+    {
+        if ($this->localeGetter) {
+            return ($this->localeGetter)();
+        }
+
+        $app = $this->getApp();
+        $app = $app && method_exists($app, 'getLocale') ? $app : app('translator');
+
+        return $app->getLocale();
+    }
+
+    protected function getApp()
+    {
+        if ($this->appGetter) {
+            return ($this->appGetter)();
+        }
+
+        return $this->app ?? $this->getGlobalApp();
+    }
+
+    protected function getGlobalApp()
+    {
+        return \function_exists('app') ? app() : null;
     }
 
     protected function isEventDispatcher($instance)

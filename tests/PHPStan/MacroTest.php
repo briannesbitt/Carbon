@@ -232,18 +232,9 @@ class MacroTest extends AbstractTestCase
 
     public function testGetReflection()
     {
-        $mixinClass = new class() {
-            // Declaring final won't apply for macro, sub-class will always be able to override macros.
-            final public static function foo(): string
-            {
-                return 'foo';
-            }
+        require_once __DIR__.'/MixinClass.php';
 
-            public static function bar(): string
-            {
-                return 'bar';
-            }
-        };
+        $mixinClass = MixinClass::class;
 
         $macro = new Macro(Carbon::class, 'foo', [$mixinClass, 'foo']);
 
