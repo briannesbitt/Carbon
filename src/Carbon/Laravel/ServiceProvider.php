@@ -115,7 +115,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     protected function getGlobalApp(...$args)
     {
-        // phpcs:ignore
         return \function_exists('app') ? \app(...$args) : null;
     }
 
