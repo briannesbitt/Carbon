@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use DateInterval;
 use DatePeriod;
+use DateTime;
 use DateTimeImmutable;
 use Tests\AbstractTestCase;
 
@@ -32,7 +33,9 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01')));
         $this->assertTrue($period->eq(CarbonPeriod::create('R3/2010-01-01/P1D/2010-02-01')));
         $this->assertTrue($period->eq(Carbon::parse('2010-01-01')->daysUntil('2010-02-01')));
-        $this->assertTrue($period->eq(new DatePeriod(Carbon::parse('2010-01-01'), CarbonInterval::day(), Carbon::parse('2010-02-01'))));
+        $this->assertTrue($period->eq(
+            new DatePeriod(new DateTime('2010-01-01'), CarbonInterval::day(), new DateTime('2010-02-01'))
+        ));
 
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D');
 
@@ -78,7 +81,8 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01')));
         $this->assertFalse($period->ne(CarbonPeriod::create('R3/2010-01-01/P1D/2010-02-01')));
         $this->assertFalse($period->ne(Carbon::parse('2010-01-01')->daysUntil('2010-02-01')));
-        $this->assertFalse($period->ne(new DatePeriod(Carbon::parse('2010-01-01'), CarbonInterval::day(), Carbon::parse('2010-02-01'))));
+        $this->assertFalse($period->ne(
+            new DatePeriod(new DateTime('2010-01-01'), CarbonInterval::day(), new DateTime('2010-02-01'))));
 
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D');
 
