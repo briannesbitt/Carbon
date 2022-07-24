@@ -93,9 +93,9 @@ class SerializationTest extends AbstractTestCase
     {
         $d = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
 
-        $d->date = '1990-01-17 10:28:07';
-        $d->timezone_type = 3;
-        $d->timezone = 'US/Pacific';
+        @$d->date = '1990-01-17 10:28:07';
+        @$d->timezone_type = 3;
+        @$d->timezone = 'US/Pacific';
 
         $x = unserialize(serialize($d));
 
@@ -103,9 +103,9 @@ class SerializationTest extends AbstractTestCase
 
         $d = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
 
-        $d->date = '1990-01-17 10:28:07';
-        $d->timezone_type = 3;
-        $d->timezone = 'US/Pacific';
+        @$d->date = '1990-01-17 10:28:07';
+        @$d->timezone_type = 3;
+        @$d->timezone = 'US/Pacific';
 
         $x = unserialize(serialize($d));
 
@@ -128,7 +128,7 @@ class SerializationTest extends AbstractTestCase
                 return;
             }
 
-            $target->$key = $value;
+            @$target->$key = $value;
         };
 
         $setValue('date', '1990-01-17 10:28:07');

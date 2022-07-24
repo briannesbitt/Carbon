@@ -72,7 +72,7 @@ class StrictModeTest extends AbstractTestCase
         Carbon::useStrictMode(false);
         /** @var mixed $date */
         $date = Carbon::now();
-        $date->foobar = 'biz';
+        @$date->foobar = 'biz';
         $this->assertSame('biz', $date->foobar);
     }
 

@@ -82,7 +82,8 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($period->ne(CarbonPeriod::create('R3/2010-01-01/P1D/2010-02-01')));
         $this->assertFalse($period->ne(Carbon::parse('2010-01-01')->daysUntil('2010-02-01')));
         $this->assertFalse($period->ne(
-            new DatePeriod(new DateTime('2010-01-01'), CarbonInterval::day(), new DateTime('2010-02-01'))));
+            new DatePeriod(new DateTime('2010-01-01'), CarbonInterval::day(), new DateTime('2010-02-01'))
+        ));
 
         $period = CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D');
 

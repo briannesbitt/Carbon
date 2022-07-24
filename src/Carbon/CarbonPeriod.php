@@ -1506,15 +1506,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function cast(string $className)
     {
         if (!method_exists($className, 'instance')) {
-            if (is_a($className, self::class, true)) {
-                return new $className(
-                    $this->getStartDate(),
-                    $this->getDateInterval(),
-                    $this->getEndDate() ? $this->getIncludedEndDate() : $this->getRecurrences(),
-                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0
-                );
-            }
-
             if (is_a($className, DatePeriod::class, true)) {
                 return new $className(
                     $this->rawDate($this->getStartDate()),
