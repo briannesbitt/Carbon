@@ -202,21 +202,21 @@ class CkbTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'چرکەیەک لە ئێستاوە',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'خولەکێک چرکەیەک',
+        'خولەکێک و چرکەیەک',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'دوو ساڵ 3 مانگ ڕۆژێک چرکەیەک',
+        'دوو ساڵ و 3 مانگ و ڕۆژێک و چرکەیەک',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ساڵ لە ئێستاوە',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'پێش 5 مانگ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'پێش دوو ساڵ 3 مانگ ڕۆژێک چرکەیەک',
+        'پێش دوو ساڵ و 3 مانگ و ڕۆژێک و چرکەیەک',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'هەفتەیەک 10 کاتژمێر',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'هەفتەیەک 6 ڕۆژ',
+        'هەفتەیەک و 6 ڕۆژ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'هەفتەیەک 6 ڕۆژ',
+        'هەفتەیەک و 6 ڕۆژ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         'هەفتەیەک و 6 ڕۆژ لە ئێستاوە',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
@@ -226,6 +226,6 @@ class CkbTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         'دوو ڕۆژ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ڕۆژێک 3 کاتژمێر',
+        'ڕۆژێک و 3 کاتژمێر',
     ];
 }
