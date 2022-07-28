@@ -134,6 +134,30 @@ trait Serialization
         return $properties;
     }
 
+    public function __serialize(): array
+    {
+        if (isset($this->timezone_type)) {
+            return [
+                'date' => $this->date,
+                'timezone_type' => $this->timezone_type,
+                'timezone' => $this->timezone,
+            ];
+        }
+
+        $timezone = $this->getTimezone();
+        $export = [
+            'date' => $this->format('Y-m-d H:i:s.u'),
+            'timezone_type' => $timezone->getType(),
+            'timezone' => $timezone->getName(),
+        ];
+
+        if ($this->localTranslator ?? null) {
+            $export['dumpLocale'] = $this->locale ?? null;
+        }
+
+        return $export;
+    }
+
     /**
      * Set locale if specified on unserialize() called.
      *
@@ -162,6 +186,15 @@ trait Serialization
         }
 
         $this->cleanupDumpProperties();
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->__construct($data['date'], $data['timezone']);
+
+        if (isset($data['dumpLocale'])) {
+            $this->locale($data['dumpLocale']);
+        }
     }
 
     /**
