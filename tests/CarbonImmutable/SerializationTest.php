@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
-use DateTime;
+use DateTimeImmutable;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
 use Tests\AbstractTestCase;
+use Throwable;
 
 class SerializationTest extends AbstractTestCase
 {
@@ -88,21 +89,27 @@ class SerializationTest extends AbstractTestCase
 
     public function testDateSerializationReflectionCompatibility()
     {
-        $reflection = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
+        try {
+            $reflection = (new ReflectionClass(DateTimeImmutable::class))->newInstanceWithoutConstructor();
 
-        $reflection->date = '1990-01-17 10:28:07';
-        $reflection->timezone_type = 3;
-        $reflection->timezone = 'US/Pacific';
+            @$reflection->date = '1990-01-17 10:28:07';
+            @$reflection->timezone_type = 3;
+            @$reflection->timezone = 'US/Pacific';
 
-        $date = unserialize(serialize($reflection));
+            $date = unserialize(serialize($reflection));
+        } catch (Throwable $exception) {
+            $this->markTestSkipped(
+                "It fails on DateTime so Carbon can't support it, error was:\n" . $exception->getMessage()
+            );
+        }
 
         $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
 
         $reflection = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
 
-        $reflection->date = '1990-01-17 10:28:07';
-        $reflection->timezone_type = 3;
-        $reflection->timezone = 'US/Pacific';
+        @$reflection->date = '1990-01-17 10:28:07';
+        @$reflection->timezone_type = 3;
+        @$reflection->timezone = 'US/Pacific';
 
         $date = unserialize(serialize($reflection));
 
@@ -125,7 +132,7 @@ class SerializationTest extends AbstractTestCase
                 return;
             }
 
-            $target->$key = $value;
+            @$target->$key = $value;
         };
 
         $setValue('date', '1990-01-17 10:28:07');

@@ -2632,7 +2632,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 : $date->toDateTimeImmutable();
         }
 
-        if (in_array(get_class($date), [DateTime::class, DateTimeImmutable::class], true)) {
+        if (\in_array(\get_class($date), [DateTime::class, DateTimeImmutable::class], true)) {
             return $date;
         }
 
