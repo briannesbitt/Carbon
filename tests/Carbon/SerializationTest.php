@@ -102,7 +102,7 @@ class SerializationTest extends AbstractTestCase
             $date = unserialize(serialize($reflection));
         } catch (Throwable $exception) {
             $this->markTestSkipped(
-                "It fails on DateTime so Carbon can't support it, error was:\n" . $exception->getMessage()
+                "It fails on DateTime so Carbon can't support it, error was:\n".$exception->getMessage()
             );
         }
 

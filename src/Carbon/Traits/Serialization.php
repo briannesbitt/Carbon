@@ -207,9 +207,11 @@ trait Serialization
      */
     public function cleanupDumpProperties()
     {
-        foreach ($this->dumpProperties as $property) {
-            if (isset($this->$property)) {
-                unset($this->$property);
+        if (PHP_VERSION < 8.2) {
+            foreach ($this->dumpProperties as $property) {
+                if (isset($this->$property)) {
+                    unset($this->$property);
+                }
             }
         }
 
