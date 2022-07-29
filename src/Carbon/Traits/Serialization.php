@@ -151,6 +151,13 @@ trait Serialization
             'timezone' => $timezone->getName(),
         ];
 
+        if (\extension_loaded('msgpack') && isset($this->constructedObjectId)) {
+            $export['dumpDateProperties'] = [
+                'date' => $this->format('Y-m-d H:i:s.u'),
+                'timezone' => serialize($this->timezone ?? null),
+            ];
+        }
+
         if ($this->localTranslator ?? null) {
             $export['dumpLocale'] = $this->locale ?? null;
         }
@@ -171,9 +178,13 @@ trait Serialization
             try {
                 parent::__wakeup();
             } catch (Throwable $exception) {
-                // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
-                ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
-                parent::__construct($date, unserialize($timezone));
+                try {
+                    // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
+                    ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
+                    parent::__construct($date, unserialize($timezone));
+                } catch (Throwable $_) {
+                    throw $exception;
+                }
             }
             // @codeCoverageIgnoreEnd
         }
@@ -190,7 +201,23 @@ trait Serialization
 
     public function __unserialize(array $data): void
     {
-        $this->__construct($data['date'], $data['timezone']);
+        // @codeCoverageIgnoreStart
+        try {
+            $this->__construct($data['date'], $data['timezone']);
+        } catch (Throwable $exception) {
+            if (!isset($data['dumpDateProperties'])) {
+                throw $exception;
+            }
+
+            try {
+                // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
+                ['date' => $date, 'timezone' => $timezone] = $data['dumpDateProperties'];
+                $this->__construct($date, unserialize($timezone));
+            } catch (Throwable $_) {
+                throw $exception;
+            }
+        }
+        // @codeCoverageIgnoreEnd
 
         if (isset($data['dumpLocale'])) {
             $this->locale($data['dumpLocale']);
