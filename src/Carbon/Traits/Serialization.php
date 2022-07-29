@@ -138,9 +138,9 @@ trait Serialization
     {
         if (isset($this->timezone_type)) {
             return [
-                'date' => $this->date,
+                'date' => $this->date ?? null,
                 'timezone_type' => $this->timezone_type,
-                'timezone' => $this->timezone,
+                'timezone' => $this->timezone ?? null,
             ];
         }
 
@@ -182,7 +182,7 @@ trait Serialization
                     // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                     ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
                     parent::__construct($date, unserialize($timezone));
-                } catch (Throwable $_) {
+                } catch (Throwable $ignoredException) {
                     throw $exception;
                 }
             }
@@ -203,9 +203,9 @@ trait Serialization
     {
         // @codeCoverageIgnoreStart
         try {
-            $this->__construct($data['date'], $data['timezone']);
+            $this->__construct($data['date'] ?? null, $data['timezone'] ?? null);
         } catch (Throwable $exception) {
-            if (!isset($data['dumpDateProperties'])) {
+            if (!isset($data['dumpDateProperties']['date'], $data['dumpDateProperties']['timezone'])) {
                 throw $exception;
             }
 
@@ -213,7 +213,7 @@ trait Serialization
                 // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                 ['date' => $date, 'timezone' => $timezone] = $data['dumpDateProperties'];
                 $this->__construct($date, unserialize($timezone));
-            } catch (Throwable $_) {
+            } catch (Throwable $ignoredException) {
                 throw $exception;
             }
         }
