@@ -39,6 +39,10 @@ use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
 
+require PHP_VERSION < 8.2
+    ? __DIR__.'/../../lazy/Carbon/ProtectedDatePeriod.php'
+    : __DIR__.'/../../lazy/Carbon/UnprotectedDatePeriod.php';
+
 /**
  * Substitution of DatePeriod with some modifications and many more features.
  *
@@ -170,7 +174,7 @@ use RuntimeException;
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
+class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 {
     use IntervalRounding;
     use Mixin {
