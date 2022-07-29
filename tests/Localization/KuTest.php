@@ -139,47 +139,47 @@ class KuTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         // '1st 1st 1st 1st 1st'
-        'ەم1 ەم1 ەم1 ەم1 ەم1',
+        '1 1 1 1 1',
 
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         // '2nd 1st'
-        'ەم2 ەم1',
+        '2 1',
 
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
         // '3rd 1st'
-        'ەم3 ەم1',
+        '3 1',
 
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
         // '4th 1st'
-        'ەم4 ەم1',
+        '4 1',
 
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
         // '5th 1st'
-        'ەم5 ەم1',
+        '5 1',
 
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         // '6th 1st'
-        'ەم6 ەم2',
+        '6 2',
 
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
         // '7th 1st'
-        'ەم7 ەم2',
+        '7 2',
 
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         // '11th 2nd'
-        'ەم11 ەم2',
+        '11 2',
 
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
         // '40th'
-        'ەم40',
+        '40',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         // '41st'
-        'ەم41',
+        '41',
 
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         // '100th'
-        'ەم100',
+        '100',
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         // '12:00 am CET'
