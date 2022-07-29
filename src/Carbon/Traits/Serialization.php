@@ -151,12 +151,14 @@ trait Serialization
             'timezone' => $timezone->getName(),
         ];
 
+        // @codeCoverageIgnoreStart
         if (\extension_loaded('msgpack') && isset($this->constructedObjectId)) {
             $export['dumpDateProperties'] = [
                 'date' => $this->format('Y-m-d H:i:s.u'),
                 'timezone' => serialize($this->timezone ?? null),
             ];
         }
+        // @codeCoverageIgnoreEnd
 
         if ($this->localTranslator ?? null) {
             $export['dumpLocale'] = $this->locale ?? null;
