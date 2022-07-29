@@ -36,18 +36,23 @@ class SerializationTest extends AbstractTestCase
 
         $this->serialized = \extension_loaded('msgpack')
             ? [
-                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}",
-                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:23:\"s:15:\"America/Toronto\";\";}}",
+                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:18:\"dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}",
+                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:18:\"dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:23:\"s:15:\"America/Toronto\";\";}}",
             ]
             : ['O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}'];
+    }
+
+    protected function cleanSerialization(string $serialization): string
+    {
+        return preg_replace('/s:\d+:\"[^"]*dumpDateProperties\"/', 's:18:"dumpDateProperties"', $serialization);
     }
 
     public function testSerialize()
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
         $message = "not in:\n".implode("\n", $this->serialized);
-        $this->assertContains($dt->serialize(), $this->serialized, $message);
-        $this->assertContains(serialize($dt), $this->serialized, $message);
+        $this->assertContains($this->cleanSerialization($dt->serialize()), $this->serialized, $message);
+        $this->assertContains($this->cleanSerialization(serialize($dt)), $this->serialized, $message);
     }
 
     public function testFromUnserialized()
