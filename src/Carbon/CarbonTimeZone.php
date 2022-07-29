@@ -253,6 +253,18 @@ class CarbonTimeZone extends DateTimeZone
     }
 
     /**
+     * Return the type number:
+     *
+     * Type 1; A UTC offset, such as -0300
+     * Type 2; A timezone abbreviation, such as GMT
+     * Type 3: A timezone identifier, such as Europe/London
+     */
+    public function getType(): int
+    {
+        return preg_match('/"timezone_type";i:(\d)/', serialize($this), $match) ? (int) $match[1] : 3;
+    }
+
+    /**
      * Create a CarbonTimeZone from mixed input.
      *
      * @param DateTimeZone|string|int|null $object
