@@ -216,7 +216,7 @@ class ExpressiveComparisonTest extends AbstractTestCase
         $log = [];
         $expectOneError = function ($errno, $errstr) use (&$log) {
             $this->assertCount(1, $log);
-            $this->assertSame([$errno, $errstr], $log[0]);
+            $this->assertSame([$errno, $errstr], $log[0] ?? null);
             $log = [];
         };
         set_error_handler(static function ($errno, $errstr) use (&$log) {
