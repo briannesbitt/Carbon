@@ -125,11 +125,33 @@ class ServiceProviderTest extends TestCase
         $service->boot();
         $service->app->register();
         $service->app->setLocaleWithoutEvent('fr');
+        $app = new App();
+        $app->register();
+        $app->setLocaleWithoutEvent('de_DE');
         $dispatcher->dispatch('Illuminate\Foundation\Events\LocaleUpdated');
         $this->assertSame('fr', Carbon::getLocale());
         $this->assertSame('fr', CarbonImmutable::getLocale());
         $this->assertSame('fr', CarbonPeriod::getLocale());
         $this->assertSame('fr', CarbonInterval::getLocale());
+
+        $service->setAppGetter(static function () use ($app) {
+            return $app;
+        });
+        $this->assertSame('fr', Carbon::getLocale());
+        $service->updateLocale();
+        $this->assertSame('de_DE', Carbon::getLocale());
+        $service->setLocaleGetter(static function () {
+            return 'ckb';
+        });
+        $this->assertSame('de_DE', Carbon::getLocale());
+        $service->updateLocale();
+        $this->assertSame('ckb', Carbon::getLocale());
+        $service->setLocaleGetter(null);
+        $service->setAppGetter(static function () {
+            return null;
+        });
+        $service->updateLocale();
+        $this->assertSame('ckb', Carbon::getLocale());
     }
 
     public function testUpdateLocale()
@@ -138,37 +160,41 @@ class ServiceProviderTest extends TestCase
             $this->markTestSkipped('This test cannot be run with Laravel 5.5 classes available via autoload.');
         }
 
-        eval('namespace Illuminate\Support;
-        class Carbon
-        {
-            public static $locale;
-
-            public static function setLocale($locale)
+        eval('
+            namespace Illuminate\Support;
+            class Carbon
             {
-                static::$locale = $locale;
-            }
-        }');
+                public static $locale;
 
-        eval('namespace Illuminate\Support\Facades;
-        use Exception;
-        class Date
-        {
-            public static $locale;
-
-            public static function getFacadeRoot()
-            {
-                return new static();
-            }
-
-            public function setLocale($locale)
-            {
-                static::$locale = $locale;
-
-                if ($locale === "fr") {
-                    throw new Exception("stop");
+                public static function setLocale($locale)
+                {
+                    static::$locale = $locale;
                 }
             }
-        }');
+        ');
+
+        eval('
+            namespace Illuminate\Support\Facades;
+            use Exception;
+            class Date
+            {
+                public static $locale;
+
+                public static function getFacadeRoot()
+                {
+                    return new static();
+                }
+
+                public function setLocale($locale)
+                {
+                    static::$locale = $locale;
+
+                    if ($locale === "fr") {
+                        throw new Exception("stop");
+                    }
+                }
+            }
+        ');
 
         $dispatcher = new Dispatcher();
         $service = new ServiceProvider($dispatcher);
@@ -185,18 +211,18 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('fr', SupportCarbon::$locale);
         $this->assertSame('fr', Date::$locale);
 
-        eval('namespace Carbon\Laravel;
-        use Illuminate\Events\Dispatcher;
-        use Tests\Laravel\App;
-        function app()
-        {
-            $app = new App();
-            $app->setEventDispatcher(new Dispatcher());
-            $app->register();
-            $app->setLocale("it");
+        eval('
+            use Illuminate\Events\Dispatcher;
+            use Tests\Laravel\App;
+            function app($id)
+            {
+                $app = new App();
+                $app->setEventDispatcher(new Dispatcher());
+                $app->register();
+                $app->setLocale("it");
 
-            return $app;
-        }
+                return $app;
+            }
         ');
 
         $service->app = new stdClass();

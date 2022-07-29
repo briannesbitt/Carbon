@@ -48,7 +48,7 @@ class StrictModeTest extends AbstractTestCase
         Carbon::useStrictMode(false);
         /** @var mixed $interval */
         $interval = CarbonInterval::day();
-        $interval->foobar = 'biz';
+        @$interval->foobar = 'biz';
         $this->assertSame('biz', $interval->foobar);
     }
 

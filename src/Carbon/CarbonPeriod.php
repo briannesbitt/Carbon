@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use Carbon\Exceptions\EndLessPeriodException;
 use Carbon\Exceptions\InvalidCastException;
 use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\InvalidPeriodDateException;
@@ -28,6 +29,7 @@ use Countable;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Generator;
@@ -1280,7 +1282,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     public function setStartDate(mixed $date, bool $inclusive = null): static
     {
-        if (!$date = ([$this->dateClass, 'make'])($date)) {
+        if (!$this->isInfiniteDate($date) && !($date = ([$this->dateClass, 'make'])($date))) {
             throw new InvalidPeriodDateException('Invalid start date.');
         }
 
@@ -1305,7 +1307,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     public function setEndDate(mixed $date, ?bool $inclusive = null): static
     {
-        if ($date !== null && !$date = ([$this->dateClass, 'make'])($date)) {
+        if ($date !== null && !$this->isInfiniteDate($date) && !$date = ([$this->dateClass, 'make'])($date)) {
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
@@ -1515,9 +1517,9 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         if (!method_exists($className, 'instance')) {
             if (is_a($className, DatePeriod::class, true)) {
                 return new $className(
-                    $this->getStartDate(),
+                    $this->rawDate($this->getStartDate()),
                     $this->getDateInterval(),
-                    $this->getEndDate() ? $this->getIncludedEndDate() : $this->getRecurrences(),
+                    $this->getEndDate() ? $this->rawDate($this->getIncludedEndDate()) : $this->getRecurrences(),
                     $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0,
                 );
             }
@@ -1544,12 +1546,49 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     }
 
     /**
+     * Return `true` if the period has no custom filter and is guaranteed to be endless.
+     *
+     * Note that we can't check if a period is endless as soon as it has custom filters
+     * because filters can emit `CarbonPeriod::END_ITERATION` to stop the iteration in
+     * a way we can't predict without actually iterating the period.
+     */
+    public function isUnfilteredAndEndLess(): bool
+    {
+        foreach ($this->filters as $filter) {
+            switch ($filter) {
+                case [static::RECURRENCES_FILTER, null]:
+                    if ($this->recurrences !== null && is_finite($this->recurrences)) {
+                        return false;
+                    }
+
+                    break;
+
+                case [static::END_DATE_FILTER, null]:
+                    if ($this->endDate !== null && !$this->endDate->isEndOfTime()) {
+                        return false;
+                    }
+
+                    break;
+
+                default:
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Convert the date period into an array without changing current iteration state.
      *
      * @return CarbonInterface[]
      */
     public function toArray(): array
     {
+        if ($this->isUnfilteredAndEndLess()) {
+            throw new EndLessPeriodException("Endless period can't be converted to array nor counted.");
+        }
+
         $state = [
             $this->key,
             $this->carbonCurrent ? $this->carbonCurrent->avoidMutation() : null,
@@ -1580,6 +1619,16 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
      */
     public function first(): ?CarbonInterface
     {
+        if ($this->isUnfilteredAndEndLess()) {
+            foreach ($this as $date) {
+                $this->rewind();
+
+                return $date;
+            }
+
+            return null;
+        }
+
         return ($this->toArray() ?: [])[0] ?? null;
     }
 
@@ -2565,5 +2614,31 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         }
 
         return null;
+    }
+
+    private function isInfiniteDate($date): bool
+    {
+        return $date instanceof CarbonInterface && ($date->isEndOfTime() || $date->isStartOfTime());
+    }
+
+    private function rawDate($date): ?DateTimeInterface
+    {
+        if ($date === false || $date === null) {
+            return null;
+        }
+
+        if ($date instanceof CarbonInterface) {
+            return $date->isMutable()
+                ? $date->toDateTime()
+                : $date->toDateTimeImmutable();
+        }
+
+        if (\in_array(\get_class($date), [DateTime::class, DateTimeImmutable::class], true)) {
+            return $date;
+        }
+
+        $class = $date instanceof DateTime ? DateTime::class : DateTimeImmutable::class;
+
+        return new $class($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
     }
 }

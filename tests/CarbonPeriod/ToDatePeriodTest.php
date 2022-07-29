@@ -13,10 +13,15 @@ declare(strict_types=1);
 
 namespace Tests\CarbonPeriod;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use DatePeriod;
+use DateTime;
+use DateTimeImmutable;
+use ReflectionMethod;
 use Tests\AbstractTestCase;
 
 class ToDatePeriodTest extends AbstractTestCase
@@ -96,5 +101,45 @@ class ToDatePeriodTest extends AbstractTestCase
         }
 
         $translator->resetMessages();
+    }
+
+    public function testRawDate()
+    {
+        $period = new CarbonPeriod();
+        $method = new ReflectionMethod(CarbonPeriod::class, 'rawDate');
+        $method->setAccessible(true);
+
+        $this->assertNull($method->invoke($period, false));
+        $this->assertNull($method->invoke($period, null));
+
+        $date = new DateTime();
+        $this->assertSame($date, $method->invoke($period, $date));
+
+        $date = new DateTimeImmutable();
+        $this->assertSame($date, $method->invoke($period, $date));
+
+        $date = new Carbon();
+        $raw = $method->invoke($period, $date);
+        $this->assertInstanceOf(DateTime::class, $raw);
+        $this->assertEquals($date, $raw);
+
+        $date = new CarbonImmutable();
+        $raw = $method->invoke($period, $date);
+        $this->assertInstanceOf(DateTimeImmutable::class, $raw);
+        $this->assertEquals($date, $raw);
+
+        $date = new class() extends DateTime {
+            // void
+        };
+        $raw = $method->invoke($period, $date);
+        $this->assertInstanceOf(DateTime::class, $raw);
+        $this->assertEquals($date, $raw);
+
+        $date = new class() extends DateTimeImmutable {
+            // void
+        };
+        $raw = $method->invoke($period, $date);
+        $this->assertInstanceOf(DateTimeImmutable::class, $raw);
+        $this->assertEquals($date, $raw);
     }
 }

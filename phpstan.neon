@@ -35,7 +35,7 @@ parameters:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/TranslatorWeakType.php'
-        - '*/src/Carbon/PHPStan/Macro.php'
+        - '*/src/Carbon/PHPStan/*'
         - '*/tests/Carbon/Fixtures/DumpCarbon.php'
         - '*/tests/Carbon/LocalizationTest.php'
         - '*/tests/Carbon/SerializationTest.php'

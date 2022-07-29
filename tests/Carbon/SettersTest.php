@@ -292,7 +292,7 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame('America/Vancouver', $new->getTimezone()->getName());
 
-        $new->timezone = 'UTC';
+        @$new->timezone = 'UTC';
 
         $this->assertSame('UTC', $new->getTimezone()->getName());
 
@@ -303,13 +303,13 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
 
-        $date->timezone = 'UTC';
+        @$date->timezone = 'UTC';
 
         $this->assertSame('UTC', $date->getTimezone()->getName());
 
         $this->assertSame('America/Vancouver', $new->getTimezone()->getName());
 
-        $new->timezone = 'UTC';
+        @$new->timezone = 'UTC';
 
         $this->assertSame('UTC', $new->getTimezone()->getName());
 
