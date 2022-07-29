@@ -1557,7 +1557,7 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
         foreach ($this->filters as $filter) {
             switch ($filter) {
                 case [static::RECURRENCES_FILTER, null]:
-                    if ($this->recurrences !== null && is_finite($this->recurrences)) {
+                    if ($this->carbonRecurrences !== null && is_finite($this->carbonRecurrences)) {
                         return false;
                     }
 
