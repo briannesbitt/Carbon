@@ -45,8 +45,9 @@ class SerializationTest extends AbstractTestCase
     public function testSerialize()
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
-        $this->assertContains($dt->serialize(), $this->serialized);
-        $this->assertContains(serialize($dt), $this->serialized);
+        $message = "not in:\n".implode("\n", $this->serialized);
+        $this->assertContains($dt->serialize(), $this->serialized, $message);
+        $this->assertContains(serialize($dt), $this->serialized, $message);
     }
 
     public function testFromUnserialized()
