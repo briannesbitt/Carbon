@@ -242,16 +242,6 @@ class CarbonPeriod extends DatePeriod implements Countable, JsonSerializable
     protected static $macros = [];
 
     /**
-     * Protect inherited public properties.
-     */
-    protected $start;
-    protected $end;
-    protected $current;
-    protected $interval;
-    protected $recurrences;
-    protected $include_start_date;
-
-    /**
      * Date class of iteration items.
      *
      * @var string
