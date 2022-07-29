@@ -223,7 +223,7 @@ class KuTrTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         // '0th'
-        'ەم0',
+        '0',
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago'

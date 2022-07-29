@@ -2658,7 +2658,7 @@ trait Date
 
         if (
             $this->getTranslationMessage("$standaloneKey.$subKey") &&
-            (!$context || (($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context)))
+            (!$context || (($regExp = $this->getTranslationMessage("{$baseKey}_regexp")) && !preg_match($regExp, $context)))
         ) {
             $key = $standaloneKey;
         }
