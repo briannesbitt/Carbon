@@ -15,7 +15,6 @@ parameters:
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
         - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
-        - '#^Call to method (getSettings|hasLocalTranslator)\(\) on an unknown class Carbon\\Traits\\Options\.#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
