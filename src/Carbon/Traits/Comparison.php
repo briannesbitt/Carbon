@@ -216,7 +216,7 @@ trait Comparison
      */
     public function greaterThanOrEqualTo($date): bool
     {
-        return $this >= $date;
+        return $this >= $this->resolveCarbon($date);
     }
 
     /**
@@ -317,7 +317,7 @@ trait Comparison
      */
     public function lessThanOrEqualTo($date): bool
     {
-        return $this <= $date;
+        return $this <= $this->resolveCarbon($date);
     }
 
     /**
@@ -351,10 +351,10 @@ trait Comparison
         }
 
         if ($equal) {
-            return $this->greaterThanOrEqualTo($date1) && $this->lessThanOrEqualTo($date2);
+            return $this >= $date1 && $this <= $date2;
         }
 
-        return $this->greaterThan($date1) && $this->lessThan($date2);
+        return $this > $date1 && $this < $date2;
     }
 
     /**
