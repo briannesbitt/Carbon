@@ -95,7 +95,8 @@ class ToArrayTest extends AbstractTestCase
             break;
         }
 
-        $this->assertInstanceOfCarbon($date ?? null);
+        $date ??= null;
+        $this->assertInstanceOfCarbon($date);
         $this->assertSame(Carbon::now()->format('Y-m-d H:i:s'), $date->format('Y-m-d H:i:s'));
 
         $period = new CarbonPeriod(INF);
