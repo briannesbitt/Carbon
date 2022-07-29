@@ -75,6 +75,9 @@ trait Comparison
      */
     public function equalTo($date): bool
     {
+        $this->discourageNull($date);
+        $this->discourageBoolean($date);
+
         return $this == $this->resolveCarbon($date);
     }
 
@@ -155,6 +158,9 @@ trait Comparison
      */
     public function greaterThan($date): bool
     {
+        $this->discourageNull($date);
+        $this->discourageBoolean($date);
+
         return $this > $this->resolveCarbon($date);
     }
 
@@ -216,6 +222,9 @@ trait Comparison
      */
     public function greaterThanOrEqualTo($date): bool
     {
+        $this->discourageNull($date);
+        $this->discourageBoolean($date);
+
         return $this >= $this->resolveCarbon($date);
     }
 
@@ -256,6 +265,9 @@ trait Comparison
      */
     public function lessThan($date): bool
     {
+        $this->discourageNull($date);
+        $this->discourageBoolean($date);
+
         return $this < $this->resolveCarbon($date);
     }
 
@@ -317,6 +329,9 @@ trait Comparison
      */
     public function lessThanOrEqualTo($date): bool
     {
+        $this->discourageNull($date);
+        $this->discourageBoolean($date);
+
         return $this <= $this->resolveCarbon($date);
     }
 
@@ -1066,5 +1081,19 @@ trait Comparison
     public function isEndOfTime(): bool
     {
         return $this->endOfTime ?? false;
+    }
+
+    private function discourageNull($value): void
+    {
+        if ($value === null) {
+            @trigger_error("Since 2.61.0, it's deprecated to compare a date to null, meaning of such comparison is ambiguous and will no longer be possible in 3.0.0, you should explicitly pass 'now' or make an other check to eliminate null values.", \E_USER_DEPRECATED);
+        }
+    }
+
+    private function discourageBoolean($value): void
+    {
+        if (is_bool($value)) {
+            @trigger_error("Since 2.61.0, it's deprecated to compare a date to true or false, meaning of such comparison is ambiguous and will no longer be possible in 3.0.0, you should explicitly pass 'now' or make an other check to eliminate boolean values.", \E_USER_DEPRECATED);
+        }
     }
 }
