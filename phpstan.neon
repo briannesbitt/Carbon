@@ -17,7 +17,7 @@ parameters:
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
-        - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
+        - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\)(\|null)? but returns Carbon\\Carbon(Interface)?(\|null)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\)(\|null)? but returns Carbon\\Carbon(Immutable|Interface)(\|null)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
