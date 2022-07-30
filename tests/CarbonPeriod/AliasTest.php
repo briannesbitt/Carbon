@@ -26,7 +26,12 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::start($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
 
         $period->since($date = '2014-10-12 15:42:34', true);
@@ -42,7 +47,12 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::end($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertEquals(Carbon::parse($date), $period->end);
+        $this->assertEquals(Carbon::parse($date), $period->end());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->end);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $period->until($date = '2014-10-12 15:42:34', true);
@@ -53,7 +63,7 @@ class AliasTest extends AbstractTestCase
         $this->assertEquals(Carbon::now(), $period->getEndDate());
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
-        $period->end();
+        $period->end(null);
         $this->assertNull($period->getEndDate());
     }
 
@@ -125,7 +135,11 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::interval('PT6H');
         $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->getDateInterval()->optimize());
-        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval->optimize());
+        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval()->optimize());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval->optimize());
+        }
     }
 
     public function testInvertInterval()

@@ -2,6 +2,7 @@ parameters:
     scanFiles:
         - lazy/Carbon/PHPStan/MacroStrongType.php
         - lazy/Carbon/TranslatorStrongType.php
+        - lazy/Carbon/UnprotectedDatePeriod.php
         - vendor/autoload.php
     level: 3
     paths:

@@ -21,6 +21,7 @@ use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
+use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
@@ -46,18 +47,10 @@ require PHP_VERSION < 8.2
 /**
  * Substitution of DatePeriod with some modifications and many more features.
  *
- * @property-read int|float $recurrences number of recurrences (if end not set).
- * @property-read bool $include_start_date rather the start date is included in the iteration.
- * @property-read bool $include_end_date rather the end date is included in the iteration (if recurrences not set).
- * @property-read CarbonInterface $start Period start date.
- * @property-read CarbonInterface $current Current date from the iteration.
- * @property-read CarbonInterface $end Period end date.
- * @property-read CarbonInterval $interval Underlying date interval instance. Always present, one day by default.
- *
- * @method static CarbonPeriod start($date, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance.
+ * @method static CarbonPeriod|CarbonInterface start($date = null, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance. Get current period start  if called without parameters.
  * @method static CarbonPeriod since($date, $inclusive = null) Alias for start().
  * @method static CarbonPeriod sinceNow($inclusive = null) Create instance with start date set to now or set the start date to now if called on an instance.
- * @method static CarbonPeriod end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance.
+ * @method static CarbonPeriod|CarbonInterface end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance. Get current period end if called without parameters.
  * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method static CarbonPeriod untilNow($inclusive = null) Create instance with end date set to now or set the end date to now if called on an instance.
  * @method static CarbonPeriod dates($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
@@ -70,7 +63,7 @@ require PHP_VERSION < 8.2
  * @method static CarbonPeriod push($callback, $name = null) Alias for filter().
  * @method static CarbonPeriod prepend($callback, $name = null) Create instance with filter prepended to the stack or prepend a filter if called on an instance.
  * @method static CarbonPeriod filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance.
- * @method static CarbonPeriod interval($interval) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static CarbonPeriod|CarbonInterval interval($interval = null) Create instance with given date interval or modify the interval if called on an instance. Get current period interval if called without parameters.
  * @method static CarbonPeriod each($interval) Create instance with given date interval or modify the interval if called on an instance.
  * @method static CarbonPeriod every($interval) Create instance with given date interval or modify the interval if called on an instance.
  * @method static CarbonPeriod step($interval) Create instance with given date interval or modify the interval if called on an instance.
@@ -170,6 +163,8 @@ require PHP_VERSION < 8.2
  * @method $this ceilMicrosecond(float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(float $precision = 1) Ceil the current instance microsecond with given precision.
  *
+ * @mixin DeprecatedPeriodProperties
+ *
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -180,7 +175,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     use Mixin {
         Mixin::mixin as baseMixin;
     }
-    use Options;
+    use Options {
+        Options::__debugInfo as baseDebugInfo;
+    }
 
     /**
      * Built-in filter for limit by recurrences.
@@ -1675,8 +1672,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return $roundedValue;
         }
 
-        $first = \count($parameters) >= 1 ? $parameters[0] : null;
-        $second = \count($parameters) >= 2 ? $parameters[1] : null;
+        $count = \count($parameters);
+
+        if ($count === 0) {
+            return $this->get($method);
+        }
+
+        $first = $count >= 1 ? $parameters[0] : null;
+        $second = $count >= 2 ? $parameters[1] : null;
 
         switch ($method) {
             case 'start':
@@ -2335,6 +2338,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public function isConsecutiveWith($period, ...$arguments): bool
     {
         return $this->follows($period, ...$arguments) || $this->isFollowedBy($period, ...$arguments);
+    }
+
+    public function __debugInfo(): array
+    {
+        $info = $this->baseDebugInfo();
+        unset($info['start'], $info['end'], $info['interval'], $info['include_start_date'], $info['include_end_date']);
+
+        return $info;
     }
 
     /**

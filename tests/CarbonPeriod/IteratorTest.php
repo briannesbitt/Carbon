@@ -45,10 +45,13 @@ class IteratorTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        foreach ($period as $key => $current) {
+        foreach ($period as $current) {
             $this->assertInstanceOfCarbon($current);
             $this->assertEquals($current, $period->current());
-            $this->assertEquals($current, $period->current);
+
+            if (PHP_VERSION < 8.2) {
+                $this->assertEquals($current, $period->current);
+            }
         }
     }
 
