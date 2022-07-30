@@ -26,9 +26,8 @@ parameters:
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
-        - '#^Call to an undefined method DateInterval::spec\(\)\.$#'
+        - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
         - '#^Call to an undefined method DateTimeInterface::toDate(Time)?String\(\)\.$#'
-        - '#^Call to method (hasLocalTranslator|getSettings)\(\) on an unknown class Carbon\\Traits\\Options\.#'
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'

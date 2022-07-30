@@ -48,7 +48,7 @@ require PHP_VERSION < 8.2
  * Substitution of DatePeriod with some modifications and many more features.
  *
  * @method static CarbonPeriod|CarbonInterface start($date = null, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance. Get current period start  if called without parameters.
- * @method static CarbonPeriod since($date, $inclusive = null) Alias for start().
+ * @method static CarbonPeriod since($date = null, $inclusive = null) Alias for start().
  * @method static CarbonPeriod sinceNow($inclusive = null) Create instance with start date set to now or set the start date to now if called on an instance.
  * @method static CarbonPeriod|CarbonInterface end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance. Get current period end if called without parameters.
  * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
@@ -57,12 +57,12 @@ require PHP_VERSION < 8.2
  * @method static CarbonPeriod between($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
  * @method static CarbonPeriod recurrences($recurrences = null) Create instance with maximum number of recurrences or modify the number of recurrences if called on an instance.
  * @method static CarbonPeriod times($recurrences = null) Alias for recurrences().
- * @method static CarbonPeriod options($options = null) Create instance with options or modify the options if called on an instance.
+ * @method static CarbonPeriod|int|null options($options = null) Create instance with options or modify the options if called on an instance. Get current options if called withtout parameters.
  * @method static CarbonPeriod toggle($options, $state = null) Create instance with options toggled on or off, or toggle options if called on an instance.
  * @method static CarbonPeriod filter($callback, $name = null) Create instance with filter added to the stack or append a filter if called on an instance.
  * @method static CarbonPeriod push($callback, $name = null) Alias for filter().
  * @method static CarbonPeriod prepend($callback, $name = null) Create instance with filter prepended to the stack or prepend a filter if called on an instance.
- * @method static CarbonPeriod filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance.
+ * @method static CarbonPeriod|array filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance. Get current filters if called withtout parameters.
  * @method static CarbonPeriod|CarbonInterval interval($interval = null) Create instance with given date interval or modify the interval if called on an instance. Get current period interval if called without parameters.
  * @method static CarbonPeriod each($interval) Create instance with given date interval or modify the interval if called on an instance.
  * @method static CarbonPeriod every($interval) Create instance with given date interval or modify the interval if called on an instance.
@@ -1674,16 +1674,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         $count = \count($parameters);
 
-        if ($count === 0) {
-            return $this->get($method);
-        }
-
         $first = $count >= 1 ? $parameters[0] : null;
         $second = $count >= 2 ? $parameters[1] : null;
 
         switch ($method) {
             case 'start':
             case 'since':
+                if ($count === 0) {
+                    return $this->getStartDate();
+                }
+
                 return $this->setStartDate($first, $second);
 
             case 'sinceNow':
@@ -1691,6 +1691,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
             case 'end':
             case 'until':
+                if ($count === 0) {
+                    return $this->getEndDate();
+                }
+
                 return $this->setEndDate($first, $second);
 
             case 'untilNow':
@@ -1702,9 +1706,17 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
             case 'recurrences':
             case 'times':
+                if ($count === 0) {
+                    return $this->getRecurrences();
+                }
+
                 return $this->setRecurrences($first);
 
             case 'options':
+                if ($count === 0) {
+                    return $this->getOptions();
+                }
+
                 return $this->setOptions($first);
 
             case 'toggle':
@@ -1718,6 +1730,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 return $this->prependFilter($first, $second);
 
             case 'filters':
+                if ($count === 0) {
+                    return $this->getFilters();
+                }
+
                 return $this->setFilters($first ?: []);
 
             case 'interval':
@@ -1725,6 +1741,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             case 'every':
             case 'step':
             case 'stepBy':
+                if ($count === 0) {
+                    return $this->getDateInterval();
+                }
+
                 return $this->setDateInterval($first, $second);
 
             case 'invert':
