@@ -51,13 +51,15 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testInvalidSubstitute()
     {
-        $this->expectException(ParseErrorException::class);
-        $this->expectExceptionMessage(
-            "Format expected 'N' but get '4'\n".
-            "Allowed substitutes for interval formats are y, Y, o, m, n, W, d, j, z, h, g, H, G, i, s, u, v\n".
-            'See https://php.net/manual/en/function.date.php for their meaning',
+        $this->expectExceptionObject(
+            new ParseErrorException(
+                "'N'",
+                '4',
+                'Allowed substitutes for interval formats are y, Y, o, m, n, W, d, j, z, h, g, H, G, i, s, u, v'.
+                "\n".
+                'See https://php.net/manual/en/function.date.php for their meaning',
+            ),
         );
-        $this->expectExceptionCode(0);
 
         CarbonInterval::createFromFormat('N', '4');
     }

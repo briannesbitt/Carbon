@@ -50,9 +50,11 @@
         "doctrine/orm": "^2.7",
         "friendsofphp/php-cs-fixer": "^3.4",
         "kylekatarnls/multi-tester": "^2.2",
+        "ondrejmirtes/better-reflection": "*",
         "phpmd/phpmd": "^2.11.1",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.4.9",
+        "phpunit/php-file-iterator": "^2.0.5 || ^3.0.6",
         "phpunit/phpunit": "^9.5.18",
         "squizlabs/php_codesniffer": "^3.4"
     },

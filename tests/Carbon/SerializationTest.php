@@ -21,6 +21,7 @@ use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
 use Tests\AbstractTestCase;
+use Throwable;
 
 class SerializationTest extends AbstractTestCase
 {
@@ -35,17 +36,23 @@ class SerializationTest extends AbstractTestCase
 
         $this->serialized = \extension_loaded('msgpack')
             ? [
-                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}",
-                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:21:\"\0*\0dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:23:\"s:15:\"America/Toronto\";\";}}",
+                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:18:\"dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}",
+                "O:13:\"Carbon\Carbon\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:18:\"dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:23:\"s:15:\"America/Toronto\";\";}}",
             ]
             : ['O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}'];
+    }
+
+    protected function cleanSerialization(string $serialization): string
+    {
+        return preg_replace('/s:\d+:\"[^"]*dumpDateProperties\"/', 's:18:"dumpDateProperties"', $serialization);
     }
 
     public function testSerialize()
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
-        $this->assertContains($dt->serialize(), $this->serialized);
-        $this->assertContains(serialize($dt), $this->serialized);
+        $message = "not in:\n".implode("\n", $this->serialized);
+        $this->assertContains($this->cleanSerialization($dt->serialize()), $this->serialized, $message);
+        $this->assertContains($this->cleanSerialization(serialize($dt)), $this->serialized, $message);
     }
 
     public function testFromUnserialized()
@@ -91,25 +98,31 @@ class SerializationTest extends AbstractTestCase
 
     public function testDateSerializationReflectionCompatibility()
     {
-        $d = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
+        try {
+            $reflection = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
 
-        $d->date = '1990-01-17 10:28:07';
-        $d->timezone_type = 3;
-        $d->timezone = 'US/Pacific';
+            @$reflection->date = '1990-01-17 10:28:07';
+            @$reflection->timezone_type = 3;
+            @$reflection->timezone = 'US/Pacific';
 
-        $x = unserialize(serialize($d));
+            $date = unserialize(serialize($reflection));
+        } catch (Throwable $exception) {
+            $this->markTestSkipped(
+                "It fails on DateTime so Carbon can't support it, error was:\n".$exception->getMessage()
+            );
+        }
 
-        $this->assertSame('1990-01-17 10:28:07', $x->format('Y-m-d h:i:s'));
+        $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
 
-        $d = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
+        $reflection = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
 
-        $d->date = '1990-01-17 10:28:07';
-        $d->timezone_type = 3;
-        $d->timezone = 'US/Pacific';
+        @$reflection->date = '1990-01-17 10:28:07';
+        @$reflection->timezone_type = 3;
+        @$reflection->timezone = 'US/Pacific';
 
-        $x = unserialize(serialize($d));
+        $date = unserialize(serialize($reflection));
 
-        $this->assertSame('1990-01-17 10:28:07', $x->format('Y-m-d h:i:s'));
+        $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
 
         $reflection = new ReflectionObject(Carbon::parse('1990-01-17 10:28:07'));
         $target = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
@@ -128,7 +141,7 @@ class SerializationTest extends AbstractTestCase
                 return;
             }
 
-            $target->$key = $value;
+            @$target->$key = $value;
         };
 
         $setValue('date', '1990-01-17 10:28:07');

@@ -2,6 +2,7 @@ parameters:
     scanFiles:
         - lazy/Carbon/PHPStan/MacroStrongType.php
         - lazy/Carbon/TranslatorStrongType.php
+        - lazy/Carbon/UnprotectedDatePeriod.php
         - vendor/autoload.php
     level: 3
     paths:
@@ -16,26 +17,22 @@ parameters:
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
-        - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
+        - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\)(\|null)? but returns Carbon\\Carbon(Interface)?(\|null)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\)(\|null)? but returns Carbon\\Carbon(Immutable|Interface)(\|null)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
-        - '#should return (\S*)\$this\(Carbon\\Carbon\) but returns static\(Carbon\\Carbon(Interface)?\)\.$#'
         - '#should return (\S*)\$this\(Carbon\\CarbonInterval\) but returns static\(Carbon\\CarbonInterval\)\.$#'
-        - '#should return (\S*)\$this\(Carbon\\CarbonImmutable\) but returns static\(Carbon\\Carbon(Immutable|Interface)\)\.$#'
         - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
-        - '#^Implementing PHPStan\\Reflection\\Php\\BuiltinMethodReflection is not covered by backward compatibility promise\.#'
-        - '#^Calling PHPStan\\Reflection\\Php\\PhpMethodReflectionFactory::create\(\) is not covered by backward compatibility promise\.#'
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
-        - '#^Call to an undefined method DateInterval::spec\(\)\.$#'
+        - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
         - '#^Call to an undefined method DateTimeInterface::toDate(Time)?String\(\)\.$#'
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/TranslatorWeakType.php'
-        - '*/src/Carbon/PHPStan/Macro.php'
+        - '*/src/Carbon/PHPStan/*'
         - '*/tests/Carbon/Fixtures/DumpCarbon.php'
         - '*/tests/Carbon/LocalizationTest.php'
         - '*/tests/Carbon/SerializationTest.php'

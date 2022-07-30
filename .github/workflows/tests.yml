@@ -42,6 +42,10 @@ jobs:
           - php: 8.1
             coverage: true
 
+          - php: 8.2
+          - php: 8.2
+            setup: lowest
+
           - php: 8.0
             laravel: true
             reference: 9.x
@@ -95,12 +99,17 @@ jobs:
           restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
-        run: |
-          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-          if [[ "${{ matrix.laravel }}" != 'true' ]]; then
-            composer remove --no-update kylekatarnls/multi-tester --no-interaction;
-          fi;
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: |
+            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+            if [[ "${{ matrix.laravel }}" != 'true' ]]; then
+              composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
+            fi;
+            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction --dev;' || '' }}
+            composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
 
       - name: Run test suite
         run: |
@@ -150,6 +159,10 @@ jobs:
           - php: 8.1
             setup: lowest
 
+          - php: 8.2
+          - php: 8.2
+            setup: lowest
+
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 
     steps:
@@ -176,9 +189,14 @@ jobs:
           restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
-        run: |
-          composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: |
+            composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction --dev;' || '' }}
+            composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
 
       - name: Run test suite
         run: |

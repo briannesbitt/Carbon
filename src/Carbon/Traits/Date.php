@@ -1721,7 +1721,13 @@ trait Date
             ? strftime($format, $time)
             : @strftime($format, $time);
 
-        return static::$utf8 ? utf8_encode($formatted) : $formatted;
+        return static::$utf8
+            ? (
+                \function_exists('mb_convert_encoding')
+                ? mb_convert_encoding($formatted, 'UTF-8', mb_list_encodings())
+                : utf8_encode($formatted)
+            )
+            : $formatted;
     }
 
     /**
@@ -2337,7 +2343,7 @@ trait Date
             return 'millennia';
         }
 
-        return "${unit}s";
+        return "{$unit}s";
     }
 
     /**
@@ -2443,7 +2449,7 @@ trait Date
             if (str_starts_with($unit, 'Real')) {
                 $unit = static::singularUnit(substr($unit, 4));
 
-                return $this->{"${action}RealUnit"}($unit, ...$parameters);
+                return $this->{"{$action}RealUnit"}($unit, ...$parameters);
             }
 
             if (preg_match('/^(Month|Quarter|Year|Decade|Century|Centurie|Millennium|Millennia)s?(No|With|Without|WithNo)Overflow$/', $unit, $match)) {
@@ -2455,7 +2461,7 @@ trait Date
         }
 
         if (static::isModifiableUnit($unit)) {
-            return $this->{"${action}Unit"}($unit, array_pad($parameters, 1, 1)[0], $overflow);
+            return $this->{"{$action}Unit"}($unit, array_pad($parameters, 1, 1)[0], $overflow);
         }
 
         $sixFirstLetters = substr($unit, 0, 6);
@@ -2643,7 +2649,7 @@ trait Date
     protected function getTranslatedFormByRegExp($baseKey, $keySuffix, $context, $subKey, $defaultValue)
     {
         $key = $baseKey.$keySuffix;
-        $standaloneKey = "${key}_standalone";
+        $standaloneKey = "{$key}_standalone";
         $baseTranslation = $this->getTranslationMessage($key);
 
         if ($baseTranslation instanceof Closure) {
@@ -2652,7 +2658,7 @@ trait Date
 
         if (
             $this->getTranslationMessage("$standaloneKey.$subKey") &&
-            (!$context || (($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context)))
+            (!$context || (($regExp = $this->getTranslationMessage("{$baseKey}_regexp")) && !preg_match($regExp, $context)))
         ) {
             $key = $standaloneKey;
         }

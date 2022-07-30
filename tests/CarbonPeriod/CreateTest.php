@@ -603,9 +603,9 @@ class CreateTest extends AbstractTestCase
     public function testInstance()
     {
         $source = new DatePeriod(
-            Carbon::parse('2012-07-01'),
+            new DateTime('2012-07-01'),
             CarbonInterval::days(2),
-            Carbon::parse('2012-07-07'),
+            new DateTime('2012-07-07'),
         );
 
         $period = CarbonPeriod::instance($source);
@@ -677,9 +677,9 @@ class CreateTest extends AbstractTestCase
     public function testMake()
     {
         $period = CarbonPeriod::make(new DatePeriod(
-            Carbon::parse('2012-07-01'),
+            new DateTime('2012-07-01'),
             CarbonInterval::days(2),
-            Carbon::parse('2012-07-07'),
+            new DateTime('2012-07-07'),
         ));
 
         $this->assertInstanceOf(CarbonPeriod::class, $period);

@@ -26,7 +26,12 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::start($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
 
         $period->since($date = '2014-10-12 15:42:34', true);
@@ -42,7 +47,12 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::end($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertEquals(Carbon::parse($date), $period->end);
+        $this->assertEquals(Carbon::parse($date), $period->end());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->end);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $period->until($date = '2014-10-12 15:42:34', true);
@@ -53,7 +63,7 @@ class AliasTest extends AbstractTestCase
         $this->assertEquals(Carbon::now(), $period->getEndDate());
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
-        $period->end();
+        $period->end(null);
         $this->assertNull($period->getEndDate());
     }
 
@@ -65,6 +75,7 @@ class AliasTest extends AbstractTestCase
 
         $period = CarbonPeriod::filter($filter, 'foo');
         $this->assertSame([[$filter, 'foo']], $period->getFilters());
+        $this->assertSame([[$filter, 'foo']], $period->filters());
 
         $period = $period->push($filter, 'bar');
         $this->assertSame([[$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
@@ -72,7 +83,7 @@ class AliasTest extends AbstractTestCase
         $period = $period->prepend($filter, 'pre');
         $this->assertSame([[$filter, 'pre'], [$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
 
-        $period = $period->filters();
+        $period = $period->filters(null);
         $this->assertEmpty($period->getFilters());
 
         $period = $period->filters($filters = [[$filter, null]]);
@@ -83,12 +94,16 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::recurrences(5);
         $this->assertSame(5, $period->getRecurrences());
-        $this->assertSame(5, $period->recurrences);
+        $this->assertSame(5, $period->recurrences());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertSame(5, $period->recurrences);
+        }
 
         $period->times(3);
         $this->assertSame(3, $period->getRecurrences());
 
-        $period->recurrences();
+        $period->recurrences(null);
         $this->assertNull($period->getRecurrences());
     }
 
@@ -105,8 +120,9 @@ class AliasTest extends AbstractTestCase
 
         $period = $period->toggle($end, false);
         $this->assertSame($start, $period->getOptions());
+        $this->assertSame($start, $period->options());
 
-        $period = $period->options();
+        $period = $period->options(null);
         $this->assertEmpty($period->getOptions());
     }
 
@@ -125,7 +141,11 @@ class AliasTest extends AbstractTestCase
     {
         $period = CarbonPeriod::interval('PT6H');
         $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->getDateInterval()->optimize());
-        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval->optimize());
+        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval()->optimize());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval->optimize());
+        }
     }
 
     public function testInvertInterval()
