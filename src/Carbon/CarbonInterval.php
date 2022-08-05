@@ -2150,7 +2150,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public static function getDateIntervalSpec(DateInterval $interval)
+    public static function getDateIntervalSpec(DateInterval $interval, bool $microseconds = false)
     {
         $date = array_filter([
             static::PERIOD_YEARS => abs($interval->y),
@@ -2158,10 +2158,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             static::PERIOD_DAYS => abs($interval->d),
         ]);
 
+        $seconds = abs($interval->s);
+        if ($microseconds && $interval->f > 0) {
+            $seconds = sprintf('%d.%06d', $seconds, abs($interval->f) * 1000000);
+        }
+
         $time = array_filter([
             static::PERIOD_HOURS => abs($interval->h),
             static::PERIOD_MINUTES => abs($interval->i),
-            static::PERIOD_SECONDS => abs($interval->s),
+            static::PERIOD_SECONDS => $seconds,
         ]);
 
         $specString = static::PERIOD_PREFIX;
@@ -2185,9 +2190,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public function spec()
+    public function spec(bool $microseconds = false)
     {
-        return static::getDateIntervalSpec($this);
+        return static::getDateIntervalSpec($this, $microseconds);
     }
 
     /**
