@@ -2949,6 +2949,21 @@ name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-__serialize">
+    <h2><span class="class-name">Carbon::</span>__serialize</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>array</code></div>
+    <p class="doc-description"></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.59.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-__unserialize">
+    <h2><span class="class-name">Carbon::</span>__unserialize</h2>
+    <code>array $data</code>
+    <p class="doc-description"></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.59.0</td><td><code>array $data</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-jsonSerialize">
     <h2><span class="class-name">Carbon::</span>jsonSerialize</h2>
     <em>no arguments</em>
@@ -4896,18 +4911,18 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
 
 <div class="doc-method " id="doc-method-CarbonInterval-getDateIntervalSpec">
     <h2><span class="class-name">CarbonInterval::</span>getDateIntervalSpec</h2>
-    <code>DateInterval $interval</code>
+    <code>DateInterval $interval, bool $microseconds = false</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the interval_spec string of a date interval.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>DateInterval $interval</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.59.0</td><td><code>DateInterval $interval, bool $microseconds = false</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>DateInterval $interval</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-spec">
     <h2><span class="class-name">CarbonInterval::</span>spec</h2>
-    <em>no arguments</em>
+    <code>bool $microseconds = false</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the interval_spec string.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.59.0</td><td><code>bool $microseconds = false</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-compareDateIntervals">
@@ -6010,6 +6025,16 @@ Warning: if the period has no fixed end, this method will iterate the period to 
     <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonPeriod-isUnfilteredAndEndLess">
+    <h2><span class="class-name">CarbonPeriod::</span>isUnfilteredAndEndLess</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return `true` if the period has no custom filter and is guaranteed to be endless.<br><br>Note that we can't check if a period is endless as soon as it has custom filters
+because filters can emit `CarbonPeriod::END_ITERATION` to stop the iteration in
+a way we can't predict without actually iterating the period.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.59.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonPeriod-toArray">
     <h2><span class="class-name">CarbonPeriod::</span>toArray</h2>
     <em>no arguments</em>
@@ -6789,6 +6814,16 @@ false if no match is found.</p>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Cast to string (get timezone name).</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonTimeZone-getType">
+    <h2><span class="class-name">CarbonTimeZone::</span>getType</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>int</code></div>
+    <p class="doc-description">Return the type number:<br><br>Type 1; A UTC offset, such as -0300
+Type 2; A timezone abbreviation, such as GMT
+Type 3: A timezone identifier, such as Europe/London</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.59.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-create">

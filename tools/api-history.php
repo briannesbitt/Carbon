@@ -12,9 +12,16 @@ $target = $arguments[1] ?? null;
 
 function loadDependencies()
 {
-    // load from either .. or ../sandbox
-    require_once 'vendor/autoload.php';
-    require_once __DIR__.'/methods.php';
+    try {
+        require_once __DIR__.'/../vendor/autoload.php';
+        require_once __DIR__.'/methods.php';
+    } catch (\Throwable $e) {
+        echo "Catch\n";
+        echo getcwd() . "\n";
+        echo $e->getMessage();
+        echo realpath('vendor/autoload.php') . "\n\n";
+        exit((new \Exception())->getTraceAsString());
+    }
 }
 
 function nameAlias($name)
@@ -165,6 +172,7 @@ function getMethodsOfVersion($version)
     chdir('..');
 
     if (strpos($output, 'Installation failed') !== false) {
+        file_put_contents(__DIR__.'/../temp.txt', $output);
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
@@ -184,6 +192,7 @@ foreach (array_reverse($versions) as $index => $version) {
     $data = json_decode($output);
 
     if (!is_array($data) && !is_object($data)) {
+        file_put_contents(__DIR__.'/../temp2.txt', $output);
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
@@ -191,6 +200,7 @@ foreach (array_reverse($versions) as $index => $version) {
     $data = (array) $data;
 
     if (isset($data['error'])) {
+        file_put_contents(__DIR__.'/../temp3.txt', var_export($data, true));
         echo "\nError on $version:\n";
         print_r($data);
         exit(1);

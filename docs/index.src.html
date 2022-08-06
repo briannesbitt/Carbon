@@ -4151,6 +4151,10 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
 
     <p>
     <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->addHours(5)->spec();)}} // {{eval}}
+// By default microseconds are trimmed (as they would fail to recreate a proper DateInterval)
+{{::exec(echo CarbonInterval::days(3)->addSeconds(5)->addMicroseconds(987654)->spec();)}} // {{eval}}
+// But you can explicitly add them:
+{{::exec(echo CarbonInterval::days(3)->addSeconds(5)->addMicroseconds(987654)->spec(true);)}} // {{eval}}
 </code></pre>
     </p>
 
