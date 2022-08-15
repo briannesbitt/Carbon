@@ -157,6 +157,7 @@ trait Converter
     {
         return $this->rawFormat('M j, Y');
     }
+
     /**
      * Format the instance with the day, and a readable date
      *
