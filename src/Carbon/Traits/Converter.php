@@ -159,6 +159,21 @@ trait Converter
     }
 
     /**
+     * Format the instance with the day, and a readable date
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toFormattedDayDateString();
+     * ```
+     *
+     * @return string
+     */
+    public function toFormattedDayDateString(): string
+    {
+        return $this->rawFormat('D, M j, Y');
+    }
+
+    /**
      * Format the instance as time
      *
      * @example
