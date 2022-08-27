@@ -127,6 +127,42 @@ class TotalTest extends AbstractTestCase
         CarbonInterval::setCascadeFactors($factors);
     }
 
+    public function testFloatHoursFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [60, 'seconds'],
+            'hour' => [60, 'minutes'],
+            'day' => [7.5, 'hours'],
+            'week' => [5, 'days'],
+        ]);
+
+        $this->assertSame(
+            '2 weeks 1 day 5 hours 45 minutes',
+            CarbonInterval::minutes(11 * (7.5 * 60) + (5 * 60) + 45)->cascade()->forHumans()
+        );
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
+    public function testFloatDaysFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [60, 'seconds'],
+            'hour' => [60, 'minutes'],
+            'day' => [8, 'hours'],
+            'week' => [5.5, 'days'],
+        ]);
+
+        $this->assertSame(
+            '3 weeks 1 day 5 hours 45 minutes',
+            CarbonInterval::minutes(17.5 * (8 * 60) + (5 * 60) + 45)->cascade()->forHumans()
+        );
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
     public function testGetTotalsViaGettersWithCustomFactors()
     {
         $cascades = CarbonInterval::getCascadeFactors();
