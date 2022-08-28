@@ -127,6 +127,72 @@ class TotalTest extends AbstractTestCase
         CarbonInterval::setCascadeFactors($factors);
     }
 
+    public function testFloatHoursFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [60, 'seconds'],
+            'hour' => [60, 'minutes'],
+            'day' => [7.5, 'hours'],
+            'week' => [5, 'days'],
+        ]);
+
+        $this->assertSame(
+            '2 weeks 1 day 5 hours 45 minutes',
+            CarbonInterval::minutes(11 * (7.5 * 60) + (5 * 60) + 45)->cascade()->forHumans()
+        );
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
+    public function testFloatDaysFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [60, 'seconds'],
+            'hour' => [60, 'minutes'],
+            'day' => [8, 'hours'],
+            'week' => [5.5, 'days'],
+        ]);
+
+        $this->assertSame(
+            '3 weeks 1 day 5 hours 45 minutes',
+            CarbonInterval::minutes(17.5 * (8 * 60) + (5 * 60) + 45)->cascade()->forHumans()
+        );
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
+    public function testFloatInMultipleFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [23.2, 'seconds'],
+            'hour' => [25.662, 'minutes'],
+            'day' => [10 / 3, 'hours'],
+            'week' => [pi(), 'days'],
+        ]);
+
+        $interval = CarbonInterval::minutes(50000)->cascade();
+
+        $this->assertSame(
+            '185 weeks 2 days 3 hours 35 minutes 35 seconds',
+            $interval->forHumans()
+        );
+        // Show how we (approximately) get back to initial values
+        $this->assertEqualsWithDelta(
+            50000 * 23.2,
+            35 + (35 * 23.2) + (3 * 25.662 * 23.2) + (2 * (10 / 3) * 25.662 * 23.2) + (185 * pi() * (10 / 3) * 25.662 * 23.2),
+            3
+        );
+        // Show how total uncascade
+        $this->assertEqualsWithDelta(50000 / 25.662, $interval->totalHours, 0.05);
+        $this->assertEqualsWithDelta(50000, $interval->totalMinutes, 0.1);
+        $this->assertEqualsWithDelta(50000 * 23.2, $interval->totalSeconds, 1);
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
     public function testGetTotalsViaGettersWithCustomFactors()
     {
         $cascades = CarbonInterval::getCascadeFactors();
