@@ -2433,10 +2433,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         if ($unit === 'weeks') {
-            return $result / $daysPerWeek;
+            $result /= $daysPerWeek;
         }
 
-        return $result;
+        // Cast as int numbers with no decimal part
+        return fmod($result, 1) === 0.0 ? (int) $result : $result;
     }
 
     /**
