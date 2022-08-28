@@ -2247,43 +2247,45 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $originalData['daysExcludeWeeks'] = fmod($this->d, static::getDaysPerWeek());
         unset($originalData['days']);
         $newData = $originalData;
-        $rest = true;
+        $previous = [];
 
-        while ($rest) {
-            $rest = false;
-            $originalData['microseconds'] = (int) $originalData['microseconds'];
-            $previous = null;
-
-            foreach (self::getFlipCascadeFactors() as $source => [$target, $factor]) {
-                foreach (['source', 'target'] as $key) {
-                    if ($$key === 'dayz') {
-                        $$key = 'daysExcludeWeeks';
-                    }
+        foreach (self::getFlipCascadeFactors() as $source => [$target, $factor]) {
+            foreach (['source', 'target'] as $key) {
+                if ($$key === 'dayz') {
+                    $$key = 'daysExcludeWeeks';
                 }
-
-                $value = $newData[$source];
-                $modulo = fmod($factor + fmod($value, $factor), $factor);
-                $newData[$source] = $modulo;
-                $newData[$target] += ($value - $modulo) / $factor;
-                $decimalPart = fmod($newData[$target], 1);
-
-                if ($decimalPart !== 0.0) {
-                    $rest = true;
-                    $newData[$target] -= $decimalPart;
-                    $newData[$source] += $decimalPart * $factor;
-                }
-
-                $decimalPart = fmod($newData[$source], 1);
-
-                if ($decimalPart !== 0.0 && $previous !== null) {
-                    $rest = true;
-                    [$subUnit, $subFactor] = $previous;
-                    $newData[$source] -= $decimalPart;
-                    $newData[$subUnit] += $decimalPart * $subFactor;
-                }
-
-                $previous = [$source, $factor];
             }
+
+            $value = $newData[$source];
+            $modulo = fmod($factor + fmod($value, $factor), $factor);
+            $newData[$source] = $modulo;
+            $newData[$target] += ($value - $modulo) / $factor;
+            $decimalPart = fmod($newData[$target], 1);
+
+            if ($decimalPart !== 0.0) {
+                $newData[$target] -= $decimalPart;
+                $newData[$source] += $decimalPart * $factor;
+            }
+
+            $decimalPart = fmod($newData[$source], 1);
+
+            if ($decimalPart !== 0.0) {
+                $unit = $source;
+
+                foreach ($previous as [$subUnit, $subFactor]) {
+                    $newData[$unit] -= $decimalPart;
+                    $newData[$subUnit] += $decimalPart * $subFactor;
+                    $decimalPart = fmod($newData[$subUnit], 1);
+
+                    if ($decimalPart === 0.0) {
+                        break;
+                    }
+
+                    $unit = $subUnit;
+                }
+            }
+
+            array_unshift($previous, [$source, $factor]);
         }
 
         $positive = null;
@@ -2364,13 +2366,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $cumulativeFactor = 0;
         $unitFound = false;
         $factors = self::getFlipCascadeFactors();
-        $daysPerWeek = static::getDaysPerWeek();
+        $daysPerWeek = (int) static::getDaysPerWeek();
 
         $values = [
             'years' => $this->years,
             'months' => $this->months,
             'weeks' => (int) ($this->d / $daysPerWeek),
-            'dayz' => $this->d % $daysPerWeek,
+            'dayz' => fmod($this->d, $daysPerWeek),
             'hours' => $this->hours,
             'minutes' => $this->minutes,
             'seconds' => $this->seconds,
