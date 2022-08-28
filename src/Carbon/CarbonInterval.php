@@ -2260,12 +2260,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $modulo = fmod($factor + fmod($value, $factor), $factor);
             $newData[$source] = $modulo;
             $newData[$target] += ($value - $modulo) / $factor;
-            $decimalPart = fmod($newData[$target], 1);
-
-            if ($decimalPart !== 0.0) {
-                $newData[$target] -= $decimalPart;
-                $newData[$source] += $decimalPart * $factor;
-            }
 
             $decimalPart = fmod($newData[$source], 1);
 
