@@ -93,7 +93,7 @@ trait Rounding
                 $delta = $maximum + 1 - $minimum;
                 $factor /= $delta;
                 $fraction *= $delta;
-                $arguments[0] += ($this->$unit - $minimum) * $factor;
+                $arguments[0] += (int) (($this->$unit - $minimum) * $factor);
                 $changes[$unit] = round(
                     $minimum + ($fraction ? $fraction * $function(($this->$unit - $minimum) / $fraction) : 0)
                 );
