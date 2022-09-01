@@ -927,8 +927,8 @@ trait Creator
      */
     private static function setLastErrors($lastErrors)
     {
-        if (is_array($lastErrors) || $lastErrors === false) {
-            static::$lastErrors = is_array($lastErrors) ? $lastErrors : [];
+        if (\is_array($lastErrors) || $lastErrors === false) {
+            static::$lastErrors = \is_array($lastErrors) ? $lastErrors : [];
         }
     }
 
