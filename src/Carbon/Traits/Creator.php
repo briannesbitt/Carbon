@@ -921,13 +921,15 @@ trait Creator
     /**
      * Set last errors.
      *
-     * @param array $lastErrors
+     * @param array|bool $lastErrors
      *
      * @return void
      */
-    private static function setLastErrors(array $lastErrors)
+    private static function setLastErrors($lastErrors)
     {
-        static::$lastErrors = $lastErrors;
+        if (is_array($lastErrors) || $lastErrors === false) {
+            static::$lastErrors = is_array($lastErrors) ? $lastErrors : [];
+        }
     }
 
     /**
