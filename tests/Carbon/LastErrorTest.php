@@ -33,12 +33,12 @@ class LastErrorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = PHP_VERSION < 8.2 ? [
+        $this->noErrors = [
             'warning_count' => 0,
             'warnings' => [],
             'error_count' => 0,
             'errors' => [],
-        ] : false;
+        ];
 
         $this->lastErrors = [
             'warning_count' => 1,
