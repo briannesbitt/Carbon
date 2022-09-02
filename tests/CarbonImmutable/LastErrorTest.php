@@ -33,12 +33,12 @@ class LastErrorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = PHP_VERSION < 8.2 ? [
+        $this->noErrors = [
             'warning_count' => 0,
             'warnings' => [],
             'error_count' => 0,
             'errors' => [],
-        ] : false;
+        ];
 
         $this->lastErrors = [
             'warning_count' => 1,
@@ -57,9 +57,7 @@ class LastErrorTest extends AbstractTestCase
         $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
 
         $carbon = new Carbon('2017-02-15');
-        $datetime = new DateTime('2017-02-15');
 
         $this->assertSame($this->noErrors, $carbon->getLastErrors());
-        $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
     }
 }
