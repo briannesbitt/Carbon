@@ -125,6 +125,12 @@ class RoundTest extends AbstractTestCase
     {
         $date = Carbon::create(2022)->endOfYear()->floorYear();
         $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
+
+        $date = Carbon::create(2022)->endOfYear()->floorDay()->floorYear();
+        $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
+
+        $date = Carbon::create(2022)->endOfYear()->floorYear();
+        $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
     }
 
     public function testRoundWithMetaUnit()

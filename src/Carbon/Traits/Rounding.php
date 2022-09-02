@@ -77,12 +77,14 @@ trait Rounding
         $found = false;
         $fraction = 0;
         $arguments = null;
+        $initialValue = null;
         $factor = $this->year < 0 ? -1 : 1;
         $changes = [];
 
         foreach ($ranges as $unit => [$minimum, $maximum]) {
             if ($normalizedUnit === $unit) {
                 $arguments = [$this->$unit, $minimum];
+                $initialValue = $this->$unit;
                 $fraction = $precision - floor($precision);
                 $found = true;
 
@@ -93,7 +95,13 @@ trait Rounding
                 $delta = $maximum + 1 - $minimum;
                 $factor /= $delta;
                 $fraction *= $delta;
-                $arguments[0] += (int) (($this->$unit - $minimum) * $factor);
+                $inc = ($this->$unit - $minimum) * $factor;
+
+                // If greater than $precision, assume precision loss caused an overflow
+                if ($function !== 'floor' || abs($arguments[0] + $inc - $initialValue) >= $precision) {
+                    $arguments[0] += $inc;
+                }
+
                 $changes[$unit] = round(
                     $minimum + ($fraction ? $fraction * $function(($this->$unit - $minimum) / $fraction) : 0)
                 );
