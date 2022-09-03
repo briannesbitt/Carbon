@@ -121,7 +121,7 @@ class RoundTest extends AbstractTestCase
         }
     }
 
-    public function testFloorYearOfEndOfYear()
+    public function testFloorYear()
     {
         $date = Carbon::create(2022)->endOfYear()->floorYear();
         $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
@@ -130,6 +130,9 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
 
         $date = Carbon::create(2022)->endOfYear()->floorYear();
+        $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
+
+        $date = Carbon::create(2022)->addMonths(6)->floorYear();
         $this->assertCarbon($date, 2022, 1, 1, 0, 0, 0, 0);
     }
 
