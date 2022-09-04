@@ -80,6 +80,7 @@ trait Rounding
         $initialValue = null;
         $factor = $this->year < 0 ? -1 : 1;
         $changes = [];
+        $minimumInc = null;
 
         foreach ($ranges as $unit => [$minimum, $maximum]) {
             if ($normalizedUnit === $unit) {
@@ -98,7 +99,7 @@ trait Rounding
                 $inc = ($this->$unit - $minimum) * $factor;
 
                 if ($inc !== 0.0) {
-                    $minimumInc = $arguments[0] / pow(2, 52);
+                    $minimumInc = $minimumInc ?? ($arguments[0] / pow(2, 52));
 
                     // If value is still the same when adding a non-zero increment/decrement,
                     // it means precision got lost in the addition
