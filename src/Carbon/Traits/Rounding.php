@@ -97,9 +97,19 @@ trait Rounding
                 $fraction *= $delta;
                 $inc = ($this->$unit - $minimum) * $factor;
 
-                // If greater than $precision, assume precision loss caused an overflow
-                if ($function !== 'floor' || abs($arguments[0] + $inc - $initialValue) >= $precision) {
-                    $arguments[0] += $inc;
+                if ($inc !== 0.0) {
+                    $minimumInc = $arguments[0] / pow(2, 52);
+
+                    // If value is still the same when adding a non-zero increment/decrement,
+                    // it means precision got lost in the addition
+                    if (abs($inc) < $minimumInc) {
+                        $inc = $minimumInc * ($inc < 0 ? -1 : 1);
+                    }
+
+                    // If greater than $precision, assume precision loss caused an overflow
+                    if ($function !== 'floor' || abs($arguments[0] + $inc - $initialValue) >= $precision) {
+                        $arguments[0] += $inc;
+                    }
                 }
 
                 $changes[$unit] = round(
