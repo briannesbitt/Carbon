@@ -34,39 +34,7 @@ use ReturnTypeWillChange;
  */
 trait Converter
 {
-    /**
-     * Format to use for __toString method when type juggling occurs.
-     *
-     * @var string|Closure|null
-     */
-    protected static $toStringFormat;
-
-    /**
-     * Reset the format used to the default when type juggling a Carbon instance to a string
-     *
-     * @return void
-     */
-    public static function resetToStringFormat()
-    {
-        static::setToStringFormat(null);
-    }
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather let Carbon object being casted to string with DEFAULT_TO_STRING_FORMAT, and
-     *             use other method or custom format passed to format() method if you need to dump an other string
-     *             format.
-     *
-     * Set the default format used when type juggling a Carbon instance to a string
-     *
-     * @param string|Closure|null $format
-     *
-     * @return void
-     */
-    public static function setToStringFormat($format)
-    {
-        static::$toStringFormat = $format;
-    }
+    use ToStringFormat;
 
     /**
      * Returns the formatted date string on success or FALSE on failure.
@@ -110,7 +78,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now(); // Carbon instances can be casted to string
+     * echo Carbon::now(); // Carbon instances can be cast to string
      * ```
      *
      * @return string
