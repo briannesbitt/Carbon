@@ -25,6 +25,7 @@ use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
+use Carbon\Traits\ToStringFormat;
 use Closure;
 use Countable;
 use DateInterval;
@@ -178,6 +179,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     use Options {
         Options::__debugInfo as baseDebugInfo;
     }
+    use ToStringFormat;
 
     /**
      * Built-in filter for limit by recurrences.
@@ -1459,13 +1461,21 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function toString(): string
     {
+        $format = $this->localToStringFormat ?? static::$toStringFormat;
+
+        if ($format instanceof Closure) {
+            return $format($this);
+        }
+
         $translator = ([$this->dateClass, 'getTranslator'])();
 
         $parts = [];
 
-        $format = !$this->startDate->isStartOfDay() || ($this->endDate && !$this->endDate->isStartOfDay())
-            ? 'Y-m-d H:i:s'
-            : 'Y-m-d';
+        $format = $format ?? (
+            !$this->startDate->isStartOfDay() || ($this->endDate && !$this->endDate->isStartOfDay())
+                ? 'Y-m-d H:i:s'
+                : 'Y-m-d'
+        );
 
         if ($this->carbonRecurrences !== null) {
             $parts[] = $this->translate('period_recurrences', [], $this->carbonRecurrences, $translator);

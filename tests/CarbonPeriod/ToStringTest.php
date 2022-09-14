@@ -175,4 +175,34 @@ class ToStringTest extends AbstractTestCase
             $period[0]->toImmutable()->startOfWeek()->format('Y-m-d H:i:s'),
         );
     }
+
+    public function testToStringCustomization()
+    {
+        $sunday = CarbonImmutable::parse('2019-12-01');
+
+        $period = CarbonPeriod::create($sunday->startOfWeek(), '1 week', $sunday->endOfWeek());
+
+        $this->assertSame(
+            'Every 1 week from 2019-11-25 00:00:00 to 2019-12-01 23:59:59!!',
+            $period.'!!'
+        );
+
+        CarbonPeriod::setToStringFormat('m/d');
+
+        $this->assertSame(
+            'Every 1 week from 11/25 to 12/01!!',
+            $period.'!!'
+        );
+
+        $period->settings(['toStringFormat' => static function (CarbonPeriod $period) {
+            return $period->toIso8601String();
+        }]);
+
+        $this->assertSame(
+            '2019-11-25T00:00:00-05:00/P7D/2019-12-01T23:59:59-05:00!!',
+            $period.'!!'
+        );
+
+        CarbonPeriod::resetToStringFormat();
+    }
 }

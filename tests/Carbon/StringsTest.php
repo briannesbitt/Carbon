@@ -219,6 +219,12 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('Thu, Dec 25, 1975 2:15 PM', $d->toDayDateTimeString());
     }
 
+    public function testToDayDateString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('Thu, Dec 25, 1975', $d->toFormattedDayDateString());
+    }
+
     public function testToAtomString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
