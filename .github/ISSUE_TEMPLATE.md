@@ -33,7 +33,7 @@ PHP version: **PUT HERE YOUR PHP VERSION**
     macros, timezone, language. So to be sure the code
     you give is enough to reproduce your bug, try it
     first in:
-    https://try-carbon.herokuapp.com/?theme=xcode&export&embed
+    https://play.phpsandbox.io/embed/nesbot/carbon?input=%3C%3Fphp%0A%0Aecho%20Carbon%3A%3Aparse('2018-06-01')-%3EsubDay()-%3Emonth%3B
 
     You can use the [Options] button to change the version
     then when you get the bug with this editor, you can use
@@ -62,7 +62,7 @@ But I actually get:
 ```
 <!--
     If you did not succeed to get the same result in
-    https://try-carbon.herokuapp.com/ then precise the
+    https://play.phpsandbox.io/embed/nesbot/carbon?input=%3C%3Fphp%0A%0Aecho%20Carbon%3A%3Aparse('2018-06-01')%3B then precise the
     result you get.
 -->
 

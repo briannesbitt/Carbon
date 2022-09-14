@@ -56,9 +56,14 @@ class ToStringTest extends AbstractTestCase
     public function testClosure()
     {
         $ci = CarbonInterval::create(11);
+        $this->assertSame('11 years:abc', $ci.':abc');
+        CarbonInterval::setToStringFormat('%Y');
+        $this->assertSame('11:abc', $ci.':abc');
         $ci->settings(['toStringFormat' => static function (CarbonInterval $interval) {
             return 'Y'.($interval->years * 2);
         }]);
         $this->assertSame('Y22:abc', $ci.':abc');
+
+        CarbonInterval::resetToStringFormat();
     }
 }

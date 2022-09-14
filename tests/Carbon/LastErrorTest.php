@@ -57,9 +57,7 @@ class LastErrorTest extends AbstractTestCase
         $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
 
         $carbon = new Carbon('2017-02-15');
-        $datetime = new DateTime('2017-02-15');
 
         $this->assertSame($this->noErrors, $carbon->getLastErrors());
-        $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
     }
 }

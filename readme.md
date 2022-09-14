@@ -120,7 +120,7 @@ This project exists thanks to all the people who contribute.
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
 
 <a href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme" target="_blank"><img src="https://carbon.nesbot.com/tidelift-brand.png" width="256" height="64"></a>
-<a href="https://onlinecasinohex.ca/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img src="https://images.opencollective.com/hexcasinoca/2da3af2/logo/256.png" width="85" height="64"></a>
+<a href="https://casinohex.org/canada/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img src="https://images.opencollective.com/hexcasinoca/2da3af2/logo/256.png" width="85" height="64"></a>
 <a href="https://opencollective.com/Carbon/sponsor/0/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/1/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/2/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/2/avatar.svg"></a>

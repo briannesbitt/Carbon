@@ -79,6 +79,12 @@ class SpecTest extends AbstractTestCase
         $this->assertSame('PT1S', $ci->spec());
     }
 
+    public function testMicrosecondsInterval()
+    {
+        $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 12300);
+        $this->assertSame('PT0.012300S', $ci->spec(true));
+    }
+
     public function testMixedTimeInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 1, 2, 3);
