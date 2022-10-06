@@ -1584,7 +1584,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-1, Carbon::parse('2018-11-28 00:00:00', 'Europe/Paris')->floatDiffInMonths(Carbon::parse('2018-10-28 00:00:00', 'Europe/Paris'), false));
 
         if (version_compare(PHP_VERSION, '7.2.0-dev', '>=')) {
-            $this->assertSame(0.9999999999884259, Carbon::parse('2020-12-17 00:00:00.000001')->floatDiffInDays('2020-12-16 00:00:00.000002'));
+            $this->assertEqualsWithDelta(0.9999999999884259, Carbon::parse('2020-12-17 00:00:00.000001')->floatDiffInDays('2020-12-16 00:00:00.000002'), 0.0000000001);
         }
     }
 
