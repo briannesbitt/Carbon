@@ -27,7 +27,7 @@ jobs:
       dynamodb:
         image: amazon/dynamodb-local:latest
         ports:
-          - 8888:8000
+          - 8889:8000
 
     strategy:
       fail-fast: false
@@ -168,7 +168,7 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
           DYNAMODB_CACHE_TABLE: laravel_dynamodb_test
-          DYNAMODB_ENDPOINT: "http://localhost:8888"
+          DYNAMODB_ENDPOINT: "http://localhost:8889"
 
       - name: Code Climate Test Reporter
         if: matrix.coverage
