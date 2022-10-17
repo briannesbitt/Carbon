@@ -27,7 +27,7 @@ jobs:
       dynamodb:
         image: amazon/dynamodb-local:latest
         ports:
-          - 8889:8000
+          - 8888:8000
 
     strategy:
       fail-fast: false
@@ -114,10 +114,6 @@ jobs:
           sudo apt-get update || apt --fix-broken install || echo 'Apt failure ignored'
           sudo apt-get install tzdata locales -y && sudo locale-gen fr_FR.UTF-8 sr_ME.UTF-8 ar_AE.UTF-8 zh_TW.UTF-8 zh_CN.UTF-8 yo_NG.UTF-8 en_US.UTF-8 || echo 'Apt failure ignored'
 
-      - name: Setup Memcached
-        if: matrix.laravel
-        uses: niden/actions-memcached@v7
-
       - name: Set Minimum PHP 8.1 Versions
         uses: nick-invision/retry@v1
         with:
@@ -168,7 +164,7 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
           DYNAMODB_CACHE_TABLE: laravel_dynamodb_test
-          DYNAMODB_ENDPOINT: "http://localhost:8889"
+          DYNAMODB_ENDPOINT: "http://localhost:8888"
 
       - name: Code Climate Test Reporter
         if: matrix.coverage
