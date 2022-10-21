@@ -80,16 +80,16 @@ jobs:
             classmap-authoritative: true
 
           - php: 8.1
-            coverage: true
+            laravel: true
+            reference: 9.x
 
           - php: 8.1
             laravel: true
-            reference: master
-
-          - php: 8.1
-            laravel: true
-            reference: master
+            reference: 9.x
             classmap-authoritative: true
+
+          - php: 8.1
+            coverage: true
 
     name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
