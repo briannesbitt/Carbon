@@ -1354,9 +1354,14 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = ($this->dayOfWeek + 7 - (int) ($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
+        if ($value === null) {
+            return $this->dayOfWeek;
+        }
 
-        return $value === null ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
+        $firstDay = (int) ($this->getTranslationMessage('first_day_of_week') ?? 0);
+        $dayOfWeek = ($this->dayOfWeek + 7 - $firstDay) % 7;
+
+        return $this->addDays((($value + 7 - $firstDay) % 7) - $dayOfWeek);
     }
 
     /**
