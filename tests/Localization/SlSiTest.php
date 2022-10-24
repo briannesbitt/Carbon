@@ -331,11 +331,11 @@ class SlSiTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago'
-        'pred 2 leti',
+        'pred 2 letoma',
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago'
-        'pred 2 leti',
+        'pred 2 letoma',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
@@ -399,7 +399,7 @@ class SlSiTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'pred 2 leti 3 mes. 1 dnem 1 s',
+        'pred 2 letoma 3 mes. 1 dnem 1 s',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
