@@ -113,10 +113,8 @@ class MacroTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            '/**
-             * Foo.
-             */',
-            $macro->getDocComment()
+            "/**\n* Foo.\n*/",
+            preg_replace('/^[\t ]+/m', '', $macro->getDocComment())
         );
     }
 

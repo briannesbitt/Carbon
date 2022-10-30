@@ -102,7 +102,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: json, msgpack${{ matrix.laravel && ', dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis-phpredis/phpredis@5.3.5, igbinary, msgpack, lzf, zstd, lz4, memcached, gmp' || '' }}
-          ini-values: error_reporting=E_ALL
+          ini-values: error_reporting=${{ (matrix.setup != 'lowest') && '32767' || '8191' }}
           tools: composer:v2
           coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
         env:
