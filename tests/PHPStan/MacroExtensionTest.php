@@ -27,7 +27,7 @@ class MacroExtensionTest extends AbstractTestCase
 
         $this->assertFalse($scanner->hasMethod(Carbon::class, 'foo'));
 
-        Carbon::macro('foo', function () {
+        Carbon::macro('foo', function ($someArg) {
         });
 
         $this->assertTrue($scanner->hasMethod(Carbon::class, 'foo'));

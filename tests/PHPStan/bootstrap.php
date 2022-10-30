@@ -11,6 +11,6 @@
 
 use Carbon\Carbon;
 
-Carbon::macro('foo', static function (): string {
+Carbon::macro('foo', static function ($someArg): string {
     return 'foo';
 });
