@@ -111,4 +111,13 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' et '],
+    'ordinal_words' => [
+        'of' => 'de',
+        'first' => 'premier',
+        'second' => 'deuxième',
+        'third' => 'troisième',
+        'fourth' => 'quatrième',
+        'fifth' => 'cinquième',
+        'last' => 'dernier',
+    ],
 ];
