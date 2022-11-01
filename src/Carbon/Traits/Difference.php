@@ -194,7 +194,9 @@ trait Difference
         [$yearStart, $monthStart, $dayStart] = explode('-', $this->format('Y-m-dHisu'));
         [$yearEnd, $monthEnd, $dayEnd] = explode('-', $date->format('Y-m-dHisu'));
 
-        return ($yearEnd - $yearStart) * static::MONTHS_PER_YEAR + $monthEnd - $monthStart - ($dayStart > $dayEnd ? 1 : 0);
+        $diff = ($yearEnd - $yearStart) * static::MONTHS_PER_YEAR + $monthEnd - $monthStart - ($dayStart > $dayEnd ? 1 : 0);
+
+        return $absolute ? abs($diff) : $diff;
 
         // return $this->diffInYears($date, $absolute) * static::MONTHS_PER_YEAR + (int) $this->diff($date, $absolute)->format('%r%m');
     }
