@@ -33,36 +33,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: 7.1.8
-          - php: 7.1.28
-          - php: 7.1
-          - php: 7.1
-            setup: lowest
-
-          - php: 7.2.0
-          - php: 7.2.15
-          - php: 7.2
-          - php: 7.2
-            setup: lowest
-
-          - php: 7.3.0
-          - php: 7.3.5
-          - php: 7.3
-          - php: 7.3
-            setup: lowest
-
-          - php: 7.4
-          - php: 7.4
-            setup: lowest
-
-          - php: 8.0
-            classmap-authoritative: true
-
           - php: 8.0
           - php: 8.0
             setup: lowest
 
           - php: 8.1
+          - php: 8.1.0
+          - php: 8.1.4
+          - php: 8.1.8
+          - php: 8.1.9
+          - php: 8.1.11
+          - php: 8.1.12
           - php: 8.1
             setup: lowest
 
@@ -70,26 +51,6 @@ jobs:
           - php: 8.2
             setup: lowest
 
-          - php: 8.0
-            laravel: true
-            reference: 9.x
-
-          - php: 8.0
-            laravel: true
-            reference: 9.x
-            classmap-authoritative: true
-
-          - php: 8.1
-            laravel: true
-            reference: 9.x
-
-          - php: 8.1
-            laravel: true
-            reference: 9.x
-            classmap-authoritative: true
-
-          - php: 8.1
-            coverage: true
 
     name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
@@ -177,88 +138,3 @@ jobs:
       - name: Coverage
         uses: codecov/codecov-action@v1
         if: matrix.coverage
-
-  windows:
-    runs-on: windows-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - php: 7.1.8
-          - php: 7.1.28
-          - php: 7.1
-          - php: 7.1
-            setup: lowest
-
-          - php: 7.2.0
-          - php: 7.2.15
-          - php: 7.2
-          - php: 7.2
-            setup: lowest
-
-          - php: 7.3.0
-          - php: 7.3.5
-          - php: 7.3
-          - php: 7.3
-            setup: lowest
-
-          - php: 7.4
-            coverage: true
-          - php: 7.4
-            setup: lowest
-
-          - php: 8.0
-          - php: 8.0
-            setup: lowest
-
-          - php: 8.1
-          - php: 8.1
-            setup: lowest
-
-          - php: 8.2
-          - php: 8.2
-            setup: lowest
-
-    name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
-
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: json
-          tools: composer:v2
-          coverage: none
-
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
-
-      - name: Install dependencies
-        uses: nick-fields/retry@v2
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: |
-            composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
-            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction --dev;' || '' }}
-            composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
-
-      - name: Run test suite
-        run: |
-          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
-        env:
-          PHP_VERSION: ${{ matrix.php }}
-          REDIS_HOST: 127.0.0.1
-          REDIS_PORT: 6379
