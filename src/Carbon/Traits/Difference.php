@@ -189,9 +189,21 @@ trait Difference
      */
     public function diffInMonths($date = null, $absolute = true)
     {
-        $date = $this->resolveCarbon($date);
+        $date = $this->resolveCarbon($date)->avoidMutation()->tz($this->tz);
 
-        return $this->diffInYears($date, $absolute) * static::MONTHS_PER_YEAR + (int) $this->diff($date, $absolute)->format('%r%m');
+        [$yearStart, $monthStart, $dayStart] = explode('-', $this->format('Y-m-dHisu'));
+        [$yearEnd, $monthEnd, $dayEnd] = explode('-', $date->format('Y-m-dHisu'));
+
+        $diff = (((int) $yearEnd) - ((int) $yearStart)) * static::MONTHS_PER_YEAR +
+            ((int) $monthEnd) - ((int) $monthStart);
+
+        if ($diff > 0) {
+            $diff -= ($dayStart > $dayEnd ? 1 : 0);
+        } elseif ($diff < 0) {
+            $diff += ($dayStart < $dayEnd ? 1 : 0);
+        }
+
+        return $absolute ? abs($diff) : $diff;
     }
 
     /**

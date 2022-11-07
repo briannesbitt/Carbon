@@ -110,6 +110,27 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-11, $dt->diffInMonths($dt->copy()->subYear()->addMonth(), false));
     }
 
+    public function testDiffInMonthsWithTimezone()
+    {
+        $first = new Carbon('2022-02-01 16:00 America/Toronto');
+        $second = new Carbon('2022-01-01 20:00 Europe/Berlin');
+
+        $this->assertSame(-1, $first->diffInMonths($second, false));
+        $this->assertSame(1, $second->diffInMonths($first, false));
+
+        $first = new Carbon('2022-02-01 01:00 America/Toronto');
+        $second = new Carbon('2022-01-01 00:00 Europe/Berlin');
+
+        $this->assertSame(-1, $first->diffInMonths($second, false));
+        $this->assertSame(1, $second->diffInMonths($first, false));
+
+        $first = new Carbon('2022-02-01 01:00 Europe/Berlin');
+        $second = new Carbon('2022-01-01 00:00 America/Toronto');
+
+        $this->assertSame(0, $first->diffInMonths($second, false));
+        $this->assertSame(0, $second->diffInMonths($first, false));
+    }
+
     public function testDiffInMonthsNegativeNoSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
