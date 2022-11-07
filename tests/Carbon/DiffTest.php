@@ -118,24 +118,32 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(-1, (int) $first->diffInMonths($second, false));
         $this->assertSame(1, (int) $second->diffInMonths($first, false));
+        $this->assertSame(-1.0, $first->diffInMonths($second));
+        $this->assertSame(1.0, $second->diffInMonths($first));
 
         $first = new Carbon('2022-02-01 16:00 America/Toronto');
         $second = new Carbon('2022-01-01 20:00 Europe/Berlin');
 
         $this->assertSame(-1, (int) $first->diffInMonths($second, false));
         $this->assertSame(1, (int) $second->diffInMonths($first, false));
+        $this->assertEqualsWithDelta(-1.002976190476190, $first->diffInMonths($second), 0.00000001);
+        $this->assertEqualsWithDelta(1.002976190476190, $second->diffInMonths($first), 0.00000001);
 
         $first = new Carbon('2022-02-01 01:00 America/Toronto');
         $second = new Carbon('2022-01-01 00:00 Europe/Berlin');
 
         $this->assertSame(-1, (int) $first->diffInMonths($second, false));
         $this->assertSame(1, (int) $second->diffInMonths($first, false));
+        $this->assertEqualsWithDelta(-1.0104166666666667, $first->diffInMonths($second), 0.00000001);
+        $this->assertEqualsWithDelta(1.0104166666666667, $second->diffInMonths($first), 0.00000001);
 
         $first = new Carbon('2022-02-01 01:00 Europe/Berlin');
         $second = new Carbon('2022-01-01 00:00 America/Toronto');
 
         $this->assertSame(0, (int) $first->diffInMonths($second, false));
         $this->assertSame(0, (int) $second->diffInMonths($first, false));
+        $this->assertEqualsWithDelta(-0.9932795698924731, $first->diffInMonths($second), 0.00000001);
+        $this->assertEqualsWithDelta(0.9932795698924731, $second->diffInMonths($first), 0.00000001);
     }
 
     public function testDiffInMonthsNegativeNoSign()
