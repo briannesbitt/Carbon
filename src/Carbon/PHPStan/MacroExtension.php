@@ -11,6 +11,7 @@
 
 namespace Carbon\PHPStan;
 
+use PHPStan\Reflection\Assertions;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
@@ -59,6 +60,7 @@ final class MacroExtension implements MethodsClassReflectionExtension
     public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
     {
         $builtinMacro = $this->scanner->getMethod($classReflection->getName(), $methodName);
+        $supportAssertions = class_exists(Assertions::class);
 
         return $this->methodReflectionFactory->create(
             $classReflection,
@@ -72,7 +74,11 @@ final class MacroExtension implements MethodsClassReflectionExtension
             $builtinMacro->isDeprecated()->yes(),
             $builtinMacro->isInternal(),
             $builtinMacro->isFinal(),
+            $supportAssertions ? null : $builtinMacro->getDocComment(),
+            $supportAssertions ? Assertions::createEmpty() : null,
+            null,
             $builtinMacro->getDocComment(),
+            [],
         );
     }
 }

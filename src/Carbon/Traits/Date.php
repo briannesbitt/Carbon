@@ -1267,9 +1267,14 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = static::weekRotate($this->dayOfWeek, -((int) $this->getTranslationMessage('first_day_of_week')));
+        if ($value === null) {
+            return $this->dayOfWeek;
+        }
 
-        return $value === null ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
+        $firstDay = (int) ($this->getTranslationMessage('first_day_of_week') ?? 0);
+        $dayOfWeek = ($this->dayOfWeek + 7 - $firstDay) % 7;
+
+        return $this->addDays((($value + 7 - $firstDay) % 7) - $dayOfWeek);
     }
 
     /**
@@ -1746,6 +1751,10 @@ trait Date
             'LL' => $this->getTranslationMessage('formats.LL', $locale),
             'LLL' => $this->getTranslationMessage('formats.LLL', $locale),
             'LLLL' => $this->getTranslationMessage('formats.LLLL', $locale),
+            'l' => $this->getTranslationMessage('formats.l', $locale),
+            'll' => $this->getTranslationMessage('formats.ll', $locale),
+            'lll' => $this->getTranslationMessage('formats.lll', $locale),
+            'llll' => $this->getTranslationMessage('formats.llll', $locale),
         ];
     }
 
@@ -2029,7 +2038,7 @@ trait Date
 
             $input = mb_substr($format, $i);
 
-            if (preg_match('/^(LTS|LT|[Ll]{1,4})/', $input, $match)) {
+            if (preg_match('/^(LTS|LT|l{1,4}|L{1,4})/', $input, $match)) {
                 if ($formats === null) {
                     $formats = $this->getIsoFormats();
                 }

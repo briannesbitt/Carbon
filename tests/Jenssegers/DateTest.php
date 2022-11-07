@@ -189,4 +189,13 @@ class DateTest extends TestCaseBase
 
         $this->assertSame('Foobar', Carbon::translateTimeString('Foobar', 'xx'));
     }
+
+    public function testTranslateTimeStringWithOrdinalWords()
+    {
+        $date = Carbon::translateTimeString('Premier lundi de mai', 'fr', 'en');
+        $this->assertSame('first monday of may', mb_strtolower($date));
+
+        $date = Carbon::translateTimeString('Premier lundi de mai', 'fr', 'es');
+        $this->assertSame('primer lunes de mayo', mb_strtolower($date));
+    }
 }

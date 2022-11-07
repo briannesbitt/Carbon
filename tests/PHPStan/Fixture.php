@@ -19,11 +19,11 @@ class Fixture
 {
     public function testCarbonMacroCalledStatically(): string
     {
-        return Carbon::foo();
+        return Carbon::foo(15);
     }
 
     public function testCarbonMacroCalledDynamically(): string
     {
-        return Carbon::now()->foo();
+        return Carbon::now()->foo(42);
     }
 }
