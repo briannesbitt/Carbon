@@ -174,17 +174,27 @@ trait Difference
     public function diffInMonths($date = null, bool $absolute = false): float
     {
         $start = $this;
-        $end = $this->resolveCarbon($date);
+        $end = $this->resolveCarbon($date)->avoidMutation()->tz($this->tz);
+
+        [$yearStart, $monthStart, $dayStart] = explode('-', $start->format('Y-m-dHisu'));
+        [$yearEnd, $monthEnd, $dayEnd] = explode('-', $end->format('Y-m-dHisu'));
+
+        $monthsDiff = (((int) $yearEnd) - ((int) $yearStart)) * static::MONTHS_PER_YEAR +
+            ((int) $monthEnd) - ((int) $monthStart);
+
+        if ($monthsDiff > 0) {
+            $monthsDiff -= ($dayStart > $dayEnd ? 1 : 0);
+        } elseif ($monthsDiff < 0) {
+            $monthsDiff += ($dayStart < $dayEnd ? 1 : 0);
+        }
+
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
+        $monthsDiff = abs($monthsDiff);
 
         if (!$ascending) {
             [$start, $end] = [$end, $start];
         }
-
-        $monthsDiff =
-            (int) ($start->diff($end, $absolute)->format('%r%y') * static::MONTHS_PER_YEAR) +
-            (int) $start->diff($end, $absolute)->format('%r%m');
 
         /** @var Carbon|CarbonImmutable $floorEnd */
         $floorEnd = $start->copy()->addMonths($monthsDiff);
@@ -194,7 +204,7 @@ trait Difference
         }
 
         /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
-        $startOfMonthAfterFloorEnd = $floorEnd->copy()->addMonth()->startOfMonth();
+        $startOfMonthAfterFloorEnd = $floorEnd->copy()->addMonthNoOverflow()->startOfMonth();
 
         if ($startOfMonthAfterFloorEnd > $end) {
             return $sign * ($monthsDiff + $floorEnd->diffInDays($end) / $floorEnd->daysInMonth);

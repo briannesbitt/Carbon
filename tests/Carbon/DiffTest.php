@@ -134,16 +134,18 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(-1, (int) $first->diffInMonths($second, false));
         $this->assertSame(1, (int) $second->diffInMonths($first, false));
-        $this->assertEqualsWithDelta(-1.0104166666666667, $first->diffInMonths($second), 0.00000001);
-        $this->assertEqualsWithDelta(1.0104166666666667, $second->diffInMonths($first), 0.00000001);
+        $this->assertEqualsWithDelta(-(1 + 6 / 24 / 31 + 1 / 24 / 28), $first->diffInMonths($second), 0.00000001);
+        // $second date in Toronto is 2021-12-31 18:00, so we have 6 hours in December (a 31 days month), and 1 hour in February (28 days month)
+        $this->assertEqualsWithDelta(1 + (7 / 24 / 28), $second->diffInMonths($first), 0.00000001);
+        // Considered in Berlin timezone, the 7 extra hours are in February (28 days month)
 
         $first = new Carbon('2022-02-01 01:00 Europe/Berlin');
         $second = new Carbon('2022-01-01 00:00 America/Toronto');
 
         $this->assertSame(0, (int) $first->diffInMonths($second, false));
         $this->assertSame(0, (int) $second->diffInMonths($first, false));
-        $this->assertEqualsWithDelta(-0.9932795698924731, $first->diffInMonths($second), 0.00000001);
-        $this->assertEqualsWithDelta(0.9932795698924731, $second->diffInMonths($first), 0.00000001);
+        $this->assertEqualsWithDelta(-(1 - 6 / 24 / 31 + 1 / 24 / 28), $first->diffInMonths($second), 0.00000001);
+        $this->assertEqualsWithDelta(1 - 5 / 24 / 31, $second->diffInMonths($first), 0.00000001);
     }
 
     public function testDiffInMonthsNegativeNoSign()
