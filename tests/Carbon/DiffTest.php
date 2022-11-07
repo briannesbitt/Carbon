@@ -111,6 +111,27 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-11, (int) $dt->diffInMonths($dt->copy()->subYear()->addMonth()));
     }
 
+    public function testDiffInMonthsWithTimezone()
+    {
+        $first = new Carbon('2022-02-01 16:00 America/Toronto');
+        $second = new Carbon('2022-01-01 20:00 Europe/Berlin');
+
+        $this->assertSame(-1, $first->diffInMonths($second, false));
+        $this->assertSame(1, $second->diffInMonths($first, false));
+
+        $first = new Carbon('2022-02-01 01:00 America/Toronto');
+        $second = new Carbon('2022-01-01 00:00 Europe/Berlin');
+
+        $this->assertSame(-1, $first->diffInMonths($second, false));
+        $this->assertSame(1, $second->diffInMonths($first, false));
+
+        $first = new Carbon('2022-02-01 01:00 Europe/Berlin');
+        $second = new Carbon('2022-01-01 00:00 America/Toronto');
+
+        $this->assertSame(0, $first->diffInMonths($second, false));
+        $this->assertSame(0, $second->diffInMonths($first, false));
+    }
+
     public function testDiffInMonthsNegativeNoSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
@@ -1765,8 +1786,13 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(1.0416666666666667, Carbon::parse('2021-10-30 20:00 Europe/Warsaw')->floatDiffInRealDays('2021-10-31 20:00'));
         $this->assertSame(1.0006944444444443, Carbon::parse('2018-12-01 00:00')->floatDiffInRealDays(Carbon::parse('2018-12-02 00:01')));
 
+        $this->assertEqualsWithDelta(1.0006944444444443, Carbon::parse('2018-12-01 00:00')->floatDiffInRealDays(Carbon::parse('2018-12-02 00:01')), 0.0000000001);
+        $this->assertEqualsWithDelta(1.0006944444444443 / 7, Carbon::parse('2018-12-01 00:00')->floatDiffInRealWeeks(Carbon::parse('2018-12-02 00:01')), 0.0000000001);
+
         $this->assertSame(0.9714742503779745, Carbon::parse('2018-03-13 20:55:12.321456')->floatDiffInRealMonths(Carbon::parse('2018-04-12 14:24:58.987421'), true));
         $this->assertSame(0.9714742503779745, Carbon::parse('2018-04-12 14:24:58.987421')->floatDiffInRealMonths(Carbon::parse('2018-03-13 20:55:12.321456'), true));
+        $this->assertEqualsWithDelta(0.9714742503779745, Carbon::parse('2018-03-13 20:55:12.321456')->floatDiffInRealMonths(Carbon::parse('2018-04-12 14:24:58.987421'), false), 0.0000000001);
+        $this->assertEqualsWithDelta(-0.9714742503779745, Carbon::parse('2018-04-12 14:24:58.987421')->floatDiffInRealMonths(Carbon::parse('2018-03-13 20:55:12.321456'), false), 0.0000000001);
 
         $this->assertSame(1.0006944444444443 / 7, Carbon::parse('2018-12-01 00:00')->floatDiffInRealWeeks(Carbon::parse('2018-12-02 00:01')));
         $this->assertSame(1.0006944444444443 / 7, Carbon::parse('2018-12-01 00:00')->floatDiffInRealWeeks(Carbon::parse('2018-12-02 00:01'), true));
@@ -1804,7 +1830,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-1.0, Carbon::parse('2018-11-28 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00', 'Europe/Paris')));
 
         Carbon::setTestNow('2021-03-28 20:00 Europe/Warsaw');
-        $this->assertSame(0.9583333333333335, Carbon::parse('2021-03-27 20:00 Europe/Warsaw')->floatDiffInRealDays());
+        $this->assertEqualsWithDelta(0.9583333333333335, Carbon::parse('2021-03-27 20:00 Europe/Warsaw')->floatDiffInRealDays(), 0.0000000001);
     }
 
     /**

@@ -173,6 +173,22 @@ trait Difference
      */
     public function diffInMonths($date = null, bool $absolute = false): float
     {
+//        $date = $this->resolveCarbon($date)->avoidMutation()->tz($this->tz);
+//
+//        [$yearStart, $monthStart, $dayStart] = explode('-', $this->format('Y-m-dHisu'));
+//        [$yearEnd, $monthEnd, $dayEnd] = explode('-', $date->format('Y-m-dHisu'));
+//
+//        $diff = (((int) $yearEnd) - ((int) $yearStart)) * static::MONTHS_PER_YEAR +
+//            ((int) $monthEnd) - ((int) $monthStart);
+//
+//        if ($diff > 0) {
+//            $diff -= ($dayStart > $dayEnd ? 1 : 0);
+//        } elseif ($diff < 0) {
+//            $diff += ($dayStart < $dayEnd ? 1 : 0);
+//        }
+//
+//        return $absolute ? abs($diff) : $diff;
+
         $start = $this;
         $end = $this->resolveCarbon($date);
         $ascending = ($start <= $end);

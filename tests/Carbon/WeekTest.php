@@ -5430,6 +5430,12 @@ class WeekTest extends AbstractTestCase
         $this->assertSame('08-06', $date->isoWeekday(CarbonInterface::MONDAY)->format('m-d'));
         $this->assertSame(CarbonInterface::MONDAY, $date->weekday());
         $this->assertSame(CarbonInterface::MONDAY, $date->isoWeekday());
+
+        Carbon::setLocale('nb');
+        Carbon::setTestNowAndTimezone(Carbon::parse('2022-09-19 11:00:00'), 'Europe/Oslo');
+        $this->assertSame('2022-09-20 00:00', Carbon::today()->weekday(CarbonInterface::TUESDAY)->format('Y-m-d H:i'));
+        Carbon::setTestNowAndTimezone(Carbon::parse('2022-10-21 16:00:00'), 'Europe/Oslo');
+        $this->assertSame('2022-10-18 00:00', Carbon::today()->weekday(CarbonInterface::TUESDAY)->format('Y-m-d H:i'));
     }
 
     public function testWeekStartAndEnd()

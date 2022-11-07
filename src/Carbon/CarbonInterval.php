@@ -866,6 +866,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 case 'year':
                 case 'years':
                 case 'y':
+                case 'yr':
+                case 'yrs':
                     $years += $intValue;
 
                     break;
@@ -879,6 +881,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 case 'month':
                 case 'months':
                 case 'mo':
+                case 'mos':
                     $months += $intValue;
 
                     break;

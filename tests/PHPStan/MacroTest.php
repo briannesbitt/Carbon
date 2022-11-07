@@ -113,10 +113,8 @@ class MacroTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            '/**
-             * Foo.
-             */',
-            $macro->getDocComment(),
+            "/**\n* Foo.\n*/",
+            preg_replace('/^[\t ]+/m', '', $macro->getDocComment()),
         );
     }
 
@@ -244,6 +242,7 @@ class MacroTest extends AbstractTestCase
         );
         $this->assertSame('foo', $macro->getReflection()->getName());
         $this->assertNull($macro->getTentativeReturnType());
+        $this->assertTrue($macro->returnsByReference()->no());
 
         $macro = new Macro(Carbon::class, 'bar', function () {
         });
