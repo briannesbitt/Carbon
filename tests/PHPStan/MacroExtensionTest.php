@@ -17,13 +17,48 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\PHPStan\MacroScanner;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use Tests\AbstractTestCase;
 
 class MacroExtensionTest extends AbstractTestCase
 {
+    private function mockReflectionProvider()
+    {
+        $carbonReflection = $this->createMock(ClassReflection::class);
+        $carbonReflection->method('getName')->willReturn(Carbon::class);
+        $carbonReflection->method('isSubclassOf')->with(CarbonInterface::class)->willReturn(true);
+
+        $intervalReflection = $this->createMock(ClassReflection::class);
+        $intervalReflection->method('getName')->willReturn(CarbonInterval::class);
+        $intervalReflection->method('isSubclassOf')->with(CarbonInterface::class)->willReturn(false);
+
+        $interfaceReflection = $this->createMock(ClassReflection::class);
+        $interfaceReflection->method('getName')->willReturn(CarbonInterface::class);
+        $interfaceReflection->method('isSubclassOf')->with(CarbonInterface::class)->willReturn(false);
+
+        $reflectionProvider = $this->createMock(ReflectionProvider::class);
+        $reflectionProvider->method('getClass')->willReturnCallback(
+            function (string $className) use ($carbonReflection, $interfaceReflection, $intervalReflection) {
+                if ($className === Carbon::class) {
+                    return $carbonReflection;
+                }
+                if ($className === CarbonInterface::class) {
+                    return $interfaceReflection;
+                }
+                if ($className === CarbonInterval::class) {
+                    return $intervalReflection;
+                }
+                $this->fail("Reflection received unexpected class $className");
+            }
+        );
+
+        return $reflectionProvider;
+    }
+
     public function testHasMacro()
     {
-        $scanner = new MacroScanner();
+        $scanner = new MacroScanner($this->mockReflectionProvider());
 
         $this->assertFalse($scanner->hasMethod(Carbon::class, 'foo'));
 
@@ -37,7 +72,7 @@ class MacroExtensionTest extends AbstractTestCase
 
     public function testGetMacro()
     {
-        $scanner = new MacroScanner();
+        $scanner = new MacroScanner($this->mockReflectionProvider());
         Carbon::macro('foo', function (): CarbonInterval {
         });
 
