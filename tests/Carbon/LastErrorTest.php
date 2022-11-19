@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Traits\Creator;
 use DateTime;
 use Tests\AbstractTestCase;
 
@@ -59,5 +60,30 @@ class LastErrorTest extends AbstractTestCase
         $carbon = new Carbon('2017-02-15');
 
         $this->assertSame($this->noErrors, $carbon->getLastErrors());
+    }
+
+    public function testLastErrorsInitialization()
+    {
+        $obj = new class() {
+            use Creator;
+
+            /** @phpstan-ignore-next-line */
+            public function __construct($time = null, $tz = null)
+            {
+            }
+
+            public function triggerError()
+            {
+                self::setLastErrors(false);
+            }
+        };
+        $this->assertNull($obj::getLastErrors());
+        $obj->triggerError();
+        $this->assertSame([
+            'warning_count' => 0,
+            'warnings' => [],
+            'error_count' => 0,
+            'errors' => [],
+        ], $obj::getLastErrors());
     }
 }

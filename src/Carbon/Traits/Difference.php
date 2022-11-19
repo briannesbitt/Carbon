@@ -842,7 +842,7 @@ trait Difference
         $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
         $parts = min(7, max(1, (int) $parts));
-        $skip = is_array($syntax) ? ($syntax['skip'] ?? []) : [];
+        $skip = \is_array($syntax) ? ($syntax['skip'] ?? []) : [];
 
         return $this->diffAsCarbonInterval($other, false, $skip)
             ->setLocalTranslator($this->getLocalTranslator())

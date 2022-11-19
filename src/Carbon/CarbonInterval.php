@@ -2164,7 +2164,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         ]);
 
         if (
-            $interval->days &&
+            $interval->days >= CarbonInterface::DAYS_PER_WEEK * CarbonInterface::WEEKS_PER_MONTH &&
             (!isset($date[static::PERIOD_YEARS]) || \count(array_intersect(['y', 'year', 'years'], $skip))) &&
             (!isset($date[static::PERIOD_MONTHS]) || \count(array_intersect(['m', 'month', 'months'], $skip)))
         ) {

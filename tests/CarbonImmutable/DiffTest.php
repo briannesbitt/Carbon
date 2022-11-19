@@ -902,21 +902,31 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansOverWeekWithPartsCount1()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 week ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1));
+            $this->assertSame(
+                '1 week ago',
+                Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1)
+            );
         });
     }
 
     public function testDiffForHumansOverWeekWithPartsCount2()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 week 1 day ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2));
+            $this->assertSame(
+                '1 week 1 day ago',
+                Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2)
+            );
         });
     }
 
     public function testDiffForHumansOverWeekWithMicrosecondsBuggyGap()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('23 hours 59 minutes 59 seconds after', Carbon::parse('2018-12-03 12:34:45.123456')->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3]));
+            $this->assertSame(
+                '23 hours 59 minutes 59 seconds after',
+                Carbon::parse('2018-12-03 12:34:45.123456')
+                    ->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3])
+            );
         });
     }
 

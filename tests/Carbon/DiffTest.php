@@ -597,12 +597,12 @@ class DiffTest extends AbstractTestCase
         Carbon::setTestNow('2021-11-04 15:42');
 
         $this->assertSame(
-            '26 weeks from now',
+            '28 weeks from now',
             Carbon::parse('2022-05-25')
                 ->diffForHumans(['skip' => ['y', 'm']])
         );
         $this->assertSame(
-            '188 days from now',
+            '201 days from now',
             Carbon::parse('2022-05-25')
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
@@ -617,7 +617,7 @@ class DiffTest extends AbstractTestCase
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
         $this->assertSame(
-            '486 days ago',
+            '528 days ago',
             Carbon::parse('2020-05-25')
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
@@ -1000,21 +1000,31 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansOverWeekWithPartsCount1()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 week ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1));
+            $this->assertSame(
+                '1 week ago',
+                Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1)
+            );
         });
     }
 
     public function testDiffForHumansOverWeekWithPartsCount2()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 week 1 day ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2));
+            $this->assertSame(
+                '1 week 1 day ago',
+                Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2)
+            );
         });
     }
 
     public function testDiffForHumansOverWeekWithMicrosecondsBuggyGap()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('23 hours 59 minutes 59 seconds after', Carbon::parse('2018-12-03 12:34:45.123456')->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3]));
+            $this->assertSame(
+                '23 hours 59 minutes 59 seconds after',
+                Carbon::parse('2018-12-03 12:34:45.123456')
+                    ->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3])
+            );
         });
     }
 
