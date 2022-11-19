@@ -1731,7 +1731,19 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('31 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay(), [
             'syntax' => CarbonInterface::DIFF_ABSOLUTE,
             'skip' => ['m', 'w'],
-            'minimumUnit' => 'd'
+            'minimumUnit' => 'd',
+        ]));
+
+        $this->assertSame('31 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay()->subHours(5), [
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'skip' => ['m', 'w'],
+            'minimumUnit' => 'd',
+        ]));
+
+        $this->assertSame('30 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay()->addHours(5), [
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'skip' => ['m', 'w'],
+            'minimumUnit' => 'd',
         ]));
     }
 }
