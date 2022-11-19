@@ -887,7 +887,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         return static::fromString(Carbon::translateTimeString($interval, $locale ?: static::getLocale(), 'en'));
     }
 
-    private static function castIntervalToClass(DateInterval $interval, string $className)
+    private static function castIntervalToClass(DateInterval $interval, string $className, array $skip = [])
     {
         $mainClass = DateInterval::class;
 
@@ -896,7 +896,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         $microseconds = $interval->f;
-        $instance = new $className(static::getDateIntervalSpec($interval));
+        $instance = new $className(static::getDateIntervalSpec($interval, false, $skip));
 
         if ($microseconds) {
             $instance->f = $microseconds;
@@ -948,9 +948,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return static
      */
-    public static function instance(DateInterval $interval)
+    public static function instance(DateInterval $interval, array $skip = [])
     {
-        return self::castIntervalToClass($interval, static::class);
+        return self::castIntervalToClass($interval, static::class, $skip);
     }
 
     /**
@@ -1415,9 +1415,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $minimumUnit = 's';
         $skip = [];
         extract($this->getForHumansInitialVariables($syntax, $short));
-        $skip = array_filter((array) $skip, static function ($value) {
+        $skip = array_map('strtolower', array_filter((array) $skip, static function ($value) {
             return \is_string($value) && $value !== '';
-        });
+        }));
 
         if ($syntax === null) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
@@ -2155,13 +2155,23 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return string
      */
-    public static function getDateIntervalSpec(DateInterval $interval, bool $microseconds = false)
+    public static function getDateIntervalSpec(DateInterval $interval, bool $microseconds = false, array $skip = [])
     {
         $date = array_filter([
             static::PERIOD_YEARS => abs($interval->y),
             static::PERIOD_MONTHS => abs($interval->m),
             static::PERIOD_DAYS => abs($interval->d),
         ]);
+
+        if (
+            $interval->days >= CarbonInterface::DAYS_PER_WEEK * CarbonInterface::WEEKS_PER_MONTH &&
+            (!isset($date[static::PERIOD_YEARS]) || \count(array_intersect(['y', 'year', 'years'], $skip))) &&
+            (!isset($date[static::PERIOD_MONTHS]) || \count(array_intersect(['m', 'month', 'months'], $skip)))
+        ) {
+            $date = [
+                static::PERIOD_DAYS => abs($interval->days),
+            ];
+        }
 
         $seconds = abs($interval->s);
         if ($microseconds && $interval->f > 0) {

@@ -83,9 +83,9 @@ trait Difference
      *
      * @return CarbonInterval
      */
-    protected static function fixDiffInterval(DateInterval $diff, $absolute)
+    protected static function fixDiffInterval(DateInterval $diff, $absolute, array $skip = [])
     {
-        $diff = CarbonInterval::instance($diff);
+        $diff = CarbonInterval::instance($diff, $skip);
 
         // Work-around for https://bugs.php.net/bug.php?id=77145
         // @codeCoverageIgnoreStart
@@ -148,9 +148,9 @@ trait Difference
      *
      * @return CarbonInterval
      */
-    public function diffAsCarbonInterval($date = null, $absolute = true)
+    public function diffAsCarbonInterval($date = null, $absolute = true, array $skip = [])
     {
-        return static::fixDiffInterval($this->diff($this->resolveCarbon($date), $absolute), $absolute);
+        return static::fixDiffInterval($this->diff($this->resolveCarbon($date), $absolute), $absolute, $skip);
     }
 
     /**
@@ -842,8 +842,9 @@ trait Difference
         $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
         $parts = min(7, max(1, (int) $parts));
+        $skip = \is_array($syntax) ? ($syntax['skip'] ?? []) : [];
 
-        return $this->diffAsCarbonInterval($other, false)
+        return $this->diffAsCarbonInterval($other, false, $skip)
             ->setLocalTranslator($this->getLocalTranslator())
             ->forHumans($syntax, (bool) $short, $parts, $options ?? $this->localHumanDiffOptions ?? static::getHumanDiffOptions());
     }
