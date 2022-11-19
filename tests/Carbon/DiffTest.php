@@ -1835,4 +1835,15 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(2678400, $d2->diffInSeconds($d1));
     }
+
+    public function testDaysDiffPreservation()
+    {
+        $deletedDate = Carbon::now()->startOfDay()->addDays(31);
+
+        $this->assertSame('31 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay(), [
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'skip' => ['m', 'w'],
+            'minimumUnit' => 'd'
+        ]));
+    }
 }

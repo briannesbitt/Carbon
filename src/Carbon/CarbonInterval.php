@@ -2157,11 +2157,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public static function getDateIntervalSpec(DateInterval $interval, bool $microseconds = false)
     {
-        $date = array_filter([
-            static::PERIOD_YEARS => abs($interval->y),
-            static::PERIOD_MONTHS => abs($interval->m),
-            static::PERIOD_DAYS => abs($interval->d),
-        ]);
+        $date = $interval->days
+            ? [
+                static::PERIOD_DAYS => abs($interval->days),
+            ]
+            : array_filter([
+                static::PERIOD_YEARS => abs($interval->y),
+                static::PERIOD_MONTHS => abs($interval->m),
+                static::PERIOD_DAYS => abs($interval->d),
+            ]);
 
         $seconds = abs($interval->s);
         if ($microseconds && $interval->f > 0) {
