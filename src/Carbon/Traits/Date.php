@@ -641,6 +641,8 @@ trait Date
     /**
      * List of minimum and maximums for each unit.
      *
+     * @param int $daysInMonth
+     * 
      * @return array
      */
     protected static function getRangesByUnit(int $daysInMonth = 31): array
