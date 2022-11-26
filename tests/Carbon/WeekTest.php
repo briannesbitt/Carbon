@@ -5512,4 +5512,36 @@ class WeekTest extends AbstractTestCase
             'Sunday 6' => [6, '2022-11-27 00:00:00', 1],
         ];
     }
+
+    public function testSetDaysFromStartOfWeek()
+    {
+        $this->assertSame(
+            '2022-11-29 23:59:59.999999',
+            Carbon::parse('2022-11-26 23:59:59.999999')
+                ->locale('ar_MA')
+                ->setDaysFromStartOfWeek(3)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2022-11-24 12:34:56.123456',
+            Carbon::parse('2022-11-24 12:34:56.123456')
+                ->locale('fr_FR')
+                ->setDaysFromStartOfWeek(3)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2022-11-23 12:34:56.123456',
+            Carbon::parse('2022-11-24 12:34:56.123456')
+                ->locale('en_US')
+                ->setDaysFromStartOfWeek(3)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2022-11-27 12:34:56.123456',
+            Carbon::parse('2022-11-24 12:34:56.123456')
+                ->locale('en_US')
+                ->setDaysFromStartOfWeek(3, 4)
+                ->format('Y-m-d H:i:s.u')
+        );
+    }
 }
