@@ -25,6 +25,17 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(24, $a->diffInHours($b));
     }
 
+    public function testSimpleModifyWithNamedParameter()
+    {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
+        }
+
+        $a = new Carbon('2014-03-30 00:00:00');
+        $b = eval('return $a->addHours(value: 24);');
+        $this->assertSame(24, $a->diffInHours($b));
+    }
+
     public function testTimezoneModify()
     {
         // For daylight saving time reason 2014-03-30 0h59 is immediately followed by 2h00

@@ -532,6 +532,7 @@ trait Date
     use Creator;
     use Difference;
     use Macro;
+    use MagicParameter;
     use Modifiers;
     use Mutability;
     use ObjectInitialisation;
@@ -2669,7 +2670,7 @@ trait Date
         }
 
         if (static::isModifiableUnit($unit)) {
-            return $this->{"{$action}Unit"}($unit, $parameters[0] ?? 1, $overflow);
+            return $this->{"{$action}Unit"}($unit, $this->getMagicParameter($parameters, 0, 'value', 1), $overflow);
         }
 
         $sixFirstLetters = substr($unit, 0, 6);
@@ -2708,7 +2709,11 @@ trait Date
             try {
                 $unit = static::singularUnit(substr($method, 0, -5));
 
-                return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
+                return $this->range(
+                    $this->getMagicParameter($parameters, 0, 'endDate', $this),
+                    $this->getMagicParameter($parameters, 1, 'factor', 1),
+                    $unit
+                );
             } catch (InvalidArgumentException $exception) {
                 // Try macros
             }

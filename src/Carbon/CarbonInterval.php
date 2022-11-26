@@ -22,6 +22,7 @@ use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\IntervalStep;
+use Carbon\Traits\MagicParameter;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Carbon\Traits\ToStringFormat;
@@ -185,6 +186,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 {
     use IntervalRounding;
     use IntervalStep;
+    use MagicParameter;
     use Mixin {
         Mixin::mixin as baseMixin;
     }
@@ -1360,11 +1362,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         if (preg_match('/^(?<method>add|sub)(?<unit>[A-Z].*)$/', $method, $match)) {
-            return $this->{$match['method']}($parameters[0], $match['unit']);
+            $value = $this->getMagicParameter($parameters, 0, Carbon::pluralUnit($match['unit']), 0);
+
+            return $this->{$match['method']}($value, $match['unit']);
         }
 
+        $value = $this->getMagicParameter($parameters, 0, Carbon::pluralUnit($method), 1);
+
         try {
-            $this->set($method, \count($parameters) === 0 ? 1 : $parameters[0]);
+            $this->set($method, $value);
         } catch (UnknownSetterException $exception) {
             if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
                 throw new BadFluentSetterException($method, 0, $exception);
