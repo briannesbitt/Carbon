@@ -1381,6 +1381,23 @@ trait Date
     }
 
     /**
+     * Return the number of days since the start of the week (using the current locale or the first parameter
+     * if explicitly given).
+     *
+     * @param int|null $weekStartsAt optional start allow you to specify the day of week to use to start the week,
+     *                               if not provided, start of week is inferred from the locale
+     *                               (Sunday for en_US, Monday for de_DE, etc.)
+     *
+     * @return int
+     */
+    public function getDaysFromStartOfWeek(int $weekStartsAt = null): int
+    {
+        $firstDay = (int) ($weekStartsAt ?? $this->getTranslationMessage('first_day_of_week') ?? 0);
+
+        return ($this->dayOfWeek + 7 - $firstDay) % 7;
+    }
+
+    /**
      * Set any unit to a new value without overflowing current other unit given.
      *
      * @param string $valueUnit    unit name to modify

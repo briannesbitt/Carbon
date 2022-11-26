@@ -5437,4 +5437,79 @@ class WeekTest extends AbstractTestCase
         Carbon::setTestNowAndTimezone(Carbon::parse('2022-10-21 16:00:00'), 'Europe/Oslo');
         $this->assertSame('2022-10-18 00:00', Carbon::today()->weekday(CarbonInterface::TUESDAY)->format('Y-m-d H:i'));
     }
+
+    /**
+     * @dataProvider getDaysFromStartOfWeekDataProvider
+     */
+    public function testGetDaysFromStartOfWeek(string $locale, string $date, int $daysCount)
+    {
+        $this->assertSame(
+            $daysCount,
+            Carbon::parse($date)->locale($locale)->getDaysFromStartOfWeek()
+        );
+    }
+
+    public function getDaysFromStartOfWeekDataProvider(): array
+    {
+        return [
+            'Monday en_US' => ['en_US', '2022-11-21', 1],
+            'Monday late en_US' => ['en_US', '2022-11-21 23:59', 1],
+            'Tuesday en_US' => ['en_US', '2022-11-22 00:01', 2],
+            'Thursday en_US' => ['en_US', '2022-11-24', 4],
+            'Saturday en_US' => ['en_US', '2022-11-26 23:59:59.999999', 6],
+            'Sunday en_US' => ['en_US', '2022-11-27 00:00:00', 0],
+            'Monday fr_FR' => ['fr_FR', '2022-11-21', 0],
+            'Monday late fr_FR' => ['fr_FR', '2022-11-21 23:59', 0],
+            'Tuesday fr_FR' => ['fr_FR', '2022-11-22 00:01', 1],
+            'Thursday fr_FR' => ['fr_FR', '2022-11-24', 3],
+            'Saturday fr_FR' => ['fr_FR', '2022-11-26 23:59:59.999999', 5],
+            'Sunday fr_FR' => ['fr_FR', '2022-11-27 00:00:00', 6],
+            'Monday ku' => ['ku', '2022-11-21', 2],
+            'Monday late ku' => ['ku', '2022-11-21 23:59', 2],
+            'Tuesday ku' => ['ku', '2022-11-22 00:01', 3],
+            'Thursday ku' => ['ku', '2022-11-24', 5],
+            'Saturday ku' => ['ku', '2022-11-26 23:59:59.999999', 0],
+            'Sunday ku' => ['ku', '2022-11-27 00:00:00', 1],
+        ];
+    }
+
+    /**
+     * @dataProvider getDaysFromStartOfWeekDataProviderExplicit
+     */
+    public function testGetDaysFromStartOfWeekExplicit(int $start, string $date, int $daysCount)
+    {
+        static $locales = [null, 'pt_BR', 'de_CH', 'ar_MA'];
+        $carbon = Carbon::parse($date);
+        $locale = $locales[array_rand($locales)];
+
+        if ($locale) {
+            $carbon = $carbon->locale($locale);
+        }
+
+        $this->assertSame($daysCount, $carbon->getDaysFromStartOfWeek($start));
+    }
+
+    public function getDaysFromStartOfWeekDataProviderExplicit(): array
+    {
+        return [
+            'Monday 0' => [0, '2022-11-21', 1],
+            'Monday late 0' => [0, '2022-11-21 23:59', 1],
+            'Tuesday 0' => [0, '2022-11-22 00:01', 2],
+            'Thursday 0' => [0, '2022-11-24', 4],
+            'Saturday 0' => [0, '2022-11-26 23:59:59.999999', 6],
+            'Sunday 0' => [0, '2022-11-27 00:00:00', 0],
+            'Monday 1' => [1, '2022-11-21', 0],
+            'Monday late 1' => [1, '2022-11-21 23:59', 0],
+            'Tuesday 1' => [1, '2022-11-22 00:01', 1],
+            'Thursday 1' => [1, '2022-11-24', 3],
+            'Saturday 1' => [1, '2022-11-26 23:59:59.999999', 5],
+            'Sunday 1' => [1, '2022-11-27 00:00:00', 6],
+            'Monday 6' => [6, '2022-11-21', 2],
+            'Monday late 6' => [6, '2022-11-21 23:59', 2],
+            'Tuesday 6' => [6, '2022-11-22 00:01', 3],
+            'Thursday 6' => [6, '2022-11-24', 5],
+            'Saturday 6' => [6, '2022-11-26 23:59:59.999999', 0],
+            'Sunday 6' => [6, '2022-11-27 00:00:00', 1],
+        ];
+    }
 }
