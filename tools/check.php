@@ -73,8 +73,10 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         $argumentsCount = 0;
     } elseif ($method === 'createFromIsoFormat' && $argumentsCount === 5) {
         $argumentsCount = 4;
-    } elseif ($method === 'getDateIntervalSpec' && $argumentsCount === 2) {
+    } elseif ($method === 'getDateIntervalSpec' && $argumentsCount <= 3) {
         $argumentsCount = 1;
+    } elseif ($method === 'diffAsCarbonInterval' && $argumentsCount === 3) {
+        $argumentsCount = 2;
     }
 
     if ($argumentsCount) {

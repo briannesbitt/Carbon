@@ -160,7 +160,7 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "^2.61.0"
+        "nesbot/carbon": "^2.64.0"
     }
 }</code></pre></p>
 
@@ -170,12 +170,12 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "2.61.0 as 1.39.0"
+        "nesbot/carbon": "2.64.0 as 1.39.0"
         "kylekatarnls/laravel-carbon-2": "^1.0.0"
     }
 }</code></pre></p>
 
-            <p>Use 1.25.0 alias for Laravel 5.6, 1.39.0 for other versions as each version of Laravel has its own range of Carbon compatibility, you have to take 2.61.0
+            <p>Use 1.25.0 alias for Laravel 5.6, 1.39.0 for other versions as each version of Laravel has its own range of Carbon compatibility, you have to take 2.64.0
                 as the real used version, then pick an alias among versions Laravel supports. You may have other dependencies with other Carbon restrictions. If so,
                 we cannot ensure Carbon 2 will works with them as Carbon 1 did, but you can still try an other version alias. To be sure an alias will be compatible
                 with all of your current dependencies, you can choose the version of Carbon you have before upgrading to Carbon 2 using <code>composer show nesbot/carbon</code>.</p>
@@ -294,15 +294,12 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
     <script>
 
         var liveEditorHosts = [
-            'https://try-carbon.herokuapp.com/',
-            'https://try-carbon-lib.herokuapp.com/',
-            'https://try-carbon-package.herokuapp.com/'
+            'https://play.phpsandbox.io/embed/nesbot/carbon'
         ];
         var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var date = Math.floor((new Date()).getTime() / 172800000);
-        var liveEditorHostIndex = date < 9131 ? 1 : date % 3;
+        var liveEditorHostIndex = balancingId % liveEditorHosts.length;
         var liveEditorHost = liveEditorHosts[liveEditorHostIndex];
         var callbacks = {};
         var $document = $(document);
@@ -333,7 +330,7 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
         }
 
         function transformEditor($pre, index, code, token, link, params) {
-            if ($pre.hasClass('live-editor-loading')) {
+            if (!$pre.hasClass('live-editor') || $pre.hasClass('live-editor-loading')) {
                 return;
             }
 
@@ -342,11 +339,14 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
             if (!code) {
                 code = $pre.find('code').text();
                 token = 'live-editor-' + index;
-                params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-                    encodeURIComponent(code) +
-                    '&token=' + token;
+                params = '?input='
+                    + encodeURIComponent(code)
+                    ; // + '&hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&token=' + token;
                 link = liveEditorHost + params;
-                $('<a href="' + link + '" data-href-params="' + params + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+
+                if (!$('.link-' + token).length) {
+                    $('<a class="live-editor-new-window link-' + token + '" href="' + link + '" data-href-params="' + params + '" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                }
             }
 
             var timeout = setTimeout(function () {
@@ -358,18 +358,24 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
                 '&embed" data-timeout="' + timeout +
                 '" onerror="failOver(' + hostIndex + ')" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
 
-
-            (callbacks[token] || (callbacks[token] = {})).ready = function () {
-                clearTimeout($iframe.data('timeout'));
-
-                $iframe.css({
-                    opacity: 1,
-                    pointerEvents: 'all',
-                    position: '',
-                    height: $pre.outerHeight() + 'px'
-                });
-                $pre.hide();
-            };
+            $iframe.css({
+                opacity: 1,
+                pointerEvents: 'all',
+                position: '',
+                height: $pre.outerHeight() + 'px'
+            });
+            $pre.hide();
+            // (callbacks[token] || (callbacks[token] = {})).ready = function () {
+            //     clearTimeout($iframe.data('timeout'));
+            //
+            //     $iframe.css({
+            //         opacity: 1,
+            //         pointerEvents: 'all',
+            //         position: '',
+            //         height: $pre.outerHeight() + 'px'
+            //     });
+            //     $pre.hide();
+            // };
         }
 
         var scrollCheckDebounce = null;
@@ -392,7 +398,10 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
                         $pre.css('cursor', 'pointer').click(function () {
                             transformEditor($pre, index, code, token, link, params);
                         });
-                        $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+
+                        if (!$('.link-' + token).length) {
+                            $('<a class="live-editor-new-window link-' + token + '" href="' + link + '" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                        }
 
                         return;
                     }

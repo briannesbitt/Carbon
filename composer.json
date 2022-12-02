@@ -4,7 +4,7 @@
         "ext-json": "*",
         "cmixin/business-time": "dev-master",
         "kylekatarnls/carbonite": "dev-master",
-        "nesbot/carbon": "dev-master as 2.61.0"
+        "nesbot/carbon": "dev-master as 2.64.0"
     },
     "scripts": {
         "check": "@php tools/check.php",

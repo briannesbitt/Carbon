@@ -148,8 +148,8 @@ function methods($excludeNatives = false, $excludeMixins = true)
             $records["$className::$method"] = true;
             $rc = new \ReflectionMethod($carbonObject, $method);
 
-            if ($invoke) {
-                $rc = new \ReflectionFunction($rc->invoke($carbonObject));
+            if ($invoke && ($function = $rc->invoke($carbonObject))) {
+                $rc = new \ReflectionFunction($function);
             }
 
             $docComment = (

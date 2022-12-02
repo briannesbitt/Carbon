@@ -295,15 +295,12 @@ it in the <strong>config/app.php</strong> file:</p>
     <script>
 
         var liveEditorHosts = [
-            'https://try-carbon.herokuapp.com/',
-            'https://try-carbon-lib.herokuapp.com/',
-            'https://try-carbon-package.herokuapp.com/'
+            'https://play.phpsandbox.io/embed/nesbot/carbon'
         ];
         var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var date = Math.floor((new Date()).getTime() / 172800000);
-        var liveEditorHostIndex = date < 9131 ? 1 : date % 3;
+        var liveEditorHostIndex = balancingId % liveEditorHosts.length;
         var liveEditorHost = liveEditorHosts[liveEditorHostIndex];
         var callbacks = {};
         var $document = $(document);
@@ -334,7 +331,7 @@ it in the <strong>config/app.php</strong> file:</p>
         }
 
         function transformEditor($pre, index, code, token, link, params) {
-            if ($pre.hasClass('live-editor-loading')) {
+            if (!$pre.hasClass('live-editor') || $pre.hasClass('live-editor-loading')) {
                 return;
             }
 
@@ -343,11 +340,14 @@ it in the <strong>config/app.php</strong> file:</p>
             if (!code) {
                 code = $pre.find('code').text();
                 token = 'live-editor-' + index;
-                params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-                    encodeURIComponent(code) +
-                    '&token=' + token;
+                params = '?input='
+                    + encodeURIComponent(code)
+                    ; // + '&hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&token=' + token;
                 link = liveEditorHost + params;
-                $('<a href="' + link + '" data-href-params="' + params + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+
+                if (!$('.link-' + token).length) {
+                    $('<a class="live-editor-new-window link-' + token + '" href="' + link + '" data-href-params="' + params + '" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                }
             }
 
             var timeout = setTimeout(function () {
@@ -359,18 +359,24 @@ it in the <strong>config/app.php</strong> file:</p>
                 '&embed" data-timeout="' + timeout +
                 '" onerror="failOver(' + hostIndex + ')" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
 
-
-            (callbacks[token] || (callbacks[token] = {})).ready = function () {
-                clearTimeout($iframe.data('timeout'));
-
-                $iframe.css({
-                    opacity: 1,
-                    pointerEvents: 'all',
-                    position: '',
-                    height: $pre.outerHeight() + 'px'
-                });
-                $pre.hide();
-            };
+            $iframe.css({
+                opacity: 1,
+                pointerEvents: 'all',
+                position: '',
+                height: $pre.outerHeight() + 'px'
+            });
+            $pre.hide();
+            // (callbacks[token] || (callbacks[token] = {})).ready = function () {
+            //     clearTimeout($iframe.data('timeout'));
+            //
+            //     $iframe.css({
+            //         opacity: 1,
+            //         pointerEvents: 'all',
+            //         position: '',
+            //         height: $pre.outerHeight() + 'px'
+            //     });
+            //     $pre.hide();
+            // };
         }
 
         var scrollCheckDebounce = null;
@@ -393,7 +399,10 @@ it in the <strong>config/app.php</strong> file:</p>
                         $pre.css('cursor', 'pointer').click(function () {
                             transformEditor($pre, index, code, token, link, params);
                         });
-                        $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+
+                        if (!$('.link-' + token).length) {
+                            $('<a class="live-editor-new-window link-' + token + '" href="' + link + '" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                        }
 
                         return;
                     }

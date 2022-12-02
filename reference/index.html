@@ -305,6 +305,24 @@ if null given or parse the input if string given.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = null</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-getDaysFromStartOfWeek">
+    <h2><span class="class-name">Carbon::</span>getDaysFromStartOfWeek</h2>
+    <code>?int $weekStartsAt = null</code>
+    <div class="doc-return">returns <code>int</code></div>
+    <p class="doc-description">Return the number of days since the start of the week (using the current locale or the first parameter
+if explicitly given).</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.63.0</td><td><code>?int $weekStartsAt = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-setDaysFromStartOfWeek">
+    <h2><span class="class-name">Carbon::</span>setDaysFromStartOfWeek</h2>
+    <code>int $numberOfDays, ?int $weekStartsAt = null</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Set the day (keeping the current time) to the start of the week + the number of days passed as the first
+parameter. First day of week is driven by the locale unless explicitly set with the second parameter.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.63.0</td><td><code>int $numberOfDays, ?int $weekStartsAt = null</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-setUnitNoOverflow">
     <h2><span class="class-name">Carbon::</span>setUnitNoOverflow</h2>
     <code>$valueUnit, $value, $overflowUnit</code>
@@ -1283,22 +1301,6 @@ var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false</code></pre>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.45.1</td><td><em>no arguments</em></td></tr></table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-resetToStringFormat">
-    <h2><span class="class-name">Carbon::</span>resetToStringFormat</h2>
-    <em>no arguments</em>
-    <p class="doc-description">Reset the format used to the default when type juggling a Carbon instance to a string</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.5.0</td><td><em>no arguments</em></td></tr></table>
-</div>
-
-<div class="doc-method deprecated" id="doc-method-Carbon-setToStringFormat">
-    <h2><span class="class-name">Carbon::</span>setToStringFormat</h2>
-    <code>$format</code>
-    <p class="doc-description"><div class="alert alert-warning">To avoid conflict between different third-party libraries, static setters should not be used.</div>You should rather let Carbon object being casted to string with DEFAULT_TO_STRING_FORMAT, and
-use other method or custom format passed to format() method if you need to dump an other string
-format.<br><br>Set the default format used when type juggling a Carbon instance to a string</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.5.0</td><td><code>$format</code></td></tr></table>
-</div>
-
 <div class="doc-method " id="doc-method-Carbon-rawFormat">
     <h2><span class="class-name">Carbon::</span>rawFormat</h2>
     <code>$format</code>
@@ -1311,7 +1313,7 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
     <h2><span class="class-name">Carbon::</span>__toString</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">Format the instance as a string using the set format<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now(); // Carbon instances can be casted to string</code></pre></p>
+    <p class="doc-description">Format the instance as a string using the set format<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now(); // Carbon instances can be cast to string</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
@@ -1329,6 +1331,14 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Format the instance as a readable date<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toFormattedDateString();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-toFormattedDayDateString">
+    <h2><span class="class-name">Carbon::</span>toFormattedDayDateString</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>string</code></div>
+    <p class="doc-description">Format the instance with the day, and a readable date<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toFormattedDayDateString();</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.62.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-toTimeString">
@@ -1560,6 +1570,20 @@ echo Carbon::now('America/Toronto')->toISOString(true) . "\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$end = null, $interval = null, $unit = null</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-resetToStringFormat">
+    <h2><span class="class-name">Carbon::</span>resetToStringFormat</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Reset the format used to the default when type juggling a Carbon instance to a string</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.5.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-setToStringFormat">
+    <h2><span class="class-name">Carbon::</span>setToStringFormat</h2>
+    <code>$format</code>
+    <p class="doc-description">@param string|Closure|null $format</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.5.0</td><td><code>$format</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-__clone">
     <h2><span class="class-name">Carbon::</span>__clone</h2>
     <em>no arguments</em>
@@ -1757,12 +1781,12 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 
 <div class="doc-method " id="doc-method-Carbon-diffAsCarbonInterval">
     <h2><span class="class-name">Carbon::</span>diffAsCarbonInterval</h2>
-    <code>$date = null, $absolute = true</code>
+    <code>$date = null, $absolute = true, array $skip = []</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Get the difference as a CarbonInterval instance.
 Return relative interval (negative if $absolute flag is not set to true and the given date is before
 current one).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = null, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.63.0</td><td><code>$date = null, $absolute = true, array $skip = []</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = null, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInYears">
@@ -3803,6 +3827,21 @@ or false if it's not a holiday.</p>
     <p class="doc-description">Store a first variable as Carbon instance into the second variable if the first one is a date.</p>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-skipMissingCalendarExtensionException">
+    <h2><span class="class-name">Carbon::</span>skipMissingCalendarExtensionException</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <p class="doc-description">@codeCoverageIgnore</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-shouldRaiseMissingCalendarExtensionException">
+    <h2><span class="class-name">Carbon::</span>shouldRaiseMissingCalendarExtensionException</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description"></p>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-getHolidayDataById">
     <h2><span class="class-name">Carbon::</span>getHolidayDataById</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
@@ -4517,7 +4556,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
 <div class="doc-method " id="doc-method-CarbonInterval-getFactor">
     <h2><span class="class-name">CarbonInterval::</span>getFactor</h2>
     <code>$source, $target</code>
-    <div class="doc-return">returns <code>int|null</code></div>
+    <div class="doc-return">returns <code>int|float|null</code></div>
     <p class="doc-description">Returns the factor for a given source-to-target couple.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$source, $target</code></td></tr></table>
 </div>
@@ -4525,7 +4564,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
 <div class="doc-method " id="doc-method-CarbonInterval-getFactorWithDefault">
     <h2><span class="class-name">CarbonInterval::</span>getFactorWithDefault</h2>
     <code>$source, $target</code>
-    <div class="doc-return">returns <code>int|null</code></div>
+    <div class="doc-return">returns <code>int|float|null</code></div>
     <p class="doc-description">Returns the factor for a given source-to-target couple if set,
 else try to find the appropriate constant as the factor, such as Carbon::DAYS_PER_WEEK.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.51.0</td><td><code>$source, $target</code></td></tr></table>
@@ -4534,7 +4573,7 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 <div class="doc-method " id="doc-method-CarbonInterval-getDaysPerWeek">
     <h2><span class="class-name">CarbonInterval::</span>getDaysPerWeek</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int</code></div>
+    <div class="doc-return">returns <code>int|float</code></div>
     <p class="doc-description">Returns current config for days per week.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4542,7 +4581,7 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 <div class="doc-method " id="doc-method-CarbonInterval-getHoursPerDay">
     <h2><span class="class-name">CarbonInterval::</span>getHoursPerDay</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int</code></div>
+    <div class="doc-return">returns <code>int|float</code></div>
     <p class="doc-description">Returns current config for hours per day.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4550,7 +4589,7 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 <div class="doc-method " id="doc-method-CarbonInterval-getMinutesPerHour">
     <h2><span class="class-name">CarbonInterval::</span>getMinutesPerHour</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int</code></div>
+    <div class="doc-return">returns <code>int|float</code></div>
     <p class="doc-description">Returns current config for minutes per hour.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4558,7 +4597,7 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 <div class="doc-method " id="doc-method-CarbonInterval-getSecondsPerMinute">
     <h2><span class="class-name">CarbonInterval::</span>getSecondsPerMinute</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int</code></div>
+    <div class="doc-return">returns <code>int|float</code></div>
     <p class="doc-description">Returns current config for seconds per minute.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4566,7 +4605,7 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 <div class="doc-method " id="doc-method-CarbonInterval-getMillisecondsPerSecond">
     <h2><span class="class-name">CarbonInterval::</span>getMillisecondsPerSecond</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int</code></div>
+    <div class="doc-return">returns <code>int|float</code></div>
     <p class="doc-description">Returns current config for microseconds per second.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4574,7 +4613,7 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 <div class="doc-method " id="doc-method-CarbonInterval-getMicrosecondsPerMillisecond">
     <h2><span class="class-name">CarbonInterval::</span>getMicrosecondsPerMillisecond</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>int</code></div>
+    <div class="doc-return">returns <code>int|float</code></div>
     <p class="doc-description">Returns current config for microseconds per second.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4651,12 +4690,12 @@ and rounded to the next smaller value (caution: 0.5w = 4d)</p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-instance">
     <h2><span class="class-name">CarbonInterval::</span>instance</h2>
-    <code>DateInterval $interval</code>
+    <code>DateInterval $interval, array $skip = []</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Create a CarbonInterval instance from a DateInterval one.  Can not instance
 DateInterval objects created from DateTime::diff() as you can't externally
 set the $days field.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.21.0</td><td><code>DateInterval $interval</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.63.0</td><td><code>DateInterval $interval, array $skip = []</code></td></tr><tr><td>Prototype changed</td><td>2.21.0</td><td><code>DateInterval $interval</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-make">
@@ -4911,10 +4950,10 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
 
 <div class="doc-method " id="doc-method-CarbonInterval-getDateIntervalSpec">
     <h2><span class="class-name">CarbonInterval::</span>getDateIntervalSpec</h2>
-    <code>DateInterval $interval, bool $microseconds = false</code>
+    <code>DateInterval $interval, bool $microseconds = false, array $skip = []</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the interval_spec string of a date interval.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.59.0</td><td><code>DateInterval $interval, bool $microseconds = false</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>DateInterval $interval</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.63.0</td><td><code>DateInterval $interval, bool $microseconds = false, array $skip = []</code></td></tr><tr><td>Prototype changed</td><td>2.59.0</td><td><code>DateInterval $interval, bool $microseconds = false</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>DateInterval $interval</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-spec">
@@ -5564,6 +5603,20 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <p class="doc-description">Returns list of Language object for each available locale. This object allow you to get the ISO name, native
 name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-resetToStringFormat">
+    <h2><span class="class-name">CarbonInterval::</span>resetToStringFormat</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Reset the format used to the default when type juggling a Carbon instance to a string</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.63.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-setToStringFormat">
+    <h2><span class="class-name">CarbonInterval::</span>setToStringFormat</h2>
+    <code>$format</code>
+    <p class="doc-description">@param string|Closure|null $format</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.63.0</td><td><code>$format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-make">
@@ -6733,6 +6786,20 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <p class="doc-description">Returns list of Language object for each available locale. This object allow you to get the ISO name, native
 name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-resetToStringFormat">
+    <h2><span class="class-name">CarbonPeriod::</span>resetToStringFormat</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Reset the format used to the default when type juggling a Carbon instance to a string</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.63.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-setToStringFormat">
+    <h2><span class="class-name">CarbonPeriod::</span>setToStringFormat</h2>
+    <code>$format</code>
+    <p class="doc-description">@param string|Closure|null $format</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.63.0</td><td><code>$format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__construct">

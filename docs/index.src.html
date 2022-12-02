@@ -1779,6 +1779,7 @@ $dt->setDateFrom($source2);
 {{::exec(var_dump($dt->toDateTimeString() == $dt);/*pad(50)*/)}} // {{eval}} => uses __toString()
 {{::exec(echo $dt->toDateString();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->toFormattedDateString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->toFormattedDayDateString();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->toTimeString();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->toDateTimeString();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->toDayDateTimeString();/*pad(50)*/)}} // {{eval}}
