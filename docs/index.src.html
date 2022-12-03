@@ -1684,6 +1684,9 @@ $date = CarbonImmutable::parse('2022-12-05')->locale('de_AT');
 {{::exec(var_dump($date->getDaysFromStartOfWeek());/*pad(62)*/)}} // {{eval}}
 {{::exec(var_dump($date->setDaysFromStartOfWeek(3)->format('Y-m-d'));/*pad(62)*/)}} // {{eval}}
 
+// Or specify explicitly the first day of week
+{{::exec(var_dump($date->setDaysFromStartOfWeek(3, CarbonInterface::SUNDAY)->format('Y-m-d'));/*pad(62)*/)}} // {{eval}}
+
 {{::lint(
 $en = CarbonImmutable::parse('2017-01-01');
 
