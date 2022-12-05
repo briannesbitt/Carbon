@@ -48,12 +48,23 @@ class AliasTest extends AbstractTestCase
         $date = '2017-09-13 12:30:45';
         $period = CarbonPeriod::start(date: $date, inclusive: false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
 
+        /** @var CarbonPeriod $period */
         $period = CarbonPeriod::start(date: $date);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
         $this->assertEmpty($period->getOptions());
 
         $date = '2014-10-12 15:42:34';
@@ -97,9 +108,15 @@ class AliasTest extends AbstractTestCase
     public function testSetEndDateWithNamedParameters()
     {
         $date = '2017-09-13 12:30:45';
+        /** @var CarbonPeriod $period */
         $period = CarbonPeriod::end(date: $date, inclusive: false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertEquals(Carbon::parse($date), $period->end);
+        $this->assertEquals(Carbon::parse($date), $period->end());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->end);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $date = '2014-10-12 15:42:34';
