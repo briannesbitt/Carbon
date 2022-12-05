@@ -16,6 +16,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\TypehintHelper;
 
 /**
@@ -39,10 +40,13 @@ final class MacroExtension implements MethodsClassReflectionExtension
      * Extension constructor.
      *
      * @param PhpMethodReflectionFactory $methodReflectionFactory
+     * @param ReflectionProvider         $reflectionProvider
      */
-    public function __construct(PhpMethodReflectionFactory $methodReflectionFactory)
-    {
-        $this->scanner = new MacroScanner();
+    public function __construct(
+        PhpMethodReflectionFactory $methodReflectionFactory,
+        ReflectionProvider $reflectionProvider
+    ) {
+        $this->scanner = new MacroScanner($reflectionProvider);
         $this->methodReflectionFactory = $methodReflectionFactory;
     }
 

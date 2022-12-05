@@ -640,6 +640,23 @@ class CreateTest extends AbstractTestCase
         $this->assertNotSame($period, $period4);
     }
 
+    public function testCreateFromCarbonInstancesNamedParameters()
+    {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
+        }
+
+        $period = eval("return \Carbon\Carbon::create('2019-01-02')->daysUntil(endDate: '2019-02-05');");
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+        $this->assertSame('1 day', (string) $period->getDateInterval());
+
+        $period = eval("return \Carbon\Carbon::create('2019-01-02')->hoursUntil(endDate: '2019-02-05', factor: 12);");
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+        $this->assertSame('12 hours', (string) $period->getDateInterval());
+    }
+
     public function testCast()
     {
         $period = new class('2012-07-01', CarbonInterval::days(2), '2012-07-07') extends CarbonPeriod {

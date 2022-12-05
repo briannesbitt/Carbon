@@ -71,9 +71,9 @@ trait Difference
      *
      * @return CarbonInterval
      */
-    public function diffAsCarbonInterval($date = null, bool $absolute = false): CarbonInterval
+    public function diffAsCarbonInterval($date = null, bool $absolute = false, array $skip = []): CarbonInterval
     {
-        return CarbonInterval::diff($this, $date, $absolute)
+        return CarbonInterval::diff($this, $date, $absolute, $skip)
             ->setLocalTranslator($this->getLocalTranslator());
     }
 
@@ -89,9 +89,9 @@ trait Difference
      *
      * @return CarbonInterval
      */
-    public function diff($date = null, $absolute = false): CarbonInterval
+    public function diff($date = null, bool $absolute = false, array $skip = []): CarbonInterval
     {
-        return $this->diffAsCarbonInterval($date, $absolute);
+        return $this->diffAsCarbonInterval($date, $absolute, $skip);
     }
 
     /**
@@ -488,8 +488,9 @@ trait Difference
         $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
         $parts = min(7, max(1, (int) $parts));
+        $skip = \is_array($syntax) ? ($syntax['skip'] ?? []) : [];
 
-        return $this->diff($other, false)
+        return $this->diff($other, false, $skip)
             ->forHumans($syntax, (bool) $short, $parts, $options ?? $this->localHumanDiffOptions ?? static::getHumanDiffOptions());
     }
 
