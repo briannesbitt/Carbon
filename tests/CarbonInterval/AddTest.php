@@ -32,35 +32,31 @@ class AddTest extends AbstractTestCase
 
     public function testNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
-        $ci = eval("return \Carbon\CarbonInterval::years(years: 3)->addYears(years: 4);");
+        $ci = CarbonInterval::years(years: 3)->addYears(years: 4);
         $this->assertCarbonInterval($ci, 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::months(months: 3)->addMonths(months: 4);");
+        $ci = CarbonInterval::months(months: 3)->addMonths(months: 4);
         $this->assertCarbonInterval($ci, 0, 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::weeks(weeks: 3)->addWeeks(weeks: 4);");
+        $ci = CarbonInterval::weeks(weeks: 3)->addWeeks(weeks: 4);
         $this->assertCarbonInterval($ci, 0, 0, 7 * 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::days(days: 3)->addDays(days: 4);");
+        $ci = CarbonInterval::days(days: 3)->addDays(days: 4);
         $this->assertCarbonInterval($ci, 0, 0, 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::hours(hours: 3)->addHours(hours: 4);");
+        $ci = CarbonInterval::hours(hours: 3)->addHours(hours: 4);
         $this->assertCarbonInterval($ci, 0, 0, 0, 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::minutes(minutes: 3)->addMinutes(minutes: 4);");
+        $ci = CarbonInterval::minutes(minutes: 3)->addMinutes(minutes: 4);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::seconds(seconds: 3)->addSeconds(seconds: 4);");
+        $ci = CarbonInterval::seconds(seconds: 3)->addSeconds(seconds: 4);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 7);
 
-        $ci = eval("return \Carbon\CarbonInterval::milliseconds(milliseconds: 3)->addMilliseconds(milliseconds: 4);");
+        $ci = CarbonInterval::milliseconds(milliseconds: 3)->addMilliseconds(milliseconds: 4);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 7000);
 
-        $ci = eval("return \Carbon\CarbonInterval::microseconds(microseconds: 3)->addMicroseconds(microseconds: 4);");
+        $ci = CarbonInterval::microseconds(microseconds: 3)->addMicroseconds(microseconds: 4);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 7);
     }
 
@@ -214,15 +210,15 @@ class AddTest extends AbstractTestCase
 
     public function testPlusWithPHP8Syntax()
     {
-        $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
+        $interval = CarbonInterval::days(3)->plus(weeks: 2, hours: 26);
 
         $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
 
-        $interval = eval('return \Carbon\CarbonInterval::days(3)->plus(hours: 1, minutes: 1.5);');
+        $interval = CarbonInterval::days(3)->plus(hours: 1, minutes: 1.5);
 
         $this->assertCarbonInterval($interval, 0, 0, 3, 1, 1, 30);
 
-        $interval = eval('return \Carbon\CarbonInterval::days(3)->plus(hours: 1, minutes: -1.5);');
+        $interval = CarbonInterval::days(3)->plus(hours: 1, minutes: -1.5);
 
         $this->assertCarbonInterval($interval, 0, 0, 3, 1, -1, -30);
     }
@@ -234,7 +230,7 @@ class AddTest extends AbstractTestCase
 
     public function testMinusWithPHP8Syntax()
     {
-        $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->minus(weeks: 2, hours: 26);');
+        $interval = CarbonInterval::days(3)->minus(weeks: 2, hours: 26);
 
         $this->assertCarbonInterval($interval, 0, 0, 11, 26, 0, 0, 0, true);
     }

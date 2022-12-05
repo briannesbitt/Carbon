@@ -27,13 +27,9 @@ class ModifyTest extends AbstractTestCase
 
     public function testSimpleModifyWithNamedParameter()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $a = new Carbon('2014-03-30 00:00:00');
-        $b = eval('return $a->addHours(value: 24);');
-        $this->assertSame(24, $a->diffInHours($b));
+        $b = $a->addHours(value: 24);
+        $this->assertSame(24.0, $a->diffInHours($b));
     }
 
     /** @group php-8.1 */
