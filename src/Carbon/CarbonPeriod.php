@@ -1684,9 +1684,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         $count = \count($parameters);
 
-        $first = $count >= 1 ? $parameters[0] : null;
-        $second = $count >= 2 ? $parameters[1] : null;
-
         switch ($method) {
             case 'start':
             case 'since':
@@ -1694,10 +1691,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     return $this->getStartDate();
                 }
 
-                return $this->setStartDate($first, $second);
+                self::setDefaultParameters($parameters, [
+                    [0, 'date', null],
+                ]);
+
+                return $this->setStartDate(...$parameters);
 
             case 'sinceNow':
-                return $this->setStartDate(new Carbon(), $first);
+                return $this->setStartDate(new Carbon(), ...$parameters);
 
             case 'end':
             case 'until':
@@ -1705,14 +1706,23 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     return $this->getEndDate();
                 }
 
-                return $this->setEndDate($first, $second);
+                self::setDefaultParameters($parameters, [
+                    [0, 'date', null],
+                ]);
+
+                return $this->setEndDate(...$parameters);
 
             case 'untilNow':
-                return $this->setEndDate(new Carbon(), $first);
+                return $this->setEndDate(new Carbon(), ...$parameters);
 
             case 'dates':
             case 'between':
-                return $this->setDates($first, $second);
+                self::setDefaultParameters($parameters, [
+                    [0, 'start', null],
+                    [1, 'end', null],
+                ]);
+
+                return $this->setDates(...$parameters);
 
             case 'recurrences':
             case 'times':
@@ -1720,31 +1730,47 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     return $this->getRecurrences();
                 }
 
-                return $this->setRecurrences($first);
+                self::setDefaultParameters($parameters, [
+                    [0, 'recurrences', null],
+                ]);
+
+                return $this->setRecurrences(...$parameters);
 
             case 'options':
                 if ($count === 0) {
                     return $this->getOptions();
                 }
 
-                return $this->setOptions($first);
+                self::setDefaultParameters($parameters, [
+                    [0, 'options', null],
+                ]);
+
+                return $this->setOptions(...$parameters);
 
             case 'toggle':
-                return $this->toggleOptions($first, $second);
+                self::setDefaultParameters($parameters, [
+                    [0, 'options', null],
+                ]);
+
+                return $this->toggleOptions(...$parameters);
 
             case 'filter':
             case 'push':
-                return $this->addFilter($first, $second);
+                return $this->addFilter(...$parameters);
 
             case 'prepend':
-                return $this->prependFilter($first, $second);
+                return $this->prependFilter(...$parameters);
 
             case 'filters':
                 if ($count === 0) {
                     return $this->getFilters();
                 }
 
-                return $this->setFilters($first ?: []);
+                self::setDefaultParameters($parameters, [
+                    [0, 'filters', []],
+                ]);
+
+                return $this->setFilters(...$parameters);
 
             case 'interval':
             case 'each':
@@ -1755,7 +1781,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     return $this->getDateInterval();
                 }
 
-                return $this->setDateInterval($first, $second);
+                return $this->setDateInterval(...$parameters);
 
             case 'invert':
                 return $this->invertDateInterval();
@@ -1778,9 +1804,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 return $this->setDateInterval((
                     // Override default P1D when instantiating via fluent setters.
                     [$this->isDefaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method]
-                )(
-                    \count($parameters) === 0 ? 1 : $first
-                ));
+                )(...$parameters));
         }
 
         if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
@@ -2675,5 +2699,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $class = $date instanceof DateTime ? DateTime::class : DateTimeImmutable::class;
 
         return new $class($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
+    }
+
+    private static function setDefaultParameters(array &$parameters, array $defaults): void
+    {
+        foreach ($defaults as [$index, $name, $value]) {
+            if (!\array_key_exists($index, $parameters) && !\array_key_exists($name, $parameters)) {
+                $parameters[$index] = $value;
+            }
+        }
     }
 }

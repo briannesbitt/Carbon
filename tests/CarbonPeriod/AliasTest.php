@@ -43,6 +43,44 @@ class AliasTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
     }
 
+    public function testSetStartDateWithNamedParameters()
+    {
+        $date = '2017-09-13 12:30:45';
+        $period = CarbonPeriod::start(date: $date, inclusive: false);
+        $this->assertEquals(Carbon::parse($date), $period->getStartDate());
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
+        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
+
+        /** @var CarbonPeriod $period */
+        $period = CarbonPeriod::start(date: $date);
+        $this->assertEquals(Carbon::parse($date), $period->getStartDate());
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
+        $this->assertEmpty($period->getOptions());
+
+        $date = '2014-10-12 15:42:34';
+        $period->since(date: $date, inclusive: true);
+        $this->assertEquals(Carbon::parse($date), $period->getStartDate());
+        $this->assertEmpty($period->getOptions());
+
+        $period->sinceNow(inclusive: false);
+        $this->assertEquals(Carbon::now(), $period->getStartDate());
+        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
+
+        $period = CarbonPeriod::sinceNow();
+        $this->assertEquals(Carbon::now(), $period->getStartDate());
+        $this->assertEmpty($period->getOptions());
+    }
+
     public function testSetEndDate()
     {
         $period = CarbonPeriod::end($date = '2017-09-13 12:30:45', false);
@@ -67,6 +105,30 @@ class AliasTest extends AbstractTestCase
         $this->assertNull($period->getEndDate());
     }
 
+    public function testSetEndDateWithNamedParameters()
+    {
+        $date = '2017-09-13 12:30:45';
+        /** @var CarbonPeriod $period */
+        $period = CarbonPeriod::end(date: $date, inclusive: false);
+        $this->assertEquals(Carbon::parse($date), $period->getEndDate());
+        $this->assertEquals(Carbon::parse($date), $period->end());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->end);
+        }
+
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+
+        $date = '2014-10-12 15:42:34';
+        $period->until(date: $date, inclusive: true);
+        $this->assertEquals(Carbon::parse($date), $period->getEndDate());
+        $this->assertEmpty($period->getOptions());
+
+        $period->untilNow(inclusive: false);
+        $this->assertEquals(Carbon::now(), $period->getEndDate());
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+    }
+
     public function testManageFilters()
     {
         $filter = function () {
@@ -83,7 +145,7 @@ class AliasTest extends AbstractTestCase
         $period = $period->prepend($filter, 'pre');
         $this->assertSame([[$filter, 'pre'], [$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
 
-        $period = $period->filters(null);
+        $period = $period->filters([]);
         $this->assertEmpty($period->getFilters());
 
         $period = $period->filters($filters = [[$filter, null]]);
@@ -222,5 +284,51 @@ class AliasTest extends AbstractTestCase
         ));
 
         CarbonPeriod::days(0);
+    }
+
+    public function testNamedParameters()
+    {
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12');
+        $this->assertEquals('2022-09-13', $period->getStartDate()->format('Y-m-d'));
+        $this->assertEquals('2022-10-12', $period->getEndDate()->format('Y-m-d'));
+
+        $period->years(years: 5);
+        $this->assertEquals('5 years', (string) $period->getDateInterval());
+
+        $period->interval(interval: CarbonInterval::year(years: 3));
+        $this->assertEquals('3 years', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')->months(months: 5);
+        $this->assertEquals('5 months', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')->weeks(weeks: 5);
+        $this->assertEquals('5 weeks', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')->days(days: 5);
+        $this->assertEquals('5 days', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')->hours(hours: 5);
+        $this->assertEquals('5 hours', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')->minutes(minutes: 5);
+        $this->assertEquals('5 minutes', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')->seconds(seconds: 5);
+        $this->assertEquals('5 seconds', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')
+            ->days(days: 5)
+            ->floorDays(precision: 2);
+        $this->assertEquals('4 days', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')
+            ->days(days: 5)
+            ->roundDays(precision: 7);
+        $this->assertEquals('1 week', (string) $period->getDateInterval());
+
+        $period = CarbonPeriod::between(start: '2022-09-13', end: '2022-10-12')
+            ->days(days: 5)
+            ->ceilDays(precision: 2);
+        $this->assertEquals('6 days', (string) $period->getDateInterval());
     }
 }
