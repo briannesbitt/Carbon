@@ -997,11 +997,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return static
      */
-    public static function diff($start, $end = null, bool $absolute = false): static
+    public static function diff($start, $end = null, bool $absolute = false, array $skip = []): static
     {
         $start = $start instanceof CarbonInterface ? $start : Carbon::make($start);
         $end = $end instanceof CarbonInterface ? $end : Carbon::make($end);
-        $interval = static::instance($start->diffAsDateInterval($end, $absolute));
+        $interval = static::instance($start->diffAsDateInterval($end, $absolute), $skip);
 
         $interval->startDate = $start;
         $interval->endDate = $end;

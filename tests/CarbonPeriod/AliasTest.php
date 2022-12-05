@@ -136,7 +136,7 @@ class AliasTest extends AbstractTestCase
         $period = $period->prepend($filter, 'pre');
         $this->assertSame([[$filter, 'pre'], [$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
 
-        $period = $period->filters(null);
+        $period = $period->filters([]);
         $this->assertEmpty($period->getFilters());
 
         $period = $period->filters($filters = [[$filter, null]]);
