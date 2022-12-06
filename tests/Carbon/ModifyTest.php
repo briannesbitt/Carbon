@@ -253,4 +253,11 @@ class ModifyTest extends AbstractTestCase
             Carbon::parse('2000-01-25')->change('before yesterday')->format('Y-m-d H:i:s')
         );
     }
+
+    public function testInvalidModifier(): void
+    {
+        $this->assertFalse(@Carbon::parse('2000-01-25')->change('invalid'));
+        $this->assertFalse(@Carbon::now()->next('invalid'));
+        $this->assertFalse(@Carbon::now()->previous('invalid'));
+    }
 }
