@@ -120,6 +120,8 @@ trait Serialization
     /**
      * Returns the list of properties to dump on serialize() called on.
      *
+     * Only used by PHP < 7.4.
+     *
      * @return array
      */
     public function __sleep()
@@ -134,6 +136,13 @@ trait Serialization
         return $properties;
     }
 
+    /**
+     * Returns the values to dump on serialize() called on.
+     *
+     * Only used by PHP >= 7.4.
+     *
+     * @return array
+     */
     public function __serialize(): array
     {
         if (isset($this->timezone_type)) {
@@ -170,6 +179,8 @@ trait Serialization
     /**
      * Set locale if specified on unserialize() called.
      *
+     * Only used by PHP < 7.4.
+     *
      * @return void
      */
     #[ReturnTypeWillChange]
@@ -201,6 +212,13 @@ trait Serialization
         $this->cleanupDumpProperties();
     }
 
+    /**
+     * Set locale if specified on unserialize() called.
+     *
+     * Only used by PHP >= 7.4.
+     *
+     * @return void
+     */
     public function __unserialize(array $data): void
     {
         // @codeCoverageIgnoreStart
