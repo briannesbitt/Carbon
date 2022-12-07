@@ -350,6 +350,36 @@ class CreateTest extends AbstractTestCase
         $date = Carbon::createFromLocaleFormat('Y M d H,i,s', 'zh_TW', '2019 四月 4 12,04,21', 'Asia/Shanghai')->locale('zh');
 
         $this->assertSame('2019年4月4日星期四 中午 12点04分 Asia/Shanghai', $date->isoFormat('LLLL zz'));
+
+        $this->assertSame(
+            '2022-12-05 America/Mexico_City',
+            Carbon::createFromLocaleFormat('d * F * Y', 'es', '05 de diciembre de 2022', 'America/Mexico_City')
+                ->format('Y-m-d e')
+        );
+
+        $this->assertSame(
+            '2022-12-05 America/Mexico_City',
+            Carbon::createFromLocaleFormat('d \of F \of Y', 'es', '05 de diciembre de 2022', 'America/Mexico_City')
+                ->format('Y-m-d e')
+        );
+
+        $this->assertSame(
+            '2022-12-05 America/Mexico_City',
+            Carbon::createFromLocaleFormat('d \o\f F \o\f Y', 'es', '05 de diciembre de 2022', 'America/Mexico_City')
+                ->format('Y-m-d e')
+        );
+
+        $this->assertSame(
+            '2022-12-05 America/Mexico_City',
+            Carbon::createFromLocaleFormat('d \d\e F \d\e Y', 'es', '05 de diciembre de 2022', 'America/Mexico_City')
+                ->format('Y-m-d e')
+        );
+
+        $this->assertSame(
+            '2022-12-05 America/Mexico_City',
+            Carbon::createFromLocaleFormat('d \n\o\t F \n\o\t Y', 'es', '05 not diciembre not 2022', 'America/Mexico_City')
+                ->format('Y-m-d e')
+        );
     }
 
     public function testCreateFromIsoFormat()

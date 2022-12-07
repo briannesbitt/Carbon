@@ -862,6 +862,19 @@ trait Creator
      */
     public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
     {
+        $format = preg_replace_callback(
+            '/(?:\\\\[a-zA-Z]|[bfkqCEJKQRV]){2,}/',
+            static function (array $match) use ($locale): string {
+                $word = str_replace('\\', '', $match[0]);
+                $translatedWord = static::translateTimeString($word, $locale, 'en');
+
+                return $word === $translatedWord
+                    ? $match[0]
+                    : preg_replace('/[a-zA-Z]/', '\\\\$0', $translatedWord);
+            },
+            $format
+        );
+
         return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, 'en'), $tz);
     }
 
