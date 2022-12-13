@@ -260,4 +260,12 @@ class ModifyTest extends AbstractTestCase
         $this->assertFalse(@Carbon::now()->next('invalid'));
         $this->assertFalse(@Carbon::now()->previous('invalid'));
     }
+
+    public function testImplicitCast(): void
+    {
+        $this->assertSame(
+            '2000-01-25 06:00:00',
+            Carbon::parse('2000-01-25')->addRealHours('6')->format('Y-m-d H:i:s')
+        );
+    }
 }
