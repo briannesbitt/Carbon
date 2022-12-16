@@ -30,14 +30,14 @@ trait Units
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
-     * @param string $unit
-     * @param int    $value
+     * @param string    $unit
+     * @param int|float $value
      *
      * @return static
      */
     public function addRealUnit($unit, $value = 1)
     {
-        $value = (int) $value;
+        $value = (float) $value;
         $unit = (string) $unit;
         
         switch ($unit) {
