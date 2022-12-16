@@ -39,7 +39,6 @@ trait Units
     {
         $value = (float) $value;
         $unit = (string) $unit;
-        
         switch ($unit) {
             // @call addRealUnit
             case 'micro':
