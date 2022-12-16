@@ -264,13 +264,23 @@ class ModifyTest extends AbstractTestCase
     public function testImplicitCast(): void
     {
         $this->assertSame(
-            '2000-01-25 06:00:00',
-            Carbon::parse('2000-01-25')->addRealHours('6')->format('Y-m-d H:i:s')
+            '2000-01-25 06:00:00.000000',
+            Carbon::parse('2000-01-25')->addRealHours('6')->format('Y-m-d H:i:s.u')
         );
 
         $this->assertSame(
-            '2000-01-25 07:00:00',
-            Carbon::parse('2000-01-25')->addRealUnit('hour', '7')->format('Y-m-d H:i:s')
+            '2000-01-25 07:00:00.000000',
+            Carbon::parse('2000-01-25')->addRealUnit('hour', '7')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 00:08:00.000000',
+            Carbon::parse('2000-01-25')->addRealUnit('minute', '8')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 00:00:00.007000',
+            Carbon::parse('2000-01-25')->addRealUnit('millisecond', '7')->format('Y-m-d H:i:s.u')
         );
     }
 }
