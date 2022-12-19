@@ -125,6 +125,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://github.com/taylorotwell" target="_blank"><img src="https://avatars.githubusercontent.com/u/463230?s=128&v=4" width="64" height="64"></a>
 <a href="https://github.com/usefathom" target="_blank"><img src="https://avatars.githubusercontent.com/u/38684088?s=128&v=4" width="64" height="64"></a>
 <a href="https://github.com/tobischulz" target="_blank"><img src="https://avatars.githubusercontent.com/u/576014?s=128&v=4" width="64" height="64"></a>
+<a href="https://w3guy.com/" target="_blank"><img src="https://avatars.githubusercontent.com/u/4140659?v=4" width="64" height="64"></a>
 
 <a href="https://opencollective.com/Carbon/sponsor/0/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/Carbon/sponsor/1/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/1/avatar.svg"></a>
