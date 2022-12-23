@@ -145,6 +145,7 @@ trait Serialization
      */
     public function __serialize(): array
     {
+        // @codeCoverageIgnoreStart
         if (isset($this->timezone_type)) {
             return [
                 'date' => $this->date ?? null,
@@ -152,6 +153,7 @@ trait Serialization
                 'timezone' => $this->timezone ?? null,
             ];
         }
+        // @codeCoverageIgnoreEnd
 
         $timezone = $this->getTimezone();
         $export = [
@@ -287,6 +289,7 @@ trait Serialization
      */
     public function cleanupDumpProperties()
     {
+        // @codeCoverageIgnoreStart
         if (PHP_VERSION < 8.2) {
             foreach ($this->dumpProperties as $property) {
                 if (isset($this->$property)) {
@@ -294,6 +297,7 @@ trait Serialization
                 }
             }
         }
+        // @codeCoverageIgnoreEnd
 
         return $this;
     }
