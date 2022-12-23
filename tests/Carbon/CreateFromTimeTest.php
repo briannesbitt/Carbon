@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use DateTimeImmutable;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -116,7 +117,18 @@ class CreateFromTimeTest extends AbstractTestCase
         Carbon::setTestNow();
 
         $tz = 'Etc/GMT+12';
-        $now = Carbon::now($tz);
+
+        try {
+            $now = Carbon::now($tz);
+        } catch (InvalidFormatException $exception) {
+            if ($exception->getMessage() !== 'Unknown or bad timezone (Etc/GMT+12)') {
+                throw $exception;
+            }
+
+            $tz = 'GMT+12';
+            $now = Carbon::now($tz);
+        }
+
         $dt = Carbon::createFromTime($now->hour, $now->minute, $now->second, $tz);
 
         // re-enable test
