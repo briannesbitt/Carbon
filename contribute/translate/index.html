@@ -631,65 +631,25 @@
         })();
     </script>
     <script>
-    function runCarbonCode(code, success, failure) {
-        if (sessStorage['cache-code-' + code]) {
-            try {
-                var data = JSON.parse(sessStorage['cache-code-' + code]);
-                if ((new Date()).getTime() - data.time < 300000) {
-                    success(data.result);
-
-                    return;
-                }
-
-                sessStorage['cache-code-' + code] = null;
-            } catch (e) {
-            }
-        }
-
-        $.ajax(liveEditorHost + 'api/carbon.php', {
-            method: 'post',
-            dataType: 'json',
-            data: {
-                input: code,
-                version: 'master'
-            },
-            success: function (result) {
-                sessStorage['cache-code-' + code] = JSON.stringify({
-                    time: (new Date()).getTime(),
-                    result: result
-                });
-
-                success && success(result);
-            },
-            failure: function (error) {
-                failure && failure(error);
-            }
-        });
-    }
-
     function formatLanguage(language, extraClasses) {
         return '<div class="link ' + extraClasses + '">' +
                 '<a><span class="chip">' + language.id + '</span>' + language.isoName + (language.regionName ? ' (' + language.regionName + ')' : '') + (language.variant ? ' (' + language.variant + ')' : '') + '</a>' +
             '</div>';
     }
 
-    runCarbonCode('echo json_encode(array_map(function ($code) {' +
-        '$lang = new \\Carbon\\Language($code);' +
+    var english = {};
 
-        'return array_merge($lang->getNames(), [' +
-            '\'id\' => $lang->getId(),' +
-            '\'code\' => $lang->getCode(),' +
-            '\'region\' => $lang->getRegion(),' +
-            '\'regionName\' => $lang->getRegionName(),' +
-            '\'variant\' => $lang->getVariantName(),' +
-        ']);' +
-    '}, Carbon::getAvailableLocales()));', function (result) {
+    $.getJSON('/contribute/translate/assets/translations/en.json', function (translations) {
+        english = translations;
+    });
+
+    $.getJSON('/contribute/translate/assets/languages.json', function (languages) {
         var language = (navigator.language || navigator.userLanguage).split(/[_-]/);
         var region = (language[1] || 'unknown').toUpperCase();
         language = language[0].toLowerCase();
         var preferred = '';
         var count = 0;
-        var other = result.filter(function (item) {
+        var other = languages.filter(function (item) {
             if (item.code === language) {
                 count++;
                 preferred += formatLanguage(item, 'preferred' + (item.region === region ? ' favorite' : ''));
@@ -726,8 +686,7 @@
         $('.translate-slot').hide();
         $('.edit-slot').text('Loading...');
 
-        var lines = [];
-        [
+        var lines = [
             ['CarbonInterval::years(2)', '->forHumans()'],
             ['CarbonInterval::years(2)', '->forHumans(["short" => true])'],
             ['CarbonInterval::year()', '->forHumans()'],
@@ -806,15 +765,13 @@
             ['Carbon::now()->addHours(2)->addMinute()', '->diffForHumans(["part" => 1])'],
             ['($d = Carbon::now())->copy()->subHours(2)', '->diffForHumans($d)'],
             ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)']
-        ].forEach(function (line) {
-            lines.push(typeof line === 'string' ? JSON.stringify(line) : '['+
-                '"source" => ' + line[0] + line[1] + ',' +
-                '"destination" => ' + (language ? line[0] + '->locale("' + language + '")' + line[1] : '""') + ',' +
-            ']');
-        });
-        runCarbonCode('echo json_encode([' + lines.join(',') + ']);', function (result) {
-            $('.edit-slot').html('<table><tr><th>English</th><th style="padding: 0 20px;">' + editLanguage + '</th><th>' + (language ? 'Fix and comments' : 'Translation in ' + editLanguage) + '</th></tr>' + result.map(function (line) {
-                return typeof line === 'string' ? '<tr class="translate-line"><td colspan="3" style="padding: 10px 0; font-weight: bold;">' + line + '</td></tr>' : '<tr class="translate-line"><td>' + line.source + '</td><td style="padding: 0 20px;">' + line.destination + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="' + (language ? 'This should rather be... because...' : 'Translation in ' + editLanguage) + '"></textarea></td></tr>';
+        ];
+
+        $.getJSON('/contribute/translate/assets/translations/' + language + '.json', function (translations) {
+            $('.edit-slot').html('<table><tr><th>English</th><th style="padding: 0 20px;">' + editLanguage + '</th><th>' + (language ? 'Fix and comments' : 'Translation in ' + editLanguage) + '</th></tr>' + lines.map(function (line) {
+                return typeof line === 'string'
+                    ? '<tr class="translate-line"><td colspan="3" style="padding: 10px 0; font-weight: bold;">' + line + '</td></tr>'
+                    : '<tr class="translate-line"><td>' + (english[line[0] + line[1]] || line[0] + line[1]) + '</td><td style="padding: 0 20px;">' + (translations[line[0] + line[1]] || '??') + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="' + (language ? 'This should rather be... because...' : 'Translation in ' + editLanguage) + '"></textarea></td></tr>';
             }).join('') + '</table>' +
             '<div style="padding-top: 10px;">' +
                 '<p><textarea class="additional-fixes" cols="70" rows="4" placeholder="If what you wish to fix does not appear in the table, please add it here."></textarea></p>' +

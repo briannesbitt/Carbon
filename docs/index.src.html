@@ -3672,7 +3672,7 @@ Carbon::macro('datePeriod', static function ($startDate, $endDate) {
 });
 )}}
 {{::exec(foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
-    echo "$date\n";
+    echo $date->format('Y-m-d') . "\n";
 })}}
 /*
 {{eval}}*/
