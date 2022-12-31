@@ -407,19 +407,19 @@ class SrLatnMeTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days'
-        '1 nedjelja 6 dan',
+        '1 nedjelja 6 dana',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days'
-        '1 nedjelja 6 dan',
+        '1 nedjelja 6 dana',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now'
-        'za 1 nedjelju i 6 dan',
+        'za 1 nedjelju i 6 dana',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
-        '2 nedjelja 1 sat',
+        '2 nedjelje 1 sat',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
