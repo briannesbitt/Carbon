@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use Carbon\MessageFormatter\MessageFormatterMapper;
 use Closure;
 use ReflectionException;
 use ReflectionFunction;
