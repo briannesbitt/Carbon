@@ -917,6 +917,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testDeclensionModes()
     {
+        Carbon::setTestNow('2022-12-30');
         $this->assertSame(
             '2 жил 3 сар 1 өдөр 1с өмнө',
             Carbon::now()

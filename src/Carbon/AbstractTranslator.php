@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use Carbon\MessageFormatter\MessageFormatterMapper;
 use Closure;
 use ReflectionException;
 use ReflectionFunction;
@@ -51,7 +52,7 @@ abstract class AbstractTranslator extends Translation\Translator
     /**
      * List of locales aliases.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     protected $aliases = [
         'me' => 'sr_Latn_ME',
@@ -83,7 +84,7 @@ abstract class AbstractTranslator extends Translation\Translator
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
         $this->addLoader('array', new ArrayLoader());
-        parent::__construct($locale, $formatter, $cacheDir, $debug);
+        parent::__construct($locale, new MessageFormatterMapper($formatter), $cacheDir, $debug);
         $this->initializing = false;
     }
 
