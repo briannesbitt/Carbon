@@ -111,7 +111,7 @@ class SrLatnMeTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Monday at 12:00 AM'
-        'prošle nedjelje u 0:00',
+        'prošlog ponedjeljka u 0:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Sunday at 12:00 AM'
@@ -347,23 +347,23 @@ class SrLatnMeTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
-        '1 sekund nakon',
+        'nakon 1 sekunde',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        '1 sek. nakon',
+        'nakon 1 sek.',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
-        '1 sekund prije',
+        'prije 1 sekundu',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 sek. prije',
+        'prije 1 sek.',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
-        '1 sekund',
+        '1 sekundu',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
@@ -383,7 +383,7 @@ class SrLatnMeTest extends LocalizationTestCase
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
-        '1 minut 1 sekund',
+        '1 minut 1 sekundu',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
