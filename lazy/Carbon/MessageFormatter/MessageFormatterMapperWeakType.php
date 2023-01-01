@@ -11,31 +11,26 @@
 
 namespace Carbon\MessageFormatter;
 
-use Symfony\Component\Translation\Formatter\MessageFormatter;
+use Symfony\Component\Translation\Formatter\ChoiceMessageFormatterInterface;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 
 if (!class_exists(LazyMessageFormatter::class, false)) {
-    abstract class LazyMessageFormatter implements MessageFormatterInterface
+    abstract class LazyMessageFormatter implements MessageFormatterInterface, ChoiceMessageFormatterInterface
     {
-        /**
-         * Wrapped formatter.
-         *
-         * @var MessageFormatterInterface
-         */
-        private $formatter;
-
-        public function __construct(?MessageFormatterInterface $formatter = null)
-        {
-            $this->formatter = $formatter ?? new MessageFormatter();
-        }
+        abstract protected function transformLocale(?string $locale): ?string;
 
         public function format($message, $locale, array $parameters = [])
         {
             return $this->formatter->format(
                 $message,
-                preg_replace('/[_@][A-Za-z][a-z]{2,}/', '', $locale),
+                $this->transformLocale($locale),
                 $parameters
             );
+        }
+
+        public function choiceFormat($message, $number, $locale, array $parameters = [])
+        {
+            return $this->formatter->choiceFormat($message, $number, $locale, $parameters);
         }
     }
 }

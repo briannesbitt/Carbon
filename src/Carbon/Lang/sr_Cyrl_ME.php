@@ -16,6 +16,15 @@
  */
 
 use Carbon\CarbonInterface;
+use Symfony\Component\Translation\PluralizationRules;
+
+// @codeCoverageIgnoreStart
+if (class_exists(PluralizationRules::class)) {
+    PluralizationRules::set(static function ($number) {
+        return PluralizationRules::get($number, 'sr');
+    }, 'sr_Cyrl_ME');
+}
+// @codeCoverageIgnoreEnd
 
 return [
     'year' => ':count година|:count године|:count година',

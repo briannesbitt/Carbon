@@ -16,6 +16,15 @@
  */
 
 use Carbon\CarbonInterface;
+use Symfony\Component\Translation\PluralizationRules;
+
+// @codeCoverageIgnoreStart
+if (class_exists(PluralizationRules::class)) {
+    PluralizationRules::set(static function ($number) {
+        return PluralizationRules::get($number, 'sr');
+    }, 'sr_Latn_ME');
+}
+// @codeCoverageIgnoreEnd
 
 return array_replace_recursive(require __DIR__.'/sr.php', [
     'month' => ':count mjesec|:count mjeseca|:count mjeseci',
