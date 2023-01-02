@@ -844,7 +844,7 @@ trait Difference
         $parts = min(7, max(1, (int) $parts));
         $skip = \is_array($syntax) ? ($syntax['skip'] ?? []) : [];
 
-        return $this->diffAsCarbonInterval($other, false, $skip)
+        return $this->diffAsCarbonInterval($other, false, (array) $skip)
             ->setLocalTranslator($this->getLocalTranslator())
             ->forHumans($syntax, (bool) $short, $parts, $options ?? $this->localHumanDiffOptions ?? static::getHumanDiffOptions());
     }

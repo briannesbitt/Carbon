@@ -621,6 +621,16 @@ class DiffTest extends AbstractTestCase
             Carbon::parse('2020-05-25')
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
+
+        Carbon::setTestNow('2023-01-02 16:57');
+        $this->assertSame(
+            '1 day 16 hours 57 minutes',
+            Carbon::yesterday()->diffForHumans([
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+                'parts' => 3,
+                'skip' => 's',
+            ])
+        );
     }
 
     public function testDiffForHumansNowAndSecondWithTimezone()
