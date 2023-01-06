@@ -563,12 +563,17 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is a long year
+     * Determines if the instance is a long year (using calendar year).
+     *
+     * ⚠️ This method completely ignores month and day to use the numeric year number,
+     * it's not correct if the exact date matters. For instance as `2019-12-30` is already
+     * in the first week of the 2020 year, if you want to know from this date if ISO week
+     * year 2020 is a long year, use `isLongIsoYear` instead.
      *
      * @example
      * ```
-     * Carbon::parse('2015-01-01')->isLongYear(); // true
-     * Carbon::parse('2016-01-01')->isLongYear(); // false
+     * Carbon::create(2015)->isLongYear(); // true
+     * Carbon::create(2016)->isLongYear(); // false
      * ```
      *
      * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
@@ -578,6 +583,27 @@ trait Comparison
     public function isLongYear()
     {
         return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
+    }
+
+    /**
+     * Determines if the instance is a long year (using ISO 8601 year).
+     *
+     * @example
+     * ```
+     * Carbon::parse('2015-01-01')->isLongIsoYear(); // true
+     * Carbon::parse('2016-01-01')->isLongIsoYear(); // true
+     * Carbon::parse('2016-01-03')->isLongIsoYear(); // false
+     * Carbon::parse('2019-12-29')->isLongIsoYear(); // false
+     * Carbon::parse('2019-12-30')->isLongIsoYear(); // true
+     * ```
+     *
+     * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+     *
+     * @return bool
+     */
+    public function isLongIsoYear()
+    {
+        return static::create($this->isoWeekYear, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
     }
 
     /**
