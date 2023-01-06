@@ -57,7 +57,7 @@ return array_replace_recursive(require __DIR__.'/sr.php', [
                 case 0:
                     return '[prošle nedjelje u] LT';
                 case 1:
-                    return '[prošle nedjelje u] LT';
+                    return '[prošlog ponedjeljka u] LT';
                 case 2:
                     return '[prošlog utorka u] LT';
                 case 3:
