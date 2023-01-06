@@ -65,6 +65,16 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(24, CarbonInterval::days(22)->roundUnit('day', 6)->totalDays);
     }
 
+    public function testTotalAfterRound()
+    {
+        var_dump(CarbonInterval::make('43h3m6s')->hours);
+        var_dump(CarbonInterval::make('43h3m6s')->cascade()->hours);
+        var_dump(CarbonInterval::make('43h3m6s')->roundMinutes()->hours);
+        exit;
+        $this->assertSame(43, CarbonInterval::make('43h3m6s')->roundMinutes()->hours);
+        $this->assertSame(43.04, CarbonInterval::make('43h3m6s')->roundMinutes()->totalHours);
+    }
+
     public function testCeil()
     {
         $this->assertSame(21, CarbonInterval::days(21)->ceilWeeks()->totalDays);
