@@ -989,6 +989,8 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('Monday'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('June'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('May'));
+        $this->assertFalse(Carbon::parse('2023-10-01 00:00:00')->is('February'));
+        $this->assertFalse(Carbon::parse('2023-10-01 00:00:00')->is('January'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('12:23'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:26'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00'));
