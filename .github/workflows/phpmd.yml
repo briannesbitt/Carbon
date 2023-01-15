@@ -35,5 +35,8 @@ jobs:
             composer remove --no-update phpstan/extension-installer phpstan/phpstan ondrejmirtes/better-reflection friendsofphp/php-cs-fixer kylekatarnls/multi-tester --no-interaction --dev;
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
 
-      - name: Run phpmd
+      - name: Check source code
         run: composer phpmd
+
+      - name: Check tests code
+        run: composer phpmd-test

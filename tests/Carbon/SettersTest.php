@@ -330,7 +330,7 @@ class SettersTest extends AbstractTestCase
         /** @var array $array */
         $array = $date;
 
-        foreach ($array as $_) {
+        foreach ($array as $item) {
         }
 
         $date->cleanupDumpProperties()->timezone = 'UTC';
@@ -859,6 +859,9 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.TooManyFields)
+     */
     private function failOperation(
         Carbon $original,
         Carbon $date,

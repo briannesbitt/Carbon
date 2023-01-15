@@ -24,6 +24,7 @@ use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
 use Symfony\Component\Translation\TranslatorInterface;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
@@ -691,7 +692,7 @@ class LocalizationTest extends AbstractTestCase
         $translator->setMessages('zz_ZZ', []);
         $this->assertContains('zz_ZZ', Carbon::getAvailableLocales());
 
-        Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
+        Carbon::setTranslator(new SymfonyTranslator('en'));
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 

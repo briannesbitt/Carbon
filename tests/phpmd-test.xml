@@ -10,16 +10,6 @@
     <description>
         Mess detection rules for Carbon
     </description>
-    <rule ref="rulesets/codesize.xml">
-        <exclude name="CyclomaticComplexity" />
-        <exclude name="NPathComplexity" />
-        <exclude name="ExcessiveMethodLength" />
-        <exclude name="ExcessiveClassLength" />
-        <exclude name="ExcessivePublicCount" />
-        <exclude name="TooManyMethods" />
-        <exclude name="TooManyPublicMethods" />
-        <exclude name="ExcessiveClassComplexity" />
-    </rule>
     <rule ref="rulesets/cleancode.xml">
         <exclude name="BooleanArgumentFlag" />
         <exclude name="StaticAccess" />
@@ -39,25 +29,8 @@
             <property name="ignore-namespaces" value="true" />
         </properties>
     </rule>
-    <rule ref="rulesets/naming.xml">
-        <exclude name="ShortVariable" />
-        <exclude name="LongVariable" />
-        <exclude name="ShortMethodName" />
+    <rule ref="rulesets/unusedcode.xml">
+        <exclude name="UnusedLocalVariable" />
+        <exclude name="UnusedFormalParameter" />
     </rule>
-    <rule ref="rulesets/naming.xml/ShortVariable">
-        <properties>
-            <property name="exceptions" value="ci,id,to,tz" />
-        </properties>
-    </rule>
-    <rule ref="rulesets/naming.xml/LongVariable">
-        <properties>
-            <property name="subtract-suffixes" value="Enabled,Function,Factory,Timezone,FloorEnd,DiffOptions" />
-        </properties>
-    </rule>
-    <rule ref="rulesets/naming.xml/ShortMethodName">
-        <properties>
-            <property name="exceptions" value="eq,gt,is,lt,ne,to,tz" />
-        </properties>
-    </rule>
-    <rule ref="rulesets/unusedcode.xml" />
 </ruleset>

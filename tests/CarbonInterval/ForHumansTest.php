@@ -16,6 +16,7 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Translator as CarbonTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Tests\AbstractTestCase;
@@ -31,7 +32,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testGetTranslator()
     {
-        /** @var \Carbon\Translator $t */
+        /** @var CarbonTranslator $t */
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -40,7 +41,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testResetTranslator()
     {
-        /** @var \Carbon\Translator $t */
+        /** @var CarbonTranslator $t */
         $t = MyCarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -49,13 +50,13 @@ class ForHumansTest extends AbstractTestCase
 
     public function testSetTranslator()
     {
-        /** @var \Carbon\Translator $ori */
+        /** @var CarbonTranslator $ori */
         $ori = CarbonInterval::getTranslator();
         $t = new Translator('fr');
         $t->addLoader('array', new ArrayLoader());
         CarbonInterval::setTranslator($t);
 
-        /** @var \Carbon\Translator $t */
+        /** @var CarbonTranslator $t */
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('fr', $t->getLocale());
@@ -64,7 +65,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testDumpTranslator()
     {
-        $t = new \Carbon\Translator('tr_CY');
+        $t = new CarbonTranslator('tr_CY');
         $this->assertSame([
             'locale' => 'tr_CY',
         ], $t->__debugInfo());
