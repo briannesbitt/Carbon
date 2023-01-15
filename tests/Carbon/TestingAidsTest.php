@@ -15,6 +15,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTimeZone;
+use Exception;
 use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
@@ -342,9 +343,9 @@ class TestingAidsTest extends AbstractTestCase
 
         try {
             Carbon::withTestNow($testNow, static function () {
-                throw new \Exception();
+                throw new Exception();
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // ignore
         }
 

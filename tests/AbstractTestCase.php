@@ -24,6 +24,9 @@ use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use Throwable;
 
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ */
 abstract class AbstractTestCase extends TestCase
 {
     /**
