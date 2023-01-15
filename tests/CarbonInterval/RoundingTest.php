@@ -67,8 +67,8 @@ class RoundingTest extends AbstractTestCase
 
     public function testTotalAfterRound()
     {
-        $this->assertSame(43, CarbonInterval::make('43h3m6s')->roundMinutes()->hours);
-        $this->assertSame(43.04, CarbonInterval::make('43h3m6s')->roundMinutes()->totalHours);
+        $this->assertSame(19, CarbonInterval::make('43h3m6s')->roundMinutes()->hours);
+        $this->assertSame(43.05, CarbonInterval::make('43h3m6s')->roundMinutes()->totalHours);
     }
 
     public function testCeil()
