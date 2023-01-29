@@ -16,6 +16,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use Carbon\Exceptions\UnitException;
 use Closure;
 use DateTime;
@@ -605,16 +606,18 @@ trait Converter
             $interval = CarbonInterval::make("$interval ".static::pluralUnit($unit));
         }
 
-        $period = (new CarbonPeriod())->setDateClass(static::class)->setStartDate($this);
+        $period = ($this->isMutable() ? new CarbonPeriod() : new CarbonPeriodImmutable())
+            ->setDateClass(static::class)
+            ->setStartDate($this);
 
         if ($interval) {
-            $period->setDateInterval($interval);
+            $period = $period->setDateInterval($interval);
         }
 
         if (\is_int($end) || (\is_string($end) && ctype_digit($end))) {
-            $period->setRecurrences($end);
+            $period = $period->setRecurrences($end);
         } elseif ($end) {
-            $period->setEndDate($end);
+            $period = $period->setEndDate($end);
         }
 
         return $period;

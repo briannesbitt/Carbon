@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use Closure;
 use DateTime;
@@ -53,6 +54,11 @@ abstract class AbstractTestCase extends TestCase
      * @var string
      */
     private $saveTz;
+
+    /**
+     * @var class-string<CarbonPeriod>
+     */
+    protected $periodClass = CarbonPeriod::class;
 
     protected function getTimestamp()
     {

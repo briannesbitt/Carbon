@@ -1883,7 +1883,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Invert the interval.
      *
-     * @param bool|int $inverted if a parameter is passed, the passed value casted as 1 or 0 is used
+     * @param bool|int $inverted if a parameter is passed, the passed value cast as 1 or 0 is used
      *                           as the new value of the ->invert property.
      *
      * @return $this

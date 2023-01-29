@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace Tests\CarbonPeriod;
 
-use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class CloneTest extends AbstractTestCase
 {
     public function testClone()
     {
-        $period = CarbonPeriod::create('R4/2012-07-01T00:00:00/P7D');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->clone();
 
         $this->assertSame((string) $period, (string) $clone);
@@ -30,7 +30,8 @@ class CloneTest extends AbstractTestCase
 
     public function testCopy()
     {
-        $period = CarbonPeriod::create('R4/2012-07-01T00:00:00/P7D');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->copy();
 
         $this->assertSame((string) $period, (string) $clone);

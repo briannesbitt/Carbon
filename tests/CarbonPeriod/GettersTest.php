@@ -27,7 +27,7 @@ class GettersTest extends AbstractTestCase
 {
     public function testGetStartDate()
     {
-        $period = CarbonPeriodFactory::withStartIntervalEnd();
+        $period = CarbonPeriodFactory::withStartIntervalEnd($this->periodClass);
 
         $date = $period->getStartDate();
 
@@ -38,7 +38,7 @@ class GettersTest extends AbstractTestCase
 
     public function testGetEndDate()
     {
-        $period = CarbonPeriodFactory::withStartIntervalEnd();
+        $period = CarbonPeriodFactory::withStartIntervalEnd($this->periodClass);
 
         $date = $period->getEndDate();
 
@@ -49,7 +49,7 @@ class GettersTest extends AbstractTestCase
 
     public function testGetDateInterval()
     {
-        $period = CarbonPeriodFactory::withStartIntervalEnd();
+        $period = CarbonPeriodFactory::withStartIntervalEnd($this->periodClass);
 
         $interval = $period->getDateInterval();
 
@@ -76,7 +76,7 @@ class GettersTest extends AbstractTestCase
 
     public function testModifyStartDate()
     {
-        $period = CarbonPeriodFactory::withStartIntervalEnd();
+        $period = CarbonPeriodFactory::withStartIntervalEnd($this->periodClass);
 
         $period->getStartDate()->subDays(3);
 
@@ -85,7 +85,7 @@ class GettersTest extends AbstractTestCase
 
     public function testModifyEndDate()
     {
-        $period = CarbonPeriodFactory::withStartIntervalEnd();
+        $period = CarbonPeriodFactory::withStartIntervalEnd($this->periodClass);
 
         $period->getEndDate()->addDays(3);
 
@@ -94,7 +94,7 @@ class GettersTest extends AbstractTestCase
 
     public function testModifyDateInterval()
     {
-        $period = CarbonPeriodFactory::withStartIntervalEnd();
+        $period = CarbonPeriodFactory::withStartIntervalEnd($this->periodClass);
 
         $period->getDateInterval()->days(5)->hours(0);
 
