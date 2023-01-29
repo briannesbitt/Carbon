@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class DynamicIntervalTest extends AbstractTestCase
 {
     public function testDynamicIntervalInPeriod()
     {
+        $periodClass = $this->periodClass;
         $weekDayStep = function (Carbon $date, bool $negated = false): Carbon {
             if ($negated) {
                 return $date->previousWeekDay();
@@ -28,7 +28,7 @@ class DynamicIntervalTest extends AbstractTestCase
 
             return $date->nextWeekDay();
         };
-        $period = CarbonPeriod::create('2020-06-01', $weekDayStep, '2020-06-14');
+        $period = $periodClass::create('2020-06-01', $weekDayStep, '2020-06-14');
         $dates = [];
 
         foreach ($period as $date) {

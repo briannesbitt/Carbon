@@ -16,7 +16,6 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
 use DateInterval;
 use DateTime;
 use InvalidArgumentException;
@@ -27,54 +26,60 @@ class SettersTest extends AbstractTestCase
 {
     public function testSetStartDate()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setStartDate('2018-03-25');
+        $period = $period->setStartDate('2018-03-25');
 
         $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
     }
 
     public function testSetEndDate()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setEndDate('2018-04-25');
+        $period = $period->setEndDate('2018-04-25');
 
         $this->assertSame('2018-04-25', $period->getEndDate()->toDateString());
     }
 
     public function testSetDateInterval()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setDateInterval('P3D');
+        $period = $period->setDateInterval('P3D');
 
         $this->assertSame('P3D', $period->getDateInterval()->spec());
     }
 
     public function testSetDateIntervalFromStringFormat()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setDateInterval('1w 3d 4h 32m 23s');
+        $period = $period->setDateInterval('1w 3d 4h 32m 23s');
 
         $this->assertSame('P10DT4H32M23S', $period->getDateInterval()->spec());
     }
 
     public function testSetRecurrences()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setRecurrences(5);
+        $period = $period->setRecurrences(5);
 
         $this->assertSame(5, $period->getRecurrences());
     }
 
     public function testSetDates()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setDates('2019-04-12', '2019-04-19');
+        $period = $period->setDates('2019-04-12', '2019-04-19');
 
         $this->assertSame('2019-04-12', $period->getStartDate()->toDateString());
         $this->assertSame('2019-04-19', $period->getEndDate()->toDateString());
@@ -82,36 +87,38 @@ class SettersTest extends AbstractTestCase
 
     public function testSetOptions()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setOptions($options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
+        $period = $period->setOptions($options = $periodClass::EXCLUDE_START_DATE | $periodClass::EXCLUDE_END_DATE);
 
         $this->assertSame($options, $period->getOptions());
     }
 
     public function testSetDateClass()
     {
-        $period = new CarbonPeriod('2001-01-01', '2001-01-02');
+        $periodClass = $this->periodClass;
+        $period = new $periodClass('2001-01-01', '2001-01-02');
 
-        $period->setDateClass(CarbonImmutable::class);
+        $period = $period->setDateClass(CarbonImmutable::class);
 
-        $this->assertNotSame(0, $period->getOptions() & CarbonPeriod::IMMUTABLE);
+        $this->assertNotSame(0, $period->getOptions() & $periodClass::IMMUTABLE);
         $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
 
-        $period->setDateClass(Carbon::class);
+        $period = $period->setDateClass(Carbon::class);
 
-        $this->assertSame(0, $period->getOptions() & CarbonPeriod::IMMUTABLE);
+        $this->assertSame(0, $period->getOptions() & $periodClass::IMMUTABLE);
         $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
 
-        $period->toggleOptions(CarbonPeriod::IMMUTABLE, true);
+        $period = $period->toggleOptions($periodClass::IMMUTABLE, true);
         $this->assertSame(CarbonImmutable::class, $period->getDateClass());
         $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
 
-        $period->toggleOptions(CarbonPeriod::IMMUTABLE, false);
+        $period = $period->toggleOptions($periodClass::IMMUTABLE, false);
         $this->assertSame(Carbon::class, $period->getDateClass());
         $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
 
-        $period->setDateClass(AbstractCarbon::class);
+        $period = $period->setDateClass(AbstractCarbon::class);
         $this->assertSame(AbstractCarbon::class, $period->getDateClass());
     }
 
@@ -121,7 +128,8 @@ class SettersTest extends AbstractTestCase
             'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval'
         ));
 
-        $period = new CarbonPeriod('2001-01-01', '2001-01-02');
+        $periodClass = $this->periodClass;
+        $period = new $periodClass('2001-01-01', '2001-01-02');
 
         $period->setDateClass(CarbonInterval::class);
     }
@@ -132,7 +140,8 @@ class SettersTest extends AbstractTestCase
             'Invalid interval.'
         ));
 
-        CarbonPeriod::create()->setDateInterval(new DateTime());
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setDateInterval(new DateTime());
     }
 
     public function testEmptyInterval()
@@ -141,7 +150,8 @@ class SettersTest extends AbstractTestCase
             'Empty interval is not accepted.'
         ));
 
-        CarbonPeriod::create()->setDateInterval(new DateInterval('P0D'));
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setDateInterval(new DateInterval('P0D'));
     }
 
     public function testInvalidNumberOfRecurrencesString()
@@ -150,7 +160,8 @@ class SettersTest extends AbstractTestCase
             'Invalid number of recurrences.'
         ));
 
-        CarbonPeriod::create()->setRecurrences('foo');
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setRecurrences('foo');
     }
 
     public function testInvalidNegativeNumberOfRecurrences()
@@ -159,7 +170,8 @@ class SettersTest extends AbstractTestCase
             'Invalid number of recurrences.'
         ));
 
-        CarbonPeriod::create()->setRecurrences(-4);
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setRecurrences(-4);
     }
 
     public function testInvalidOptions()
@@ -168,7 +180,8 @@ class SettersTest extends AbstractTestCase
             'Invalid options.'
         ));
 
-        CarbonPeriod::create()->setOptions('1');
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setOptions('1');
     }
 
     public function testInvalidConstructorParameters()
@@ -177,7 +190,8 @@ class SettersTest extends AbstractTestCase
             'Invalid constructor parameters.'
         ));
 
-        CarbonPeriod::create([]);
+        $periodClass = $this->periodClass;
+        $periodClass::create([]);
     }
 
     public function testInvalidStartDate()
@@ -186,7 +200,8 @@ class SettersTest extends AbstractTestCase
             'Invalid start date.'
         ));
 
-        CarbonPeriod::create()->setStartDate(new DateInterval('P1D'));
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setStartDate(new DateInterval('P1D'));
     }
 
     public function testInvalidEndDate()
@@ -195,95 +210,101 @@ class SettersTest extends AbstractTestCase
             'Invalid end date.'
         ));
 
-        CarbonPeriod::create()->setEndDate(new DateInterval('P1D'));
+        $periodClass = $this->periodClass;
+        $periodClass::create()->setEndDate(new DateInterval('P1D'));
     }
 
     public function testToggleOptions()
     {
-        $start = CarbonPeriod::EXCLUDE_START_DATE;
-        $end = CarbonPeriod::EXCLUDE_END_DATE;
+        $periodClass = $this->periodClass;
+        $start = $periodClass::EXCLUDE_START_DATE;
+        $end = $periodClass::EXCLUDE_END_DATE;
 
-        $period = new CarbonPeriod();
+        $period = new $periodClass();
 
-        $period->toggleOptions($start, true);
+        $period = $period->toggleOptions($start, true);
         $this->assertSame($start, $period->getOptions());
 
-        $period->toggleOptions($end, true);
+        $period = $period->toggleOptions($end, true);
         $this->assertSame($start | $end, $period->getOptions());
 
-        $period->toggleOptions($start, false);
+        $period = $period->toggleOptions($start, false);
         $this->assertSame($end, $period->getOptions());
 
-        $period->toggleOptions($end, false);
+        $period = $period->toggleOptions($end, false);
         $this->assertEmpty($period->getOptions());
     }
 
     public function testToggleOptionsOnAndOff()
     {
-        $start = CarbonPeriod::EXCLUDE_START_DATE;
-        $end = CarbonPeriod::EXCLUDE_END_DATE;
+        $periodClass = $this->periodClass;
+        $start = $periodClass::EXCLUDE_START_DATE;
+        $end = $periodClass::EXCLUDE_END_DATE;
 
-        $period = new CarbonPeriod();
+        $period = new $periodClass();
 
-        $period->toggleOptions($start);
+        $period = $period->toggleOptions($start);
         $this->assertSame($start, $period->getOptions());
 
-        $period->toggleOptions($start);
+        $period = $period->toggleOptions($start);
         $this->assertEmpty($period->getOptions());
 
-        $period->setOptions($start);
-        $period->toggleOptions($start | $end);
+        $period = $period->setOptions($start);
+        $period = $period->toggleOptions($start | $end);
         $this->assertSame($start | $end, $period->getOptions());
 
-        $period->toggleOptions($end);
+        $period = $period->toggleOptions($end);
         $this->assertSame($start, $period->getOptions());
 
-        $period->toggleOptions($end);
+        $period = $period->toggleOptions($end);
         $this->assertSame($start | $end, $period->getOptions());
 
-        $period->toggleOptions($start | $end);
+        $period = $period->toggleOptions($start | $end);
         $this->assertEmpty($period->getOptions());
     }
 
     public function testSetStartDateInclusiveOrExclusive()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setStartDate('2018-03-25');
+        $period = $period->setStartDate('2018-03-25');
         $this->assertFalse($period->isStartExcluded());
 
-        $period->setStartDate('2018-03-25', false);
+        $period = $period->setStartDate('2018-03-25', false);
         $this->assertTrue($period->isStartExcluded());
 
-        $period->setStartDate('2018-03-25', true);
+        $period = $period->setStartDate('2018-03-25', true);
         $this->assertFalse($period->isStartExcluded());
     }
 
     public function testSetEndDateInclusiveOrExclusive()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setEndDate('2018-04-25');
+        $period = $period->setEndDate('2018-04-25');
         $this->assertFalse($period->isEndExcluded());
 
-        $period->setEndDate('2018-04-25', false);
+        $period = $period->setEndDate('2018-04-25', false);
         $this->assertTrue($period->isEndExcluded());
 
-        $period->setEndDate('2018-04-25', true);
+        $period = $period->setEndDate('2018-04-25', true);
         $this->assertFalse($period->isEndExcluded());
     }
 
     public function testInvertDateInterval()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->invertDateInterval();
+        $period = $period->invertDateInterval();
         $this->assertSame(1, $period->getDateInterval()->invert);
 
-        $period->invertDateInterval();
+        $period = $period->invertDateInterval();
         $this->assertSame(0, $period->getDateInterval()->invert);
 
-        $period = CarbonPeriod::create('2018-04-29', 7);
+        $period = $periodClass::create('2018-04-29', 7);
         $dates = [];
         foreach ($period as $key => $date) {
             if ($key === 3) {
@@ -299,37 +320,40 @@ class SettersTest extends AbstractTestCase
 
     public function testExcludeStartDate()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->excludeStartDate();
-        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
+        $period = $period->excludeStartDate();
+        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
 
-        $period->excludeStartDate(true);
-        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
+        $period = $period->excludeStartDate(true);
+        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
 
-        $period->excludeStartDate(false);
+        $period = $period->excludeStartDate(false);
         $this->assertEmpty($period->getOptions());
     }
 
     public function testExcludeEndDate()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->excludeEndDate();
-        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+        $period = $period->excludeEndDate();
+        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
 
-        $period->excludeEndDate(true);
-        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+        $period = $period->excludeEndDate(true);
+        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
 
-        $period->excludeEndDate(false);
+        $period = $period->excludeEndDate(false);
         $this->assertEmpty($period->getOptions());
     }
 
     public function testSetRelativeDates()
     {
-        $period = new CarbonPeriod();
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
 
-        $period->setDates('first monday of may 2018', 'last day of may 2018 noon');
+        $period = $period->setDates('first monday of may 2018', 'last day of may 2018 noon');
 
         $this->assertSame('2018-05-07 00:00:00', $period->getStartDate()->toDateTimeString());
         $this->assertSame('2018-05-31 12:00:00', $period->getEndDate()->toDateTimeString());
@@ -337,6 +361,7 @@ class SettersTest extends AbstractTestCase
 
     public function testFluentSetters()
     {
+        $periodClass = $this->periodClass;
         Carbon::setTestNowAndTimezone(Carbon::now('UTC'));
 
         $period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
@@ -358,7 +383,7 @@ class SettersTest extends AbstractTestCase
         $someDateTime = new DateTime('2010-05-06 02:00:00');
         $someCarbon = new Carbon('2010-05-06 13:00:00');
 
-        $period = CarbonPeriod::every('2 hours')->between($someDateTime, $someCarbon)->options(CarbonPeriod::EXCLUDE_START_DATE);
+        $period = $periodClass::every('2 hours')->between($someDateTime, $someCarbon)->options($periodClass::EXCLUDE_START_DATE);
         $hours = [];
         foreach ($period as $date) {
             $hours[] = $date->format('H');
@@ -366,7 +391,7 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame(['04', '06', '08', '10', '12'], $hours);
 
-        $period = CarbonPeriod::options(CarbonPeriod::EXCLUDE_START_DATE)->stepBy(CarbonInterval::hours(2))->since('yesterday 19:00')->until('tomorrow 03:30');
+        $period = $periodClass::options($periodClass::EXCLUDE_START_DATE)->stepBy(CarbonInterval::hours(2))->since('yesterday 19:00')->until('tomorrow 03:30');
         $hours = [];
         foreach ($period as $date) {
             $hours[] = $date->format('j H');
@@ -394,33 +419,33 @@ class SettersTest extends AbstractTestCase
             "$d3 03",
         ], $hours);
 
-        $period = CarbonPeriod::between('first day of january this year', 'first day of next month')->interval('1 week');
+        $period = $periodClass::between('first day of january this year', 'first day of next month')->interval('1 week');
 
         $this->assertEquals(new Carbon('first day of january this year'), $period->getStartDate());
         $this->assertEquals(new Carbon('first day of next month'), $period->getEndDate());
         $this->assertSame('1 week', $period->getDateInterval()->forHumans());
 
-        $opt = CarbonPeriod::EXCLUDE_START_DATE;
+        $opt = $periodClass::EXCLUDE_START_DATE;
         $int = '20 days';
         $start = '2000-01-03';
         $end = '2000-03-15';
         $inclusive = false;
-        $period = CarbonPeriod::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive);
+        $period = $periodClass::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive);
 
         $this->assertSame($start, $period->getStartDate()->format('Y-m-d'));
         $this->assertSame($end, $period->getEndDate()->format('Y-m-d'));
         $this->assertSame(20, $period->getDateInterval()->dayz);
-        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertSame($periodClass::EXCLUDE_START_DATE | $periodClass::EXCLUDE_END_DATE, $period->getOptions());
 
         $inclusive = true;
-        $period = CarbonPeriod::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive);
+        $period = $periodClass::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive);
 
         $this->assertSame($start, $period->getStartDate()->format('Y-m-d'));
         $this->assertSame($end, $period->getEndDate()->format('Y-m-d'));
         $this->assertSame(20, $period->getDateInterval()->dayz);
         $this->assertSame(0, $period->getOptions());
 
-        $period = CarbonPeriod::options($opt)->setDateInterval($int)->setDates($start, $end);
+        $period = $periodClass::options($opt)->setDateInterval($int)->setDates($start, $end);
 
         $this->assertSame($start, $period->getStartDate()->format('Y-m-d'));
         $this->assertSame($end, $period->getEndDate()->format('Y-m-d'));
@@ -430,7 +455,8 @@ class SettersTest extends AbstractTestCase
 
     public function testSetTimezone(): void
     {
-        $period = CarbonPeriod::create(
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create(
             '2018-03-25 00:00 America/Toronto',
             'PT1H',
             '2018-03-25 12:00 Europe/London'
@@ -439,7 +465,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2018-03-25 06:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
         $this->assertSame('2018-03-25 13:00 Europe/Oslo', $period->getEndDate()->format('Y-m-d H:i e'));
 
-        $period = CarbonPeriod::create(
+        $period = $periodClass::create(
             '2018-03-25 00:00 America/Toronto',
             'PT1H',
             5
@@ -452,7 +478,8 @@ class SettersTest extends AbstractTestCase
 
     public function testShiftTimezone(): void
     {
-        $period = CarbonPeriod::create(
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create(
             '2018-03-25 00:00 America/Toronto',
             'PT1H',
             '2018-03-25 12:00 Europe/London'
@@ -461,7 +488,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2018-03-25 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
         $this->assertSame('2018-03-25 12:00 Europe/Oslo', $period->getEndDate()->format('Y-m-d H:i e'));
 
-        $period = CarbonPeriod::create(
+        $period = $periodClass::create(
             '2018-03-26 00:00 America/Toronto',
             'PT1H',
             5

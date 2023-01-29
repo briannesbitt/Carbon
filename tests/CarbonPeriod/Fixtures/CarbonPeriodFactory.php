@@ -18,77 +18,85 @@ use Carbon\CarbonPeriod;
 class CarbonPeriodFactory
 {
     /**
-     * @return CarbonPeriod
+     * @template T of CarbonPeriod
+     *
+     * @param class-string<T> $periodClass
+     *
+     * @return T
      */
-    public static function withStartIntervalEnd()
+    public static function withStartIntervalEnd(string $periodClass)
     {
-        $period = CarbonPeriod::create(
+        return $periodClass::create(
             '2012-07-01 17:30:00',
             'P3DT5H',
             '2012-07-15 11:15:00'
         );
-
-        return $period;
     }
 
     /**
-     * @return CarbonPeriod
+     * @template T of CarbonPeriod
+     *
+     * @param class-string<T> $periodClass
+     *
+     * @return T
      */
-    public static function withEvenDaysFilter()
+    public static function withEvenDaysFilter(string $periodClass)
     {
-        $period = CarbonPeriod::create(
+        $period = $periodClass::create(
             '2012-07-01',
             'P3D',
             '2012-07-22',
-            CarbonPeriod::EXCLUDE_END_DATE
+            $periodClass::EXCLUDE_END_DATE
         );
 
-        $period->addFilter(function ($date) {
+        return $period->addFilter(function ($date) {
             return $date->day % 2 == 0;
         });
-
-        return $period;
     }
 
     /**
-     * @return CarbonPeriod
+     * @template T of CarbonPeriod
+     *
+     * @param class-string<T> $periodClass
+     *
+     * @return T
      */
-    public static function withCounter(&$counter)
+    public static function withCounter(string $periodClass, &$counter)
     {
         $counter = 0;
 
-        $period = CarbonPeriod::create(
+        $period = $periodClass::create(
             '2012-10-01',
             3
         );
 
-        $period->addFilter(function () use (&$counter) {
+        return $period->addFilter(function () use (&$counter) {
             $counter++;
 
             return true;
         });
-
-        return $period;
     }
 
     /**
-     * @return CarbonPeriod
+     * @template T of CarbonPeriod
+     *
+     * @param class-string<T> $periodClass
+     *
+     * @return T
      */
-    public static function withStackFilter()
+    public static function withStackFilter(string $periodClass)
     {
-        $period = CarbonPeriod::create(
+        $period = $periodClass::create(
             '2001-01-01'
         );
 
         $stack = [
-            true, false, true, CarbonPeriod::END_ITERATION,
-            false, false, true, true, CarbonPeriod::END_ITERATION,
+            true, false, true, $periodClass::END_ITERATION,
+            false, false, true, true, $periodClass::END_ITERATION,
         ];
 
-        $period->addFilter(function () use (&$stack) {
+        return $period->addFilter(function () use (&$stack) {
             return array_shift($stack);
         });
-
-        return $period;
     }
 }

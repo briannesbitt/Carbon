@@ -16,7 +16,6 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use DatePeriod;
 use DateTime;
@@ -28,7 +27,8 @@ class ToDatePeriodTest extends AbstractTestCase
 {
     public function testToArrayIsNotEmptyArray()
     {
-        $period = CarbonPeriod::create('2021-01-05', '2021-02-15');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2021-01-05', '2021-02-15');
         $result = $period->toDatePeriod();
 
         $this->assertFalse($period->isEndExcluded());
@@ -38,11 +38,11 @@ class ToDatePeriodTest extends AbstractTestCase
         // CarbonPeriod includes end date by default while DatePeriod will always exclude it
         $dates = iterator_to_array($result);
         $this->assertSame('2021-02-14', end($dates)->format('Y-m-d'));
-        $this->assertTrue($period->equalTo(CarbonPeriod::instance($result)));
+        $this->assertTrue($period->equalTo($periodClass::instance($result)));
 
-        $period = CarbonPeriod::create('2021-01-05', '2021-02-15', CarbonPeriod::EXCLUDE_END_DATE);
+        $period = $periodClass::create('2021-01-05', '2021-02-15', $periodClass::EXCLUDE_END_DATE);
         $result = $period->toDatePeriod();
-        $newInstance = CarbonPeriod::instance($result);
+        $newInstance = $periodClass::instance($result);
 
         $this->assertTrue($period->isEndExcluded());
         $this->assertSame(DatePeriod::class, \get_class($result));
@@ -53,9 +53,9 @@ class ToDatePeriodTest extends AbstractTestCase
         $this->assertSame('2021-01-05', $newInstance->getStartDate()->format('Y-m-d'));
         $this->assertSame('2021-02-14', $newInstance->getEndDate()->format('Y-m-d'));
 
-        $period = CarbonPeriod::create('2021-01-05', 3);
+        $period = $periodClass::create('2021-01-05', 3);
         $result = $period->toDatePeriod();
-        $newInstance = CarbonPeriod::instance($result);
+        $newInstance = $periodClass::instance($result);
 
         $this->assertSame(DatePeriod::class, \get_class($result));
         $this->assertSame('2021-01-05', $result->getStartDate()->format('Y-m-d'));
@@ -69,7 +69,8 @@ class ToDatePeriodTest extends AbstractTestCase
     public function testWithIntervalLocalized()
     {
         CarbonInterval::setLocale('fr');
-        $period = CarbonPeriod::create('2021-01-05', 3);
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2021-01-05', 3);
         $result = $period->floor()->toDatePeriod();
 
         $this->assertSame(DatePeriod::class, \get_class($result));
@@ -85,11 +86,12 @@ class ToDatePeriodTest extends AbstractTestCase
 
     public function testWithModifiedEnglish()
     {
+        $periodClass = $this->periodClass;
         $translator = Translator::get('en');
         $translator->setTranslations([
             'day' => ':count boring day|:count boring days',
         ]);
-        $period = CarbonPeriod::create('2021-01-05', 3);
+        $period = $periodClass::create('2021-01-05', 3);
         $result = $period->floor()->toDatePeriod();
 
         $this->assertSame(DatePeriod::class, \get_class($result));
@@ -105,8 +107,9 @@ class ToDatePeriodTest extends AbstractTestCase
 
     public function testRawDate()
     {
-        $period = new CarbonPeriod();
-        $method = new ReflectionMethod(CarbonPeriod::class, 'rawDate');
+        $periodClass = $this->periodClass;
+        $period = new $periodClass();
+        $method = new ReflectionMethod($periodClass, 'rawDate');
         $method->setAccessible(true);
 
         $this->assertNull($method->invoke($period, false));
