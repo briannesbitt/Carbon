@@ -12,6 +12,7 @@
 /*
  * Authors:
  * - IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org
+ * - Abdullah-Alhariri
  */
 return array_replace_recursive(require __DIR__.'/ar.php', [
     'formats' => [

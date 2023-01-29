@@ -15,6 +15,7 @@
  * - JD Isaacks
  * - Atef Ben Ali (atefBB)
  * - Mohamed Sabil (mohamedsabil83)
+ * - Abdullah-Alhariri
  */
 $months = [
     'يناير',
