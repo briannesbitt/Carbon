@@ -12,6 +12,10 @@ For any other bug or issue, please click this link and follow the template:
 You may think this template does not apply to your case but please think again. A long description will never be as
 clear as a code chunk with the output you expect from it (for either bug report or new features).
 
+Can you guys add this feature for calculation totat seconds to HH:MM:SS HH can be greater than > 24
+like 100000 = 27:46:40 
+Sometime it's need when we calculate total working, active or code time
+
 ## Code Contributions
 
 ### Where to begin
