@@ -703,15 +703,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function __isset($name);
 
     /**
-     * Returns the values to dump on serialize() called on.
-     *
-     * Only used by PHP >= 7.4.
-     *
-     * @return array
-     */
-    public function __serialize(): array;
-
-    /**
      * Set a part of the Carbon object
      *
      * @param string                  $name
@@ -753,15 +744,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return string
      */
     public function __toString();
-
-    /**
-     * Set locale if specified on unserialize() called.
-     *
-     * Only used by PHP >= 7.4.
-     *
-     * @return void
-     */
-    public function __unserialize(array $data): void;
 
     /**
      * Add given units or interval to the current instance.
@@ -1059,13 +1041,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
-     * @param int|null                 $hour
-     * @param int|null                 $minute
-     * @param int|null                 $second
-     * @param DateTimeZone|string|null $tz
+     * @param DateTimeInterface|int|null $year
+     * @param int|null                   $month
+     * @param int|null                   $day
+     * @param int|null                   $hour
+     * @param int|null                   $minute
+     * @param int|null                   $second
+     * @param DateTimeZone|string|null   $tz
      *
      * @throws InvalidFormatException
      *
@@ -2771,12 +2753,35 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isLeapYear();
 
     /**
-     * Determines if the instance is a long year
+     * Determines if the instance is a long year (using ISO 8601 year).
      *
      * @example
      * ```
-     * Carbon::parse('2015-01-01')->isLongYear(); // true
-     * Carbon::parse('2016-01-01')->isLongYear(); // false
+     * Carbon::parse('2015-01-01')->isLongIsoYear(); // true
+     * Carbon::parse('2016-01-01')->isLongIsoYear(); // true
+     * Carbon::parse('2016-01-03')->isLongIsoYear(); // false
+     * Carbon::parse('2019-12-29')->isLongIsoYear(); // false
+     * Carbon::parse('2019-12-30')->isLongIsoYear(); // true
+     * ```
+     *
+     * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+     *
+     * @return bool
+     */
+    public function isLongIsoYear();
+
+    /**
+     * Determines if the instance is a long year (using calendar year).
+     *
+     * ⚠️ This method completely ignores month and day to use the numeric year number,
+     * it's not correct if the exact date matters. For instance as `2019-12-30` is already
+     * in the first week of the 2020 year, if you want to know from this date if ISO week
+     * year 2020 is a long year, use `isLongIsoYear` instead.
+     *
+     * @example
+     * ```
+     * Carbon::create(2015)->isLongYear(); // true
+     * Carbon::create(2016)->isLongYear(); // false
      * ```
      *
      * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
