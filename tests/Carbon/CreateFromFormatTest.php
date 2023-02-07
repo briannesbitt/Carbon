@@ -57,6 +57,13 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($d);
     }
 
+    public function testCreateFromFalseTimezone()
+    {
+        $d = Carbon::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.123456', false);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame('1975-05-21 22:32:11.123456 America/Toronto', $d->format('Y-m-d H:i:s.u e'));
+    }
+
     /**
      * Work-around for https://bugs.php.net/bug.php?id=80141
      */
