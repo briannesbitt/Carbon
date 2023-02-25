@@ -3,6 +3,8 @@ parameters:
         - lazy/Carbon/MessageFormatter/MessageFormatterMapperStrongType.php
         - lazy/Carbon/PHPStan/MacroStrongType.php
         - lazy/Carbon/TranslatorStrongType.php
+        - tests/Fixtures/DateMalformedIntervalStringException.php
+        - tests/Fixtures/DateMalformedStringException.php
         - vendor/autoload.php
     level: 3
     paths:
