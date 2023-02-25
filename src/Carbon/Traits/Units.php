@@ -314,8 +314,8 @@ trait Units
             } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date->day) {
                 $date = $date->modify('last day of previous month');
             }
-        } catch (DateMalformedStringException $ignoredException) {
-            $date = null;
+        } catch (DateMalformedStringException $ignoredException) { // @codeCoverageIgnore
+            $date = null; // @codeCoverageIgnore
         }
 
         if (!$date) {

@@ -185,11 +185,13 @@ trait Creator
         try {
             return new static($time, $tz);
         } catch (Exception $exception) {
+            // @codeCoverageIgnoreStart
             try {
                 $date = @static::now($tz)->change($time);
             } catch (DateMalformedStringException $ignoredException) {
                 $date = null;
             }
+            // @codeCoverageIgnoreEnd
 
             if (!$date) {
                 throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);

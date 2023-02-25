@@ -1005,12 +1005,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return static::fromString($interval);
         }
 
+        // @codeCoverageIgnoreStart
         try {
             /** @var static $interval */
             $interval = static::createFromDateString($interval);
         } catch (DateMalformedIntervalStringException $e) {
             return null;
         }
+        // @codeCoverageIgnoreEnd
 
         return !$interval || $interval->isEmpty() ? null : $interval;
     }
