@@ -59,11 +59,11 @@ return [
         'LLLL' => 'dddd D MMMM YYYY [kl.] HH:mm',
     ],
     'calendar' => [
-        'sameDay' => '[I dag] LT',
-        'nextDay' => '[I morgon] LT',
-        'nextWeek' => '[På] dddd LT',
-        'lastDay' => '[I går] LT',
-        'lastWeek' => '[I] dddd[s] LT',
+        'sameDay' => '[i dag] LT',
+        'nextDay' => '[i morgon] LT',
+        'nextWeek' => '[på] dddd LT',
+        'lastDay' => '[i går] LT',
+        'lastWeek' => '[i] dddd[s] LT',
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number) {
