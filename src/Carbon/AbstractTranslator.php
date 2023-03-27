@@ -317,7 +317,7 @@ abstract class AbstractTranslator extends Translation\Translator
             }
 
             return '_'.ucfirst($matches[1]);
-        }, strtolower($locale));
+        }, strtolower((string) $locale));
 
         $previousLocale = $this->getLocale();
 
