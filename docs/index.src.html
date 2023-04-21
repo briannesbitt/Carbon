@@ -2113,7 +2113,9 @@ $dt->isSameYear($dt2);
 $dt->isCurrentYear();
 $dt->isNextYear();
 $dt->isLastYear();
-$dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+$dt->isLongIsoYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+Carbon::create(2015)->isLongYear(); // isLongIsoYear() check a given date,
+    // while isLongYear() will ignore month/day and just check a given year number
 $dt->isLeapYear();
 
 $dt->isSameQuarter($dt2); // same quarter of the same year of the given date
