@@ -13,10 +13,14 @@ declare(strict_types=1);
 
 namespace Tests\PHPStan;
 
+use RuntimeException;
 use Tests\AbstractTestCase;
 
 class FeaturesTest extends AbstractTestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.LongVariable)
+     */
     protected $phpStanPreviousDirectory = '.';
 
     protected function setUp(): void
@@ -34,6 +38,10 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithoutErrors(): void
     {
+        if (version_compare(PHP_VERSION, '8.3.0', '>=')) {
+            $this->markTestSkipped('Memory allocation failure to be fixed.');
+        }
+
         $this->assertStringContainsString(
             '[OK] No errors',
             $this->analyze(__DIR__.'/project.neon')
@@ -42,15 +50,19 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithAnError(): void
     {
+        if (version_compare(PHP_VERSION, '8.3.0', '>=')) {
+            $this->markTestSkipped('Memory allocation failure to be fixed.');
+        }
+
         $this->assertStringContainsString(
             '22     Static call to instance method Carbon\Carbon::foo().',
             $this->analyze(__DIR__.'/bad-project.neon')
         );
     }
 
-    private function analyze(string $file)
+    private function analyze(string $file): string
     {
-        return shell_exec(implode(' ', [
+        $output = shell_exec(implode(' ', [
             implode(DIRECTORY_SEPARATOR, ['.', 'vendor', 'bin', 'phpstan']),
             'analyse',
             '--configuration='.escapeshellarg(realpath($file)),
@@ -59,5 +71,11 @@ class FeaturesTest extends AbstractTestCase
             '--level=0',
             escapeshellarg(realpath(__DIR__.'/Fixture.php')),
         ]));
+
+        if (!is_string($output)) {
+            throw new RuntimeException('Executing phpstan returned '.var_export($output, true));
+        }
+
+        return $output;
     }
 }
