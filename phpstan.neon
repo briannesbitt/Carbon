@@ -26,6 +26,7 @@ parameters:
         - '#^Property Carbon\\Carbon(Period|Interval|Immutable)?::\$localTranslator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
         - '#^Static property Carbon\\Carbon(Period|Interval|Immutable)?::\$translator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
         - '#^Call to static method get\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.$#'
+        - '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
     excludePaths:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/PHPStan/*'

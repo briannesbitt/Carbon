@@ -72,7 +72,7 @@ class FeaturesTest extends AbstractTestCase
             escapeshellarg(realpath(__DIR__.'/Fixture.php')),
         ]));
 
-        if (!is_string($output)) {
+        if (!\is_string($output)) {
             throw new RuntimeException('Executing phpstan returned '.var_export($output, true));
         }
 
