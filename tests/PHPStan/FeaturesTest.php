@@ -38,7 +38,7 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithoutErrors(): void
     {
-        if (version_compare(PHP_VERSION, '8.3.0', '>=')) {
+        if (version_compare(PHP_VERSION, '8.3.0-dev', '>=')) {
             $this->markTestSkipped('Memory allocation failure to be fixed.');
         }
 
@@ -50,7 +50,7 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithAnError(): void
     {
-        if (version_compare(PHP_VERSION, '8.3.0', '>=')) {
+        if (version_compare(PHP_VERSION, '8.3.0-dev', '>=')) {
             $this->markTestSkipped('Memory allocation failure to be fixed.');
         }
 
