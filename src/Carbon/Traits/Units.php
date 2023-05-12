@@ -134,7 +134,7 @@ trait Units
         }
 
         /* @var CarbonInterface $this */
-        return $this->setTimestamp((int) ($this->getTimestamp() + $value));
+        return $this->setTimestamp((int) ($this->getTimestamp() + (int) $value));
     }
 
     public function subRealUnit($unit, $value = 1)
