@@ -336,7 +336,7 @@ function getOpenCollective(string $status): string
             $alt = htmlspecialchars($member['name']);
 
             return "\n".'        <a style="position: relative; margin: 10px; display: inline-block; border: '.($height / 8).'px solid '.($member['star'] ? '#7ac35f' : 'transparent').';'.($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;').'" title="'.$title.'" href="'.$href.'" target="_blank" rel="sponsored">'.
-                '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="' . $height . '">'.
+                '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
                 ($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '').
                 '</a>';
         }, $list))."\n    ";
