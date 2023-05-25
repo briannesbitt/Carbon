@@ -116,6 +116,7 @@
         "test": [
             "@phpunit",
             "@style-check"
-        ]
+        ],
+        "sponsors": "php sponsors.php"
     }
 }
