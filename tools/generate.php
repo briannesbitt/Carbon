@@ -256,6 +256,95 @@ Carbon::macro('describeIsoFormat', function ($code) {
 
 $template = file_get_contents('template.src.html');
 
+function filterBackers(array $list, ?array $include, ?array $exclude): array
+{
+    return array_filter($list, static function ($item) use ($include, $exclude) {
+        if (($item['role'] ?? null) !== 'BACKER') {
+            return false;
+        }
+
+        $type = $item['type'] ?? null;
+
+        if ($include && !in_array($type, $include, true)) {
+            return false;
+        }
+
+        return !$exclude || !in_array($type, $exclude, true);
+    });
+}
+
+function getAllBackers(): array
+{
+    return array_map(static function (array $member) {
+        $createdAt = CarbonImmutable::parse($member['createdAt']);
+        $monthlyContribution = (float) ($member['totalAmountDonated'] / (1 + $createdAt->diffInMonths()));
+
+        if (
+            CarbonImmutable::parse($member['lastTransactionAt'])->isAfter('last month') &&
+            $member['lastTransactionAmount'] > $monthlyContribution
+        ) {
+            $monthlyContribution = (float) $member['lastTransactionAmount'];
+        }
+
+        $yearlyContribution = (float) ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()));
+        $status = null;
+
+        if ($monthlyContribution > 29) {
+            $status = 'sponsor';
+        } elseif ($monthlyContribution > 3 || $yearlyContribution > 20) {
+            $status = 'backer';
+        } elseif ($member['totalAmountDonated'] > 0) {
+            $status = 'helper';
+        }
+
+        return array_merge($member, [
+            'star' => ($monthlyContribution > 98 || $yearlyContribution > 500),
+            'status' => $status,
+            'monthlyContribution' => $monthlyContribution,
+            'yearlyContribution' => $yearlyContribution,
+        ]);
+    }, json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true));
+}
+
+function getOpenCollective(string $status): string
+{
+    static $content = [];
+    static $members = null;
+
+    $members = $members ?? getAllBackers();
+
+    if (!isset($content[$status])) {
+        $list = array_filter($members, static function ($item) use ($status) {
+            return ($item['status'] ?? null) === $status;
+        });
+
+        usort($list, static function (array $a, array $b) {
+            return ($b['monthlyContribution'] <=> $a['monthlyContribution'])
+                ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated']);
+        });
+
+        $content[$status] = implode('', array_map(static function (array $member) use ($status) {
+            $href = htmlspecialchars($member['website'] ?? $member['profile']);
+            $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
+            [$x, $y] = @getimagesize($src) ?: [0, 0];
+            $validImage = ($x && $y);
+            $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
+            $height = $status === 'helper' ? 32 : 64;
+            $width = $validImage ? round($x * $height / $y) : $height;
+            $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
+            $alt = htmlspecialchars($member['name']);
+
+            return "\n".'        <a style="position: relative; margin: 10px; display: inline-block; border: '.($height / 8).'px solid '.($member['star'] ? '#7ac35f' : 'transparent').';'.($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;').'" title="'.$title.'" href="'.$href.'" target="_blank" rel="sponsored">'.
+                '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="' . $height . '">'.
+                ($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '').
+                '</a>';
+        }, $list))."\n    ";
+    }
+
+    return $content[$status];
+}
+
 function genHtml($page, $out, $jumbotron = '')
 {
     global $template;
@@ -283,7 +372,13 @@ function genHtml($page, $out, $jumbotron = '')
     $html = str_replace('#{jumbotron}', $jumbotron, $html);
     $html = str_replace('#{menu}', $menu, $html);
     $html = str_replace('#{scripts}', $scripts, $html);
+    $html = str_replace('#{openCollectiveSponsors}', getOpenCollective('sponsor'), $html);
+    $html = str_replace('#{openCollectiveBackers}', getOpenCollective('backer'), $html);
+    $html = str_replace('#{openCollectiveHelpers}', getOpenCollective('helper'), $html);
+
     file_put_contents($out, $html);
+
+    echo "$out generated\n";
 }
 
 function evaluateCode(&$__state, $__code)

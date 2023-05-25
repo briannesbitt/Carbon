@@ -133,13 +133,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(11) "Saturday 22"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(11) "Saturday 22"
+var_dump($mutable->isoFormat('dddd D'));             // string(9) "Friday 26"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Friday 26"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(9) "Friday 21"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Saturday 22"
+var_dump($immutable->isoFormat('dddd D'));           // string(11) "Thursday 25"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Friday 26"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -281,16 +281,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2023-04-21 08:24:04
+echo $now;                               // 2023-05-25 18:01:29
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2023-04-21 00:00:00
+echo $today;                             // 2023-05-25 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2023-04-22 00:00:00
+echo $tomorrow;                          // 2023-05-26 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2023-04-20 00:00:00
+echo $yesterday;                         // 2023-05-24 00:00:00
 </code></pre>
     </p>
 
@@ -451,7 +451,7 @@ echo $dt->diffInYears($dt->avoidMutation()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 10:24 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 20:01 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -811,9 +811,9 @@ echo $date->locale();            // fr_FR
 echo "\n";
 echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
-echo $date->monthName;           // avril
+echo $date->monthName;           // mai
 echo "\n";
-echo $date->isoFormat('LLLL');   // vendredi 21 avril 2023 08:24
+echo $date->isoFormat('LLLL');   // jeudi 25 mai 2023 18:01
 </code></pre>
     </p>
 
@@ -844,13 +844,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 10:24
+Aujourd’hui à 20:01
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 3:24 AM
+Today at 1:01 PM
 */
 </code></pre>
     </p>
@@ -877,9 +877,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 21/04 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 25/05 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 21/04 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 25/05 0h Asia/Tokyo
 </code></pre>
     </p>
 
@@ -1759,21 +1759,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 8:24 AM
+echo $date->calendar();                                      // Today at 6:01 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 5:24 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 3:01 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 10:01 PM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 7:38 AM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 04/13/2023
+echo $date->sub('8 days')->calendar();                       // 05/17/2023
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 11:24 AM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 9:01 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 6:47 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 4:24 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 04/29/2023
+echo $date->add('8 days')->calendar();                       // 06/02/2023
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 08:24
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 18:01
 </code></pre>
     </p>
 
@@ -5668,7 +5668,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2023-04-21 08:24:05
+echo Carbon::now();                                    // 2023-05-25 18:01:30
 // Instead of mock and clear mock, you also can use withTestNow():
 
 Carbon::withTestNow('2010-09-15', static function () {
@@ -5862,7 +5862,7 @@ var_dump($dt->getTimestampMs());                             // int(134947957112
 var_dump($dt->valueOf());                                    // float(1349479571124)
 // Custom-precision timestamp
 var_dump($dt->getPreciseTimestamp(6));                       // float(1349479571123789)
-var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(47) calculated vs now in the same tz
+var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(48) calculated vs now in the same tz
 var_dump($dt->quarter);                                      // int(4)
 
 // Returns an int of seconds difference from UTC (+/- sign included)
@@ -5922,12 +5922,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(5)
+var_dump(Carbon::now()->get($unit));                         // int(30)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(5)
+var_dump(Carbon::now()->$unit);                              // int(30)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(5)
+var_dump(Carbon::now()->get($unit));                         // int(30)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -6003,23 +6003,23 @@ $ar = CarbonImmutable::now()->locale('ar');
 
 var_dump($en->firstWeekDay);                           // int(0)
 var_dump($en->lastWeekDay);                            // int(6)
-var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-04-16 00:00"
-var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-04-22 23:59"
+var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-05-21 00:00"
+var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-05-27 23:59"
 
 echo "-----------\n";
 
 // We still can force to use an other day as start/end of week
 $start = $en->startOfWeek(Carbon::TUESDAY);
 $end = $en->endOfWeek(Carbon::MONDAY);
-var_dump($start->format('Y-m-d H:i'));                 // string(16) "2023-04-18 00:00"
-var_dump($end->format('Y-m-d H:i'));                   // string(16) "2023-04-24 23:59"
+var_dump($start->format('Y-m-d H:i'));                 // string(16) "2023-05-23 00:00"
+var_dump($end->format('Y-m-d H:i'));                   // string(16) "2023-05-29 23:59"
 
 echo "-----------\n";
 
 var_dump($ar->firstWeekDay);                           // int(6)
 var_dump($ar->lastWeekDay);                            // int(5)
-var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-04-15 00:00"
-var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-04-21 23:59"
+var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-05-20 00:00"
+var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-05-26 23:59"
 
 $en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
 
@@ -6520,8 +6520,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2023-04-21 08:24:05
-echo $dt1->maximum();                              // 2023-04-21 08:24:05
+echo $dt1->max();                                  // 2023-05-25 18:01:30
+echo $dt1->maximum();                              // 2023-05-25 18:01:30
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7180,8 +7180,8 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 
 var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);      // bool(true)
 var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);     // bool(true)
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 31-Mar-23 00:00:00 UTC
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 05-Apr-23 23:59:59 UTC
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 05-May-23 00:00:00 UTC
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 10-May-23 23:59:59 UTC
 
 // Be very careful with those global setters, remember, some other
 // code or third-party library in your app may expect initial weekend
@@ -7189,8 +7189,8 @@ echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 05-Ap
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 27-Mar-23 00:00:00 UTC
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 02-Apr-23 23:59:59 UTC
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 01-May-23 00:00:00 UTC
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 07-May-23 23:59:59 UTC
 </code></pre>
     </p>
 
@@ -7788,7 +7788,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // mardi dernier à 10:24
+echo Carbon::now()->subDays(3)->formatForUser();           // lundi dernier à 20:01
 </code></pre>
     </p>
 
@@ -8036,10 +8036,10 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2023-04-17 00:00:00, 2023-04-18 00:00:00, 2023-04-19 00:00:00, 2023-04-20 00:00:00, 2023-04-21 00:00...
-dumpDateList(Carbon::getCurrentMonthDays());                      // 2023-04-01 00:00:00, 2023-04-02 00:00:00, 2023-04-03 00:00:00, 2023-04-04 00:00:00, 2023-04-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2023-03-20 00:00:00, 2023-03-21 00:00:00, 2023-03-22 00:00:00, 2023-03-23 00:00:00, 2023-03-24 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2023-03-01 00:00:00, 2023-03-02 00:00:00, 2023-03-03 00:00:00, 2023-03-04 00:00:00, 2023-03-05 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2023-05-22 00:00:00, 2023-05-23 00:00:00, 2023-05-24 00:00:00, 2023-05-25 00:00:00, 2023-05-26 00:00...
+dumpDateList(Carbon::getCurrentMonthDays());                      // 2023-05-01 00:00:00, 2023-05-02 00:00:00, 2023-05-03 00:00:00, 2023-05-04 00:00:00, 2023-05-05 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2023-04-24 00:00:00, 2023-04-25 00:00:00, 2023-04-26 00:00:00, 2023-04-27 00:00:00, 2023-04-28 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2023-04-01 00:00:00, 2023-04-02 00:00:00, 2023-04-03 00:00:00, 2023-04-04 00:00:00, 2023-04-05 00:00...
 </code></pre>
     </p>
 
@@ -8977,7 +8977,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2023-04-21, 2023-04-22, 2023-04-23
+echo implode(', ', $days);               // 2023-05-25, 2023-05-26, 2023-05-27
 </code></pre>
     </p>
 
@@ -10064,12 +10064,114 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
                     $slot.html(html).find('.history-major-group').hide().removeClass('hidden');
                 });
             });
+
             $(document).on('click', '[data-history-major]', function (event) {
                 $('.history-major-' + $(this).data('history-major')).slideToggle();
                 event.preventDefault();
                 event.stopPropagation();
             });
+
+            if ($('.open-collective-list').length) {
+                $.getJSON('https://opencollective.com/carbon/members/all.json', function (members) {
+                    members.forEach(function (member) {
+                        var createdAt = new Date(member.createdAt);
+                        var now = new Date();
+                        var currentMonth = now.getMonth();
+                        var monthDiff = (now.getFullYear() * 12 + currentMonth) - (createdAt.getFullYear() * 12 + createdAt.getMonth());
+
+                        if (now.getDate() < createdAt.getDate()) {
+                            monthDiff--;
+                        }
+
+                        var monthlyContribution = member.totalAmountDonated / (1 + monthDiff);
+                        var lastMonth = new Date(now.getTime());
+                        lastMonth.setMonth(currentMonth);
+
+                        // Overflow
+                        while (lastMonth.getMonth() === currentMonth) {
+                            lastMonth.setDate(lastMonth.getDate() - 1);
+                        }
+
+                        var lastTransactionAt = new Date(member.lastTransactionAt);
+
+                        if (lastTransactionAt.getTime() > lastMonth.getTime() &&
+                            member.lastTransactionAmount > monthlyContribution
+                        ) {
+                            monthlyContribution = member.lastTransactionAmount;
+                        }
+
+                        var yearDiff = now.getFullYear() - createdAt.getFullYear();
+
+                        if (currentMonth * 31 + now.getDate() < createdAt.getMonth() * 31 + createdAt.getDate()) {
+                            yearDiff--;
+                        }
+
+                        var yearlyContribution = member.totalAmountDonated / Math.max(1, yearDiff);
+                        var status = null;
+
+                        if (monthlyContribution > 29) {
+                            status = 'sponsor';
+                        } else if (monthlyContribution > 3 || yearlyContribution > 20) {
+                            status = 'backer';
+                        } else if (member.totalAmountDonated > 0) {
+                            status = 'helper';
+                        }
+
+                        Object.assign(member, {
+                            star: (monthlyContribution > 98 || yearlyContribution > 500),
+                            status: status,
+                            monthlyContribution: monthlyContribution,
+                            yearlyContribution: yearlyContribution
+                        });
+                    });
+
+                    members.sort(function (a, b) {
+                        if (a.monthlyContribution === b.monthlyContribution) {
+                            return b.totalAmountDonated - a.totalAmountDonated;
+                        }
+
+                        return b.monthlyContribution - a.monthlyContribution;
+                    });
+
+                    ['sponsor', 'backer', 'helper'].forEach(function (status) {
+                        $('.open-collective-' + status + 's').html(
+                            members
+                                .filter(function (member) {
+                                    return member.status === status;
+                                })
+                                .map(function (member) {
+                                    var href = $('<div>').text(member.website || member.profile).html();
+                                    var src = $('<div>').text(member.image || member.profile.replace('https://opencollective.com/', 'https://images.opencollective.com/') + '/avatar/256.png').html();
+                                    var size = member.status === 'helper' ? 32 : 64;
+                                    href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+                                    var title = $('<div>').text(member.description || member.name).html();
+                                    var alt = $('<div>').text(member.name).html();
+
+                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : 'transparent') + ';' + (status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank" rel="sponsored">' +
+                                        '<img onload="adjustImageSize(this)" onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
+                                        (member.star ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') +
+                                        '</a>';
+                                })
+                                .join('')
+                        );
+                    });
+                });
+            }
         });
+
+        function adjustImageSize(element) {
+            var img = new Image();
+            img.onload = function () {
+                if (img.width && img.height) {
+                    element.width = Math.round(img.width * element.height / img.height);
+                }
+            };
+            img.src = element.src;
+        }
+
+        function fallbackImage(element) {
+            element.src = 'https://opencollective.com/static/images/default-guest-logo.svg';
+        }
 
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>

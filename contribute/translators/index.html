@@ -1582,12 +1582,114 @@
                     $slot.html(html).find('.history-major-group').hide().removeClass('hidden');
                 });
             });
+
             $(document).on('click', '[data-history-major]', function (event) {
                 $('.history-major-' + $(this).data('history-major')).slideToggle();
                 event.preventDefault();
                 event.stopPropagation();
             });
+
+            if ($('.open-collective-list').length) {
+                $.getJSON('https://opencollective.com/carbon/members/all.json', function (members) {
+                    members.forEach(function (member) {
+                        var createdAt = new Date(member.createdAt);
+                        var now = new Date();
+                        var currentMonth = now.getMonth();
+                        var monthDiff = (now.getFullYear() * 12 + currentMonth) - (createdAt.getFullYear() * 12 + createdAt.getMonth());
+
+                        if (now.getDate() < createdAt.getDate()) {
+                            monthDiff--;
+                        }
+
+                        var monthlyContribution = member.totalAmountDonated / (1 + monthDiff);
+                        var lastMonth = new Date(now.getTime());
+                        lastMonth.setMonth(currentMonth);
+
+                        // Overflow
+                        while (lastMonth.getMonth() === currentMonth) {
+                            lastMonth.setDate(lastMonth.getDate() - 1);
+                        }
+
+                        var lastTransactionAt = new Date(member.lastTransactionAt);
+
+                        if (lastTransactionAt.getTime() > lastMonth.getTime() &&
+                            member.lastTransactionAmount > monthlyContribution
+                        ) {
+                            monthlyContribution = member.lastTransactionAmount;
+                        }
+
+                        var yearDiff = now.getFullYear() - createdAt.getFullYear();
+
+                        if (currentMonth * 31 + now.getDate() < createdAt.getMonth() * 31 + createdAt.getDate()) {
+                            yearDiff--;
+                        }
+
+                        var yearlyContribution = member.totalAmountDonated / Math.max(1, yearDiff);
+                        var status = null;
+
+                        if (monthlyContribution > 29) {
+                            status = 'sponsor';
+                        } else if (monthlyContribution > 3 || yearlyContribution > 20) {
+                            status = 'backer';
+                        } else if (member.totalAmountDonated > 0) {
+                            status = 'helper';
+                        }
+
+                        Object.assign(member, {
+                            star: (monthlyContribution > 98 || yearlyContribution > 500),
+                            status: status,
+                            monthlyContribution: monthlyContribution,
+                            yearlyContribution: yearlyContribution
+                        });
+                    });
+
+                    members.sort(function (a, b) {
+                        if (a.monthlyContribution === b.monthlyContribution) {
+                            return b.totalAmountDonated - a.totalAmountDonated;
+                        }
+
+                        return b.monthlyContribution - a.monthlyContribution;
+                    });
+
+                    ['sponsor', 'backer', 'helper'].forEach(function (status) {
+                        $('.open-collective-' + status + 's').html(
+                            members
+                                .filter(function (member) {
+                                    return member.status === status;
+                                })
+                                .map(function (member) {
+                                    var href = $('<div>').text(member.website || member.profile).html();
+                                    var src = $('<div>').text(member.image || member.profile.replace('https://opencollective.com/', 'https://images.opencollective.com/') + '/avatar/256.png').html();
+                                    var size = member.status === 'helper' ? 32 : 64;
+                                    href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+                                    var title = $('<div>').text(member.description || member.name).html();
+                                    var alt = $('<div>').text(member.name).html();
+
+                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : 'transparent') + ';' + (status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank" rel="sponsored">' +
+                                        '<img onload="adjustImageSize(this)" onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
+                                        (member.star ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') +
+                                        '</a>';
+                                })
+                                .join('')
+                        );
+                    });
+                });
+            }
         });
+
+        function adjustImageSize(element) {
+            var img = new Image();
+            img.onload = function () {
+                if (img.width && img.height) {
+                    element.width = Math.round(img.width * element.height / img.height);
+                }
+            };
+            img.src = element.src;
+        }
+
+        function fallbackImage(element) {
+            element.src = 'https://opencollective.com/static/images/default-guest-logo.svg';
+        }
 
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
