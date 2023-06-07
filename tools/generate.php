@@ -356,6 +356,7 @@ function getOpenCollective(string $status): string
 function genHtml($page, $out, $jumbotron = '')
 {
     global $template;
+
     $menu = '';
     $page = preg_replace_callback('/<nav>([\s\S]*?)<\/nav>/', function ($match) use (&$menu) {
         $menu = $match[1];
@@ -427,6 +428,7 @@ function evaluateCode(&$__state, $__code)
 
         echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
         $i = 1;
+
         foreach (preg_split("/$[\n\r]^/m", $__code) as $ln) {
             printf('%3s : %s%s', $i++, $ln, PHP_EOL);
         }
@@ -439,9 +441,10 @@ function evaluateCode(&$__state, $__code)
 
 function compile($src, $dest = null)
 {
+    static $imports = null;
+
     $code = file_get_contents($src);
 
-    static $imports = null;
     if (is_null($imports)) {
         $imports = implode('', array_map(function ($import) {
             return "use $import; ";
