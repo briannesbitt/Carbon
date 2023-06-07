@@ -802,10 +802,30 @@ private $created_at;</code></pre>
                 event.stopPropagation();
             });
 
+            function isLaterInTheMonth(a, b) {
+                var diff = (a.getDate() - b.getDate())
+                    || (a.getHours() - b.getHours())
+                    || (a.getMinutes() - b.getMinutes())
+                    || (a.getSeconds() - b.getSeconds())
+                    || (a.getMilliseconds() - b.getMilliseconds());
+
+                return diff > 0;
+            }
+
             if ($('.open-collective-list').length) {
                 $.getJSON('https://opencollective.com/carbon/members/all.json', function (members) {
                     members.forEach(function (member) {
                         var createdAt = new Date(member.createdAt);
+                        var lastTransactionAt = new Date(member.lastTransactionAt);
+
+                        if (isLaterInTheMonth(createdAt, lastTransactionAt)) {
+                            createdAt.setDate(lastTransactionAt.getDate());
+                            createdAt.setHours(lastTransactionAt.getHours());
+                            createdAt.setMinutes(lastTransactionAt.getMinutes());
+                            createdAt.setSeconds(lastTransactionAt.getSeconds());
+                            createdAt.setMilliseconds(lastTransactionAt.getMilliseconds());
+                        }
+
                         var now = new Date();
                         var currentMonth = now.getMonth();
                         var monthDiff = (now.getFullYear() * 12 + currentMonth) - (createdAt.getFullYear() * 12 + createdAt.getMonth());
@@ -823,7 +843,6 @@ private $created_at;</code></pre>
                             lastMonth.setDate(lastMonth.getDate() - 1);
                         }
 
-                        var lastTransactionAt = new Date(member.lastTransactionAt);
 
                         if (lastTransactionAt.getTime() > lastMonth.getTime() &&
                             member.lastTransactionAmount > monthlyContribution
