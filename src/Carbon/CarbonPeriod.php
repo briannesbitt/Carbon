@@ -632,6 +632,10 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function __construct(...$arguments)
     {
+        if (is_a($this->dateClass, DateTimeImmutable::class, true)) {
+            $this->options = static::IMMUTABLE;
+        }
+
         // Parse and assign arguments one by one. First argument may be an ISO 8601 spec,
         // which will be first parsed into parts and then processed the same way.
 

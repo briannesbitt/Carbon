@@ -779,4 +779,44 @@ class CreateTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $periodClass::instance(Carbon::now());
     }
+
+    public function testMutability()
+    {
+        $this->assertSame(
+            [Carbon::class, Carbon::class, Carbon::class],
+            iterator_to_array(
+                CarbonPeriod::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [Carbon::class, Carbon::class, Carbon::class],
+            iterator_to_array(
+                CarbonPeriod::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [Carbon::class, Carbon::class, Carbon::class],
+            iterator_to_array(
+                CarbonPeriod::between('today', 'today + 2 days')->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
+            iterator_to_array(
+                CarbonPeriodImmutable::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
+            iterator_to_array(
+                CarbonPeriodImmutable::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
+            iterator_to_array(
+                CarbonPeriodImmutable::between('today', 'today + 2 days')->map('get_class')
+            )
+        );
+    }
 }
