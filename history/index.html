@@ -670,14 +670,14 @@
 
                         if (monthlyContribution > 29) {
                             status = 'sponsor';
-                        } else if (monthlyContribution > 3 || yearlyContribution > 20) {
+                        } else if (monthlyContribution > 4 || yearlyContribution > 40) {
                             status = 'backer';
                         } else if (member.totalAmountDonated > 0) {
                             status = 'helper';
                         }
 
                         Object.assign(member, {
-                            star: (monthlyContribution > 98 || yearlyContribution > 500),
+                            star: (monthlyContribution > 98 || yearlyContribution > 700),
                             status: status,
                             monthlyContribution: monthlyContribution,
                             yearlyContribution: yearlyContribution
@@ -705,9 +705,10 @@
                                     href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
                                     var title = $('<div>').text(member.description || member.name).html();
                                     var alt = $('<div>').text(member.name).html();
+                                    var sponsor = (status === 'sponsor');
 
-                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : 'transparent') + ';' + (status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank" rel="sponsored">' +
-                                        '<img onload="adjustImageSize(this)" onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
+                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank" rel="sponsored">' +
+                                        '<img' + (sponsor ? ' onload="adjustImageSize(this)"' : '') + ' onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
                                         (member.star ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') +
                                         '</a>';
                                 })
