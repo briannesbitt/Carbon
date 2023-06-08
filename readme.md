@@ -142,7 +142,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 Thank you to all our backers! 🙏
 
-<a href="https://opencollective.com/Carbon#backers" target="_blank"><img src="https://opencollective.com/Carbon/backers.svg?width=890"></a>
+<a href="https://opencollective.com/Carbon#backers" target="_blank"><img src="https://opencollective.com/Carbon/backers.svg?width=890&version=2023-06-08-07-12"></a>
 
 [[Become a backer](https://opencollective.com/Carbon#backer)]
 
