@@ -27,6 +27,14 @@ parameters:
         - '#^Static property Carbon\\Carbon(Period|Interval|Immutable)?::\$translator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
         - '#^Call to static method get\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.$#'
         - '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
+        -
+            message: '#^Undefined variable: \$this$#'
+            paths:
+                - src/Carbon/Traits/Mixin.php
+        -
+            message: '#^Variable \$this in isset\(\) is never defined\.$#'
+            paths:
+                - src/Carbon/Traits/Mixin.php
     excludePaths:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/PHPStan/*'
