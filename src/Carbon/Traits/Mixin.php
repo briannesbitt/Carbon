@@ -103,8 +103,7 @@ trait Mixin
         foreach (self::getMixableMethods($context) as $name) {
             $closureBase = Closure::fromCallable([$context, $name]);
 
-            static::macro($name, function () use ($closureBase, $className) {
-                /** @phpstan-ignore-next-line */
+            static::macro($name, function (...$parameters) use ($closureBase, $className) {
                 $context = isset($this) ? $this->cast($className) : new $className();
 
                 try {
@@ -117,7 +116,7 @@ trait Mixin
                 // in case of errors not converted into exceptions
                 $closure = $closure ?: $closureBase;
 
-                return $closure(...\func_get_args());
+                return $closure(...$parameters);
             });
         }
     }

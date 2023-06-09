@@ -16,6 +16,7 @@ namespace Tests\Carbon;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use CarbonTimezoneTrait;
 use DateTime;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
@@ -266,5 +267,20 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $this->assertFalse(Carbon::noThis());
         $this->assertFalse(Carbon::now()->noThis());
+    }
+
+    public function testTraitWithNamedParameters()
+    {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
+        }
+
+        require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
+
+        Carbon::mixin(CarbonTimezoneTrait::class);
+        $now = Carbon::now();
+        $now = eval("return \$now->toAppTz(tz: 'Europe/Paris');");
+
+        $this->assertSame('Europe/Paris', $now->format('e'));
     }
 }
