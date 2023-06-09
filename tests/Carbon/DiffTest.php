@@ -357,28 +357,66 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
+    public function testBug2798ConsistencyWithDiffInDays()
+    {
+        // 0 hour diff
+        $s1 = Carbon::create(2023, 6, 6, 15, 0, 0);
+        $e1 = Carbon::create(2023, 6, 6, 15, 0, 0);
+
+        $this->assertSame(0, $s1->diffInWeekdays($e1));
+        $this->assertSame(0, $s1->diffInDays($e1));
+
+        // 1 hour diff
+        $s2 = Carbon::create(2023, 6, 6, 15, 0, 0);
+        $e2 = Carbon::create(2023, 6, 6, 16, 0, 0);
+
+        $this->assertSame(0, $s2->diffInWeekdays($e2));
+        $this->assertSame(0, $s2->diffInDays($e2));
+
+        // 23 hour diff
+        $s3 = Carbon::create(2023, 6, 6, 15, 0, 0);
+        $e3 = Carbon::create(2023, 6, 7, 14, 0, 0);
+
+        $this->assertSame(1, $s3->diffInWeekdays($e3));
+        $this->assertSame(1, $s3->diffInDays($e3));
+
+        // 24 hour diff
+        $s4 = Carbon::create(2023, 6, 6, 15, 0, 0);
+        $e4 = Carbon::create(2023, 6, 7, 15, 0, 0);
+
+        $this->assertSame(1, $s4->diffInWeekdays($e4));
+        $this->assertSame(1, $s4->diffInDays($e4));
+
+        // 25 hour diff
+        $s5 = Carbon::create(2023, 6, 6, 15, 0, 0);
+        $e5 = Carbon::create(2023, 6, 7, 16, 0, 0);
+
+        $this->assertSame(1, $s5->diffInWeekdays($e5));
+        $this->assertSame(1, $s5->diffInDays($e5));
+    }
+
     public function testDiffInWeekdaysPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
-        $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->endOfMonth()));
+        $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->addMonth()));
     }
 
     public function testDiffInWeekdaysNegativeNoSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->startOfMonth()));
+        $this->assertSame(20, $dt->diffInWeekdays($dt->copy()->startOfMonth()));
     }
 
     public function testDiffInWeekdaysNegativeWithSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(-21, $dt->diffInWeekdays($dt->copy()->startOfMonth(), false));
+        $this->assertSame(-20, $dt->diffInWeekdays($dt->copy()->startOfMonth(), false));
     }
 
     public function testDiffInWeekendDaysPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
-        $this->assertSame(10, $dt->diffInWeekendDays($dt->copy()->endOfMonth()));
+        $this->assertSame(10, $dt->diffInWeekendDays($dt->copy()->addMonth()));
     }
 
     public function testDiffInWeekendDaysNegativeNoSign()
