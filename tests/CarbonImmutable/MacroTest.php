@@ -15,6 +15,7 @@ namespace Tests\CarbonImmutable;
 
 use BadMethodCallException;
 use Carbon\CarbonImmutable as Carbon;
+use CarbonTimezoneTrait;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
 use Tests\CarbonImmutable\Fixtures\Mixin;
@@ -134,5 +135,20 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('superboy / Thursday / immutable', Carbon::parse('2019-07-18')->super('boy'));
 
         $this->assertInstanceOf(Carbon::class, Carbon::me());
+    }
+
+    public function testTraitWithNamedParameters()
+    {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
+        }
+
+        require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
+
+        Carbon::mixin(CarbonTimezoneTrait::class);
+        $now = Carbon::now();
+        $now = eval("return \$now->toAppTz(tz: 'Europe/Paris');");
+
+        $this->assertSame('Europe/Paris', $now->format('e'));
     }
 }
