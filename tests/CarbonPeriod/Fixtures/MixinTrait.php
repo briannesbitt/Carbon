@@ -17,6 +17,11 @@ trait MixinTrait
 {
     public function oneMoreDay()
     {
-        return $this->setEndDate($this->getEndDate()->addDay());
+        return $this->setEndDate($this->endNextDay());
+    }
+
+    public function endNextDay()
+    {
+        return $this->getEndDate()->addDay();
     }
 }
