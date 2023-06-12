@@ -11,14 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Carbon\CarbonInterface;
+namespace Tests\CarbonInterval\Fixtures;
 
-trait CarbonTimezoneTrait
+trait MixinTrait
 {
-    public function toAppTz(bool $shift = false, string $tz = 'UTC'): CarbonInterface
+    public function andAgain()
     {
-        return $shift
-            ? $this->shiftTimezone($tz)
-            : $this->timezone($tz);
+        return $this->times(2);
     }
 }

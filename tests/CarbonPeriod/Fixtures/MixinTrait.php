@@ -11,14 +11,17 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Carbon\CarbonInterface;
+namespace Tests\CarbonPeriod\Fixtures;
 
-trait CarbonTimezoneTrait
+trait MixinTrait
 {
-    public function toAppTz(bool $shift = false, string $tz = 'UTC'): CarbonInterface
+    public function oneMoreDay()
     {
-        return $shift
-            ? $this->shiftTimezone($tz)
-            : $this->timezone($tz);
+        return $this->setEndDate($this->endNextDay());
+    }
+
+    public function endNextDay()
+    {
+        return $this->getEndDate()->addDay();
     }
 }

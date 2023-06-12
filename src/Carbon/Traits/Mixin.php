@@ -11,6 +11,9 @@
 
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Closure;
 use Generator;
 use ReflectionClass;
@@ -99,11 +102,13 @@ trait Mixin
     {
         $context = eval(self::getAnonymousClassCodeForTrait($trait));
         $className = \get_class($context);
+        $baseClass = static::class;
 
         foreach (self::getMixableMethods($context) as $name) {
             $closureBase = Closure::fromCallable([$context, $name]);
 
-            static::macro($name, function (...$parameters) use ($closureBase, $className) {
+            static::macro($name, function (...$parameters) use ($closureBase, $className, $baseClass) {
+                $downContext = isset($this) ? ($this) : new $baseClass();
                 $context = isset($this) ? $this->cast($className) : new $className();
 
                 try {
@@ -116,7 +121,36 @@ trait Mixin
                 // in case of errors not converted into exceptions
                 $closure = $closure ?: $closureBase;
 
-                return $closure(...$parameters);
+                $result = $closure(...$parameters);
+
+                if (!($result instanceof $className)) {
+                    return $result;
+                }
+
+                if ($downContext instanceof CarbonInterface && $result instanceof CarbonInterface) {
+                    return $downContext
+                        ->setTimezone($result->getTimezone())
+                        ->modify($result->format('Y-m-d H:i:s.u'))
+                        ->settings($result->getSettings());
+                }
+
+                if ($downContext instanceof CarbonInterval && $result instanceof CarbonInterval) {
+                    $downContext->copyProperties($result);
+                    self::copyStep($downContext, $result);
+                    self::copyNegativeUnits($downContext, $result);
+
+                    return $downContext->settings($result->getSettings());
+                }
+
+                if ($downContext instanceof CarbonPeriod && $result instanceof CarbonPeriod) {
+                    return $downContext
+                        ->setDates($result->getStartDate(), $result->getEndDate())
+                        ->setRecurrences($result->getRecurrences())
+                        ->setOptions($result->getOptions())
+                        ->settings($result->getSettings());
+                }
+
+                return $result;
             });
         }
     }

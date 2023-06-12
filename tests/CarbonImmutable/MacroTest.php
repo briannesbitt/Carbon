@@ -151,4 +151,20 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $this->assertSame('Europe/Paris', $now->format('e'));
     }
+
+    public function testSerializationAfterTraitChaining()
+    {
+        require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
+
+        Carbon::mixin(CarbonTimezoneTrait::class);
+        Carbon::setTestNow('2023-05-24 14:49');
+
+        $date = Carbon::toAppTz(false, 'Europe/Paris');
+
+        $this->assertSame('2023-05-24 16:49 Europe/Paris', unserialize(serialize($date))->format('Y-m-d H:i e'));
+
+        $date = Carbon::parse('2023-06-12 11:49')->toAppTz(false, 'Europe/Paris');
+
+        $this->assertSame('2023-06-12 13:49 Europe/Paris', unserialize(serialize($date))->format('Y-m-d H:i e'));
+    }
 }

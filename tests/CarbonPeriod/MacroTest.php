@@ -16,9 +16,12 @@ namespace Tests\CarbonPeriod;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use ReflectionClass;
 use Tests\AbstractTestCase;
+use Tests\CarbonPeriod\Fixtures\MacroableClass;
 use Tests\CarbonPeriod\Fixtures\Mixin;
+use Tests\CarbonPeriod\Fixtures\MixinTrait;
 
 class MacroTest extends AbstractTestCase
 {
@@ -204,5 +207,40 @@ class MacroTest extends AbstractTestCase
         $period = $periodClass::fromTomorrow();
 
         $this->assertEquals(Carbon::tomorrow(), $period->getStartDate());
+    }
+
+    public function testMixinInstance()
+    {
+        require_once __DIR__.'/Fixtures/MixinTrait.php';
+        require_once __DIR__.'/Fixtures/MacroableClass.php';
+
+        $periodClass = $this->periodClass;
+        $periodClass::mixin(MixinTrait::class);
+
+        $period = $periodClass::create('2023-06-10', '2023-06-12');
+        $result = $period->oneMoreDay();
+        $expectedEnd = $this->periodClass === CarbonPeriodImmutable::class
+            ? '2023-06-12'
+            : '2023-06-13';
+
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $result);
+        $this->assertSame("Every 1 day from 2023-06-10 to $expectedEnd", (string) $period);
+        $this->assertSame('2023-06-14', $result->endNextDay()->format('Y-m-d'));
+        $this->assertSame($this->periodClass === CarbonPeriodImmutable::class
+            ? '2023-06-13'
+            : '2023-06-14', $period->endNextDay()->format('Y-m-d'));
+
+        MacroableClass::mixin(MixinTrait::class);
+
+        $obj = new MacroableClass();
+        $result = $obj
+            ->setEndDate(Carbon::parse('2023-06-01'))
+            ->oneMoreDay();
+        $endDate = $result->getEndDate();
+
+        $this->assertInstanceOf(MacroableClass::class, $result);
+        $this->assertNotSame(MacroableClass::class, \get_class($result));
+        $this->assertSame(Carbon::class, \get_class($endDate));
+        $this->assertSame('2023-06-02', $endDate->format('Y-m-d'));
     }
 }
