@@ -11,6 +11,7 @@
 
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
 use Closure;
 use Generator;
 use ReflectionClass;
@@ -99,11 +100,13 @@ trait Mixin
     {
         $context = eval(self::getAnonymousClassCodeForTrait($trait));
         $className = \get_class($context);
+        $baseClass = static::class;
 
         foreach (self::getMixableMethods($context) as $name) {
             $closureBase = Closure::fromCallable([$context, $name]);
 
-            static::macro($name, function (...$parameters) use ($closureBase, $className) {
+            static::macro($name, function (...$parameters) use ($closureBase, $className, $baseClass) {
+                $downContext = isset($this) ? $this : new $baseClass();
                 $context = isset($this) ? $this->cast($className) : new $className();
 
                 try {
@@ -116,7 +119,20 @@ trait Mixin
                 // in case of errors not converted into exceptions
                 $closure = $closure ?: $closureBase;
 
-                return $closure(...$parameters);
+                $result = $closure(...$parameters);
+
+                if (!($result instanceof $className)) {
+                    return $result;
+                }
+
+                $downContext = $downContext->setTimezone($result->getTimezone());
+                $downContext = $downContext->modify($result->format('Y-m-d H:i:s.u'));
+
+                if ($result instanceof CarbonInterface) {
+                    $downContext = $downContext->settings($result->getSettings());
+                }
+
+                return $downContext;
             });
         }
     }

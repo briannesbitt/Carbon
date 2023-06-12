@@ -18,7 +18,7 @@ trait CarbonTimezoneTrait
     public function toAppTz(bool $shift = false, string $tz = 'UTC'): CarbonInterface
     {
         return $shift
-            ? self::this()->shiftTimezone($tz)
-            : self::this()->timezone($tz);
+            ? $this->shiftTimezone($tz)
+            : $this->timezone($tz);
     }
 }
