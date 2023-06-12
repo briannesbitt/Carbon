@@ -12,6 +12,8 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Closure;
 use Generator;
 use ReflectionClass;
@@ -121,14 +123,34 @@ trait Mixin
 
                 $result = $closure(...$parameters);
 
-                if (!($result instanceof CarbonInterface && $result instanceof $className)) {
+                if (!($result instanceof $className)) {
                     return $result;
                 }
 
-                return $downContext
-                    ->setTimezone($result->getTimezone())
-                    ->modify($result->format('Y-m-d H:i:s.u'))
-                    ->settings($result->getSettings());
+                if ($downContext instanceof CarbonInterface && $result instanceof CarbonInterface) {
+                    return $downContext
+                        ->setTimezone($result->getTimezone())
+                        ->modify($result->format('Y-m-d H:i:s.u'))
+                        ->settings($result->getSettings());
+                }
+
+                if ($downContext instanceof CarbonInterval && $result instanceof CarbonInterval) {
+                    $downContext->copyProperties($result);
+                    self::copyStep($downContext, $result);
+                    self::copyNegativeUnits($downContext, $result);
+
+                    return $downContext->settings($result->getSettings());
+                }
+
+                if ($downContext instanceof CarbonPeriod && $result instanceof CarbonPeriod) {
+                    return $downContext
+                        ->setDates($result->getStartDate(), $result->getEndDate())
+                        ->setRecurrences($result->getRecurrences())
+                        ->setOptions($result->getOptions())
+                        ->settings($result->getSettings());
+                }
+
+                return $result;
             });
         }
     }

@@ -16,9 +16,11 @@ namespace Tests\CarbonPeriod;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use ReflectionClass;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\Mixin;
+use Tests\CarbonPeriod\Fixtures\MixinTrait;
 
 class MacroTest extends AbstractTestCase
 {
@@ -204,5 +206,23 @@ class MacroTest extends AbstractTestCase
         $period = $periodClass::fromTomorrow();
 
         $this->assertEquals(Carbon::tomorrow(), $period->getStartDate());
+    }
+
+    public function testMixinInstance()
+    {
+        require_once __DIR__.'/Fixtures/MixinTrait.php';
+        $periodClass = $this->periodClass;
+        $periodClass::mixin(MixinTrait::class);
+
+        $period = $periodClass::create('2023-06-10', '2023-06-12');
+        $result = $period->oneMoreDay();
+
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $result);
+
+        $expected = $this->periodClass === CarbonPeriodImmutable::class
+            ? 'Every 1 day from 2023-06-10 to 2023-06-12'
+            : 'Every 1 day from 2023-06-10 to 2023-06-13';
+
+        $this->assertSame($expected, (string) $period);
     }
 }
