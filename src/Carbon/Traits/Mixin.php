@@ -106,7 +106,7 @@ trait Mixin
             $closureBase = Closure::fromCallable([$context, $name]);
 
             static::macro($name, function (...$parameters) use ($closureBase, $className, $baseClass) {
-                $downContext = isset($this) ? $this : new $baseClass();
+                $downContext = isset($this) ? ($this) : new $baseClass();
                 $context = isset($this) ? $this->cast($className) : new $className();
 
                 try {
@@ -121,18 +121,14 @@ trait Mixin
 
                 $result = $closure(...$parameters);
 
-                if (!($result instanceof $className)) {
+                if (!($result instanceof CarbonInterface && $result instanceof $className)) {
                     return $result;
                 }
 
-                $downContext = $downContext->setTimezone($result->getTimezone());
-                $downContext = $downContext->modify($result->format('Y-m-d H:i:s.u'));
-
-                if ($result instanceof CarbonInterface) {
-                    $downContext = $downContext->settings($result->getSettings());
-                }
-
-                return $downContext;
+                return $downContext
+                    ->setTimezone($result->getTimezone())
+                    ->modify($result->format('Y-m-d H:i:s.u'))
+                    ->settings($result->getSettings());
             });
         }
     }
