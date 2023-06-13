@@ -660,12 +660,11 @@ class CreateTest extends AbstractTestCase
         $this->assertNotSame($period, $period4);
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testCreateFromCarbonInstancesNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $periodClass = $this->periodClass;
         $carbonClass = $periodClass === CarbonPeriodImmutable::class
             ? CarbonImmutable::class

@@ -30,12 +30,11 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 6, 4, 54, 30, 43, 55);
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $ci = eval("return \Carbon\CarbonInterval::years(years: 3)->addYears(years: 4);");
         $this->assertCarbonInterval($ci, 7);
 
@@ -211,12 +210,11 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($interval, 0, 0, 6, 12, 0, 0);
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testPlusWithPHP8Syntax()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->plus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 17, 26, 0, 0);
@@ -227,12 +225,11 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::days(3)->minus(0, 0, 2, 0, 26), 0, 0, 11, 26, 0, 0, 0, true);
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testMinusWithPHP8Syntax()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $interval = eval('use Carbon\CarbonInterval;return CarbonInterval::days(3)->minus(weeks: 2, hours: 26);');
 
         $this->assertCarbonInterval($interval, 0, 0, 11, 26, 0, 0, 0, true);
