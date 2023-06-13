@@ -39,12 +39,11 @@ class AliasTest extends AbstractTestCase
         $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testSetStartDateWithNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $periodClass = $this->periodClass;
         $date = '2017-09-13 12:30:45';
         $period = eval('return \\'.$periodClass.'::start(date: $date, inclusive: false);');
@@ -91,12 +90,11 @@ class AliasTest extends AbstractTestCase
         $this->assertNull($period->getEndDate());
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testSetEndDateWithNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $periodClass = $this->periodClass;
         $date = '2017-09-13 12:30:45';
         $period = eval('return \\'.$periodClass.'::end(date: $date, inclusive: false);');
@@ -273,12 +271,11 @@ class AliasTest extends AbstractTestCase
         $periodClass::days(0);
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $periodClass = $this->periodClass;
         $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12');");
         $this->assertEquals('2022-09-13', $period->getStartDate()->format('Y-m-d'));

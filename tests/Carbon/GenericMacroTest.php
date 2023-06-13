@@ -20,6 +20,9 @@ use Throwable;
 
 class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
+    /**
+     * @requires PHP < 8.0
+     */
     public function testGenericMacroBinding()
     {
         if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {

@@ -269,12 +269,11 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertFalse(Carbon::now()->noThis());
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testTraitWithNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
 
         Carbon::mixin(CarbonTimezoneTrait::class);

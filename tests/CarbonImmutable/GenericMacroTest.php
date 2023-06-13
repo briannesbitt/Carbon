@@ -20,12 +20,11 @@ use Throwable;
 
 class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
+    /**
+     * @requires PHP < 8.0
+     */
     public function testGenericMacroBinding()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
-            $this->markTestSkipped('Use of $this in macros is deprecated and may not work in PHP 8.');
-        }
-
         Carbon::genericMacro(function ($method) {
             $time = preg_replace('/[A-Z]/', ' $0', $method);
 
