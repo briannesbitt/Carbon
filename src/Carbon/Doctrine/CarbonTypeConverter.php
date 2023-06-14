@@ -34,7 +34,7 @@ trait CarbonTypeConverter
     /**
      * @return string
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         $precision = $fieldDeclaration['precision'] ?: 10;
 
@@ -66,7 +66,7 @@ trait CarbonTypeConverter
      *
      * @return T|null
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?DateTimeInterface
     {
         $class = $this->getCarbonClassName();
 
@@ -104,7 +104,7 @@ trait CarbonTypeConverter
      *
      * @return string|null
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return $value;

@@ -7,12 +7,17 @@
 namespace Carbon\Doctrine;
 
 use Carbon\CarbonImmutable;
+use DateTimeImmutable;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
 class DateTimeImmutableType extends VarDateTimeImmutableType implements CarbonDoctrineType
 {
     /** @use CarbonTypeConverter<CarbonImmutable> */
-    use CarbonTypeConverter;
+    use CarbonTypeConverter
+    {
+        convertToPHPValue as private baseConvertToPHPValue;
+    }
 
     /**
      * @return class-string<CarbonImmutable>
@@ -20,5 +25,15 @@ class DateTimeImmutableType extends VarDateTimeImmutableType implements CarbonDo
     protected function getCarbonClassName(): string
     {
         return CarbonImmutable::class;
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
+     * @return T|null
+     */
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?DateTimeImmutable
+    {
+        return $this->baseConvertToPHPValue($value, $platform);
     }
 }

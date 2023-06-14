@@ -57,7 +57,7 @@
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.99 || ^1.7.14",
         "phpunit/php-file-iterator": "^2.0.5 || ^3.0.6",
-        "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20 || ^10.2.6",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "provide": {
