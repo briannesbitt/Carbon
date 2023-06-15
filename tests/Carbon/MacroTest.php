@@ -310,16 +310,16 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $copy = $now->copyWithAppTz(false, 'Europe/Paris');
 
-        $this->assertSame( 'Europe/Paris', $copy->format('e'));
-        $this->assertSame( 'UTC', $now->format('e'));
+        $this->assertSame('Europe/Paris', $copy->format('e'));
+        $this->assertSame('UTC', $now->format('e'));
 
         $mutated = $now->toAppTz(false, 'America/Toronto');
 
-        $this->assertSame( 'America/Toronto', $mutated->format('e'));
-        $this->assertSame( 'America/Toronto', $now->format('e'));
+        $this->assertSame('America/Toronto', $mutated->format('e'));
+        $this->assertSame('America/Toronto', $now->format('e'));
 
-        $this->assertSame(Carbon::class, get_class($mutated));
-        $this->assertSame(Carbon::class, get_class($copy));
+        $this->assertSame(Carbon::class, \get_class($mutated));
+        $this->assertSame(Carbon::class, \get_class($copy));
 
         $this->assertSame($mutated, $now);
         $this->assertEquals($mutated, $copy);
