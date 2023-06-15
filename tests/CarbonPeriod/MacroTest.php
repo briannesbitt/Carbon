@@ -235,7 +235,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(
             $immutable,
             ($mutated !== $period),
-            $this->periodClass . "::oneMoreDay() should return $expectedResult"
+            "{$this->periodClass}::oneMoreDay() should return $expectedResult"
         );
 
         $this->assertNotSame($copy, $period);
