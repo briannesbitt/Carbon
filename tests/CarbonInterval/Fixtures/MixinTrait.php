@@ -19,4 +19,9 @@ trait MixinTrait
     {
         return $this->times(2);
     }
+
+    public function copyAndAgain()
+    {
+        return $this->copy()->andAgain();
+    }
 }

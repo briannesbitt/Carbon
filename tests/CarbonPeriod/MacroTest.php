@@ -218,14 +218,29 @@ class MacroTest extends AbstractTestCase
         $periodClass::mixin(MixinTrait::class);
 
         $period = $periodClass::create('2023-06-10', '2023-06-12');
-        $result = $period->oneMoreDay();
+
+        $copy = $period->copyOneMoreDay();
+
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-12', (string) $period);
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $copy);
+
+        $mutated = $period->oneMoreDay();
         $expectedEnd = $this->periodClass === CarbonPeriodImmutable::class
             ? '2023-06-12'
             : '2023-06-13';
 
-        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $result);
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $mutated);
         $this->assertSame("Every 1 day from 2023-06-10 to $expectedEnd", (string) $period);
-        $this->assertSame('2023-06-14', $result->endNextDay()->format('Y-m-d'));
+
+        if ($this->periodClass === CarbonPeriodImmutable::class) {
+            $this->assertNotSame($mutated, $period);
+        } else {
+            $this->assertSame($mutated, $period);
+        }
+
+        $this->assertNotSame($copy, $period);
+
+        $this->assertSame('2023-06-14', $mutated->endNextDay()->format('Y-m-d'));
         $this->assertSame($this->periodClass === CarbonPeriodImmutable::class
             ? '2023-06-13'
             : '2023-06-14', $period->endNextDay()->format('Y-m-d'));

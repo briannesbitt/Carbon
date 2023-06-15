@@ -138,9 +138,17 @@ class MacroTest extends AbstractTestCaseWithOldNow
         CarbonInterval::mixin(MixinTrait::class);
 
         $input = CarbonInterval::days(2);
-        $result = $input->andAgain();
+        $copy = $input->copyAndAgain();
 
-        $this->assertSame('4 days', $result->forHumans());
-        $this->assertSame($input, $result);
+        $this->assertSame('2 days', $input->forHumans());
+
+        $mutated = $input->andAgain();
+
+        $this->assertSame('4 days', $input->forHumans());
+        $this->assertSame('4 days', $mutated->forHumans());
+        $this->assertSame('4 days', $copy->forHumans());
+
+        $this->assertSame($input, $mutated);
+        $this->assertNotSame($copy, $mutated);
     }
 }

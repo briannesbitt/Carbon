@@ -24,4 +24,9 @@ trait MixinTrait
     {
         return $this->getEndDate()->addDay();
     }
+
+    public function copyOneMoreDay()
+    {
+        return $this->copy()->oneMoreDay();
+    }
 }
