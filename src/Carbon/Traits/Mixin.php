@@ -128,6 +128,10 @@ trait Mixin
                 }
 
                 if ($downContext instanceof CarbonInterface && $result instanceof CarbonInterface) {
+                    if ($context !== $result) {
+                        $downContext = $downContext->copy();
+                    }
+
                     return $downContext
                         ->setTimezone($result->getTimezone())
                         ->modify($result->format('Y-m-d H:i:s.u'))
@@ -135,6 +139,10 @@ trait Mixin
                 }
 
                 if ($downContext instanceof CarbonInterval && $result instanceof CarbonInterval) {
+                    if ($context !== $result) {
+                        $downContext = $downContext->copy();
+                    }
+
                     $downContext->copyProperties($result);
                     self::copyStep($downContext, $result);
                     self::copyNegativeUnits($downContext, $result);
@@ -143,6 +151,10 @@ trait Mixin
                 }
 
                 if ($downContext instanceof CarbonPeriod && $result instanceof CarbonPeriod) {
+                    if ($context !== $result) {
+                        $downContext = $downContext->copy();
+                    }
+
                     return $downContext
                         ->setDates($result->getStartDate(), $result->getEndDate())
                         ->setRecurrences($result->getRecurrences())

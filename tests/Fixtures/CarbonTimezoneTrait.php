@@ -21,4 +21,12 @@ trait CarbonTimezoneTrait
             ? $this->shiftTimezone($tz)
             : $this->timezone($tz);
     }
+
+    public function copyWithAppTz(bool $shift = false, string $tz = 'UTC'): CarbonInterface
+    {
+        return ($shift
+            ? $this->shiftTimezone($tz)
+            : $this->timezone($tz)
+        )->copy();
+    }
 }
