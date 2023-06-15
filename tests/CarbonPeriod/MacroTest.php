@@ -225,18 +225,18 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $copy);
 
         $mutated = $period->oneMoreDay();
-        $expectedEnd = $this->periodClass === CarbonPeriodImmutable::class
-            ? '2023-06-12'
-            : '2023-06-13';
+        $immutable = ($this->periodClass === CarbonPeriodImmutable::class);
+        $expectedEnd = $immutable ? '2023-06-12' : '2023-06-13';
 
         $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $mutated);
         $this->assertSame("Every 1 day from 2023-06-10 to $expectedEnd", (string) $period);
 
-        if ($this->periodClass === CarbonPeriodImmutable::class) {
-            $this->assertNotSame($mutated, $period);
-        } else {
-            $this->assertSame($mutated, $period);
-        }
+        $expectedResult = $immutable ? 'a new instance' : 'the same instance';
+        $this->assertSame(
+            $immutable,
+            ($mutated !== $period),
+            $this->periodClass . "::oneMoreDay() should return $expectedResult"
+        );
 
         $this->assertNotSame($copy, $period);
 
