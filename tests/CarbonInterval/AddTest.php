@@ -208,9 +208,6 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($interval, 0, 0, 6, 12, 0, 0);
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testPlusWithPHP8Syntax()
     {
         $interval = CarbonInterval::days(3)->plus(weeks: 2, hours: 26);
@@ -231,9 +228,6 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::days(3)->minus(0, 0, 2, 0, 26), 0, 0, 11, 26, 0, 0, 0, true);
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testMinusWithPHP8Syntax()
     {
         $interval = CarbonInterval::days(3)->minus(weeks: 2, hours: 26);

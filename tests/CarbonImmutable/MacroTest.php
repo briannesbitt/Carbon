@@ -137,9 +137,6 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertInstanceOf(Carbon::class, Carbon::me());
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testTraitWithNamedParameters()
     {
         require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';

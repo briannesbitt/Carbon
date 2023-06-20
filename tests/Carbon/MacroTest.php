@@ -269,9 +269,6 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertFalse(Carbon::now()->noThis());
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testTraitWithNamedParameters()
     {
         require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
