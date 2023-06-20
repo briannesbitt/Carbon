@@ -2522,10 +2522,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         $cascadedInterval = $this->copy()->cascade();
-        $cascadedComparedInterval = $interval->copy()->cascade();
+        $comparedInterval = $interval->copy()->cascade();
 
-        return $cascadedInterval->invert === $cascadedComparedInterval->invert &&
-            $cascadedInterval->getNonZeroValues() === $cascadedComparedInterval->getNonZeroValues();
+        return $cascadedInterval->invert === $comparedInterval->invert &&
+            $cascadedInterval->getNonZeroValues() === $comparedInterval->getNonZeroValues();
     }
 
     /**

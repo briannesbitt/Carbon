@@ -21,6 +21,7 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
 use Tests\AbstractTestCase;
 use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
