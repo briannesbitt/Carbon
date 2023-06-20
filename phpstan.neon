@@ -14,28 +14,25 @@ parameters:
     parallel:
         processTimeout: 300.0
     ignoreErrors:
+        - '#^Call to static method get\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.$#'
         - '#^Call to an undefined static method#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::floatDiffIn([A-Za-z]+)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::diffInReal([A-Za-z]+)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.$#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.$#'
-        - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
-        - '#^Call to an undefined method Carbon\\CarbonInterval::(andAgain|copyAndAgain)\(\)\.$#'
+        - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis|toAppTz|copyWithAppTz)\(\)\.$#'
+        - '#^Call to an undefined method Carbon\\CarbonInterval::(multiply|andAgain|copyAndAgain)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\CarbonPeriod::(oneMoreDay|copyOneMoreDay|endNextDay)\(\)\.$#'
         - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
+        - '#should return (\S*)\$this\(Carbon\\CarbonInterval\) but returns static\(Carbon\\CarbonInterval\)\.$#'
         - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
-        - '#^Method Carbon\\Carbon(Immutable)?::getTranslator\(\) should return Symfony\\Component\\Translation\\TranslatorInterface but returns Carbon\\Translator\.$#'
-        - '#^Property Carbon\\Carbon(Period|Interval|Immutable)?::\$localTranslator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
-        - '#^Static property Carbon\\Carbon(Period|Interval|Immutable)?::\$translator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
-        - '#^Call to an undefined method DateTimeInterface::toDate(Time)?String\(\)\.$#'
         -
             message: '#^Undefined variable: \$this$#'
             paths:

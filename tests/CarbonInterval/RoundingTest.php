@@ -89,7 +89,7 @@ class RoundingTest extends AbstractTestCase
             0.00000001
         );
         $this->assertSame(
-            43,
+            43.0,
             CarbonInterval::make('43h3m6s')
                 ->floorMinutes(6)
                 ->totalHours
