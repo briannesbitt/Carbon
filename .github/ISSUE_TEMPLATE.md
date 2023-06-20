@@ -1,6 +1,6 @@
 <!--
     🛑 DON'T REMOVE ME.
-    This issue template apply to all
+    This issue template applies to all
       - bug reports,
       - feature proposals,
       - and documentation requests
@@ -15,17 +15,24 @@
 Hello,
 
 I encountered an issue with the following code:
+<!--
+    ⚠️ Your code below (not the code from inside Carbon library)
+    Be sure it's dependency-free and enough to reproduce the issue
+    when we run it on:
+    https://play.phpsandbox.io/embed/nesbot/carbon
+-->
 ```php
 echo Carbon::parse('2018-06-01')->subDay()->month;
 ```
 
 Carbon version: **PUT HERE YOUR CARBON VERSION (exact version, not the range)**
+<!--
+    ⚠️ Run the command `composer show nesbot/carbon` to get "versions"
+-->
 
 PHP version: **PUT HERE YOUR PHP VERSION**
 
 <!--
-    Run the command `composer show nesbot/carbon`
-    to get "versions"
     Use `echo phpversion();`
     to get PHP version.
 

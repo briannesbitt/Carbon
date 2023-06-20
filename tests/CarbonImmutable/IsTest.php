@@ -929,6 +929,8 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
         $this->assertFalse(Carbon::hasFormat('30/12/2019', 'm/d/Y'));
         $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
+
+        $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
     }
 
     public static function dataForFormatLetters(): Generator
@@ -1000,6 +1002,8 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('Monday'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('June'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('May'));
+        $this->assertFalse(Carbon::parse('2023-10-01 00:00:00')->is('February'));
+        $this->assertFalse(Carbon::parse('2023-10-01 00:00:00')->is('January'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('12:23'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:26'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00'));

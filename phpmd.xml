@@ -32,10 +32,31 @@
         <exclude name="EvalExpression" />
         <exclude name="CouplingBetweenObjects" />
         <exclude name="CountInLoopExpression" />
+        <exclude name="DevelopmentCodeFragment" />
+    </rule>
+    <rule ref="rulesets/design.xml/DevelopmentCodeFragment">
+        <properties>
+            <property name="ignore-namespaces" value="true" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable" />
+        <exclude name="LongVariable" />
+        <exclude name="ShortMethodName" />
     </rule>
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
             <property name="exceptions" value="ci,id,to,tz" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/LongVariable">
+        <properties>
+            <property name="subtract-suffixes" value="Enabled,Function,Factory,Timezone,FloorEnd,DiffOptions" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName">
+        <properties>
+            <property name="exceptions" value="eq,gt,is,lt,ne,to,tz" />
         </properties>
     </rule>
     <rule ref="rulesets/unusedcode.xml" />

@@ -13,10 +13,14 @@ declare(strict_types=1);
 
 namespace Tests\PHPStan;
 
+use RuntimeException;
 use Tests\AbstractTestCase;
 
 class FeaturesTest extends AbstractTestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.LongVariable)
+     */
     protected $phpStanPreviousDirectory = '.';
 
     protected function setUp(): void
@@ -48,9 +52,9 @@ class FeaturesTest extends AbstractTestCase
         );
     }
 
-    private function analyze(string $file)
+    private function analyze(string $file): string
     {
-        return shell_exec(implode(' ', [
+        $output = shell_exec(implode(' ', [
             implode(DIRECTORY_SEPARATOR, ['.', 'vendor', 'bin', 'phpstan']),
             'analyse',
             '--configuration='.escapeshellarg(realpath($file)),
@@ -59,5 +63,11 @@ class FeaturesTest extends AbstractTestCase
             '--level=0',
             escapeshellarg(realpath(__DIR__.'/Fixture.php')),
         ]));
+
+        if (!\is_string($output)) {
+            throw new RuntimeException('Executing phpstan returned '.var_export($output, true));
+        }
+
+        return $output;
     }
 }

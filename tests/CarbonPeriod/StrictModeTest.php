@@ -15,7 +15,6 @@ namespace Tests\CarbonPeriod;
 
 use BadMethodCallException;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class StrictModeTest extends AbstractTestCase
@@ -26,16 +25,18 @@ class StrictModeTest extends AbstractTestCase
             'Method foobar does not exist.',
         ));
 
+        $periodClass = $this->periodClass;
         /** @var mixed $period */
-        $period = CarbonPeriod::create();
+        $period = $periodClass::create();
         $period->foobar();
     }
 
     public function testCallWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
+        $periodClass = $this->periodClass;
         /** @var mixed $period */
-        $period = CarbonPeriod::create();
+        $period = $periodClass::create();
         $this->assertSame($period, $period->foobar());
     }
 }

@@ -16,6 +16,7 @@ namespace Tests\CarbonInterval;
 use Carbon\CarbonInterval;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\CarbonInterval\Fixtures\Mixin;
+use Tests\CarbonInterval\Fixtures\MixinTrait;
 
 class MacroTest extends AbstractTestCaseWithOldNow
 {
@@ -129,5 +130,25 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $interval = CarbonInterval::hours(2);
 
         $this->assertSame('6 hours', $interval->doMultiply()->forHumans());
+    }
+
+    public function testMixinInstance()
+    {
+        include_once __DIR__.'/Fixtures/MixinTrait.php';
+        CarbonInterval::mixin(MixinTrait::class);
+
+        $input = CarbonInterval::days(2);
+        $copy = $input->copyAndAgain();
+
+        $this->assertSame('2 days', $input->forHumans());
+
+        $mutated = $input->andAgain();
+
+        $this->assertSame('4 days', $input->forHumans());
+        $this->assertSame('4 days', $mutated->forHumans());
+        $this->assertSame('4 days', $copy->forHumans());
+
+        $this->assertSame($input, $mutated);
+        $this->assertNotSame($copy, $mutated);
     }
 }

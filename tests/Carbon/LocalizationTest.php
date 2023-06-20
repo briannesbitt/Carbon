@@ -22,6 +22,7 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 use Tests\Carbon\Fixtures\NoLocaleTranslator;
@@ -673,7 +674,7 @@ class LocalizationTest extends AbstractTestCase
         $translator->setMessages('zz_ZZ', []);
         $this->assertContains('zz_ZZ', Carbon::getAvailableLocales());
 
-        Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
+        Carbon::setTranslator(new SymfonyTranslator('en'));
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 
@@ -887,6 +888,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testDeclensionModes()
     {
+        Carbon::setTestNow('2022-12-30');
         $this->assertSame(
             '2 жил 3 сар 1 өдөр 1с өмнө',
             Carbon::now()

@@ -75,7 +75,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static
+     * @return static|false
      */
     public function next($modifier = null)
     {
@@ -157,7 +157,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static
+     * @return static|false
      */
     public function previous($modifier = null)
     {
@@ -451,7 +451,7 @@ trait Modifiers
      *
      * @param string $modifier
      *
-     * @return static
+     * @return static|false
      */
     public function change($modifier)
     {

@@ -19,6 +19,7 @@ use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnsupportedUnitException;
 use Closure;
 use DateInterval;
+use DateMalformedStringException;
 use ReturnTypeWillChange;
 
 /**
@@ -308,12 +309,16 @@ trait Units
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        $date = self::rawAddUnit($date, $unit, $value);
+        try {
+            $date = self::rawAddUnit($date, $unit, $value);
 
-        if (isset($timeString)) {
-            $date = $date?->setTimeFromTimeString($timeString);
-        } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
-            $date = $date?->modify('last day of previous month');
+            if (isset($timeString)) {
+                $date = $date?->setTimeFromTimeString($timeString);
+            } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
+                $date = $date?->modify('last day of previous month');
+            }
+        } catch (DateMalformedStringException $ignoredException) { // @codeCoverageIgnore
+            $date = null; // @codeCoverageIgnore
         }
 
         if (!$date) {

@@ -164,7 +164,6 @@ class CreateSafeTest extends AbstractTestCase
     public function testCreateSafePassesForInvalidDSTTime()
     {
         $message = '';
-        $date = null;
 
         try {
             // 1h jumped to 2h because of the DST, so 1h30 is not a safe date in PHP 5.4+
