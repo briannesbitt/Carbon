@@ -388,42 +388,43 @@ class DiffTest extends AbstractTestCase
         );
     }
 
+    /** @group i */
     public function testBug2798ConsistencyWithDiffInDays()
     {
         // 0 hour diff
         $s1 = Carbon::create(2023, 6, 6, 15, 0, 0);
         $e1 = Carbon::create(2023, 6, 6, 15, 0, 0);
 
-        $this->assertSame(0.0, $s1->diffInWeekdays($e1));
-        $this->assertSame(0.0, $s1->diffInDays($e1));
+        $this->assertSame(0, $s1->diffInWeekdays($e1));
+        $this->assertSame(0, (int) $s1->diffInDays($e1));
 
         // 1 hour diff
         $s2 = Carbon::create(2023, 6, 6, 15, 0, 0);
         $e2 = Carbon::create(2023, 6, 6, 16, 0, 0);
 
-        $this->assertSame(0.0, $s2->diffInWeekdays($e2));
-        $this->assertSame(0.0, $s2->diffInDays($e2));
+        $this->assertSame(0, $s2->diffInWeekdays($e2));
+        $this->assertSame(0, (int) $s2->diffInDays($e2));
 
         // 23 hour diff
         $s3 = Carbon::create(2023, 6, 6, 15, 0, 0);
         $e3 = Carbon::create(2023, 6, 7, 14, 0, 0);
 
-        $this->assertSame(1.0, $s3->diffInWeekdays($e3));
-        $this->assertSame(1.0, $s3->diffInDays($e3));
+        $this->assertSame(1, $s3->diffInWeekdays($e3));
+        $this->assertSame(1, (int) $s3->diffInDays($e3));
 
         // 24 hour diff
         $s4 = Carbon::create(2023, 6, 6, 15, 0, 0);
         $e4 = Carbon::create(2023, 6, 7, 15, 0, 0);
 
-        $this->assertSame(1.0, $s4->diffInWeekdays($e4));
-        $this->assertSame(1.0, $s4->diffInDays($e4));
+        $this->assertSame(1, $s4->diffInWeekdays($e4));
+        $this->assertSame(1, (int) $s4->diffInDays($e4));
 
         // 25 hour diff
         $s5 = Carbon::create(2023, 6, 6, 15, 0, 0);
         $e5 = Carbon::create(2023, 6, 7, 16, 0, 0);
 
-        $this->assertSame(1.0, $s5->diffInWeekdays($e5));
-        $this->assertSame(1.0, $s5->diffInDays($e5));
+        $this->assertSame(1, $s5->diffInWeekdays($e5));
+        $this->assertSame(1, (int) $s5->diffInDays($e5));
     }
 
     public function testDiffInWeekdaysPositive()
