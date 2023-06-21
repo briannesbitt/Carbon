@@ -1995,7 +1995,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $start = $this->startDate ?: Carbon::make($this->startDate ?: 'now');
         $end = $this->endDate ?: $start->copy()->add($this);
 
-        return CarbonPeriod::create(static::make($interval, $unit), $start, $end);
+        try {
+            $step = static::make($interval, $unit);
+        } catch (InvalidFormatException $exception) {
+            if ($unit || !is_string($interval) || preg_match('/\s/', $interval)) {
+                throw $exception;
+            }
+
+            $step = static::make("1 $interval");
+        }
+
+        return CarbonPeriod::create($step, $start, $end);
     }
 
     /**

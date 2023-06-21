@@ -15,6 +15,7 @@ namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidFormatException;
 use DateInterval;
 use Tests\AbstractTestCase;
 
@@ -85,7 +86,15 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->gt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
         $this->assertTrue($oneDay->gt('23 hours 59 minutes 59 seconds 999999 microseconds'));
         $this->assertTrue($oneDay->gt('P0DT23H59M59S'));
-        $this->assertTrue($oneDay->gt('xxx'));
+    }
+
+    public function testGreaterThanError()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: "xxx"',
+        ));
+
+        CarbonInterval::day()->gt('xxx');
     }
 
     public function testGreaterThanToFalse()
@@ -112,8 +121,15 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->greaterThanOrEqualTo(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertTrue($oneDay->gte(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertTrue($oneDay->gte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+    }
 
-        $this->assertTrue($oneDay->gte('xxx'));
+    public function testGreaterThanOrEqualError()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: "xxx"',
+        ));
+
+        CarbonInterval::day()->gte('xxx');
     }
 
     public function testGreaterThanOrEqualToFalse()
@@ -149,7 +165,15 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lessThan(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertFalse($oneDay->lt(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertFalse($oneDay->lt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
-        $this->assertFalse($oneDay->lt('xxx'));
+    }
+
+    public function testLessThanError()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: "xxx"',
+        ));
+
+        CarbonInterval::day()->lt('xxx');
     }
 
     public function testLessThanOrEqualToTrue()
@@ -174,7 +198,15 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
         $this->assertFalse($oneDay->lte('23 hours 59 minutes 59 seconds 999999 microseconds'));
         $this->assertFalse($oneDay->lte('P0DT23H59M59S'));
-        $this->assertFalse($oneDay->lte('xxx'));
+    }
+
+    public function testLessThanOrEqualError()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: "xxx"',
+        ));
+
+        CarbonInterval::day()->lte('xxx');
     }
 
     public function testBetweenFalse()
