@@ -1997,7 +1997,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         try {
             $step = static::make($interval, $unit);
         } catch (InvalidFormatException $exception) {
-            if ($unit || !\is_string($interval) || preg_match('/\s/', $interval)) {
+            if ($unit || !\is_string($interval) || preg_match('/(\s|\d)/', $interval)) {
                 throw $exception;
             }
 

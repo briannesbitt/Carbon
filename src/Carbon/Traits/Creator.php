@@ -179,16 +179,13 @@ trait Creator
             // @codeCoverageIgnoreStart
             try {
                 $date = @static::now($tz)->change($time);
-            } catch (DateMalformedStringException $ignoredException) {
+            } catch (DateMalformedStringException|InvalidFormatException) {
                 $date = null;
             }
             // @codeCoverageIgnoreEnd
 
-            if (!$date) {
-                throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
-            }
-
-            return $date;
+            return $date
+                ?? throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
         }
     }
 

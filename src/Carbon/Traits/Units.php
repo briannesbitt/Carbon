@@ -422,13 +422,11 @@ trait Units
             return $date->rawAdd(
                 CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
             );
-        } catch (InvalidIntervalException|UnsupportedUnitException $baseException) {
+        } catch (InvalidIntervalException $exception) {
             try {
                 return $date->modify("$value $unit");
-            } catch (InvalidFormatException $exception) {
-                throw ($baseException instanceof UnsupportedUnitException)
-                    ? $baseException
-                    : new UnsupportedUnitException($unit, previous: $exception);
+            } catch (InvalidFormatException) {
+                throw new UnsupportedUnitException($unit, previous: $exception);
             }
         }
     }

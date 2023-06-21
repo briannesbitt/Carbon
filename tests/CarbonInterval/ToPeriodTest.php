@@ -16,6 +16,7 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\Exceptions\InvalidFormatException;
 use Generator;
 use Tests\AbstractTestCase;
 
@@ -131,5 +132,14 @@ class ToPeriodTest extends AbstractTestCase
         ], $days);
 
         Carbon::setTestNow(null);
+    }
+
+    public function testStepByError()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: '.var_export('1/2 days', true),
+        ));
+
+        CarbonInterval::week()->stepBy('1/2 days');
     }
 }
