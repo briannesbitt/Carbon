@@ -253,7 +253,7 @@ class ModifyTest extends AbstractTestCase
     {
         $this->expectExceptionObject(
             PHP_VERSION < 8.3
-                ? new InvalidFormatException("Could not modify with: \"$message\"")
+                ? new InvalidFormatException('Could not modify with: '.var_export($message, true))
                 : new DateMalformedStringException("Failed to parse time string ($message)"),
         );
 

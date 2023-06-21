@@ -1776,7 +1776,9 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
         $this->expectExceptionObject(new InvalidFormatException(
-            'Failed to parse time string (2018-04-13---08:00:00) at position 10',
+            PHP_VERSION < 8.3
+                ? 'Could not modify with: '.var_export('2018-04-13---08:00:00', true)
+                : 'Failed to parse time string (2018-04-13---08:00:00) at position 10',
         ));
 
         $mar13 = Carbon::parse('2018-03-13');

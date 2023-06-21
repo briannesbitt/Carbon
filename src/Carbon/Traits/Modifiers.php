@@ -438,7 +438,7 @@ trait Modifiers
     public function modify($modify)
     {
         return parent::modify((string) $modify)
-            ?: throw new InvalidFormatException('Could not modify with: '.json_encode($modify));
+            ?: throw new InvalidFormatException('Could not modify with: '.var_export($modify, true));
     }
 
     /**

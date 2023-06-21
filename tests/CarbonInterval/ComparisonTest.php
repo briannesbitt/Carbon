@@ -91,7 +91,7 @@ class ComparisonTest extends AbstractTestCase
     public function testGreaterThanError()
     {
         $this->expectExceptionObject(new InvalidFormatException(
-            'Could not create interval from: "xxx"',
+            'Could not create interval from: '.var_export('xxx', true),
         ));
 
         CarbonInterval::day()->gt('xxx');
@@ -126,7 +126,7 @@ class ComparisonTest extends AbstractTestCase
     public function testGreaterThanOrEqualError()
     {
         $this->expectExceptionObject(new InvalidFormatException(
-            'Could not create interval from: "xxx"',
+            'Could not create interval from: '.var_export('xxx', true),
         ));
 
         CarbonInterval::day()->gte('xxx');
@@ -170,7 +170,7 @@ class ComparisonTest extends AbstractTestCase
     public function testLessThanError()
     {
         $this->expectExceptionObject(new InvalidFormatException(
-            'Could not create interval from: "xxx"',
+            'Could not create interval from: '.var_export('xxx', true),
         ));
 
         CarbonInterval::day()->lt('xxx');
@@ -203,7 +203,7 @@ class ComparisonTest extends AbstractTestCase
     public function testLessThanOrEqualError()
     {
         $this->expectExceptionObject(new InvalidFormatException(
-            'Could not create interval from: "xxx"',
+            'Could not create interval from: '.var_export('xxx', true),
         ));
 
         CarbonInterval::day()->lte('xxx');
