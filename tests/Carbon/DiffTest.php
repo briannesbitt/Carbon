@@ -403,6 +403,9 @@ class DiffTest extends AbstractTestCase
         $e2 = Carbon::create(2023, 6, 6, 16, 0, 0);
 
         $this->assertSame(0, $s2->diffInWeekdays($e2));
+        $this->assertSame(0, $e2->diffInWeekdays($s2));
+        $this->assertSame('2023-06-06 15:00:00', $s2->format('Y-m-d H:i:s'));
+        $this->assertSame('2023-06-06 16:00:00', $e2->format('Y-m-d H:i:s'));
         $this->assertSame(0, (int) $s2->diffInDays($e2));
 
         // 23 hour diff
@@ -410,13 +413,17 @@ class DiffTest extends AbstractTestCase
         $e3 = Carbon::create(2023, 6, 7, 14, 0, 0);
 
         $this->assertSame(1, $s3->diffInWeekdays($e3));
-        $this->assertSame(1, (int) $s3->diffInDays($e3));
+        $this->assertSame(1, $e3->diffInWeekdays($s3));
+        $this->assertSame('2023-06-06 15:00:00', $s3->format('Y-m-d H:i:s'));
+        $this->assertSame('2023-06-07 14:00:00', $e3->format('Y-m-d H:i:s'));
+        $this->assertSame(0, (int) $s3->diffInDays($e3));
 
         // 24 hour diff
         $s4 = Carbon::create(2023, 6, 6, 15, 0, 0);
         $e4 = Carbon::create(2023, 6, 7, 15, 0, 0);
 
         $this->assertSame(1, $s4->diffInWeekdays($e4));
+        $this->assertSame(1, $e4->diffInWeekdays($s4));
         $this->assertSame(1, (int) $s4->diffInDays($e4));
 
         // 25 hour diff
@@ -424,6 +431,9 @@ class DiffTest extends AbstractTestCase
         $e5 = Carbon::create(2023, 6, 7, 16, 0, 0);
 
         $this->assertSame(1, $s5->diffInWeekdays($e5));
+        $this->assertSame(1, $e5->diffInWeekdays($s5));
+        $this->assertSame('2023-06-06 15:00:00', $s5->format('Y-m-d H:i:s'));
+        $this->assertSame('2023-06-07 16:00:00', $e5->format('Y-m-d H:i:s'));
         $this->assertSame(1, (int) $s5->diffInDays($e5));
     }
 

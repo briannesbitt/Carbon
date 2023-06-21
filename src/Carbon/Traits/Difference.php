@@ -317,7 +317,7 @@ trait Difference
     {
         return $this->diffInDaysFiltered(
             static fn (CarbonInterface $date) => $date->isWeekday(),
-            $this->resolveCarbon($date)->modify($this->format('H:i:s.u')),
+            $this->resolveCarbon($date)->avoidMutation()->modify($this->format('H:i:s.u')),
             $absolute,
         );
     }
@@ -334,7 +334,7 @@ trait Difference
     {
         return $this->diffInDaysFiltered(
             static fn (CarbonInterface $date) => $date->isWeekend(),
-            $this->resolveCarbon($date)->modify($this->format('H:i:s.u')),
+            $this->resolveCarbon($date)->avoidMutation()->modify($this->format('H:i:s.u')),
             $absolute,
         );
     }
