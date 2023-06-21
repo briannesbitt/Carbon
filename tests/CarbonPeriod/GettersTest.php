@@ -357,8 +357,24 @@ class GettersTest extends AbstractTestCase
 
     public function testIsset()
     {
-        $this->assertTrue(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->start));
-        $this->assertFalse(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->middle));
+        $this->assertTrue(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->startDate));
+        $this->assertFalse(isset(CarbonPeriod::create('2019-08-01', '2019-08-15')->middleDate));
+    }
+
+    public function testMagicGet()
+    {
+        $this->assertSame(
+            '2019-08-01',
+            CarbonPeriod::create('2019-08-01', '2019-08-15')->startDate->format('Y-m-d'),
+        );
+        $this->assertSame(
+            'en',
+            CarbonPeriod::create('2019-08-01', '2019-08-15')->locale,
+        );
+        $this->assertSame(
+            'fi',
+            CarbonPeriod::create('2019-08-01', '2019-08-15')->locale('fi')->locale,
+        );
     }
 
     public function testGet()

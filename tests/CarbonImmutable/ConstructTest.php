@@ -154,9 +154,9 @@ class ConstructTest extends AbstractTestCase
 
     public function testParseError()
     {
-        $this->expectExceptionObject(new InvalidFormatException(
-            "Could not parse 'completely broken': Failed to parse time string",
-        ));
+        $this->expectException(InvalidFormatException::class);
+        $this->expectExceptionMessage("Could not parse 'completely broken'");
+        $this->expectExceptionMessage('Failed to parse time string');
 
         Carbon::parse('completely broken');
     }

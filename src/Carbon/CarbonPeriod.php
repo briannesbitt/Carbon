@@ -780,6 +780,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             'include_start_date' => [$this, 'isStartIncluded'],
             'include_end_date' => [$this, 'isEndIncluded'],
             'current' => [$this, 'current'],
+            'locale' => [$this, 'locale'],
             default => null,
         };
     }
