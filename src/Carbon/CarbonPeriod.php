@@ -40,6 +40,7 @@ use JsonSerializable;
 use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
+use Throwable;
 
 require PHP_VERSION < 8.2
     ? __DIR__.'/../../lazy/Carbon/ProtectedDatePeriod.php'
@@ -514,7 +515,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         foreach (explode('/', $iso) as $key => $part) {
             if ($key === 0 && preg_match('/^R(\d*|INF)$/', $part, $match)) {
                 $parsed = \strlen($match[1]) ? (($match[1] !== 'INF') ? (int) $match[1] : INF) : null;
-            } elseif ($interval === null && $parsed = CarbonInterval::make($part)) {
+            } elseif ($interval === null && $parsed = self::makeInterval($part)) {
                 $interval = $part;
             } elseif ($start === null && $parsed = Carbon::make($part)) {
                 $start = $part;
@@ -545,6 +546,15 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $result = preg_replace($pattern, $target, $source, 1, $count);
 
         return $count ? $result : $target;
+    }
+
+    private static function makeInterval(string $string): ?CarbonInterval
+    {
+        try {
+            return CarbonInterval::make($string);
+        } catch (Throwable) {
+            return null;
+        }
     }
 
     /**

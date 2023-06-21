@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Closure;
 use DateMalformedStringException;
 use InvalidArgumentException;
@@ -250,21 +251,13 @@ class ModifyTest extends AbstractTestCase
 
     private function checkInvalid(string $message, Closure $callback): void
     {
-        if (PHP_VERSION < 8.3) {
-            $this->assertFalse($callback());
+        $this->expectExceptionObject(
+            PHP_VERSION < 8.3
+                ? new InvalidFormatException("Could not modify with: \"$message\"")
+                : new DateMalformedStringException("Failed to parse time string ($message)"),
+        );
 
-            return;
-        }
-
-        try {
-            $callback();
-        } catch (DateMalformedStringException $exception) {
-            $this->assertStringContainsString("Failed to parse time string ($message)", $exception->getMessage());
-
-            return;
-        }
-
-        $this->fail('This should throw a DateMalformedStringException in PHP 8.3');
+        $callback();
     }
 
     public function testImplicitCast(): void

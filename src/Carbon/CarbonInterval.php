@@ -1155,17 +1155,18 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             ',' => ' ',
             ' and ' => ' ',
         ]);
+
         try {
             $interval = parent::createFromDateString($string);
         } catch (Throwable $exception) {
             throw new InvalidFormatException(
-                'Could not create interval from: ' . json_encode($time),
+                'Could not create interval from: '.json_encode($time),
                 previous: $exception,
             );
         }
 
         if (!$interval) {
-            throw new InvalidFormatException('Could not create interval from: ' . json_encode($time));
+            throw new InvalidFormatException('Could not create interval from: '.json_encode($time));
         }
 
         if ($interval instanceof DateInterval) {
