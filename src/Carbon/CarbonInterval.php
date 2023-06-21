@@ -14,6 +14,7 @@ namespace Carbon;
 use Carbon\Exceptions\BadFluentConstructorException;
 use Carbon\Exceptions\BadFluentSetterException;
 use Carbon\Exceptions\InvalidCastException;
+use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\ParseErrorException;
 use Carbon\Exceptions\UnitNotConfiguredException;
@@ -1150,10 +1151,22 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     #[ReturnTypeWillChange]
     public static function createFromDateString($time): ?self
     {
-        $interval = @parent::createFromDateString(strtr((string) $time, [
+        $string = strtr((string) $time, [
             ',' => ' ',
             ' and ' => ' ',
-        ])) ?: null;
+        ]);
+        try {
+            $interval = parent::createFromDateString($string);
+        } catch (Throwable $exception) {
+            throw new InvalidFormatException(
+                'Could not create interval from: ' . json_encode($time),
+                previous: $exception,
+            );
+        }
+
+        if (!$interval) {
+            throw new InvalidFormatException('Could not create interval from: ' . json_encode($time));
+        }
 
         if ($interval instanceof DateInterval) {
             $interval = static::instance($interval);

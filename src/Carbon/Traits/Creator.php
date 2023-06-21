@@ -63,7 +63,7 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (\is_string($time) && substr($time, 0, 1) === '@') {
+        if (\is_string($time) && str_starts_with($time, '@')) {
             $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
         }
 

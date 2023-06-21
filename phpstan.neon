@@ -24,8 +24,8 @@ parameters:
         - '#^Call to an undefined method Carbon\\CarbonInterval::(multiply|andAgain|copyAndAgain)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\CarbonPeriod::(oneMoreDay|copyOneMoreDay|endNextDay)\(\)\.$#'
         - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
+        - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\)(\|null)? but returns Carbon\\Carbon(Interface)?(\|null)?\.$#'
+        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\)(\|null)? but returns Carbon\\Carbon(Immutable|Interface)(\|null)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
         - '#should return (\S*)\$this\(Carbon\\CarbonInterval\) but returns static\(Carbon\\CarbonInterval\)\.$#'
         - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
@@ -33,6 +33,10 @@ parameters:
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
+        -
+            message: '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
+            paths:
+                - src/Carbon/Traits/Localization.php
         -
             message: '#^Undefined variable: \$this$#'
             paths:

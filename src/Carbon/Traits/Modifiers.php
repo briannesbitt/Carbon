@@ -12,6 +12,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\Exceptions\InvalidFormatException;
 use ReturnTypeWillChange;
 
 /**
@@ -75,7 +76,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function next($modifier = null)
     {
@@ -157,7 +158,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function previous($modifier = null)
     {
@@ -431,12 +432,13 @@ trait Modifiers
      *
      * @see https://php.net/manual/en/datetime.modify.php
      *
-     * @return static|false
+     * @return static
      */
     #[ReturnTypeWillChange]
     public function modify($modify)
     {
-        return parent::modify((string) $modify);
+        return parent::modify((string) $modify)
+            ?: throw new InvalidFormatException('Could not modify with: '.json_encode($modify));
     }
 
     /**
@@ -451,7 +453,7 @@ trait Modifiers
      *
      * @param string $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function change($modifier)
     {

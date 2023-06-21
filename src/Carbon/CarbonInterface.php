@@ -997,7 +997,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function change($modifier);
 
@@ -3217,7 +3217,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @see https://php.net/manual/en/datetime.modify.php
      *
-     * @return static|false
+     * @return static
      */
     #[ReturnTypeWillChange]
     public function modify($modify);
@@ -3248,7 +3248,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|int|null $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function next($modifier = null);
 
@@ -3394,7 +3394,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|int|null $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function previous($modifier = null);
 
