@@ -27,6 +27,7 @@ class ToStringTest extends AbstractTestCase
      */
     public function testToString($period, $expected)
     {
+        Carbon::setLocale('en');
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         $this->assertSame(
