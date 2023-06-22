@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\CarbonInterval;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\Translator;
 use InvalidArgumentException;
@@ -23,7 +24,7 @@ class GettersTest extends AbstractTestCase
     public function testGettersThrowExceptionOnUnknownGetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown getter \'doesNotExit\''
+            'Unknown getter \'doesNotExit\'',
         ));
 
         /** @var mixed $interval */
@@ -84,6 +85,19 @@ class GettersTest extends AbstractTestCase
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $this->assertSame(10, $ci->seconds);
+    }
+
+    public function testStartAndEnd()
+    {
+        $interval = Carbon::parse('2020-08-10')->diff('2020-09-30');
+
+        $this->assertSame('2020-08-10 00:00:00', $interval->start()->format('Y-m-d H:i:s'));
+        $this->assertSame('2020-09-30 00:00:00', $interval->end()->format('Y-m-d H:i:s'));
+
+        $interval = CarbonInterval::fromString('1 month 20 days');
+
+        $this->assertNull($interval->start());
+        $this->assertNull($interval->end());
     }
 
     public function testDebugInfo()

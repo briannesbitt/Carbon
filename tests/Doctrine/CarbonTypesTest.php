@@ -150,7 +150,7 @@ class CarbonTypesTest extends AbstractTestCase
     {
         $this->expectExceptionObject(new ConversionException(
             "Could not convert database value \"2020-0776-23 18:47\" to Doctrine Type $name. ".
-            "Expected format: Y-m-d H:i:s.u or any format supported by $class::parse()"
+            "Expected format: Y-m-d H:i:s.u or any format supported by $class::parse()",
         ));
 
         Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', new MySQL57Platform());
@@ -172,7 +172,7 @@ class CarbonTypesTest extends AbstractTestCase
         $this->assertNull($type->convertToDatabaseValue(null, new MySQL57Platform()));
         $this->assertSame(
             '2020-06-23 18:47:00.000000',
-            $type->convertToDatabaseValue(new DateTimeImmutable('2020-06-23 18:47'), new MySQL57Platform())
+            $type->convertToDatabaseValue(new DateTimeImmutable('2020-06-23 18:47'), new MySQL57Platform()),
         );
     }
 
@@ -190,7 +190,7 @@ class CarbonTypesTest extends AbstractTestCase
         $quote = class_exists('Doctrine\\DBAL\\Version') ? "'" : '';
         $this->expectExceptionObject(new ConversionException(
             "Could not convert PHP value of type {$quote}array{$quote} to type {$quote}$name{$quote}. ".
-            'Expected one of the following types: null, DateTime, Carbon'
+            'Expected one of the following types: null, DateTime, Carbon',
         ));
 
         Type::getType($name)->convertToDatabaseValue([2020, 06, 23], new MySQL57Platform());

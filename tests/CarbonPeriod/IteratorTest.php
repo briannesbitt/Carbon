@@ -45,10 +45,13 @@ class IteratorTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
-        foreach ($period as $key => $current) {
+        foreach ($period as $current) {
             $this->assertInstanceOfCarbon($current);
             $this->assertEquals($current, $period->current());
-            $this->assertEquals($current, $period->current);
+
+            if (PHP_VERSION < 8.2) {
+                $this->assertEquals($current, $period->current);
+            }
         }
     }
 
@@ -126,7 +129,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates($expected),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -215,7 +218,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             ['0 => 2012-07-04', '1 => 2012-07-10', '2 => 2012-07-16'],
-            $results
+            $results,
         );
     }
 
@@ -244,7 +247,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             ['0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'],
-            $results
+            $results,
         );
     }
 
@@ -276,7 +279,7 @@ class IteratorTest extends AbstractTestCase
         $this->assertSame(
             // Note: Results are not affected, because start date is used only for initialization.
             ['0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'],
-            $results
+            $results,
         );
     }
 
@@ -303,7 +306,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             ['0 => 2012-07-01', '1 => 2012-07-04', '2 => 2012-07-07'],
-            $results
+            $results,
         );
     }
 
@@ -355,7 +358,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
-            $this->standardizeDates($results)
+            $this->standardizeDates($results),
         );
     }
 
@@ -382,7 +385,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-10-10', '2018-10-11', '2018-10-12', '2018-10-13']),
-            $this->standardizeDates($results)
+            $this->standardizeDates($results),
         );
     }
 
@@ -458,7 +461,7 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-11', '2018-04-12', '2018-04-13', '2018-04-12', '2018-04-11']),
-            $this->standardizeDates($results)
+            $this->standardizeDates($results),
         );
     }
 

@@ -26,7 +26,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestamp($timestamp, $tz = null)
+    public static function createFromTimestamp($timestamp, $tz = null): static
     {
         return static::createFromTimestampUTC($timestamp)->setTimezone($tz);
     }
@@ -40,7 +40,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampUTC($timestamp)
+    public static function createFromTimestampUTC($timestamp): static
     {
         [$integer, $decimal] = self::getIntegerAndDecimalParts($timestamp);
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
@@ -60,7 +60,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampMsUTC($timestamp)
+    public static function createFromTimestampMsUTC($timestamp): static
     {
         [$milliseconds, $microseconds] = self::getIntegerAndDecimalParts($timestamp, 3);
         $sign = $milliseconds < 0 || ($milliseconds === 0.0 && $microseconds < 0) ? -1 : 1;
@@ -85,7 +85,7 @@ trait Timestamp
      *
      * @return static
      */
-    public static function createFromTimestampMs($timestamp, $tz = null)
+    public static function createFromTimestampMs($timestamp, $tz = null): static
     {
         return static::createFromTimestampMsUTC($timestamp)
             ->setTimezone($tz);
@@ -100,7 +100,7 @@ trait Timestamp
      *
      * @return static
      */
-    public function timestamp($unixTimestamp)
+    public function timestamp($unixTimestamp): static
     {
         return $this->setTimestamp($unixTimestamp);
     }
@@ -123,7 +123,7 @@ trait Timestamp
      *
      * @return float
      */
-    public function getPreciseTimestamp($precision = 6)
+    public function getPreciseTimestamp($precision = 6): float
     {
         return round(((float) $this->rawFormat('Uu')) / pow(10, 6 - $precision));
     }
@@ -133,7 +133,7 @@ trait Timestamp
      *
      * @return float
      */
-    public function valueOf()
+    public function valueOf(): float
     {
         return $this->getPreciseTimestamp(3);
     }
@@ -143,7 +143,7 @@ trait Timestamp
      *
      * @return int
      */
-    public function getTimestampMs()
+    public function getTimestampMs(): int
     {
         return (int) $this->getPreciseTimestamp(3);
     }
@@ -155,7 +155,7 @@ trait Timestamp
      *
      * @return int
      */
-    public function unix()
+    public function unix(): int
     {
         return $this->getTimestamp();
     }
@@ -172,7 +172,7 @@ trait Timestamp
      *
      * @return array 0-index is integer part, 1-index is decimal part digits
      */
-    private static function getIntegerAndDecimalParts($numbers, $decimals = 6)
+    private static function getIntegerAndDecimalParts($numbers, $decimals = 6): array
     {
         if (\is_int($numbers) || \is_float($numbers)) {
             $numbers = number_format($numbers, $decimals, '.', '');

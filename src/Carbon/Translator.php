@@ -19,7 +19,7 @@ $transMethod = new ReflectionMethod(
     class_exists(TranslatorInterface::class)
         ? TranslatorInterface::class
         : Translation\Translator::class,
-    'trans'
+    'trans',
 );
 
 require $transMethod->hasReturnType()

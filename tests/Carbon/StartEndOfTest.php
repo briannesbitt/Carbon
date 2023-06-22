@@ -571,7 +571,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testStartOfInvalidUnit()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown unit \'microsecond\''
+            'Unknown unit \'microsecond\'',
         ));
 
         Carbon::now()->startOf('microsecond');
@@ -580,7 +580,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfInvalidUnit()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown unit \'microsecond\''
+            'Unknown unit \'microsecond\'',
         ));
 
         Carbon::now()->endOf('microsecond');

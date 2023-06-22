@@ -121,15 +121,12 @@ return [
         'lastWeek' => '[Paskutinį] dddd LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
-        switch ($number) {
-            case 0:
-                return '0-is';
-            case 3:
-                return '3-ias';
-            default:
-                return "$number-as";
-        }
+    'ordinal' => static function ($number) {
+        return match ($number) {
+            0 => '0-is',
+            3 => '3-ias',
+            default => "$number-as",
+        };
     },
     'meridiem' => ['priešpiet', 'popiet'],
 ];

@@ -16,6 +16,7 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\Exceptions\InvalidFormatException;
 use Generator;
 use Tests\AbstractTestCase;
 
@@ -63,7 +64,82 @@ class ToPeriodTest extends AbstractTestCase
             ->setTimezone('Asia/Tokyo')
             ->toPeriod('2021-08-14 00:00', '2021-08-14 02:00');
 
-        $this->assertSame('2021-08-14 00:00 Asia/Tokyo', $period->start->format('Y-m-d H:i e'));
-        $this->assertSame('2021-08-14 02:00 Asia/Tokyo', $period->end->format('Y-m-d H:i e'));
+        $this->assertSame('2021-08-14 00:00 Asia/Tokyo', $period->start()->format('Y-m-d H:i e'));
+        $this->assertSame('2021-08-14 02:00 Asia/Tokyo', $period->end()->format('Y-m-d H:i e'));
+    }
+
+    public function testStepBy(): void
+    {
+        $days = [];
+
+        foreach (Carbon::parse('2020-08-29')->diff('2020-09-02')->stepBy('day') as $day) {
+            $days[] = "$day";
+        }
+
+        $this->assertSame([
+            '2020-08-29 00:00:00',
+            '2020-08-30 00:00:00',
+            '2020-08-31 00:00:00',
+            '2020-09-01 00:00:00',
+            '2020-09-02 00:00:00',
+        ], $days);
+
+        $times = [];
+
+        foreach (Carbon::parse('2020-08-29')->diff('2020-08-31')->stepBy('12 hours') as $time) {
+            $times[] = "$time";
+        }
+
+        $this->assertSame([
+            '2020-08-29 00:00:00',
+            '2020-08-29 12:00:00',
+            '2020-08-30 00:00:00',
+            '2020-08-30 12:00:00',
+            '2020-08-31 00:00:00',
+        ], $times);
+
+        $days = [];
+        /** @var CarbonPeriod $period */
+        $period = Carbon::parse('2020-08-29')->diff('2020-09-02')->stepBy('day');
+
+        foreach ($period->excludeEndDate() as $day) {
+            $days[] = "$day";
+        }
+
+        $this->assertSame([
+            '2020-08-29 00:00:00',
+            '2020-08-30 00:00:00',
+            '2020-08-31 00:00:00',
+            '2020-09-01 00:00:00',
+        ], $days);
+
+        Carbon::setTestNow('2020-08-12 06:00:50');
+        $days = [];
+
+        foreach (CarbonInterval::week()->stepBy('day') as $day) {
+            $days[] = "$day";
+        }
+
+        $this->assertSame([
+            '2020-08-12 06:00:50',
+            '2020-08-13 06:00:50',
+            '2020-08-14 06:00:50',
+            '2020-08-15 06:00:50',
+            '2020-08-16 06:00:50',
+            '2020-08-17 06:00:50',
+            '2020-08-18 06:00:50',
+            '2020-08-19 06:00:50',
+        ], $days);
+
+        Carbon::setTestNow(null);
+    }
+
+    public function testStepByError()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: '.var_export('1/2 days', true),
+        ));
+
+        CarbonInterval::week()->stepBy('1/2 days');
     }
 }

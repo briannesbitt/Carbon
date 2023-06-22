@@ -12,6 +12,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\Exceptions\InvalidFormatException;
 use ReturnTypeWillChange;
 
 /**
@@ -75,7 +76,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function next($modifier = null)
     {
@@ -84,7 +85,7 @@ trait Modifiers
         }
 
         return $this->change(
-            'next '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
+            'next '.(\is_string($modifier) ? $modifier : static::$days[$modifier]),
         );
     }
 
@@ -157,7 +158,7 @@ trait Modifiers
      *
      * @param string|int|null $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function previous($modifier = null)
     {
@@ -166,7 +167,7 @@ trait Modifiers
         }
 
         return $this->change(
-            'last '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
+            'last '.(\is_string($modifier) ? $modifier : static::$days[$modifier]),
         );
     }
 
@@ -341,7 +342,7 @@ trait Modifiers
      */
     public function average($date = null)
     {
-        return $this->addRealMicroseconds((int) ($this->diffInRealMicroseconds($this->resolveCarbon($date), false) / 2));
+        return $this->addRealMicroseconds((int) ($this->diffInMicroseconds($this->resolveCarbon($date), false) / 2));
     }
 
     /**
@@ -354,7 +355,7 @@ trait Modifiers
      */
     public function closest($date1, $date2)
     {
-        return $this->diffInRealMicroseconds($date1) < $this->diffInRealMicroseconds($date2) ? $date1 : $date2;
+        return $this->diffInMicroseconds($date1, true) < $this->diffInMicroseconds($date2, true) ? $date1 : $date2;
     }
 
     /**
@@ -367,7 +368,7 @@ trait Modifiers
      */
     public function farthest($date1, $date2)
     {
-        return $this->diffInRealMicroseconds($date1) > $this->diffInRealMicroseconds($date2) ? $date1 : $date2;
+        return $this->diffInMicroseconds($date1, true) > $this->diffInMicroseconds($date2, true) ? $date1 : $date2;
     }
 
     /**
@@ -431,12 +432,13 @@ trait Modifiers
      *
      * @see https://php.net/manual/en/datetime.modify.php
      *
-     * @return static|false
+     * @return static
      */
     #[ReturnTypeWillChange]
     public function modify($modify)
     {
-        return parent::modify((string) $modify);
+        return parent::modify((string) $modify)
+            ?: throw new InvalidFormatException('Could not modify with: '.var_export($modify, true));
     }
 
     /**
@@ -451,7 +453,7 @@ trait Modifiers
      *
      * @param string $modifier
      *
-     * @return static|false
+     * @return static
      */
     public function change($modifier)
     {

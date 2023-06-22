@@ -13,7 +13,7 @@
  * Author:
  * - Abdifatah Abdilahi(@abdifatahz)
  */
-return [
+return array_replace_recursive(require __DIR__.'/en.php', [
     'year' => ':count sanad|:count sanadood',
     'a_year' => 'sanad|:count sanadood',
     'y' => '{1}:countsn|{0}:countsns|]1,Inf[:countsn',
@@ -71,4 +71,4 @@ return [
         'lastWeek' => '[Hore] dddd [Markay ahayd] LT',
         'sameElse' => 'L',
     ],
-];
+]);

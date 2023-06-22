@@ -22,7 +22,7 @@ class StrictModeTest extends AbstractTestCase
     public function testCallWithStrictMode()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method foobar does not exist.'
+            'Method foobar does not exist.',
         ));
 
         $periodClass = static::$periodClass;

@@ -59,18 +59,13 @@ return [
         'lastWeek' => '[անցած] dddd [օրը ժամը] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
-        switch ($period) {
-            case 'DDD':
-            case 'w':
-            case 'W':
-            case 'DDDo':
-                return $number.($number === 1 ? '-ին' : '-րդ');
-            default:
-                return $number;
-        }
+    'ordinal' => static function ($number, $period) {
+        return match ($period) {
+            'DDD', 'w', 'W', 'DDDo' => $number.($number === 1 ? '-ին' : '-րդ'),
+            default => $number,
+        };
     },
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour < 4) {
             return 'գիշերվա';
         }

@@ -90,7 +90,7 @@ class SerializationTest extends AbstractTestCase
     public function testFromUnserializedWithInvalidValue($value)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Invalid serialized value: $value"
+            "Invalid serialized value: $value",
         ));
 
         Carbon::fromSerialized($value);

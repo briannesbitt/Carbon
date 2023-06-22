@@ -14,7 +14,10 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use Tests\AbstractTestCase;
 
@@ -25,6 +28,8 @@ class ConstructTest extends AbstractTestCase
         $c = new Carbon();
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
+        $this->assertInstanceOf(DateTimeImmutable::class, $c);
+        $this->assertInstanceOf(DateTimeInterface::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
@@ -151,6 +156,15 @@ class ConstructTest extends AbstractTestCase
         $c = Carbon::parse('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
+    }
+
+    public function testParseError()
+    {
+        $this->expectException(InvalidFormatException::class);
+        $this->expectExceptionMessage("Could not parse 'completely broken'");
+        $this->expectExceptionMessage('Failed to parse time string');
+
+        Carbon::parse('completely broken');
     }
 
     public function testMockingWithMicroseconds()

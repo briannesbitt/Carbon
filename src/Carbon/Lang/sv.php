@@ -66,7 +66,7 @@ return [
         'lastWeek' => '[I] dddd[s] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         $lastDigit = $number % 10;
 
         return $number.(

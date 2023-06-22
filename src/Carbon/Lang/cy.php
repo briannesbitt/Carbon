@@ -57,7 +57,7 @@ return [
         'lastWeek' => 'dddd [diwethaf am] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         return $number.(
             $number > 20
                 ? (\in_array((int) $number, [40, 50, 60, 80, 100], true) ? 'fed' : 'ain')

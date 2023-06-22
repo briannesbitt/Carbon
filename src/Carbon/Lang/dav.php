@@ -10,6 +10,7 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
     'meridiem' => ['Luma lwa K', 'luma lwa p'],
     'weekdays' => ['Ituku ja jumwa', 'Kuramuka jimweri', 'Kuramuka kawi', 'Kuramuka kadadu', 'Kuramuka kana', 'Kuramuka kasanu', 'Kifula nguwo'],
     'weekdays_short' => ['Jum', 'Jim', 'Kaw', 'Kad', 'Kan', 'Kas', 'Ngu'],

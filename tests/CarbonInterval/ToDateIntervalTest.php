@@ -52,7 +52,7 @@ class ToDateIntervalTest extends AbstractTestCase
     public function testBadCast()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'DateTime is not a sub-class of DateInterval.'
+            'DateTime is not a sub-class of DateInterval.',
         ));
 
         CarbonInterval::days(5)->hours(3)->minutes(50)->microseconds(123456)->invert()->cast(DateTime::class);

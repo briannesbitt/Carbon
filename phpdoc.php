@@ -12,7 +12,6 @@
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 $tags = [
     'property',
@@ -45,12 +44,12 @@ $code = '';
 $overrideTyping = [
     $carbon => [
         // 'createFromImmutable' => ['static Carbon', 'DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
-        'createFromFormat' => ['static static|false', 'string $format, string $time, DateTimeZone|string|false|null $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
+        'createFromFormat' => ['static static', 'string $format, string $time, DateTimeZone|string|false|null $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
         '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
     $immutable => [
         // 'createFromMutable' => ['static CarbonImmutable', 'DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
-        'createFromFormat' => ['static static|false', 'string $format, string $time, DateTimeZone|string|false|null $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
+        'createFromFormat' => ['static static', 'string $format, string $time, DateTimeZone|string|false|null $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
         '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
 ];
@@ -102,7 +101,7 @@ function cleanClassName($name)
         $name = "\\$name";
     }
 
-    if (ltrim($name, '\\') === TranslatorInterface::class) {
+    if ($name === '\\Symfony\\Contracts\\Translation\\TranslatorInterface') {
         return 'TranslatorInterface';
     }
 
@@ -142,7 +141,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
         if ($parameter->isDefaultValueAvailable()) {
             $output .= ' = '.dumpValue($parameter->getDefaultValue());
         }
-    } catch (ReflectionException $exp) {
+    } catch (ReflectionException) {
     }
 
     return $output;
@@ -155,7 +154,7 @@ foreach ($tags as $tag) {
         [$tag, $pattern] = $tag;
     }
 
-    $pattern = $pattern ?? '\S+';
+    $pattern ??= '\S+';
 
     if ($tag === PHP_EOL) {
         $autoDocLines[] = '';
@@ -196,10 +195,7 @@ foreach ($tags as $tag) {
         $vars->description = $vars->description ?: $vars->description2;
 
         if ($tag === 'mode') {
-            if (!isset($modes[$vars->type])) {
-                $modes[$vars->type] = [];
-            }
-
+            $modes[$vars->type] ??= [];
             $modes[$vars->type][] = $vars->name;
 
             continue;
@@ -313,7 +309,7 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'add'.ucFirst($plUnit).'(int $value = 1)',
+                        'add'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Add $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
@@ -325,7 +321,7 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'sub'.ucFirst($plUnit).'(int $value = 1)',
+                        'sub'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
@@ -346,7 +342,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'self',
-                            'add'.ucFirst($plUnit).'WithOverflow(int $value = 1)',
+                            'add'.ucFirst($plUnit).'WithOverflow(int|float $value = 1)',
                             "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
@@ -358,7 +354,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'self',
-                            'sub'.ucFirst($plUnit).'WithOverflow(int $value = 1)',
+                            'sub'.ucFirst($plUnit).'WithOverflow(int|float $value = 1)',
                             "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
@@ -372,7 +368,7 @@ foreach ($tags as $tag) {
                             $autoDocLines[] = [
                                 '@method',
                                 'self',
-                                'add'.ucFirst($plUnit)."$alias(int \$value = 1)",
+                                'add'.ucFirst($plUnit)."$alias(int|float \$value = 1)",
                                 "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
@@ -384,7 +380,7 @@ foreach ($tags as $tag) {
                             $autoDocLines[] = [
                                 '@method',
                                 'self',
-                                'sub'.ucFirst($plUnit)."$alias(int \$value = 1)",
+                                'sub'.ucFirst($plUnit)."$alias(int|float \$value = 1)",
                                 "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
@@ -408,7 +404,7 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'addReal'.ucFirst($plUnit).'(int $value = 1)',
+                        'addReal'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Add $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
@@ -420,7 +416,7 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'subReal'.ucFirst($plUnit).'(int $value = 1)',
+                        'subReal'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
@@ -432,7 +428,7 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'CarbonPeriod',
-                        $plUnit.'Until($endDate = null, int $factor = 1)',
+                        $plUnit.'Until($endDate = null, int|float $factor = 1)',
                         "Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each $unitName or every X $plUnitName if a factor is given.",
                     ];
 
@@ -583,6 +579,7 @@ function compileDoc($autoDocLines, $file)
 
     $autoDoc = '';
     $columnsMaxLengths = [];
+
     foreach ($autoDocLines as &$editableLine) {
         if (\is_array($editableLine)) {
             if (($editableLine[1] ?? '') === 'self') {
@@ -643,10 +640,22 @@ $staticImmutableMethods = [];
 $methods = '';
 $carbonMethods = get_class_methods(Carbon::class);
 sort($carbonMethods);
+
+function getMethodReturnType(ReflectionMethod $method)
+{
+    $type = $method->getReturnType();
+
+    if (!$type || $type->getName() === 'self') {
+        return '';
+    }
+
+    return ': '.preg_replace('/^Carbon\\\\/', '', $type->getName());
+}
+
 foreach ($carbonMethods as $method) {
     if (!method_exists(CarbonImmutable::class, $method) ||
         method_exists(DateTimeInterface::class, $method) ||
-        $method === 'createFromInterface'
+        \in_array($method, ['diff', 'createFromInterface'], true)
     ) {
         continue;
     }
@@ -676,13 +685,13 @@ foreach ($carbonMethods as $method) {
         $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
         $staticMethods[] = [
             '@method',
-            str_replace('static', 'Carbon', $returnType),
+            str_replace(['self', 'static'], 'Carbon', $returnType),
             "$method($parameters)",
             $doc[0],
         ];
         $staticImmutableMethods[] = [
             '@method',
-            str_replace('static', 'CarbonImmutable', $returnType),
+            str_replace(['self', 'static'], 'CarbonImmutable', $returnType),
             "$method($parameters)",
             $doc[0],
         ];
@@ -693,7 +702,7 @@ foreach ($carbonMethods as $method) {
         }
     }
 
-    $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
+    $return = getMethodReturnType($function);
 
     if (!empty($methodDocBlock)) {
         $methodDocBlock = "\n    $methodDocBlock";

@@ -40,9 +40,11 @@ class CreateTest extends AbstractTestCase
 
         $period = $periodClass::create($iso, $options);
 
+        $this->assertInstanceOf(CarbonPeriod::class, $period);
+        $this->assertInstanceOf(DatePeriod::class, $period);
         $this->assertSame(
             $this->standardizeDates($expected),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -101,14 +103,14 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates([$from, $to]),
-            $this->standardizeDates([$period->getStartDate(), $period->getEndDate()])
+            $this->standardizeDates([$period->getStartDate(), $period->getEndDate()]),
         );
 
         $period = new $periodClass($iso);
 
         $this->assertSame(
             $this->standardizeDates([$from, $to]),
-            $this->standardizeDates([$period->getStartDate(), $period->getEndDate()])
+            $this->standardizeDates([$period->getStartDate(), $period->getEndDate()]),
         );
     }
 
@@ -124,7 +126,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromInvalidIso8601String($iso)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Invalid ISO 8601 specification: $iso"
+            "Invalid ISO 8601 specification: $iso",
         ));
 
         $periodClass = static::$periodClass;
@@ -156,7 +158,7 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates($expected),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -212,7 +214,7 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates($expected),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -272,7 +274,7 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates($expected),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -302,7 +304,7 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates($expected),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -332,7 +334,7 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::create(
             new DateTime('2018-04-16'),
             new DateInterval('P1M'),
-            new DateTime('2018-07-15')
+            new DateTime('2018-07-15'),
         );
 
         $this->assertSame(
@@ -341,7 +343,7 @@ class CreateTest extends AbstractTestCase
                 '2018-05-16 00:00:00 -04:00',
                 '2018-06-16 00:00:00 -04:00',
             ],
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -351,7 +353,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromInvalidParameters(...$arguments)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid constructor parameters.'
+            'Invalid constructor parameters.',
         ));
 
         $periodClass = static::$periodClass;
@@ -375,7 +377,7 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-03-25 1:30 Europe/Oslo',
             'PT30M',
-            '2018-03-25 3:30 Europe/Oslo'
+            '2018-03-25 3:30 Europe/Oslo',
         );
 
         $this->assertSame(
@@ -384,7 +386,7 @@ class CreateTest extends AbstractTestCase
                 '2018-03-25 03:00:00 +02:00',
                 '2018-03-25 03:30:00 +02:00',
             ],
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -402,7 +404,7 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-10-28 1:30 Europe/Oslo',
             'PT30M',
-            '2018-10-28 3:30 Europe/Oslo'
+            '2018-10-28 3:30 Europe/Oslo',
         );
 
         $this->assertSame(
@@ -415,7 +417,7 @@ class CreateTest extends AbstractTestCase
                 '2018-10-28 03:00:00 +01:00',
                 '2018-10-28 03:30:00 +01:00',
             ],
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -425,7 +427,7 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::create(
             $start = new DateTime('2018-04-16'),
             $interval = new DateInterval('P1M'),
-            $end = new DateTime('2018-07-15')
+            $end = new DateTime('2018-07-15'),
         );
 
         $start->modify('-5 days');
@@ -439,7 +441,7 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::create(
             $start = new Carbon('2018-04-16'),
             $interval = new CarbonInterval('P1M'),
-            $end = new Carbon('2018-07-15')
+            $end = new Carbon('2018-07-15'),
         );
 
         $start->subDays(5);
@@ -493,7 +495,7 @@ class CreateTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = $periodClass::create(
             $start = '2018-03-25 10:15:30 Europe/Oslo',
-            $end = '2018-03-28 17:25:30 Asia/Kamchatka'
+            $end = '2018-03-28 17:25:30 Asia/Kamchatka',
         );
 
         $this->assertSame($start, $period->getStartDate()->format('Y-m-d H:i:s e'));
@@ -506,23 +508,23 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-03-25 12:00',
             '2 days 10 hours',
-            '2018-04-01 13:30'
+            '2018-04-01 13:30',
         );
 
         $this->assertSame(
             $this->standardizeDates(['2018-03-25 12:00', '2018-03-27 22:00', '2018-03-30 08:00']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
 
         $period = $periodClass::create(
             '2018-04-21',
             '3 days',
-            '2018-04-27'
+            '2018-04-27',
         );
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-21 00:00', '2018-04-24 00:00', '2018-04-27 00:00']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -531,7 +533,7 @@ class CreateTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = $periodClass::create(
             $start = 'previous friday',
-            $end = '+6 days'
+            $end = '+6 days',
         );
 
         $this->assertEquals(new Carbon($start), $period->getStartDate());
@@ -542,7 +544,7 @@ class CreateTest extends AbstractTestCase
     {
         $period = Carbon::create('2019-01-02')->toPeriod(7);
 
-        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertSame(24.0, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertNull($period->getEndDate());
@@ -554,7 +556,7 @@ class CreateTest extends AbstractTestCase
         $period = Carbon::create('2019-01-02')->toPeriod('2019-02-05');
 
         $this->assertNull($period->getRecurrences());
-        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertSame(24.0, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertInstanceOf(Carbon::class, $period->getEndDate());
@@ -569,7 +571,7 @@ class CreateTest extends AbstractTestCase
 
         $period = Carbon::create('2019-01-02')->daysUntil('2019-02-05');
 
-        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertSame(24.0, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertInstanceOf(Carbon::class, $period->getEndDate());
@@ -591,14 +593,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
 
         $period = Carbon::create('2019-01-02')->hoursUntil('2019-02-05');
-        $this->assertSame(1, $period->getDateInterval()->totalHours);
+        $this->assertSame(1.0, $period->getDateInterval()->totalHours);
 
         $this->assertSame('1 minute', Carbon::create('2019-01-02')->minutesUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('3 minutes', Carbon::create('2019-01-02')->minutesUntil('2019-02-05', 3)->getDateInterval()->forHumans());
         $this->assertSame('3 seconds', Carbon::create('2019-01-02')->range('2019-02-05', 3, 'seconds')->getDateInterval()->forHumans());
         $this->assertSame('1 second', Carbon::create('2019-01-02')->secondsUntil('2019-02-05')->getDateInterval()->forHumans());
-        $this->assertSame(1, Carbon::create('2019-01-02')->millisecondsUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
-        $this->assertSame(1, Carbon::create('2019-01-02')->microsecondsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
+        $this->assertSame(1.0, Carbon::create('2019-01-02')->millisecondsUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
+        $this->assertSame(1.0, Carbon::create('2019-01-02')->microsecondsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
         $this->assertSame('1 week', Carbon::create('2019-01-02')->weeksUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('1 month', Carbon::create('2019-01-02')->monthsUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('3 months', Carbon::create('2019-01-02')->quartersUntil('2019-02-05')->getDateInterval()->forHumans());
@@ -611,7 +613,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromCarbonInstanceInvalidMethod()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method unknownUnitsUntil does not exist.'
+            'Method unknownUnitsUntil does not exist.',
         ));
 
         /** @var object $date */
@@ -625,7 +627,7 @@ class CreateTest extends AbstractTestCase
         $source = new DatePeriod(
             new DateTime('2012-07-01'),
             CarbonInterval::days(2),
-            new DateTime('2012-07-07')
+            new DateTime('2012-07-07'),
         );
 
         $period = $periodClass::instance($source);
@@ -660,22 +662,19 @@ class CreateTest extends AbstractTestCase
         $this->assertNotSame($period, $period4);
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testCreateFromCarbonInstancesNamedParameters()
     {
         $periodClass = static::$periodClass;
         $carbonClass = $periodClass === CarbonPeriodImmutable::class
             ? CarbonImmutable::class
             : Carbon::class;
-        $period = eval("return \\$carbonClass::create('2019-01-02')->daysUntil(endDate: '2019-02-05');");
+        $period = $carbonClass::create('2019-01-02')->daysUntil(endDate: '2019-02-05');
         $this->assertInstanceOf($periodClass, $period);
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
         $this->assertSame('1 day', (string) $period->getDateInterval());
 
-        $period = eval("return \\$carbonClass::create('2019-01-02')->hoursUntil(endDate: '2019-02-05', factor: 12);");
+        $period = $carbonClass::create('2019-01-02')->hoursUntil(endDate: '2019-02-05', factor: 12);
         $this->assertInstanceOf($periodClass, $period);
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
         $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
@@ -719,7 +718,7 @@ class CreateTest extends AbstractTestCase
     public function testBadCast()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'DateTime has not the instance() method needed to cast the date.'
+            'DateTime has not the instance() method needed to cast the date.',
         ));
 
         $periodClass = static::$periodClass;
@@ -733,7 +732,7 @@ class CreateTest extends AbstractTestCase
         $period = $periodClass::make(new DatePeriod(
             new DateTime('2012-07-01'),
             CarbonInterval::days(2),
-            new DateTime('2012-07-07')
+            new DateTime('2012-07-07'),
         ));
 
         $this->assertInstanceOf($periodClass, $period);
@@ -761,7 +760,7 @@ class CreateTest extends AbstractTestCase
     {
         $this->expectExceptionObject(new NotAPeriodException(
             'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
-            'must be an instance of DatePeriod or Carbon\CarbonPeriod, string given.'
+            'must be an instance of DatePeriod or Carbon\CarbonPeriod, string given.',
         ));
 
         $periodClass = static::$periodClass;
@@ -772,7 +771,7 @@ class CreateTest extends AbstractTestCase
     {
         $this->expectExceptionObject(new NotAPeriodException(
             'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
-            'must be an instance of DatePeriod or Carbon\CarbonPeriod, instance of Carbon\Carbon given.'
+            'must be an instance of DatePeriod or Carbon\CarbonPeriod, instance of Carbon\Carbon given.',
         ));
 
         $periodClass = static::$periodClass;

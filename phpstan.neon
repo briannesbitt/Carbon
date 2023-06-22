@@ -3,6 +3,7 @@ parameters:
         - lazy/Carbon/MessageFormatter/MessageFormatterMapperStrongType.php
         - lazy/Carbon/PHPStan/MacroStrongType.php
         - lazy/Carbon/TranslatorStrongType.php
+        - lazy/Carbon/UnprotectedDatePeriod.php
         - tests/Fixtures/DateMalformedIntervalStringException.php
         - tests/Fixtures/DateMalformedStringException.php
         - vendor/autoload.php
@@ -13,22 +14,30 @@ parameters:
     parallel:
         processTimeout: 300.0
     ignoreErrors:
+        - '#^Call to static method get\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.$#'
         - '#^Call to an undefined static method#'
+        - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::floatDiffIn([A-Za-z]+)\(\)\.$#'
+        - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::diffInReal([A-Za-z]+)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.$#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis|toAppTz|copyWithAppTz)\(\)\.$#'
-        - '#^Call to an undefined method Carbon\\CarbonInterval::(andAgain|copyAndAgain)\(\)\.$#'
+        - '#^Call to an undefined method Carbon\\CarbonInterval::(multiply|andAgain|copyAndAgain)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\CarbonPeriod::(oneMoreDay|copyOneMoreDay|endNextDay)\(\)\.$#'
         - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\) but returns Carbon\\Carbon(Immutable|Interface)\.$#'
+        - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\)(\|null)? but returns Carbon\\Carbon(Interface)?(\|null)?\.$#'
+        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\)(\|null)? but returns Carbon\\Carbon(Immutable|Interface)(\|null)?\.$#'
+        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
+        - '#should return (\S*)\$this\(Carbon\\CarbonInterval\) but returns static\(Carbon\\CarbonInterval\)\.$#'
+        - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
-        - '#^Method Carbon\\Carbon(Immutable)?::getTranslator\(\) should return Symfony\\Component\\Translation\\TranslatorInterface but returns Carbon\\Translator\.$#'
-        - '#^Property Carbon\\Carbon(Period|Interval|Immutable)?::\$localTranslator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
-        - '#^Static property Carbon\\Carbon(Period|Interval|Immutable)?::\$translator \(Symfony\\Component\\Translation\\TranslatorInterface\) does not accept Carbon\\Translator\.$#'
-        - '#^Call to static method get\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.$#'
-        - '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
+        - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
+        - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
+        - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
+        - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(DateTimeImmutable\|false\)\.$#'
+        -
+            message: '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
+            paths:
+                - src/Carbon/Traits/Localization.php
         -
             message: '#^Undefined variable: \$this$#'
             paths:
@@ -37,8 +46,22 @@ parameters:
             message: '#^Variable \$this in isset\(\) is never defined\.$#'
             paths:
                 - src/Carbon/Traits/Mixin.php
+        -
+            message: '#^Cannot access property \$locale on Carbon\\CarbonPeriod\|string\.$#'
+            paths:
+                - tests/CarbonPeriod/GettersTest.php
+        -
+            message: '#^Access to protected property Carbon\\CarbonPeriod::\$startDate\.$#'
+            paths:
+                - tests/CarbonPeriod/GettersTest.php
+        -
+            message: '#^Access to an undefined property Carbon\\CarbonPeriod::\$locale\.$#'
+            paths:
+                - tests/CarbonPeriod/GettersTest.php
     excludePaths:
+        - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'
+        - '*/src/Carbon/TranslatorWeakType.php'
         - '*/src/Carbon/PHPStan/*'
         - '*/tests/Carbon/Fixtures/DumpCarbon.php'
         - '*/tests/Carbon/LocalizationTest.php'
@@ -50,6 +73,7 @@ parameters:
         - '*/tests/CarbonImmutable/LastErrorTest.php'
         - '*/tests/Laravel/*.php'
         - '*/tests/Cli/*.php'
+        - '*/tests/Carbon/Fixtures/NoLocaleTranslator.php'
         - '*/tests/CarbonPeriod/Fixtures/filters.php'
         - '*/tests/Fixtures/dynamicInterval.php'
         - '*/tests/PHPStan/*.php'

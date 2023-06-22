@@ -22,6 +22,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['tuminku', 'lunis', 'martis', 'miyirkulis', 'juywis', 'wiyirnis', 'sawatu'],
     'weekdays_short' => ['tum', 'lun', 'mar', 'miy', 'juy', 'wiy', 'saw'],
     'weekdays_min' => ['tum', 'lun', 'mar', 'miy', 'juy', 'wiy', 'saw'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'minute' => ':count uchuy', // less reliable

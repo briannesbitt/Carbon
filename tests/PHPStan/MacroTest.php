@@ -109,12 +109,12 @@ class MacroTest extends AbstractTestCase
              */
             function () {
                 return 'foo';
-            }
+            },
         );
 
         $this->assertSame(
             "/**\n* Foo.\n*/",
-            preg_replace('/^[\t ]+/m', '', $macro->getDocComment())
+            preg_replace('/^[\t ]+/m', '', $macro->getDocComment()),
         );
     }
 
@@ -189,7 +189,7 @@ class MacroTest extends AbstractTestCase
              * @deprecated since 3.0.0
              */
             function () {
-            }
+            },
         );
 
         $this->assertTrue($macro->isDeprecated()->yes());
@@ -201,7 +201,7 @@ class MacroTest extends AbstractTestCase
              * @discouraged since 3.0.0
              */
             function () {
-            }
+            },
         );
 
         $this->assertFalse($macro->isDeprecated()->yes());
@@ -238,7 +238,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             (new ReflectionClass($mixinClass))->getName(),
-            $macro->getReflection()->getDeclaringClass()->getName()
+            $macro->getReflection()->getDeclaringClass()->getName(),
         );
         $this->assertSame('foo', $macro->getReflection()->getName());
         $this->assertNull($macro->getTentativeReturnType());

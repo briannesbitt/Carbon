@@ -207,12 +207,12 @@ class ComparisonTest extends AbstractTestCase
         $july2 = new DatePeriod(
             new DateTimeImmutable('2019-07-29'),
             new DateInterval('P1D'),
-            new DateTimeImmutable('2019-07-31')
+            new DateTimeImmutable('2019-07-31'),
         );
         $august2 = new DatePeriod(
             new DateTimeImmutable('2019-08-01'),
             new DateInterval('P1D'),
-            new DateTimeImmutable('2019-08-12')
+            new DateTimeImmutable('2019-08-12'),
         );
 
         $this->assertFalse($july->follows($august2));

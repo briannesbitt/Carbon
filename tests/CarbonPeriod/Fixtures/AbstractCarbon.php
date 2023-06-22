@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod\Fixtures;
 
 use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
 use DateTime;
 use ReturnTypeWillChange;
 
@@ -24,21 +25,27 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
         parent::__construct($time, $tz);
     }
 
-    public static function __set_state($dump): self
+    public static function __set_state($dump): static
     {
         return new static($dump);
     }
 
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, $overflow = null)
+    public function add($unit, $value = 1, ?bool $overflow = null): static
     {
         return parent::add($unit);
     }
 
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, $overflow = null)
+    public function sub($unit, $value = 1, ?bool $overflow = null): static
     {
         return parent::sub($unit);
+    }
+
+    #[ReturnTypeWillChange]
+    public function diff($date = null, $absolute = false): CarbonInterval
+    {
+        return CarbonInterval::instance(parent::diff($date, $absolute));
     }
 
     #[ReturnTypeWillChange]

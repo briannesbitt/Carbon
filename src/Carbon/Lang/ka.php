@@ -49,7 +49,7 @@ return [
     'second' => ':count წამი',
     's' => ':count წამი',
     'a_second' => '{1}რამდენიმე წამი|]1,Inf[:count წამი',
-    'ago' => function ($time) {
+    'ago' => static function ($time) {
         $replacements = [
             // year
             'წელი' => 'წლის',
@@ -71,7 +71,7 @@ return [
 
         return "$time წინ";
     },
-    'from_now' => function ($time) {
+    'from_now' => static function ($time) {
         $replacements = [
             // year
             'წელი' => 'წელიწადში',
@@ -93,7 +93,7 @@ return [
 
         return $time;
     },
-    'after' => function ($time) {
+    'after' => static function ($time) {
         $replacements = [
             // year
             'წელი' => 'წლის',
@@ -115,7 +115,7 @@ return [
 
         return "$time შემდეგ";
     },
-    'before' => function ($time) {
+    'before' => static function ($time) {
         $replacements = [
             // year
             'წელი' => 'წლით',
@@ -152,14 +152,14 @@ return [
     'calendar' => [
         'sameDay' => '[დღეს], LT[-ზე]',
         'nextDay' => '[ხვალ], LT[-ზე]',
-        'nextWeek' => function (CarbonInterface $current, CarbonInterface $other) {
+        'nextWeek' => static function (CarbonInterface $current, \Carbon\CarbonInterface $other) {
             return ($current->isSameWeek($other) ? '' : '[შემდეგ] ').'dddd, LT[-ზე]';
         },
         'lastDay' => '[გუშინ], LT[-ზე]',
         'lastWeek' => '[წინა] dddd, LT-ზე',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         if ($number === 0) {
             return $number;
         }
@@ -184,7 +184,7 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' და '],
-    'meridiem' => function ($hour) {
+    'meridiem' => static function ($hour) {
         if ($hour >= 4) {
             if ($hour < 11) {
                 return 'დილის';

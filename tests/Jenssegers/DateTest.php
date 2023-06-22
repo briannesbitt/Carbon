@@ -33,7 +33,7 @@ class DateTest extends TestCaseBase
 
     public function testConstructTimestamp()
     {
-        $date = new Carbon(1367186296);
+        $date = new Carbon('@1367186296');
         $this->assertSame(1367186296, $date->getTimestamp());
     }
 
@@ -67,7 +67,7 @@ class DateTest extends TestCaseBase
 
     public function testFormat()
     {
-        $date = new Carbon(1367186296);
+        $date = new Carbon('@1367186296');
         $this->assertSame('Sunday 28 April 2013 21:58:16', $date->format('l j F Y H:i:s'));
     }
 
@@ -171,10 +171,10 @@ class DateTest extends TestCaseBase
 
     public function testTimespan()
     {
-        $date = new Carbon(1403619368);
+        $date = new Carbon('@1403619368');
         $date = $date->sub('-100 days -3 hours -20 minutes');
 
-        $this->assertSame('3 months, 1 week, 1 day, 3 hours, 20 minutes', $date->timespan(1403619368));
+        $this->assertSame('3 months, 1 week, 1 day, 3 hours, 20 minutes', $date->timespan('@1403619368'));
     }
 
     public function testTranslateTimeString()

@@ -103,8 +103,7 @@ trait Test
 
         if (!$useDateInstanceTimezone) {
             $now = static::getMockedTestNow(\func_num_args() === 1 ? null : $tz);
-            $tzName = $now ? $now->tzName : null;
-            self::setDefaultTimezone($tzName ?? self::$testDefaultTimezone ?? 'UTC', $now);
+            self::setDefaultTimezone($now?->tzName ?? self::$testDefaultTimezone ?? 'UTC', $now);
         }
 
         if (!$testNow) {
@@ -177,7 +176,7 @@ trait Test
             $realNow = new DateTimeImmutable('now');
             $testNow = $testNow(static::parse(
                 $realNow->format('Y-m-d H:i:s.u'),
-                $tz ?: $realNow->getTimezone()
+                $tz ?: $realNow->getTimezone(),
             ));
         }
         /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
@@ -207,7 +206,7 @@ trait Test
         $success = false;
 
         try {
-            $success = date_default_timezone_set($timezone);
+            $success = date_default_timezone_set($timezone ?? 'UTC');
         } catch (Throwable $exception) {
             $previous = $exception;
         }

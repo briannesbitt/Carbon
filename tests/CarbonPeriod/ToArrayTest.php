@@ -61,7 +61,7 @@ class ToArrayTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
-            $this->standardizeDates($result)
+            $this->standardizeDates($result),
         );
     }
 
@@ -96,7 +96,8 @@ class ToArrayTest extends AbstractTestCase
             break;
         }
 
-        $this->assertInstanceOfCarbon($date ?? null);
+        $date ??= null;
+        $this->assertInstanceOfCarbon($date);
         $this->assertSame(Carbon::now()->format('Y-m-d H:i:s'), $date->format('Y-m-d H:i:s'));
 
         $period = new $periodClass(INF);
@@ -221,7 +222,7 @@ class ToArrayTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
-            $this->standardizeDates($period->toArray())
+            $this->standardizeDates($period->toArray()),
         );
 
         $this->assertSame(1, $period->key());
@@ -254,7 +255,7 @@ class ToArrayTest extends AbstractTestCase
 
         $expected = [
             'dateClass' => Carbon::class,
-            'dateInterval' => CarbonInterval::hour(),
+            'dateInterval' => CarbonInterval::hour()->optimize(),
             'filters' => [
                 [
                     $periodClass::RECURRENCES_FILTER,
@@ -264,7 +265,9 @@ class ToArrayTest extends AbstractTestCase
             'startDate' => Carbon::parse('2018-05-13 12:00 Asia/Kabul'),
             'recurrences' => 3,
         ];
+        $actual = $period->__debugInfo();
+        $actual['dateInterval']->optimize();
 
-        $this->assertEquals($expected, $period->__debugInfo());
+        $this->assertEquals($expected, $actual);
     }
 }

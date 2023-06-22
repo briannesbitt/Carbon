@@ -14,6 +14,7 @@
  * - ubuntu Myanmar LoCo Team https://ubuntu-mm.net Bone Pyae Sone bone.burma@mail.com
  */
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
     'formats' => [
         'L' => 'OY MMM OD dddd',
     ],
