@@ -74,7 +74,7 @@ foreach ($tags as $tag) {
 
             $files = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($directory),
-                RecursiveIteratorIterator::LEAVES_ONLY
+                RecursiveIteratorIterator::LEAVES_ONLY,
             );
 
             foreach ($files as $name => $file) {

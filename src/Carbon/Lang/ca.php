@@ -72,24 +72,24 @@ return [
         'LLLL' => 'dddd D MMMM [de] YYYY [a les] H:mm',
     ],
     'calendar' => [
-        'sameDay' => function (CarbonInterface $current) {
+        'sameDay' => static function (CarbonInterface $current) {
             return '[avui a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'nextDay' => function (CarbonInterface $current) {
+        'nextDay' => static function (CarbonInterface $current) {
             return '[demà a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'nextWeek' => function (CarbonInterface $current) {
+        'nextWeek' => static function (CarbonInterface $current) {
             return 'dddd [a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'lastDay' => function (CarbonInterface $current) {
+        'lastDay' => static function (CarbonInterface $current) {
             return '[ahir a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
-        'lastWeek' => function (CarbonInterface $current) {
+        'lastWeek' => static function (CarbonInterface $current) {
             return '[el] dddd [passat a '.($current->hour !== 1 ? 'les' : 'la').'] LT';
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => static function ($number, $period) {
         return $number.(
             ($period === 'w' || $period === 'W') ? 'a' : (
                 ($number === 1) ? 'r' : (

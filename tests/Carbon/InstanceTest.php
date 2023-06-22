@@ -131,7 +131,7 @@ class InstanceTest extends AbstractTestCase
     public function testInvalidCast()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'DateTimeZone has not the instance() method needed to cast the date.'
+            'DateTimeZone has not the instance() method needed to cast the date.',
         ));
 
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonInterval;
 
 use BadMethodCallException;
+use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
@@ -180,10 +181,24 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(0, $ci->invert);
     }
 
+    public function testAbsolute()
+    {
+        $ci = CarbonInterval::day();
+
+        $this->assertSame($ci, $ci->absolute());
+        $this->assertSame(1.0, $ci->totalDays);
+
+        $this->assertSame(1.0, $ci->invert()->absolute()->totalDays);
+        $this->assertSame(-1.0, $ci->invert()->absolute(false)->totalDays);
+
+        $this->assertSame(1.0, $ci->invert()->abs(true)->totalDays);
+        $this->assertSame(-1.0, $ci->invert()->abs(false)->totalDays);
+    }
+
     public function testInvalidSetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown setter \'doesNotExit\''
+            'Unknown setter \'doesNotExit\'',
         ));
 
         /** @var mixed $ci */
@@ -194,7 +209,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidFluentSetter()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Unknown fluent setter \'doesNotExit\''
+            'Unknown fluent setter \'doesNotExit\'',
         ));
 
         /** @var mixed $ci */
@@ -205,7 +220,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidStaticFluentSetter()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Unknown fluent constructor \'doesNotExit\''
+            'Unknown fluent constructor \'doesNotExit\'',
         ));
 
         CarbonInterval::doesNotExit(123);
@@ -219,10 +234,38 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('de', $interval->locale);
     }
 
-    public function testTimezone()
+    public function testShiftTimezone()
     {
         $interval = CarbonInterval::hour()->shiftTimezone('America/Toronto');
 
         $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::diff(
+            Carbon::parse('2020-02-02 20:20 Asia/Tokyo'),
+            Carbon::parse('2020-02-03 22:22 Europe/Madrid'),
+        )->shiftTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+        $this->assertSame('2020-02-02 20:20 America/Toronto', $interval->start()->format('Y-m-d H:i e'));
+        $this->assertSame('2020-02-03 22:22 America/Toronto', $interval->end()->format('Y-m-d H:i e'));
+    }
+
+    public function testSetTimezone()
+    {
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::hour()->setTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::diff(
+            Carbon::parse('2020-02-02 20:20 Asia/Tokyo'),
+            Carbon::parse('2020-02-03 22:22 Europe/Madrid'),
+        )->setTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+        $this->assertSame('2020-02-02 06:20 America/Toronto', $interval->start()->format('Y-m-d H:i e'));
+        $this->assertSame('2020-02-03 16:22 America/Toronto', $interval->end()->format('Y-m-d H:i e'));
     }
 }

@@ -10,6 +10,7 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
     'weekdays' => ['Dimingu', 'Chiposi', 'Chipiri', 'Chitatu', 'Chinai', 'Chishanu', 'Sabudu'],
     'weekdays_short' => ['Dim', 'Pos', 'Pir', 'Tat', 'Nai', 'Sha', 'Sab'],
     'weekdays_min' => ['Dim', 'Pos', 'Pir', 'Tat', 'Nai', 'Sha', 'Sab'],

@@ -15,7 +15,6 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
 use Generator;
@@ -23,23 +22,16 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
-use Symfony\Component\Translation\TranslatorInterface;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
+use Tests\Carbon\Fixtures\NoLocaleTranslator;
 
 /**
  * @group localization
  */
 class LocalizationTest extends AbstractTestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Carbon::setLocale('en');
-    }
-
     public function testGetTranslator()
     {
         /** @var Translator $t */
@@ -172,8 +164,6 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocale
      * @see \Tests\Carbon\LocalizationTest::testSetTranslator
-     *
-     * @return \Generator
      */
     public static function dataForLocales(): Generator
     {
@@ -317,10 +307,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::dataForLocales
-     *
-     * @param string $locale
      */
-    public function testSetLocale($locale)
+    public function testSetLocale(string $locale)
     {
         $this->assertTrue(Carbon::setLocale($locale));
         $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
@@ -328,10 +316,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::dataForLocales
-     *
-     * @param string $locale
      */
-    public function testSetTranslator($locale)
+    public function testSetTranslator(string $locale)
     {
         $ori = Carbon::getTranslator();
         $t = new Translator($locale);
@@ -353,8 +339,6 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
-     *
-     * @return \Generator
      */
     public static function dataForTestSetLocaleWithMalformedLocale(): Generator
     {
@@ -370,10 +354,8 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\LocalizationTest::dataForTestSetLocaleWithMalformedLocale
-     *
-     * @param string $malformedLocale
      */
-    public function testSetLocaleWithMalformedLocale($malformedLocale)
+    public function testSetLocaleWithMalformedLocale(string $malformedLocale)
     {
         $this->assertTrue(Carbon::setLocale($malformedLocale));
     }
@@ -696,28 +678,6 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 
-    public function testNotLocaleAwareException()
-    {
-        if (method_exists(TranslatorInterface::class, 'getLocale')) {
-            $this->markTestSkipped('In Symfony < 5, NotLocaleAwareException will never been thrown.');
-        }
-
-        $translator = new class() implements TranslatorInterface {
-            public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
-            {
-                return 'x';
-            }
-        };
-
-        Carbon::setTranslator($translator);
-
-        $this->expectExceptionObject(new NotLocaleAwareException(
-            $translator
-        ));
-
-        Carbon::now()->locale();
-    }
-
     public function testGetAvailableLocalesInfo()
     {
         $infos = Carbon::getAvailableLocalesInfo();
@@ -760,19 +720,29 @@ class LocalizationTest extends AbstractTestCase
     public function testTranslationCustomWithCustomTranslator()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
+            'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface. '.
-            'Symfony\Component\Translation\IdentityTranslator has been given.'
+            'Symfony\Component\Translation\IdentityTranslator has been given.',
         ));
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
-        $date->setLocalTranslator(
-            class_exists(MessageSelector::class)
-                ? new IdentityTranslator(new MessageSelector())
-                : new IdentityTranslator()
-        );
+        $date->setLocalTranslator(new IdentityTranslator());
 
         $date->getTranslationMessage('foo');
+    }
+
+    public function testNoLocaleTranslator()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Tests\Carbon\Fixtures\NoLocaleTranslator does neither implements '.
+            'Symfony\Contracts\Translation\LocaleAwareInterface nor getLocale() method.',
+        );
+
+        $date = Carbon::create(2018, 1, 1, 0, 0, 0);
+        $date->setLocalTranslator(new NoLocaleTranslator());
+
+        $date->locale;
     }
 
     public function testTranslateTimeStringTo()
@@ -876,7 +846,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->assertSame(
             '29 февраля 2020 г., 12:24',
-            Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL')
+            Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL'),
         );
     }
 
@@ -884,12 +854,12 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->assertSame(
             'година',
-            CarbonInterval::hour()->locale('uk')->forHumans(['aUnit' => true])
+            CarbonInterval::hour()->locale('uk')->forHumans(['aUnit' => true]),
         );
 
         $this->assertSame(
             'годину тому',
-            Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true])
+            Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true]),
         );
     }
 
@@ -897,22 +867,22 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->assertSame(
             'Jänner',
-            Carbon::parse('2020-01-15')->locale('de_AT')->monthName
+            Carbon::parse('2020-01-15')->locale('de_AT')->monthName,
         );
 
         $this->assertSame(
             'Januar',
-            Carbon::parse('2020-01-15')->locale('de')->monthName
+            Carbon::parse('2020-01-15')->locale('de')->monthName,
         );
 
         $this->assertSame(
             'Februar',
-            Carbon::parse('2020-02-15')->locale('de_AT')->monthName
+            Carbon::parse('2020-02-15')->locale('de_AT')->monthName,
         );
 
         $this->assertSame(
             'Februar',
-            Carbon::parse('2020-02-15')->locale('de')->monthName
+            Carbon::parse('2020-02-15')->locale('de')->monthName,
         );
     }
 

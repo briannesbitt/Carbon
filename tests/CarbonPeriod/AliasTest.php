@@ -27,8 +27,13 @@ class AliasTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = $periodClass::start($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
-        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
+        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
 
         $period = $period->since($date = '2014-10-12 15:42:34', true);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
@@ -39,29 +44,37 @@ class AliasTest extends AbstractTestCase
         $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testSetStartDateWithNamedParameters()
     {
         $periodClass = $this->periodClass;
         $date = '2017-09-13 12:30:45';
-        $period = eval('return \\'.$periodClass.'::start(date: $date, inclusive: false);');
+        $period = $periodClass::start(date: $date, inclusive: false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
         $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
 
-        $period = eval('return \\'.$periodClass.'::start(date: $date);');
+        /** @var CarbonPeriod $period */
+        $period = $periodClass::start(date: $date);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertEquals(Carbon::parse($date), $period->start);
+        $this->assertEquals(Carbon::parse($date), $period->start());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->start);
+        }
+
         $this->assertEmpty($period->getOptions());
 
         $date = '2014-10-12 15:42:34';
-        $period = eval('return $period->since(date: $date, inclusive: true);');
+        $period->since(date: $date, inclusive: true);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
         $this->assertEmpty($period->getOptions());
 
-        $period = eval('return $period->sinceNow(inclusive: false);');
+        $period->sinceNow(inclusive: false);
         $this->assertEquals(Carbon::now(), $period->getStartDate());
         $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
 
@@ -75,8 +88,13 @@ class AliasTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = $periodClass::end($date = '2017-09-13 12:30:45', false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertEquals(Carbon::parse($date), $period->end);
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertEquals(Carbon::parse($date), $period->end());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->end);
+        }
+
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $period = $period->until($date = '2014-10-12 15:42:34', true);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
@@ -86,28 +104,31 @@ class AliasTest extends AbstractTestCase
         $this->assertEquals(Carbon::now(), $period->getEndDate());
         $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
 
-        $period = $period->end();
+        $period->end(null);
         $this->assertNull($period->getEndDate());
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testSetEndDateWithNamedParameters()
     {
         $periodClass = $this->periodClass;
         $date = '2017-09-13 12:30:45';
-        $period = eval('return \\'.$periodClass.'::end(date: $date, inclusive: false);');
+        /** @var CarbonPeriod $period */
+        $period = $periodClass::end(date: $date, inclusive: false);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertEquals(Carbon::parse($date), $period->end);
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertEquals(Carbon::parse($date), $period->end());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(Carbon::parse($date), $period->end);
+        }
+
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $date = '2014-10-12 15:42:34';
-        $period = eval('return $period->until(date: $date, inclusive: true);');
+        $period->until(date: $date, inclusive: true);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
         $this->assertEmpty($period->getOptions());
 
-        $period = eval('return $period->untilNow(inclusive: false);');
+        $period->untilNow(inclusive: false);
         $this->assertEquals(Carbon::now(), $period->getEndDate());
         $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
     }
@@ -121,6 +142,7 @@ class AliasTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = $periodClass::filter($filter, 'foo');
         $this->assertSame([[$filter, 'foo']], $period->getFilters());
+        $this->assertSame([[$filter, 'foo']], $period->filters());
 
         $period = $period->push($filter, 'bar');
         $this->assertSame([[$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
@@ -128,7 +150,7 @@ class AliasTest extends AbstractTestCase
         $period = $period->prepend($filter, 'pre');
         $this->assertSame([[$filter, 'pre'], [$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
 
-        $period = $period->filters();
+        $period = $period->filters([]);
         $this->assertEmpty($period->getFilters());
 
         $period = $period->filters($filters = [[$filter, null]]);
@@ -140,12 +162,16 @@ class AliasTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = $periodClass::recurrences(5);
         $this->assertSame(5, $period->getRecurrences());
-        $this->assertSame(5, $period->recurrences);
+        $this->assertSame(5, $period->recurrences());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertSame(5, $period->recurrences);
+        }
 
         $period = $period->times(3);
         $this->assertSame(3, $period->getRecurrences());
 
-        $period = $period->recurrences();
+        $period->recurrences(null);
         $this->assertNull($period->getRecurrences());
     }
 
@@ -163,8 +189,9 @@ class AliasTest extends AbstractTestCase
 
         $period = $period->toggle($end, false);
         $this->assertSame($start, $period->getOptions());
+        $this->assertSame($start, $period->options());
 
-        $period = $period->options();
+        $period = $period->options(null);
         $this->assertEmpty($period->getOptions());
     }
 
@@ -184,15 +211,19 @@ class AliasTest extends AbstractTestCase
     {
         $periodClass = $this->periodClass;
         $period = $periodClass::interval('PT6H');
-        $this->assertEquals(CarbonInterval::create('PT6H'), $period->getDateInterval());
-        $this->assertEquals(CarbonInterval::create('PT6H'), $period->interval);
+        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->getDateInterval()->optimize());
+        $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval()->optimize());
+
+        if (PHP_VERSION < 8.2) {
+            $this->assertEquals(CarbonInterval::create('PT6H')->optimize(), $period->interval->optimize());
+        }
     }
 
     public function testInvertInterval()
     {
         $periodClass = $this->periodClass;
         $period = $periodClass::invert();
-        $this->assertEquals(CarbonInterval::create('P1D')->invert(), $period->getDateInterval());
+        $this->assertEquals(CarbonInterval::create('P1D')->invert()->optimize(), $period->getDateInterval()->optimize());
     }
 
     public function testModifyIntervalPlural()
@@ -234,14 +265,14 @@ class AliasTest extends AbstractTestCase
             $this->standardizeDates([
                 Carbon::now()->subDays(3)->subHours(5), Carbon::now()->subDays(6)->subHours(10),
             ]),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
     public function testCallInvalidAlias()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method foobar does not exist.'
+            'Method foobar does not exist.',
         ));
 
         $periodClass = $this->periodClass;
@@ -264,60 +295,57 @@ class AliasTest extends AbstractTestCase
     public function testModifyIntoEmptyDateInterval()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Empty interval is not accepted.'
+            'Empty interval is not accepted.',
         ));
 
         $periodClass = $this->periodClass;
         $periodClass::days(0);
     }
 
-    /**
-     * @requires PHP >= 8.0
-     */
     public function testNamedParameters()
     {
         $periodClass = $this->periodClass;
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12');");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12');
         $this->assertEquals('2022-09-13', $period->getStartDate()->format('Y-m-d'));
         $this->assertEquals('2022-10-12', $period->getEndDate()->format('Y-m-d'));
 
-        $period = eval('return $period->years(years: 5);');
+        $period->years(years: 5);
         $this->assertEquals('5 years', (string) $period->getDateInterval());
 
-        $period = eval('return $period->interval(interval: \Carbon\CarbonInterval::year(years: 3));');
+        $period->interval(interval: CarbonInterval::year(years: 3));
         $this->assertEquals('3 years', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')->months(months: 5);");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->months(months: 5);
         $this->assertEquals('5 months', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')->weeks(weeks: 5);");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->weeks(weeks: 5);
         $this->assertEquals('5 weeks', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')->days(days: 5);");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->days(days: 5);
         $this->assertEquals('5 days', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')->hours(hours: 5);");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->hours(hours: 5);
         $this->assertEquals('5 hours', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')->minutes(minutes: 5);");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->minutes(minutes: 5);
         $this->assertEquals('5 minutes', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')->seconds(seconds: 5);");
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->seconds(seconds: 5);
         $this->assertEquals('5 seconds', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')
             ->days(days: 5)
-            ->floorDays(precision: 2);");
+            ->floorDays(precision: 2);
         $this->assertEquals('4 days', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')
             ->days(days: 5)
-            ->roundDays(precision: 7);");
+            ->roundDays(precision: 7);
         $this->assertEquals('1 week', (string) $period->getDateInterval());
 
-        $period = eval("return \\$periodClass::between(start: '2022-09-13', end: '2022-10-12')
+        $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')
             ->days(days: 5)
-            ->ceilDays(precision: 2);");
+            ->ceilDays(precision: 2);
         $this->assertEquals('6 days', (string) $period->getDateInterval());
     }
 }

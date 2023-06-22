@@ -76,7 +76,7 @@ class TranslatorTest extends AbstractTestCase
         $exception = new NotLocaleAwareException('foobar');
         $this->assertSame(
             'string does neither implements Symfony\Contracts\Translation\LocaleAwareInterface nor getLocale() method.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 

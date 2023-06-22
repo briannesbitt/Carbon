@@ -19,10 +19,10 @@ class TranslationKaTest extends TestCaseBase
 
     public function testTimespanTranslated()
     {
-        $date = new JenssegersDate(1403619368);
+        $date = new JenssegersDate('@1403619368');
         $date = $date->sub('-100 days -3 hours -20 minutes');
 
-        $this->assertSame('3 თვე, 1 კვირა, 1 დღე, 3 საათი, 20 წუთი', $date->timespan(1403619368));
+        $this->assertSame('3 თვე, 1 კვირა, 1 დღე, 3 საათი, 20 წუთი', $date->timespan('@1403619368'));
     }
 
     public function testCreateFromFormat()

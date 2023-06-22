@@ -66,36 +66,21 @@ return [
     'calendar' => [
         'sameDay' => '[данас у] LT',
         'nextDay' => '[сутра у] LT',
-        'nextWeek' => function (CarbonInterface $date) {
-            switch ($date->dayOfWeek) {
-                case 0:
-                    return '[у недељу у] LT';
-                case 3:
-                    return '[у среду у] LT';
-                case 6:
-                    return '[у суботу у] LT';
-                default:
-                    return '[у] dddd [у] LT';
-            }
+        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[у недељу у] LT',
+            3 => '[у среду у] LT',
+            6 => '[у суботу у] LT',
+            default => '[у] dddd [у] LT',
         },
         'lastDay' => '[јуче у] LT',
-        'lastWeek' => function (CarbonInterface $date) {
-            switch ($date->dayOfWeek) {
-                case 0:
-                    return '[прошле недеље у] LT';
-                case 1:
-                    return '[прошлог понедељка у] LT';
-                case 2:
-                    return '[прошлог уторка у] LT';
-                case 3:
-                    return '[прошле среде у] LT';
-                case 4:
-                    return '[прошлог четвртка у] LT';
-                case 5:
-                    return '[прошлог петка у] LT';
-                default:
-                    return '[прошле суботе у] LT';
-            }
+        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
+            0 => '[прошле недеље у] LT',
+            1 => '[прошлог понедељка у] LT',
+            2 => '[прошлог уторка у] LT',
+            3 => '[прошле среде у] LT',
+            4 => '[прошлог четвртка у] LT',
+            5 => '[прошлог петка у] LT',
+            default => '[прошле суботе у] LT',
         },
         'sameElse' => 'L',
     ],

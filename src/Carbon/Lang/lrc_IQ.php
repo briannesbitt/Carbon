@@ -9,5 +9,4 @@
  * file that was distributed with this source code.
  */
 
-return array_replace_recursive(require __DIR__.'/lrc.php', [
-]);
+return require __DIR__.'/lrc.php';

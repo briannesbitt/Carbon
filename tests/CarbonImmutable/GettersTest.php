@@ -22,7 +22,7 @@ class GettersTest extends AbstractTestCase
     public function testGettersThrowExceptionOnUnknownGetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Unknown getter 'doesNotExit'"
+            "Unknown getter 'doesNotExit'",
         ));
 
         /** @var mixed $d */

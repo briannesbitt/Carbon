@@ -10,6 +10,7 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
     'meridiem' => ['Tesiran', 'Teipa'],
     'weekdays' => ['Mderot ee are', 'Mderot ee kuni', 'Mderot ee ong’wan', 'Mderot ee inet', 'Mderot ee ile', 'Mderot ee sapa', 'Mderot ee kwe'],
     'weekdays_short' => ['Are', 'Kun', 'Ong', 'Ine', 'Ile', 'Sap', 'Kwe'],

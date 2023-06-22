@@ -125,7 +125,7 @@ class SettersTest extends AbstractTestCase
     public function testSetDateClassInvalidArgumentException()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval'
+            'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval',
         ));
 
         $periodClass = $this->periodClass;
@@ -137,7 +137,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidInterval()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid interval.'
+            'Invalid interval.',
         ));
 
         $periodClass = $this->periodClass;
@@ -147,47 +147,27 @@ class SettersTest extends AbstractTestCase
     public function testEmptyInterval()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Empty interval is not accepted.'
+            'Empty interval is not accepted.',
         ));
 
         $periodClass = $this->periodClass;
         $periodClass::create()->setDateInterval(new DateInterval('P0D'));
     }
 
-    public function testInvalidNumberOfRecurrencesString()
-    {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid number of recurrences.'
-        ));
-
-        $periodClass = $this->periodClass;
-        $periodClass::create()->setRecurrences('foo');
-    }
-
     public function testInvalidNegativeNumberOfRecurrences()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid number of recurrences.'
+            'Invalid number of recurrences.',
         ));
 
         $periodClass = $this->periodClass;
         $periodClass::create()->setRecurrences(-4);
     }
 
-    public function testInvalidOptions()
-    {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid options.'
-        ));
-
-        $periodClass = $this->periodClass;
-        $periodClass::create()->setOptions('1');
-    }
-
     public function testInvalidConstructorParameters()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid constructor parameters.'
+            'Invalid constructor parameters.',
         ));
 
         $periodClass = $this->periodClass;
@@ -197,7 +177,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidStartDate()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid start date.'
+            'Invalid start date.',
         ));
 
         $periodClass = $this->periodClass;
@@ -207,7 +187,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidEndDate()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Invalid end date.'
+            'Invalid end date.',
         ));
 
         $periodClass = $this->periodClass;
@@ -459,7 +439,7 @@ class SettersTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-03-25 00:00 America/Toronto',
             'PT1H',
-            '2018-03-25 12:00 Europe/London'
+            '2018-03-25 12:00 Europe/London',
         )->setTimezone('Europe/Oslo');
 
         $this->assertSame('2018-03-25 06:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
@@ -468,7 +448,7 @@ class SettersTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-03-25 00:00 America/Toronto',
             'PT1H',
-            5
+            5,
         )->setTimezone('Europe/Oslo');
 
         $this->assertSame('2018-03-25 06:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
@@ -482,7 +462,7 @@ class SettersTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-03-25 00:00 America/Toronto',
             'PT1H',
-            '2018-03-25 12:00 Europe/London'
+            '2018-03-25 12:00 Europe/London',
         )->shiftTimezone('Europe/Oslo');
 
         $this->assertSame('2018-03-25 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));
@@ -491,7 +471,7 @@ class SettersTest extends AbstractTestCase
         $period = $periodClass::create(
             '2018-03-26 00:00 America/Toronto',
             'PT1H',
-            5
+            5,
         )->shiftTimezone('Europe/Oslo');
 
         $this->assertSame('2018-03-26 00:00 Europe/Oslo', $period->getStartDate()->format('Y-m-d H:i e'));

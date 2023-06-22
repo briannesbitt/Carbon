@@ -69,7 +69,7 @@ return [
     'diff_after_tomorrow' => 'overmorgen',
     'diff_before_yesterday' => 'eergisteren',
     'period_recurrences' => ':count keer',
-    'period_interval' => function (string $interval = '') {
+    'period_interval' => static function (string $interval = '') {
         /** @var string $output */
         $output = preg_replace('/^(een|één|1)\s+/u', '', $interval);
 
@@ -97,7 +97,7 @@ return [
         'lastWeek' => '[afgelopen] dddd [om] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
     },
     'months' => ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],

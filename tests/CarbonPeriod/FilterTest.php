@@ -49,7 +49,7 @@ class FilterTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = new $periodClass(
             $start = new DateTime('2018-04-16'),
-            $end = new DateTime('2018-07-15')
+            $end = new DateTime('2018-07-15'),
         );
 
         $period->setRecurrences($recurrences = 3);
@@ -69,7 +69,7 @@ class FilterTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = new $periodClass(
             $start = new DateTime('2018-04-16'),
-            $end = new DateTime('2018-07-15')
+            $end = new DateTime('2018-07-15'),
         );
 
         $period->addFilter($this->dummyFilter())
@@ -152,7 +152,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-18', '2018-04-26', '2018-04-30', '2018-05-04']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -165,7 +165,7 @@ class FilterTest extends AbstractTestCase
         $period = new $periodClass(
             new DateTime('2017-04-16'),
             new DateInterval('P5M'),
-            new DateTime('2019-07-15')
+            new DateTime('2019-07-15'),
         );
 
         $period->addFilter(function ($date) {
@@ -174,7 +174,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-02-16', '2018-07-16', '2018-12-16']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -187,7 +187,7 @@ class FilterTest extends AbstractTestCase
         $period = new $periodClass(
             new DateTime('2018-04-16'),
             new DateInterval('P3D'),
-            new DateTime('2018-07-15')
+            new DateTime('2018-07-15'),
         );
 
         $period->addFilter(function ($date) use ($periodClass) {
@@ -196,7 +196,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-19', '2018-04-22', '2018-04-25', '2018-04-28']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -205,28 +205,28 @@ class FilterTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
-            new DateTime('2018-07-15')
+            new DateTime('2018-07-15'),
         );
 
         $period = $period->setRecurrences(2);
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-17']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
 
         $period = $period->setOptions($periodClass::EXCLUDE_START_DATE);
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-17', '2018-04-18']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
 
         $period = $period->setOptions($periodClass::EXCLUDE_END_DATE);
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-17']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -235,7 +235,7 @@ class FilterTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
-            new DateTime('2018-07-15')
+            new DateTime('2018-07-15'),
         );
 
         $period = $period->setRecurrences(7)
@@ -244,7 +244,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-17', '2018-04-18']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -253,7 +253,7 @@ class FilterTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
-            1
+            1,
         );
 
         $wasCalled = false;
@@ -275,14 +275,14 @@ class FilterTest extends AbstractTestCase
     public function testThrowExceptionWhenNextValidDateCannotBeFound()
     {
         $this->expectExceptionObject(new RuntimeException(
-            'Could not find next valid date.'
+            'Could not find next valid date.',
         ));
 
         $periodClass = $this->periodClass;
         $period = $periodClass::create(
             new Carbon('2000-01-01'),
             new CarbonInterval('PT1S'),
-            new Carbon('2000-12-31')
+            new Carbon('2000-12-31'),
         );
 
         $period = $period->addFilter(function () {
@@ -308,7 +308,7 @@ class FilterTest extends AbstractTestCase
         $periodClass = $this->periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
-            new DateTime('2018-04-20')
+            new DateTime('2018-04-20'),
         );
 
         // Note: Without caching validation results the dates would be unpredictable
@@ -321,7 +321,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-18', '2018-04-20']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -341,7 +341,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -354,7 +354,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-01-31', '2018-02-28', '2018-03-31', '2018-04-30', '2018-05-31']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -374,7 +374,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-01-10', '2018-02-10', '2018-03-10', '2018-04-10', '2018-05-10']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -386,7 +386,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2017-06-02', '2018-06-20']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -398,7 +398,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['1970-01-01', '1970-01-02', '1970-01-03']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 
@@ -458,7 +458,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2017-03-10', '2017-03-12', '2017-03-16', '2017-03-18']),
-            $this->standardizeDates($period)
+            $this->standardizeDates($period),
         );
     }
 }

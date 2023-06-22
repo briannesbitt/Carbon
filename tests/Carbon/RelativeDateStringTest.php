@@ -58,7 +58,7 @@ class RelativeDateStringTest extends AbstractTestCase
             $this->assertSame(
                 $expected['is_relative'],
                 $actual,
-                "Failed relative keyword matching for scenario: {$string} (expected: {$expected['is_relative']})"
+                "Failed relative keyword matching for scenario: {$string} (expected: {$expected['is_relative']})",
             );
         }
     }
@@ -73,7 +73,7 @@ class RelativeDateStringTest extends AbstractTestCase
             $this->assertSame(
                 $expected['date'],
                 $actual,
-                "Failed relative date scenario: {$string}"
+                "Failed relative date scenario: {$string}",
             );
         }
     }

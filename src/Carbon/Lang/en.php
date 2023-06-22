@@ -68,7 +68,7 @@ return [
     'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'weekdays_short' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'weekdays_min' => ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-    'ordinal' => function ($number) {
+    'ordinal' => static function ($number) {
         $lastDigit = $number % 10;
 
         return $number.(
@@ -81,7 +81,15 @@ return [
             )
         );
     },
+    'formats' => [
+        'LT' => 'h:mm A',
+        'LTS' => 'h:mm:ss A',
+        'L' => 'MM/DD/YYYY',
+        'LL' => 'MMMM D, YYYY',
+        'LLL' => 'MMMM D, YYYY h:mm A',
+        'LLLL' => 'dddd, MMMM D, YYYY h:mm A',
+    ],
     'list' => [', ', ' and '],
-    'first_day_of_week' => 0,
+    'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
 ];

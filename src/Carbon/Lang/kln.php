@@ -10,6 +10,7 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
     'meridiem' => ['krn', 'koosk'],
     'weekdays' => ['Kotisap', 'Kotaai', 'Koaeng’', 'Kosomok', 'Koang’wan', 'Komuut', 'Kolo'],
     'weekdays_short' => ['Kts', 'Kot', 'Koo', 'Kos', 'Koa', 'Kom', 'Kol'],

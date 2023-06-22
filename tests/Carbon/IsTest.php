@@ -605,6 +605,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subDay()->isCurrentSecond());
     }
 
+    /** @group php-8.1 */
     public function testIsSameMicrosecond()
     {
         $current = new Carbon('2018-05-06T13:30:54.123456');
@@ -620,7 +621,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isNextMicrosecond());
         $this->assertTrue(Carbon::now()->addMicrosecond()->isNextMicrosecond());
         $this->assertTrue(Carbon::now()->subMicroseconds(Carbon::MICROSECONDS_PER_SECOND)->isLastSecond());
-        $this->assertSame(4, Carbon::now()->subMicroseconds(4 * Carbon::MICROSECONDS_PER_SECOND)->diffInSeconds(Carbon::now()));
+        $this->assertSame(4.0, Carbon::now()->subMicroseconds(4 * Carbon::MICROSECONDS_PER_SECOND)->diffInSeconds(Carbon::now()));
     }
 
     public function testIsDayOfWeek()
@@ -666,7 +667,7 @@ class IsTest extends AbstractTestCase
     public function testIsSameAsWithInvalidArgument()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Expected null, string, DateTime or DateTimeInterface, stdClass given'
+            'Expected null, string, DateTime or DateTimeInterface, stdClass given',
         ));
 
         $current = Carbon::createFromDate(2012, 1, 2);
@@ -886,6 +887,8 @@ class IsTest extends AbstractTestCase
         // @see https://github.com/briannesbitt/Carbon/issues/2180
         $this->assertTrue(Carbon::hasFormat('2020-09-01 12:00:00Europe/Moscow', 'Y-m-d H:i:se'));
 
+        $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
+
         // Format failure
         $this->assertFalse(Carbon::hasFormat(null, 'd m Y'));
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
@@ -973,11 +976,6 @@ class IsTest extends AbstractTestCase
     public function testHasFormatWithSingleLetter($letter)
     {
         $output = Carbon::now()->format($letter);
-
-        if ($output === '1000' && $letter === 'v' && version_compare(PHP_VERSION, '7.2.12', '<')) {
-            $output = '000';
-        }
-
         $this->assertTrue(Carbon::hasFormat($output, $letter), "'$letter' format should match '$output'");
     }
 
@@ -996,7 +994,7 @@ class IsTest extends AbstractTestCase
     public function testIsSameFoobar()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method isSameFoobar does not exist.'
+            'Method isSameFoobar does not exist.',
         ));
 
         /** @var mixed $date */
@@ -1007,7 +1005,7 @@ class IsTest extends AbstractTestCase
     public function testIsCurrentFoobar()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method isCurrentFoobar does not exist.'
+            'Method isCurrentFoobar does not exist.',
         ));
 
         /** @var mixed $date */

@@ -64,9 +64,7 @@ return [
         'lastWeek' => '[Laas] dddd [om] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number) {
-        return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
-    },
+    'ordinal' => static fn ($number) => $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de'),
     'meridiem' => ['VM', 'NM'],
     'months' => ['Januarie', 'Februarie', 'Maart', 'April', 'Mei', 'Junie', 'Julie', 'Augustus', 'September', 'Oktober', 'November', 'Desember'],
     'months_short' => ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],

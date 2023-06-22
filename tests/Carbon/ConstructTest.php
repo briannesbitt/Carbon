@@ -15,6 +15,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use Tests\AbstractTestCase;
 
@@ -25,6 +26,8 @@ class ConstructTest extends AbstractTestCase
         $c = new Carbon();
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
+        $this->assertInstanceOf(DateTime::class, $c);
+        $this->assertInstanceOf(DateTimeInterface::class, $c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
@@ -168,7 +171,7 @@ class ConstructTest extends AbstractTestCase
 
     public function testTimestamp()
     {
-        $date = new Carbon(1367186296);
+        $date = new Carbon('@1367186296');
         $this->assertSame('Sunday 28 April 2013 21:58:16', $date->format('l j F Y H:i:s'));
     }
 }
