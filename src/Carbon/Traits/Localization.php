@@ -19,8 +19,18 @@ use Carbon\Translator;
 use Carbon\TranslatorStrongTypeInterface;
 use Closure;
 use Symfony\Component\Translation\TranslatorBagInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface as ContractsTranslatorInterface;
+
+if (interface_exists('Symfony\\Contracts\\Translation\\TranslatorInterface') &&
+    !interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')
+) {
+    class_alias(
+        'Symfony\\Contracts\\Translation\\TranslatorInterface',
+        'Symfony\\Component\\Translation\\TranslatorInterface'
+    );
+}
 
 /**
  * Trait Localization.
@@ -32,14 +42,14 @@ trait Localization
     /**
      * Default translator.
      *
-     * @var TranslatorInterface
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
 
     /**
      * Specific translator of the current instance.
      *
-     * @var TranslatorInterface|null
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected $localTranslator;
 
@@ -48,7 +58,7 @@ trait Localization
      *
      * @var int
      */
-    protected static $humanDiffOptions = 0;
+    protected static $humanDiffOptions = CarbonInterface::NO_ZERO_DIFF;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -99,7 +109,7 @@ trait Localization
     /**
      * Get the default translator instance in use.
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     public static function getTranslator()
     {
@@ -109,7 +119,7 @@ trait Localization
     /**
      * Set the default translator instance to use.
      *
-     * @param TranslatorInterface $translator
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
      * @return void
      */
@@ -131,7 +141,7 @@ trait Localization
     /**
      * Get the translator of the current instance or the default if none set.
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     public function getLocalTranslator()
     {
@@ -141,7 +151,7 @@ trait Localization
     /**
      * Set the translator for the current instance.
      *
-     * @param TranslatorInterface $translator
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
      * @return $this
      */
@@ -155,19 +165,19 @@ trait Localization
     /**
      * Returns raw translation message for a given key.
      *
-     * @param TranslatorInterface|null $translator the translator to use
-     * @param string                   $key        key to find
-     * @param string|null              $locale     current locale used if null
-     * @param string|null              $default    default value if translation returns the key
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
+     * @param string                                             $key        key to find
+     * @param string|null                                        $locale     current locale used if null
+     * @param string|null                                        $default    default value if translation returns the key
      *
-     * @return string|Closure|null
+     * @return string
      */
     public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)
     {
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
                 'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.
-                (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.',
+                (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.'
             );
         }
 
@@ -183,10 +193,10 @@ trait Localization
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string              $key        key to find
-     * @param string|null         $locale     current locale used if null
-     * @param string|null         $default    default value if translation returns the key
-     * @param TranslatorInterface $translator an optional translator to use
+     * @param string                                             $key        key to find
+     * @param string|null                                        $locale     current locale used if null
+     * @param string|null                                        $default    default value if translation returns the key
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
      *
      * @return string
      */
@@ -198,10 +208,10 @@ trait Localization
     /**
      * Translate using translation string or callback available.
      *
-     * @param TranslatorInterface $translator an optional translator to use
-     * @param string              $key        key to find
-     * @param array               $parameters replacement parameters
-     * @param int|float|null      $number     number if plural
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param string                                             $key
+     * @param array                                              $parameters
+     * @param null                                               $number
      *
      * @return string
      */
@@ -219,17 +229,23 @@ trait Localization
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        return (string) $translator->trans($key, $parameters);
+        // @codeCoverageIgnoreStart
+        $choice = $translator instanceof ContractsTranslatorInterface
+            ? $translator->trans($key, $parameters)
+            : $translator->transChoice($key, $number, $parameters);
+        // @codeCoverageIgnoreEnd
+
+        return (string) $choice;
     }
 
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                   $key        key to find
-     * @param array                    $parameters replacement parameters
-     * @param string|int|float|null    $number     number if plural
-     * @param TranslatorInterface|null $translator an optional translator to use
-     * @param bool                     $altNumbers pass true to use alternative numbers
+     * @param string                                                  $key
+     * @param array                                                   $parameters
+     * @param string|int|float|null                                   $number
+     * @param \Symfony\Component\Translation\TranslatorInterface|null $translator
+     * @param bool                                                    $altNumbers
      *
      * @return string
      */
@@ -310,11 +326,11 @@ trait Localization
      *
      * @return string
      */
-    public static function translateTimeString(string $timeString, string $from = null, string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL): string
+    public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
     {
         // Fallback source and destination locales
         $from = $from ?: static::getLocale();
-        $to = $to ?: CarbonInterface::DEFAULT_LOCALE;
+        $to = $to ?: 'en';
 
         if ($from === $to) {
             return $timeString;
@@ -361,10 +377,10 @@ trait Localization
             }
 
             $$translationKey = array_merge(
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($months, static::MONTHS_PER_YEAR, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'] ?? [], static::MONTHS_PER_YEAR, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, static::DAYS_PER_WEEK, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'] ?? [], static::DAYS_PER_WEEK, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($months, 12, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'] ?? [], 12, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, 7, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'] ?? [], 7, $timeString) : [],
                 $mode & CarbonInterface::TRANSLATE_DIFF ? static::translateWordsByKeys([
                     'diff_now',
                     'diff_today',
@@ -384,11 +400,11 @@ trait Localization
                 ], $messages, $key) : [],
                 $mode & CarbonInterface::TRANSLATE_MERIDIEM ? array_map(function ($hour) use ($meridiem) {
                     if (\is_array($meridiem)) {
-                        return $meridiem[$hour < static::HOURS_PER_DAY / 2 ? 0 : 1];
+                        return $meridiem[$hour < 12 ? 0 : 1];
                     }
 
                     return $meridiem($hour, 0, false);
-                }, range(0, 23)) : [],
+                }, range(0, 23)) : []
             );
         }
 
@@ -413,7 +429,7 @@ trait Localization
      *
      * @return string
      */
-    public function translateTimeStringTo(string $timeString, string $to = null): string
+    public function translateTimeStringTo($timeString, $to = null)
     {
         return static::translateTimeString($timeString, $this->getTranslatorLocale(), $to);
     }
@@ -458,7 +474,7 @@ trait Localization
      *
      * @return string
      */
-    public static function getLocale(): string
+    public static function getLocale()
     {
         return static::getLocaleAwareTranslator()->getLocale();
     }
@@ -471,7 +487,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function setLocale(string $locale): bool
+    public static function setLocale($locale)
     {
         return static::getLocaleAwareTranslator()->setLocale($locale) !== false;
     }
@@ -483,7 +499,7 @@ trait Localization
      *
      * @param string $locale
      */
-    public static function setFallbackLocale(string $locale): void
+    public static function setFallbackLocale($locale)
     {
         $translator = static::getTranslator();
 
@@ -495,7 +511,7 @@ trait Localization
                 $translator->setMessages($preferredLocale, array_replace_recursive(
                     $translator->getMessages()[$locale] ?? [],
                     Translator::get($locale)->getMessages()[$locale] ?? [],
-                    $translator->getMessages($preferredLocale),
+                    $translator->getMessages($preferredLocale)
                 ));
             }
         }
@@ -677,7 +693,7 @@ trait Localization
     /**
      * Initialize the default translator instance if necessary.
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     protected static function translator()
     {
@@ -706,7 +722,7 @@ trait Localization
 
         $translator = static::getLocaleAwareTranslator($translator);
 
-        return $translator?->getLocale();
+        return $translator ? $translator->getLocale() : null;
     }
 
     /**
@@ -738,8 +754,8 @@ trait Localization
     private static function getFromCatalogue($translator, $catalogue, string $id, string $domain = 'messages')
     {
         return $translator instanceof TranslatorStrongTypeInterface
-            ? $translator->getFromCatalogue($catalogue, $id, $domain)
-            : $catalogue->get($id, $domain); // @codeCoverageIgnore
+            ? $translator->getFromCatalogue($catalogue, $id, $domain) // @codeCoverageIgnore
+            : $catalogue->get($id, $domain);
     }
 
     /**

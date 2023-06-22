@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Sande', 'Mande', 'Tunde', 'Trinde', 'Fonde', 'Fraide', 'Sarere'],
     'weekdays_short' => ['San', 'Man', 'Tun', 'Tri', 'Fon', 'Fra', 'Sar'],
     'weekdays_min' => ['San', 'Man', 'Tun', 'Tri', 'Fon', 'Fra', 'Sar'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['biknait', 'apinun'],
 

@@ -22,7 +22,7 @@ class RoundingTest extends AbstractTestCase
     public function testThrowsExceptionForCompositeInterval()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Rounding is only possible with single unit intervals.',
+            'Rounding is only possible with single unit intervals.'
         ));
 
         $periodClass = static::$periodClass;

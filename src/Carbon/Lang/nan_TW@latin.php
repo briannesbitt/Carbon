@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['lé-pài-ji̍t', 'pài-it', 'pài-jī', 'pài-saⁿ', 'pài-sì', 'pài-gō͘', 'pài-la̍k'],
     'weekdays_short' => ['lp', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'],
     'weekdays_min' => ['lp', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['téng-po͘', 'ē-po͘'],
 ]);

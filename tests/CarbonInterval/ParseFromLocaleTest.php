@@ -31,7 +31,7 @@ class ParseFromLocaleTest extends AbstractTestCase
     {
         $result = CarbonInterval::parseFromLocale($string, $locale);
 
-        $this->assertEquals($expected->optimize(), $result->optimize(), "'{$string}' does not return expected interval.");
+        $this->assertEquals($expected, $result, "'{$string}' does not return expected interval.");
     }
 
     public static function dataForValidStrings(): Generator

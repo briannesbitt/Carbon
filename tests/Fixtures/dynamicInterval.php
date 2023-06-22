@@ -17,6 +17,6 @@ return new CarbonInterval(function (DateTimeInterface $date, bool $negated = fal
 
     return new DateTime(
         $date->modify("$sign $days days")
-            ->format('Y-m-d H:i:s'),
+            ->format('Y-m-d H:i:s')
     );
 });

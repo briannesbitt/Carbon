@@ -70,17 +70,29 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
-        'nextWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
-            0 => '[u] [nedjelju] [u] LT',
-            3 => '[u] [srijedu] [u] LT',
-            6 => '[u] [subotu] [u] LT',
-            default => '[u] dddd [u] LT',
+        'nextWeek' => function (CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                    return '[u] [nedjelju] [u] LT';
+                case 3:
+                    return '[u] [srijedu] [u] LT';
+                case 6:
+                    return '[u] [subotu] [u] LT';
+                default:
+                    return '[u] dddd [u] LT';
+            }
         },
         'lastDay' => '[jučer u] LT',
-        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
-            0, 3 => '[prošlu] dddd [u] LT',
-            6 => '[prošle] [subote] [u] LT',
-            default => '[prošli] dddd [u] LT',
+        'lastWeek' => function (CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                case 3:
+                    return '[prošlu] dddd [u] LT';
+                case 6:
+                    return '[prošle] [subote] [u] LT';
+                default:
+                    return '[prošli] dddd [u] LT';
+            }
         },
         'sameElse' => 'L',
     ],

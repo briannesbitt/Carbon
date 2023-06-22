@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['LaMorena', 'Mošupologo', 'Labobedi', 'Laboraro', 'Labone', 'Labohlano', 'Mokibelo'],
     'weekdays_short' => ['Son', 'Moš', 'Bed', 'Rar', 'Ne', 'Hla', 'Mok'],
     'weekdays_min' => ['Son', 'Moš', 'Bed', 'Rar', 'Ne', 'Hla', 'Mok'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'year' => ':count ngwaga',

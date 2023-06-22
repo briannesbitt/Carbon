@@ -88,14 +88,25 @@ return [
     'weekdays' => ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
     'weekdays_short' => ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
     'weekdays_min' => ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'],
-    'ordinal' => static function ($number, $period) {
-        return match ($period) {
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
             // In French, only the first has to be ordinal, other number remains cardinal
             // @link https://fr.wikihow.com/%C3%A9crire-la-date-en-fran%C3%A7ais
-            'D' => $number.($number === 1 ? 'er' : ''),
-            default => $number.($number === 1 ? 'er' : 'e'),
-            'w', 'W' => $number.($number === 1 ? 're' : 'e'),
-        };
+            case 'D':
+                return $number.($number === 1 ? 'er' : '');
+
+            default:
+            case 'M':
+            case 'Q':
+            case 'DDD':
+            case 'd':
+                return $number.($number === 1 ? 'er' : 'e');
+
+            // Words with feminine grammatical gender: semaine
+            case 'w':
+            case 'W':
+                return $number.($number === 1 ? 're' : 'e');
+        }
     },
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,

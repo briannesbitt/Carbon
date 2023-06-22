@@ -10,7 +10,6 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
-    'first_day_of_week' => 0,
     'meridiem' => ['a', 'p'],
     'weekdays' => ['Svondo', 'Muvhuro', 'Chipiri', 'Chitatu', 'China', 'Chishanu', 'Mugovera'],
     'weekdays_short' => ['Svo', 'Muv', 'Chp', 'Cht', 'Chn', 'Chs', 'Mug'],

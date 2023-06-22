@@ -55,7 +55,9 @@ return [
         'lastWeek' => 'dddd [paset da] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => static fn ($number) => $number.($number === 1 ? 'añ' : 'vet'),
+    'ordinal' => function ($number) {
+        return $number.($number === 1 ? 'añ' : 'vet');
+    },
     'months' => ['Genver', 'C\'hwevrer', 'Meurzh', 'Ebrel', 'Mae', 'Mezheven', 'Gouere', 'Eost', 'Gwengolo', 'Here', 'Du', 'Kerzu'],
     'months_short' => ['Gen', 'C\'hwe', 'Meu', 'Ebr', 'Mae', 'Eve', 'Gou', 'Eos', 'Gwe', 'Her', 'Du', 'Ker'],
     'weekdays' => ['Sul', 'Lun', 'Meurzh', 'Merc\'her', 'Yaou', 'Gwener', 'Sadorn'],

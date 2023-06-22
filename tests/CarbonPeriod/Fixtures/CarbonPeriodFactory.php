@@ -29,7 +29,7 @@ class CarbonPeriodFactory
         return $periodClass::create(
             '2012-07-01 17:30:00',
             'P3DT5H',
-            '2012-07-15 11:15:00',
+            '2012-07-15 11:15:00'
         );
     }
 
@@ -46,7 +46,7 @@ class CarbonPeriodFactory
             '2012-07-01',
             'P3D',
             '2012-07-22',
-            $periodClass::EXCLUDE_END_DATE,
+            $periodClass::EXCLUDE_END_DATE
         );
 
         return $period->addFilter(function ($date) {
@@ -67,7 +67,7 @@ class CarbonPeriodFactory
 
         $period = $periodClass::create(
             '2012-10-01',
-            3,
+            3
         );
 
         return $period->addFilter(function () use (&$counter) {
@@ -87,7 +87,7 @@ class CarbonPeriodFactory
     public static function withStackFilter(string $periodClass)
     {
         $period = $periodClass::create(
-            '2001-01-01',
+            '2001-01-01'
         );
 
         $stack = [

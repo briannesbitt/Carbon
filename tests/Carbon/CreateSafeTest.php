@@ -36,7 +36,7 @@ class CreateSafeTest extends AbstractTestCase
     public function testCreateSafeThrowsExceptionForSecondLowerThanZeroInStrictMode()
     {
         Carbon::useStrictMode(false);
-        $this->assertNull(Carbon::createSafe(null, null, null, null, null, -1));
+        $this->assertFalse(Carbon::createSafe(null, null, null, null, null, -1));
     }
 
     public function testCreateSafeThrowsExceptionForSecondGreaterThan59()
@@ -143,7 +143,7 @@ class CreateSafeTest extends AbstractTestCase
     public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInLeapYearInStrictMode()
     {
         Carbon::useStrictMode(false);
-        $this->assertNull(Carbon::createSafe(2016, 2, 30, 17, 16, 15));
+        $this->assertFalse(Carbon::createSafe(2016, 2, 30, 17, 16, 15));
     }
 
     public function testCreateSafePassesForFebruaryInLeapYear()

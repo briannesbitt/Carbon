@@ -19,18 +19,14 @@ use Tests\AbstractTestCase;
 
 class SetStateTest extends AbstractTestCase
 {
-    public function testSteState(): void
+    public function testSteState()
     {
-        $obj = new class(null) {
+        $obj = new class() {
             use Serialization;
 
-            public function __construct(public mixed $data)
+            public static function instance($value)
             {
-            }
-
-            public static function instance($value): static
-            {
-                return new static($value);
+                return $value;
             }
 
             public function callSetState($value)
@@ -41,9 +37,7 @@ class SetStateTest extends AbstractTestCase
 
         $data = $obj->callSetState(['foo' => 'bar']);
 
-        $this->assertInstanceOf(\get_class($obj), $data);
-        $this->assertInstanceOf(stdClass::class, $data->data);
-        $this->assertSame('bar', $data->data->foo);
-        $this->assertSame(['foo' => 'bar'], (array) $data->data);
+        $this->assertInstanceOf(stdClass::class, $data);
+        $this->assertSame(['foo' => 'bar'], (array) $data);
     }
 }

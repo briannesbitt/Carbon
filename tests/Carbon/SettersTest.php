@@ -260,7 +260,7 @@ class SettersTest extends AbstractTestCase
     public function testSetTimezoneWithInvalidTimezone()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (sdf)',
+            'Unknown or bad timezone (sdf)'
         ));
 
         $d = Carbon::now();
@@ -270,7 +270,7 @@ class SettersTest extends AbstractTestCase
     public function testTimezoneWithInvalidTimezone()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (sdf)',
+            'Unknown or bad timezone (sdf)'
         ));
 
         /** @var mixed $d */
@@ -351,7 +351,7 @@ class SettersTest extends AbstractTestCase
     public function testTimezoneWithInvalidTimezoneSetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (sdf)',
+            'Unknown or bad timezone (sdf)'
         ));
 
         $d = Carbon::now();
@@ -361,7 +361,7 @@ class SettersTest extends AbstractTestCase
     public function testTzWithInvalidTimezone()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (sdf)',
+            'Unknown or bad timezone (sdf)'
         ));
 
         /** @var mixed $d */
@@ -372,7 +372,7 @@ class SettersTest extends AbstractTestCase
     public function testTzWithInvalidTimezoneSetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (sdf)',
+            'Unknown or bad timezone (sdf)'
         ));
 
         $d = Carbon::now();
@@ -490,7 +490,7 @@ class SettersTest extends AbstractTestCase
     public function testInvalidSetter()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Unknown setter 'doesNotExit'",
+            "Unknown setter 'doesNotExit'"
         ));
 
         /** @var mixed $date */
@@ -574,7 +574,7 @@ class SettersTest extends AbstractTestCase
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
 
-            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000, 'UTC');
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
             $original = $date->copy();
             $date->setUnitNoOverflow($valueUnit, $value, $overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
@@ -588,18 +588,13 @@ class SettersTest extends AbstractTestCase
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
             $modulo = $value % $units[$valueUnit];
-
             if ($modulo < 0) {
                 $modulo += $units[$valueUnit];
             }
-
             if ($value === $date->$valueUnit ||
                 $modulo === $date->$valueUnit ||
-                $$valueUnit - ((int) $date->{"diffIn$unit"}($original, false)) === $value ||
-                ($valueUnit === 'day' &&
-                    $date->format('Y-m-d H:i:s.u') === $original->copy()
-                        ->modify(($original->day + $value).' days')
-                        ->format('Y-m-d H:i:s.u'))
+                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
+                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
             ) {
                 $results['current']++;
 
@@ -629,7 +624,7 @@ class SettersTest extends AbstractTestCase
                 $overflowUnit,
                 $unit,
                 $modulo,
-                $$valueUnit,
+                $$valueUnit
             );
         }
 
@@ -644,7 +639,7 @@ class SettersTest extends AbstractTestCase
     public function testSetUnitNoOverflowInputUnitException()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown unit \'anyUnit\'',
+            'Unknown unit \'anyUnit\''
         ));
 
         Carbon::now()->setUnitNoOverflow('anyUnit', 1, 'year');
@@ -653,7 +648,7 @@ class SettersTest extends AbstractTestCase
     public function testSetUnitNoOverflowOverflowUnitException()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown unit \'anyUnit\'',
+            'Unknown unit \'anyUnit\''
         ));
 
         Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
@@ -725,7 +720,7 @@ class SettersTest extends AbstractTestCase
             if ($value === $date->$valueUnit ||
                 $modulo === $date->$valueUnit ||
                 (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
-                -((int) round($date->{"diffIn$unit"}($original, false))) === $value
+                -$date->{"diffIn$unit"}($original, false) === $value
             ) {
                 $results['current']++;
 
@@ -755,7 +750,7 @@ class SettersTest extends AbstractTestCase
                 $overflowUnit,
                 $unit,
                 $modulo,
-                $value,
+                $$valueUnit
             );
         }
 
@@ -822,7 +817,7 @@ class SettersTest extends AbstractTestCase
             if ($value === $date->$valueUnit ||
                 $modulo === $date->$valueUnit ||
                 (method_exists($date, "diffInReal$unit") && $value === $date->{"diffInReal$unit"}($original, false)) ||
-                ((int) round($date->{"diffIn$unit"}($original, false))) === $value
+                $value === $date->{"diffIn$unit"}($original, false)
             ) {
                 $results['current']++;
 
@@ -852,7 +847,7 @@ class SettersTest extends AbstractTestCase
                 $overflowUnit,
                 $unit,
                 $modulo,
-                $value,
+                $$valueUnit
             );
         }
 

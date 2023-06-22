@@ -22,6 +22,5 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'weekdays_short' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'weekdays_min' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 ]);

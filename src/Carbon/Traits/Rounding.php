@@ -21,8 +21,8 @@ use Carbon\Exceptions\UnknownUnitException;
  *
  * Depends on the following methods:
  *
- * @method CarbonInterface copy()
- * @method CarbonInterface startOfWeek(int $weekStartsAt = null)
+ * @method static copy()
+ * @method static startOfWeek(int $weekStartsAt = null)
  */
 trait Rounding
 {
@@ -114,7 +114,7 @@ trait Rounding
                 }
 
                 $changes[$unit] = round(
-                    $minimum + ($fraction ? $fraction * $function(($this->$unit - $minimum) / $fraction) : 0),
+                    $minimum + ($fraction ? $fraction * $function(($this->$unit - $minimum) / $fraction) : 0)
                 );
 
                 // Cannot use modulo as it lose double precision
@@ -216,7 +216,7 @@ trait Rounding
     {
         return $this->closest(
             $this->avoidMutation()->floorWeek($weekStartsAt),
-            $this->avoidMutation()->ceilWeek($weekStartsAt),
+            $this->avoidMutation()->ceilWeek($weekStartsAt)
         );
     }
 

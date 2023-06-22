@@ -36,14 +36,13 @@ trait CarbonTypeConverter
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $maximum = CarbonDoctrineType::MAXIMUM_PRECISION;
-        $precision = $fieldDeclaration['precision'] ?: $maximum;
+        $precision = $fieldDeclaration['precision'] ?: 10;
 
         if ($fieldDeclaration['secondPrecision'] ?? false) {
             $precision = 0;
         }
 
-        if ($precision === $maximum) {
+        if ($precision === 10) {
             $precision = DateTimeDefaultPrecision::get();
         }
 
@@ -93,7 +92,7 @@ trait CarbonTypeConverter
                 $value,
                 $this->getName(),
                 'Y-m-d H:i:s.u or any format supported by '.$class.'::parse()',
-                $error,
+                $error
             );
         }
 
@@ -118,7 +117,7 @@ trait CarbonTypeConverter
         throw ConversionException::conversionFailedInvalidType(
             $value,
             $this->getName(),
-            ['null', 'DateTime', 'Carbon'],
+            ['null', 'DateTime', 'Carbon']
         );
     }
 }

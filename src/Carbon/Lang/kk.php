@@ -66,7 +66,7 @@ return [
         'lastWeek' => '[Өткен аптаның] dddd [сағат] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => static function ($number) {
+    'ordinal' => function ($number) {
         static $suffixes = [
             0 => '-ші',
             1 => '-ші',

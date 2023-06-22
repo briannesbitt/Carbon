@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['নোংমাইজিং', 'নিংথৌকাবা', 'লৈবাকপোকপা', 'য়ুমশকৈশা', 'শগোলশেন', 'ইরাই', 'থাংজ'],
     'weekdays_short' => ['নোং', 'নিং', 'লৈবাক', 'য়ুম', 'শগোল', 'ইরা', 'থাং'],
     'weekdays_min' => ['নোং', 'নিং', 'লৈবাক', 'য়ুম', 'শগোল', 'ইরা', 'থাং'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['এ.ম.', 'প.ম.'],
 

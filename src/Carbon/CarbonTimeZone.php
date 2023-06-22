@@ -19,26 +19,21 @@ use Throwable;
 
 class CarbonTimeZone extends DateTimeZone
 {
-    public const MAXIMUM_TIMEZONE_OFFSET = 99;
-
     public function __construct($timezone = null)
     {
         parent::__construct(static::getDateTimeZoneNameFromMixed($timezone));
     }
 
-    protected static function parseNumericTimezone($timezone): string
+    protected static function parseNumericTimezone($timezone)
     {
-        if (abs($timezone) > static::MAXIMUM_TIMEZONE_OFFSET) {
-            throw new InvalidTimeZoneException(
-                'Absolute timezone offset cannot be greater than '.
-                static::MAXIMUM_TIMEZONE_OFFSET.'.',
-            );
+        if ($timezone <= -100 || $timezone >= 100) {
+            throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than 100.');
         }
 
         return ($timezone >= 0 ? '+' : '').ltrim($timezone, '+').':00';
     }
 
-    protected static function getDateTimeZoneNameFromMixed($timezone): string
+    protected static function getDateTimeZoneNameFromMixed($timezone)
     {
         if ($timezone === null) {
             return date_default_timezone_get();
@@ -55,9 +50,9 @@ class CarbonTimeZone extends DateTimeZone
         return $timezone;
     }
 
-    protected static function getDateTimeZoneFromName(&$name): ?DateTimeZone
+    protected static function getDateTimeZoneFromName(&$name)
     {
-        return @timezone_open($name = static::getDateTimeZoneNameFromMixed($name)) ?: null;
+        return @timezone_open($name = (string) static::getDateTimeZoneNameFromMixed($name));
     }
 
     /**
@@ -65,7 +60,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param string $className The $className::instance() method will be called to cast the current object.
      *
-     * @return DateTimeZone|mixed
+     * @return DateTimeZone
      */
     public function cast(string $className)
     {
@@ -88,9 +83,9 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @throws InvalidTimeZoneException
      *
-     * @return static|null
+     * @return false|static
      */
-    public static function instance($object = null, $objectDump = null): ?self
+    public static function instance($object = null, $objectDump = null)
     {
         $tz = $object;
 
@@ -106,7 +101,7 @@ class CarbonTimeZone extends DateTimeZone
             $tz = static::getDateTimeZoneFromName($object);
         }
 
-        if ($tz !== null) {
+        if ($tz !== false) {
             return new static($tz->getName());
         }
 
@@ -114,7 +109,7 @@ class CarbonTimeZone extends DateTimeZone
             throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
         }
 
-        return null;
+        return false;
     }
 
     /**
@@ -124,7 +119,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return string
      */
-    public function getAbbreviatedName(bool $dst = false): string
+    public function getAbbreviatedName($dst = false)
     {
         $name = $this->getName();
 
@@ -148,7 +143,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return string
      */
-    public function getAbbr(bool $dst = false): string
+    public function getAbbr($dst = false)
     {
         return $this->getAbbreviatedName($dst);
     }
@@ -160,10 +155,10 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return string
      */
-    public function toOffsetName(DateTimeInterface $date = null): string
+    public function toOffsetName(DateTimeInterface $date = null)
     {
         return static::getOffsetNameFromMinuteOffset(
-            $this->getOffset($date ?: Carbon::now($this)) / 60,
+            $this->getOffset($date ?: Carbon::now($this)) / 60
         );
     }
 
@@ -174,7 +169,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return CarbonTimeZone
      */
-    public function toOffsetTimeZone(DateTimeInterface $date = null): static
+    public function toOffsetTimeZone(DateTimeInterface $date = null)
     {
         return new static($this->toOffsetName($date));
     }
@@ -186,11 +181,11 @@ class CarbonTimeZone extends DateTimeZone
      * @see timezone_name_from_abbr native PHP function.
      *
      * @param DateTimeInterface|null $date
-     * @param int                    $isDST
+     * @param int                    $isDst
      *
-     * @return string|null
+     * @return string|false
      */
-    public function toRegionName(?DateTimeInterface $date = null, int $isDST = 1): ?string
+    public function toRegionName(DateTimeInterface $date = null, $isDst = 1)
     {
         $name = $this->getName();
         $firstChar = substr($name, 0, 1);
@@ -205,12 +200,12 @@ class CarbonTimeZone extends DateTimeZone
         // @codeCoverageIgnoreStart
         try {
             $offset = @$this->getOffset($date) ?: 0;
-        } catch (Throwable) {
+        } catch (Throwable $e) {
             $offset = 0;
         }
         // @codeCoverageIgnoreEnd
 
-        $name = @timezone_name_from_abbr('', $offset, $isDST);
+        $name = @timezone_name_from_abbr('', $offset, $isDst);
 
         if ($name) {
             return $name;
@@ -222,7 +217,7 @@ class CarbonTimeZone extends DateTimeZone
             }
         }
 
-        return null;
+        return false;
     }
 
     /**
@@ -230,13 +225,13 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param DateTimeInterface|null $date
      *
-     * @return static|null
+     * @return CarbonTimeZone|false
      */
-    public function toRegionTimeZone(DateTimeInterface $date = null): ?self
+    public function toRegionTimeZone(DateTimeInterface $date = null)
     {
         $tz = $this->toRegionName($date);
 
-        if ($tz !== null) {
+        if ($tz !== false) {
             return new static($tz);
         }
 
@@ -244,7 +239,7 @@ class CarbonTimeZone extends DateTimeZone
             throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
         }
 
-        return null;
+        return false;
     }
 
     /**

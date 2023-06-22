@@ -114,6 +114,16 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->floorWeek(), 2315, 7, 19, 0, 0, 0, 0);
         $this->assertCarbon($dt->copy()->ceilWeek(), 2315, 7, 19, 0, 0, 0, 0);
         $this->assertCarbon($dt->copy()->roundWeek(), 2315, 7, 19, 0, 0, 0, 0);
+
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+
+        $this->assertCarbon($dt->copy()->floorWeek(), 2315, 7, 18, 0, 0, 0, 0);
+        $this->assertCarbon($dt->copy()->ceilWeek(), 2315, 7, 25, 0, 0, 0, 0);
+        $this->assertCarbon($dt->copy()->roundWeek(), 2315, 7, 18, 0, 0, 0, 0);
+
+        Carbon::setWeekStartsAt(Carbon::MONDAY);
+        Carbon::setWeekEndsAt(Carbon::SUNDAY);
     }
 
     public function testCeilMonth()
@@ -126,7 +136,7 @@ class RoundTest extends AbstractTestCase
     public function testRoundInvalidArgument()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown unit \'foobar\'.',
+            'Unknown unit \'foobar\'.'
         ));
 
         Carbon::now()->roundUnit('foobar');

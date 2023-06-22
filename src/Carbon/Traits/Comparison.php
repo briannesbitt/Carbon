@@ -356,7 +356,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function between($date1, $date2, bool $equal = true): bool
+    public function between($date1, $date2, $equal = true): bool
     {
         $date1 = $this->resolveCarbon($date1);
         $date2 = $this->resolveCarbon($date2);
@@ -429,7 +429,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isBetween($date1, $date2, bool $equal = true): bool
+    public function isBetween($date1, $date2, $equal = true): bool
     {
         return $this->between($date1, $date2, $equal);
     }
@@ -445,7 +445,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isWeekday(): bool
+    public function isWeekday()
     {
         return !$this->isWeekend();
     }
@@ -461,7 +461,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isWeekend(): bool
+    public function isWeekend()
     {
         return \in_array($this->dayOfWeek, static::$weekendDays, true);
     }
@@ -477,7 +477,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isYesterday(): bool
+    public function isYesterday()
     {
         return $this->toDateString() === static::yesterday($this->getTimezone())->toDateString();
     }
@@ -493,7 +493,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isToday(): bool
+    public function isToday()
     {
         return $this->toDateString() === $this->nowWithSameTz()->toDateString();
     }
@@ -509,7 +509,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isTomorrow(): bool
+    public function isTomorrow()
     {
         return $this->toDateString() === static::tomorrow($this->getTimezone())->toDateString();
     }
@@ -525,7 +525,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isFuture(): bool
+    public function isFuture()
     {
         return $this->greaterThan($this->nowWithSameTz());
     }
@@ -541,7 +541,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isPast(): bool
+    public function isPast()
     {
         return $this->lessThan($this->nowWithSameTz());
     }
@@ -557,7 +557,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isLeapYear(): bool
+    public function isLeapYear()
     {
         return $this->rawFormat('L') === '1';
     }
@@ -580,9 +580,9 @@ trait Comparison
      *
      * @return bool
      */
-    public function isLongYear(): bool
+    public function isLongYear()
     {
-        return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === static::WEEKS_PER_YEAR + 1;
+        return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
     }
 
     /**
@@ -620,7 +620,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isSameAs(string $format, $date = null): bool
+    public function isSameAs($format, $date = null)
     {
         return $this->rawFormat($format) === $this->resolveCarbon($date)->rawFormat($format);
     }
@@ -634,14 +634,14 @@ trait Comparison
      * Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // false
      * ```
      *
-     * @param string                                        $unit singular unit string
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date instance to compare with or null to use current day.
+     * @param string                                 $unit singular unit string
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date instance to compare with or null to use current day.
      *
      * @throws BadComparisonUnitException
      *
      * @return bool
      */
-    public function isSameUnit(string $unit, $date = null): bool
+    public function isSameUnit($unit, $date = null)
     {
         $units = [
             // @call isSameUnit
@@ -692,7 +692,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isCurrentUnit(string $unit): bool
+    public function isCurrentUnit($unit)
     {
         return $this->{'isSame'.ucfirst($unit)}();
     }
@@ -713,7 +713,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isSameQuarter($date = null, bool $ofSameYear = true): bool
+    public function isSameQuarter($date = null, $ofSameYear = true)
     {
         $date = $this->resolveCarbon($date);
 
@@ -731,12 +731,12 @@ trait Comparison
      * Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date       The instance to compare with or null to use the current date.
-     * @param bool                                          $ofSameYear Check if it is the same month in the same year.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use the current date.
+     * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
-    public function isSameMonth($date = null, bool $ofSameYear = true): bool
+    public function isSameMonth($date = null, $ofSameYear = true)
     {
         return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $date);
     }
@@ -752,11 +752,11 @@ trait Comparison
      * Carbon::parse('2019-07-17')->isDayOfWeek('Friday'); // false
      * ```
      *
-     * @param int|string $dayOfWeek
+     * @param int $dayOfWeek
      *
      * @return bool
      */
-    public function isDayOfWeek($dayOfWeek): bool
+    public function isDayOfWeek($dayOfWeek)
     {
         if (\is_string($dayOfWeek) && \defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
             $dayOfWeek = \constant($constant);
@@ -776,11 +776,11 @@ trait Comparison
      * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isBirthday($date = null): bool
+    public function isBirthday($date = null)
     {
         return $this->isSameAs('md', $date);
     }
@@ -799,7 +799,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isLastOfMonth(): bool
+    public function isLastOfMonth()
     {
         return $this->day === $this->daysInMonth;
     }
@@ -820,7 +820,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isStartOfDay(bool $checkMicroseconds = false): bool
+    public function isStartOfDay($checkMicroseconds = false)
     {
         /* @var CarbonInterface $this */
         return $checkMicroseconds
@@ -846,7 +846,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isEndOfDay(bool $checkMicroseconds = false): bool
+    public function isEndOfDay($checkMicroseconds = false)
     {
         /* @var CarbonInterface $this */
         return $checkMicroseconds
@@ -866,7 +866,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isMidnight(): bool
+    public function isMidnight()
     {
         return $this->isStartOfDay();
     }
@@ -884,7 +884,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function isMidday(): bool
+    public function isMidday()
     {
         /* @var CarbonInterface $this */
         return $this->rawFormat('G:i:s') === static::$midDayAt.':00:00';
@@ -904,13 +904,13 @@ trait Comparison
      *
      * @return bool
      */
-    public static function hasFormat(?string $date, string $format): bool
+    public static function hasFormat($date, $format)
     {
         // createFromFormat() is known to handle edge cases silently.
         // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
         // To ensure we're really testing against our desired format, perform an additional regex validation.
 
-        return self::matchFormatPattern($date, preg_quote($format, '/'), static::$regexFormats);
+        return self::matchFormatPattern((string) $date, preg_quote((string) $format, '/'), static::$regexFormats);
     }
 
     /**
@@ -927,9 +927,9 @@ trait Comparison
      *
      * @return bool
      */
-    public static function hasFormatWithModifiers(?string $date, string $format): bool
+    public static function hasFormatWithModifiers($date, $format): bool
     {
-        return self::matchFormatPattern($date, $format, array_merge(static::$regexFormats, static::$regexFormatModifiers));
+        return self::matchFormatPattern((string) $date, (string) $format, array_merge(static::$regexFormats, static::$regexFormatModifiers));
     }
 
     /**
@@ -947,7 +947,7 @@ trait Comparison
      *
      * @return bool
      */
-    public static function canBeCreatedFromFormat(?string $date, string $format): bool
+    public static function canBeCreatedFromFormat($date, $format)
     {
         try {
             // Try to create a DateTime object. Throws an InvalidArgumentException if the provided time string
@@ -955,7 +955,7 @@ trait Comparison
             if (!static::rawCreateFromFormat($format, $date)) {
                 return false;
             }
-        } catch (InvalidArgumentException) {
+        } catch (InvalidArgumentException $e) {
             return false;
         }
 
@@ -986,7 +986,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function is(string $tester): bool
+    public function is(string $tester)
     {
         $tester = trim($tester);
 
@@ -1028,7 +1028,7 @@ trait Comparison
 
         if (preg_match(
             '/^(?:january|february|march|april|may|june|july|august|september|october|november|december)(?:\s+\d+)?$/i',
-            $tester,
+            $tester
         )) {
             return $current->startOfMonth()->eq($other->startOfMonth());
         }
@@ -1069,7 +1069,7 @@ trait Comparison
      *
      * @return bool
      */
-    private static function matchFormatPattern(?string $date, string $format, array $replacements): bool
+    private static function matchFormatPattern(string $date, string $format, array $replacements): bool
     {
         // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
         $regex = str_replace('\\\\', '\\', $format);
@@ -1079,14 +1079,14 @@ trait Comparison
             function ($match) use ($replacements) {
                 return $match[1].strtr($match[2], $replacements);
             },
-            $regex,
+            $regex
         );
         // Replace escaped letters by the letter itself
         $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);
         // Escape not escaped slashes
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date ?? '');
+        return (bool) @preg_match('/^'.$regex.'$/', $date);
     }
 
     /**

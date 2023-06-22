@@ -21,8 +21,6 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 
 abstract class AbstractTranslator extends Translation\Translator
 {
-    public const REGION_CODE_LENGTH = 2;
-
     /**
      * Translator singletons for each language.
      *
@@ -72,7 +70,10 @@ abstract class AbstractTranslator extends Translation\Translator
     {
         $locale = $locale ?: 'en';
         $key = static::class === Translator::class ? $locale : static::class.'|'.$locale;
-        static::$singletons[$key] ??= new static($locale);
+
+        if (!isset(static::$singletons[$key])) {
+            static::$singletons[$key] = new static($locale);
+        }
 
         return static::$singletons[$key];
     }
@@ -227,7 +228,7 @@ abstract class AbstractTranslator extends Translation\Translator
             // @codeCoverageIgnoreStart
             try {
                 $count = (new ReflectionFunction($format))->getNumberOfRequiredParameters();
-            } catch (ReflectionException) {
+            } catch (ReflectionException $exception) {
                 $count = 0;
             }
             // @codeCoverageIgnoreEnd
@@ -311,7 +312,7 @@ abstract class AbstractTranslator extends Translation\Translator
             // _2-letters or YUE is a region, _3+-letters is a variant
             $upper = strtoupper($matches[1]);
 
-            if ($upper === 'YUE' || $upper === 'ISO' || \strlen($upper) <= static::REGION_CODE_LENGTH) {
+            if ($upper === 'YUE' || $upper === 'ISO' || \strlen($upper) < 3) {
                 return "_$upper";
             }
 

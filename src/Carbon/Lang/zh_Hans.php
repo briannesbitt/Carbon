@@ -63,15 +63,22 @@ return [
         'lastWeek' => '[上]ddddLT',
         'sameElse' => 'L',
     ],
-    'ordinal' => static function ($number, $period) {
-        return match ($period) {
-            'd', 'D', 'DDD' => $number.'日',
-            'M' => $number.'月',
-            'w', 'W' => $number.'周',
-            default => $number,
-        };
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return $number.'日';
+            case 'M':
+                return $number.'月';
+            case 'w':
+            case 'W':
+                return $number.'周';
+            default:
+                return $number;
+        }
     },
-    'meridiem' => static function ($hour, $minute) {
+    'meridiem' => function ($hour, $minute) {
         $time = $hour * 100 + $minute;
         if ($time < 600) {
             return '凌晨';

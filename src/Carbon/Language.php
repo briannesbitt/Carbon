@@ -210,7 +210,7 @@ class Language implements JsonSerializable
      *
      * @param string $isoName
      */
-    public function setIsoName(string $isoName): static
+    public function setIsoName(string $isoName): self
     {
         $this->isoName = $isoName;
 
@@ -236,7 +236,7 @@ class Language implements JsonSerializable
      *
      * @param string $nativeName
      */
-    public function setNativeName(string $nativeName): static
+    public function setNativeName(string $nativeName): self
     {
         $this->nativeName = $nativeName;
 

@@ -32,16 +32,16 @@ return [
     'second' => '{1}තත්පර 1|තත්පර :count',
     'a_second' => '{1}තත්පර කිහිපයකට|තත්පර :count',
     'ago' => ':time කට පෙර',
-    'from_now' => static function ($time) {
-        if (preg_match('/දින \d+/u', $time)) {
+    'from_now' => function ($time) {
+        if (preg_match('/දින \d/u', $time)) {
             return $time.' න්';
         }
 
         return $time.' කින්';
     },
     'before' => ':time කට පෙර',
-    'after' => static function ($time) {
-        if (preg_match('/දින \d+/u', $time)) {
+    'after' => function ($time) {
+        if (preg_match('/දින \d/u', $time)) {
             return $time.' න්';
         }
 

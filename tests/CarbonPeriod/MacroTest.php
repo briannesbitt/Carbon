@@ -61,7 +61,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates(['2018-05-10', '2018-05-11', '2018-05-14']),
-            $this->standardizeDates($result),
+            $this->standardizeDates($result)
         );
     }
 
@@ -93,7 +93,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             'Sunday, 11 September 2016',
-            $period->formatStartDate(),
+            $period->formatStartDate()
         );
     }
 
@@ -124,7 +124,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             3,
-            $periodClass::countWeekdaysBetween('2018-05-10', '2018-05-14'),
+            $periodClass::countWeekdaysBetween('2018-05-10', '2018-05-14')
         );
     }
 
@@ -164,7 +164,7 @@ class MacroTest extends AbstractTestCase
     public function testCallNonExistingMacro()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method nonExistingMacro does not exist.',
+            'Method nonExistingMacro does not exist.'
         ));
 
         $periodClass = static::$periodClass;
@@ -177,7 +177,7 @@ class MacroTest extends AbstractTestCase
     public function testCallNonExistingMacroStatically()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method nonExistingMacro does not exist.',
+            'Method nonExistingMacro does not exist.'
         ));
 
         $periodClass = static::$periodClass;

@@ -23,17 +23,11 @@ class SpecTest extends AbstractTestCase
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 0);
         $this->assertSame('PT0S', $ci->spec());
-        $ci = new CarbonInterval();
-        $this->assertSame('PT0S', $ci->spec());
-        $ci = CarbonInterval::create();
-        $this->assertSame('PT0S', $ci->spec());
     }
 
     public function testYearInterval()
     {
-        $ci = new CarbonInterval(1);
-        $this->assertSame('P1Y', $ci->spec());
-        $ci = CarbonInterval::create(1);
+        $ci = new CarbonInterval();
         $this->assertSame('P1Y', $ci->spec());
     }
 
@@ -100,6 +94,6 @@ class SpecTest extends AbstractTestCase
     public function testCreatingInstanceEquals()
     {
         $ci = new CarbonInterval(1, 2, 0, 3, 4, 5, 6);
-        $this->assertEquals($ci->optimize(), CarbonInterval::instance(new DateInterval($ci->spec()))->optimize());
+        $this->assertEquals($ci, CarbonInterval::instance(new DateInterval($ci->spec())));
     }
 }

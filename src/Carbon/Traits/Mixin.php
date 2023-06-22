@@ -81,7 +81,7 @@ trait Mixin
     private static function loadMixinClass($mixin)
     {
         $methods = (new ReflectionClass($mixin))->getMethods(
-            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED,
+            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
         );
 
         foreach ($methods as $method) {
@@ -114,7 +114,7 @@ trait Mixin
                 try {
                     // @ is required to handle error if not converted into exceptions
                     $closure = @$closureBase->bindTo($context);
-                } catch (Throwable) { // @codeCoverageIgnore
+                } catch (Throwable $throwable) { // @codeCoverageIgnore
                     $closure = $closureBase; // @codeCoverageIgnore
                 }
 

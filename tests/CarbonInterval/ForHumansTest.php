@@ -374,7 +374,7 @@ class ForHumansTest extends AbstractTestCase
             Carbon::DIFF_ABSOLUTE,
             false,
             2,
-            Carbon::CEIL,
+            Carbon::CEIL
         );
 
         $this->assertSame('2 years 6 months', $interval);
@@ -482,7 +482,7 @@ class ForHumansTest extends AbstractTestCase
         $interval = CarbonInterval::fromString('1s 114ms 584µs');
         $this->assertEquals(
             '1 seconde, 114 millisecondes et 584 microsecondes',
-            $interval->forHumans(['parts' => 3, 'join' => true, 'minimumUnit' => 'µs']),
+            $interval->forHumans(['parts' => 3, 'join' => true, 'minimumUnit' => 'µs'])
         );
     }
 
@@ -491,11 +491,11 @@ class ForHumansTest extends AbstractTestCase
         $interval = CarbonInterval::fromString('98756 milliseconds')->cascade();
         $this->assertEquals(
             'une minute, 38 secondes et 756 millisecondes',
-            $interval->locale('fr')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true]),
+            $interval->locale('fr')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true])
         );
         $this->assertEquals(
             'eine Minute, 38 Sekunden und 756 Millisekunden',
-            $interval->locale('de')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true]),
+            $interval->locale('de')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true])
         );
     }
 

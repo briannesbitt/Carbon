@@ -81,10 +81,10 @@ class TranslationTest extends TestCaseBase
     {
         JenssegersDate::setLocale('nl');
 
-        $date = new JenssegersDate('@1403619368');
+        $date = new JenssegersDate(1403619368);
         $date = $date->sub('-100 days -3 hours -20 minutes');
 
-        $this->assertSame('3 maanden, 1 week, 1 dag, 3 uur, 20 minuten', $date->timespan('@1403619368'));
+        $this->assertSame('3 maanden, 1 week, 1 dag, 3 uur, 20 minuten', $date->timespan(1403619368));
     }
 
     public function testParse()
@@ -169,13 +169,13 @@ class TranslationTest extends TestCaseBase
     {
         JenssegersDate::setLocale('nl');
 
-        $date = new JenssegersDate('@1367186296');
+        $date = new JenssegersDate(1367186296);
         $this->assertSame('zondag 28 april 2013 21:58:16', $date->format('l j F Y H:i:s'));
 
-        $date = new JenssegersDate('@1367186296');
+        $date = new JenssegersDate(1367186296);
         $this->assertSame('l 28 F 2013 21:58:16', $date->format('\l j \F Y H:i:s'));
 
-        $date = new JenssegersDate('@1367186296');
+        $date = new JenssegersDate(1367186296);
         $this->assertSame('zo. 28 apr. 2013 21:58:16', $date->format('D j M Y H:i:s'));
     }
 

@@ -55,11 +55,11 @@ class MacroTest extends AbstractTestCaseWithOldNow
             /** @var Carbon $date */
             $date = $this;
 
-            return $date->toDateTime()->diff(
+            return $date->diff(
                 Carbon::create($year, 3, 21)
                     ->setTimezone($date->getTimezone())
                     ->addDays(easter_days($year))
-                    ->endOfDay(),
+                    ->endOfDay()
             );
         });
 
@@ -109,7 +109,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method Carbon\CarbonImmutable::nonExistingStaticMacro does not exist.',
+            'Method Carbon\CarbonImmutable::nonExistingStaticMacro does not exist.'
         ));
 
         Carbon::nonExistingStaticMacro();
@@ -118,7 +118,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     public function testCarbonRaisesExceptionWhenMacroIsNotFound()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Method nonExistingMacro does not exist.',
+            'Method nonExistingMacro does not exist.'
         ));
 
         /** @var mixed $date */
@@ -137,6 +137,9 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertInstanceOf(Carbon::class, Carbon::me());
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testTraitWithNamedParameters()
     {
         require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
