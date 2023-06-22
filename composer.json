@@ -50,7 +50,7 @@
         "doctrine/orm": "^2.15.2",
         "friendsofphp/php-cs-fixer": "^3.18.0",
         "kylekatarnls/multi-tester": "^2.2.0",
-        "ondrejmirtes/better-reflection": "*",
+        "ondrejmirtes/better-reflection": "^6.11.0.0",
         "phpmd/phpmd": "^2.13.0",
         "phpstan/extension-installer": "^1.3.0",
         "phpstan/phpstan": "^1.10.20",
