@@ -19,7 +19,7 @@ class CloneTest extends AbstractTestCase
 {
     public function testClone()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->clone();
 
@@ -30,7 +30,7 @@ class CloneTest extends AbstractTestCase
 
     public function testCopy()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('R4/2012-07-01T00:00:00/P7D');
         $clone = $period->copy();
 

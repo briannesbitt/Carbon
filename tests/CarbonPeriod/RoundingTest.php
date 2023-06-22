@@ -25,13 +25,13 @@ class RoundingTest extends AbstractTestCase
             'Rounding is only possible with single unit intervals.',
         ));
 
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::days(2)->round('2 hours 50 minutes');
     }
 
     public function testFloor()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817')->floor();
 
         $this->assertSame('01 00:00:00.000000', $period->getDateInterval()->format('%D %H:%I:%S.%F'));
@@ -78,7 +78,7 @@ class RoundingTest extends AbstractTestCase
 
     public function testCeil()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817')->ceil();
 
         $this->assertSame('01 00:00:00.000000', $period->getDateInterval()->format('%D %H:%I:%S.%F'));
@@ -125,7 +125,7 @@ class RoundingTest extends AbstractTestCase
 
     public function testRound()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817')->round();
 
         $this->assertSame('01 00:00:00.000000', $period->getDateInterval()->format('%D %H:%I:%S.%F'));
@@ -172,7 +172,7 @@ class RoundingTest extends AbstractTestCase
 
     public function testRoundCalculatedEnd()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2019-02-01 12:52:23.123456', '3 hours')->setRecurrences(3);
 
         $this->assertSame('2019-02-01 18:00:00.000000', $period->calculateEnd('round')->format('Y-m-d H:i:s.u'));

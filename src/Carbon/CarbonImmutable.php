@@ -551,12 +551,7 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
      */
     private static function getEndOfTimeYear(): int
     {
-        // Remove if https://bugs.php.net/bug.php?id=81107 is fixed
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
-            return 1118290769066902787;
-        }
-
-        return PHP_INT_MAX;
+        return 1118290769066902787; // PHP_INT_MAX no longer work since PHP 8.1
     }
 
     /**
@@ -564,11 +559,6 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
      */
     private static function getStartOfTimeYear(): int
     {
-        // Remove if https://bugs.php.net/bug.php?id=81107 is fixed
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
-            return -1118290769066898816;
-        }
-
-        return max(PHP_INT_MIN, -9223372036854773760);
+        return -1118290769066898816; // PHP_INT_MIN no longer work since PHP 8.1
     }
 }

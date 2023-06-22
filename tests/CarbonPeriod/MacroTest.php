@@ -27,7 +27,7 @@ class MacroTest extends AbstractTestCase
 {
     protected function tearDown(): void
     {
-        $reflection = new ReflectionClass($this->periodClass);
+        $reflection = new ReflectionClass(static::$periodClass);
 
         $macrosProperty = $reflection->getProperty('macros');
 
@@ -39,7 +39,7 @@ class MacroTest extends AbstractTestCase
 
     public function testCallMacro()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('onlyWeekdays', function () {
             /** @var CarbonPeriod $period */
             $period = $this;
@@ -67,7 +67,7 @@ class MacroTest extends AbstractTestCase
 
     public function testParameterOtherThanSelfIsNotGivenPeriodInstance()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('foobar', function ($param = 123) {
             return $param;
         });
@@ -80,7 +80,7 @@ class MacroTest extends AbstractTestCase
 
     public function testPassPeriodInstanceAfterOptionalParameters()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('formatStartDate', function ($format = 'l, j F Y') {
             /** @var CarbonPeriod $period */
             $period = $this;
@@ -99,7 +99,7 @@ class MacroTest extends AbstractTestCase
 
     public function testMacroIsBindedToDatePeriodInstance()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('myself', function () {
             return $this;
         });
@@ -113,7 +113,7 @@ class MacroTest extends AbstractTestCase
 
     public function testCallMacroStatically()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('countWeekdaysBetween', function ($from, $to) use ($periodClass) {
             return $periodClass::create($from, $to)
                 ->addFilter(function ($date) {
@@ -130,7 +130,7 @@ class MacroTest extends AbstractTestCase
 
     public function testMacroIsBoundToDatePeriodClass()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('newMyself', function () {
             return new static();
         });
@@ -140,7 +140,7 @@ class MacroTest extends AbstractTestCase
 
     public function testRegisterNonClosureMacro()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('lower', 'strtolower');
 
         /** @var mixed $period */
@@ -152,7 +152,7 @@ class MacroTest extends AbstractTestCase
 
     public function testRegisterMixin()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::mixin(new Mixin());
 
         $this->assertNull($periodClass::getFoo());
@@ -167,7 +167,7 @@ class MacroTest extends AbstractTestCase
             'Method nonExistingMacro does not exist.',
         ));
 
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         /** @var mixed $period */
         $period = $periodClass::create();
 
@@ -180,13 +180,13 @@ class MacroTest extends AbstractTestCase
             'Method nonExistingMacro does not exist.',
         ));
 
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::nonExistingMacro();
     }
 
     public function testOverrideAlias()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('recurrences', function () {
             return 'foo';
         });
@@ -196,7 +196,7 @@ class MacroTest extends AbstractTestCase
 
     public function testInstatiateViaStaticMacroCall()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::macro('fromTomorrow', function () {
             /** @var CarbonPeriod $period */
             $period = $this;
@@ -214,7 +214,7 @@ class MacroTest extends AbstractTestCase
         require_once __DIR__.'/Fixtures/MixinTrait.php';
         require_once __DIR__.'/Fixtures/MacroableClass.php';
 
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $periodClass::mixin(MixinTrait::class);
 
         $period = $periodClass::create('2023-06-10', '2023-06-12');
@@ -225,7 +225,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $copy);
 
         $mutated = $period->oneMoreDay();
-        $immutable = ($this->periodClass === CarbonPeriodImmutable::class);
+        $immutable = (static::$periodClass === CarbonPeriodImmutable::class);
         $expectedEnd = $immutable ? '2023-06-12' : '2023-06-13';
 
         $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $mutated);
@@ -235,13 +235,13 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(
             $immutable,
             ($mutated !== $period),
-            "{$this->periodClass}::oneMoreDay() should return $expectedResult"
+            "{static::$periodClass}::oneMoreDay() should return $expectedResult"
         );
 
         $this->assertNotSame($copy, $period);
 
         $this->assertSame('2023-06-14', $mutated->endNextDay()->format('Y-m-d'));
-        $this->assertSame($this->periodClass === CarbonPeriodImmutable::class
+        $this->assertSame(static::$periodClass === CarbonPeriodImmutable::class
             ? '2023-06-13'
             : '2023-06-14', $period->endNextDay()->format('Y-m-d'));
 

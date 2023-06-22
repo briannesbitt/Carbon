@@ -34,7 +34,7 @@ class FilterTest extends AbstractTestCase
 
     public function testGetAndSetFilters()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass();
 
         $this->assertSame([], $period->getFilters());
@@ -46,7 +46,7 @@ class FilterTest extends AbstractTestCase
 
     public function testUpdateInternalStateWhenBuiltInFiltersAreRemoved()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             $start = new DateTime('2018-04-16'),
             $end = new DateTime('2018-07-15'),
@@ -66,7 +66,7 @@ class FilterTest extends AbstractTestCase
 
     public function testResetFilters()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             $start = new DateTime('2018-04-16'),
             $end = new DateTime('2018-07-15'),
@@ -84,7 +84,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAddAndPrependFilters()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass();
 
         $period->addFilter($filter1 = $this->dummyFilter())
@@ -100,7 +100,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveFilterByInstance()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass();
 
         $period->addFilter($filter1 = $this->dummyFilter())
@@ -117,7 +117,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveFilterByName()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass();
 
         $period->addFilter($filter1 = $this->dummyFilter())
@@ -137,7 +137,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAcceptOnlyWeekdays()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
 
         Carbon::setWeekendDays([
             Carbon::SATURDAY,
@@ -161,7 +161,7 @@ class FilterTest extends AbstractTestCase
      */
     public function testAcceptOnlySingleYear()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             new DateTime('2017-04-16'),
             new DateInterval('P5M'),
@@ -183,7 +183,7 @@ class FilterTest extends AbstractTestCase
      */
     public function testEndIteration()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
             new DateInterval('P3D'),
@@ -202,7 +202,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRecurrences()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
             new DateTime('2018-07-15'),
@@ -232,7 +232,7 @@ class FilterTest extends AbstractTestCase
 
     public function testChangeNumberOfRecurrences()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
             new DateTime('2018-07-15'),
@@ -250,7 +250,7 @@ class FilterTest extends AbstractTestCase
 
     public function testCallbackArguments()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
             1,
@@ -278,7 +278,7 @@ class FilterTest extends AbstractTestCase
             'Could not find next valid date.',
         ));
 
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(
             new Carbon('2000-01-01'),
             new CarbonInterval('PT1S'),
@@ -294,7 +294,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveBuildInFilters()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(new DateTime('2018-04-16'), new DateTime('2018-07-15'))->setRecurrences(3);
 
         $period->setEndDate(null);
@@ -305,7 +305,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAcceptEveryOther()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass(
             new DateTime('2018-04-16'),
             new DateTime('2018-04-20'),
@@ -327,7 +327,7 @@ class FilterTest extends AbstractTestCase
 
     public function testEndIterationFilter()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass('2018-04-16', 5);
 
         $period->addFilter($periodClass::END_ITERATION);
@@ -337,7 +337,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAcceptOnlyEvenDays()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
@@ -347,7 +347,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAddFilterFromCarbonMethod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2018-01-01', '2018-06-01');
 
         $period->addFilter('isLastOfMonth');
@@ -360,7 +360,7 @@ class FilterTest extends AbstractTestCase
 
     public function testAddFilterFromCarbonMacro()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2018-01-01', '2018-06-01');
 
         Carbon::macro('isTenDay', function () {

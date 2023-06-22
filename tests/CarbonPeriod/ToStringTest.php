@@ -36,9 +36,9 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function dataForToString(): Generator
+    public static function dataForToString(): Generator
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         yield [
@@ -82,7 +82,7 @@ class ToStringTest extends AbstractTestCase
 
     public function testMagicToString()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::days(3)->hours(5),
@@ -108,9 +108,9 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public function dataForToIso8601String(): Generator
+    public static function dataForToIso8601String(): Generator
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         yield [
@@ -149,7 +149,7 @@ class ToStringTest extends AbstractTestCase
 
     public function testSpec()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(
             Carbon::parse('2015-09-30'),
             CarbonInterval::days(3)->hours(5),
@@ -164,7 +164,7 @@ class ToStringTest extends AbstractTestCase
 
     public function testStartOfWeekForPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $sunday = CarbonImmutable::parse('2019-12-01');
 
         $period = $periodClass::create($sunday->startOfWeek(), '1 week', $sunday->endOfWeek())->toArray();
@@ -184,7 +184,7 @@ class ToStringTest extends AbstractTestCase
 
     public function testToStringCustomization()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $sunday = CarbonImmutable::parse('2019-12-01');
 
         $period = $periodClass::create($sunday->startOfWeek(), '1 week', $sunday->endOfWeek());

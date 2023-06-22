@@ -5470,7 +5470,7 @@ class WeekTest extends AbstractTestCase
         );
     }
 
-    public function getDaysFromStartOfWeekDataProvider(): array
+    public static function getDaysFromStartOfWeekDataProvider(): array
     {
         return [
             'Monday en_US' => ['en_US', '2022-11-21', 1],
@@ -5510,7 +5510,7 @@ class WeekTest extends AbstractTestCase
         $this->assertSame($daysCount, $carbon->getDaysFromStartOfWeek($start));
     }
 
-    public function getDaysFromStartOfWeekDataProviderExplicit(): array
+    public static function getDaysFromStartOfWeekDataProviderExplicit(): array
     {
         return [
             'Monday 0' => [0, '2022-11-21', 1],

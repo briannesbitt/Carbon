@@ -68,9 +68,7 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
         yield [
             '2010-03-14T00:00:00',
             24,
-            version_compare(PHP_VERSION, '8.1.0-dev', '>=')
-                ? '2010-03-15T01:00:00-04:00'
-                : '2010-03-15T00:00:00-04:00',
+            '2010-03-15T01:00:00-04:00',
         ];
 
         // testBackwardTransition
