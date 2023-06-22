@@ -16,6 +16,7 @@ namespace Tests\Carbon;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use CarbonTimezoneTrait;
 use DateTime;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
@@ -266,5 +267,59 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $this->assertFalse(Carbon::noThis());
         $this->assertFalse(Carbon::now()->noThis());
+    }
+
+    public function testTraitWithNamedParameters()
+    {
+        require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
+
+        Carbon::mixin(CarbonTimezoneTrait::class);
+        $now = Carbon::now();
+        $now = eval("return \$now->toAppTz(tz: 'Europe/Paris');");
+
+        $this->assertSame('Europe/Paris', $now->format('e'));
+    }
+
+    public function testSerializationAfterTraitChaining()
+    {
+        require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
+
+        Carbon::mixin(CarbonTimezoneTrait::class);
+        Carbon::setTestNow('2023-05-24 14:49');
+
+        $date = Carbon::toAppTz(false, 'Europe/Paris');
+
+        $this->assertSame('2023-05-24 16:49 Europe/Paris', unserialize(serialize($date))->format('Y-m-d H:i e'));
+
+        $date = Carbon::parse('2023-06-12 11:49')->toAppTz(false, 'Europe/Paris');
+
+        $this->assertSame('2023-06-12 13:49 Europe/Paris', unserialize(serialize($date))->format('Y-m-d H:i e'));
+    }
+
+    public function testMutabilityOfMixinMethodReturnedValue()
+    {
+        require_once __DIR__.'/../Fixtures/CarbonTimezoneTrait.php';
+
+        Carbon::mixin(CarbonTimezoneTrait::class);
+        Carbon::setTestNow('2023-05-24 14:49');
+
+        $now = Carbon::now();
+
+        $copy = $now->copyWithAppTz(false, 'Europe/Paris');
+
+        $this->assertSame('Europe/Paris', $copy->format('e'));
+        $this->assertSame('UTC', $now->format('e'));
+
+        $mutated = $now->toAppTz(false, 'America/Toronto');
+
+        $this->assertSame('America/Toronto', $mutated->format('e'));
+        $this->assertSame('America/Toronto', $now->format('e'));
+
+        $this->assertSame(Carbon::class, \get_class($mutated));
+        $this->assertSame(Carbon::class, \get_class($copy));
+
+        $this->assertSame($mutated, $now);
+        $this->assertEquals($mutated, $copy);
+        $this->assertNotSame($mutated, $copy);
     }
 }

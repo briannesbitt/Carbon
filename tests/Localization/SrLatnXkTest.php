@@ -235,7 +235,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
-        'pre 2 sekundu',
+        'pre 2 sekunde',
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
@@ -251,7 +251,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
-        'pre 2 minut',
+        'pre 2 minuta',
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
@@ -267,7 +267,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
-        'pre 2 sat',
+        'pre 2 sata',
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
@@ -283,7 +283,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
-        'pre 2 dan',
+        'pre 2 dana',
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago'
@@ -299,7 +299,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago'
-        'pre 2 nedelju',
+        'pre 2 nedelje',
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago'
@@ -315,7 +315,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
-        'pre 2 mesec',
+        'pre 2 meseca',
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
@@ -331,7 +331,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago'
-        'pre 2 godinu',
+        'pre 2 godine',
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago'
@@ -371,7 +371,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
-        '2 sekundu',
+        '2 sekunde',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
@@ -391,7 +391,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
-        'za 3 godinu',
+        'za 3 godine',
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
@@ -403,23 +403,23 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
-        '1 nedelja 10 sat',
+        '1 nedelja 10 sati',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days'
-        '1 nedelja 6 dan',
+        '1 nedelja 6 dana',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days'
-        '1 nedelja 6 dan',
+        '1 nedelja 6 dana',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now'
-        'za 1 nedelju i 6 dan',
+        'za 1 nedelju i 6 dana',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
-        '2 nedelja 1 sat',
+        '2 nedelje 1 sat',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
@@ -427,7 +427,7 @@ class SrLatnXkTest extends LocalizationTestCase
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days'
-        '2 dan',
+        '2 dana',
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'

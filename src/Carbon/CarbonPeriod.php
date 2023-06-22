@@ -40,6 +40,7 @@ use JsonSerializable;
 use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
+use Throwable;
 
 require PHP_VERSION < 8.2
     ? __DIR__.'/../../lazy/Carbon/ProtectedDatePeriod.php'
@@ -48,43 +49,43 @@ require PHP_VERSION < 8.2
 /**
  * Substitution of DatePeriod with some modifications and many more features.
  *
- * @method static CarbonPeriod|CarbonInterface start($date = null, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance. Get current period start  if called without parameters.
- * @method static CarbonPeriod since($date = null, $inclusive = null) Alias for start().
- * @method static CarbonPeriod sinceNow($inclusive = null) Create instance with start date set to now or set the start date to now if called on an instance.
- * @method static CarbonPeriod|CarbonInterface end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance. Get current period end if called without parameters.
- * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
- * @method static CarbonPeriod untilNow($inclusive = null) Create instance with end date set to now or set the end date to now if called on an instance.
- * @method static CarbonPeriod dates($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
- * @method static CarbonPeriod between($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
- * @method static CarbonPeriod recurrences($recurrences = null) Create instance with maximum number of recurrences or modify the number of recurrences if called on an instance.
- * @method static CarbonPeriod times($recurrences = null) Alias for recurrences().
- * @method static CarbonPeriod|int|null options($options = null) Create instance with options or modify the options if called on an instance. Get current options if called withtout parameters.
- * @method static CarbonPeriod toggle($options, $state = null) Create instance with options toggled on or off, or toggle options if called on an instance.
- * @method static CarbonPeriod filter($callback, $name = null) Create instance with filter added to the stack or append a filter if called on an instance.
- * @method static CarbonPeriod push($callback, $name = null) Alias for filter().
- * @method static CarbonPeriod prepend($callback, $name = null) Create instance with filter prepended to the stack or prepend a filter if called on an instance.
- * @method static CarbonPeriod|array filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance. Get current filters if called withtout parameters.
- * @method static CarbonPeriod|CarbonInterval interval($interval = null) Create instance with given date interval or modify the interval if called on an instance. Get current period interval if called without parameters.
- * @method static CarbonPeriod each($interval) Create instance with given date interval or modify the interval if called on an instance.
- * @method static CarbonPeriod every($interval) Create instance with given date interval or modify the interval if called on an instance.
- * @method static CarbonPeriod step($interval) Create instance with given date interval or modify the interval if called on an instance.
- * @method static CarbonPeriod stepBy($interval) Create instance with given date interval or modify the interval if called on an instance.
- * @method static CarbonPeriod invert() Create instance with inverted date interval or invert the interval if called on an instance.
- * @method static CarbonPeriod years($years = 1) Create instance specifying a number of years for date interval or replace the interval by the given a number of years if called on an instance.
- * @method static CarbonPeriod year($years = 1) Alias for years().
- * @method static CarbonPeriod months($months = 1) Create instance specifying a number of months for date interval or replace the interval by the given a number of months if called on an instance.
- * @method static CarbonPeriod month($months = 1) Alias for months().
- * @method static CarbonPeriod weeks($weeks = 1) Create instance specifying a number of weeks for date interval or replace the interval by the given a number of weeks if called on an instance.
- * @method static CarbonPeriod week($weeks = 1) Alias for weeks().
- * @method static CarbonPeriod days($days = 1) Create instance specifying a number of days for date interval or replace the interval by the given a number of days if called on an instance.
- * @method static CarbonPeriod dayz($days = 1) Alias for days().
- * @method static CarbonPeriod day($days = 1) Alias for days().
- * @method static CarbonPeriod hours($hours = 1) Create instance specifying a number of hours for date interval or replace the interval by the given a number of hours if called on an instance.
- * @method static CarbonPeriod hour($hours = 1) Alias for hours().
- * @method static CarbonPeriod minutes($minutes = 1) Create instance specifying a number of minutes for date interval or replace the interval by the given a number of minutes if called on an instance.
- * @method static CarbonPeriod minute($minutes = 1) Alias for minutes().
- * @method static CarbonPeriod seconds($seconds = 1) Create instance specifying a number of seconds for date interval or replace the interval by the given a number of seconds if called on an instance.
- * @method static CarbonPeriod second($seconds = 1) Alias for seconds().
+ * @method static static|CarbonInterface start($date = null, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance.
+ * @method static static since($date = null, $inclusive = null) Alias for start().
+ * @method static static sinceNow($inclusive = null) Create instance with start date set to now or set the start date to now if called on an instance.
+ * @method static static|CarbonInterface end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance.
+ * @method static static until($date = null, $inclusive = null) Alias for end().
+ * @method static static untilNow($inclusive = null) Create instance with end date set to now or set the end date to now if called on an instance.
+ * @method static static dates($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
+ * @method static static between($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
+ * @method static static recurrences($recurrences = null) Create instance with maximum number of recurrences or modify the number of recurrences if called on an instance.
+ * @method static static times($recurrences = null) Alias for recurrences().
+ * @method static static|int|null options($options = null) Create instance with options or modify the options if called on an instance.
+ * @method static static toggle($options, $state = null) Create instance with options toggled on or off, or toggle options if called on an instance.
+ * @method static static filter($callback, $name = null) Create instance with filter added to the stack or append a filter if called on an instance.
+ * @method static static push($callback, $name = null) Alias for filter().
+ * @method static static prepend($callback, $name = null) Create instance with filter prepended to the stack or prepend a filter if called on an instance.
+ * @method static static|array filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance.
+ * @method static static|CarbonInterval interval($interval = null) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static static each($interval) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static static every($interval) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static static step($interval) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static static stepBy($interval) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static static invert() Create instance with inverted date interval or invert the interval if called on an instance.
+ * @method static static years($years = 1) Create instance specifying a number of years for date interval or replace the interval by the given a number of years if called on an instance.
+ * @method static static year($years = 1) Alias for years().
+ * @method static static months($months = 1) Create instance specifying a number of months for date interval or replace the interval by the given a number of months if called on an instance.
+ * @method static static month($months = 1) Alias for months().
+ * @method static static weeks($weeks = 1) Create instance specifying a number of weeks for date interval or replace the interval by the given a number of weeks if called on an instance.
+ * @method static static week($weeks = 1) Alias for weeks().
+ * @method static static days($days = 1) Create instance specifying a number of days for date interval or replace the interval by the given a number of days if called on an instance.
+ * @method static static dayz($days = 1) Alias for days().
+ * @method static static day($days = 1) Alias for days().
+ * @method static static hours($hours = 1) Create instance specifying a number of hours for date interval or replace the interval by the given a number of hours if called on an instance.
+ * @method static static hour($hours = 1) Alias for hours().
+ * @method static static minutes($minutes = 1) Create instance specifying a number of minutes for date interval or replace the interval by the given a number of minutes if called on an instance.
+ * @method static static minute($minutes = 1) Alias for minutes().
+ * @method static static seconds($seconds = 1) Create instance specifying a number of seconds for date interval or replace the interval by the given a number of seconds if called on an instance.
+ * @method static static second($seconds = 1) Alias for seconds().
  * @method $this roundYear(float $precision = 1, string $function = "round") Round the current instance year with given precision using the given function.
  * @method $this roundYears(float $precision = 1, string $function = "round") Round the current instance year with given precision using the given function.
  * @method $this floorYear(float $precision = 1) Truncate the current instance year with given precision.
@@ -257,6 +258,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @var CarbonInterval
      */
     protected $dateInterval;
+
+    /**
+     * True once __construct is finished.
+     *
+     * @var bool
+     */
+    protected $constructed = false;
 
     /**
      * Whether current date interval was set by default.
@@ -507,7 +515,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         foreach (explode('/', $iso) as $key => $part) {
             if ($key === 0 && preg_match('/^R(\d*|INF)$/', $part, $match)) {
                 $parsed = \strlen($match[1]) ? (($match[1] !== 'INF') ? (int) $match[1] : INF) : null;
-            } elseif ($interval === null && $parsed = CarbonInterval::make($part)) {
+            } elseif ($interval === null && $parsed = self::makeInterval($part)) {
                 $interval = $part;
             } elseif ($start === null && $parsed = Carbon::make($part)) {
                 $start = $part;
@@ -538,6 +546,15 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $result = preg_replace($pattern, $target, $source, 1, $count);
 
         return $count ? $result : $target;
+    }
+
+    private static function makeInterval(string $string): ?CarbonInterval
+    {
+        try {
+            return CarbonInterval::make($string);
+        } catch (Throwable) {
+            return null;
+        }
     }
 
     /**
@@ -643,6 +660,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         // Dummy construct, as properties are completely overridden
         parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
 
+        if (is_a($this->dateClass, DateTimeImmutable::class, true)) {
+            $this->options = static::IMMUTABLE;
+        }
+
         // Parse and assign arguments one by one. First argument may be an ISO 8601 spec,
         // which will be first parsed into parts and then processed the same way.
 
@@ -717,6 +738,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         if ($this->options === null) {
             $this->setOptions(0);
         }
+
+        $this->constructed = true;
     }
 
     /**
@@ -727,6 +750,17 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public function copy()
     {
         return clone $this;
+    }
+
+    /**
+     * Prepare the instance to be set (self if mutable to be mutated,
+     * copy if immutable to generate a new instance).
+     *
+     * @return static
+     */
+    protected function copyIfImmutable()
+    {
+        return $this;
     }
 
     /**
@@ -746,6 +780,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             'include_start_date' => [$this, 'isStartIncluded'],
             'include_end_date' => [$this, 'isEndIncluded'],
             'current' => [$this, 'current'],
+            'locale' => [$this, 'locale'],
             default => null,
         };
     }
@@ -809,7 +844,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param string $dateClass
      *
-     * @return $this
+     * @return static
      */
     public function setDateClass(string $dateClass)
     {
@@ -817,15 +852,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new NotACarbonClassException($dateClass);
         }
 
-        $this->dateClass = $dateClass;
+        $self = $this->copyIfImmutable();
+        $self->dateClass = $dateClass;
 
         if (is_a($dateClass, Carbon::class, true)) {
-            $this->toggleOptions(static::IMMUTABLE, false);
+            $self->options = $self->options & ~static::IMMUTABLE;
         } elseif (is_a($dateClass, CarbonImmutable::class, true)) {
-            $this->toggleOptions(static::IMMUTABLE, true);
+            $self->options = $self->options | static::IMMUTABLE;
         }
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -846,7 +882,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @throws InvalidIntervalException
      *
-     * @return $this
+     * @return static
      */
     public function setDateInterval(mixed $interval, ?string $unit = null)
     {
@@ -858,25 +894,24 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new InvalidIntervalException('Empty interval is not accepted.');
         }
 
-        $this->dateInterval = $interval;
+        $self = $this->copyIfImmutable();
+        $self->dateInterval = $interval;
 
-        $this->isDefaultInterval = false;
+        $self->isDefaultInterval = false;
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
      * Invert the period date interval.
      *
-     * @return $this
+     * @return static
      */
     public function invertDateInterval()
     {
-        $interval = $this->dateInterval->invert();
-
-        return $this->setDateInterval($interval);
+        return $this->setDateInterval($this->dateInterval->invert());
     }
 
     /**
@@ -885,14 +920,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param DateTime|DateTimeInterface|string      $start
      * @param DateTime|DateTimeInterface|string|null $end
      *
-     * @return $this
+     * @return static
      */
     public function setDates(mixed $start, mixed $end): static
     {
-        $this->setStartDate($start);
-        $this->setEndDate($end);
-
-        return $this;
+        return $this->setStartDate($start)->setEndDate($end);
     }
 
     /**
@@ -900,15 +932,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param int|null $options
      *
-     * @return $this
+     * @return static
      */
     public function setOptions(?int $options): static
     {
-        $this->options = $options ?? 0;
+        $self = $this->copyIfImmutable();
+        $self->options = $options ?? 0;
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -929,7 +962,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @throws \InvalidArgumentException
      *
-     * @return $this
+     * @return static
      */
     public function toggleOptions(int $options, bool $state = null): static
     {
@@ -949,7 +982,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param bool $state
      *
-     * @return $this
+     * @return static
      */
     public function excludeStartDate(bool $state = true): static
     {
@@ -961,7 +994,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param bool $state
      *
-     * @return $this
+     * @return static
      */
     public function excludeEndDate(bool $state = true): static
     {
@@ -1106,17 +1139,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param callable $callback
      * @param string   $name
      *
-     * @return $this
+     * @return static
      */
     public function addFilter($callback, ?string $name = null): static
     {
-        $tuple = $this->createFilterTuple(\func_get_args());
+        $self = $this->copyIfImmutable();
+        $tuple = $self->createFilterTuple(\func_get_args());
 
-        $this->filters[] = $tuple;
+        $self->filters[] = $tuple;
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1127,17 +1161,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param callable $callback
      * @param string   $name
      *
-     * @return $this
+     * @return static
      */
     public function prependFilter($callback, ?string $name = null): static
     {
-        $tuple = $this->createFilterTuple(\func_get_args());
+        $self = $this->copyIfImmutable();
+        $tuple = $self->createFilterTuple(\func_get_args());
 
-        array_unshift($this->filters, $tuple);
+        array_unshift($self->filters, $tuple);
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1145,22 +1180,23 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param callable|string $filter
      *
-     * @return $this
+     * @return static
      */
     public function removeFilter($filter): static
     {
+        $self = $this->copyIfImmutable();
         $key = \is_callable($filter) ? 0 : 1;
 
-        $this->filters = array_values(array_filter(
+        $self->filters = array_values(array_filter(
             $this->filters,
             static fn ($tuple) => $tuple[$key] !== $filter,
         ));
 
-        $this->updateInternalState();
+        $self->updateInternalState();
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1198,39 +1234,41 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param array $filters
      *
-     * @return $this
+     * @return static
      */
     public function setFilters(array $filters): static
     {
-        $this->filters = $filters;
+        $self = $this->copyIfImmutable();
+        $self->filters = $filters;
 
-        $this->updateInternalState();
+        $self->updateInternalState();
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
      * Reset filters stack.
      *
-     * @return $this
+     * @return static
      */
     public function resetFilters(): static
     {
-        $this->filters = [];
+        $self = $this->copyIfImmutable();
+        $self->filters = [];
 
-        if ($this->endDate !== null) {
-            $this->filters[] = [static::END_DATE_FILTER, null];
+        if ($self->endDate !== null) {
+            $self->filters[] = [static::END_DATE_FILTER, null];
         }
 
-        if ($this->carbonRecurrences !== null) {
-            $this->filters[] = [static::RECURRENCES_FILTER, null];
+        if ($self->carbonRecurrences !== null) {
+            $self->filters[] = [static::RECURRENCES_FILTER, null];
         }
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1240,7 +1278,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @throws InvalidArgumentException
      *
-     * @return $this
+     * @return static
      */
     public function setRecurrences(int|float|null $recurrences): static
     {
@@ -1252,15 +1290,17 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new InvalidPeriodParameterException('Invalid number of recurrences.');
         }
 
-        $this->carbonRecurrences = $recurrences === INF ? INF : (int) $recurrences;
+        /** @var self $self */
+        $self = $this->copyIfImmutable();
+        $self->carbonRecurrences = $recurrences === INF ? INF : (int) $recurrences;
 
-        if (!$this->hasFilter(static::RECURRENCES_FILTER)) {
-            return $this->addFilter(static::RECURRENCES_FILTER);
+        if (!$self->hasFilter(static::RECURRENCES_FILTER)) {
+            return $self->addFilter(static::RECURRENCES_FILTER);
         }
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1271,7 +1311,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @throws InvalidPeriodDateException
      *
-     * @return $this
+     * @return static
      */
     public function setStartDate(mixed $date, bool $inclusive = null): static
     {
@@ -1279,13 +1319,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new InvalidPeriodDateException('Invalid start date.');
         }
 
-        $this->startDate = $date;
+        $self = $this->copyIfImmutable();
+        $self->startDate = $date;
 
         if ($inclusive !== null) {
-            $this->toggleOptions(static::EXCLUDE_START_DATE, !$inclusive);
+            $self = $self->toggleOptions(static::EXCLUDE_START_DATE, !$inclusive);
         }
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1296,7 +1337,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @throws \InvalidArgumentException
      *
-     * @return $this
+     * @return static
      */
     public function setEndDate(mixed $date, ?bool $inclusive = null): static
     {
@@ -1308,19 +1349,20 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return $this->removeFilter(static::END_DATE_FILTER);
         }
 
-        $this->endDate = $date;
+        $self = $this->copyIfImmutable();
+        $self->endDate = $date;
 
         if ($inclusive !== null) {
-            $this->toggleOptions(static::EXCLUDE_END_DATE, !$inclusive);
+            $self = $self->toggleOptions(static::EXCLUDE_END_DATE, !$inclusive);
         }
 
-        if (!$this->hasFilter(static::END_DATE_FILTER)) {
-            return $this->addFilter(static::END_DATE_FILTER);
+        if (!$self->hasFilter(static::END_DATE_FILTER)) {
+            return $self->addFilter(static::END_DATE_FILTER);
         }
 
-        $this->handleChangedParameters();
+        $self->handleChangedParameters();
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1823,18 +1865,19 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function setTimezone(mixed $timezone): static
     {
-        $this->tzName = $timezone;
-        $this->timezone = $timezone;
+        $self = $this->copyIfImmutable();
+        $self->tzName = $timezone;
+        $self->timezone = $timezone;
 
-        if ($this->startDate) {
-            $this->setStartDate($this->startDate->setTimezone($timezone));
+        if ($self->startDate) {
+            $self = $self->setStartDate($self->startDate->setTimezone($timezone));
         }
 
-        if ($this->endDate) {
-            $this->setEndDate($this->endDate->setTimezone($timezone));
+        if ($self->endDate) {
+            $self = $self->setEndDate($self->endDate->setTimezone($timezone));
         }
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -1846,18 +1889,19 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function shiftTimezone(mixed $timezone): static
     {
-        $this->tzName = $timezone;
-        $this->timezone = $timezone;
+        $self = $this->copyIfImmutable();
+        $self->tzName = $timezone;
+        $self->timezone = $timezone;
 
-        if ($this->startDate) {
-            $this->setStartDate($this->startDate->shiftTimezone($timezone));
+        if ($self->startDate) {
+            $self = $self->setStartDate($self->startDate->shiftTimezone($timezone));
         }
 
-        if ($this->endDate) {
-            $this->setEndDate($this->endDate->shiftTimezone($timezone));
+        if ($self->endDate) {
+            $self = $self->setEndDate($self->endDate->shiftTimezone($timezone));
         }
 
-        return $this;
+        return $self;
     }
 
     /**
@@ -2236,22 +2280,21 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param float|int|string|DateInterval|null $precision
      * @param string                             $function
      *
-     * @return $this
+     * @return static
      */
     public function roundUnit(
         string $unit,
         DateInterval|float|int|string|null $precision = 1,
         string $function = 'round',
     ): static {
-        $this->setStartDate($this->getStartDate()->roundUnit($unit, $precision, $function));
+        $self = $this->copyIfImmutable();
+        $self->setStartDate($self->getStartDate()->roundUnit($unit, $precision, $function));
 
-        if ($this->endDate) {
-            $this->setEndDate($this->getEndDate()->roundUnit($unit, $precision, $function));
+        if ($self->endDate) {
+            $self = $self->setEndDate($self->getEndDate()->roundUnit($unit, $precision, $function));
         }
 
-        $this->setDateInterval($this->getDateInterval()->roundUnit($unit, $precision, $function));
-
-        return $this;
+        return $self->setDateInterval($self->getDateInterval()->roundUnit($unit, $precision, $function));
     }
 
     /**
@@ -2260,7 +2303,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param string                             $unit
      * @param float|int|string|DateInterval|null $precision
      *
-     * @return $this
+     * @return static
      */
     public function floorUnit(string $unit, DateInterval|float|int|string|null $precision = 1): static
     {
@@ -2273,7 +2316,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param string                             $unit
      * @param float|int|string|DateInterval|null $precision
      *
-     * @return $this
+     * @return static
      */
     public function ceilUnit(string $unit, DateInterval|float|int|string|null $precision = 1): static
     {
@@ -2286,7 +2329,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * @param float|int|string|DateInterval|null $precision
      * @param string                             $function
      *
-     * @return $this
+     * @return static
      */
     public function round(DateInterval|float|int|string|null $precision = null, string $function = 'round'): static
     {
@@ -2301,7 +2344,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param float|int|string|DateInterval|null $precision
      *
-     * @return $this
+     * @return static
      */
     public function floor(DateInterval|float|int|string|null $precision = null)
     {
@@ -2313,7 +2356,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param float|int|string|DateInterval|null $precision
      *
-     * @return $this
+     * @return static
      */
     public function ceil(DateInterval|float|int|string|null $precision = null)
     {
@@ -2507,9 +2550,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     protected function handleChangedParameters()
     {
         if (($this->getOptions() & static::IMMUTABLE) && $this->dateClass === Carbon::class) {
-            $this->setDateClass(CarbonImmutable::class);
+            $this->dateClass = CarbonImmutable::class;
         } elseif (!($this->getOptions() & static::IMMUTABLE) && $this->dateClass === CarbonImmutable::class) {
-            $this->setDateClass(Carbon::class);
+            $this->dateClass = Carbon::class;
         }
 
         $this->validationResult = null;

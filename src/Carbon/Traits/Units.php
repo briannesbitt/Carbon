@@ -14,11 +14,13 @@ namespace Carbon\Traits;
 use Carbon\CarbonConverterInterface;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnsupportedUnitException;
 use Closure;
 use DateInterval;
+use DateMalformedStringException;
 use ReturnTypeWillChange;
 
 /**
@@ -308,19 +310,25 @@ trait Units
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
 
-        $date = self::rawAddUnit($date, $unit, $value);
+        $previousException = null;
 
-        if (isset($timeString)) {
-            $date = $date?->setTimeFromTimeString($timeString);
-        } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
-            $date = $date?->modify('last day of previous month');
+        try {
+            $date = self::rawAddUnit($date, $unit, $value);
+
+            if (isset($timeString)) {
+                $date = $date?->setTimeFromTimeString($timeString);
+            } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
+                $date = $date?->modify('last day of previous month');
+            }
+        } catch (DateMalformedStringException|InvalidFormatException|UnsupportedUnitException $exception) {
+            $date = null;
+            $previousException = $exception;
         }
 
-        if (!$date) {
-            throw new UnitException('Unable to add unit '.var_export($originalArgs, true));
-        }
-
-        return $date;
+        return $date ?? throw new UnitException(
+            'Unable to add unit '.var_export($originalArgs, true),
+            previous: $previousException,
+        );
     }
 
     /**
@@ -411,15 +419,15 @@ trait Units
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
     {
         try {
-            if ($unit === 'microsecond' && version_compare(PHP_VERSION, '8.1.0-dev', '>=')) {
-                throw new UnsupportedUnitException($unit, '8.1'); // @codeCoverageIgnore
-            }
-
             return $date->rawAdd(
                 CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
             );
-        } catch (InvalidIntervalException|UnsupportedUnitException) {
-            return $date->modify("$value $unit") ?: null;
+        } catch (InvalidIntervalException $exception) {
+            try {
+                return $date->modify("$value $unit");
+            } catch (InvalidFormatException) {
+                throw new UnsupportedUnitException($unit, previous: $exception);
+            }
         }
     }
 }

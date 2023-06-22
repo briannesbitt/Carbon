@@ -19,6 +19,7 @@ use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Translator;
 use Closure;
+use DateMalformedStringException;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
@@ -62,7 +63,7 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (\is_string($time) && substr($time, 0, 1) === '@') {
+        if (\is_string($time) && str_starts_with($time, '@')) {
             $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
         }
 
@@ -175,13 +176,16 @@ trait Creator
         try {
             return new static($time, $tz);
         } catch (Exception $exception) {
-            $date = @static::now($tz)->change($time);
-
-            if (!$date) {
-                throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
+            // @codeCoverageIgnoreStart
+            try {
+                $date = @static::now($tz)->change($time);
+            } catch (DateMalformedStringException|InvalidFormatException) {
+                $date = null;
             }
+            // @codeCoverageIgnoreEnd
 
-            return $date;
+            return $date
+                ?? throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
         }
     }
 
@@ -313,13 +317,13 @@ trait Creator
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
-     * @param int|null                 $hour
-     * @param int|null                 $minute
-     * @param int|null                 $second
-     * @param DateTimeZone|string|null $tz
+     * @param DateTimeInterface|int|null $year
+     * @param int|null                   $month
+     * @param int|null                   $day
+     * @param int|null                   $hour
+     * @param int|null                   $minute
+     * @param int|null                   $second
+     * @param DateTimeZone|string|null   $tz
      *
      * @throws InvalidFormatException
      *
@@ -586,6 +590,10 @@ trait Creator
             $time = preg_replace('/^(.*)(am|pm|AM|PM)(.*)$/U', '$1$3 $2', $time);
         }
 
+        if ($tz === false) {
+            $tz = null;
+        }
+
         // First attempt to create an instance, so that error messages are based on the unmodified format.
         $date = self::createFromFormatAndTimezone($format, $time, $tz);
         $lastErrors = parent::getLastErrors();
@@ -817,6 +825,19 @@ trait Creator
      */
     public static function createFromLocaleFormat(string $format, string $locale, string $time, $tz = null): ?self
     {
+        $format = preg_replace_callback(
+            '/(?:\\\\[a-zA-Z]|[bfkqCEJKQRV]){2,}/',
+            static function (array $match) use ($locale): string {
+                $word = str_replace('\\', '', $match[0]);
+                $translatedWord = static::translateTimeString($word, $locale, static::DEFAULT_LOCALE);
+
+                return $word === $translatedWord
+                    ? $match[0]
+                    : preg_replace('/[a-zA-Z]/', '\\\\$0', $translatedWord);
+            },
+            $format
+        );
+
         return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
 

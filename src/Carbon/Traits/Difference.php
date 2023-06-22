@@ -315,7 +315,11 @@ trait Difference
      */
     public function diffInWeekdays($date = null, bool $absolute = false): int
     {
-        return $this->diffInDaysFiltered(static fn (CarbonInterface $date) => $date->isWeekday(), $date, $absolute);
+        return $this->diffInDaysFiltered(
+            static fn (CarbonInterface $date) => $date->isWeekday(),
+            $this->resolveCarbon($date)->avoidMutation()->modify($this->format('H:i:s.u')),
+            $absolute,
+        );
     }
 
     /**
@@ -328,7 +332,11 @@ trait Difference
      */
     public function diffInWeekendDays($date = null, bool $absolute = false): int
     {
-        return $this->diffInDaysFiltered(static fn (CarbonInterface $date) => $date->isWeekend(), $date, $absolute);
+        return $this->diffInDaysFiltered(
+            static fn (CarbonInterface $date) => $date->isWeekend(),
+            $this->resolveCarbon($date)->avoidMutation()->modify($this->format('H:i:s.u')),
+            $absolute,
+        );
     }
 
     /**
@@ -490,7 +498,7 @@ trait Difference
         $parts = min(7, max(1, (int) $parts));
         $skip = \is_array($syntax) ? ($syntax['skip'] ?? []) : [];
 
-        return $this->diff($other, false, $skip)
+        return $this->diff($other, false, (array) $skip)
             ->forHumans($syntax, (bool) $short, $parts, $options ?? $this->localHumanDiffOptions ?? static::getHumanDiffOptions());
     }
 

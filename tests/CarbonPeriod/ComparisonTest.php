@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -26,135 +26,144 @@ class ComparisonTest extends AbstractTestCase
 {
     public function testEqualToTrue()
     {
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2010-01-01', '2010-02-01');
 
         $this->assertTrue($period->equalTo($period));
         $this->assertTrue($period->eq($period));
-        $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01')));
-        $this->assertTrue($period->eq(CarbonPeriod::create('R3/2010-01-01/P1D/2010-02-01')));
+        $this->assertTrue($period->eq($periodClass::create('2010-01-01', '2010-02-01')));
+        $this->assertTrue($period->eq($periodClass::create('R3/2010-01-01/P1D/2010-02-01')));
         $this->assertTrue($period->eq(Carbon::parse('2010-01-01')->daysUntil('2010-02-01')));
         $this->assertTrue($period->eq(
             new DatePeriod(new DateTime('2010-01-01'), CarbonInterval::day(), new DateTime('2010-02-01'))
         ));
 
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D');
+        $period = $periodClass::create('2010-01-01', '2010-02-01', 'P2D');
 
-        $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D')));
-        $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonInterval::day(2))));
-        $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01')->setDateInterval('P2D')));
-        $this->assertTrue($period->eq(CarbonPeriod::create('R3/2010-01-01/P2D/2010-02-01')));
+        $this->assertTrue($period->eq($periodClass::create('2010-01-01', '2010-02-01', 'P2D')));
+        $this->assertTrue($period->eq($periodClass::create('2010-01-01', '2010-02-01', CarbonInterval::day(2))));
+        $this->assertTrue($period->eq($periodClass::create('2010-01-01', '2010-02-01')->setDateInterval('P2D')));
+        $this->assertTrue($period->eq($periodClass::create('R3/2010-01-01/P2D/2010-02-01')));
 
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonPeriod::EXCLUDE_START_DATE);
+        $period = $periodClass::create('2010-01-01', '2010-02-01', $periodClass::EXCLUDE_START_DATE);
 
-        $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonPeriod::EXCLUDE_START_DATE)));
-        $this->assertTrue($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-01')->setOptions(CarbonPeriod::EXCLUDE_START_DATE)));
+        $this->assertTrue($period->eq($periodClass::create('2010-01-01', '2010-02-01', $periodClass::EXCLUDE_START_DATE)));
+        $this->assertTrue($period->eq($periodClass::create('2010-01-01', '2010-02-01')->setOptions($periodClass::EXCLUDE_START_DATE)));
     }
 
     public function testEqualToFalse()
     {
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2010-01-01', '2010-02-01');
 
-        $this->assertFalse($period->equalTo(CarbonPeriod::create('2010-01-02', '2010-02-01')));
-        $this->assertFalse($period->eq(CarbonPeriod::create('2010-01-02', '2010-02-01')));
-        $this->assertFalse($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-02')));
-        $this->assertFalse($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-02', 'P2D')));
-        $this->assertFalse($period->eq(CarbonPeriod::create('2010-01-01', '2010-02-02', CarbonPeriod::EXCLUDE_START_DATE)));
+        $this->assertFalse($period->equalTo($periodClass::create('2010-01-02', '2010-02-01')));
+        $this->assertFalse($period->eq($periodClass::create('2010-01-02', '2010-02-01')));
+        $this->assertFalse($period->eq($periodClass::create('2010-01-01', '2010-02-02')));
+        $this->assertFalse($period->eq($periodClass::create('2010-01-01', '2010-02-02', 'P2D')));
+        $this->assertFalse($period->eq($periodClass::create('2010-01-01', '2010-02-02', $periodClass::EXCLUDE_START_DATE)));
     }
 
     public function testNotEqualToTrue()
     {
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2010-01-01', '2010-02-01');
 
-        $this->assertTrue($period->notEqualTo(CarbonPeriod::create('2010-01-02', '2010-02-01')));
-        $this->assertTrue($period->ne(CarbonPeriod::create('2010-01-02', '2010-02-01')));
-        $this->assertTrue($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-02')));
-        $this->assertTrue($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-02', 'P2D')));
-        $this->assertTrue($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-02', CarbonPeriod::EXCLUDE_START_DATE)));
+        $this->assertTrue($period->notEqualTo($periodClass::create('2010-01-02', '2010-02-01')));
+        $this->assertTrue($period->ne($periodClass::create('2010-01-02', '2010-02-01')));
+        $this->assertTrue($period->ne($periodClass::create('2010-01-01', '2010-02-02')));
+        $this->assertTrue($period->ne($periodClass::create('2010-01-01', '2010-02-02', 'P2D')));
+        $this->assertTrue($period->ne($periodClass::create('2010-01-01', '2010-02-02', $periodClass::EXCLUDE_START_DATE)));
     }
 
     public function testNotEqualToFalse()
     {
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2010-01-01', '2010-02-01');
 
         $this->assertFalse($period->notEqualTo($period));
         $this->assertFalse($period->ne($period));
-        $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01')));
-        $this->assertFalse($period->ne(CarbonPeriod::create('R3/2010-01-01/P1D/2010-02-01')));
+        $this->assertFalse($period->ne($periodClass::create('2010-01-01', '2010-02-01')));
+        $this->assertFalse($period->ne($periodClass::create('R3/2010-01-01/P1D/2010-02-01')));
         $this->assertFalse($period->ne(Carbon::parse('2010-01-01')->daysUntil('2010-02-01')));
         $this->assertFalse($period->ne(
             new DatePeriod(new DateTime('2010-01-01'), CarbonInterval::day(), new DateTime('2010-02-01'))
         ));
 
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D');
+        $period = $periodClass::create('2010-01-01', '2010-02-01', 'P2D');
 
-        $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01', 'P2D')));
-        $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonInterval::day(2))));
-        $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01')->setDateInterval('P2D')));
-        $this->assertFalse($period->ne(CarbonPeriod::create('R3/2010-01-01/P2D/2010-02-01')));
+        $this->assertFalse($period->ne($periodClass::create('2010-01-01', '2010-02-01', 'P2D')));
+        $this->assertFalse($period->ne($periodClass::create('2010-01-01', '2010-02-01', CarbonInterval::day(2))));
+        $this->assertFalse($period->ne($periodClass::create('2010-01-01', '2010-02-01')->setDateInterval('P2D')));
+        $this->assertFalse($period->ne($periodClass::create('R3/2010-01-01/P2D/2010-02-01')));
 
-        $period = CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonPeriod::EXCLUDE_START_DATE);
+        $period = $periodClass::create('2010-01-01', '2010-02-01', $periodClass::EXCLUDE_START_DATE);
 
-        $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonPeriod::EXCLUDE_START_DATE)));
-        $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01')->setOptions(CarbonPeriod::EXCLUDE_START_DATE)));
+        $this->assertFalse($period->ne($periodClass::create('2010-01-01', '2010-02-01', $periodClass::EXCLUDE_START_DATE)));
+        $this->assertFalse($period->ne($periodClass::create('2010-01-01', '2010-02-01')->setOptions($periodClass::EXCLUDE_START_DATE)));
     }
 
     public function testStartComparisons()
     {
+        $periodClass = $this->periodClass;
         Carbon::setTestNow('2020-01-01');
+        CarbonImmutable::setTestNow('2020-01-01');
 
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonPeriod::create('2019-12-05', '2020-02-01')));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonPeriod::create('2020-01-07', '2020-01-08')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsBefore($periodClass::create('2019-12-05', '2020-02-01')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsBefore($periodClass::create('2020-01-07', '2020-01-08')));
 
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(2)));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(4)));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBeforeOrAt(CarbonInterval::days(4)));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(5)));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(2)));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(4)));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsBeforeOrAt(CarbonInterval::days(4)));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(5)));
 
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonPeriod::create('2019-12-05', '2020-02-01')));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonPeriod::create('2020-01-07', '2020-01-08')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsAfter($periodClass::create('2019-12-05', '2020-02-01')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsAfter($periodClass::create('2020-01-07', '2020-01-08')));
 
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(2)));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(4)));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfterOrAt(CarbonInterval::days(4)));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(5)));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(2)));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(4)));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsAfterOrAt(CarbonInterval::days(4)));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(5)));
 
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAt('2020-02-01'));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAt('2020-01-05'));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->startsAt('2020-02-01'));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->startsAt('2020-01-05'));
     }
 
     public function testEndComparisons()
     {
+        $periodClass = $this->periodClass;
         Carbon::setTestNow('2020-02-05');
+        CarbonImmutable::setTestNow('2020-02-05');
 
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2019-12-05', '2020-02-01')));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2020-01-07', '2020-01-08')));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2020-02-01', '2020-02-08')));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBeforeOrAt(CarbonPeriod::create('2020-02-01', '2020-02-08')));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2020-02-03', '2020-02-08')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsBefore($periodClass::create('2019-12-05', '2020-02-01')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsBefore($periodClass::create('2020-01-07', '2020-01-08')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsBefore($periodClass::create('2020-02-01', '2020-02-08')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsBeforeOrAt($periodClass::create('2020-02-01', '2020-02-08')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsBefore($periodClass::create('2020-02-03', '2020-02-08')));
 
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(2)->invert()));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(4)->invert()));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBeforeOrAt(CarbonInterval::days(4)->invert()));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(5)->invert()));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(2)->invert()));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(4)->invert()));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsBeforeOrAt(CarbonInterval::days(4)->invert()));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(5)->invert()));
 
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2019-12-05', '2020-02-01')));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2020-01-07', '2020-01-08')));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfterOrAt(CarbonPeriod::create('2020-02-01', '2020-01-08')));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2020-02-01', '2020-01-08')));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2020-02-02', '2020-01-08')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsAfter($periodClass::create('2019-12-05', '2020-02-01')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsAfter($periodClass::create('2020-01-07', '2020-01-08')));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsAfterOrAt($periodClass::create('2020-02-01', '2020-01-08')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsAfter($periodClass::create('2020-02-01', '2020-01-08')));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsAfter($periodClass::create('2020-02-02', '2020-01-08')));
 
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(2)->invert()));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(4)->invert()));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfterOrAt(CarbonInterval::days(4)->invert()));
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(5)->invert()));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(2)->invert()));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(4)->invert()));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsAfterOrAt(CarbonInterval::days(4)->invert()));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(5)->invert()));
 
-        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-02-01'));
-        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-01-05'));
+        $this->assertTrue($periodClass::create('2020-01-05', '2020-02-01')->endsAt('2020-02-01'));
+        $this->assertFalse($periodClass::create('2020-01-05', '2020-02-01')->endsAt('2020-01-05'));
     }
 
     public function testContains()
     {
-        $period = CarbonPeriod::create('2019-08-01', '2019-08-10');
+        $periodClass = $this->periodClass;
+        $period = $periodClass::create('2019-08-01', '2019-08-10');
 
         $this->assertFalse($period->contains('2019-07-31 23:59:59'));
         $this->assertTrue($period->contains('2019-08-01'));
@@ -162,7 +171,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($period->contains('2019-08-10'));
         $this->assertFalse($period->contains('2019-08-10 00:00:01'));
 
-        $period = CarbonPeriod::create('2019-08-01', '2019-08-10', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
+        $period = $periodClass::create('2019-08-01', '2019-08-10', $periodClass::EXCLUDE_START_DATE | $periodClass::EXCLUDE_END_DATE);
 
         $this->assertFalse($period->contains('2019-08-01'));
         $this->assertTrue($period->contains('2019-08-01 00:00:01'));
@@ -173,8 +182,9 @@ class ComparisonTest extends AbstractTestCase
 
     public function testConsecutivePeriods()
     {
-        $july = CarbonPeriod::create('2019-07-29', '2019-07-31');
-        $august = CarbonPeriod::create('2019-08-01', '2019-08-12');
+        $periodClass = $this->periodClass;
+        $july = $periodClass::create('2019-07-29', '2019-07-31');
+        $august = $periodClass::create('2019-08-01', '2019-08-12');
 
         $this->assertFalse($july->follows($august));
         $this->assertTrue($august->follows($july));
@@ -214,8 +224,8 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($july->isConsecutiveWith($august2));
         $this->assertTrue($august->isConsecutiveWith($july2));
 
-        $july = CarbonPeriod::create('2019-07-29', '2019-08-01');
-        $august = CarbonPeriod::create('2019-08-01', '2019-08-12');
+        $july = $periodClass::create('2019-07-29', '2019-08-01');
+        $august = $periodClass::create('2019-08-01', '2019-08-12');
 
         $this->assertFalse($july->follows($august));
         $this->assertFalse($august->follows($july));
@@ -226,8 +236,8 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($july->isConsecutiveWith($august));
         $this->assertFalse($august->isConsecutiveWith($july));
 
-        $july = CarbonPeriod::create('2019-07-29', '2019-07-31', CarbonPeriod::EXCLUDE_END_DATE);
-        $august = CarbonPeriod::create('2019-08-01', '2019-08-12', CarbonPeriod::EXCLUDE_START_DATE);
+        $july = $periodClass::create('2019-07-29', '2019-07-31', $periodClass::EXCLUDE_END_DATE);
+        $august = $periodClass::create('2019-08-01', '2019-08-12', $periodClass::EXCLUDE_START_DATE);
 
         $this->assertFalse($july->follows($august));
         $this->assertFalse($august->follows($july));
@@ -241,8 +251,9 @@ class ComparisonTest extends AbstractTestCase
 
     public function testConsecutivePeriodsWithExclusion()
     {
-        $july = CarbonPeriod::create('2019-07-29', '2019-08-01', CarbonPeriod::EXCLUDE_END_DATE);
-        $august = CarbonPeriod::create('2019-07-31', '2019-08-12', CarbonPeriod::EXCLUDE_START_DATE);
+        $periodClass = $this->periodClass;
+        $july = $periodClass::create('2019-07-29', '2019-08-01', $periodClass::EXCLUDE_END_DATE);
+        $august = $periodClass::create('2019-07-31', '2019-08-12', $periodClass::EXCLUDE_START_DATE);
 
         $this->assertFalse($july->follows($august));
         $this->assertTrue($august->follows($july));
@@ -256,8 +267,9 @@ class ComparisonTest extends AbstractTestCase
 
     public function testConsecutivePeriodsWithDynamicEnd()
     {
-        $july = CarbonPeriod::create('2019-07-29', '1 day', 4);
-        $august = CarbonPeriod::create('2019-08-02', '2019-08-12');
+        $periodClass = $this->periodClass;
+        $july = $periodClass::create('2019-07-29', '1 day', 4);
+        $august = $periodClass::create('2019-08-02', '2019-08-12');
 
         $this->assertFalse($july->follows($august));
         $this->assertTrue($august->follows($july));

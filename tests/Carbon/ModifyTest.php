@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+use Closure;
+use DateMalformedStringException;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -230,6 +233,53 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(
             '2000-01-23 00:00:00',
             Carbon::parse('2000-01-25')->change('before yesterday')->format('Y-m-d H:i:s'),
+        );
+    }
+
+    public function testInvalidModifier(): void
+    {
+        $this->checkInvalid('invalid', static function () {
+            return @Carbon::parse('2000-01-25')->change('invalid');
+        });
+        $this->checkInvalid('next invalid', static function () {
+            return @Carbon::now()->next('invalid');
+        });
+        $this->checkInvalid('last invalid', static function () {
+            return @Carbon::now()->previous('invalid');
+        });
+    }
+
+    private function checkInvalid(string $message, Closure $callback): void
+    {
+        $this->expectExceptionObject(
+            PHP_VERSION < 8.3
+                ? new InvalidFormatException('Could not modify with: '.var_export($message, true))
+                : new DateMalformedStringException("Failed to parse time string ($message)"),
+        );
+
+        $callback();
+    }
+
+    public function testImplicitCast(): void
+    {
+        $this->assertSame(
+            '2000-01-25 06:00:00.000000',
+            Carbon::parse('2000-01-25')->addRealHours('6')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 07:00:00.000000',
+            Carbon::parse('2000-01-25')->addRealUnit('hour', '7')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 00:08:00.000000',
+            Carbon::parse('2000-01-25')->addRealUnit('minute', '8')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 00:00:00.007000',
+            Carbon::parse('2000-01-25')->addRealUnit('millisecond', '7')->format('Y-m-d H:i:s.u')
         );
     }
 }

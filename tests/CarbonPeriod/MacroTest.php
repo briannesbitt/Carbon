@@ -16,15 +16,18 @@ namespace Tests\CarbonPeriod;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use ReflectionClass;
 use Tests\AbstractTestCase;
+use Tests\CarbonPeriod\Fixtures\MacroableClass;
 use Tests\CarbonPeriod\Fixtures\Mixin;
+use Tests\CarbonPeriod\Fixtures\MixinTrait;
 
 class MacroTest extends AbstractTestCase
 {
     protected function tearDown(): void
     {
-        $reflection = new ReflectionClass(CarbonPeriod::class);
+        $reflection = new ReflectionClass($this->periodClass);
 
         $macrosProperty = $reflection->getProperty('macros');
 
@@ -36,7 +39,8 @@ class MacroTest extends AbstractTestCase
 
     public function testCallMacro()
     {
-        CarbonPeriod::macro('onlyWeekdays', function () {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('onlyWeekdays', function () {
             /** @var CarbonPeriod $period */
             $period = $this;
 
@@ -46,31 +50,38 @@ class MacroTest extends AbstractTestCase
         });
 
         /** @var mixed $period */
-        $period = CarbonPeriod::create('2018-05-10', '2018-05-14');
+        $period = $periodClass::create('2018-05-10', '2018-05-14');
+        $result = $period->onlyWeekdays();
 
-        $this->assertSame($period, $period->onlyWeekdays());
+        $this->assertSame(
+            $periodClass === CarbonPeriod::class,
+            $period === $result,
+            'Must be same object if mutable'
+        );
 
         $this->assertSame(
             $this->standardizeDates(['2018-05-10', '2018-05-11', '2018-05-14']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
     public function testParameterOtherThanSelfIsNotGivenPeriodInstance()
     {
-        CarbonPeriod::macro('foobar', function ($param = 123) {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('foobar', function ($param = 123) {
             return $param;
         });
 
         /** @var mixed $period */
-        $period = CarbonPeriod::create();
+        $period = $periodClass::create();
 
         $this->assertSame(123, $period->foobar());
     }
 
     public function testPassPeriodInstanceAfterOptionalParameters()
     {
-        CarbonPeriod::macro('formatStartDate', function ($format = 'l, j F Y') {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('formatStartDate', function ($format = 'l, j F Y') {
             /** @var CarbonPeriod $period */
             $period = $this;
 
@@ -78,7 +89,7 @@ class MacroTest extends AbstractTestCase
         });
 
         /** @var mixed $period */
-        $period = CarbonPeriod::start('2016-09-11');
+        $period = $periodClass::start('2016-09-11');
 
         $this->assertSame(
             'Sunday, 11 September 2016',
@@ -88,21 +99,23 @@ class MacroTest extends AbstractTestCase
 
     public function testMacroIsBindedToDatePeriodInstance()
     {
-        CarbonPeriod::macro('myself', function () {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('myself', function () {
             return $this;
         });
 
         /** @var mixed $period */
-        $period = new CarbonPeriod();
+        $period = new $periodClass();
 
-        $this->assertInstanceOf(CarbonPeriod::class, $period->myself());
+        $this->assertInstanceOf($periodClass, $period->myself());
         $this->assertSame($period, $period->myself());
     }
 
     public function testCallMacroStatically()
     {
-        CarbonPeriod::macro('countWeekdaysBetween', function ($from, $to) {
-            return CarbonPeriod::create($from, $to)
+        $periodClass = $this->periodClass;
+        $periodClass::macro('countWeekdaysBetween', function ($from, $to) use ($periodClass) {
+            return $periodClass::create($from, $to)
                 ->addFilter(function ($date) {
                     return !\in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY], true);
                 })
@@ -111,38 +124,41 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame(
             3,
-            CarbonPeriod::countWeekdaysBetween('2018-05-10', '2018-05-14'),
+            $periodClass::countWeekdaysBetween('2018-05-10', '2018-05-14'),
         );
     }
 
-    public function testMacroIsBindedToDatePeriodClass()
+    public function testMacroIsBoundToDatePeriodClass()
     {
-        CarbonPeriod::macro('newMyself', function () {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('newMyself', function () {
             return new static();
         });
 
-        $this->assertInstanceOf(CarbonPeriod::class, CarbonPeriod::newMyself());
+        $this->assertInstanceOf($periodClass, $periodClass::newMyself());
     }
 
     public function testRegisterNonClosureMacro()
     {
-        CarbonPeriod::macro('lower', 'strtolower');
+        $periodClass = $this->periodClass;
+        $periodClass::macro('lower', 'strtolower');
 
         /** @var mixed $period */
-        $period = new CarbonPeriod();
+        $period = new $periodClass();
 
         $this->assertSame('abc', $period->lower('ABC'));
-        $this->assertSame('abc', CarbonPeriod::lower('ABC'));
+        $this->assertSame('abc', $periodClass::lower('ABC'));
     }
 
     public function testRegisterMixin()
     {
-        CarbonPeriod::mixin(new Mixin());
+        $periodClass = $this->periodClass;
+        $periodClass::mixin(new Mixin());
 
-        $this->assertNull(CarbonPeriod::getFoo());
+        $this->assertNull($periodClass::getFoo());
 
-        CarbonPeriod::setFoo('bar');
-        $this->assertSame('bar', CarbonPeriod::getFoo());
+        $periodClass::setFoo('bar');
+        $this->assertSame('bar', $periodClass::getFoo());
     }
 
     public function testCallNonExistingMacro()
@@ -151,8 +167,9 @@ class MacroTest extends AbstractTestCase
             'Method nonExistingMacro does not exist.',
         ));
 
+        $periodClass = $this->periodClass;
         /** @var mixed $period */
-        $period = CarbonPeriod::create();
+        $period = $periodClass::create();
 
         $period->nonExistingMacro();
     }
@@ -163,29 +180,82 @@ class MacroTest extends AbstractTestCase
             'Method nonExistingMacro does not exist.',
         ));
 
-        CarbonPeriod::nonExistingMacro();
+        $periodClass = $this->periodClass;
+        $periodClass::nonExistingMacro();
     }
 
     public function testOverrideAlias()
     {
-        CarbonPeriod::macro('recurrences', function () {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('recurrences', function () {
             return 'foo';
         });
 
-        $this->assertSame('foo', CarbonPeriod::recurrences());
+        $this->assertSame('foo', $periodClass::recurrences());
     }
 
     public function testInstatiateViaStaticMacroCall()
     {
-        CarbonPeriod::macro('fromTomorrow', function () {
+        $periodClass = $this->periodClass;
+        $periodClass::macro('fromTomorrow', function () {
             /** @var CarbonPeriod $period */
             $period = $this;
 
             return $period->setStartDate(Carbon::tomorrow());
         });
 
-        $period = CarbonPeriod::fromTomorrow();
+        $period = $periodClass::fromTomorrow();
 
         $this->assertEquals(Carbon::tomorrow(), $period->getStartDate());
+    }
+
+    public function testMixinInstance()
+    {
+        require_once __DIR__.'/Fixtures/MixinTrait.php';
+        require_once __DIR__.'/Fixtures/MacroableClass.php';
+
+        $periodClass = $this->periodClass;
+        $periodClass::mixin(MixinTrait::class);
+
+        $period = $periodClass::create('2023-06-10', '2023-06-12');
+
+        $copy = $period->copyOneMoreDay();
+
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-12', (string) $period);
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $copy);
+
+        $mutated = $period->oneMoreDay();
+        $immutable = ($this->periodClass === CarbonPeriodImmutable::class);
+        $expectedEnd = $immutable ? '2023-06-12' : '2023-06-13';
+
+        $this->assertSame('Every 1 day from 2023-06-10 to 2023-06-13', (string) $mutated);
+        $this->assertSame("Every 1 day from 2023-06-10 to $expectedEnd", (string) $period);
+
+        $expectedResult = $immutable ? 'a new instance' : 'the same instance';
+        $this->assertSame(
+            $immutable,
+            ($mutated !== $period),
+            "{$this->periodClass}::oneMoreDay() should return $expectedResult"
+        );
+
+        $this->assertNotSame($copy, $period);
+
+        $this->assertSame('2023-06-14', $mutated->endNextDay()->format('Y-m-d'));
+        $this->assertSame($this->periodClass === CarbonPeriodImmutable::class
+            ? '2023-06-13'
+            : '2023-06-14', $period->endNextDay()->format('Y-m-d'));
+
+        MacroableClass::mixin(MixinTrait::class);
+
+        $obj = new MacroableClass();
+        $result = $obj
+            ->setEndDate(Carbon::parse('2023-06-01'))
+            ->oneMoreDay();
+        $endDate = $result->getEndDate();
+
+        $this->assertInstanceOf(MacroableClass::class, $result);
+        $this->assertNotSame(MacroableClass::class, \get_class($result));
+        $this->assertSame(Carbon::class, \get_class($endDate));
+        $this->assertSame('2023-06-02', $endDate->format('Y-m-d'));
     }
 }

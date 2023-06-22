@@ -19,6 +19,9 @@ use Carbon\CarbonInterval;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ */
 abstract class LocalizationTestCase extends AbstractTestCase
 {
     public const LOCALE = 'en';

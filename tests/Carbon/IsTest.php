@@ -905,6 +905,8 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'Y-m-d!'));
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'Y-m-d|'));
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'Y-*-d'));
+
+        $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
     }
 
     public function testHasFormatWithModifiers()

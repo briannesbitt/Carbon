@@ -706,7 +706,7 @@ trait Localization
 
         $translator = static::getLocaleAwareTranslator($translator);
 
-        return $translator ? $translator->getLocale() : null;
+        return $translator?->getLocale();
     }
 
     /**

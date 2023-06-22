@@ -235,7 +235,7 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago',
-        'fa 2 segon',
+        'fa 2 segons',
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago',
@@ -251,7 +251,7 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago',
-        'fa 2 minut',
+        'fa 2 minuts',
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago',
@@ -267,7 +267,7 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago',
-        'fa 2 hora',
+        'fa 2 hores',
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago',
@@ -283,7 +283,7 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago',
-        'fa 2 dia',
+        'fa 2 dies',
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago',
@@ -299,11 +299,11 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago',
-        'fa 2 setmana',
+        'fa 2 setmanes',
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago',
-        'fa 2 setmana',
+        'fa 2 setmanes',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago',
@@ -315,11 +315,11 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago',
-        'fa 2 mes',
+        'fa 2 mesos',
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago',
-        'fa 2 mes',
+        'fa 2 mesos',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago',
@@ -331,11 +331,11 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago',
-        'fa 2 any',
+        'fa 2 anys',
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago',
-        'fa 2 any',
+        'fa 2 anys',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
@@ -371,7 +371,7 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds',
-        '2 segon',
+        '2 segons',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s',
@@ -387,39 +387,39 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s',
-        '2 any 3 mes 1 d 1 s',
+        '2 anys 3 mesos 1 d 1 s',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now',
-        'd\'aquí a 3 any',
+        'd\'aquí a 3 anys',
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago',
-        'fa 5 mes',
+        'fa 5 mesos',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago',
-        'fa 2 any 3 mes 1 d 1 s',
+        'fa 2 anys 3 mesos 1 d 1 s',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours',
-        '1 setmana 10 hora',
+        '1 setmana 10 hores',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 setmana 6 dia',
+        '1 setmana 6 dies',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 setmana 6 dia',
+        '1 setmana 6 dies',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now',
-        'd\'aquí a 1 setmana i 6 dia',
+        'd\'aquí a 1 setmana i 6 dies',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour',
-        '2 setmana 1 hora',
+        '2 setmanes 1 hora',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',
@@ -427,7 +427,7 @@ class CaEsValenciaTest extends LocalizationTestCase
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days',
-        '2 dia',
+        '2 dies',
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h',

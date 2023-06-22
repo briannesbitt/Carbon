@@ -340,19 +340,19 @@ class DiffTest extends AbstractTestCase
     public function testDiffInWeekdaysPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
-        $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->endOfMonth()));
+        $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->addMonth()));
     }
 
     public function testDiffInWeekdaysNegativeNoSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(21, $dt->diffInWeekdays($dt->copy()->startOfMonth(), true));
+        $this->assertSame(20, $dt->diffInWeekdays($dt->copy()->startOfMonth(), true));
     }
 
     public function testDiffInWeekdaysNegativeWithSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(-21, $dt->diffInWeekdays($dt->copy()->startOfMonth()));
+        $this->assertSame(-20, $dt->diffInWeekdays($dt->copy()->startOfMonth()));
     }
 
     public function testDiffInWeekendDaysPositive()
@@ -1635,9 +1635,8 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
-        $this->expectExceptionObject(new InvalidFormatException(
-            'Failed to parse time string (2018-04-13---08:00:00) at position 10',
-        ));
+        $this->expectException(InvalidFormatException::class);
+        $this->expectExceptionMessage('Failed to parse time string (2018-04-13---08:00:00) at position 10');
 
         $mar13 = Carbon::parse('2018-03-13');
         $mar13->diffForHumans('2018-04-13---08:00:00');
