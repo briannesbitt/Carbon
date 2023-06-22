@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
   bootstrap="tests/bootstrap.php"
   colors="true"
+  cacheDirectory=".phpunit.cache"
 >
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">src/Carbon</directory>
-    </include>
-    <exclude>
-      <file>src/Carbon/PHPStan/Macro.php</file>
-      <file>src/Carbon/Translator.php</file>
-      <file>src/Carbon/TranslatorStrongType.php</file>
-      <file>src/Carbon/TranslatorWeakType.php</file>
-    </exclude>
-  </coverage>
+  <coverage/>
   <testsuites>
     <testsuite name="carbon">
       <directory>tests/Carbon</directory>
@@ -58,8 +49,18 @@
       <directory>tests/PHPStan</directory>
     </testsuite>
   </testsuites>
-
   <php>
     <ini name="max_execution_time" value="0"/>
   </php>
+  <source>
+    <include>
+      <directory suffix=".php">src/Carbon</directory>
+    </include>
+    <exclude>
+      <file>src/Carbon/PHPStan/Macro.php</file>
+      <file>src/Carbon/Translator.php</file>
+      <file>src/Carbon/TranslatorStrongType.php</file>
+      <file>src/Carbon/TranslatorWeakType.php</file>
+    </exclude>
+  </source>
 </phpunit>

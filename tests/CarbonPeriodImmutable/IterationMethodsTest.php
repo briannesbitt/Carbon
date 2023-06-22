@@ -17,5 +17,5 @@ use Carbon\CarbonPeriodImmutable;
 
 class IterationMethodsTest extends \Tests\CarbonPeriod\IterationMethodsTest
 {
-    protected $periodClass = CarbonPeriodImmutable::class;
+    protected static $periodClass = CarbonPeriodImmutable::class;
 }

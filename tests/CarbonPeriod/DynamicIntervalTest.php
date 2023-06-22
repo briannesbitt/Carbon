@@ -20,7 +20,7 @@ class DynamicIntervalTest extends AbstractTestCase
 {
     public function testDynamicIntervalInPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $weekDayStep = function (Carbon $date, bool $negated = false): Carbon {
             if ($negated) {
                 return $date->previousWeekDay();

@@ -26,7 +26,7 @@ class ComparisonTest extends AbstractTestCase
 {
     public function testEqualToTrue()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2010-01-01', '2010-02-01');
 
         $this->assertTrue($period->equalTo($period));
@@ -53,7 +53,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testEqualToFalse()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2010-01-01', '2010-02-01');
 
         $this->assertFalse($period->equalTo($periodClass::create('2010-01-02', '2010-02-01')));
@@ -65,7 +65,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testNotEqualToTrue()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2010-01-01', '2010-02-01');
 
         $this->assertTrue($period->notEqualTo($periodClass::create('2010-01-02', '2010-02-01')));
@@ -77,7 +77,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testNotEqualToFalse()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2010-01-01', '2010-02-01');
 
         $this->assertFalse($period->notEqualTo($period));
@@ -104,7 +104,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testStartComparisons()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         Carbon::setTestNow('2020-01-01');
         CarbonImmutable::setTestNow('2020-01-01');
 
@@ -130,7 +130,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testEndComparisons()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         Carbon::setTestNow('2020-02-05');
         CarbonImmutable::setTestNow('2020-02-05');
 
@@ -162,7 +162,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testContains()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2019-08-01', '2019-08-10');
 
         $this->assertFalse($period->contains('2019-07-31 23:59:59'));
@@ -182,7 +182,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testConsecutivePeriods()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $july = $periodClass::create('2019-07-29', '2019-07-31');
         $august = $periodClass::create('2019-08-01', '2019-08-12');
 
@@ -251,7 +251,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testConsecutivePeriodsWithExclusion()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $july = $periodClass::create('2019-07-29', '2019-08-01', $periodClass::EXCLUDE_END_DATE);
         $august = $periodClass::create('2019-07-31', '2019-08-12', $periodClass::EXCLUDE_START_DATE);
 
@@ -267,7 +267,7 @@ class ComparisonTest extends AbstractTestCase
 
     public function testConsecutivePeriodsWithDynamicEnd()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $july = $periodClass::create('2019-07-29', '1 day', 4);
         $august = $periodClass::create('2019-08-02', '2019-08-12');
 

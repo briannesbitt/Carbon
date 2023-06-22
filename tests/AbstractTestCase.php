@@ -58,7 +58,7 @@ abstract class AbstractTestCase extends TestCase
     /**
      * @var class-string<CarbonPeriod>
      */
-    protected $periodClass = CarbonPeriod::class;
+    protected static $periodClass = CarbonPeriod::class;
 
     protected function getTimestamp()
     {

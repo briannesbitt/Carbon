@@ -27,7 +27,7 @@ class ToDatePeriodTest extends AbstractTestCase
 {
     public function testToArrayIsNotEmptyArray()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2021-01-05', '2021-02-15');
         $result = $period->toDatePeriod();
 
@@ -69,7 +69,7 @@ class ToDatePeriodTest extends AbstractTestCase
     public function testWithIntervalLocalized()
     {
         CarbonInterval::setLocale('fr');
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2021-01-05', 3);
         $result = $period->floor()->toDatePeriod();
 
@@ -86,7 +86,7 @@ class ToDatePeriodTest extends AbstractTestCase
 
     public function testWithModifiedEnglish()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $translator = Translator::get('en');
         $translator->setTranslations([
             'day' => ':count boring day|:count boring days',
@@ -107,7 +107,7 @@ class ToDatePeriodTest extends AbstractTestCase
 
     public function testRawDate()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = new $periodClass();
         $method = new ReflectionMethod($periodClass, 'rawDate');
         $method->setAccessible(true);

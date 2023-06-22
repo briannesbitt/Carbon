@@ -52,11 +52,9 @@ trait Difference
         // It was initially introduced for https://bugs.php.net/bug.php?id=80998
         // The very specific case of 80998 was fixed in PHP 8.1beta3, but it introduced 81458
         // So we still need to keep this for now
-        // @codeCoverageIgnoreStart
-        if (version_compare(PHP_VERSION, '8.1.0-dev', '>=') && $other->tz !== $this->tz) {
+        if ($other->tz !== $this->tz) {
             $other = $other->avoidMutation()->tz($this->tz);
         }
-        // @codeCoverageIgnoreEnd
 
         return parent::diff($other, $absolute);
     }
@@ -819,15 +817,6 @@ trait Difference
     {
         $daysDiff = (int) $interval->format('%a');
         $sign = $interval->format('%r') === '-' ? -1 : 1;
-
-        if (\is_int($interval->days) &&
-            $interval->y === 0 &&
-            $interval->m === 0 &&
-            version_compare(PHP_VERSION, '8.1.0-dev', '<') &&
-            abs($interval->d - $daysDiff) === 1
-        ) {
-            $daysDiff = abs($interval->d); // @codeCoverageIgnore
-        }
 
         return $daysDiff * $sign;
     }

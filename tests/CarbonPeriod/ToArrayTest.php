@@ -26,7 +26,7 @@ class ToArrayTest extends AbstractTestCase
 {
     public function testToArrayIsNotEmptyArray()
     {
-        $result = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass)->toArray();
+        $result = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass)->toArray();
 
         $this->assertIsArray($result);
         $this->assertNotEmpty($result);
@@ -34,14 +34,14 @@ class ToArrayTest extends AbstractTestCase
 
     public function testToArrayHasCorrectCount()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $this->assertCount(3, $period->toArray());
     }
 
     public function testToArrayValuesAreCarbonInstances()
     {
-        $result = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass)->toArray();
+        $result = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass)->toArray();
 
         foreach ($result as $key => $current) {
             $this->assertInstanceOfCarbon($current);
@@ -50,14 +50,14 @@ class ToArrayTest extends AbstractTestCase
 
     public function testToArrayKeysAreSequential()
     {
-        $result = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass)->toArray();
+        $result = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass)->toArray();
 
         $this->assertSame([0, 1, 2], array_keys($result));
     }
 
     public function testToArrayHasCorrectValues()
     {
-        $result = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass)->toArray();
+        $result = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass)->toArray();
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
@@ -67,14 +67,14 @@ class ToArrayTest extends AbstractTestCase
 
     public function testJsonSerialize()
     {
-        $result = json_encode(CarbonPeriodFactory::withEvenDaysFilter($this->periodClass));
+        $result = json_encode(CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass));
 
         $this->assertSame('["2012-07-04T04:00:00.000000Z","2012-07-10T04:00:00.000000Z","2012-07-16T04:00:00.000000Z"]', $result);
     }
 
     public function testCountEmptyPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $assertThrow = function (CarbonPeriod $period) {
             $message = null;
 
@@ -140,35 +140,35 @@ class ToArrayTest extends AbstractTestCase
 
     public function testCountByMethod()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $this->assertSame(3, $period->count());
     }
 
     public function testCountByFunction()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $this->assertCount(3, $period);
     }
 
     public function testFirst()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $this->assertEquals(new Carbon('2012-07-04'), $period->first());
     }
 
     public function testLast()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $this->assertEquals(new Carbon('2012-07-16'), $period->last());
     }
 
     public function testToArrayOfEmptyPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $result = $periodClass::create(0)->toArray();
 
         $this->assertIsArray($result);
@@ -177,7 +177,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testCountOfEmptyPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(0);
 
         $this->assertSame(0, $period->count());
@@ -185,7 +185,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testFirstOfEmptyPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(0);
 
         $this->assertNull($period->first());
@@ -202,7 +202,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testLastOfEmptyPeriod()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create(0);
 
         $this->assertNull($period->last());
@@ -210,7 +210,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testRestoreIterationStateAfterCallingToArray()
     {
-        $period = CarbonPeriodFactory::withEvenDaysFilter($this->periodClass);
+        $period = CarbonPeriodFactory::withEvenDaysFilter(static::$periodClass);
 
         $key = $period->key();
         $current = $period->current();
@@ -236,7 +236,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testToArrayResultsAreInTheExpectedTimezone()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2018-05-13 12:00 Asia/Kabul', 'PT1H', 3);
 
         $expected = [
@@ -250,7 +250,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testDebugInfo()
     {
-        $periodClass = $this->periodClass;
+        $periodClass = static::$periodClass;
         $period = $periodClass::create('2018-05-13 12:00 Asia/Kabul', 'PT1H', 3);
 
         $expected = [

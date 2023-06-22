@@ -17,5 +17,5 @@ use Carbon\CarbonPeriodImmutable;
 
 class RoundingTest extends \Tests\CarbonPeriod\RoundingTest
 {
-    protected $periodClass = CarbonPeriodImmutable::class;
+    protected static $periodClass = CarbonPeriodImmutable::class;
 }

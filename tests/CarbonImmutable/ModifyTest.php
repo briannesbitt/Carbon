@@ -35,7 +35,7 @@ class ModifyTest extends AbstractTestCase
     /** @group php-8.1 */
     public function testTimezoneModify()
     {
-        $php81Fix = version_compare(PHP_VERSION, '8.1.0-dev', '>=') ? 1.0 : 0.0;
+        $php81Fix = 1.0;
         // For daylight saving time reason 2014-03-30 0h59 is immediately followed by 2h00
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
