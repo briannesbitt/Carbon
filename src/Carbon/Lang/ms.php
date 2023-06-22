@@ -74,7 +74,7 @@ return [
         'lastWeek' => 'dddd [lepas pukul] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => static function ($hour) {
+    'meridiem' => function ($hour) {
         if ($hour < 1) {
             return 'tengah malam';
         }

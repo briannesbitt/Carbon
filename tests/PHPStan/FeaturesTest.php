@@ -40,7 +40,7 @@ class FeaturesTest extends AbstractTestCase
     {
         $this->assertStringContainsString(
             '[OK] No errors',
-            $this->analyze(__DIR__.'/project.neon'),
+            $this->analyze(__DIR__.'/project.neon')
         );
     }
 
@@ -48,7 +48,7 @@ class FeaturesTest extends AbstractTestCase
     {
         $this->assertStringContainsString(
             '22     Static call to instance method Carbon\Carbon::foo().',
-            $this->analyze(__DIR__.'/bad-project.neon'),
+            $this->analyze(__DIR__.'/bad-project.neon')
         );
     }
 

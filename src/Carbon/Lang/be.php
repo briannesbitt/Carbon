@@ -117,27 +117,39 @@ return [
         'nextDay' => '[Заўтра ў] LT',
         'nextWeek' => '[У] dddd [ў] LT',
         'lastDay' => '[Учора ў] LT',
-        'lastWeek' => static fn (CarbonInterface $current) => match ($current->dayOfWeek) {
-            1, 2, 4 => '[У мінулы] dddd [ў] LT',
-            default => '[У мінулую] dddd [ў] LT',
+        'lastWeek' => function (CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 1:
+                case 2:
+                case 4:
+                    return '[У мінулы] dddd [ў] LT';
+                default:
+                    return '[У мінулую] dddd [ў] LT';
+            }
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => static fn ($number, $period) => match ($period) {
-        'M', 'd', 'DDD', 'w', 'W' => ($number % 10 === 2 || $number % 10 === 3) &&
-                ($number % 100 !== 12 && $number % 100 !== 13) ? $number.'-і' : $number.'-ы',
-        'D' => $number.'-га',
-        default => $number,
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'M':
+            case 'd':
+            case 'DDD':
+            case 'w':
+            case 'W':
+                return ($number % 10 === 2 || $number % 10 === 3) && ($number % 100 !== 12 && $number % 100 !== 13) ? $number.'-і' : $number.'-ы';
+            case 'D':
+                return $number.'-га';
+            default:
+                return $number;
+        }
     },
-    'meridiem' => static function ($hour) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'ночы';
         }
-
         if ($hour < 12) {
             return 'раніцы';
         }
-
         if ($hour < 17) {
             return 'дня';
         }

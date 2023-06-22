@@ -31,7 +31,7 @@ class SubTest extends AbstractTestCase
                 $lastNegated = $negated;
 
                 return new DateTime($date->format('Y-m-d H:i:s').' - 2 years');
-            },
+            }
         );
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame(1973, $date->year);
@@ -44,7 +44,7 @@ class SubTest extends AbstractTestCase
                 $lastNegated = $negated;
 
                 return new DateTime($date->format('Y-m-d H:i:s').' - 2 years');
-            },
+            }
         )->year);
         /** @var CarbonInterval $interval */
         $interval = include __DIR__.'/../Fixtures/dynamicInterval.php';

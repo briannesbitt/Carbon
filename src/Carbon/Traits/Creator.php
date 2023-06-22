@@ -24,7 +24,6 @@ use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use ReturnTypeWillChange;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Trait Creator.
@@ -63,8 +62,8 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (\is_string($time) && str_starts_with($time, '@')) {
-            $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
+        if (is_numeric($time) && (!\is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
+            $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
         // If the class has a test now set and we are trying to create a now()
@@ -79,6 +78,12 @@ trait Creator
             static::mockConstructorParameters($time, $tz);
         }
 
+        // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
+        if (!str_contains((string) .1, '.')) {
+            $locale = setlocale(LC_NUMERIC, '0'); // @codeCoverageIgnore
+            setlocale(LC_NUMERIC, 'C'); // @codeCoverageIgnore
+        }
+
         try {
             parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz) ?: null);
         } catch (Exception $exception) {
@@ -86,6 +91,10 @@ trait Creator
         }
 
         $this->constructedObjectId = spl_object_hash($this);
+
+        if (isset($locale)) {
+            setlocale(LC_NUMERIC, $locale); // @codeCoverageIgnore
+        }
 
         self::setLastErrors(parent::getLastErrors());
     }
@@ -98,7 +107,7 @@ trait Creator
      *
      * @return DateTimeInterface
      */
-    private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz): DateTimeInterface
+    private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz)
     {
         if ($tz !== null) {
             $safeTz = static::safeCreateDateTimeZone($tz);
@@ -130,7 +139,7 @@ trait Creator
      *
      * @return static
      */
-    public static function instance($date): static
+    public static function instance($date)
     {
         if ($date instanceof static) {
             return clone $date;
@@ -167,7 +176,7 @@ trait Creator
      *
      * @return static
      */
-    public static function rawParse($time = null, $tz = null): ?self
+    public static function rawParse($time = null, $tz = null)
     {
         if ($time instanceof DateTimeInterface) {
             return static::instance($time);
@@ -179,13 +188,16 @@ trait Creator
             // @codeCoverageIgnoreStart
             try {
                 $date = @static::now($tz)->change($time);
-            } catch (DateMalformedStringException|InvalidFormatException) {
+            } catch (DateMalformedStringException $ignoredException) {
                 $date = null;
             }
             // @codeCoverageIgnoreEnd
 
-            return $date
-                ?? throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
+            if (!$date) {
+                throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
+            }
+
+            return $date;
         }
     }
 
@@ -203,7 +215,7 @@ trait Creator
      *
      * @return static
      */
-    public static function parse($time = null, $tz = null): ?self
+    public static function parse($time = null, $tz = null)
     {
         $function = static::$parseFunction;
 
@@ -232,7 +244,7 @@ trait Creator
      */
     public static function parseFromLocale($time, $locale = null, $tz = null)
     {
-        return static::rawParse(static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
+        return static::rawParse(static::translateTimeString($time, $locale, 'en'), $tz);
     }
 
     /**
@@ -283,6 +295,38 @@ trait Creator
         return static::rawParse('yesterday', $tz);
     }
 
+    /**
+     * Create a Carbon instance for the greatest supported date.
+     *
+     * @return static
+     */
+    public static function maxValue()
+    {
+        if (self::$PHPIntSize === 4) {
+            // 32 bit
+            return static::createFromTimestamp(PHP_INT_MAX); // @codeCoverageIgnore
+        }
+
+        // 64 bit
+        return static::create(9999, 12, 31, 23, 59, 59);
+    }
+
+    /**
+     * Create a Carbon instance for the lowest supported date.
+     *
+     * @return static
+     */
+    public static function minValue()
+    {
+        if (self::$PHPIntSize === 4) {
+            // 32 bit
+            return static::createFromTimestamp(~PHP_INT_MAX); // @codeCoverageIgnore
+        }
+
+        // 64 bit
+        return static::create(1, 1, 1, 0, 0, 0);
+    }
+
     private static function assertBetween($unit, $value, $min, $max)
     {
         if (static::isStrictModeEnabled() && ($value < $min || $value > $max)) {
@@ -327,9 +371,9 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return static|false
      */
-    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null): ?self
+    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         if ((\is_string($year) && !is_numeric($year)) || $year instanceof DateTimeInterface) {
             return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
@@ -379,11 +423,11 @@ trait Creator
         $second = ($second < 10 ? '0' : '').number_format($second, 6);
         $instance = static::rawCreateFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
-        if ($instance && $fixYear !== null) {
+        if ($fixYear !== null) {
             $instance = $instance->addYears($fixYear);
         }
 
-        return $instance ?: null;
+        return $instance;
     }
 
     /**
@@ -411,9 +455,9 @@ trait Creator
      *
      * @throws InvalidDateException
      *
-     * @return static|null
+     * @return static|false
      */
-    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null): ?self
+    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
         $fields = static::getRangesByUnit();
 
@@ -423,7 +467,7 @@ trait Creator
                     throw new InvalidDateException($field, $$field);
                 }
 
-                return null;
+                return false;
             }
         }
 
@@ -435,7 +479,7 @@ trait Creator
                     throw new InvalidDateException($field, $$field);
                 }
 
-                return null;
+                return false;
             }
         }
 
@@ -459,7 +503,7 @@ trait Creator
      *
      * @return static
      */
-    public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null): static
+    public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null): self
     {
         $initialStrictMode = static::isStrictModeEnabled();
         static::useStrictMode(true);
@@ -544,12 +588,19 @@ trait Creator
      * @param string                         $time
      * @param DateTimeZone|string|false|null $originalTz
      *
-     * @return DateTimeInterface|null
+     * @return DateTimeInterface|false
      */
-    private static function createFromFormatAndTimezone(string $format, string $time, $originalTz): ?DateTimeInterface
+    private static function createFromFormatAndTimezone($format, $time, $originalTz)
     {
+        // Work-around for https://bugs.php.net/bug.php?id=75577
+        // @codeCoverageIgnoreStart
+        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
+            $format = str_replace('.v', '.u', $format);
+        }
+        // @codeCoverageIgnoreEnd
+
         if ($originalTz === null) {
-            return parent::createFromFormat($format, (string) $time) ?: null;
+            return parent::createFromFormat($format, (string) $time);
         }
 
         $tz = \is_int($originalTz)
@@ -558,11 +609,11 @@ trait Creator
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
-        if ($tz === null) {
-            return null;
+        if ($tz === false) {
+            return false;
         }
 
-        return parent::createFromFormat($format, (string) $time, $tz) ?: null;
+        return parent::createFromFormat($format, (string) $time, $tz);
     }
 
     /**
@@ -574,9 +625,9 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return static|false
      */
-    public static function rawCreateFromFormat(string $format, string $time, $tz = null): ?self
+    public static function rawCreateFromFormat($format, $time, $tz = null)
     {
         // Work-around for https://bugs.php.net/bug.php?id=80141
         $format = preg_replace('/(?<!\\\\)((?:\\\\{2})*)c/', '$1Y-m-d\TH:i:sP', $format);
@@ -636,7 +687,7 @@ trait Creator
             throw new InvalidFormatException(implode(PHP_EOL, $lastErrors['errors']));
         }
 
-        return null;
+        return false;
     }
 
     /**
@@ -648,10 +699,10 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return static|false
      */
     #[ReturnTypeWillChange]
-    public static function createFromFormat($format, $time, $tz = null): ?self
+    public static function createFromFormat($format, $time, $tz = null)
     {
         $function = static::$createFromFormatFunction;
 
@@ -669,23 +720,18 @@ trait Creator
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
      *
-     * @param string                         $format     Datetime format
-     * @param string                         $time
-     * @param DateTimeZone|string|false|null $tz         optional timezone
-     * @param string|null                    $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
-     * @param TranslatorInterface|null       $translator optional custom translator to use for macro-formats
+     * @param string                                             $format     Datetime format
+     * @param string                                             $time
+     * @param DateTimeZone|string|false|null                     $tz         optional timezone
+     * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return static|false
      */
-    public static function createFromIsoFormat(
-        string $format,
-        string $time,
-        $tz = null,
-        ?string $locale = self::DEFAULT_LOCALE,
-        ?TranslatorInterface $translator = null
-    ): ?self {
+    public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null)
+    {
         $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
             [$code] = $match;
 
@@ -695,19 +741,21 @@ trait Creator
                 $translator = $translator ?: Translator::get($locale);
 
                 $formats = [
-                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),
-                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale),
-                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale),
-                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale),
-                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale),
-                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale),
+                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale, 'h:mm A'),
+                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale, 'h:mm:ss A'),
+                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale, 'MM/DD/YYYY'),
+                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale, 'MMMM D, YYYY'),
+                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
+                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
                 ];
             }
 
             return $formats[$code] ?? preg_replace_callback(
                 '/MMMM|MM|DD|dddd/',
-                static fn (array $code) => mb_substr($code[0], 1),
-                $formats[strtoupper($code)] ?? '',
+                function ($code) {
+                    return mb_substr($code[0], 1);
+                },
+                $formats[strtoupper($code)] ?? ''
             );
         }, $format);
 
@@ -821,15 +869,15 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return static|false
      */
-    public static function createFromLocaleFormat(string $format, string $locale, string $time, $tz = null): ?self
+    public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
     {
         $format = preg_replace_callback(
             '/(?:\\\\[a-zA-Z]|[bfkqCEJKQRV]){2,}/',
             static function (array $match) use ($locale): string {
                 $word = str_replace('\\', '', $match[0]);
-                $translatedWord = static::translateTimeString($word, $locale, static::DEFAULT_LOCALE);
+                $translatedWord = static::translateTimeString($word, $locale, 'en');
 
                 return $word === $translatedWord
                     ? $match[0]
@@ -838,7 +886,7 @@ trait Creator
             $format
         );
 
-        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
+        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, 'en'), $tz);
     }
 
     /**
@@ -851,11 +899,11 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     * @return static|false
      */
-    public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $tz = null): ?self
+    public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null)
     {
-        $time = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+        $time = static::translateTimeString($time, $locale, 'en', CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
 
         return static::createFromIsoFormat($format, $time, $tz, $locale);
     }
@@ -872,7 +920,7 @@ trait Creator
      *
      * @return static|null
      */
-    public static function make($var): ?self
+    public static function make($var)
     {
         if ($var instanceof DateTimeInterface) {
             return static::instance($var);
@@ -901,7 +949,7 @@ trait Creator
      *
      * @return void
      */
-    private static function setLastErrors($lastErrors): void
+    private static function setLastErrors($lastErrors)
     {
         if (\is_array($lastErrors) || $lastErrors === false) {
             static::$lastErrors = \is_array($lastErrors) ? $lastErrors : [

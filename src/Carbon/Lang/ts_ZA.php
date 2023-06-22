@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Sonto', 'Musumbhunuku', 'Ravumbirhi', 'Ravunharhu', 'Ravumune', 'Ravuntlhanu', 'Mugqivela'],
     'weekdays_short' => ['Son', 'Mus', 'Bir', 'Har', 'Ne', 'Tlh', 'Mug'],
     'weekdays_min' => ['Son', 'Mus', 'Bir', 'Har', 'Ne', 'Tlh', 'Mug'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'year' => 'malembe ya :count',

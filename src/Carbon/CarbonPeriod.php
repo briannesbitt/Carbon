@@ -21,7 +21,6 @@ use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
-use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
@@ -34,38 +33,41 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
-use Generator;
 use InvalidArgumentException;
+use Iterator;
 use JsonSerializable;
 use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
-use Throwable;
-
-require PHP_VERSION < 8.2
-    ? __DIR__.'/../../lazy/Carbon/ProtectedDatePeriod.php'
-    : __DIR__.'/../../lazy/Carbon/UnprotectedDatePeriod.php';
 
 /**
  * Substitution of DatePeriod with some modifications and many more features.
  *
- * @method static static|CarbonInterface start($date = null, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance.
- * @method static static since($date = null, $inclusive = null) Alias for start().
+ * @property-read int|float $recurrences number of recurrences (if end not set).
+ * @property-read bool $include_start_date rather the start date is included in the iteration.
+ * @property-read bool $include_end_date rather the end date is included in the iteration (if recurrences not set).
+ * @property-read CarbonInterface $start Period start date.
+ * @property-read CarbonInterface $current Current date from the iteration.
+ * @property-read CarbonInterface $end Period end date.
+ * @property-read CarbonInterval $interval Underlying date interval instance. Always present, one day by default.
+ *
+ * @method static static start($date, $inclusive = null) Create instance specifying start date or modify the start date if called on an instance.
+ * @method static static since($date, $inclusive = null) Alias for start().
  * @method static static sinceNow($inclusive = null) Create instance with start date set to now or set the start date to now if called on an instance.
- * @method static static|CarbonInterface end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance.
+ * @method static static end($date = null, $inclusive = null) Create instance specifying end date or modify the end date if called on an instance.
  * @method static static until($date = null, $inclusive = null) Alias for end().
  * @method static static untilNow($inclusive = null) Create instance with end date set to now or set the end date to now if called on an instance.
  * @method static static dates($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
  * @method static static between($start, $end = null) Create instance with start and end dates or modify the start and end dates if called on an instance.
  * @method static static recurrences($recurrences = null) Create instance with maximum number of recurrences or modify the number of recurrences if called on an instance.
  * @method static static times($recurrences = null) Alias for recurrences().
- * @method static static|int|null options($options = null) Create instance with options or modify the options if called on an instance.
+ * @method static static options($options = null) Create instance with options or modify the options if called on an instance.
  * @method static static toggle($options, $state = null) Create instance with options toggled on or off, or toggle options if called on an instance.
  * @method static static filter($callback, $name = null) Create instance with filter added to the stack or append a filter if called on an instance.
  * @method static static push($callback, $name = null) Alias for filter().
  * @method static static prepend($callback, $name = null) Create instance with filter prepended to the stack or prepend a filter if called on an instance.
- * @method static static|array filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance.
- * @method static static|CarbonInterval interval($interval = null) Create instance with given date interval or modify the interval if called on an instance.
+ * @method static static filters(array $filters = []) Create instance with filters stack or replace the whole filters stack if called on an instance.
+ * @method static static interval($interval) Create instance with given date interval or modify the interval if called on an instance.
  * @method static static each($interval) Create instance with given date interval or modify the interval if called on an instance.
  * @method static static every($interval) Create instance with given date interval or modify the interval if called on an instance.
  * @method static static step($interval) Create instance with given date interval or modify the interval if called on an instance.
@@ -165,21 +167,15 @@ require PHP_VERSION < 8.2
  * @method $this ceilMicrosecond(float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(float $precision = 1) Ceil the current instance microsecond with given precision.
  *
- * @mixin DeprecatedPeriodProperties
- *
- * @SuppressWarnings(PHPMD.TooManyFields)
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
+class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
     use IntervalRounding;
     use Mixin {
         Mixin::mixin as baseMixin;
     }
-    use Options {
-        Options::__debugInfo as baseDebugInfo;
-    }
+    use Options;
     use ToStringFormat;
 
     /**
@@ -297,9 +293,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Limit for number of recurrences. Applied via a filter.
      *
-     * @var int|float|null
+     * @var int|null
      */
-    protected $carbonRecurrences;
+    protected $recurrences;
 
     /**
      * Iteration options.
@@ -322,7 +318,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @var CarbonInterface
      */
-    protected $carbonCurrent;
+    protected $current;
 
     /**
      * Timezone of current date. Taken from the start date.
@@ -345,20 +341,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected $tzName;
 
-    public function getIterator(): Generator
-    {
-        $this->rewind();
-
-        while ($this->valid()) {
-            $key = $this->key();
-            $value = $this->current();
-
-            yield $key => $value;
-
-            $this->next();
-        }
-    }
-
     /**
      * Make a CarbonPeriod instance from given variable if possible.
      *
@@ -366,11 +348,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static|null
      */
-    public static function make(mixed $var): ?static
+    public static function make($var)
     {
         try {
             return static::instance($var);
-        } catch (NotAPeriodException) {
+        } catch (NotAPeriodException $e) {
             return static::create($var);
         }
     }
@@ -382,7 +364,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public static function instance(mixed $period): static
+    public static function instance($period)
     {
         if ($period instanceof static) {
             return $period->copy();
@@ -393,7 +375,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $period->getStartDate(),
                 $period->getEndDate() ?: $period->getRecurrences(),
                 $period->getDateInterval(),
-                $period->getOptions(),
+                $period->getOptions()
             );
         }
 
@@ -402,7 +384,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $period->start,
                 $period->end ?: ($period->recurrences - 1),
                 $period->interval,
-                $period->include_start_date ? 0 : static::EXCLUDE_START_DATE,
+                $period->include_start_date ? 0 : static::EXCLUDE_START_DATE
             );
         }
 
@@ -412,7 +394,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         throw new NotAPeriodException(
             'Argument 1 passed to '.$class.'::'.__METHOD__.'() '.
             'must be an instance of DatePeriod or '.$class.', '.
-            ($type === 'object' ? 'instance of '.\get_class($period) : $type).' given.',
+            ($type === 'object' ? 'instance of '.\get_class($period) : $type).' given.'
         );
     }
 
@@ -421,7 +403,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public static function create(...$params): static
+    public static function create(...$params)
     {
         return static::createFromArray($params);
     }
@@ -433,7 +415,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public static function createFromArray(array $params): static
+    public static function createFromArray(array $params)
     {
         return new static(...$params);
     }
@@ -446,7 +428,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public static function createFromIso(string $iso, ?int $options = null): static
+    public static function createFromIso($iso, $options = null)
     {
         $params = static::parseIso8601($iso);
 
@@ -466,7 +448,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    protected static function intervalHasTime(DateInterval $interval): bool
+    protected static function intervalHasTime(DateInterval $interval)
     {
         return $interval->h || $interval->i || $interval->s || $interval->f;
     }
@@ -481,7 +463,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    protected static function isIso8601(mixed $var): bool
+    protected static function isIso8601($var)
     {
         if (!\is_string($var)) {
             return false;
@@ -504,7 +486,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return array
      */
-    protected static function parseIso8601(string $iso): array
+    protected static function parseIso8601($iso)
     {
         $result = [];
 
@@ -515,7 +497,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         foreach (explode('/', $iso) as $key => $part) {
             if ($key === 0 && preg_match('/^R(\d*|INF)$/', $part, $match)) {
                 $parsed = \strlen($match[1]) ? (($match[1] !== 'INF') ? (int) $match[1] : INF) : null;
-            } elseif ($interval === null && $parsed = self::makeInterval($part)) {
+            } elseif ($interval === null && $parsed = CarbonInterval::make($part)) {
                 $interval = $part;
             } elseif ($start === null && $parsed = Carbon::make($part)) {
                 $start = $part;
@@ -539,22 +521,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return string
      */
-    protected static function addMissingParts(string $source, string $target): string
+    protected static function addMissingParts($source, $target)
     {
         $pattern = '/'.preg_replace('/\d+/', '[0-9]+', preg_quote($target, '/')).'$/';
 
         $result = preg_replace($pattern, $target, $source, 1, $count);
 
         return $count ? $result : $target;
-    }
-
-    private static function makeInterval(string $string): ?CarbonInterval
-    {
-        try {
-            return CarbonInterval::make($string);
-        } catch (Throwable) {
-            return null;
-        }
     }
 
     /**
@@ -573,7 +546,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return void
      */
-    public static function macro(string $name, $macro): void
+    public static function macro($name, $macro)
     {
         static::$macros[$name] = $macro;
     }
@@ -612,7 +585,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return void
      */
-    public static function mixin(object|string $mixin)
+    public static function mixin($mixin)
     {
         static::baseMixin($mixin);
     }
@@ -624,7 +597,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public static function hasMacro(string $name): bool
+    public static function hasMacro($name)
     {
         return isset(static::$macros[$name]);
     }
@@ -637,12 +610,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return mixed
      */
-    public static function __callStatic(string $method, array $parameters): mixed
+    public static function __callStatic($method, $parameters)
     {
         $date = new static();
 
         if (static::hasMacro($method)) {
-            return static::bindMacroContext(null, static fn () => $date->callMacro($method, $parameters));
+            return static::bindMacroContext(null, function () use (&$method, &$parameters, &$date) {
+                return $date->callMacro($method, $parameters);
+            });
         }
 
         return $date->$method(...$parameters);
@@ -657,9 +632,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function __construct(...$arguments)
     {
-        // Dummy construct, as properties are completely overridden
-        parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
-
         if (is_a($this->dateClass, DateTimeImmutable::class, true)) {
             $this->options = static::IMMUTABLE;
         }
@@ -674,19 +646,19 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         if ($argumentsCount === 1) {
-            if ($arguments[0] instanceof self) {
-                $arguments = [
-                    $arguments[0]->getStartDate(),
-                    $arguments[0]->getEndDate() ?: $arguments[0]->getRecurrences(),
-                    $arguments[0]->getDateInterval(),
-                    $arguments[0]->getOptions(),
-                ];
-            } elseif ($arguments[0] instanceof DatePeriod) {
+            if ($arguments[0] instanceof DatePeriod) {
                 $arguments = [
                     $arguments[0]->start,
                     $arguments[0]->end ?: ($arguments[0]->recurrences - 1),
                     $arguments[0]->interval,
                     $arguments[0]->include_start_date ? 0 : static::EXCLUDE_START_DATE,
+                ];
+            } elseif ($arguments[0] instanceof self) {
+                $arguments = [
+                    $arguments[0]->getStartDate(),
+                    $arguments[0]->getEndDate() ?: $arguments[0]->getRecurrences(),
+                    $arguments[0]->getDateInterval(),
+                    $arguments[0]->getOptions(),
                 ];
             }
         }
@@ -700,7 +672,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 (
                     (\is_string($argument) && preg_match(
                         '/^(-?\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T\d].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
-                        $argument,
+                        $argument
                     )) ||
                     $argument instanceof DateInterval ||
                     $argument instanceof Closure
@@ -712,13 +684,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $this->setStartDate($parsedDate);
             } elseif ($this->endDate === null && ($parsedDate = $parsedDate ?? $this->makeDateTime($argument))) {
                 $this->setEndDate($parsedDate);
-            } elseif ($this->carbonRecurrences === null &&
-                $this->endDate === null &&
-                (\is_int($argument) || \is_float($argument))
-                && $argument >= 0
-            ) {
+            } elseif ($this->recurrences === null && $this->endDate === null && is_numeric($argument)) {
                 $this->setRecurrences($argument);
-            } elseif ($this->options === null && ((\is_int($argument) && $argument >= 0) || $argument === null)) {
+            } elseif ($this->options === null && (\is_int($argument) || $argument === null)) {
                 $this->setOptions($argument);
             } else {
                 throw new InvalidPeriodParameterException('Invalid constructor parameters.');
@@ -772,17 +740,27 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected function getGetter(string $name)
     {
-        return match (strtolower(preg_replace('/[A-Z]/', '_$0', $name))) {
-            'start', 'start_date' => [$this, 'getStartDate'],
-            'end', 'end_date' => [$this, 'getEndDate'],
-            'interval', 'date_interval' => [$this, 'getDateInterval'],
-            'recurrences' => [$this, 'getRecurrences'],
-            'include_start_date' => [$this, 'isStartIncluded'],
-            'include_end_date' => [$this, 'isEndIncluded'],
-            'current' => [$this, 'current'],
-            'locale' => [$this, 'locale'],
-            default => null,
-        };
+        switch (strtolower(preg_replace('/[A-Z]/', '_$0', $name))) {
+            case 'start':
+            case 'start_date':
+                return [$this, 'getStartDate'];
+            case 'end':
+            case 'end_date':
+                return [$this, 'getEndDate'];
+            case 'interval':
+            case 'date_interval':
+                return [$this, 'getDateInterval'];
+            case 'recurrences':
+                return [$this, 'getRecurrences'];
+            case 'include_start_date':
+                return [$this, 'isStartIncluded'];
+            case 'include_end_date':
+                return [$this, 'isEndIncluded'];
+            case 'current':
+                return [$this, 'current'];
+            default:
+                return null;
+        }
     }
 
     /**
@@ -877,16 +855,15 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Change the period date interval.
      *
-     * @param DateInterval|string|int $interval
-     * @param string                  $unit     the unit of $interval if it's a number
+     * @param DateInterval|string $interval
      *
      * @throws InvalidIntervalException
      *
      * @return static
      */
-    public function setDateInterval(mixed $interval, ?string $unit = null)
+    public function setDateInterval($interval)
     {
-        if (!$interval = CarbonInterval::make($interval, $unit)) {
+        if (!$interval = CarbonInterval::make($interval)) {
             throw new InvalidIntervalException('Invalid interval.');
         }
 
@@ -922,7 +899,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setDates(mixed $start, mixed $end): static
+    public function setDates($start, $end)
     {
         return $this->setStartDate($start)->setEndDate($end);
     }
@@ -932,12 +909,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param int|null $options
      *
+     * @throws InvalidArgumentException
+     *
      * @return static
      */
-    public function setOptions(?int $options): static
+    public function setOptions($options)
     {
+        if (!\is_int($options) && $options !== null) {
+            throw new InvalidPeriodParameterException('Invalid options.');
+        }
+
         $self = $this->copyIfImmutable();
-        $self->options = $options ?? 0;
+        $self->options = $options ?: 0;
 
         $self->handleChangedParameters();
 
@@ -949,9 +932,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return int
      */
-    public function getOptions(): ?int
+    public function getOptions()
     {
-        return $this->options ?? 0;
+        return $this->options;
     }
 
     /**
@@ -964,7 +947,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function toggleOptions(int $options, bool $state = null): static
+    public function toggleOptions($options, $state = null)
     {
         if ($state === null) {
             $state = ($this->options & $options) !== $options;
@@ -973,7 +956,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return $this->setOptions(
             $state ?
             $this->options | $options :
-            $this->options & ~$options,
+            $this->options & ~$options
         );
     }
 
@@ -984,7 +967,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function excludeStartDate(bool $state = true): static
+    public function excludeStartDate($state = true)
     {
         return $this->toggleOptions(static::EXCLUDE_START_DATE, $state);
     }
@@ -996,7 +979,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function excludeEndDate(bool $state = true): static
+    public function excludeEndDate($state = true)
     {
         return $this->toggleOptions(static::EXCLUDE_END_DATE, $state);
     }
@@ -1006,7 +989,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterval
      */
-    public function getDateInterval(): CarbonInterval
+    public function getDateInterval()
     {
         return $this->dateInterval->copy();
     }
@@ -1018,7 +1001,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface
      */
-    public function getStartDate(string $rounding = null): CarbonInterface
+    public function getStartDate(string $rounding = null)
     {
         $date = $this->startDate->avoidMutation();
 
@@ -1032,7 +1015,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface|null
      */
-    public function getEndDate(string $rounding = null): ?CarbonInterface
+    public function getEndDate(string $rounding = null)
     {
         if (!$this->endDate) {
             return null;
@@ -1048,10 +1031,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return int|float|null
      */
-    #[ReturnTypeWillChange]
-    public function getRecurrences(): int|float|null
+    public function getRecurrences()
     {
-        return $this->carbonRecurrences;
+        return $this->recurrences;
     }
 
     /**
@@ -1059,7 +1041,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function isStartExcluded(): bool
+    public function isStartExcluded()
     {
         return ($this->options & static::EXCLUDE_START_DATE) !== 0;
     }
@@ -1069,7 +1051,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function isEndExcluded(): bool
+    public function isEndExcluded()
     {
         return ($this->options & static::EXCLUDE_END_DATE) !== 0;
     }
@@ -1079,7 +1061,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function isStartIncluded(): bool
+    public function isStartIncluded()
     {
         return !$this->isStartExcluded();
     }
@@ -1089,7 +1071,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function isEndIncluded(): bool
+    public function isEndIncluded()
     {
         return !$this->isEndExcluded();
     }
@@ -1099,7 +1081,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface
      */
-    public function getIncludedStartDate(): CarbonInterface
+    public function getIncludedStartDate()
     {
         $start = $this->getStartDate();
 
@@ -1116,7 +1098,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface
      */
-    public function getIncludedEndDate(): CarbonInterface
+    public function getIncludedEndDate()
     {
         $end = $this->getEndDate();
 
@@ -1141,7 +1123,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function addFilter($callback, ?string $name = null): static
+    public function addFilter($callback, $name = null)
     {
         $self = $this->copyIfImmutable();
         $tuple = $self->createFilterTuple(\func_get_args());
@@ -1163,7 +1145,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function prependFilter($callback, ?string $name = null): static
+    public function prependFilter($callback, $name = null)
     {
         $self = $this->copyIfImmutable();
         $tuple = $self->createFilterTuple(\func_get_args());
@@ -1182,14 +1164,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function removeFilter($filter): static
+    public function removeFilter($filter)
     {
         $self = $this->copyIfImmutable();
         $key = \is_callable($filter) ? 0 : 1;
 
         $self->filters = array_values(array_filter(
             $this->filters,
-            static fn ($tuple) => $tuple[$key] !== $filter,
+            function ($tuple) use ($key, $filter) {
+                return $tuple[$key] !== $filter;
+            }
         ));
 
         $self->updateInternalState();
@@ -1206,7 +1190,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function hasFilter($filter): bool
+    public function hasFilter($filter)
     {
         $key = \is_callable($filter) ? 0 : 1;
 
@@ -1224,7 +1208,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return array
      */
-    public function getFilters(): array
+    public function getFilters()
     {
         return $this->filters;
     }
@@ -1236,7 +1220,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setFilters(array $filters): static
+    public function setFilters(array $filters)
     {
         $self = $this->copyIfImmutable();
         $self->filters = $filters;
@@ -1253,7 +1237,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function resetFilters(): static
+    public function resetFilters()
     {
         $self = $this->copyIfImmutable();
         $self->filters = [];
@@ -1262,7 +1246,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $self->filters[] = [static::END_DATE_FILTER, null];
         }
 
-        if ($self->carbonRecurrences !== null) {
+        if ($self->recurrences !== null) {
             $self->filters[] = [static::RECURRENCES_FILTER, null];
         }
 
@@ -1280,19 +1264,19 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setRecurrences(int|float|null $recurrences): static
+    public function setRecurrences($recurrences)
     {
+        if ((!is_numeric($recurrences) && $recurrences !== null) || $recurrences < 0) {
+            throw new InvalidPeriodParameterException('Invalid number of recurrences.');
+        }
+
         if ($recurrences === null) {
             return $this->removeFilter(static::RECURRENCES_FILTER);
         }
 
-        if ($recurrences < 0) {
-            throw new InvalidPeriodParameterException('Invalid number of recurrences.');
-        }
-
         /** @var self $self */
         $self = $this->copyIfImmutable();
-        $self->carbonRecurrences = $recurrences === INF ? INF : (int) $recurrences;
+        $self->recurrences = $recurrences === INF ? INF : (int) $recurrences;
 
         if (!$self->hasFilter(static::RECURRENCES_FILTER)) {
             return $self->addFilter(static::RECURRENCES_FILTER);
@@ -1313,7 +1297,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setStartDate(mixed $date, bool $inclusive = null): static
+    public function setStartDate($date, $inclusive = null)
     {
         if (!$this->isInfiniteDate($date) && !($date = ([$this->dateClass, 'make'])($date))) {
             throw new InvalidPeriodDateException('Invalid start date.');
@@ -1339,7 +1323,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setEndDate(mixed $date, ?bool $inclusive = null): static
+    public function setEndDate($date, $inclusive = null)
     {
         if ($date !== null && !$this->isInfiniteDate($date) && !$date = ([$this->dateClass, 'make'])($date)) {
             throw new InvalidPeriodDateException('Invalid end date.');
@@ -1370,7 +1354,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function valid(): bool
+    #[ReturnTypeWillChange]
+    public function valid()
     {
         return $this->validateCurrentDate() === true;
     }
@@ -1380,7 +1365,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return int|null
      */
-    public function key(): ?int
+    #[ReturnTypeWillChange]
+    public function key()
     {
         return $this->valid()
             ? $this->key
@@ -1392,10 +1378,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface|null
      */
-    public function current(): ?CarbonInterface
+    #[ReturnTypeWillChange]
+    public function current()
     {
         return $this->valid()
-            ? $this->prepareForReturn($this->carbonCurrent)
+            ? $this->prepareForReturn($this->current)
             : null;
     }
 
@@ -1406,9 +1393,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return void
      */
-    public function next(): void
+    #[ReturnTypeWillChange]
+    public function next()
     {
-        if ($this->carbonCurrent === null) {
+        if ($this->current === null) {
             $this->rewind();
         }
 
@@ -1432,21 +1420,22 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return void
      */
-    public function rewind(): void
+    #[ReturnTypeWillChange]
+    public function rewind()
     {
         $this->key = 0;
-        $this->carbonCurrent = ([$this->dateClass, 'make'])($this->startDate);
+        $this->current = ([$this->dateClass, 'make'])($this->startDate);
         $settings = $this->getSettings();
 
         if ($this->hasLocalTranslator()) {
             $settings['locale'] = $this->getTranslatorLocale();
         }
 
-        $this->carbonCurrent->settings($settings);
-        $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->carbonCurrent->getTimezone() : null;
+        $this->current->settings($settings);
+        $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
         if ($this->timezone) {
-            $this->carbonCurrent = $this->carbonCurrent->utc();
+            $this->current = $this->current->utc();
         }
 
         $this->validationResult = null;
@@ -1463,7 +1452,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function skip(int $count = 1): bool
+    public function skip($count = 1)
     {
         for ($i = $count; $this->valid() && $i > 0; $i--) {
             $this->next();
@@ -1477,12 +1466,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return string
      */
-    public function toIso8601String(): string
+    public function toIso8601String()
     {
         $parts = [];
 
-        if ($this->carbonRecurrences !== null) {
-            $parts[] = 'R'.$this->carbonRecurrences;
+        if ($this->recurrences !== null) {
+            $parts[] = 'R'.$this->recurrences;
         }
 
         $parts[] = $this->startDate->toIso8601String();
@@ -1501,7 +1490,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         $format = $this->localToStringFormat ?? static::$toStringFormat;
 
@@ -1519,8 +1508,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 : 'Y-m-d'
         );
 
-        if ($this->carbonRecurrences !== null) {
-            $parts[] = $this->translate('period_recurrences', [], $this->carbonRecurrences, $translator);
+        if ($this->recurrences !== null) {
+            $parts[] = $this->translate('period_recurrences', [], $this->recurrences, $translator);
         }
 
         $parts[] = $this->translate('period_interval', [':interval' => $this->dateInterval->forHumans([
@@ -1543,7 +1532,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return string
      */
-    public function spec(): string
+    public function spec()
     {
         return $this->toIso8601String();
     }
@@ -1553,9 +1542,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param string $className The $className::instance() method will be called to cast the current object.
      *
-     * @return DatePeriod|object
+     * @return DatePeriod
      */
-    public function cast(string $className): object
+    public function cast(string $className)
     {
         if (!method_exists($className, 'instance')) {
             if (is_a($className, DatePeriod::class, true)) {
@@ -1563,7 +1552,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     $this->rawDate($this->getStartDate()),
                     $this->getDateInterval(),
                     $this->getEndDate() ? $this->rawDate($this->getIncludedEndDate()) : $this->getRecurrences(),
-                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0,
+                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0
                 );
             }
 
@@ -1583,7 +1572,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return DatePeriod
      */
-    public function toDatePeriod(): DatePeriod
+    public function toDatePeriod()
     {
         return $this->cast(DatePeriod::class);
     }
@@ -1600,7 +1589,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         foreach ($this->filters as $filter) {
             switch ($filter) {
                 case [static::RECURRENCES_FILTER, null]:
-                    if ($this->carbonRecurrences !== null && is_finite($this->carbonRecurrences)) {
+                    if ($this->recurrences !== null && is_finite($this->recurrences)) {
                         return false;
                     }
 
@@ -1626,7 +1615,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface[]
      */
-    public function toArray(): array
+    public function toArray()
     {
         if ($this->isUnfilteredAndEndLess()) {
             throw new EndLessPeriodException("Endless period can't be converted to array nor counted.");
@@ -1634,13 +1623,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         $state = [
             $this->key,
-            $this->carbonCurrent ? $this->carbonCurrent->avoidMutation() : null,
+            $this->current ? $this->current->avoidMutation() : null,
             $this->validationResult,
         ];
 
         $result = iterator_to_array($this);
 
-        [$this->key, $this->carbonCurrent, $this->validationResult] = $state;
+        [$this->key, $this->current, $this->validationResult] = $state;
 
         return $result;
     }
@@ -1650,7 +1639,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return int
      */
-    public function count(): int
+    #[ReturnTypeWillChange]
+    public function count()
     {
         return \count($this->toArray());
     }
@@ -1660,7 +1650,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface|null
      */
-    public function first(): ?CarbonInterface
+    public function first()
     {
         if ($this->isUnfilteredAndEndLess()) {
             foreach ($this as $date) {
@@ -1680,7 +1670,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface|null
      */
-    public function last(): ?CarbonInterface
+    public function last()
     {
         $array = $this->toArray();
 
@@ -1692,7 +1682,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->toString();
     }
@@ -1712,10 +1702,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return mixed
      */
-    public function __call(string $method, array $parameters): mixed
+    public function __call($method, $parameters)
     {
         if (static::hasMacro($method)) {
-            return static::bindMacroContext($this, fn () => $this->callMacro($method, $parameters));
+            return static::bindMacroContext($this, function () use (&$method, &$parameters) {
+                return $this->callMacro($method, $parameters);
+            });
         }
 
         $roundedValue = $this->callRoundMethod($method, $parameters);
@@ -1724,15 +1716,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return $roundedValue;
         }
 
-        $count = \count($parameters);
-
         switch ($method) {
             case 'start':
             case 'since':
-                if ($count === 0) {
-                    return $this->getStartDate();
-                }
-
                 self::setDefaultParameters($parameters, [
                     [0, 'date', null],
                 ]);
@@ -1744,10 +1730,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
             case 'end':
             case 'until':
-                if ($count === 0) {
-                    return $this->getEndDate();
-                }
-
                 self::setDefaultParameters($parameters, [
                     [0, 'date', null],
                 ]);
@@ -1768,10 +1750,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
             case 'recurrences':
             case 'times':
-                if ($count === 0) {
-                    return $this->getRecurrences();
-                }
-
                 self::setDefaultParameters($parameters, [
                     [0, 'recurrences', null],
                 ]);
@@ -1779,10 +1757,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 return $this->setRecurrences(...$parameters);
 
             case 'options':
-                if ($count === 0) {
-                    return $this->getOptions();
-                }
-
                 self::setDefaultParameters($parameters, [
                     [0, 'options', null],
                 ]);
@@ -1804,10 +1778,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 return $this->prependFilter(...$parameters);
 
             case 'filters':
-                if ($count === 0) {
-                    return $this->getFilters();
-                }
-
                 self::setDefaultParameters($parameters, [
                     [0, 'filters', []],
                 ]);
@@ -1819,10 +1789,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             case 'every':
             case 'step':
             case 'stepBy':
-                if ($count === 0) {
-                    return $this->getDateInterval();
-                }
-
                 return $this->setDateInterval(...$parameters);
 
             case 'invert':
@@ -1863,7 +1829,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setTimezone(mixed $timezone): static
+    public function setTimezone($timezone)
     {
         $self = $this->copyIfImmutable();
         $self->tzName = $timezone;
@@ -1887,7 +1853,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function shiftTimezone(mixed $timezone): static
+    public function shiftTimezone($timezone)
     {
         $self = $this->copyIfImmutable();
         $self->tzName = $timezone;
@@ -1911,7 +1877,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface
      */
-    public function calculateEnd(?string $rounding = null): CarbonInterface
+    public function calculateEnd(string $rounding = null)
     {
         if ($end = $this->getEndDate($rounding)) {
             return $end;
@@ -1933,16 +1899,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * @return CarbonInterface|null
      */
-    private function getEndFromRecurrences(): ?CarbonInterface
+    private function getEndFromRecurrences()
     {
-        if ($this->carbonRecurrences === null) {
+        if ($this->recurrences === null) {
             throw new UnreachableException(
                 "Could not calculate period end without either explicit end or recurrences.\n".
-                "If you're looking for a forever-period, use ->setRecurrences(INF).",
+                "If you're looking for a forever-period, use ->setRecurrences(INF)."
             );
         }
 
-        if ($this->carbonRecurrences === INF) {
+        if ($this->recurrences === INF) {
             $start = $this->getStartDate();
 
             return $start < $start->avoidMutation()->add($this->getDateInterval())
@@ -1953,8 +1919,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         if ($this->filters === [[static::RECURRENCES_FILTER, null]]) {
             return $this->getStartDate()->avoidMutation()->add(
                 $this->getDateInterval()->times(
-                    $this->carbonRecurrences - ($this->isStartExcluded() ? 0 : 1),
-                ),
+                    $this->recurrences - ($this->isStartExcluded() ? 0 : 1)
+                )
             );
         }
 
@@ -1964,7 +1930,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * @return CarbonInterface|null
      */
-    private function iterateUntilEnd(): ?CarbonInterface
+    private function iterateUntilEnd()
     {
         $attempts = 0;
         $date = null;
@@ -1972,7 +1938,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         foreach ($this as $date) {
             if (++$attempts > static::END_MAX_ATTEMPTS) {
                 throw new UnreachableException(
-                    'Could not calculate period end after iterating '.static::END_MAX_ATTEMPTS.' times.',
+                    'Could not calculate period end after iterating '.static::END_MAX_ATTEMPTS.' times.'
                 );
             }
         }
@@ -1989,7 +1955,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function overlaps(mixed $rangeOrRangeStart, mixed $rangeEnd = null): bool
+    public function overlaps($rangeOrRangeStart, $rangeEnd = null)
     {
         $range = $rangeEnd ? static::create($rangeOrRangeStart, $rangeEnd) : $rangeOrRangeStart;
 
@@ -2015,7 +1981,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param callable $callback
      */
-    public function forEach(callable $callback): void
+    public function forEach(callable $callback)
     {
         foreach ($this as $date) {
             $callback($date);
@@ -2035,9 +2001,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @param callable $callback
      *
-     * @return Generator
+     * @return \Generator
      */
-    public function map(callable $callback): Generator
+    public function map(callable $callback)
     {
         foreach ($this as $date) {
             yield $callback($date);
@@ -2054,7 +2020,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function eq(mixed $period): bool
+    public function eq($period): bool
     {
         return $this->equalTo($period);
     }
@@ -2067,7 +2033,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function equalTo(mixed $period): bool
+    public function equalTo($period): bool
     {
         if (!($period instanceof self)) {
             $period = self::make($period);
@@ -2092,7 +2058,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function ne(mixed $period): bool
+    public function ne($period): bool
     {
         return $this->notEqualTo($period);
     }
@@ -2105,7 +2071,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function notEqualTo(mixed $period): bool
+    public function notEqualTo($period): bool
     {
         return !$this->eq($period);
     }
@@ -2118,7 +2084,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function startsBefore(mixed $date = null): bool
+    public function startsBefore($date = null): bool
     {
         return $this->getStartDate()->lessThan($this->resolveCarbon($date));
     }
@@ -2131,7 +2097,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function startsBeforeOrAt(mixed $date = null): bool
+    public function startsBeforeOrAt($date = null): bool
     {
         return $this->getStartDate()->lessThanOrEqualTo($this->resolveCarbon($date));
     }
@@ -2144,7 +2110,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function startsAfter(mixed $date = null): bool
+    public function startsAfter($date = null): bool
     {
         return $this->getStartDate()->greaterThan($this->resolveCarbon($date));
     }
@@ -2157,7 +2123,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function startsAfterOrAt(mixed $date = null): bool
+    public function startsAfterOrAt($date = null): bool
     {
         return $this->getStartDate()->greaterThanOrEqualTo($this->resolveCarbon($date));
     }
@@ -2170,7 +2136,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function startsAt(mixed $date = null): bool
+    public function startsAt($date = null): bool
     {
         return $this->getStartDate()->equalTo($this->resolveCarbon($date));
     }
@@ -2183,7 +2149,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function endsBefore(mixed $date = null): bool
+    public function endsBefore($date = null): bool
     {
         return $this->calculateEnd()->lessThan($this->resolveCarbon($date));
     }
@@ -2196,7 +2162,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function endsBeforeOrAt(mixed $date = null): bool
+    public function endsBeforeOrAt($date = null): bool
     {
         return $this->calculateEnd()->lessThanOrEqualTo($this->resolveCarbon($date));
     }
@@ -2209,7 +2175,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function endsAfter(mixed $date = null): bool
+    public function endsAfter($date = null): bool
     {
         return $this->calculateEnd()->greaterThan($this->resolveCarbon($date));
     }
@@ -2222,7 +2188,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function endsAfterOrAt(mixed $date = null): bool
+    public function endsAfterOrAt($date = null): bool
     {
         return $this->calculateEnd()->greaterThanOrEqualTo($this->resolveCarbon($date));
     }
@@ -2235,7 +2201,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return bool
      */
-    public function endsAt(mixed $date = null): bool
+    public function endsAt($date = null): bool
     {
         return $this->calculateEnd()->equalTo($this->resolveCarbon($date));
     }
@@ -2276,19 +2242,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      *
-     * @param string                             $unit
-     * @param float|int|string|DateInterval|null $precision
-     * @param string                             $function
+     * @param string                              $unit
+     * @param float|int|string|\DateInterval|null $precision
+     * @param string                              $function
      *
      * @return static
      */
-    public function roundUnit(
-        string $unit,
-        DateInterval|float|int|string|null $precision = 1,
-        string $function = 'round',
-    ): static {
+    public function roundUnit($unit, $precision = 1, $function = 'round')
+    {
         $self = $this->copyIfImmutable();
-        $self->setStartDate($self->getStartDate()->roundUnit($unit, $precision, $function));
+        $self = $self->setStartDate($self->getStartDate()->roundUnit($unit, $precision, $function));
 
         if ($self->endDate) {
             $self = $self->setEndDate($self->getEndDate()->roundUnit($unit, $precision, $function));
@@ -2300,12 +2263,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Truncate the current instance at the given unit with given precision if specified.
      *
-     * @param string                             $unit
-     * @param float|int|string|DateInterval|null $precision
+     * @param string                              $unit
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return static
      */
-    public function floorUnit(string $unit, DateInterval|float|int|string|null $precision = 1): static
+    public function floorUnit($unit, $precision = 1)
     {
         return $this->roundUnit($unit, $precision, 'floor');
     }
@@ -2313,12 +2276,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Ceil the current instance at the given unit with given precision if specified.
      *
-     * @param string                             $unit
-     * @param float|int|string|DateInterval|null $precision
+     * @param string                              $unit
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return static
      */
-    public function ceilUnit(string $unit, DateInterval|float|int|string|null $precision = 1): static
+    public function ceilUnit($unit, $precision = 1)
     {
         return $this->roundUnit($unit, $precision, 'ceil');
     }
@@ -2326,12 +2289,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Round the current instance second with given precision if specified (else period interval is used).
      *
-     * @param float|int|string|DateInterval|null $precision
-     * @param string                             $function
+     * @param float|int|string|\DateInterval|null $precision
+     * @param string                              $function
      *
      * @return static
      */
-    public function round(DateInterval|float|int|string|null $precision = null, string $function = 'round'): static
+    public function round($precision = null, $function = 'round')
     {
         return $this->roundWith(
             $precision ?? $this->getDateInterval()->setLocalTranslator(TranslatorImmutable::get('en'))->forHumans(),
@@ -2342,11 +2305,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Round the current instance second with given precision if specified (else period interval is used).
      *
-     * @param float|int|string|DateInterval|null $precision
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return static
      */
-    public function floor(DateInterval|float|int|string|null $precision = null)
+    public function floor($precision = null)
     {
         return $this->round($precision, 'floor');
     }
@@ -2354,11 +2317,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Ceil the current instance second with given precision if specified (else period interval is used).
      *
-     * @param float|int|string|DateInterval|null $precision
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return static
      */
-    public function ceil(DateInterval|float|int|string|null $precision = null)
+    public function ceil($precision = null)
     {
         return $this->round($precision, 'ceil');
     }
@@ -2370,7 +2333,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return CarbonInterface[]
      */
-    public function jsonSerialize(): array
+    #[ReturnTypeWillChange]
+    public function jsonSerialize()
     {
         return $this->toArray();
     }
@@ -2437,14 +2401,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return $this->follows($period, ...$arguments) || $this->isFollowedBy($period, ...$arguments);
     }
 
-    public function __debugInfo(): array
-    {
-        $info = $this->baseDebugInfo();
-        unset($info['start'], $info['end'], $info['interval'], $info['include_start_date'], $info['include_end_date']);
-
-        return $info;
-    }
-
     /**
      * Update properties after removing built-in filters.
      *
@@ -2457,7 +2413,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         if (!$this->hasFilter(static::RECURRENCES_FILTER)) {
-            $this->carbonRecurrences = null;
+            $this->recurrences = null;
         }
     }
 
@@ -2478,7 +2434,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return [$method, array_shift($parameters)];
         }
 
-        return [static fn ($date) => ([$date, $method])(...$parameters), $method];
+        return [function ($date) use ($method, $parameters) {
+            return ([$date, $method])(...$parameters);
+        }, $method];
     }
 
     /**
@@ -2507,7 +2465,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected function filterRecurrences($current, $key)
     {
-        if ($key < $this->carbonRecurrences) {
+        if ($key < $this->recurrences) {
             return true;
         }
 
@@ -2568,7 +2526,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected function validateCurrentDate()
     {
-        if ($this->carbonCurrent === null) {
+        if ($this->current === null) {
             $this->rewind();
         }
 
@@ -2583,10 +2541,15 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected function checkFilters()
     {
-        $current = $this->prepareForReturn($this->carbonCurrent);
+        $current = $this->prepareForReturn($this->current);
 
         foreach ($this->filters as $tuple) {
-            $result = \call_user_func($tuple[0], $current->avoidMutation(), $this->key, $this);
+            $result = \call_user_func(
+                $tuple[0],
+                $current->avoidMutation(),
+                $this->key,
+                $this
+            );
 
             if ($result === static::END_ITERATION) {
                 return static::END_ITERATION;
@@ -2630,7 +2593,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $attempts = 0;
 
         do {
-            $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
+            $this->current = $this->current->add($this->dateInterval);
 
             $this->validationResult = null;
 

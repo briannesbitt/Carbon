@@ -40,22 +40,23 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
         "symfony/polyfill-mbstring": "^1.0",
-        "symfony/translation": "^4.4.18 || ^5.2.1|| ^6.0"
+        "symfony/polyfill-php80": "^1.16",
+        "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0"
     },
     "require-dev": {
         "doctrine/dbal": "^2.0 || ^3.1.4",
         "doctrine/orm": "^2.7",
-        "friendsofphp/php-cs-fixer": "^3.4",
-        "kylekatarnls/multi-tester": "^2.2",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "kylekatarnls/multi-tester": "^2.0",
         "ondrejmirtes/better-reflection": "*",
-        "phpmd/phpmd": "^2.11.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^1.4.9",
+        "phpmd/phpmd": "^2.9",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.99 || ^1.7.14",
         "phpunit/php-file-iterator": "^2.0.5 || ^3.0.6",
-        "phpunit/phpunit": "^9.5.18",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "minimum-stability": "dev",

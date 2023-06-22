@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['laTshipi', 'Mosupologo', 'Labobedi', 'Laboraro', 'Labone', 'Labotlhano', 'Lamatlhatso'],
     'weekdays_short' => ['Tsh', 'Mos', 'Bed', 'Rar', 'Ne', 'Tlh', 'Mat'],
     'weekdays_min' => ['Tsh', 'Mos', 'Bed', 'Rar', 'Ne', 'Tlh', 'Mat'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'year' => 'dingwaga di le :count',

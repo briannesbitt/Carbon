@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-  bootstrap="tests/bootstrap.php"
-  colors="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
 >
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">src/Carbon</directory>
-    </include>
-    <exclude>
-      <file>src/Carbon/PHPStan/Macro.php</file>
-      <file>src/Carbon/Translator.php</file>
-      <file>src/Carbon/TranslatorStrongType.php</file>
-      <file>src/Carbon/TranslatorWeakType.php</file>
-    </exclude>
-  </coverage>
-  <testsuites>
-    <testsuite name="carbon">
-      <directory>tests/Carbon</directory>
-      <directory>tests/CommonTraits</directory>
-    </testsuite>
-    <testsuite name="immutable">
-      <directory>tests/CarbonImmutable</directory>
-    </testsuite>
-    <testsuite name="interval">
-      <directory>tests/CarbonInterval</directory>
-    </testsuite>
-    <testsuite name="period">
-      <directory>tests/CarbonPeriod</directory>
-    </testsuite>
-    <testsuite name="timezone">
-      <directory>tests/CarbonTimeZone</directory>
-    </testsuite>
-    <testsuite name="localization">
-      <directory>tests/Localization</directory>
-    </testsuite>
-    <testsuite name="laravel">
-      <directory>tests/Laravel</directory>
-    </testsuite>
-    <testsuite name="doctrine">
-      <directory>tests/Doctrine</directory>
-    </testsuite>
-    <testsuite name="factory">
-      <directory>tests/Factory</directory>
-    </testsuite>
-    <testsuite name="language">
-      <directory>tests/Language</directory>
-    </testsuite>
-    <testsuite name="jenssegers">
-      <directory>tests/Jenssegers</directory>
-    </testsuite>
-    <testsuite name="cli">
-      <directory>tests/Cli</directory>
-    </testsuite>
-    <testsuite name="phpstan">
-      <directory>tests/PHPStan</directory>
-    </testsuite>
-  </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/Carbon</directory>
+            <exclude>
+                <file>src/Carbon/PHPStan/Macro.php</file>
+                <file>src/Carbon/Translator.php</file>
+                <file>src/Carbon/TranslatorStrongType.php</file>
+                <file>src/Carbon/TranslatorWeakType.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
 
-  <php>
-    <ini name="max_execution_time" value="0"/>
-  </php>
+    <testsuites>
+        <testsuite name="carbon">
+            <directory>tests/Carbon</directory>
+            <directory>tests/CommonTraits</directory>
+        </testsuite>
+        <testsuite name="immutable">
+            <directory>tests/CarbonImmutable</directory>
+        </testsuite>
+        <testsuite name="interval">
+            <directory>tests/CarbonInterval</directory>
+        </testsuite>
+        <testsuite name="period">
+            <directory>tests/CarbonPeriod</directory>
+        </testsuite>
+        <testsuite name="timezone">
+            <directory>tests/CarbonTimeZone</directory>
+        </testsuite>
+        <testsuite name="localization">
+            <directory>tests/Localization</directory>
+        </testsuite>
+        <testsuite name="laravel">
+            <directory>tests/Laravel</directory>
+        </testsuite>
+        <testsuite name="doctrine">
+            <directory>tests/Doctrine</directory>
+        </testsuite>
+        <testsuite name="factory">
+            <directory>tests/Factory</directory>
+        </testsuite>
+        <testsuite name="language">
+            <directory>tests/Language</directory>
+        </testsuite>
+        <testsuite name="jenssegers">
+            <directory>tests/Jenssegers</directory>
+        </testsuite>
+        <testsuite name="cli">
+            <directory>tests/Cli</directory>
+        </testsuite>
+        <testsuite name="phpstan">
+            <directory>tests/PHPStan</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <ini name="max_execution_time" value="0"/>
+    </php>
 </phpunit>

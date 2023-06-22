@@ -16,7 +16,6 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Closure;
-use DateTime;
 use DateTimeZone;
 use Exception;
 use stdClass;
@@ -69,13 +68,6 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNow($yesterday = Carbon::yesterday());
 
         $this->assertEquals($yesterday, Carbon::now());
-    }
-
-    public function testNowWithDateTime()
-    {
-        Carbon::setTestNow(new DateTime('2021-05-26 08:41:59'));
-
-        $this->assertSame('2021-05-26 08:41:59', Carbon::now()->format('Y-m-d H:i:s'));
     }
 
     public function testNowWithClosureValue()

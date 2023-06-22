@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['ወጋ', 'ሳይኖ', 'ማቆሳኛ', 'አሩዋ', 'ሃሙሳ', 'አርባ', 'ቄራ'],
     'weekdays_short' => ['ወጋ ', 'ሳይኖ', 'ማቆሳ', 'አሩዋ', 'ሃሙሳ', 'አርባ', 'ቄራ '],
     'weekdays_min' => ['ወጋ ', 'ሳይኖ', 'ማቆሳ', 'አሩዋ', 'ሃሙሳ', 'አርባ', 'ቄራ '],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ማለዶ', 'ቃማ'],
 ]);

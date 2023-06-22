@@ -67,7 +67,9 @@ return [
     'weekdays' => ['Dé Domhnaigh', 'Dé Luain', 'Dé Máirt', 'Dé Céadaoin', 'Déardaoin', 'Dé hAoine', 'Dé Satharn'],
     'weekdays_short' => ['Dom', 'Lua', 'Mái', 'Céa', 'Déa', 'hAo', 'Sat'],
     'weekdays_min' => ['Do', 'Lu', 'Má', 'Ce', 'Dé', 'hA', 'Sa'],
-    'ordinal' => static fn ($number) => $number.($number === 1 ? 'd' : ($number % 10 === 2 ? 'na' : 'mh')),
+    'ordinal' => function ($number) {
+        return $number.($number === 1 ? 'd' : ($number % 10 === 2 ? 'na' : 'mh'));
+    },
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' agus '],

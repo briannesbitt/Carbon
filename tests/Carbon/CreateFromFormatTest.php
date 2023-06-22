@@ -92,7 +92,9 @@ class CreateFromFormatTest extends AbstractTestCase
     }
 
     /**
-     * Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only work from PHP 7.3.0.
+     * @requires PHP >= 7.3
+     *
+     * Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.
      */
     public function testCreateFromFormatWithMillisecondsMerged()
     {

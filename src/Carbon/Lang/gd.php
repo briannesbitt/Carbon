@@ -60,7 +60,7 @@ return [
         'lastWeek' => 'dddd [seo chaidh] [aig] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => static function ($number) {
+    'ordinal' => function ($number) {
         return $number.($number === 1 ? 'd' : ($number % 10 === 2 ? 'na' : 'mh'));
     },
     'months' => ['Am Faoilleach', 'An Gearran', 'Am Màrt', 'An Giblean', 'An Cèitean', 'An t-Ògmhios', 'An t-Iuchar', 'An Lùnastal', 'An t-Sultain', 'An Dàmhair', 'An t-Samhain', 'An Dùbhlachd'],

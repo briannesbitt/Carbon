@@ -10,7 +10,6 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
-    'first_day_of_week' => 0,
     'weekdays' => ['Jumapiri', 'Jumatatu', 'Jumanne', 'Jumatano', 'Murwa wa Kanne', 'Murwa wa Katano', 'Jumamosi'],
     'weekdays_short' => ['J2', 'J3', 'J4', 'J5', 'Al', 'Ij', 'J1'],
     'weekdays_min' => ['J2', 'J3', 'J4', 'J5', 'Al', 'Ij', 'J1'],

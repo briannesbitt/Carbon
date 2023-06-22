@@ -57,7 +57,7 @@ return [
         'sameElse' => 'L',
     ],
 
-    'meridiem' => static function ($hour) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'रात्री';
         }

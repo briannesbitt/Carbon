@@ -11,7 +11,7 @@
 
 use Carbon\CarbonInterface;
 
-$processHoursFunction = static function (CarbonInterface $date, string $format) {
+$processHoursFunction = function (CarbonInterface $date, string $format) {
     return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
 };
 
@@ -130,30 +130,52 @@ return [
         'LLLL' => 'dddd, D MMMM YYYY, HH:mm',
     ],
     'calendar' => [
-        'sameDay' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[Сьогодні '),
-        'nextDay' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[Завтра '),
-        'nextWeek' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[У] dddd ['),
-        'lastDay' => static fn (CarbonInterface $date) => $processHoursFunction($date, '[Вчора '),
-        'lastWeek' => static fn (CarbonInterface $date) => match ($date->dayOfWeek) {
-            0, 3, 5, 6 => $processHoursFunction($date, '[Минулої] dddd ['),
-            default => $processHoursFunction($date, '[Минулого] dddd ['),
+        'sameDay' => function (CarbonInterface $date) use ($processHoursFunction) {
+            return $processHoursFunction($date, '[Сьогодні ');
+        },
+        'nextDay' => function (CarbonInterface $date) use ($processHoursFunction) {
+            return $processHoursFunction($date, '[Завтра ');
+        },
+        'nextWeek' => function (CarbonInterface $date) use ($processHoursFunction) {
+            return $processHoursFunction($date, '[У] dddd [');
+        },
+        'lastDay' => function (CarbonInterface $date) use ($processHoursFunction) {
+            return $processHoursFunction($date, '[Вчора ');
+        },
+        'lastWeek' => function (CarbonInterface $date) use ($processHoursFunction) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                case 3:
+                case 5:
+                case 6:
+                    return $processHoursFunction($date, '[Минулої] dddd [');
+                default:
+                    return $processHoursFunction($date, '[Минулого] dddd [');
+            }
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => static fn ($number, $period) => match ($period) {
-        'M', 'd', 'DDD', 'w', 'W' => $number.'-й',
-        'D' => $number.'-го',
-        default => $number,
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'M':
+            case 'd':
+            case 'DDD':
+            case 'w':
+            case 'W':
+                return $number.'-й';
+            case 'D':
+                return $number.'-го';
+            default:
+                return $number;
+        }
     },
-    'meridiem' => static function ($hour) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'ночі';
         }
-
         if ($hour < 12) {
             return 'ранку';
         }
-
         if ($hour < 17) {
             return 'дня';
         }
@@ -164,14 +186,14 @@ return [
     'months_standalone' => ['січень', 'лютий', 'березень', 'квітень', 'травень', 'червень', 'липень', 'серпень', 'вересень', 'жовтень', 'листопад', 'грудень'],
     'months_short' => ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'],
     'months_regexp' => '/(D[oD]?(\[[^\[\]]*\]|\s)+MMMM?|L{2,4}|l{2,4})/',
-    'weekdays' => static function (CarbonInterface $date, $format, $index) {
+    'weekdays' => function (CarbonInterface $date, $format, $index) {
         static $words = [
             'nominative' => ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п’ятниця', 'субота'],
             'accusative' => ['неділю', 'понеділок', 'вівторок', 'середу', 'четвер', 'п’ятницю', 'суботу'],
             'genitive' => ['неділі', 'понеділка', 'вівторка', 'середи', 'четверга', 'п’ятниці', 'суботи'],
         ];
 
-        $format ??= '';
+        $format = $format ?? '';
         $nounCase = preg_match('/(\[(В|в|У|у)\])\s+dddd/u', $format)
             ? 'accusative'
             : (

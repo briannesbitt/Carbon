@@ -50,7 +50,7 @@ return [
         'lastWeek' => '[കഴിഞ്ഞ] dddd, LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => static function ($hour) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'രാത്രി';
         }

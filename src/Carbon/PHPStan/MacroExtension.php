@@ -82,7 +82,7 @@ final class MacroExtension implements MethodsClassReflectionExtension
             $supportAssertions ? Assertions::createEmpty() : null,
             null,
             $builtinMacro->getDocComment(),
-            [],
+            []
         );
     }
 }

@@ -15,10 +15,12 @@
  * - SuperManPHP
  * - Maksat Meredow (isadma)
  */
-$transformDiff = static fn (string $input) => strtr($input, [
-    'sekunt' => 'sekunt',
-    'hepde' => 'hepde',
-]);
+$transformDiff = function ($input) {
+    return strtr($input, [
+        'sekunt' => 'sekunt',
+        'hepde' => 'hepde',
+    ]);
+};
 
 return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
@@ -60,8 +62,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     's' => ':count sekunt',
     'a_second' => ':count sekunt',
 
-    'ago' => static fn (string $time) => $transformDiff($time).' ozal',
-    'from_now' => static fn (string $time) => $transformDiff($time).' soňra',
-    'after' => static fn (string $time) => $transformDiff($time).' soň',
-    'before' => static fn (string $time) => $transformDiff($time).' öň',
+    'ago' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' ozal';
+    },
+    'from_now' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' soňra';
+    },
+    'after' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' soň';
+    },
+    'before' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' öň';
+    },
 ]);

@@ -22,14 +22,19 @@ class EventDispatcherBase
 
     public function listen($name, $listener)
     {
-        $this->listeners[$name] ??= [];
+        if (!isset($this->listeners[$name])) {
+            $this->listeners[$name] = [];
+        }
+
         $this->listeners[$name][] = $listener;
     }
 
     public function dispatch($name, $event = null)
     {
-        foreach (($this->listeners[$name] ?? []) as $listener) {
-            $listener($event);
+        if (isset($this->listeners[$name])) {
+            foreach ($this->listeners[$name] as $listener) {
+                $listener($event);
+            }
         }
     }
 }

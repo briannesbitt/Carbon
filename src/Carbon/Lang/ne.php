@@ -55,7 +55,7 @@ return [
         'lastWeek' => '[गएको] dddd[,] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => static function ($hour) {
+    'meridiem' => function ($hour) {
         if ($hour < 3) {
             return 'राति';
         }

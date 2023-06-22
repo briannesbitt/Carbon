@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['ऐतबार', 'सोमबार', 'मंगलबर', 'बुधबार', 'बीरबार', 'शुक्करबार', 'श्नीचरबार'],
     'weekdays_short' => ['ऐत', 'सोम', 'मंगल', 'बुध', 'बीर', 'शुक्कर', 'श्नीचर'],
     'weekdays_min' => ['ऐत', 'सोम', 'मंगल', 'बुध', 'बीर', 'शुक्कर', 'श्नीचर'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['सञं', 'सबेर'],
 

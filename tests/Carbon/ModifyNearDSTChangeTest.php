@@ -22,8 +22,6 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
     /**
      * Tests transition through DST change hour in non default timezone
      *
-     * @group dst
-     *
      * @param string $dateString
      * @param int    $addHours
      * @param string $expected
@@ -39,8 +37,6 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
 
     /**
      * Tests transition through DST change hour in default timezone
-     *
-     * @group dst
      *
      * @param string $dateString
      * @param int    $addHours
@@ -65,17 +61,11 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
         // testForwardTransition
         // When standard time was about to reach 2010-03-14T02:00:00-05:00 clocks were turned forward 1 hour to
         // 2010-03-14T03:00:00-04:00 local daylight time instead
-        yield [
-            '2010-03-14T00:00:00',
-            24,
-            version_compare(PHP_VERSION, '8.1.0-dev', '>=')
-                ? '2010-03-15T01:00:00-04:00'
-                : '2010-03-15T00:00:00-04:00',
-        ];
+        yield ['2010-03-14T00:00:00', 24, '2010-03-15T00:00:00-04:00'];
 
         // testBackwardTransition
         // When local daylight time was about to reach 2010-11-07T02:00:00-04:00 clocks were turned backward 1 hour
         // to 2010-11-07T01:00:00-05:00 local standard time instead
-        yield ['2010-11-07T00:00:00', 24, '2010-11-07T23:00:00-05:00'];
+        yield ['2010-11-07T00:00:00', 24, '2010-11-08T00:00:00-05:00'];
     }
 }

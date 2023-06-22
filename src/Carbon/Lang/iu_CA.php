@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['ᓈᑦᑎᖑᔭᕐᕕᒃ', 'ᓇᒡᒐᔾᔭᐅ', 'ᓇᒡᒐᔾᔭᐅᓕᖅᑭᑦ', 'ᐱᖓᓲᓕᖅᓯᐅᑦ', 'ᕿᑎᖅᑰᑦ', 'ᐅᓪᓗᕈᓘᑐᐃᓇᖅ', 'ᓯᕙᑖᕕᒃ'],
     'weekdays_short' => ['ᓈ', 'ᓇ', 'ᓕ', 'ᐱ', 'ᕿ', 'ᐅ', 'ᓯ'],
     'weekdays_min' => ['ᓈ', 'ᓇ', 'ᓕ', 'ᐱ', 'ᕿ', 'ᐅ', 'ᓯ'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'year' => ':count ᐅᑭᐅᖅ',

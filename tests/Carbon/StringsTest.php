@@ -238,7 +238,7 @@ class StringsTest extends AbstractTestCase
             DateTime::COOKIE === 'l, d-M-y H:i:s T'
                 ? 'Thursday, 25-Dec-75 14:15:16 EST'
                 : 'Thursday, 25-Dec-1975 14:15:16 EST',
-            $d->toCookieString(),
+            $d->toCookieString()
         );
     }
 

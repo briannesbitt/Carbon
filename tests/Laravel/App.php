@@ -66,13 +66,13 @@ class App implements ArrayAccess
             : 'locale.changed';
     }
 
-    public function setLocaleWithoutEvent(string $locale)
+    public function setLocaleWithoutEvent($locale)
     {
         $this->locale = $locale;
         $this->translator->setLocale($locale);
     }
 
-    public function setLocale(string $locale)
+    public function setLocale($locale)
     {
         $this->setLocaleWithoutEvent($locale);
         $this->events->dispatch(static::getLocaleChangeEventName());

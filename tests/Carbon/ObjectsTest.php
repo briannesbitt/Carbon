@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
-use Carbon\CarbonInterface;
 use DateTime;
 use DateTimeImmutable;
 use stdClass;
@@ -72,16 +71,12 @@ class ObjectsTest extends AbstractTestCase
         $date = $dt->toDateTime();
 
         $this->assertInstanceOf(DateTime::class, $date);
-        $this->assertNotInstanceOf(Carbon::class, $date);
-        $this->assertNotInstanceOf(CarbonInterface::class, $date);
 
         $this->assertSame('2000-03-26', $date->format('Y-m-d'));
 
         $date = $dt->toDate();
 
         $this->assertInstanceOf(DateTime::class, $date);
-        $this->assertNotInstanceOf(Carbon::class, $date);
-        $this->assertNotInstanceOf(CarbonInterface::class, $date);
 
         $this->assertSame('2000-03-26', $date->format('Y-m-d'));
     }

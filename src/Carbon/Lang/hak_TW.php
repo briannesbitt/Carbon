@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['禮拜日', '禮拜一', '禮拜二', '禮拜三', '禮拜四', '禮拜五', '禮拜六'],
     'weekdays_short' => ['日', '一', '二', '三', '四', '五', '六'],
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['上晝', '下晝'],
 

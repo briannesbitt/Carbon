@@ -10,7 +10,6 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
-    'first_day_of_week' => 0,
     'meridiem' => ['wichishu', 'mchochil’l'],
     'weekdays' => ['Sabato', 'Jumatatu', 'Jumanne', 'Jumatano', 'Arahamisi', 'Ijumaa', 'Jumamosi'],
     'weekdays_short' => ['Sab', 'Jtt', 'Jnn', 'Jtn', 'Ara', 'Iju', 'Jmo'],

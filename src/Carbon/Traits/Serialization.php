@@ -103,7 +103,7 @@ trait Serialization
      * @return static
      */
     #[ReturnTypeWillChange]
-    public static function __set_state($dump): static
+    public static function __set_state($dump)
     {
         if (\is_string($dump)) {
             return static::parse($dump);
@@ -197,7 +197,7 @@ trait Serialization
                     // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                     ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
                     parent::__construct($date, unserialize($timezone));
-                } catch (Throwable) {
+                } catch (Throwable $ignoredException) {
                     throw $exception;
                 }
             }
@@ -235,7 +235,7 @@ trait Serialization
                 // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                 ['date' => $date, 'timezone' => $timezone] = $data['dumpDateProperties'];
                 $this->__construct($date, unserialize($timezone));
-            } catch (Throwable) {
+            } catch (Throwable $ignoredException) {
                 throw $exception;
             }
         }

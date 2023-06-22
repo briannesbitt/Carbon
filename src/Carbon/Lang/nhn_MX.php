@@ -22,7 +22,6 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['teoilhuitl', 'ceilhuitl', 'omeilhuitl', 'yeilhuitl', 'nahuilhuitl', 'macuililhuitl', 'chicuaceilhuitl'],
     'weekdays_short' => ['teo', 'cei', 'ome', 'yei', 'nau', 'mac', 'chi'],
     'weekdays_min' => ['teo', 'cei', 'ome', 'yei', 'nau', 'mac', 'chi'],
-    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'month' => ':count metztli', // less reliable
