@@ -12,6 +12,9 @@
 namespace Carbon;
 
 use Closure;
+use DateTimeImmutable;
+use DateTimeZone;
+use Psr\Clock\ClockInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -110,7 +113,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                                Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
  *                                                                                                                                                                and recurrences). Throw an exception for invalid format, but otherwise return null.
  * @method void                    mixin($mixin)                                                                                                                  Mix another object into the class.
- * @method CarbonImmutable         now($tz = null)                                                                                                                Get a Carbon instance for the current date and time.
  * @method CarbonImmutable         parse($time = null, $tz = null)                                                                                                Create a carbon instance from a string.
  *                                                                                                                                                                This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                                as it allows you to do Carbon::parse('Monday next week')->fn() rather
@@ -226,7 +228,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * </autodoc>
  */
-class FactoryImmutable extends Factory
+class FactoryImmutable extends Factory implements ClockInterface
 {
     protected $className = CarbonImmutable::class;
+
+    /**
+     * Get a Carbon instance for the current date and time.
+     *
+     * @param DateTimeZone|string|int|null $tz
+     *
+     * @return CarbonImmutable
+     */
+    public function now($tz = null): DateTimeImmutable
+    {
+        $className = $this->className;
+
+        return new $className(null, $tz);
+    }
 }

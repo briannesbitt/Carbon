@@ -42,6 +42,7 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
+        "psr/clock": "^1.0",
         "symfony/polyfill-mbstring": "^1.0",
         "symfony/translation": "^4.4.18 || ^5.2.1|| ^6.0"
     },
@@ -56,6 +57,9 @@
         "phpstan/phpstan": "^1.10.20",
         "phpunit/phpunit": "^10.2.2",
         "squizlabs/php_codesniffer": "^3.7.2"
+    },
+    "provide": {
+        "psr/clock-implementation": "1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
