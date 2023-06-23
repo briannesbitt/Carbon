@@ -622,20 +622,19 @@ trait Date
      *
      * @return CarbonTimeZone|null
      */
-    protected static function safeCreateDateTimeZone($object, $objectDump = null): ?CarbonTimeZone
-    {
+    protected static function safeCreateDateTimeZone(
+        DateTimeZone|string|int|null $object,
+        DateTimeZone|string|int|null $objectDump = null,
+    ): ?CarbonTimeZone {
         return CarbonTimeZone::instance($object, $objectDump);
     }
 
     /**
      * Get the TimeZone associated with the Carbon instance (as CarbonTimeZone).
      *
-     * @return CarbonTimeZone
-     *
      * @link https://php.net/manual/en/datetime.gettimezone.php
      */
-    #[ReturnTypeWillChange]
-    public function getTimezone()
+    public function getTimezone(): CarbonTimeZone
     {
         return CarbonTimeZone::instance(parent::getTimezone());
     }

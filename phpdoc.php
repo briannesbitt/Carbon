@@ -108,7 +108,30 @@ function cleanClassName($name)
     return preg_replace('/^\\\\(Date(?:Time(?:Immutable|Interface|Zone)?|Interval)|[a-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
 }
 
-function dumpParameter($method, ReflectionParameter $parameter)
+function dumpType(ReflectionType $type, bool $deep = true, bool $allowsNull = false): string
+{
+    if ($type instanceof ReflectionUnionType) {
+        return ($deep ? '(' : '').implode('|', array_map(
+            dumpType(...),
+            $type->getTypes(),
+        )).($deep ? ')' : '');
+    }
+
+    if ($type instanceof ReflectionIntersectionType) {
+        return ($deep ? '(' : '').implode('&', array_map(
+            dumpType(...),
+            $type->getTypes(),
+        )).($deep ? ')' : '');
+    }
+
+    $name = cleanClassName($type->getName());
+
+    return (!$deep && $allowsNull ? '?' : '').
+        $name.
+        ($deep && $allowsNull ? '|null' : '');
+}
+
+function dumpParameter(string $method, ReflectionParameter $parameter): string
 {
     global $defaultValues;
 
@@ -119,14 +142,8 @@ function dumpParameter($method, ReflectionParameter $parameter)
         $output = "...$output";
     }
 
-    if ($parameter->getType()) {
-        $name = cleanClassName($parameter->getType()->getName());
-
-        if ($parameter->allowsNull()) {
-            $name = "?$name";
-        }
-
-        $output = "$name $output";
+    if ($parameter->hasType()) {
+        $output = dumpType($parameter->getType(), false, $parameter->allowsNull())." $output";
     }
 
     if (isset($defaultValues[$method])) {
@@ -137,11 +154,8 @@ function dumpParameter($method, ReflectionParameter $parameter)
         return $output;
     }
 
-    try {
-        if ($parameter->isDefaultValueAvailable()) {
-            $output .= ' = '.dumpValue($parameter->getDefaultValue());
-        }
-    } catch (ReflectionException) {
+    if ($parameter->isDefaultValueAvailable()) {
+        $output .= ' = '.dumpValue($parameter->getDefaultValue());
     }
 
     return $output;

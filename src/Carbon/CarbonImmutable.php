@@ -513,7 +513,7 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
         __clone as dateTraitClone;
     }
 
-    public function __clone()
+    public function __clone(): void
     {
         $this->dateTraitClone();
         $this->endOfTime = false;
