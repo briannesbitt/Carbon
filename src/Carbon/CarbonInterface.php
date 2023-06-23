@@ -3282,7 +3282,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function now($tz = null);
+    public static function now(DateTimeZone|string|int|null $tz = null): static;
 
     /**
      * Returns a present instance in the same timezone.

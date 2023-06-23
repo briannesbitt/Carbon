@@ -12,9 +12,9 @@
 namespace Carbon;
 
 use Closure;
-use DateTimeImmutable;
 use DateTimeZone;
-use Psr\Clock\ClockInterface;
+use Symfony\Component\Clock\ClockInterface;
+use Symfony\Component\Clock\NativeClock;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -232,17 +232,36 @@ class FactoryImmutable extends Factory implements ClockInterface
 {
     protected $className = CarbonImmutable::class;
 
+    protected DateTimeZone|string|int|null $defaultTimezone = null;
+
     /**
      * Get a Carbon instance for the current date and time.
-     *
-     * @param DateTimeZone|string|int|null $tz
-     *
-     * @return CarbonImmutable
      */
-    public function now($tz = null): DateTimeImmutable
+    public function now(DateTimeZone|string|int|null $tz = null): CarbonImmutable
     {
         $className = $this->className;
 
-        return new $className(null, $tz);
+        return new $className(null, $tz ?? $this->defaultTimezone);
+    }
+
+    public function sleep(int|float $seconds): void
+    {
+        $className = $this->className;
+
+        if ($className::hasTestNow()) {
+            $className::setTestNow($className::getTestNow()->avoidMutation()->addSeconds($seconds));
+
+            return;
+        }
+
+        (new NativeClock('UTC'))->sleep($seconds);
+    }
+
+    public function withTimeZone(DateTimeZone|string|int|null $timezone): static
+    {
+        $factory = new static();
+        $factory->defaultTimezone = $timezone;
+
+        return $factory;
     }
 }

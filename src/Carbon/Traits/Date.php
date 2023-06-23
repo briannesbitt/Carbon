@@ -35,6 +35,7 @@ use DateTimeZone;
 use InvalidArgumentException;
 use ReflectionException;
 use ReturnTypeWillChange;
+use Symfony\Component\Clock\NativeClock;
 use Throwable;
 
 /**
@@ -2388,6 +2389,17 @@ trait Date
         }
 
         return "{$unit}s";
+    }
+
+    public static function sleep(int|float $seconds): void
+    {
+        if (static::hasTestNow()) {
+            static::setTestNow(static::getTestNow()->avoidMutation()->addSeconds($seconds));
+
+            return;
+        }
+
+        (new NativeClock('UTC'))->sleep($seconds);
     }
 
     /**

@@ -234,7 +234,7 @@ trait Creator
      *
      * @return static
      */
-    public static function now($tz = null)
+    public static function now(DateTimeZone|string|int|null $tz = null): static
     {
         return new static(null, $tz);
     }
