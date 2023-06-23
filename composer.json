@@ -42,6 +42,7 @@
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
+        "psr/clock": "^1.0",
         "symfony/polyfill-mbstring": "^1.0",
         "symfony/polyfill-php80": "^1.16",
         "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0"
@@ -58,6 +59,9 @@
         "phpunit/php-file-iterator": "^2.0.5 || ^3.0.6",
         "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
         "squizlabs/php_codesniffer": "^3.4"
+    },
+    "provide": {
+        "psr/clock-implementation": "1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

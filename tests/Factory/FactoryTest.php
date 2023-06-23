@@ -17,6 +17,8 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
+use DateTimeImmutable;
+use Psr\Clock\ClockInterface;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -145,5 +147,13 @@ class FactoryTest extends AbstractTestCase
 
         $date = $factory->make('2021-08-01 08:00:00 Europe/Paris');
         $this->assertSame('2021-08-01T08:00:00+02:00', $date->format('c'));
+    }
+
+    public function testPsrClock()
+    {
+        $factory = new FactoryImmutable();
+        $this->assertInstanceOf(ClockInterface::class, $factory);
+        $this->assertInstanceOf(DateTimeImmutable::class, $factory->now());
+        $this->assertInstanceOf(CarbonImmutable::class, $factory->now());
     }
 }
