@@ -14,7 +14,6 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
-use Symfony\Component\Translation\TranslatorInterface;
 
 $tags = [
     'property',

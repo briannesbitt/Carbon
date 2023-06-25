@@ -112,6 +112,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                            Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
  *                                                                                                                                                            and recurrences). Throw an exception for invalid format, but otherwise return null.
  * @method void                mixin($mixin)                                                                                                                  Mix another object into the class.
+ * @method Carbon              now(DateTimeZone|string|int|null $tz = null)                                                                                   Get a Carbon instance for the current date and time.
  * @method Carbon              parse($time = null, $tz = null)                                                                                                Create a carbon instance from a string.
  *                                                                                                                                                            This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                            as it allows you to do Carbon::parse('Monday next week')->fn() rather
@@ -205,6 +206,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @method bool                shouldOverflowMonths()                                                                                                         Get the month overflow global behavior (can be overridden in specific instances).
  * @method bool                shouldOverflowYears()                                                                                                          Get the month overflow global behavior (can be overridden in specific instances).
  * @method string              singularUnit(string $unit)                                                                                                     Returns standardized singular of a given singular/plural unit name (in English).
+ * @method void                sleep(int|float $seconds)
  * @method Carbon              today($tz = null)                                                                                                              Create a Carbon instance for today.
  * @method Carbon              tomorrow($tz = null)                                                                                                           Create a Carbon instance for tomorrow.
  * @method string              translateTimeString(string $timeString, ?string $from = null, ?string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL)  Translate a time string from a locale to an other.

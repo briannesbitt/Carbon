@@ -3954,6 +3954,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public static function singularUnit(string $unit): string;
 
+    public static function sleep(int|float $seconds): void;
+
     /**
      * Modify to start of current given unit.
      *

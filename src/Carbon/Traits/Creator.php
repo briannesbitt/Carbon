@@ -62,13 +62,15 @@ trait Creator
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
-        if (is_numeric($time) && (!\is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
+        if (\is_string($time) && str_starts_with($time, '@')) {
             $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
+        } elseif (is_numeric($time) && (!\is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
+            $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
-        $isNow = $time === null || $time === 'now';
+        $isNow = \in_array($time, [null, '', 'now'], true);
 
         if (method_exists(static::class, 'hasTestNow') &&
             method_exists(static::class, 'getTestNow') &&
