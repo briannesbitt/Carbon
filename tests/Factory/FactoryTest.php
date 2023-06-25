@@ -151,9 +151,53 @@ class FactoryTest extends AbstractTestCase
 
     public function testPsrClock()
     {
+        $initial = Carbon::now('UTC');
         $factory = new FactoryImmutable();
+        $factory->setTestNow($initial);
         $this->assertInstanceOf(ClockInterface::class, $factory);
         $this->assertInstanceOf(DateTimeImmutable::class, $factory->now());
         $this->assertInstanceOf(CarbonImmutable::class, $factory->now());
+        $this->assertSame('America/Toronto', $factory->now()->tzName);
+        $this->assertSame('UTC', $factory->now('UTC')->tzName);
+
+        $timezonedFactory = $factory->withTimeZone('Asia/Tokyo');
+        $this->assertInstanceOf(CarbonImmutable::class, $timezonedFactory->now());
+        $this->assertSame('Asia/Tokyo', $timezonedFactory->now()->tzName);
+        $this->assertSame('America/Toronto', $timezonedFactory->now('America/Toronto')->tzName);
+
+        $this->assertSame(
+            $initial->format('Y-m-d H:i:s.u'),
+            $factory->now('UTC')->format('Y-m-d H:i:s.u'),
+        );
+
+        $before = microtime(true);
+        $factory->sleep(5);
+        $factory->sleep(20);
+        $after = microtime(true);
+
+        $this->assertLessThan(0.1, $after - $before);
+
+        $this->assertSame(
+            $initial->copy()->addSeconds(25)->format('Y-m-d H:i:s.u'),
+            $factory->now('UTC')->format('Y-m-d H:i:s.u'),
+        );
+
+        $factory = new FactoryImmutable();
+        $factory->setTestNow(null);
+        $before = new DateTimeImmutable('now UTC');
+        $now = $factory->now('UTC');
+        $after = new DateTimeImmutable('now UTC');
+
+        $this->assertGreaterThanOrEqual($before, $now);
+        $this->assertLessThanOrEqual($after, $now);
+
+        $before = new DateTimeImmutable('now UTC');
+        $factory->sleep(0.5);
+        $after = new DateTimeImmutable('now UTC');
+
+        $this->assertSame(
+            5,
+            (int) round(10 * ((float) $after->format('U.u') - ((float) $before->format('U.u')))),
+        );
     }
 }
