@@ -33,7 +33,7 @@ class AliasTest extends AbstractTestCase
             $this->assertEquals(Carbon::parse($date), $period->start);
         }
 
-        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions());
+        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
 
         $period = $period->since($date = '2014-10-12 15:42:34', true);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
@@ -48,6 +48,7 @@ class AliasTest extends AbstractTestCase
     {
         $periodClass = static::$periodClass;
         $date = '2017-09-13 12:30:45';
+        /** @var CarbonPeriod $period */
         $period = $periodClass::start(date: $date, inclusive: false);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
         $this->assertEquals(Carbon::parse($date), $period->start());
@@ -70,11 +71,11 @@ class AliasTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
 
         $date = '2014-10-12 15:42:34';
-        $period->since(date: $date, inclusive: true);
+        $period = $period->since(date: $date, inclusive: true);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
         $this->assertEmpty($period->getOptions());
 
-        $period->sinceNow(inclusive: false);
+        $period = $period->sinceNow(inclusive: false);
         $this->assertEquals(Carbon::now(), $period->getStartDate());
         $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
 
@@ -104,7 +105,7 @@ class AliasTest extends AbstractTestCase
         $this->assertEquals(Carbon::now(), $period->getEndDate());
         $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
 
-        $period->end(null);
+        $period = $period->end(null);
         $this->assertNull($period->getEndDate());
     }
 
@@ -124,11 +125,11 @@ class AliasTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $date = '2014-10-12 15:42:34';
-        $period->until(date: $date, inclusive: true);
+        $period = $period->until(date: $date, inclusive: true);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
         $this->assertEmpty($period->getOptions());
 
-        $period->untilNow(inclusive: false);
+        $period = $period->untilNow(inclusive: false);
         $this->assertEquals(Carbon::now(), $period->getEndDate());
         $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
     }
@@ -171,7 +172,7 @@ class AliasTest extends AbstractTestCase
         $period = $period->times(3);
         $this->assertSame(3, $period->getRecurrences());
 
-        $period->recurrences(null);
+        $period = $period->recurrences(null);
         $this->assertNull($period->getRecurrences());
     }
 
@@ -223,7 +224,10 @@ class AliasTest extends AbstractTestCase
     {
         $periodClass = static::$periodClass;
         $period = $periodClass::invert();
-        $this->assertEquals(CarbonInterval::create('P1D')->invert()->optimize(), $period->getDateInterval()->optimize());
+        $this->assertEquals(
+            CarbonInterval::create('P1D')->invert()->optimize(),
+            $period->getDateInterval()->optimize(),
+        );
     }
 
     public function testModifyIntervalPlural()
@@ -309,10 +313,10 @@ class AliasTest extends AbstractTestCase
         $this->assertEquals('2022-09-13', $period->getStartDate()->format('Y-m-d'));
         $this->assertEquals('2022-10-12', $period->getEndDate()->format('Y-m-d'));
 
-        $period->years(years: 5);
+        $period = $period->years(years: 5);
         $this->assertEquals('5 years', (string) $period->getDateInterval());
 
-        $period->interval(interval: CarbonInterval::year(years: 3));
+        $period = $period->interval(interval: \Carbon\CarbonInterval::year(years: 3));
         $this->assertEquals('3 years', (string) $period->getDateInterval());
 
         $period = $periodClass::between(start: '2022-09-13', end: '2022-10-12')->months(months: 5);

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
@@ -364,5 +365,33 @@ class TestingAidsTest extends AbstractTestCase
 
         $currentTime = new Carbon('tomorrow');
         $this->assertSame('2000-01-02 00:00:00 UTC', $currentTime->format('Y-m-d H:i:s e'));
+    }
+
+    public function testSleep()
+    {
+        $initial = Carbon::now('UTC');
+        Carbon::setTestNow($initial);
+        $before = microtime(true);
+        Carbon::sleep(5);
+        Carbon::sleep(20);
+        $after = microtime(true);
+
+        $this->assertLessThan(0.1, $after - $before);
+
+        $this->assertSame(
+            $initial->copy()->addSeconds(25)->format('Y-m-d H:i:s.u'),
+            Carbon::now('UTC')->format('Y-m-d H:i:s.u'),
+        );
+
+        Carbon::setTestNow(null);
+
+        $before = new DateTimeImmutable('now UTC');
+        Carbon::sleep(0.5);
+        $after = new DateTimeImmutable('now UTC');
+
+        $this->assertSame(
+            5,
+            (int) round(10 * ((float) $after->format('U.u') - ((float) $before->format('U.u')))),
+        );
     }
 }

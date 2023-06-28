@@ -52,24 +52,25 @@ trait Creator
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param DateTimeInterface|string|null $time
-     * @param DateTimeZone|string|null      $tz
-     *
      * @throws InvalidFormatException
      */
-    public function __construct($time = null, $tz = null)
-    {
+    public function __construct(
+        DateTimeInterface|string|int|float|null $time = null,
+        DateTimeZone|string|int|null $tz = null,
+    ) {
         if ($time instanceof DateTimeInterface) {
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
         if (\is_string($time) && str_starts_with($time, '@')) {
             $time = static::createFromTimestampUTC(substr($time, 1))->format('Y-m-d\TH:i:s.uP');
+        } elseif (is_numeric($time) && (!\is_string($time) || !preg_match('/^\d{1,14}$/', $time))) {
+            $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
-        $isNow = empty($time) || $time === 'now';
+        $isNow = \in_array($time, [null, '', 'now'], true);
 
         if (method_exists(static::class, 'hasTestNow') &&
             method_exists(static::class, 'getTestNow') &&
@@ -80,7 +81,7 @@ trait Creator
         }
 
         try {
-            parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz) ?: null);
+            parent::__construct($time ?? 'now', static::safeCreateDateTimeZone($tz) ?? null);
         } catch (Exception $exception) {
             throw new InvalidFormatException($exception->getMessage(), 0, $exception);
         }
@@ -92,14 +93,11 @@ trait Creator
 
     /**
      * Get timezone from a datetime instance.
-     *
-     * @param DateTimeInterface        $date
-     * @param DateTimeZone|string|null $tz
-     *
-     * @return DateTimeInterface
      */
-    private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz): DateTimeInterface
-    {
+    private function constructTimezoneFromDateTime(
+        DateTimeInterface $date,
+        DateTimeZone|string|int|null &$tz,
+    ): DateTimeInterface {
         if ($tz !== null) {
             $safeTz = static::safeCreateDateTimeZone($tz);
 
@@ -118,19 +116,15 @@ trait Creator
     /**
      * Update constructedObjectId on cloned.
      */
-    public function __clone()
+    public function __clone(): void
     {
         $this->constructedObjectId = spl_object_hash($this);
     }
 
     /**
      * Create a Carbon instance from a DateTime one.
-     *
-     * @param DateTimeInterface $date
-     *
-     * @return static
      */
-    public static function instance($date): static
+    public static function instance(DateTimeInterface $date): static
     {
         if ($date instanceof static) {
             return clone $date;
@@ -242,7 +236,7 @@ trait Creator
      *
      * @return static
      */
-    public static function now($tz = null)
+    public static function now(DateTimeZone|string|int|null $tz = null): static
     {
         return new static(null, $tz);
     }

@@ -83,8 +83,8 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Create a CarbonTimeZone from mixed input.
      *
-     * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
-     * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
+     * @param DateTimeZone|string|int|false|null $object     original value to get CarbonTimeZone from it.
+     * @param DateTimeZone|string|int|false|null $objectDump dump of the object for error messages.
      *
      * @throws InvalidTimeZoneException
      *
@@ -102,12 +102,14 @@ class CarbonTimeZone extends DateTimeZone
             return new static();
         }
 
-        if (!$tz instanceof DateTimeZone) {
-            $tz = static::getDateTimeZoneFromName($object);
-        }
+        if ($tz !== false) {
+            if (!$tz instanceof DateTimeZone) {
+                $tz = static::getDateTimeZoneFromName($object);
+            }
 
-        if ($tz !== null) {
-            return new static($tz->getName());
+            if ($tz !== null) {
+                return new static($tz->getName());
+            }
         }
 
         if (Carbon::isStrictModeEnabled()) {

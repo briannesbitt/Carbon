@@ -667,7 +667,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Update constructedObjectId on cloned.
      */
-    public function __clone();
+    public function __clone(): void;
 
     /**
      * Create a new Carbon instance.
@@ -675,12 +675,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param DateTimeInterface|string|null $time
-     * @param DateTimeZone|string|null      $tz
-     *
      * @throws InvalidFormatException
      */
-    public function __construct($time = null, $tz = null);
+    public function __construct(DateTimeInterface|string|int|float|null $time = null, DateTimeZone|string|int|null $tz = null);
 
     /**
      * Show truthy properties on var_dump().
@@ -2379,12 +2376,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Create a Carbon instance from a DateTime one.
-     *
-     * @param DateTimeInterface $date
-     *
-     * @return static
      */
-    public static function instance($date): static;
+    public static function instance(DateTimeInterface $date): static;
 
     /**
      * Returns true if the current date matches the given string.
@@ -3289,7 +3282,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function now($tz = null);
+    public static function now(DateTimeZone|string|int|null $tz = null): static;
 
     /**
      * Returns a present instance in the same timezone.
@@ -3960,6 +3953,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return string
      */
     public static function singularUnit(string $unit): string;
+
+    public static function sleep(int|float $seconds): void;
 
     /**
      * Modify to start of current given unit.

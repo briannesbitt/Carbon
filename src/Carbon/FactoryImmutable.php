@@ -12,6 +12,9 @@
 namespace Carbon;
 
 use Closure;
+use DateTimeZone;
+use Symfony\Component\Clock\ClockInterface;
+use Symfony\Component\Clock\NativeClock;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -89,7 +92,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @method bool                    hasRelativeKeywords($time)                                                                                                     Determine if a time string will produce a relative date.
  * @method bool                    hasTestNow()                                                                                                                   Determine if there is a valid test instance set. A valid test instance
  *                                                                                                                                                                is anything that is not null.
- * @method CarbonImmutable         instance($date)                                                                                                                Create a Carbon instance from a DateTime one.
+ * @method CarbonImmutable         instance(DateTimeInterface $date)                                                                                              Create a Carbon instance from a DateTime one.
  * @method bool                    isImmutable()                                                                                                                  Returns true if the current class/instance is immutable.
  * @method bool                    isModifiableUnit($unit)                                                                                                        Returns true if a property can be changed via setter.
  * @method bool                    isMutable()                                                                                                                    Returns true if the current class/instance is mutable.
@@ -110,7 +113,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                                Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
  *                                                                                                                                                                and recurrences). Throw an exception for invalid format, but otherwise return null.
  * @method void                    mixin($mixin)                                                                                                                  Mix another object into the class.
- * @method CarbonImmutable         now($tz = null)                                                                                                                Get a Carbon instance for the current date and time.
  * @method CarbonImmutable         parse($time = null, $tz = null)                                                                                                Create a carbon instance from a string.
  *                                                                                                                                                                This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                                as it allows you to do Carbon::parse('Monday next week')->fn() rather
@@ -226,7 +228,40 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * </autodoc>
  */
-class FactoryImmutable extends Factory
+class FactoryImmutable extends Factory implements ClockInterface
 {
     protected $className = CarbonImmutable::class;
+
+    protected DateTimeZone|string|int|null $defaultTimezone = null;
+
+    /**
+     * Get a Carbon instance for the current date and time.
+     */
+    public function now(DateTimeZone|string|int|null $tz = null): CarbonImmutable
+    {
+        $className = $this->className;
+
+        return new $className(null, $tz ?? $this->defaultTimezone);
+    }
+
+    public function sleep(int|float $seconds): void
+    {
+        $className = $this->className;
+
+        if ($className::hasTestNow()) {
+            $className::setTestNow($className::getTestNow()->avoidMutation()->addSeconds($seconds));
+
+            return;
+        }
+
+        (new NativeClock('UTC'))->sleep($seconds);
+    }
+
+    public function withTimeZone(DateTimeZone|string|int|null $timezone): static
+    {
+        $factory = new static();
+        $factory->defaultTimezone = $timezone;
+
+        return $factory;
+    }
 }

@@ -35,6 +35,7 @@ use DateTimeZone;
 use InvalidArgumentException;
 use ReflectionException;
 use ReturnTypeWillChange;
+use Symfony\Component\Clock\NativeClock;
 use Throwable;
 
 /**
@@ -615,27 +616,26 @@ trait Date
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
-     * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
-     * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
+     * @param DateTimeZone|string|int|false|null $object     original value to get CarbonTimeZone from it.
+     * @param DateTimeZone|string|int|false|null $objectDump dump of the object for error messages.
      *
      * @throws InvalidTimeZoneException
      *
      * @return CarbonTimeZone|null
      */
-    protected static function safeCreateDateTimeZone($object, $objectDump = null): ?CarbonTimeZone
-    {
+    protected static function safeCreateDateTimeZone(
+        DateTimeZone|string|int|false|null $object,
+        DateTimeZone|string|int|false|null $objectDump = null,
+    ): ?CarbonTimeZone {
         return CarbonTimeZone::instance($object, $objectDump);
     }
 
     /**
      * Get the TimeZone associated with the Carbon instance (as CarbonTimeZone).
      *
-     * @return CarbonTimeZone
-     *
      * @link https://php.net/manual/en/datetime.gettimezone.php
      */
-    #[ReturnTypeWillChange]
-    public function getTimezone()
+    public function getTimezone(): CarbonTimeZone
     {
         return CarbonTimeZone::instance(parent::getTimezone());
     }
@@ -2389,6 +2389,17 @@ trait Date
         }
 
         return "{$unit}s";
+    }
+
+    public static function sleep(int|float $seconds): void
+    {
+        if (static::hasTestNow()) {
+            static::setTestNow(static::getTestNow()->avoidMutation()->addSeconds($seconds));
+
+            return;
+        }
+
+        (new NativeClock('UTC'))->sleep($seconds);
     }
 
     /**

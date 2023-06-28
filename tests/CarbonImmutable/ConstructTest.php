@@ -92,6 +92,12 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbon($c, 2020, 11, 28, 0, 0, 0);
     }
 
+    public function testParseWithYYYMMDDHHMMSS()
+    {
+        $c = Carbon::parse('20201128192533');
+        $this->assertCarbon($c, 2020, 11, 28, 19, 25, 33);
+    }
+
     public function testDefaultTimezone()
     {
         $c = new Carbon('now');
@@ -174,7 +180,19 @@ class ConstructTest extends AbstractTestCase
 
     public function testTimestamp()
     {
-        $date = new Carbon('@1367186296');
-        $this->assertSame('Sunday 28 April 2013 21:58:16', $date->format('l j F Y H:i:s'));
+        $date = new Carbon(1367186296);
+        $this->assertSame('Sunday 28 April 2013 21:58:16.000000', $date->format('l j F Y H:i:s.u'));
+
+        $date = new Carbon(123);
+        $this->assertSame('Thursday 1 January 1970 00:02:03.000000', $date->format('l j F Y H:i:s.u'));
+    }
+
+    public function testFloatTimestamp()
+    {
+        $date = new Carbon(1367186296.654321);
+        $this->assertSame('Sunday 28 April 2013 21:58:16.654321', $date->format('l j F Y H:i:s.u'));
+
+        $date = new Carbon(123.5);
+        $this->assertSame('Thursday 1 January 1970 00:02:03.500000', $date->format('l j F Y H:i:s.u'));
     }
 }
