@@ -20,6 +20,7 @@ use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Translator;
 use Closure;
 use DateMalformedStringException;
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
@@ -113,7 +114,7 @@ trait Creator
             $safeTz = static::safeCreateDateTimeZone($tz);
 
             if ($safeTz) {
-                return $date->setTimezone($safeTz);
+                return ($date instanceof DateTimeImmutable ? $date : clone $date)->setTimezone($safeTz);
             }
 
             return $date;
