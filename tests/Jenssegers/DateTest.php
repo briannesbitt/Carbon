@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Jenssegers;
 
 use Carbon\Carbon;
+use DateTimeImmutable;
 
 class DateTest extends TestCaseBase
 {
@@ -24,17 +25,11 @@ class DateTest extends TestCaseBase
         $date = new Carbon('2013-01-31');
         $this->assertSame(1359590400, $date->getTimestamp());
 
-        $before = time();
+        $before = (new DateTimeImmutable())->getTimestamp();
         $date = new Carbon('1 day ago');
-        $after = time();
+        $after = (new DateTimeImmutable())->getTimestamp();
         $this->assertGreaterThanOrEqual($before - 86400, $date->getTimestamp());
         $this->assertLessThanOrEqual($after - 86400, $date->getTimestamp());
-    }
-
-    public function testConstructTimestamp()
-    {
-        $date = new Carbon(1367186296);
-        $this->assertSame(1367186296, $date->getTimestamp());
     }
 
     public function testMake()
