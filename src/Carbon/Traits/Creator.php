@@ -663,12 +663,14 @@ trait Creator
                 $tz = clone $mock->getTimezone();
             }
 
-            // Set microseconds to zero to match behavior of DateTime::createFromFormat()
-            // See https://bugs.php.net/bug.php?id=74332
-            $mock = $mock->copy()->microsecond(0);
+            $mock = $mock->copy();
 
             // Prepend mock datetime only if the format does not contain non escaped unix epoch reset flag.
             if (!preg_match("/{$nonEscaped}[!|]/", $format)) {
+                if (preg_match('/[HhGgisvuB]/', $format)) {
+                    $mock = $mock->setTime(0, 0);
+                }
+
                 $format = static::MOCK_DATETIME_FORMAT.' '.$format;
                 $time = ($mock instanceof self ? $mock->rawFormat(static::MOCK_DATETIME_FORMAT) : $mock->format(static::MOCK_DATETIME_FORMAT)).' '.$time;
             }
