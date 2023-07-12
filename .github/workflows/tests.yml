@@ -74,22 +74,22 @@ jobs:
           - php: 8.3
             setup: lowest
 
-          - php: 8.0
+          - php: 8.1
             laravel: true
-            reference: 9.x
+            reference: 10.x
 
-          - php: 8.0
+          - php: 8.1
             laravel: true
-            reference: 9.x
+            reference: 10.x
             classmap-authoritative: true
 
           - php: 8.2
             laravel: true
-            reference: 9.x
+            reference: master
 
           - php: 8.2
             laravel: true
-            reference: 9.x
+            reference: master
             classmap-authoritative: true
 
           - php: 8.2
