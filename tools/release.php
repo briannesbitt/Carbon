@@ -19,7 +19,10 @@ $newComposer = preg_replace(
 
 echo $newComposer === $composer
     ? 'nesbot/carbon is already on '
-    : 'Upgraded nesbot/carbon to ';
+    : (file_put_contents(__DIR__ . '/../composer.json', $newComposer)
+        ? 'Upgraded nesbot/carbon to '
+        : 'Unable to upgrade nesbot/carbon to '
+    );
 
 echo $releases[0]->tag_name.".\n";
 
