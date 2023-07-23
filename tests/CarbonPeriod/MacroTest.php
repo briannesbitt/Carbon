@@ -25,14 +25,25 @@ use Tests\CarbonPeriod\Fixtures\MixinTrait;
 
 class MacroTest extends AbstractTestCase
 {
+    private function setStaticProperty(string $class, string $property, $value): void
+    {
+        $reflection = new ReflectionClass($class);
+
+        if (PHP_VERSION >= 7.4) {
+            $reflection->setStaticPropertyValue($property, $value);
+
+            return;
+        }
+
+        $property = $reflection->getProperty($property);
+
+        $property->setAccessible(true);
+        $property->setValue($value);
+    }
+
     protected function tearDown(): void
     {
-        $reflection = new ReflectionClass($this->periodClass);
-
-        $macrosProperty = $reflection->getProperty('macros');
-
-        $macrosProperty->setAccessible(true);
-        $macrosProperty->setValue([]);
+        $this->setStaticProperty($this->periodClass, 'macros', []);
 
         parent::tearDown();
     }
