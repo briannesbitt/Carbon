@@ -4554,11 +4554,10 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
-)}}
-
-{{::exec(var_dump($period->overlaps('2010-05-22', '2010-06-03'));/*pad(58)*/)}} // {{eval}}{{::lint(
 $period2 = CarbonPeriod::create('2010-05-22', '2010-05-24');
 )}}
+
+{{::exec(var_dump($period->overlaps('2010-05-22', '2010-06-03'));/*pad(58)*/)}} // {{eval}}
 {{::exec(var_dump($period->overlaps($period2));/*pad(58)*/)}} // {{eval}}
 
 {{::lint(
