@@ -607,7 +607,7 @@ $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
 echo $dt->formatLocalized('%A %d %B %Y');          // 
 Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
-mi�rcoles 06 enero 2016
+mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // 
 Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
@@ -7979,9 +7979,24 @@ parameters:
     bootstrapFiles:
         - config/bootstrap.php</code></pre>
 
+    <p><b>📦 Carbon extension libraries</b></p>
+
     <p>Check <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
         (that includes <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a>)
         to handle both holidays and business opening hours with a lot of advanced features.</p>
+
+    <p>Check <a href="https://github.com/kylekatarnls/season">cmixin/season</a>
+        to check if date is in a given season, which season of the year is a date,
+        or when season starts and ends.</p>
+
+    <p>Check <a href="https://github.com/kylekatarnls/enhanced-period">cmixin/enhanced-period</a>
+        for more period features: `touchesWith()`, `overlapsWith()`, `duration()`, `diff()`,
+        `diffAny()`, etc.</p>
+
+    <p>Check <a href="https://github.com/kylekatarnls/carbonite">Carbonite</a> for more advanced
+        Carbon testing features.</p>
+
+    <p><b>🙌 More macros and mixins below shared by users</b></p>
 
     <p>
     <pre><code class="php">class CurrentDaysCarbonMixin
