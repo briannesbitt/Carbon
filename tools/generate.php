@@ -634,7 +634,10 @@ foreach ($languages as $language) {
         $output[$start.$end] = eval("use Carbon\Carbon; use Carbon\CarbonInterval; return {$start}->locale('{$locale}'){$end};");
     }
 
-    file_put_contents('contribute/translate/assets/translations/'.$locale.'.json', json_encode($output, JSON_PRETTY_PRINT));
+    file_put_contents(
+        'contribute/translate/assets/translations/'.$locale.'.json',
+        str_replace("\r", '', json_encode($output, JSON_PRETTY_PRINT))
+    );
 }
 
 $directories = [

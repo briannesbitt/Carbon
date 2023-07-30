@@ -3,6 +3,7 @@
         "php": "^7.1 || ^8.0",
         "ext-json": "*",
         "cmixin/business-time": "dev-master",
+        "cmixin/season": "dev-main",
         "kylekatarnls/carbonite": "dev-master",
         "nesbot/carbon": "dev-master as 2.68.1"
     },

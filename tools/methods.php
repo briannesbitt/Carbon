@@ -1,5 +1,7 @@
 <?php
 
+use Cmixin\SeasonMixin;
+
 function getMethodsFromObject($object)
 {
     foreach (get_class_methods($object) as $method) {
@@ -40,14 +42,31 @@ function getClassesData($excludeMixins = true)
             new \DateTime(),
         ];
 
-        if (!$excludeMixins && class_exists(\Cmixin\BusinessTime::class)) {
-            yield [
-                \Cmixin\BusinessTime::enable(BusinessTimeCarbon::class),
-                new \Carbon\Carbon(),
-                \Carbon\Carbon::class,
-                'Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>',
-                new BusinessTimeCarbon(),
-            ];
+        if (!$excludeMixins) {
+            if (class_exists(\Cmixin\BusinessTime::class)) {
+                yield [
+                    \Cmixin\BusinessTime::enable(BusinessTimeCarbon::class),
+                    new \Carbon\Carbon(),
+                    \Carbon\Carbon::class,
+                    'Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>',
+                    new BusinessTimeCarbon(),
+                ];
+            }
+
+            if (trait_exists(\Cmixin\SeasonMixin::class)) {
+                BusinessTimeCarbon::mixin(SeasonMixin::class);
+
+                yield [
+                    new BusinessTimeCarbon(),
+                    new \Carbon\Carbon(),
+                    \Carbon\Carbon::class,
+                    'Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>',
+                    new class () extends BusinessTimeCarbon {
+                        use SeasonMixin;
+                    },
+                    SeasonMixin::class,
+                ];
+            }
         }
     }
 
@@ -90,7 +109,7 @@ function getClassesData($excludeMixins = true)
 function getClasses($excludeMixins = true)
 {
     foreach (getClassesData($excludeMixins) as $data) {
-        yield array_pad($data, 5, null);
+        yield array_pad($data, 6, null);
     }
 }
 
@@ -122,7 +141,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
 {
     $records = [];
 
-    foreach (getClasses($excludeMixins) as [$carbonObject, $dateTimeObject, $className, $info, $invoke]) {
+    foreach (getClasses($excludeMixins) as [$carbonObject, $dateTimeObject, $className, $info, $invoke, $trait]) {
         $className = $className ?: get_class($carbonObject);
         $dateTimeMethods = get_class_methods($dateTimeObject);
 
@@ -133,10 +152,15 @@ function methods($excludeNatives = false, $excludeMixins = true)
             }
 
             if (
-                ($excludeNatives && in_array($method, $dateTimeMethods)) ||
-                $method === '__call' ||
-                $method === '__callStatic' ||
-                $method === '__getMacros'
+                ($excludeNatives && in_array($method, $dateTimeMethods, true)) ||
+                in_array($method, [
+                    '__call',
+                    '__callStatic',
+                    '__getMacros',
+                    'getAvailableMacroLocales',
+                    'getAllMethods',
+                    'describeIsoFormat',
+                ], true)
             ) {
                 continue;
             }
@@ -146,9 +170,21 @@ function methods($excludeNatives = false, $excludeMixins = true)
             }
 
             $records["$className::$method"] = true;
-            $rc = new \ReflectionMethod($carbonObject, $method);
+            try {
+                $rc = new \ReflectionMethod($carbonObject, $method);
+            } catch (\ReflectionException $exception) {
+                if (!$trait) {
+                    throw $exception;
+                }
 
-            if ($invoke && ($function = $rc->invoke($carbonObject))) {
+                $rc = new \ReflectionMethod($trait, $method);
+            }
+
+            if (!$rc->isPublic()) {
+                continue;
+            }
+
+            if (!$trait && $invoke && ($function = $rc->invoke($carbonObject))) {
                 $rc = new \ReflectionFunction($function);
             }
 
