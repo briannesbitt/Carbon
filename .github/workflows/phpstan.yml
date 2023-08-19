@@ -1,4 +1,4 @@
-name: Linting
+name: PHPStan
 
 on: [ pull_request, push ]
 

@@ -1,4 +1,4 @@
-name: Linting
+name: PHPMD
 
 on: [ pull_request, push ]
 
