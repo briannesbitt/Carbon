@@ -127,13 +127,13 @@ jobs:
         if: matrix.laravel
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+        id: composer-cache-ubuntu
+        run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
+          path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
           key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
           restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
@@ -243,13 +243,13 @@ jobs:
           coverage: none
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+        id: composer-cache-windows
+        run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
+          path: ${{ steps.composer-cache-windows.outputs.dir }}
           key: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
           restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
 
