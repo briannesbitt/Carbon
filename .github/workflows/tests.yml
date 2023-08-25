@@ -134,8 +134,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: $GITHUB_OUTPUT
-          key: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
@@ -250,8 +250,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: $GITHUB_OUTPUT
-          key: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
