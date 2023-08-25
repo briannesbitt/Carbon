@@ -119,7 +119,7 @@ jobs:
           sudo apt-get install tzdata locales -y && sudo locale-gen fr_FR.UTF-8 sr_ME.UTF-8 ar_AE.UTF-8 zh_TW.UTF-8 zh_CN.UTF-8 yo_NG.UTF-8 en_US.UTF-8 || echo 'Apt failure ignored'
 
       - name: Set Minimum PHP 8.1 Versions
-        uses: nick-invision/retry@v1
+        uses: nick-invision/retry@v2
         with:
           timeout_minutes: 5
           max_attempts: 5
@@ -127,15 +127,15 @@ jobs:
         if: matrix.laravel
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        id: composer-cache-ubuntu
+        run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
@@ -243,15 +243,16 @@ jobs:
           coverage: none
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        id: composer-cache-windows
+        shell: bash
+        run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+          path: ${{ steps.composer-cache-windows.outputs.dir }}
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
