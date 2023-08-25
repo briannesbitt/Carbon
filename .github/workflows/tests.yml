@@ -133,7 +133,7 @@ jobs:
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: $GITHUB_OUTPUT
+          path: ${{ env.GITHUB_OUTPUT }}
           key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
           restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
@@ -249,7 +249,7 @@ jobs:
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: $GITHUB_OUTPUT
+          path: ${{ env.GITHUB_OUTPUT }}
           key: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
           restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
 
