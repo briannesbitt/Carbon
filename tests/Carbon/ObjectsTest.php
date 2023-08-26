@@ -28,40 +28,40 @@ class ObjectsTest extends AbstractTestCase
 
         $this->assertInstanceOf(stdClass::class, $dtToObject);
 
-        $this->assertObjectHasAttribute('year', $dtToObject);
+        $this->assertObjectHasProperty('year', $dtToObject);
         $this->assertSame($dt->year, $dtToObject->year);
 
-        $this->assertObjectHasAttribute('month', $dtToObject);
+        $this->assertObjectHasProperty('month', $dtToObject);
         $this->assertSame($dt->month, $dtToObject->month);
 
-        $this->assertObjectHasAttribute('day', $dtToObject);
+        $this->assertObjectHasProperty('day', $dtToObject);
         $this->assertSame($dt->day, $dtToObject->day);
 
-        $this->assertObjectHasAttribute('dayOfWeek', $dtToObject);
+        $this->assertObjectHasProperty('dayOfWeek', $dtToObject);
         $this->assertSame($dt->dayOfWeek, $dtToObject->dayOfWeek);
 
-        $this->assertObjectHasAttribute('dayOfYear', $dtToObject);
+        $this->assertObjectHasProperty('dayOfYear', $dtToObject);
         $this->assertSame($dt->dayOfYear, $dtToObject->dayOfYear);
 
-        $this->assertObjectHasAttribute('hour', $dtToObject);
+        $this->assertObjectHasProperty('hour', $dtToObject);
         $this->assertSame($dt->hour, $dtToObject->hour);
 
-        $this->assertObjectHasAttribute('minute', $dtToObject);
+        $this->assertObjectHasProperty('minute', $dtToObject);
         $this->assertSame($dt->minute, $dtToObject->minute);
 
-        $this->assertObjectHasAttribute('second', $dtToObject);
+        $this->assertObjectHasProperty('second', $dtToObject);
         $this->assertSame($dt->second, $dtToObject->second);
 
-        $this->assertObjectHasAttribute('micro', $dtToObject);
+        $this->assertObjectHasProperty('micro', $dtToObject);
         $this->assertSame($dt->micro, $dtToObject->micro);
 
-        $this->assertObjectHasAttribute('timestamp', $dtToObject);
+        $this->assertObjectHasProperty('timestamp', $dtToObject);
         $this->assertSame($dt->timestamp, $dtToObject->timestamp);
 
-        $this->assertObjectHasAttribute('timezone', $dtToObject);
+        $this->assertObjectHasProperty('timezone', $dtToObject);
         $this->assertEquals($dt->timezone, $dtToObject->timezone);
 
-        $this->assertObjectHasAttribute('formatted', $dtToObject);
+        $this->assertObjectHasProperty('formatted', $dtToObject);
         $this->assertSame($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToObject->formatted);
     }
 

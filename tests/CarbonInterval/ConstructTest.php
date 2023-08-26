@@ -16,13 +16,16 @@ namespace Tests\CarbonInterval;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\OutOfRangeException;
 use DateInterval;
+use Exception;
 use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
 {
     public function testInheritedConstruct()
     {
+        CarbonInterval::createFromDateString('1 hour');
         $ci = new CarbonInterval('PT0S');
         $this->assertSame('PT0S', $ci->spec());
         $ci = new CarbonInterval('P1Y2M3D');
@@ -31,6 +34,12 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame('PT0S', $ci->spec());
         $ci = CarbonInterval::create('P1Y2M3D');
         $this->assertSame('P1Y2M3D', $ci->spec());
+        $ci = CarbonInterval::create('PT9.5H+85M');
+        $this->assertSame('PT9H115M', $ci->spec());
+        $ci = CarbonInterval::create('PT9H+85M');
+        $this->assertSame('PT9H85M', $ci->spec());
+        $ci = CarbonInterval::create('PT1999999999999.5H+85M');
+        $this->assertSame('PT1999999999999H115M', $ci->spec());
     }
 
     public function testConstructWithDateInterval()
@@ -313,6 +322,25 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(30, CarbonInterval::make('3 decades')->totalYears);
         $this->assertSame(300, CarbonInterval::make('3 centuries')->totalYears);
         $this->assertSame(3000, CarbonInterval::make('3 millennia')->totalYears);
+    }
+
+    public function testBadFormats()
+    {
+        $this->expectExceptionObject(new Exception('PT1999999999999.5.5H+85M'));
+
+        CarbonInterval::create('PT1999999999999.5.5H+85M');
+    }
+
+    public function testOutOfRange()
+    {
+        $this->expectExceptionObject(new OutOfRangeException(
+            'hour',
+            -0x7fffffffffffffff,
+            0x7fffffffffffffff,
+            999999999999999999999999
+        ));
+
+        CarbonInterval::create('PT999999999999999999999999H');
     }
 
     public function testCallInvalidStaticMethod()

@@ -52,3 +52,4 @@ parameters:
         - '*/tests/CarbonPeriod/Fixtures/filters.php'
         - '*/tests/Fixtures/dynamicInterval.php'
         - '*/tests/PHPStan/*.php'
+        - '*/tests/PHPUnit/AssertObjectHasPropertyPolyfillTrait.php'
