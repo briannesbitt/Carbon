@@ -36,6 +36,7 @@ use Exception;
 use InvalidArgumentException;
 use ReflectionException;
 use ReturnTypeWillChange;
+use RuntimeException;
 use Throwable;
 
 /**
@@ -249,6 +250,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     private static $flipCascadeFactors;
 
     /**
+     * @var bool
+     */
+    private static $floatSettersEnabled = false;
+
+    /**
      * The registered macros.
      *
      * @var array
@@ -347,6 +353,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         self::$flipCascadeFactors = null;
         static::$cascadeFactors = $cascadeFactors;
+    }
+
+    public static function enableFloatSetters(bool $floatSettersEnabled = true): void
+    {
+        self::$floatSettersEnabled = $floatSettersEnabled;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1225,51 +1236,63 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         foreach ($properties as $key => $value) {
             switch (Carbon::singularUnit(rtrim($key, 'z'))) {
                 case 'year':
-                    $this->assertSafeForInteger($key, $value);
+                    $this->checkIntegerValue($key, $value);
                     $this->y = $value;
+                    $this->handleDecimalPart('year', $value, $this->y);
 
                     break;
 
                 case 'month':
-                    $this->assertSafeForInteger($key, $value);
+                    $this->checkIntegerValue($key, $value);
                     $this->m = $value;
+                    $this->handleDecimalPart('month', $value, $this->m);
 
                     break;
 
                 case 'week':
-                    $this->assertSafeForInteger($key, $value);
-                    $this->d = $value * (int) static::getDaysPerWeek();
+                    $this->checkIntegerValue($key, $value);
+                    $days = $value * (int) static::getDaysPerWeek();
+                    $this->assertSafeForInteger('days total (including weeks)', $days);
+                    $this->d = $days;
+                    $this->handleDecimalPart('day', $days, $this->d);
 
                     break;
 
                 case 'day':
-                    $this->assertSafeForInteger($key, $value);
+                    $this->checkIntegerValue($key, $value);
                     $this->d = $value;
+                    $this->handleDecimalPart('day', $value, $this->d);
 
                     break;
 
                 case 'daysexcludeweek':
                 case 'dayzexcludeweek':
-                    $this->assertSafeForInteger($key, $value);
-                    $this->d = $this->weeks * (int) static::getDaysPerWeek() + $value;
+                    $this->checkIntegerValue($key, $value);
+                    $days = $this->weeks * (int) static::getDaysPerWeek() + $value;
+                    $this->assertSafeForInteger('days total (including weeks)', $days);
+                    $this->d = $days;
+                    $this->handleDecimalPart('day', $days, $this->d);
 
                     break;
 
                 case 'hour':
-                    $this->assertSafeForInteger($key, $value);
+                    $this->checkIntegerValue($key, $value);
                     $this->h = $value;
+                    $this->handleDecimalPart('hour', $value, $this->h);
 
                     break;
 
                 case 'minute':
-                    $this->assertSafeForInteger($key, $value);
+                    $this->checkIntegerValue($key, $value);
                     $this->i = $value;
+                    $this->handleDecimalPart('minute', $value, $this->i);
 
                     break;
 
                 case 'second':
-                    $this->assertSafeForInteger($key, $value);
+                    $this->checkIntegerValue($key, $value);
                     $this->s = $value;
+                    $this->handleDecimalPart('second', $value, $this->s);
 
                     break;
 
@@ -2930,6 +2953,31 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
     }
 
+    private function checkIntegerValue(string $name, $value)
+    {
+        if (\is_int($value)) {
+            return;
+        }
+
+        $this->assertSafeForInteger($name, $value);
+
+        if (\is_float($value) && (((float) (int) $value) === $value)) {
+            return;
+        }
+
+        if (!self::$floatSettersEnabled) {
+            $type = \gettype($value);
+            @trigger_error(
+                "Since 2.70.0, it's deprecated to pass $type value for $name.\n".
+                "It's truncated when stored as an integer interval unit.\n".
+                "From 3.0.0, decimal part will no longer be truncated and will be cascaded to smaller units.\n".
+                "- To maintain the current behavior, use explicit cast: $name((int) \$value)\n".
+                "- To adopt the new behavior globally, call CarbonInterval::enableFloatSetters()\n",
+                \E_USER_DEPRECATED
+            );
+        }
+    }
+
     /**
      * Throw an exception if precision loss when storing the given value as an integer would be >= 1.0.
      */
@@ -2937,6 +2985,45 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         if ($value && !\is_int($value) && ($value >= 0x7fffffffffffffff || $value <= -0x7fffffffffffffff)) {
             throw new OutOfRangeException($name, -0x7fffffffffffffff, 0x7fffffffffffffff, $value);
+        }
+    }
+
+    private function handleDecimalPart(string $unit, $value, $integerValue)
+    {
+        if (self::$floatSettersEnabled) {
+            $floatValue = (float) $value;
+            $base = (float) $integerValue;
+
+            if ($floatValue === $base) {
+                return;
+            }
+
+            $units = [
+                'y' => 'year',
+                'm' => 'month',
+                'd' => 'day',
+                'h' => 'hour',
+                'i' => 'minute',
+                's' => 'second',
+            ];
+            $upper = true;
+
+            foreach ($units as $property => $name) {
+                if ($name === $unit) {
+                    $upper = false;
+
+                    continue;
+                }
+
+                if ($upper && $this->$property !== 0) {
+                    throw new RuntimeException(
+                        "You cannot set $unit to a float value as $name would be overridden, ".
+                        'set it first to 0 explicitly if you really want to erase its value'
+                    );
+                }
+            }
+
+            $this->add($unit, $floatValue - $base);
         }
     }
 }
