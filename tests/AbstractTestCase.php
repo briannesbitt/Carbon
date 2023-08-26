@@ -23,6 +23,7 @@ use Closure;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
+use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
 
 /**
@@ -30,6 +31,8 @@ use Throwable;
  */
 abstract class AbstractTestCase extends TestCase
 {
+    use AssertObjectHasPropertyTrait;
+
     /**
      * @var \Carbon\Carbon
      */
