@@ -2310,6 +2310,7 @@ trait Date
                 'c' => true,
                 'r' => true,
                 'U' => true,
+                'T' => true,
             ];
         }
 
