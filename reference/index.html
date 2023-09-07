@@ -4626,6 +4626,16 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>array $cascadeFactors</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-enableFloatSetters">
+    <h2><span class="class-name">CarbonInterval::</span>enableFloatSetters</h2>
+    <em>no arguments</em>
+    <p class="doc-description">This option allow you to opt-in for the Carbon 3 behavior where float
+values will no longer be cast to integer (so truncated).<br><br>⚠️ This settings will be applied globally, which mean your whole application
+code including the third-party dependencies that also may use Carbon will
+adopt the new behavior.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td></td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-__construct">
     <h2><span class="class-name">CarbonInterval::</span>__construct</h2>
     <code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null</code>

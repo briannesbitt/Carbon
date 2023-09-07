@@ -3877,6 +3877,24 @@ echo "\n";
 </code></pre>
     </p>
 
+    <p>Be careful, Carbon 2 accepts only integer unit values by default, which means:
+        <code>CarbonInterval::days(3.5)</code> produces a 3h 00min interval. In Carbon
+        3, it will cascade decimal part to smaller units. To enable this behavior in
+        Carbon 2, you can call <code>CarbonInterval::enableFloatSetters();</code>.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(
+// Allow decimal numbers
+CarbonInterval::enableFloatSetters();
+echo CarbonInterval::days(3.5);/*pad(54)*/)}} // {{eval}}
+echo "\n";
+{{::exec(
+// Disallow decimal numbers
+CarbonInterval::enableFloatSetters(false);
+echo CarbonInterval::days(3.5);/*pad(54)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
     <p>You can add/sub any unit to a given existing interval:</p>
 
     <p>
@@ -4586,7 +4604,7 @@ $end = Carbon::create('2010-05-06 11:59');
 
     <p>As mentioned earlier, per ISO 8601 specification, recurrences is a number of times the interval should be
         repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the
-        start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats
+        start date. Meanwhile, CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats
         recurrences as an overall limit for number of returned dates:</p>
 
     <p>
@@ -4787,7 +4805,7 @@ CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(CarbonInterval
 </code></pre>
     </p>
 
-    <p>CarbonPeriod can be easily converted to a human readable string and ISO 8601 specification:</p>
+    <p>CarbonPeriod can be easily converted to a human-readable string and ISO 8601 specification:</p>
 
     <p>
     <pre><code class="php">{{::lint(
