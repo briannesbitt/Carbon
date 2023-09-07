@@ -25,7 +25,9 @@ class ConstructTest extends AbstractTestCase
 {
     public function testInheritedConstruct()
     {
-        CarbonInterval::createFromDateString('1 hour');
+        /** @phpstan-var CarbonInterval $ci */
+        $ci = CarbonInterval::createFromDateString('1 hour');
+        $this->assertSame('PT1H', $ci->spec());
         $ci = new CarbonInterval('PT0S');
         $this->assertSame('PT0S', $ci->spec());
         $ci = new CarbonInterval('P1Y2M3D');
@@ -33,6 +35,8 @@ class ConstructTest extends AbstractTestCase
         $ci = CarbonInterval::create('PT0S');
         $this->assertSame('PT0S', $ci->spec());
         $ci = CarbonInterval::create('P1Y2M3D');
+        $this->assertSame('P1Y2M3D', $ci->spec());
+        $ci = CarbonInterval::create('P1Y2M3.0D');
         $this->assertSame('P1Y2M3D', $ci->spec());
         $ci = CarbonInterval::create('PT9.5H+85M');
         $this->assertSame('PT9H115M', $ci->spec());

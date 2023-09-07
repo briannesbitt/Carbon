@@ -355,6 +355,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         static::$cascadeFactors = $cascadeFactors;
     }
 
+    /**
+     * This option allow you to opt-in for the Carbon 3 behavior where float
+     * values will no longer be cast to integer (so truncated).
+     *
+     * ⚠️ This settings will be applied globally, which mean your whole application
+     * code including the third-party dependencies that also may use Carbon will
+     * adopt the new behavior.
+     */
     public static function enableFloatSetters(bool $floatSettersEnabled = true): void
     {
         self::$floatSettersEnabled = $floatSettersEnabled;
@@ -3015,7 +3023,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     continue;
                 }
 
-                if ($upper && $this->$property !== 0) {
+                if (!$upper && $this->$property !== 0) {
                     throw new RuntimeException(
                         "You cannot set $unit to a float value as $name would be overridden, ".
                         'set it first to 0 explicitly if you really want to erase its value'
