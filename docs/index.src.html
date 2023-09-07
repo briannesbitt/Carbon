@@ -3942,6 +3942,18 @@ echo $interval;/*pad(54)*/)}} // {{eval}}
 {{::lint($ci = CarbonInterval::instance($di);)}}
 {{::exec(echo get_class($ci);/*pad(54)*/)}} // '{{eval}}'
 {{::exec(echo $ci;/*pad(54)*/)}} // {{eval}}
+
+// It creates a new copy of the object when given a CarbonInterval value
+{{::lint($ci2 = CarbonInterval::instance($ci);)}}
+{{::exec(var_dump($ci2 === $ci);/*pad(54)*/)}} // {{eval}}
+
+// but you can tell to return same object if already an instance of  CarbonInterval
+{{::lint($ci3 = CarbonInterval::instance($ci, skipCopy: true);)}}
+{{::exec(var_dump($ci3 === $ci);/*pad(54)*/)}} // {{eval}}
+
+// the same option is available on make()
+{{::lint($ci4 = CarbonInterval::make($ci, skipCopy: true);)}}
+{{::exec(var_dump($ci4 === $ci);/*pad(54)*/)}} // {{eval}}
 </code></pre>
     </p>
 

@@ -47,19 +47,31 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
             Translator::class . '::getFromCatalogue',
         ], true);
     $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
+
     if (!$documented) {
         $missingMethodsCount++;
     }
+
     $color = $documented ? 32 : 31;
     $message = $documented ? 'documented' : 'missing';
     $methodPad = str_pad($methodFQCN, 45);
 
     $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-    $argumentsCount = count($parameters === null ? array_filter((new \ReflectionMethod($carbonObject, $method))->getParameters(), function (ReflectionParameter $parameter) {
+    $parameterList = $parameters === null ? array_filter((new \ReflectionMethod($carbonObject, $method))->getParameters(), function (ReflectionParameter $parameter) {
         return !$parameter->isVariadic();
-    }) : $parameters);
-    $argumentsDocumented = true;
+    }) : $parameters;
+    $argumentsDocumented = [];
+
+    foreach ($parameterList as $parameter) {
+        $name = $parameter instanceof ReflectionParameter
+            ? $parameter->getName()
+            : preg_split('/[= ]/', explode('$', $parameter)[1])[0];
+        $argumentsDocumented[$name] = false;
+    }
+
+    $argumentsCount = count($parameterList);
+    $allArgumentsDocumented = true;
 
     if (
         $exclusion ||
@@ -82,6 +94,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
     if ($argumentsCount) {
         preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
         $coveredArgs = 0;
+
         if (!empty($matches[0])) {
             foreach ($matches[0] as $data) {
                 if (preg_match('/^(
@@ -101,7 +114,22 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
                         ({([^{}\'"]+|(?1))*}) |
                         [^{}()\\[\\]\'"]+
                     \\))*/x', '', $argumentsString);
-                    $count = count(explode(',', $argumentsString));
+                    $argumentValues = array_filter(
+                        explode(',', $argumentsString),
+                        static function ($argumentValue) use (&$argumentsDocumented) {
+                            if (preg_match('/^\s*(?<name>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\s*:[^:]/', $argumentValue, $match)){
+                                if (isset($argumentsDocumented[$match['name']])) {
+                                    $argumentsDocumented[$match['name']] = true;
+                                }
+
+                                return false;
+                            }
+
+                            return true;
+                        },
+                    );
+                    $count = count($argumentValues);
+
                     if ($count > $coveredArgs) {
                         $coveredArgs = $count;
                     }
@@ -112,15 +140,31 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         if ($documented) {
             $missingArguments += max(0, $argumentsCount - $coveredArgs);
         }
-        $argumentsDocumented = $argumentsCount <= $coveredArgs;
-        $color = $argumentsDocumented ? 32 : 31;
+
+        $allArgumentsDocumented = $argumentsCount <= $coveredArgs;
+        $color = $allArgumentsDocumented ? 32 : 31;
         $message = $documented ? 'documented' : 'missing';
 
         if (VERBOSE || $documented) {
             $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+            $argumentNames = array_keys($argumentsDocumented);
+            $missingNames = array_slice($argumentNames, $coveredArgs, $argumentsCount - $coveredArgs);
+            $allArgumentsDocumented = true;
+
+            foreach ($missingNames as $name) {
+                if ($argumentsDocumented[$name]) {
+                    $missingArguments--;
+
+                    continue;
+                }
+
+                $allArgumentsDocumented = false;
+                $output .= "     `- \033[0;{$color}m{$name}\033[0m\n";
+            }
         }
     }
-    if (!$documented || !$argumentsDocumented || VERBOSE) {
+
+    if (!$documented || !$allArgumentsDocumented || VERBOSE) {
         display($output);
     }
 }
