@@ -50,8 +50,8 @@
     "Carbon::parse(\"sunday\")->minDayName": "Ah",
     "Carbon::parse(\"january\")->monthName": "Januari",
     "Carbon::parse(\"january\")->shortMonthName": "Jan",
-    "Carbon::parse(\"february\")->monthName": "Mac",
-    "Carbon::parse(\"february\")->shortMonthName": "Mac",
+    "Carbon::parse(\"february\")->monthName": "Februari",
+    "Carbon::parse(\"february\")->shortMonthName": "Feb",
     "Carbon::parse(\"march\")->monthName": "Mac",
     "Carbon::parse(\"march\")->shortMonthName": "Mac",
     "Carbon::parse(\"april\")->monthName": "April",
@@ -74,6 +74,6 @@
     "Carbon::parse(\"december\")->shortMonthName": "Dis",
     "Carbon::now()->subHours(2)->diffForHumans()": "2 jam yang lepas",
     "Carbon::now()->addHours(2)->addMinute()->diffForHumans([\"part\" => 1])": "2 jam dari sekarang",
-    "($d = Carbon::now())->copy()->subHours(2)->diffForHumans($d)": "2 jam lepas",
+    "($d = Carbon::now())->copy()->subHours(2)->diffForHumans($d)": "2 jam sebelum",
     "($d = Carbon::now())->copy()->addHours(2)->addMinute()->diffForHumans($d)": "2 jam kemudian"
 }
