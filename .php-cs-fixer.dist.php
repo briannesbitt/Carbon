@@ -83,6 +83,7 @@ $rules = [
     'phpdoc_trim' => true,
     'phpdoc_types' => true,
     'phpdoc_var_without_name' => true,
+    'random_api_migration' => true,
     'self_accessor' => true,
     'single_quote' => true,
     'space_after_semicolon' => true,
