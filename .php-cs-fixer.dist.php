@@ -88,6 +88,7 @@ $rules = [
     'single_quote' => true,
     'space_after_semicolon' => true,
     'standardize_not_equals' => true,
+    'statement_indentation' => false,
     'ternary_operator_spaces' => true,
     'trailing_comma_in_multiline' => true,
     'trim_array_spaces' => true,
