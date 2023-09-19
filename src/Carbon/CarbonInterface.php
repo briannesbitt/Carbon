@@ -5126,6 +5126,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param Closure(): T                                       $callback
      *
      * @return mixed
+     *
      * @phpstan-return T
      */
     public static function withTestNow($testNow, $callback);

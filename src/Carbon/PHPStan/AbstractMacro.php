@@ -71,6 +71,7 @@ abstract class AbstractMacro implements BuiltinMethodReflection
      * Macro constructor.
      *
      * @param string $className
+     *
      * @phpstan-param class-string $className
      *
      * @param string   $methodName
