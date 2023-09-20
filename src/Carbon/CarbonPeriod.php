@@ -667,6 +667,8 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             }
         }
 
+        $optionsSet = false;
+
         foreach ($arguments as $argument) {
             $parsedDate = null;
 
@@ -690,8 +692,9 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 $this->setEndDate($parsedDate);
             } elseif ($this->recurrences === null && $this->endDate === null && is_numeric($argument)) {
                 $this->setRecurrences($argument);
-            } elseif ($this->options === null && (\is_int($argument) || $argument === null)) {
-                $this->setOptions($argument);
+            } elseif (!$optionsSet && (\is_int($argument) || $argument === null)) {
+                $optionsSet = true;
+                $this->setOptions(((int) $this->options) | ((int) $argument));
             } else {
                 throw new InvalidPeriodParameterException('Invalid constructor parameters.');
             }
