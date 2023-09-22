@@ -435,6 +435,85 @@ trait Comparison
     }
 
     /**
+     * Determines if the instance is between two others, where the two dates can be inclusive or exclusive
+     * 
+     * @example
+     * ```
+     * isBetweenInclusiveExclusiveRange(['2023-09-01', '2023-09-15'], (object)['left_inclusive' => true, 'right_inclusive' => false], '2023-09-15', null); // false
+     * isBetweenInclusiveExclusiveRange(['2023-09-01', '2023-09-15'], (object)['left_inclusive' => false, 'right_inclusive' => true], '2023-09-01',null,); // false
+     * ```
+     * @param array $dateRange
+     * @param object $bounds
+     * @param CarbonInterface|string $dateBeingEvaluated
+     * @param string|null $timeZone
+     *
+     * @return bool
+     */
+    function isBetweenInclusiveExclusiveRange(array $dateRange, object $bounds, CarbonInterface|string $dateBeingEvaluated, ?string $timeZone = null): bool
+    {
+        $count = \count($dateRange);
+        $maximumElements = 2;
+    
+        if ($count < $maximumElements || $count > $maximumElements) {
+            throw new InvalidArgumentException('Invalid numeric range format');
+        }
+    
+        $min = null;
+        $max = null;
+    
+        $firstPass = true;
+        foreach ($dateRange as $date) {
+            if ($date instanceof CarbonInterface) {
+                $value = $date;
+            } elseif (\is_string($date)) {
+                $value = CarbonImmutable::parse($date);
+            } else {
+                throw new InvalidArgumentException('Invalid numeric range format: '.\gettype($date).' provided');
+            }
+    
+            if($firstPass){
+                $min = $value;
+            }else{
+                $max = $value;
+            }
+    
+            $firstPass = false;
+        }
+    
+        if($min->greaterThan($max)){
+            throw new InvalidArgumentException("Numeric range doesn't contain sequential values");
+        }
+    
+        $leftInclusiveKey = 'left_inclusive';
+        $rightInclusiveKey = 'right_inclusive';
+    
+        // Validate bounds object properties
+        if (!\property_exists($bounds, $leftInclusiveKey) || !\property_exists($bounds, $rightInclusiveKey)) {
+            throw new InvalidArgumentException('Bounds object must have left_inclusive and right_inclusive properties');
+        }
+    
+        // convert from data string to carbon
+        if(\is_string($dateBeingEvaluated)){
+            $dateBeingEvaluated = CarbonImmutable::parse($dateBeingEvaluated, $timeZone);
+        }
+    
+        // Evaluate inclusive/exclusive conditions
+        $leftInclusive = $bounds->{$leftInclusiveKey};
+        $rightInclusive = $bounds->{$rightInclusiveKey};
+    
+        if ($leftInclusive && $rightInclusive) {
+            return $dateBeingEvaluated->betweenIncluded($min, $max);
+        } elseif (!$leftInclusive && $rightInclusive) {
+            return $dateBeingEvaluated->greaterThan($min) && $dateBeingEvaluated->lessThanOrEqualTo($max);
+        } elseif ($leftInclusive && !$rightInclusive) {
+           return $dateBeingEvaluated->greaterThanOrEqualTo($min) && $dateBeingEvaluated->lessThan($max);
+        } else {
+            return $dateBeingEvaluated->betweenExcluded($min,$max);
+        }
+}
+
+
+    /**
      * Determines if the instance is a weekday.
      *
      * @example
