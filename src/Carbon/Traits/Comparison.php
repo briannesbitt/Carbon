@@ -440,7 +440,7 @@ trait Comparison
      * @example
      * ```
      * isBetweenInclusiveExclusiveRange(['2023-09-01', '2023-09-15'], (object)['left_inclusive' => true, 'right_inclusive' => false], '2023-09-15', null); // false
-     * isBetweenInclusiveExclusiveRange(['2023-09-01', '2023-09-15'], (object)['left_inclusive' => false, 'right_inclusive' => true], '2023-09-01',null,); // false
+     * isBetweenInclusiveExclusiveRange([Carbon::parse('2023-09-01'), Carbon::parse('2023-09-15')], (object)['left_inclusive' => false, 'right_inclusive' => true], '2023-09-01', null); // false
      * ```
      * @param array $dateRange
      * @param object $bounds
