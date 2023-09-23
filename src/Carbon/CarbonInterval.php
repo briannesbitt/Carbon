@@ -779,6 +779,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return static
      */
+    #[ReturnTypeWillChange]
     public static function __set_state($dump)
     {
         /** @noinspection PhpVoidFunctionResultUsedInspection */
