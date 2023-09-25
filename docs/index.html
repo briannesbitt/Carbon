@@ -281,7 +281,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2023-09-25 11:19:31
+echo $now;                               // 2023-09-25 12:25:23
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2023-09-25 00:00:00
@@ -451,7 +451,7 @@ echo $dt->diffInYears($dt->avoidMutation()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:19 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:25 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -552,11 +552,9 @@ $dt = Carbon::parse('1975-05-21 22:23:00.123456');
 if ($newLocale === false) {
     echo '"German" locale is not installed on your machine, it may have a different name on your machine or you may need to install it.';
 }
-echo $dt->formatLocalized('%A %d %B %Y');          //
-Mittwoch 21 Mai 1975
+echo $dt->formatLocalized('%A %d %B %Y');          // Mittwoch 21 Mai 1975
 setlocale(LC_TIME, 'English');
-echo $dt->formatLocalized('%A %d %B %Y');          //
-Wednesday 21 May 1975
+echo $dt->formatLocalized('%A %d %B %Y');          // Wednesday 21 May 1975
 setlocale(LC_TIME, ''); // reset locale
 </code></pre>
         </p>
@@ -603,11 +601,9 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          //
-mi�rcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
-echo $dt->formatLocalized('%A %d %B %Y');          //
-miércoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
 Carbon::setUtf8(false);
 setlocale(LC_TIME, '');
 </code></pre>
@@ -809,7 +805,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // septembre
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 25 septembre 2023 11:19
+echo $date->isoFormat('LLLL');   // lundi 25 septembre 2023 12:25
 </code></pre>
     </p>
 
@@ -840,13 +836,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 13:19
+Aujourd’hui à 14:25
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 6:19 AM
+Today at 7:25 AM
 */
 </code></pre>
     </p>
@@ -888,7 +884,7 @@ echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 
     ],
 ]);
 
-echo $date->lastSecondDigit(); // 6
+echo $date->lastSecondDigit();                         // 6
 var_dump($date->hasLocalMacro('lastSecondDigit'));     // bool(true)
 // You can also retrieve the macro closure using ->getLocalMacro('lastSecondDigit')
 </code></pre>
@@ -1755,21 +1751,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 11:19 AM
+echo $date->calendar();                                      // Today at 12:25 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 8:19 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 9:25 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 12:56 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 2:02 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 09/17/2023
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 2:19 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 3:25 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 9:42 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 10:48 PM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 10/03/2023
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 11:19
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 12:25
 </code></pre>
     </p>
 
@@ -5664,12 +5660,12 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2023-09-25 11:19:32
+echo Carbon::now();                                    // 2023-09-25 12:25:24
 // Instead of mock and clear mock, you also can use withTestNow():
 
 Carbon::withTestNow('2010-09-15', static function () {
     echo Carbon::now();
-}); // 2010-09-15 00:00:00
+});                                                    // 2010-09-15 00:00:00
 </code></pre>
     </p>
 
@@ -5914,12 +5910,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(32)
+var_dump(Carbon::now()->get($unit));                         // int(24)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(32)
+var_dump(Carbon::now()->$unit);                              // int(24)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(32)
+var_dump(Carbon::now()->get($unit));                         // int(24)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -6033,9 +6029,9 @@ var_dump($en->isoWeek(1)->format('Y-m-d H:i'));        // string(16) "2017-01-08
 var_dump($en->weekday());                              // int(0)
 var_dump($en->isoWeekday());                           // int(7)
 var_dump($en->weekday(CarbonInterface::WEDNESDAY)
-    ->format('Y-m-d H:i'));                            // string(16) "2017-02-08 00:00"
+    ->format('Y-m-d H:i'));                                                                               // string(16) "2017-02-08 00:00"
 var_dump($en->isoWeekday(CarbonInterface::WEDNESDAY)
-    ->format('Y-m-d H:i'));                            // string(16) "2017-02-01 00:00"
+    ->format('Y-m-d H:i'));                                                                                  // string(16) "2017-02-01 00:00"
 
 // getDaysFromStartOfWeek/setDaysFromStartOfWeek return and take a number of days
 // taking the current locale into account
@@ -6510,8 +6506,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2023-09-25 11:19:32
-echo $dt1->maximum();                              // 2023-09-25 11:19:32
+echo $dt1->max();                                  // 2023-09-25 12:25:24
+echo $dt1->maximum();                              // 2023-09-25 12:25:24
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7778,7 +7774,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 13:19
+echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 14:25
 </code></pre>
     </p>
 
@@ -8278,11 +8274,11 @@ echo CarbonInterval::createFromDateString('3 months'); // 3 months
     <p>
     <pre class="live-editor"><code class="php">// Allow decimal numbers
 CarbonInterval::enableFloatSetters();
-echo CarbonInterval::days(3.5); // 3 days 12 hours
+echo CarbonInterval::days(3.5);                        // 3 days 12 hours
 echo "\n";
 // Disallow decimal numbers
 CarbonInterval::enableFloatSetters(false);
-echo CarbonInterval::days(3.5); // 3 days
+echo CarbonInterval::days(3.5);                        // 3 days
 </code></pre>
     </p>
 
@@ -8290,15 +8286,15 @@ echo CarbonInterval::days(3.5); // 3 days
 
     <p>
     <pre class="live-editor"><code class="php">$interval = CarbonInterval::months(3);
-echo $interval; // 3 months
+echo $interval;                                        // 3 months
 echo "\n";
 
 $interval->subMonths(1);
-echo $interval;              // 2 months
+echo $interval;                                        // 2 months
 echo "\n";
 
 $interval->addDays(15);
-echo $interval;               // 2 months 2 weeks 1 day
+echo $interval;                                        // 2 months 2 weeks 1 day
 </code></pre>
     </p>
 
@@ -8307,15 +8303,15 @@ echo $interval;               // 2 months 2 weeks 1 day
 
     <p>
     <pre class="live-editor"><code class="php">$interval = CarbonInterval::months(3);
-echo $interval; // 3 months
+echo $interval;                          // 3 months
 echo "\n";
 
 $interval->minus(months: 1);
-echo $interval;          // 2 months
+echo $interval;                          // 2 months
 echo "\n";
 
 $interval->plus(days: 15, hours: 20);
-echo $interval; // 2 months 2 weeks 1 day 20 hours
+echo $interval;                          // 2 months 2 weeks 1 day 20 hours
 </code></pre>
     </p>
 
@@ -8465,27 +8461,27 @@ echo $interval->forHumans(['syntax' => CarbonInterface::DIFF_ABSOLUTE]);        
 echo CarbonInterval::hours(0)->forHumans([
     'options' => CarbonInterface::JUST_NOW,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
-]); // just now
+]);                                                                                  // just now
 // transform empty intervals into "1 second":
 echo CarbonInterval::hours(0)->forHumans([
     'options' => CarbonInterface::NO_ZERO_DIFF,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
-]); // 1 second ago
+]);                                                                                  // 1 second ago
 // transform "1 day ago"/"1 day from now" into "yesterday"/"tomorrow":
 echo CarbonInterval::day()->forHumans([
     'options' => CarbonInterface::ONE_DAY_WORDS,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
-]); // 1 day ago
+]);                                                                                  // 1 day ago
 // transform "2 days ago"/"2 days from now" into "before yesterday"/"after tomorrow":
 echo CarbonInterval::days(2)->forHumans([
     'options' => CarbonInterface::TWO_DAY_WORDS,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
-]); // 2 days ago
+]);                                                                                  // 2 days ago
 // options can be piped:
 echo CarbonInterval::days(2)->forHumans([
     'options' => CarbonInterface::ONE_DAY_WORDS | CarbonInterface::TWO_DAY_WORDS,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
-]); // 2 days ago
+]);                                                                                  // 2 days ago
 
 // Before version 2.9.0, parameters could only be passed sequentially:
 // $interval->forHumans($syntax, $short, $parts, $options)
@@ -9059,18 +9055,18 @@ echo implode(', ', $days);                         // 01-01, 01-02, 01-03, 01-04
 var_export($period->getFilters());
 /*
 array (
-  0 =>
+  0 => 
   array (
-    0 =>
+    0 => 
     array (
       0 => 'Carbon\\CarbonPeriod',
       1 => 'filterEndDate',
     ),
     1 => NULL,
   ),
-  1 =>
+  1 => 
   array (
-    0 =>
+    0 => 
     array (
       0 => 'Carbon\\CarbonPeriod',
       1 => 'filterRecurrences',

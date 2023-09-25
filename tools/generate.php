@@ -353,6 +353,11 @@ function getOpenCollective(string $status): string
     return $content[$status];
 }
 
+function cleanupHtml($code)
+{
+    return preg_replace('/\n(([\t ]+)\n)+/', "\n\n", str_replace("\r", '', $code));
+}
+
 function genHtml($page, $out, $jumbotron = '')
 {
     global $template;
@@ -385,13 +390,15 @@ function genHtml($page, $out, $jumbotron = '')
     $html = str_replace('#{openCollectiveBackers}', getOpenCollective('backer'), $html);
     $html = str_replace('#{openCollectiveHelpers}', getOpenCollective('helper'), $html);
 
-    file_put_contents($out, $html);
+    file_put_contents($out, cleanupHtml($html));
 
     echo "$out generated\n";
 }
 
 function evaluateCode(&$__state, $__code)
 {
+    $level = error_reporting();
+    error_reporting($level & (~E_DEPRECATED));
     ob_start();
     $result = call_user_func(function () use (&$__state, $__code) {
         foreach ($__state as $__key => &$__value) {
@@ -417,6 +424,7 @@ function evaluateCode(&$__state, $__code)
         return $lastResult;
     });
     $ob = ob_get_clean();
+    error_reporting($level);
 
     if ($result === false) {
         echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
@@ -503,14 +511,18 @@ function compile($src, $dest = null)
                     return $ob;
                 }
 
-                return empty($evalName) ? $lastCode : (isset($codes[$evalName]) ? $codes[$evalName] : $orig);
+                return empty($evalName) ? $lastCode : ($codes[$evalName] ?? $orig);
             }
 
             // Add any necessary padding to lineup comments
-            if (preg_match('@/\*pad\(([0-9]+)\)\*/@', $src, $matches)) {
-                $src = preg_replace('@/\*pad\(([0-9]+)\)\*/@', '', $src);
-                $src = str_pad($src, intval($matches[1]));
-            }
+            $src = implode("\n", array_map(function ($line) {
+                if (preg_match('@/\*pad\(([0-9]+)\)\*/@', $line, $matches)) {
+                    $line = preg_replace('@/\*pad\(([0-9]+)\)\*/@', '', $line);
+                    $line = str_pad($line, intval($matches[1]));
+                }
+
+                return $line;
+            }, explode("\n", $src)));
 
             // Inject the eval'd result
             if ($cmd == 'exec') {
@@ -523,9 +535,9 @@ function compile($src, $dest = null)
     }
 
     // allow for escaping a command
-    $code = strtr(trim(str_replace('\{\{', '{{', $code))."\n", [
+    $code = cleanupHtml(strtr(trim(str_replace('\{\{', '{{', $code))."\n", [
         'carbonDocVarDump' => 'var_dump',
-    ]);
+    ]));
 
     return $dest ? file_put_contents($dest, $code) : $code;
 }

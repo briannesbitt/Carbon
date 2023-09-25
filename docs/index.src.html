@@ -1200,7 +1200,7 @@ $srCyrlInfo = Carbon::getAvailableLocalesInfo()['sr_Cyrl'];
 $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
 
 {{::exec(var_dump($zhTwInfo->getId());/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($zhTwInfo->getNames());/*pad(50)*/)}}
+{{::exec(var_dump($zhTwInfo->getNames());)}}
 /*
 {{eval}}
 */
@@ -1243,11 +1243,11 @@ $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
 {{::exec(var_dump($srCyrlInfo->getFullNativeDescription());/*pad(50)*/)}} // {{eval}}
 
 // You can also access directly regions/languages lists:
-{{::exec(var_dump(\Carbon\Language::all()['zh']);/*pad(50)*/)}}
+{{::exec(var_dump(\Carbon\Language::all()['zh']);)}}
 /*
 {{eval}}
 */
-{{::exec(var_dump(\Carbon\Language::regions()['TW']);/*pad(50)*/)}}
+{{::exec(var_dump(\Carbon\Language::regions()['TW']);)}}
 /*
 {{eval}}
 */
@@ -2615,7 +2615,7 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 {{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
 
 // with float diff:
-{{::lint($date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');/*pad(65)*/)}}
+{{::lint($date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');)}}
 {{::exec(echo $date->floatDiffInRealHours('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->floatDiffInHours('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->floatDiffInRealMinutes('2019-10-28 12:00:30');/*pad(65)*/)}} // {{eval}}
@@ -3920,17 +3920,17 @@ echo $interval;/*pad(54)*/)}} // {{eval}}
     <p>
     <pre class="live-editor"><code class="php">{{::exec(
 $interval = CarbonInterval::months(3);
-echo $interval;/*pad(54)*/)}} // {{eval}}
+echo $interval;/*pad(40)*/)}} // {{eval}}
 echo "\n";
 
 {{::exec(
 $interval->minus(months: 1);
-echo $interval;/*pad(54)*/)}} // {{eval}}
+echo $interval;/*pad(40)*/)}} // {{eval}}
 echo "\n";
 
 {{::exec(
 $interval->plus(days: 15, hours: 20);
-echo $interval;/*pad(54)*/)}} // {{eval}}
+echo $interval;/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 
