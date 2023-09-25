@@ -72,7 +72,7 @@
                 </div>
             </nav>
 
-            
+
 
             <div class="container page">
                 <div class="row">
@@ -133,13 +133,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(8) "Friday 8"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(8) "Friday 8"
+var_dump($mutable->isoFormat('dddd D'));             // string(10) "Tuesday 26"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(10) "Tuesday 26"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(10) "Thursday 7"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(8) "Friday 8"
+var_dump($immutable->isoFormat('dddd D'));           // string(9) "Monday 25"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Tuesday 26"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -281,16 +281,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2023-09-07 17:47:21
+echo $now;                               // 2023-09-25 11:19:31
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2023-09-07 00:00:00
+echo $today;                             // 2023-09-25 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2023-09-08 00:00:00
+echo $tomorrow;                          // 2023-09-26 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2023-09-06 00:00:00
+echo $yesterday;                         // 2023-09-24 00:00:00
 </code></pre>
     </p>
 
@@ -451,7 +451,7 @@ echo $dt->diffInYears($dt->avoidMutation()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:47 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:19 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -552,12 +552,10 @@ $dt = Carbon::parse('1975-05-21 22:23:00.123456');
 if ($newLocale === false) {
     echo '"German" locale is not installed on your machine, it may have a different name on your machine or you may need to install it.';
 }
-echo $dt->formatLocalized('%A %d %B %Y');          // 
-Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
+echo $dt->formatLocalized('%A %d %B %Y');          //
 Mittwoch 21 Mai 1975
 setlocale(LC_TIME, 'English');
-echo $dt->formatLocalized('%A %d %B %Y');          // 
-Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
+echo $dt->formatLocalized('%A %d %B %Y');          //
 Wednesday 21 May 1975
 setlocale(LC_TIME, ''); // reset locale
 </code></pre>
@@ -605,12 +603,10 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // 
-Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
-mi�rcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          //
+mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
-echo $dt->formatLocalized('%A %d %B %Y');          // 
-Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
+echo $dt->formatLocalized('%A %d %B %Y');          //
 miércoles 06 enero 2016
 Carbon::setUtf8(false);
 setlocale(LC_TIME, '');
@@ -813,7 +809,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // septembre
 echo "\n";
-echo $date->isoFormat('LLLL');   // jeudi 7 septembre 2023 17:47
+echo $date->isoFormat('LLLL');   // lundi 25 septembre 2023 11:19
 </code></pre>
     </p>
 
@@ -844,13 +840,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 19:47
+Aujourd’hui à 13:19
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 12:47 PM
+Today at 6:19 AM
 */
 </code></pre>
     </p>
@@ -877,9 +873,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 07/09 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 25/09 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 07/09 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 25/09 0h Asia/Tokyo
 </code></pre>
     </p>
 
@@ -1005,451 +1001,451 @@ echo "\n";
         </tr>
         </thead>
         <tbody>
-        
+
         <tr>
             <td>OD</td>
             <td>5</td>
             <td>Day number with alternative numbers such as 三 for 3 if locale is ja_JP</td>
         </tr>
-        
+
         <tr>
             <td>OM</td>
             <td>1</td>
             <td>Month number with alternative numbers such as ၀၂ for 2 if locale is my_MM</td>
         </tr>
-        
+
         <tr>
             <td>OY</td>
             <td>2017</td>
             <td>Year number with alternative numbers such as ۱۹۹۸ for 1998 if locale is fa</td>
         </tr>
-        
+
         <tr>
             <td>OH</td>
             <td>17</td>
             <td>24-hours number with alternative numbers such as ႑႓ for 13 if locale is shn_MM</td>
         </tr>
-        
+
         <tr>
             <td>Oh</td>
             <td>5</td>
             <td>12-hours number with alternative numbers such as 十一 for 11 if locale is lzh_TW</td>
         </tr>
-        
+
         <tr>
             <td>Om</td>
             <td>4</td>
             <td>Minute number with alternative numbers such as ୫୭ for 57 if locale is or</td>
         </tr>
-        
+
         <tr>
             <td>Os</td>
             <td>5</td>
             <td>Second number with alternative numbers such as 十五 for 15 if locale is ja_JP</td>
         </tr>
-        
+
         <tr>
             <td>D</td>
             <td>5</td>
             <td>Day of month number (from 1 to 31)</td>
         </tr>
-        
+
         <tr>
             <td>DD</td>
             <td>05</td>
             <td>Day of month number with trailing zero (from 01 to 31)</td>
         </tr>
-        
+
         <tr>
             <td>Do</td>
             <td>5th</td>
             <td>Day of month with ordinal suffix (from 1st to 31th), translatable</td>
         </tr>
-        
+
         <tr>
             <td>d</td>
             <td>4</td>
             <td>Day of week number (from 0 (Sunday) to 6 (Saturday))</td>
         </tr>
-        
+
         <tr>
             <td>dd</td>
             <td>Th</td>
             <td>Minified day name (from Su to Sa), translatable</td>
         </tr>
-        
+
         <tr>
             <td>ddd</td>
             <td>Thu</td>
             <td>Short day name (from Sun to Sat), translatable</td>
         </tr>
-        
+
         <tr>
             <td>dddd</td>
             <td>Thursday</td>
             <td>Day name (from Sunday to Saturday), translatable</td>
         </tr>
-        
+
         <tr>
             <td>DDD</td>
             <td>5</td>
             <td>Day of year number (from 1 to 366)</td>
         </tr>
-        
+
         <tr>
             <td>DDDD</td>
             <td>005</td>
             <td>Day of year number with trailing zeros (3 digits, from 001 to 366)</td>
         </tr>
-        
+
         <tr>
             <td>DDDo</td>
             <td>5th</td>
             <td>Day of year number with ordinal suffix (from 1st to 366th), translatable</td>
         </tr>
-        
+
         <tr>
             <td>e</td>
             <td>4</td>
             <td>Day of week number (from 0 (Sunday) to 6 (Saturday)), similar to "d" but this one is translatable (takes first day of week of the current locale)</td>
         </tr>
-        
+
         <tr>
             <td>E</td>
             <td>4</td>
             <td>Day of week number (from 1 (Monday) to 7 (Sunday))</td>
         </tr>
-        
+
         <tr>
             <td>H</td>
             <td>17</td>
             <td>Hour from 0 to 23</td>
         </tr>
-        
+
         <tr>
             <td>HH</td>
             <td>17</td>
             <td>Hour with trailing zero from 00 to 23</td>
         </tr>
-        
+
         <tr>
             <td>h</td>
             <td>5</td>
             <td>Hour from 0 to 12</td>
         </tr>
-        
+
         <tr>
             <td>hh</td>
             <td>05</td>
             <td>Hour with trailing zero from 00 to 12</td>
         </tr>
-        
+
         <tr>
             <td>k</td>
             <td>17</td>
             <td>Hour from 1 to 24</td>
         </tr>
-        
+
         <tr>
             <td>kk</td>
             <td>17</td>
             <td>Hour with trailing zero from 01 to 24</td>
         </tr>
-        
+
         <tr>
             <td>m</td>
             <td>4</td>
             <td>Minute from 0 to 59</td>
         </tr>
-        
+
         <tr>
             <td>mm</td>
             <td>04</td>
             <td>Minute with trailing zero from 00 to 59</td>
         </tr>
-        
+
         <tr>
             <td>a</td>
             <td>pm</td>
             <td>Meridiem am/pm</td>
         </tr>
-        
+
         <tr>
             <td>A</td>
             <td>PM</td>
             <td>Meridiem AM/PM</td>
         </tr>
-        
+
         <tr>
             <td>s</td>
             <td>5</td>
             <td>Second from 0 to 59</td>
         </tr>
-        
+
         <tr>
             <td>ss</td>
             <td>05</td>
             <td>Second with trailing zero from 00 to 59</td>
         </tr>
-        
+
         <tr>
             <td>S</td>
             <td>0</td>
             <td>Second tenth</td>
         </tr>
-        
+
         <tr>
             <td>SS</td>
             <td>08</td>
             <td>Second hundredth (on 2 digits with trailing zero)</td>
         </tr>
-        
+
         <tr>
             <td>SSS</td>
             <td>084</td>
             <td>Millisecond (on 3 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>SSSS</td>
             <td>0845</td>
             <td>Second ten thousandth (on 4 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>SSSSS</td>
             <td>08451</td>
             <td>Second hundred thousandth (on 5 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>SSSSSS</td>
             <td>084512</td>
             <td>Microsecond (on 6 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>SSSSSSS</td>
             <td>0845120</td>
             <td>Second ten millionth (on 7 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>SSSSSSSS</td>
             <td>08451200</td>
             <td>Second hundred millionth (on 8 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>SSSSSSSSS</td>
             <td>084512000</td>
             <td>Nanosecond (on 9 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>M</td>
             <td>1</td>
             <td>Month from 1 to 12</td>
         </tr>
-        
+
         <tr>
             <td>MM</td>
             <td>01</td>
             <td>Month with trailing zero from 01 to 12</td>
         </tr>
-        
+
         <tr>
             <td>MMM</td>
             <td>Jan</td>
             <td>Short month name, translatable</td>
         </tr>
-        
+
         <tr>
             <td>MMMM</td>
             <td>January</td>
             <td>Month name, translatable</td>
         </tr>
-        
+
         <tr>
             <td>Mo</td>
             <td>1st</td>
             <td>Month with ordinal suffix from 1st to 12th, translatable</td>
         </tr>
-        
+
         <tr>
             <td>Q</td>
             <td>1</td>
             <td>Quarter from 1 to 4</td>
         </tr>
-        
+
         <tr>
             <td>Qo</td>
             <td>1st</td>
             <td>Quarter with ordinal suffix from 1st to 4th, translatable</td>
         </tr>
-        
+
         <tr>
             <td>G</td>
             <td>2017</td>
             <td>ISO week year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)</td>
         </tr>
-        
+
         <tr>
             <td>GG</td>
             <td>2017</td>
             <td>ISO week year (on 2 digits with trailing zero)</td>
         </tr>
-        
+
         <tr>
             <td>GGG</td>
             <td>2017</td>
             <td>ISO week year (on 3 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>GGGG</td>
             <td>2017</td>
             <td>ISO week year (on 4 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>GGGGG</td>
             <td>02017</td>
             <td>ISO week year (on 5 digits with trailing zeros)</td>
         </tr>
-        
+
         <tr>
             <td>g</td>
             <td>2017</td>
             <td>Week year according to locale settings, translatable</td>
         </tr>
-        
+
         <tr>
             <td>gg</td>
             <td>2017</td>
             <td>Week year according to locale settings (on 2 digits with trailing zero), translatable</td>
         </tr>
-        
+
         <tr>
             <td>ggg</td>
             <td>2017</td>
             <td>Week year according to locale settings (on 3 digits with trailing zeros), translatable</td>
         </tr>
-        
+
         <tr>
             <td>gggg</td>
             <td>2017</td>
             <td>Week year according to locale settings (on 4 digits with trailing zeros), translatable</td>
         </tr>
-        
+
         <tr>
             <td>ggggg</td>
             <td>02017</td>
             <td>Week year according to locale settings (on 5 digits with trailing zeros), translatable</td>
         </tr>
-        
+
         <tr>
             <td>W</td>
             <td>1</td>
             <td>ISO week number in the year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)</td>
         </tr>
-        
+
         <tr>
             <td>WW</td>
             <td>01</td>
             <td>ISO week number in the year (on 2 digits with trailing zero)</td>
         </tr>
-        
+
         <tr>
             <td>Wo</td>
             <td>1st</td>
             <td>ISO week number in the year with ordinal suffix, translatable</td>
         </tr>
-        
+
         <tr>
             <td>w</td>
             <td>1</td>
             <td>Week number in the year according to locale settings, translatable</td>
         </tr>
-        
+
         <tr>
             <td>ww</td>
             <td>01</td>
             <td>Week number in the year according to locale settings (on 2 digits with trailing zero)</td>
         </tr>
-        
+
         <tr>
             <td>wo</td>
             <td>1st</td>
             <td>Week number in the year according to locale settings with ordinal suffix, translatable</td>
         </tr>
-        
+
         <tr>
             <td>x</td>
             <td>1483635845085</td>
             <td>Millisecond-precision timestamp (same as <code>date.getTime()</code> in JavaScript)</td>
         </tr>
-        
+
         <tr>
             <td>X</td>
             <td>1483635845</td>
             <td>Timestamp (number of seconds since 1970-01-01)</td>
         </tr>
-        
+
         <tr>
             <td>Y</td>
             <td>2017</td>
             <td>Full year from -9999 to 9999</td>
         </tr>
-        
+
         <tr>
             <td>YY</td>
             <td>17</td>
             <td>Year on 2 digits from 00 to 99</td>
         </tr>
-        
+
         <tr>
             <td>YYYY</td>
             <td>2017</td>
             <td>Year on 4 digits from 0000 to 9999</td>
         </tr>
-        
+
         <tr>
             <td>YYYYY</td>
             <td>02017</td>
             <td>Year on 5 digits from 00000 to 09999</td>
         </tr>
-        
+
         <tr>
             <td>YYYYYY</td>
             <td>+002017</td>
             <td>Year on 5 digits with sign from -09999 to +09999</td>
         </tr>
-        
+
         <tr>
             <td>z</td>
             <td>UTC</td>
             <td>Abbreviated time zone name</td>
         </tr>
-        
+
         <tr>
             <td>zz</td>
             <td>UTC</td>
             <td>Time zone name</td>
         </tr>
-        
+
         <tr>
             <td>Z</td>
             <td>+00:00</td>
             <td>Time zone offset HH:mm</td>
         </tr>
-        
+
         <tr>
             <td>ZZ</td>
             <td>+0000</td>
             <td>Time zone offset HHmm</td>
         </tr>
-        
+
         </tbody>
     </table>
 
@@ -1459,73 +1455,73 @@ echo "\n";
         <thead>
         <tr>
             <th>Code</th>
-            
+
             <th>en</th>
-            
+
             <th>fr</th>
-            
+
             <th>ja</th>
-            
+
             <th>hr</th>
-            
+
         </tr>
         </thead>
         <tbody>
-        
+
         <tr>
             <td>
                 <code>LT</code><br>
-                
+
             </td>
             <td>
                 <span class="doc-comment">h:mm A</span><br>
                 5:04 PM
-                
+
             </td>
             <td>
                 <span class="doc-comment">HH:mm</span><br>
                 17:04
-                
+
             </td>
             <td>
                 <span class="doc-comment">HH:mm</span><br>
                 17:04
-                
+
             </td>
             <td>
                 <span class="doc-comment">H:mm</span><br>
                 17:04
-                
+
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>LTS</code><br>
-                
+
             </td>
             <td>
                 <span class="doc-comment">h:mm:ss A</span><br>
                 5:04:05 PM
-                
+
             </td>
             <td>
                 <span class="doc-comment">HH:mm:ss</span><br>
                 17:04:05
-                
+
             </td>
             <td>
                 <span class="doc-comment">HH:mm:ss</span><br>
                 17:04:05
-                
+
             </td>
             <td>
                 <span class="doc-comment">H:mm:ss</span><br>
                 17:04:05
-                
+
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>L</code><br>
@@ -1552,7 +1548,7 @@ echo "\n";
                 <br>5. 1. 2017.
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>LL</code><br>
@@ -1579,7 +1575,7 @@ echo "\n";
                 <br>5. sij. 2017.
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>LLL</code><br>
@@ -1606,7 +1602,7 @@ echo "\n";
                 <br>5. sij. 2017. 17:04
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>LLLL</code><br>
@@ -1633,115 +1629,115 @@ echo "\n";
                 <br>čet., 5. sij. 2017. 17:04
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>l</code><br>
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 1/5/2017
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 5/1/2017
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 2017/1/5
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 5. 1. 2017.
-                
+
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>ll</code><br>
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 Jan 5, 2017
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 5 janv. 2017
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 2017年1月5日
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 5. sij. 2017.
-                
+
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>lll</code><br>
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 Jan 5, 2017 5:04 PM
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 5 janv. 2017 17:04
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 2017年1月5日 17:04
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 5. sij. 2017. 17:04
-                
+
             </td>
         </tr>
-        
+
         <tr>
             <td>
                 <code>llll</code><br>
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 Thu, Jan 5, 2017 5:04 PM
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 jeu. 5 janv. 2017 17:04
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 2017年1月5日 木 17:04
-                
+
             </td>
             <td>
                 <span class="doc-comment"></span><br>
                 čet., 5. sij. 2017. 17:04
-                
+
             </td>
         </tr>
-        
+
         </tbody>
     </table>
 
@@ -1759,21 +1755,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 5:47 PM
+echo $date->calendar();                                      // Today at 11:19 AM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 2:47 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 8:19 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 7:24 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 12:56 AM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 08/30/2023
+echo $date->sub('8 days')->calendar();                       // 09/17/2023
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 8:47 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 2:19 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 4:10 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 9:42 PM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 09/15/2023
+echo $date->add('8 days')->calendar();                       // 10/03/2023
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 17:47
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 11:19
 </code></pre>
     </p>
 
@@ -1811,7 +1807,7 @@ echo $date1->calendar($date2, [
         </tr>
         </thead>
         <tbody>
-        
+
         <tr>
             <td>aa</td>
             <td>Afar</td>
@@ -1824,7 +1820,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>af</td>
             <td>Afrikaans</td>
@@ -1837,7 +1833,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>agq</td>
             <td>Aghem</td>
@@ -1850,7 +1846,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>agr</td>
             <td>Aguaruna</td>
@@ -1863,7 +1859,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ak</td>
             <td>Akan</td>
@@ -1876,7 +1872,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>am</td>
             <td>Amharic</td>
@@ -1889,7 +1885,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>an</td>
             <td>Aragonese</td>
@@ -1902,7 +1898,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>anp</td>
             <td>Angika</td>
@@ -1915,7 +1911,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ar</td>
             <td>Arabic</td>
@@ -1928,7 +1924,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>as</td>
             <td>Assamese</td>
@@ -1941,7 +1937,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>asa</td>
             <td>Asu</td>
@@ -1954,7 +1950,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ast</td>
             <td>Asturian</td>
@@ -1967,7 +1963,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ayc</td>
             <td>Southern Aymara</td>
@@ -1980,7 +1976,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>az</td>
             <td>Azerbaijani</td>
@@ -1993,7 +1989,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bas</td>
             <td>Basaa</td>
@@ -2006,7 +2002,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>be</td>
             <td>Belarusian</td>
@@ -2019,7 +2015,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>bem</td>
             <td>Bemba</td>
@@ -2032,7 +2028,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ber</td>
             <td>ber</td>
@@ -2045,7 +2041,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bez</td>
             <td>Bena</td>
@@ -2058,7 +2054,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bg</td>
             <td>Bulgarian</td>
@@ -2071,7 +2067,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>bhb</td>
             <td>Bhili</td>
@@ -2084,7 +2080,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bho</td>
             <td>Bhojpuri</td>
@@ -2097,7 +2093,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bi</td>
             <td>Bislama</td>
@@ -2110,7 +2106,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bm</td>
             <td>Bambara</td>
@@ -2123,7 +2119,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>bn</td>
             <td>Bengali</td>
@@ -2136,7 +2132,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bo</td>
             <td>Tibetan</td>
@@ -2149,7 +2145,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>br</td>
             <td>Breton</td>
@@ -2162,7 +2158,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>brx</td>
             <td>Bodo</td>
@@ -2175,7 +2171,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>bs</td>
             <td>Bosnian</td>
@@ -2188,7 +2184,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>byn</td>
             <td>Bilin</td>
@@ -2201,7 +2197,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ca</td>
             <td>Catalan</td>
@@ -2214,7 +2210,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ccp</td>
             <td>Chakma</td>
@@ -2227,7 +2223,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ce</td>
             <td>Chechen</td>
@@ -2240,7 +2236,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>cgg</td>
             <td>Chiga</td>
@@ -2253,7 +2249,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>chr</td>
             <td>Cherokee</td>
@@ -2266,7 +2262,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ckb</td>
             <td>ckb</td>
@@ -2279,7 +2275,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>cmn</td>
             <td>Chinese</td>
@@ -2292,7 +2288,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>crh</td>
             <td>Crimean Turkish</td>
@@ -2305,7 +2301,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>cs</td>
             <td>Czech</td>
@@ -2318,7 +2314,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>csb</td>
             <td>Kashubian</td>
@@ -2331,7 +2327,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>cu</td>
             <td>Church Slavic</td>
@@ -2344,7 +2340,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>cv</td>
             <td>Chuvash</td>
@@ -2357,7 +2353,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>cy</td>
             <td>Welsh</td>
@@ -2370,7 +2366,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>da</td>
             <td>Danish</td>
@@ -2383,7 +2379,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>dav</td>
             <td>Taita</td>
@@ -2396,7 +2392,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>de</td>
             <td>German</td>
@@ -2409,7 +2405,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>dje</td>
             <td>Zarma</td>
@@ -2422,7 +2418,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>doi</td>
             <td>Dogri (macrolanguage)</td>
@@ -2435,7 +2431,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>dsb</td>
             <td>Lower Sorbian</td>
@@ -2448,7 +2444,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>dua</td>
             <td>Duala</td>
@@ -2461,7 +2457,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>dv</td>
             <td>Divehi</td>
@@ -2474,7 +2470,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>dyo</td>
             <td>Jola-Fonyi</td>
@@ -2487,7 +2483,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>dz</td>
             <td>Dzongkha</td>
@@ -2500,7 +2496,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ebu</td>
             <td>Embu</td>
@@ -2513,7 +2509,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ee</td>
             <td>Ewe</td>
@@ -2526,7 +2522,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>el</td>
             <td>Greek (modern)</td>
@@ -2539,7 +2535,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>en</td>
             <td>English</td>
@@ -2552,7 +2548,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>eo</td>
             <td>Esperanto</td>
@@ -2565,7 +2561,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>es</td>
             <td>Spanish</td>
@@ -2578,7 +2574,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>et</td>
             <td>Estonian</td>
@@ -2591,7 +2587,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>eu</td>
             <td>Basque</td>
@@ -2604,7 +2600,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ewo</td>
             <td>Ewondo</td>
@@ -2617,7 +2613,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>fa</td>
             <td>Persian</td>
@@ -2630,7 +2626,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ff</td>
             <td>Fulah</td>
@@ -2643,7 +2639,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>fi</td>
             <td>Finnish</td>
@@ -2656,7 +2652,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>fil</td>
             <td>Filipino</td>
@@ -2669,7 +2665,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>fo</td>
             <td>Faroese</td>
@@ -2682,7 +2678,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>fr</td>
             <td>French</td>
@@ -2695,7 +2691,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>fur</td>
             <td>Friulian</td>
@@ -2708,7 +2704,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>fy</td>
             <td>Western Frisian</td>
@@ -2721,7 +2717,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ga</td>
             <td>Irish</td>
@@ -2734,7 +2730,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>gd</td>
             <td>Gaelic</td>
@@ -2747,7 +2743,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>gez</td>
             <td>Geez</td>
@@ -2760,7 +2756,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>gl</td>
             <td>Galician</td>
@@ -2773,7 +2769,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>gom</td>
             <td>Konkani</td>
@@ -2786,7 +2782,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>gsw</td>
             <td>Swiss German</td>
@@ -2799,7 +2795,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>gu</td>
             <td>Gujarati</td>
@@ -2812,7 +2808,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>guz</td>
             <td>Gusii</td>
@@ -2825,7 +2821,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>gv</td>
             <td>Manx</td>
@@ -2838,7 +2834,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ha</td>
             <td>Hausa</td>
@@ -2851,7 +2847,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>hak</td>
             <td>Hakka Chinese</td>
@@ -2864,7 +2860,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>haw</td>
             <td>Hawaiian</td>
@@ -2877,7 +2873,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>he</td>
             <td>Hebrew (modern)</td>
@@ -2890,7 +2886,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>hi</td>
             <td>Hindi</td>
@@ -2903,7 +2899,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>hif</td>
             <td>Fiji Hindi</td>
@@ -2916,7 +2912,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>hne</td>
             <td>Chhattisgarhi</td>
@@ -2929,7 +2925,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>hr</td>
             <td>Croatian</td>
@@ -2942,7 +2938,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>hsb</td>
             <td>Upper Sorbian</td>
@@ -2955,7 +2951,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ht</td>
             <td>Haitian</td>
@@ -2968,7 +2964,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>hu</td>
             <td>Hungarian</td>
@@ -2981,7 +2977,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>hy</td>
             <td>Armenian</td>
@@ -2994,7 +2990,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>i18n</td>
             <td>i18n</td>
@@ -3007,7 +3003,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ia</td>
             <td>Interlingua</td>
@@ -3020,7 +3016,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>id</td>
             <td>Indonesian</td>
@@ -3033,7 +3029,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ig</td>
             <td>Igbo</td>
@@ -3046,7 +3042,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ii</td>
             <td>Sichuan Yi</td>
@@ -3059,7 +3055,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ik</td>
             <td>Inupiaq</td>
@@ -3072,7 +3068,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>in</td>
             <td>in</td>
@@ -3085,7 +3081,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>is</td>
             <td>Icelandic</td>
@@ -3098,7 +3094,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>it</td>
             <td>Italian</td>
@@ -3111,7 +3107,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>iu</td>
             <td>Inuktitut</td>
@@ -3124,7 +3120,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>iw</td>
             <td>iw</td>
@@ -3137,7 +3133,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ja</td>
             <td>Japanese</td>
@@ -3150,7 +3146,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>jgo</td>
             <td>Ngomba</td>
@@ -3163,7 +3159,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>jmc</td>
             <td>Machame</td>
@@ -3176,7 +3172,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>jv</td>
             <td>Javanese</td>
@@ -3189,7 +3185,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ka</td>
             <td>Georgian</td>
@@ -3202,7 +3198,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>kab</td>
             <td>Kabyle</td>
@@ -3215,7 +3211,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>kam</td>
             <td>Kamba</td>
@@ -3228,7 +3224,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>kde</td>
             <td>Makonde</td>
@@ -3241,7 +3237,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>kea</td>
             <td>Kabuverdianu</td>
@@ -3254,7 +3250,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>khq</td>
             <td>Koyra Chiini</td>
@@ -3267,7 +3263,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ki</td>
             <td>Kikuyu</td>
@@ -3280,7 +3276,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>kk</td>
             <td>Kazakh</td>
@@ -3293,7 +3289,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>kkj</td>
             <td>Kako</td>
@@ -3306,7 +3302,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>kl</td>
             <td>Kalaallisut</td>
@@ -3319,7 +3315,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>kln</td>
             <td>Kalenjin</td>
@@ -3332,7 +3328,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>km</td>
             <td>Central Khmer</td>
@@ -3345,7 +3341,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>kn</td>
             <td>Kannada</td>
@@ -3358,7 +3354,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ko</td>
             <td>Korean</td>
@@ -3371,7 +3367,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>kok</td>
             <td>Konkani</td>
@@ -3384,7 +3380,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ks</td>
             <td>Kashmiri</td>
@@ -3397,7 +3393,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ksb</td>
             <td>Shambala</td>
@@ -3410,7 +3406,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ksf</td>
             <td>Bafia</td>
@@ -3423,7 +3419,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ksh</td>
             <td>Colognian</td>
@@ -3436,7 +3432,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ku</td>
             <td>Kurdish</td>
@@ -3449,7 +3445,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>kw</td>
             <td>Cornish</td>
@@ -3462,7 +3458,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ky</td>
             <td>Kirghiz</td>
@@ -3475,7 +3471,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>lag</td>
             <td>Langi</td>
@@ -3488,7 +3484,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lb</td>
             <td>Luxembourgish</td>
@@ -3501,7 +3497,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>lg</td>
             <td>Ganda</td>
@@ -3514,7 +3510,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>li</td>
             <td>Limburgan</td>
@@ -3527,7 +3523,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lij</td>
             <td>Ligurian</td>
@@ -3540,7 +3536,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lkt</td>
             <td>Lakota</td>
@@ -3553,7 +3549,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ln</td>
             <td>Lingala</td>
@@ -3566,7 +3562,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lo</td>
             <td>Lao</td>
@@ -3579,7 +3575,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>lrc</td>
             <td>Northern Luri</td>
@@ -3592,7 +3588,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lt</td>
             <td>Lithuanian</td>
@@ -3605,7 +3601,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lu</td>
             <td>Luba-Katanga</td>
@@ -3618,7 +3614,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>luo</td>
             <td>Luo</td>
@@ -3631,7 +3627,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>luy</td>
             <td>Luyia</td>
@@ -3644,7 +3640,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>lv</td>
             <td>Latvian</td>
@@ -3657,7 +3653,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>lzh</td>
             <td>Literary Chinese</td>
@@ -3670,7 +3666,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mag</td>
             <td>Magahi</td>
@@ -3683,7 +3679,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mai</td>
             <td>Maithili</td>
@@ -3696,7 +3692,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mas</td>
             <td>Masai</td>
@@ -3709,7 +3705,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mer</td>
             <td>Meru</td>
@@ -3722,7 +3718,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mfe</td>
             <td>Morisyen</td>
@@ -3735,7 +3731,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mg</td>
             <td>Malagasy</td>
@@ -3748,7 +3744,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mgh</td>
             <td>Makhuwa-Meetto</td>
@@ -3761,7 +3757,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mgo</td>
             <td>Metaʼ</td>
@@ -3774,7 +3770,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mhr</td>
             <td>Eastern Mari</td>
@@ -3787,7 +3783,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mi</td>
             <td>Maori</td>
@@ -3800,7 +3796,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>miq</td>
             <td>Mískito</td>
@@ -3813,7 +3809,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mjw</td>
             <td>Karbi</td>
@@ -3826,7 +3822,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mk</td>
             <td>Macedonian</td>
@@ -3839,7 +3835,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ml</td>
             <td>Malayalam</td>
@@ -3852,7 +3848,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>mn</td>
             <td>Mongolian</td>
@@ -3865,7 +3861,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>mni</td>
             <td>Manipuri</td>
@@ -3878,7 +3874,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>mo</td>
             <td>mo</td>
@@ -3891,7 +3887,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>mr</td>
             <td>Marathi</td>
@@ -3904,7 +3900,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ms</td>
             <td>Malay</td>
@@ -3917,7 +3913,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>mt</td>
             <td>Maltese</td>
@@ -3930,7 +3926,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>mua</td>
             <td>Mundang</td>
@@ -3943,7 +3939,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>my</td>
             <td>Burmese</td>
@@ -3956,7 +3952,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>mzn</td>
             <td>Mazanderani</td>
@@ -3969,7 +3965,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>nan</td>
             <td>Min Nan Chinese</td>
@@ -3982,7 +3978,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>naq</td>
             <td>Nama</td>
@@ -3995,7 +3991,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nb</td>
             <td>Norwegian Bokmål</td>
@@ -4008,7 +4004,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nd</td>
             <td>North Ndebele</td>
@@ -4021,7 +4017,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nds</td>
             <td>Low German</td>
@@ -4034,7 +4030,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ne</td>
             <td>Nepali</td>
@@ -4047,7 +4043,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>nhn</td>
             <td>Central Nahuatl</td>
@@ -4060,7 +4056,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>niu</td>
             <td>Niuean</td>
@@ -4073,7 +4069,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nl</td>
             <td>Dutch</td>
@@ -4086,7 +4082,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nmg</td>
             <td>Kwasio</td>
@@ -4099,7 +4095,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nn</td>
             <td>Norwegian Nynorsk</td>
@@ -4112,7 +4108,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>nnh</td>
             <td>Ngiemboon</td>
@@ -4125,7 +4121,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>no</td>
             <td>Norwegian</td>
@@ -4138,7 +4134,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nr</td>
             <td>South Ndebele</td>
@@ -4151,7 +4147,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nso</td>
             <td>Northern Sotho</td>
@@ -4164,7 +4160,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nus</td>
             <td>Nuer</td>
@@ -4177,7 +4173,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>nyn</td>
             <td>Nyankole</td>
@@ -4190,7 +4186,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>oc</td>
             <td>Occitan</td>
@@ -4203,7 +4199,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>om</td>
             <td>Oromo</td>
@@ -4216,7 +4212,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>or</td>
             <td>Oriya</td>
@@ -4229,7 +4225,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>os</td>
             <td>Ossetian</td>
@@ -4242,7 +4238,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>pa</td>
             <td>Panjabi</td>
@@ -4255,7 +4251,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>pap</td>
             <td>Papiamento</td>
@@ -4268,7 +4264,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>pl</td>
             <td>Polish</td>
@@ -4281,7 +4277,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>prg</td>
             <td>Prussian</td>
@@ -4294,7 +4290,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ps</td>
             <td>Pashto</td>
@@ -4307,7 +4303,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>pt</td>
             <td>Portuguese</td>
@@ -4320,7 +4316,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>qu</td>
             <td>Quechua</td>
@@ -4333,7 +4329,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>quz</td>
             <td>Cusco Quechua</td>
@@ -4346,7 +4342,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>raj</td>
             <td>Rajasthani</td>
@@ -4359,7 +4355,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>rm</td>
             <td>Romansh</td>
@@ -4372,7 +4368,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>rn</td>
             <td>Rundi</td>
@@ -4385,7 +4381,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ro</td>
             <td>Romanian</td>
@@ -4398,7 +4394,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>rof</td>
             <td>Rombo</td>
@@ -4411,7 +4407,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ru</td>
             <td>Russian</td>
@@ -4424,7 +4420,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>rw</td>
             <td>Kinyarwanda</td>
@@ -4437,7 +4433,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>rwk</td>
             <td>Rwa</td>
@@ -4450,7 +4446,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sa</td>
             <td>Sanskrit</td>
@@ -4463,7 +4459,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sah</td>
             <td>Sakha</td>
@@ -4476,7 +4472,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>saq</td>
             <td>Samburu</td>
@@ -4489,7 +4485,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sat</td>
             <td>Santali</td>
@@ -4502,7 +4498,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sbp</td>
             <td>Sangu</td>
@@ -4515,7 +4511,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sc</td>
             <td>Sardinian</td>
@@ -4528,7 +4524,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sd</td>
             <td>Sindhi</td>
@@ -4541,7 +4537,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>se</td>
             <td>Northern Sami</td>
@@ -4554,7 +4550,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>seh</td>
             <td>Sena</td>
@@ -4567,7 +4563,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ses</td>
             <td>Koyraboro Senni</td>
@@ -4580,7 +4576,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sg</td>
             <td>Sango</td>
@@ -4593,7 +4589,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sgs</td>
             <td>Samogitian</td>
@@ -4606,7 +4602,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sh</td>
             <td>sh</td>
@@ -4619,7 +4615,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>shi</td>
             <td>Tachelhit</td>
@@ -4632,7 +4628,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>shn</td>
             <td>Shan</td>
@@ -4645,7 +4641,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>shs</td>
             <td>Shuswap</td>
@@ -4658,7 +4654,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>si</td>
             <td>Sinhala</td>
@@ -4671,7 +4667,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>sid</td>
             <td>Sidamo</td>
@@ -4684,7 +4680,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sk</td>
             <td>Slovak</td>
@@ -4697,7 +4693,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>sl</td>
             <td>Slovene</td>
@@ -4710,7 +4706,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>sm</td>
             <td>Samoan</td>
@@ -4723,7 +4719,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>smn</td>
             <td>Inari Sami</td>
@@ -4736,7 +4732,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sn</td>
             <td>Shona</td>
@@ -4749,7 +4745,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>so</td>
             <td>Somali</td>
@@ -4762,7 +4758,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sq</td>
             <td>Albanian</td>
@@ -4775,7 +4771,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>sr</td>
             <td>Serbian</td>
@@ -4788,7 +4784,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ss</td>
             <td>Swati</td>
@@ -4801,7 +4797,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>st</td>
             <td>Southern Sotho</td>
@@ -4814,7 +4810,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>sv</td>
             <td>Swedish</td>
@@ -4827,7 +4823,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>sw</td>
             <td>Swahili</td>
@@ -4840,7 +4836,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>szl</td>
             <td>Silesian</td>
@@ -4853,7 +4849,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ta</td>
             <td>Tamil</td>
@@ -4866,7 +4862,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>tcy</td>
             <td>Tulu</td>
@@ -4879,7 +4875,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>te</td>
             <td>Telugu</td>
@@ -4892,7 +4888,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>teo</td>
             <td>Teso</td>
@@ -4905,7 +4901,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>tet</td>
             <td>Tetum</td>
@@ -4918,7 +4914,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>tg</td>
             <td>Tajik</td>
@@ -4931,7 +4927,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>th</td>
             <td>Thai</td>
@@ -4944,7 +4940,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>the</td>
             <td>Chitwania Tharu</td>
@@ -4957,7 +4953,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ti</td>
             <td>Tigrinya</td>
@@ -4970,7 +4966,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tig</td>
             <td>Tigre</td>
@@ -4983,7 +4979,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tk</td>
             <td>Turkmen</td>
@@ -4996,7 +4992,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tl</td>
             <td>Tagalog</td>
@@ -5009,7 +5005,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>tlh</td>
             <td>Klingon</td>
@@ -5022,7 +5018,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>tn</td>
             <td>Tswana</td>
@@ -5035,7 +5031,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>to</td>
             <td>Tongan (Tonga Islands)</td>
@@ -5048,7 +5044,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tpi</td>
             <td>Tok Pisin</td>
@@ -5061,7 +5057,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tr</td>
             <td>Turkish</td>
@@ -5074,7 +5070,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ts</td>
             <td>Tsonga</td>
@@ -5087,7 +5083,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tt</td>
             <td>Tatar</td>
@@ -5100,7 +5096,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>twq</td>
             <td>Tasawaq</td>
@@ -5113,7 +5109,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>tzl</td>
             <td>Talossan</td>
@@ -5126,7 +5122,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>tzm</td>
             <td>Tamazight</td>
@@ -5139,7 +5135,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>ug</td>
             <td>Uighur</td>
@@ -5152,7 +5148,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>uk</td>
             <td>Ukrainian</td>
@@ -5165,7 +5161,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>unm</td>
             <td>Unami</td>
@@ -5178,7 +5174,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ur</td>
             <td>Urdu</td>
@@ -5191,7 +5187,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>uz</td>
             <td>Uzbek</td>
@@ -5204,7 +5200,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>vai</td>
             <td>Vai</td>
@@ -5217,7 +5213,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>ve</td>
             <td>Venda</td>
@@ -5230,7 +5226,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>vi</td>
             <td>Vietnamese</td>
@@ -5243,7 +5239,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>vo</td>
             <td>Volapük</td>
@@ -5256,7 +5252,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>vun</td>
             <td>Vunjo</td>
@@ -5269,7 +5265,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>wa</td>
             <td>Walloon</td>
@@ -5282,7 +5278,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>wae</td>
             <td>Walser</td>
@@ -5295,7 +5291,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>wal</td>
             <td>Wolaytta</td>
@@ -5308,7 +5304,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>wo</td>
             <td>Wolof</td>
@@ -5321,7 +5317,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>xh</td>
             <td>Xhosa</td>
@@ -5334,7 +5330,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>xog</td>
             <td>Soga</td>
@@ -5347,7 +5343,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>yav</td>
             <td>Yangben</td>
@@ -5360,7 +5356,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>yi</td>
             <td>Yiddish</td>
@@ -5373,7 +5369,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>yo</td>
             <td>Yoruba</td>
@@ -5386,7 +5382,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>yue</td>
             <td>Cantonese</td>
@@ -5399,7 +5395,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>yuw</td>
             <td>Yau (Morobe Province)</td>
@@ -5412,7 +5408,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>zgh</td>
             <td>Standard Moroccan Tamazight</td>
@@ -5425,7 +5421,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         <tr>
             <td>zh</td>
             <td>Chinese</td>
@@ -5438,7 +5434,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
-        
+
         <tr>
             <td>zu</td>
             <td>Zulu</td>
@@ -5451,7 +5447,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
-        
+
         </tbody>
     </table>
 
@@ -5575,7 +5571,7 @@ $srCyrlInfo = Carbon::getAvailableLocalesInfo()['sr_Cyrl'];
 $caInfo = Carbon::getAvailableLocalesInfo()['ca'];
 
 var_dump($zhTwInfo->getId());                      // string(5) "zh_TW"
-var_dump($zhTwInfo->getNames());                  
+var_dump($zhTwInfo->getNames());
 /*
 array(2) {
   ["isoName"]=>
@@ -5623,7 +5619,7 @@ var_dump($srCyrlInfo->getFullNativeName());        // string(8) "biz, baz"
 var_dump($srCyrlInfo->getFullNativeDescription()); // string(19) "biz, baz (Cyrillic)"
 
 // You can also access directly regions/languages lists:
-var_dump(\Carbon\Language::all()['zh']);          
+var_dump(\Carbon\Language::all()['zh']);
 /*
 array(2) {
   ["isoName"]=>
@@ -5632,7 +5628,7 @@ array(2) {
   string(38) "中文 (Zhōngwén), 汉语, 漢語"
 }
 */
-var_dump(\Carbon\Language::regions()['TW']);      
+var_dump(\Carbon\Language::regions()['TW']);
 /*
 string(25) "Taiwan, Province of China"
 */
@@ -5668,7 +5664,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2023-09-07 17:47:22
+echo Carbon::now();                                    // 2023-09-25 11:19:32
 // Instead of mock and clear mock, you also can use withTestNow():
 
 Carbon::withTestNow('2010-09-15', static function () {
@@ -5835,14 +5831,10 @@ var_dump($dt->locale('de')->shortMonthName);                 // string(3) "Okt"
 // Following are deprecated, locale* and shortLocale* properties
 // are translated using formatLocalized() based on LC_TIME language.
 setlocale(LC_TIME, 'German');
-var_dump($dt->localeDayOfWeek);                              // Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
-string(7) "Freitag"
-var_dump($dt->shortLocaleDayOfWeek);                         // Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
-string(2) "Fr"
-var_dump($dt->localeMonth);                                  // Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
-string(7) "Oktober"
-var_dump($dt->shortLocaleMonth);                             // Deprecated: Function strftime() is deprecated in C:\Users\KyleK\WebCoding\github\briannesbitt\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Traits\Date.php on line 1894
-string(3) "Okt"
+var_dump($dt->localeDayOfWeek);                              // string(7) "Freitag"
+var_dump($dt->shortLocaleDayOfWeek);                         // string(2) "Fr"
+var_dump($dt->localeMonth);                                  // string(7) "Oktober"
+var_dump($dt->shortLocaleMonth);                             // string(3) "Okt"
 setlocale(LC_TIME, '');
 
 var_dump($dt->dayOfYear);                                    // int(279)
@@ -5879,7 +5871,7 @@ var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());    
 
 // Returns timezone as CarbonTimeZone
 var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());
-/* object(Carbon\CarbonTimeZone)#12401 (2) {
+/* object(Carbon\CarbonTimeZone)#12400 (2) {
   ["timezone_type"]=>
   int(3)
   ["timezone"]=>
@@ -5922,12 +5914,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(22)
+var_dump(Carbon::now()->get($unit));                         // int(32)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(22)
+var_dump(Carbon::now()->$unit);                              // int(32)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(22)
+var_dump(Carbon::now()->get($unit));                         // int(32)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -6003,23 +5995,23 @@ $ar = CarbonImmutable::now()->locale('ar');
 
 var_dump($en->firstWeekDay);                           // int(0)
 var_dump($en->lastWeekDay);                            // int(6)
-var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-09-03 00:00"
-var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-09-09 23:59"
+var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-09-24 00:00"
+var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-09-30 23:59"
 
 echo "-----------\n";
 
 // We still can force to use an other day as start/end of week
 $start = $en->startOfWeek(Carbon::TUESDAY);
 $end = $en->endOfWeek(Carbon::MONDAY);
-var_dump($start->format('Y-m-d H:i'));                 // string(16) "2023-09-05 00:00"
-var_dump($end->format('Y-m-d H:i'));                   // string(16) "2023-09-11 23:59"
+var_dump($start->format('Y-m-d H:i'));                 // string(16) "2023-09-19 00:00"
+var_dump($end->format('Y-m-d H:i'));                   // string(16) "2023-09-25 23:59"
 
 echo "-----------\n";
 
 var_dump($ar->firstWeekDay);                           // int(6)
 var_dump($ar->lastWeekDay);                            // int(5)
-var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-09-02 00:00"
-var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-09-08 23:59"
+var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2023-09-23 00:00"
+var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2023-09-29 23:59"
 
 $en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
 
@@ -6285,7 +6277,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#12405 (2) {
+  object(Carbon\CarbonTimeZone)#12404 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -6296,7 +6288,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#12405 (12) {
+object(stdClass)#12404 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -6320,7 +6312,7 @@ object(stdClass)#12405 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#12401 (2) {
+  object(Carbon\CarbonTimeZone)#12400 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -6331,7 +6323,7 @@ object(stdClass)#12405 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#12405 (3) {
+object(DateTime)#12404 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -6345,7 +6337,7 @@ object(DateTime)#12405 (3) {
 // to both DateTime and DateTimeImmutable
 var_dump($dt->toDateTimeImmutable());
 /*
-object(DateTimeImmutable)#12405 (3) {
+object(DateTimeImmutable)#12404 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -6518,8 +6510,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2023-09-07 17:47:22
-echo $dt1->maximum();                              // 2023-09-07 17:47:22
+echo $dt1->max();                                  // 2023-09-25 11:19:32
+echo $dt1->maximum();                              // 2023-09-25 11:19:32
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7074,7 +7066,7 @@ echo $date->diffInMicroseconds('2014-03-30 00:00:00');            // 93600000000
 echo $date->subRealHours(25)->format('H:i');                      // 00:00 (DST off)
 
 // with float diff:
-$date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');       
+$date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');
 echo $date->floatDiffInRealHours('2019-10-28 12:30:00');          // 37.5
 echo $date->floatDiffInHours('2019-10-28 12:30:00');              // 36.5
 echo $date->floatDiffInRealMinutes('2019-10-28 12:00:30');        // 2220.5
@@ -7786,7 +7778,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // lundi dernier à 19:47
+echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 13:19
 </code></pre>
     </p>
 
@@ -8049,9 +8041,9 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2023-09-04 00:00:00, 2023-09-05 00:00:00, 2023-09-06 00:00:00, 2023-09-07 00:00:00, 2023-09-08 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2023-09-25 00:00:00, 2023-09-26 00:00:00, 2023-09-27 00:00:00, 2023-09-28 00:00:00, 2023-09-29 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2023-09-01 00:00:00, 2023-09-02 00:00:00, 2023-09-03 00:00:00, 2023-09-04 00:00:00, 2023-09-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2023-08-07 00:00:00, 2023-08-08 00:00:00, 2023-08-09 00:00:00, 2023-08-10 00:00:00, 2023-08-11 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2023-08-21 00:00:00, 2023-08-22 00:00:00, 2023-08-23 00:00:00, 2023-08-24 00:00:00, 2023-08-25 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2023-08-01 00:00:00, 2023-08-02 00:00:00, 2023-08-03 00:00:00, 2023-08-04 00:00:00, 2023-08-05 00:00...
 </code></pre>
     </p>
@@ -9019,7 +9011,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2023-09-07, 2023-09-08, 2023-09-09
+echo implode(', ', $days);               // 2023-09-25, 2023-09-26, 2023-09-27
 </code></pre>
     </p>
 
@@ -9067,18 +9059,18 @@ echo implode(', ', $days);                         // 01-01, 01-02, 01-03, 01-04
 var_export($period->getFilters());
 /*
 array (
-  0 => 
+  0 =>
   array (
-    0 => 
+    0 =>
     array (
       0 => 'Carbon\\CarbonPeriod',
       1 => 'filterEndDate',
     ),
     1 => NULL,
   ),
-  1 => 
+  1 =>
   array (
-    0 => 
+    0 =>
     array (
       0 => 'Carbon\\CarbonPeriod',
       1 => 'filterRecurrences',
@@ -9550,7 +9542,7 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
 
 
                     </div>
-                    
+
     <div class="col-md-3">
         <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
             <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
@@ -10250,6 +10242,6 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
     </script>
-    
+
 </body>
 </html>
