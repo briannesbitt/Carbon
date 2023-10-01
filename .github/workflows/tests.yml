@@ -72,8 +72,6 @@ jobs:
 
           - php: 8.3
           - php: 8.3
-            dbal: ^4.0.0
-          - php: 8.3
             setup: lowest
 
           - php: 8.1
@@ -97,7 +95,7 @@ jobs:
           - php: 8.2
             coverage: true
 
-    name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }}${{ matrix.dbal && ' - DBAL ' || '' }}${{ matrix.dbal }} - ${{ matrix.setup || 'stable' }} - ubuntu
+    name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
     steps:
       - name: Checkout the code
@@ -136,8 +134,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
-          key: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.dbal }}-ubuntu-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.dbal }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
@@ -149,9 +147,6 @@ jobs:
             composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
             if [[ "${{ matrix.laravel }}" != 'true' ]]; then
               composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
-            fi;
-            if [[ "${{ matrix.dbal }}" != '' ]]; then
-              composer require --no-update doctrine/dbal:${{ matrix.dbal }} --no-interaction --dev;
             fi;
             ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction --dev;' || '' }}
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};

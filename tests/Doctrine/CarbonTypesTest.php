@@ -23,6 +23,7 @@ use Carbon\Doctrine\DateTimeType;
 use DateTimeImmutable;
 use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use Exception;
@@ -75,11 +76,11 @@ class CarbonTypesTest extends AbstractTestCase
         ] : [
             'precision' => null,
             'secondPrecision' => true,
-        ], new MySQL57Platform()));
+        ], $this->getMySQLPlatform()));
 
         $this->assertSame('DATETIME(3)', $type->getSQLDeclaration([
             'precision' => 3,
-        ], new MySQL57Platform()));
+        ], $this->getMySQLPlatform()));
 
         $this->assertSame('TIMESTAMP(0)', $type->getSQLDeclaration($supportZeroPrecision ? [
             'precision' => 0,
@@ -102,21 +103,21 @@ class CarbonTypesTest extends AbstractTestCase
             'precision' => null,
         ] : [
             'precision' => 0,
-        ], new MySQL57Platform()));
+        ], $this->getMySQLPlatform()));
 
         $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
             'precision' => null,
-        ], new MySQL57Platform()));
+        ], $this->getMySQLPlatform()));
 
         DateTimeDefaultPrecision::set(9);
         $this->assertSame('DATETIME(9)', $type->getSQLDeclaration([
             'precision' => null,
-        ], new MySQL57Platform()));
+        ], $this->getMySQLPlatform()));
 
         DateTimeDefaultPrecision::set(0);
         $this->assertSame('DATETIME', $type->getSQLDeclaration([
             'precision' => null,
-        ], new MySQL57Platform()));
+        ], $this->getMySQLPlatform()));
 
         DateTimeDefaultPrecision::set($precision);
     }
@@ -135,17 +136,17 @@ class CarbonTypesTest extends AbstractTestCase
     {
         $type = Type::getType($name);
 
-        $this->assertNull($type->convertToPHPValue(null, new MySQL57Platform()));
+        $this->assertNull($type->convertToPHPValue(null, $this->getMySQLPlatform()));
 
-        $date = $type->convertToPHPValue(Carbon::parse('2020-06-23 18:47'), new MySQL57Platform());
+        $date = $type->convertToPHPValue(Carbon::parse('2020-06-23 18:47'), $this->getMySQLPlatform());
         $this->assertInstanceOf($class, $date);
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
 
-        $date = $type->convertToPHPValue(new DateTimeImmutable('2020-06-23 18:47'), new MySQL57Platform());
+        $date = $type->convertToPHPValue(new DateTimeImmutable('2020-06-23 18:47'), $this->getMySQLPlatform());
         $this->assertInstanceOf($class, $date);
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
 
-        $date = $type->convertToPHPValue('2020-06-23 18:47', new MySQL57Platform());
+        $date = $type->convertToPHPValue('2020-06-23 18:47', $this->getMySQLPlatform());
         $this->assertInstanceOf($class, $date);
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
     }
@@ -160,14 +161,17 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testConvertToPHPValueFailure(string $name, string $class)
+    public function testConvertToPHPValueFailure(string $name, string $class, string $typeClass)
     {
+        $conversion = version_compare(self::getDbalVersion(), '4.0.0', '>=')
+            ? "to \"$typeClass\" as an error was triggered by the unserialization: "
+            : "\"2020-0776-23 18:47\" to Doctrine Type $name. Expected format: ";
         $this->expectExceptionObject(new ConversionException(
-            "Could not convert database value \"2020-0776-23 18:47\" to Doctrine Type $name. ".
-            "Expected format: Y-m-d H:i:s.u or any format supported by $class::parse()"
+            'Could not convert database value '.$conversion.
+            "Y-m-d H:i:s.u or any format supported by $class::parse()"
         ));
 
-        Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', new MySQL57Platform());
+        Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', $this->getMySQLPlatform());
     }
 
     /**
@@ -183,10 +187,10 @@ class CarbonTypesTest extends AbstractTestCase
     {
         $type = Type::getType($name);
 
-        $this->assertNull($type->convertToDatabaseValue(null, new MySQL57Platform()));
+        $this->assertNull($type->convertToDatabaseValue(null, $this->getMySQLPlatform()));
         $this->assertSame(
             '2020-06-23 18:47:00.000000',
-            $type->convertToDatabaseValue(new DateTimeImmutable('2020-06-23 18:47'), new MySQL57Platform())
+            $type->convertToDatabaseValue(new DateTimeImmutable('2020-06-23 18:47'), $this->getMySQLPlatform())
         );
     }
 
@@ -199,15 +203,18 @@ class CarbonTypesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public function testConvertToDatabaseValueFailure(string $name)
+    public function testConvertToDatabaseValueFailure(string $name, string $class, string $typeClass)
     {
         $quote = class_exists('Doctrine\\DBAL\\Version') ? "'" : '';
+        $conversion = version_compare(self::getDbalVersion(), '4.0.0', '>=')
+            ? "array to type $typeClass. "
+            : "{$quote}array{$quote} to type {$quote}$name{$quote}. ";
         $this->expectExceptionObject(new ConversionException(
-            "Could not convert PHP value of type {$quote}array{$quote} to type {$quote}$name{$quote}. ".
+            'Could not convert PHP value of type '.$conversion.
             'Expected one of the following types: null, DateTime, Carbon'
         ));
 
-        Type::getType($name)->convertToDatabaseValue([2020, 06, 23], new MySQL57Platform());
+        Type::getType($name)->convertToDatabaseValue([2020, 06, 23], $this->getMySQLPlatform());
     }
 
     /**
@@ -224,21 +231,34 @@ class CarbonTypesTest extends AbstractTestCase
      */
     public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
     {
+        if (version_compare(self::getDbalVersion(), '4.0.0', '>=')) {
+            $this->markTestSkipped('requiresSQLCommentHint dropped since DBAL 4');
+        }
+
         $type = Type::getType($name);
 
-        $this->assertSame($hintRequired, $type->requiresSQLCommentHint(new MySQL57Platform()));
+        $this->assertSame($hintRequired, $type->requiresSQLCommentHint($this->getMySQLPlatform()));
+    }
+
+    private static function getDbalVersion(): string
+    {
+        static $dbalVersion = null;
+
+        if ($dbalVersion === null) {
+            $installed = require __DIR__.'/../../vendor/composer/installed.php';
+            $dbalVersion = $installed['versions']['doctrine/dbal']['version'] ?? '2.0.0';
+        }
+
+        return $dbalVersion;
     }
 
     private static function supportsZeroPrecision(): bool
     {
-        static $support = null;
+        return version_compare(self::getDbalVersion(), '3.7.0', '>=');
+    }
 
-        if ($support === null) {
-            $installed = require __DIR__.'/../../vendor/composer/installed.php';
-            $dbalVersion = $installed['versions']['doctrine/dbal']['version'] ?? '2.0.0';
-            $support = version_compare($dbalVersion, '3.7.0', '>=');
-        }
-
-        return $support;
+    private function getMySQLPlatform()
+    {
+        return class_exists(MySQLPlatform::class) ? new MySQLPlatform() : new MySQL57Platform();
     }
 }
