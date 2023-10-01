@@ -42,6 +42,7 @@
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
+        "carbonphp/carbon-doctrine-types": "*",
         "psr/clock": "^1.0",
         "symfony/polyfill-mbstring": "^1.0",
         "symfony/polyfill-php80": "^1.16",
