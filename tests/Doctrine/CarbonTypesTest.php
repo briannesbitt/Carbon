@@ -26,7 +26,6 @@ use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use Exception;
-use Generator;
 use Tests\AbstractTestCase;
 
 class CarbonTypesTest extends AbstractTestCase
@@ -40,12 +39,18 @@ class CarbonTypesTest extends AbstractTestCase
         }
     }
 
-    public static function dataForTypes(): Generator
+    public static function dataForTypes(): array
     {
-        yield ['datetime', Carbon::class, DateTimeType::class, false];
-        yield ['datetime_immutable', CarbonImmutable::class, DateTimeImmutableType::class, true];
-        yield ['carbon', Carbon::class, CarbonType::class, true];
-        yield ['carbon_immutable', CarbonImmutable::class, CarbonImmutableType::class, true];
+        $supportZeroPrecision = self::supportsZeroPrecision();
+
+        $types = [
+            [$supportZeroPrecision ? 'date_time' : 'datetime', Carbon::class, DateTimeType::class, false],
+            [$supportZeroPrecision ? 'date_time_immutable' : 'datetime_immutable', CarbonImmutable::class, DateTimeImmutableType::class, true],
+            ['carbon', Carbon::class, CarbonType::class, !$supportZeroPrecision],
+            ['carbon_immutable', CarbonImmutable::class, CarbonImmutableType::class, true],
+        ];
+
+        return array_combine(array_column($types, 0), $types);
     }
 
     /**
@@ -63,8 +68,11 @@ class CarbonTypesTest extends AbstractTestCase
 
         $precision = DateTimeDefaultPrecision::get();
         $this->assertSame(6, $precision);
+        $supportZeroPrecision = self::supportsZeroPrecision();
 
-        $this->assertSame('DATETIME', $type->getSQLDeclaration([
+        $this->assertSame('DATETIME', $type->getSQLDeclaration($supportZeroPrecision ? [
+            'precision' => 0,
+        ] : [
             'precision' => null,
             'secondPrecision' => true,
         ], new MySQL57Platform()));
@@ -73,7 +81,9 @@ class CarbonTypesTest extends AbstractTestCase
             'precision' => 3,
         ], new MySQL57Platform()));
 
-        $this->assertSame('TIMESTAMP(0)', $type->getSQLDeclaration([
+        $this->assertSame('TIMESTAMP(0)', $type->getSQLDeclaration($supportZeroPrecision ? [
+            'precision' => 0,
+        ] : [
             'precision' => null,
             'secondPrecision' => true,
         ], new DB2Platform()));
@@ -82,11 +92,15 @@ class CarbonTypesTest extends AbstractTestCase
             'precision' => null,
         ], new DB2Platform()));
 
-        $this->assertSame('TIMESTAMP(6)', $type->getSQLDeclaration([
+        $this->assertSame('TIMESTAMP(6)', $type->getSQLDeclaration($supportZeroPrecision ? [
+            'precision' => null,
+        ] : [
             'precision' => 0,
         ], new DB2Platform()));
 
-        $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
+        $this->assertSame('DATETIME(6)', $type->getSQLDeclaration($supportZeroPrecision ? [
+            'precision' => null,
+        ] : [
             'precision' => 0,
         ], new MySQL57Platform()));
 
@@ -213,5 +227,18 @@ class CarbonTypesTest extends AbstractTestCase
         $type = Type::getType($name);
 
         $this->assertSame($hintRequired, $type->requiresSQLCommentHint(new MySQL57Platform()));
+    }
+
+    private static function supportsZeroPrecision(): bool
+    {
+        static $support = null;
+
+        if ($support === null) {
+            $installed = require __DIR__.'/../../vendor/composer/installed.php';
+            $dbalVersion = $installed['versions']['doctrine/dbal']['version'] ?? '2.0.0';
+            $support = version_compare($dbalVersion, '3.7.0', '>=');
+        }
+
+        return $support;
     }
 }
