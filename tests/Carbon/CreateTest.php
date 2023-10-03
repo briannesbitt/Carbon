@@ -309,6 +309,7 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider \Tests\Carbon\CreateTest::dataForLocales
+     *
      * @group localization
      */
     public function testParseFromLocaleForEachLocale($locale)
