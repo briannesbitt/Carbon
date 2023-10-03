@@ -139,6 +139,7 @@ jobs:
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
+        if: steps.composer-cache.outputs.cache-hit != 'true'
         with:
           timeout_minutes: 10
           max_attempts: 3
