@@ -137,7 +137,8 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 [[Become a sponsor via OpenCollective](https://opencollective.com/Carbon#sponsor)]
 
 <a href="https://github.com/taylorotwell" target="_blank"><img src="https://avatars.githubusercontent.com/u/463230?s=128&v=4" width="64" height="64"></a>
-<a href="https://github.com/usefathom" target="_blank"><img src="https://avatars.githubusercontent.com/u/38684088?s=128&v=4" width="64" height="64"></a>
+<a href="https://github.com/codecov" target="_blank"><img src="https://avatars.githubusercontent.com/u/8226205?s=128&v=4" width="64" height="64"></a>
+<a href="https://github.com/getsentry" target="_blank"><img src="https://avatars.githubusercontent.com/u/1396951?s=128&v=4" width="64" height="64"></a>
 
 [[Become a sponsor via GitHub](https://github.com/sponsors/kylekatarnls)]
 
