@@ -15,6 +15,13 @@ require_once __DIR__.'/vendor/autoload.php';
 
 function getOpenCollectiveSponsors(): string
 {
+    $customSponsorImages = [
+        // For consistency and equity among sponsors, as of now, we kindly ask our sponsors
+        // to provide an image having a width/height ratio between 1/1 and 2/1.
+        // By default, we'll show the member picture from OpenCollective, and will resize it if bigger
+        // int(OpenCollective.MemberId) => ImageURL
+    ];
+
     $members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
     $sixMonthsAgo = CarbonImmutable::parse('now - 6 months')->format('Y-m-d h:i');
 
@@ -68,14 +75,14 @@ function getOpenCollectiveSponsors(): string
             ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated']);
     });
 
-    return implode('', array_map(static function (array $member) {
+    return implode('', array_map(static function (array $member) use ($customSponsorImages) {
         $href = htmlspecialchars($member['website'] ?? $member['profile']);
-        $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
+        $src = $customSponsorImages[$member['MemberId'] ?? ''] ?? $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
         [$x, $y] = @getimagesize($src) ?: [0, 0];
         $validImage = ($x && $y);
         $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
         $height = 64;
-        $width = $validImage ? round($x * $height / $y) : $height;
+        $width = min(128, $validImage ? round($x * $height / $y) : $height);
         $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
         $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
         $alt = htmlspecialchars($member['name']);
