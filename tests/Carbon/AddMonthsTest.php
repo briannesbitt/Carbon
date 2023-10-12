@@ -33,13 +33,19 @@ class AddMonthsTest extends AbstractTestCase
         $this->carbon = $date;
     }
 
-    public static function dataForTestAddMonthNoOverflow(): Generator
+    public static function dataForTestAddMonthNoOverflow(): array
     {
-        yield [-2, 2015, 11, 30];
-        yield [-1, 2015, 12, 31];
-        yield [0, 2016, 1, 31];
-        yield [1, 2016, 2, 29];
-        yield [2, 2016, 3, 31];
+        $values = [
+            [-2, 2015, 11, 30],
+            [-1, 2015, 12, 31],
+            [0, 2016, 1, 31],
+            [1, 2016, 2, 29],
+            [2, 2016, 3, 31],
+        ];
+
+        return array_combine(array_map(static function (array $value) {
+            return $value[1].'-'.$value[2].'-'.$value[3];
+        }, $values), $values);
     }
 
     /**
