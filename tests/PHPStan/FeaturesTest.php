@@ -47,7 +47,7 @@ class FeaturesTest extends AbstractTestCase
     public function testAnalysesWithAnError(): void
     {
         $this->assertStringContainsString(
-            '22     Static call to instance method Carbon\Carbon::foo().',
+            '22    Static call to instance method Carbon\Carbon::foo().',
             $this->analyze(__DIR__.'/bad-project.neon')
         );
     }
