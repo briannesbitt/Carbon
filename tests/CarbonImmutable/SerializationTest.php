@@ -100,7 +100,7 @@ class SerializationTest extends AbstractTestCase
 
             @$reflection->date = '1990-01-17 10:28:07';
             @$reflection->timezone_type = 3;
-            @$reflection->timezone = 'US/Pacific';
+            @$reflection->timezone = 'America/Los_Angeles';
 
             $date = unserialize(serialize($reflection));
         } catch (Throwable $exception) {
@@ -115,7 +115,7 @@ class SerializationTest extends AbstractTestCase
 
         @$reflection->date = '1990-01-17 10:28:07';
         @$reflection->timezone_type = 3;
-        @$reflection->timezone = 'US/Pacific';
+        @$reflection->timezone = 'America/Los_Angeles';
 
         $date = unserialize(serialize($reflection));
 
@@ -143,7 +143,7 @@ class SerializationTest extends AbstractTestCase
 
         $setValue('date', '1990-01-17 10:28:07');
         $setValue('timezone_type', 3);
-        $setValue('timezone', 'US/Pacific');
+        $setValue('timezone', 'America/Los_Angeles');
 
         $date = unserialize(serialize($target));
 
@@ -214,12 +214,12 @@ class SerializationTest extends AbstractTestCase
 
         @$date->date = '1990-01-17 10:28:07';
         @$date->timezone_type = 3;
-        @$date->timezone = 'US/Pacific';
+        @$date->timezone = 'America/Los_Angeles';
         @$date->dumpLocale = 'es';
 
         $date->__wakeup();
 
-        $this->assertSame('1990-01-17 10:28:07 US/Pacific', $date->format('Y-m-d H:i:s e'));
+        $this->assertSame('1990-01-17 10:28:07 America/Los_Angeles', $date->format('Y-m-d H:i:s e'));
         $this->assertSame('es', $date->locale);
     }
 

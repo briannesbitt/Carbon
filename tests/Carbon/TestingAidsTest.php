@@ -245,7 +245,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01T10:20:30-07:00', Carbon::createFromFormat('H:i:s', '10:20:30')->toIso8601String());
 
         // Custom timezone.
-        $this->assertSame('2013-09-01T10:20:00+03:00', Carbon::createFromFormat('H:i e', '10:20 Europe/Kiev')->toIso8601String());
+        $this->assertSame('2013-09-01T10:20:00+03:00', Carbon::createFromFormat('H:i e', '10:20 Europe/Kyiv')->toIso8601String());
         $this->assertSame('2013-09-01T10:20:00+01:00', Carbon::createFromFormat('H:i', '10:20', 'Europe/London')->toIso8601String());
         $this->assertSame('2013-09-01T11:30:00+07:00', Carbon::createFromFormat('H:i:s e', '11:30:00+07:00')->toIso8601String());
         $this->assertSame('2013-09-01T11:30:00+05:00', Carbon::createFromFormat('H:i:s', '11:30:00', '+05:00')->toIso8601String());
@@ -266,17 +266,17 @@ class TestingAidsTest extends AbstractTestCase
 
         // Resetting to epoch (timezone fun).
         $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('|', '')->toIso8601String());
-        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('e|', 'Europe/Kiev')->toIso8601String());
+        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('e|', 'Europe/Kyiv')->toIso8601String());
         $this->assertSame('1970-01-01T00:00:00+01:00', Carbon::createFromFormat('|', '', 'Europe/London')->toIso8601String());
         $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('!', '')->toIso8601String());
-        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('!e', 'Europe/Kiev')->toIso8601String());
+        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('!e', 'Europe/Kyiv')->toIso8601String());
         $this->assertSame('1970-01-01T00:00:00+01:00', Carbon::createFromFormat('!', '', 'Europe/London')->toIso8601String());
-        $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('e!', 'Europe/Kiev')->toIso8601String());
+        $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('e!', 'Europe/Kyiv')->toIso8601String());
 
         // Escaped epoch resets.
         $this->assertSame('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\|', '|')->toIso8601String());
         $this->assertSame('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\!', '!')->toIso8601String());
-        $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', 'Europe/Kiev !')->toIso8601String());
+        $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', 'Europe/Kyiv !')->toIso8601String());
     }
 
     public function testCreateFromPartialFormatWithMicroseconds()

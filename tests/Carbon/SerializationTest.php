@@ -103,7 +103,7 @@ class SerializationTest extends AbstractTestCase
 
             @$reflection->date = '1990-01-17 10:28:07';
             @$reflection->timezone_type = 3;
-            @$reflection->timezone = 'US/Pacific';
+            @$reflection->timezone = 'America/Los_Angeles';
 
             $date = unserialize(serialize($reflection));
         } catch (Throwable $exception) {
@@ -118,7 +118,7 @@ class SerializationTest extends AbstractTestCase
 
         @$reflection->date = '1990-01-17 10:28:07';
         @$reflection->timezone_type = 3;
-        @$reflection->timezone = 'US/Pacific';
+        @$reflection->timezone = 'America/Los_Angeles';
 
         $date = unserialize(serialize($reflection));
 
@@ -146,7 +146,7 @@ class SerializationTest extends AbstractTestCase
 
         $setValue('date', '1990-01-17 10:28:07');
         $setValue('timezone_type', 3);
-        $setValue('timezone', 'US/Pacific');
+        $setValue('timezone', 'America/Los_Angeles');
 
         $date = unserialize(serialize($target));
 
