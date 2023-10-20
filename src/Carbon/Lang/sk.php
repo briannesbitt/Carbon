@@ -46,23 +46,23 @@ $fromNow = function ($time) {
 
 $ago = function ($time) {
     $replacements = [
-        '/(\b|$)hodina(\b|$)/' => 'hodinou',
-        '/(\b|$)minúta(\b|$)/' => 'minútou',
-        '/(\b|$)sekunda(\b|$)/' => 'sekundou',
-        '/(\b|$)deň(\b|$)/' => 'dňom',
-        '/(\b|$)týždeň(\b|$)/' => 'týždňom',
-        '/(\b|$)mesiac(\b|$)/' => 'mesiacom',
-        '/(\b|$)rok(\b|$)/' => 'rokom',
+        '/\bhodina\b/' => 'hodinou',
+        '/\bminúta\b/' => 'minútou',
+        '/\bsekunda\b/' => 'sekundou',
+        '/\bdeň\b/u' => 'dňom',
+        '/\btýždeň\b/u' => 'týždňom',
+        '/\bmesiac\b/' => 'mesiacom',
+        '/\brok\b/' => 'rokom',
     ];
 
     $replacementsPlural = [
-        '/(\b|$)hodiny(\b|$)/' => 'hodinami',
-        '/(\b|$)minúty(\b|$)/' => 'minútami',
-        '/(\b|$)sekundy(\b|$)/' => 'sekundami',
-        '/(\b|$)dni(\b|$)/' => 'dňami',
-        '/(\b|$)týždne(\b|$)/' => 'týždňami',
-        '/(\b|$)mesiace(\b|$)/' => 'mesiacmi',
-        '/(\b|$)roky(\b|$)/' => 'rokmi',
+        '/\bhodiny\b/' => 'hodinami',
+        '/\bminúty\b/' => 'minútami',
+        '/\bsekundy\b/' => 'sekundami',
+        '/\bdni\b/' => 'dňami',
+        '/\btýždne\b/' => 'týždňami',
+        '/\bmesiace\b/' => 'mesiacmi',
+        '/\broky\b/' => 'rokmi',
     ];
 
     foreach ($replacements + $replacementsPlural as $pattern => $replacement) {
