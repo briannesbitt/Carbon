@@ -33,33 +33,87 @@
  * - Marek Adamický
  * - AlterwebStudio
  */
+
+use Carbon\CarbonInterface;
+
+$fromNow = function ($time) {
+    return 'o '.strtr($time, [
+            'hodina' => 'hodinu',
+            'minúta' => 'minútu',
+            'sekunda' => 'sekundu',
+        ]);
+};
+
+$ago = function ($time) {
+    $replacements = [
+        '/\bhodina\b/' => 'hodinou',
+        '/\bminúta\b/' => 'minútou',
+        '/\bsekunda\b/' => 'sekundou',
+        '/\bdeň\b/u' => 'dňom',
+        '/\btýždeň\b/u' => 'týždňom',
+        '/\bmesiac\b/' => 'mesiacom',
+        '/\brok\b/' => 'rokom',
+    ];
+
+    $replacementsPlural = [
+        '/\bhodiny\b/' => 'hodinami',
+        '/\bminúty\b/' => 'minútami',
+        '/\bsekundy\b/' => 'sekundami',
+        '/\bdni\b/' => 'dňami',
+        '/\btýždne\b/' => 'týždňami',
+        '/\bmesiace\b/' => 'mesiacmi',
+        '/\broky\b/' => 'rokmi',
+    ];
+
+    foreach ($replacements + $replacementsPlural as $pattern => $replacement) {
+        $time = preg_replace($pattern, $replacement, $time);
+    }
+
+    return "pred $time";
+};
+
 return [
-    'year' => 'rok|:count roky|:count rokov',
+    'year' => ':count rok|:count roky|:count rokov',
+    'a_year' => 'rok|:count roky|:count rokov',
     'y' => ':count r',
-    'month' => 'mesiac|:count mesiace|:count mesiacov',
+    'month' => ':count mesiac|:count mesiace|:count mesiacov',
+    'a_month' => 'mesiac|:count mesiace|:count mesiacov',
     'm' => ':count m',
-    'week' => 'týždeň|:count týždne|:count týždňov',
+    'week' => ':count týždeň|:count týždne|:count týždňov',
+    'a_week' => 'týždeň|:count týždne|:count týždňov',
     'w' => ':count t',
-    'day' => 'deň|:count dni|:count dní',
+    'day' => ':count deň|:count dni|:count dní',
+    'a_day' => 'deň|:count dni|:count dní',
     'd' => ':count d',
-    'hour' => 'hodinu|:count hodiny|:count hodín',
+    'hour' => ':count hodina|:count hodiny|:count hodín',
+    'a_hour' => 'hodina|:count hodiny|:count hodín',
     'h' => ':count h',
-    'minute' => 'minútu|:count minúty|:count minút',
+    'minute' => ':count minúta|:count minúty|:count minút',
+    'a_minute' => 'minúta|:count minúty|:count minút',
     'min' => ':count min',
-    'second' => 'sekundu|:count sekundy|:count sekúnd',
-    'a_second' => 'pár sekúnd|:count sekundy|:count sekúnd',
+    'second' => ':count sekunda|:count sekundy|:count sekúnd',
+    'a_second' => 'sekunda|:count sekundy|:count sekúnd',
     's' => ':count s',
-    'ago' => 'pred :time',
-    'from_now' => 'o :time',
-    'after' => ':time po',
+    'millisecond' => ':count milisekunda|:count milisekundy|:count milisekúnd',
+    'a_millisecond' => 'milisekunda|:count milisekundy|:count milisekúnd',
+    'ms' => ':count ms',
+    'microsecond' => ':count mikrosekunda|:count mikrosekundy|:count mikrosekúnd',
+    'a_microsecond' => 'mikrosekunda|:count mikrosekundy|:count mikrosekúnd',
+    'µs' => ':count µs',
+
+    'ago' => $ago,
+    'from_now' => $fromNow,
     'before' => ':time pred',
-    'year_ago' => 'rokom|:count rokmi|:count rokmi',
-    'month_ago' => 'mesiacom|:count mesiacmi|:count mesiacmi',
-    'week_ago' => 'týždňom|:count týždňami|:count týždňami',
-    'day_ago' => 'dňom|:count dňami|:count dňami',
-    'hour_ago' => 'hodinou|:count hodinami|:count hodinami',
-    'minute_ago' => 'minútou|:count minútami|:count minútami',
-    'second_ago' => 'sekundou|:count sekundami|:count sekundami',
+    'after' => ':time po',
+
+    'hour_after' => ':count hodinu|:count hodiny|:count hodín',
+    'minute_after' => ':count minútu|:count minúty|:count minút',
+    'second_after' => ':count sekundu|:count sekundy|:count sekúnd',
+
+    'hour_before' => ':count hodinu|:count hodiny|:count hodín',
+    'minute_before' => ':count minútu|:count minúty|:count minút',
+    'second_before' => ':count sekundu|:count sekundy|:count sekúnd',
+
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' a '],
@@ -73,6 +127,24 @@ return [
         'LL' => 'DD. MMMM YYYY',
         'LLL' => 'D. M. HH:mm',
         'LLLL' => 'dddd D. MMMM YYYY HH:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[dnes o] LT',
+        'nextDay' => '[zajtra o] LT',
+        'lastDay' => '[včera o] LT',
+        'nextWeek' => 'dddd [o] LT',
+        'lastWeek' => static function (CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[minulý] dddd [o] LT'; //pondelok/utorok/štvrtok/piatok
+                default:
+                    return '[minulá] dddd [o] LT';
+            }
+        },
+        'sameElse' => 'L',
     ],
     'weekdays' => ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'],
     'weekdays_short' => ['ned', 'pod', 'uto', 'str', 'štv', 'pia', 'sob'],
