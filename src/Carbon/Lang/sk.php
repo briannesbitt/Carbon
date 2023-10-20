@@ -133,11 +133,16 @@ return [
         'nextDay' => '[zajtra o] LT',
         'lastDay' => '[včera o] LT',
         'nextWeek' => 'dddd [o] LT',
-        'lastWeek' => function (CarbonInterface $date) {
-            return match ($date->dayOfWeek) {
-                1, 2, 4, 5 => '[minulý] dddd [o] LT', //pondelok/utorok/štvrtok/piatok
-                default => '[minulá] dddd [o] LT',
-            };
+        'lastWeek' => static function (CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[minulý] dddd [o] LT'; //pondelok/utorok/štvrtok/piatok
+                default:
+                    return '[minulá] dddd [o] LT';
+            }
         },
         'sameElse' => 'L',
     ],
