@@ -543,6 +543,7 @@ trait Date
     use Timestamp;
     use Units;
     use Week;
+    use Minute;
 
     /**
      * Names of days of the week.
@@ -1069,6 +1070,9 @@ trait Date
             case $name === 'locale':
                 return $this->getTranslatorLocale();
 
+            case $name === 'minuteOfDay':
+                return $this->minuteOfDay();
+
             default:
                 $macro = $this->getLocalMacro('get'.ucfirst($name));
 
@@ -1229,6 +1233,10 @@ trait Date
             case 'tz':
                 $this->setTimezone($value);
 
+                break;
+
+            case 'minuteOfDay':
+                $this->minuteOfDay($value);
                 break;
 
             default:
