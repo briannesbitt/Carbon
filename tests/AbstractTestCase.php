@@ -181,6 +181,9 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    /**
+     * @phpstan-assert CarbonInterface $d
+     */
     public function assertInstanceOfCarbon($d)
     {
         $this->assertInstanceOf(CarbonInterface::class, $d);
@@ -229,6 +232,9 @@ abstract class AbstractTestCase extends TestCase
         }
     }
 
+    /**
+     * @phpstan-assert CarbonInterval $d
+     */
     public function assertInstanceOfCarbonInterval($d)
     {
         $this->assertInstanceOf(CarbonInterval::class, $d);
