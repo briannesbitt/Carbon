@@ -27,10 +27,8 @@ class MacroTest extends AbstractTestCase
 {
     protected function tearDown(): void
     {
-        $reflection = new ReflectionClass(static::$periodClass);
-
-        $reflection->getProperty('macros')
-            ->setValue([]);
+        (new ReflectionClass(static::$periodClass))
+            ->setStaticPropertyValue('macros', []);
 
         parent::tearDown();
     }

@@ -109,7 +109,7 @@ class FromStringTest extends AbstractTestCase
         // big numbers
         yield ['1999999999999.5 hours', new CarbonInterval(0, 0, 0, 0, 1999999999999, 30, 0)];
         yield [(0x7fffffffffffffff).' days', new CarbonInterval(0, 0, 0, 0x7fffffffffffffff, 0, 0, 0)];
-        yield ['1999999999999.5 hours -85 minutes', new CarbonInterval(0, 0, 0, 0, 1999999999999, 115, 0)];
+        yield ['1999999999999.5 hours -85 minutes', new CarbonInterval(0, 0, 0, 0, 1999999999999, -55, 0)];
         yield ['2.333 seconds', new CarbonInterval(0, 0, 0, 0, 0, 0, 2, 333000)];
     }
 

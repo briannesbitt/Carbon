@@ -40,10 +40,6 @@ jobs:
           - php: 8.1
             setup: lowest
 
-          - php: 8.1
-            laravel: true
-            reference: 9.x
-
           - php: 8.2
           - php: 8.2
             setup: lowest

@@ -42,9 +42,11 @@ use ReturnTypeWillChange;
 use RuntimeException;
 use Throwable;
 
+// @codeCoverageIgnoreStart
 require PHP_VERSION < 8.2
     ? __DIR__.'/../../lazy/Carbon/ProtectedDatePeriod.php'
     : __DIR__.'/../../lazy/Carbon/UnprotectedDatePeriod.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Substitution of DatePeriod with some modifications and many more features.
