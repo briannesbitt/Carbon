@@ -29,10 +29,8 @@ class MacroTest extends AbstractTestCase
     {
         $reflection = new ReflectionClass(static::$periodClass);
 
-        $macrosProperty = $reflection->getProperty('macros');
-
-        $macrosProperty->setAccessible(true);
-        $macrosProperty->setValue([]);
+        $reflection->getProperty('macros')
+            ->setValue([]);
 
         parent::tearDown();
     }

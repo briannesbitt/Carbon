@@ -188,9 +188,9 @@ class MsBnTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 saat kemudian',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 saat lepas',
+        '1 saat sebelum',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 saat lepas',
+        '1 saat sebelum',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 saat',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

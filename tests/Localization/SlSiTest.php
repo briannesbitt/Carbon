@@ -315,7 +315,7 @@ class SlSiTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
-        'pred 2 meseci',
+        'pred 2 mesecema',
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'

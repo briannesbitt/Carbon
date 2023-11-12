@@ -23,6 +23,7 @@ use Closure;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
+use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
 
 /**
@@ -30,6 +31,8 @@ use Throwable;
  */
 abstract class AbstractTestCase extends TestCase
 {
+    use AssertObjectHasPropertyTrait;
+
     /**
      * @var \Carbon\Carbon
      */
@@ -178,6 +181,9 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    /**
+     * @phpstan-assert CarbonInterface $d
+     */
     public function assertInstanceOfCarbon($d)
     {
         $this->assertInstanceOf(CarbonInterface::class, $d);
@@ -226,6 +232,9 @@ abstract class AbstractTestCase extends TestCase
         }
     }
 
+    /**
+     * @phpstan-assert CarbonInterval $d
+     */
     public function assertInstanceOfCarbonInterval($d)
     {
         $this->assertInstanceOf(CarbonInterval::class, $d);

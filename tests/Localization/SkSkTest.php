@@ -22,63 +22,63 @@ class SkSkTest extends LocalizationTestCase
 
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Tomorrow at 00:00',
+        'zajtra o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sobota at 00:00',
+        'sobota o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'nedeľa at 00:00',
+        'nedeľa o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pondelok at 00:00',
+        'pondelok o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'utorok at 00:00',
+        'utorok o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'streda at 00:00',
+        'streda o 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'štvrtok at 00:00',
+        'štvrtok o 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'piatok at 00:00',
+        'piatok o 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'utorok at 00:00',
+        'utorok o 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'streda at 00:00',
+        'streda o 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'štvrtok at 00:00',
+        'štvrtok o 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'piatok at 00:00',
+        'piatok o 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'sobota at 00:00',
+        'sobota o 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'Last nedeľa at 20:49',
+        'minulá nedeľa o 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 22:00',
+        'včera o 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Today at 10:00',
+        'dnes o 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Today at 02:00',
+        'dnes o 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Tomorrow at 01:00',
+        'zajtra o 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'utorok at 00:00',
+        'utorok o 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Yesterday at 00:00',
+        'včera o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 00:00',
+        'včera o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last utorok at 00:00',
+        'minulý utorok o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last pondelok at 00:00',
+        'minulý pondelok o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last nedeľa at 00:00',
+        'minulá nedeľa o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last sobota at 00:00',
+        'minulá sobota o 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last piatok at 00:00',
+        'minulý piatok o 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Last štvrtok at 00:00',
+        'minulý štvrtok o 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'Last streda at 00:00',
+        'minulá streda o 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Last piatok at 00:00',
+        'minulý piatok o 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -124,7 +124,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'pred sekundou',
+        'pred 1 sekundou',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'pred 1 s',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -132,7 +132,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         'pred 2 s',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'pred minútou',
+        'pred 1 minútou',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'pred 1 min',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -140,7 +140,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         'pred 2 min',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'pred hodinou',
+        'pred 1 hodinou',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         'pred 1 h',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -148,7 +148,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         'pred 2 h',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'pred dňom',
+        'pred 1 dňom',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         'pred 1 d',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -156,7 +156,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'pred 2 d',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'pred týždňom',
+        'pred 1 týždňom',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         'pred 1 t',
         // Carbon::now()->subWeeks(2)->diffForHumans()
@@ -164,7 +164,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         'pred 2 t',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'pred mesiacom',
+        'pred 1 mesiacom',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'pred 1 m',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -172,7 +172,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'pred 2 m',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'pred rokom',
+        'pred 1 rokom',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         'pred 1 r',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -180,19 +180,19 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'pred 2 r',
         // Carbon::now()->addSecond()->diffForHumans()
-        'o sekundu',
+        'o 1 sekundu',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'o 1 s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'sekundu po',
+        '1 sekundu po',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 s po',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'sekundu pred',
+        '1 sekundu pred',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 s pred',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'sekundu',
+        '1 sekunda',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -202,7 +202,7 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'o 1 s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'minútu sekundu',
+        '1 minúta 1 sekunda',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 r 3 m 1 d 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -212,15 +212,15 @@ class SkSkTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         'pred 2 r 3 m 1 d 1 s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'týždeň 10 hodín',
+        '1 týždeň 10 hodín',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'týždeň 6 dní',
+        '1 týždeň 6 dní',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'týždeň 6 dní',
+        '1 týždeň 6 dní',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'o týždeň a 6 dní',
+        'o 1 týždeň a 6 dní',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 týždne hodinu',
+        '2 týždne 1 hodina',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'o hodinu',
         // CarbonInterval::days(2)->forHumans()

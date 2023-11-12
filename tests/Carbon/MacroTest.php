@@ -305,7 +305,11 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $now = Carbon::now();
 
+        $this->assertSame('Monday', $now->copy()->startOfWeek()->dayName);
+
         $copy = $now->copyWithAppTz(false, 'Europe/Paris');
+
+        $this->assertSame('Monday', $copy->copy()->startOfWeek()->dayName);
 
         $this->assertSame('Europe/Paris', $copy->format('e'));
         $this->assertSame('UTC', $now->format('e'));

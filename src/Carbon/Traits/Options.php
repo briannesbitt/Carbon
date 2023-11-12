@@ -401,7 +401,7 @@ trait Options
         foreach ($map as $property => $key) {
             $value = $this->$property ?? null;
 
-            if ($value !== null) {
+            if ($value !== null && ($key !== 'locale' || $value !== 'en' || $this->localTranslator)) {
                 $settings[$key] = $value;
             }
         }
@@ -416,7 +416,7 @@ trait Options
      */
     public function __debugInfo(): array
     {
-        $infos = array_filter(get_object_vars($this), function ($var) {
+        $infos = array_filter(get_object_vars($this), static function ($var) {
             return $var;
         });
 
