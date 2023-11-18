@@ -245,6 +245,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public const END_MAX_ATTEMPTS = 10000;
 
     /**
+     * Default date class of iteration items.
+     *
+     * @var string
+     */
+    protected const DEFAULT_DATE_CLASS = Carbon::class;
+
+    /**
      * The registered macros.
      *
      * @var array
@@ -517,15 +524,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $interval = null;
         $start = null;
         $end = null;
+        $dateClass = static::DEFAULT_DATE_CLASS;
 
         foreach (explode('/', $iso) as $key => $part) {
             if ($key === 0 && preg_match('/^R(\d*|INF)$/', $part, $match)) {
                 $parsed = \strlen($match[1]) ? (($match[1] !== 'INF') ? (int) $match[1] : INF) : null;
             } elseif ($interval === null && $parsed = self::makeInterval($part)) {
                 $interval = $part;
-            } elseif ($start === null && $parsed = Carbon::make($part)) {
+            } elseif ($start === null && $parsed = $dateClass::make($part)) {
                 $start = $part;
-            } elseif ($end === null && $parsed = Carbon::make(static::addMissingParts($start ?? '', $part))) {
+            } elseif ($end === null && $parsed = $dateClass::make(static::addMissingParts($start ?? '', $part))) {
                 $end = $part;
             } else {
                 throw new InvalidPeriodParameterException("Invalid ISO 8601 specification: $iso.");
@@ -735,7 +743,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         if ($this->startDate === null) {
-            $this->setStartDate(Carbon::now());
+            $dateClass = $this->dateClass;
+            $this->setStartDate($dateClass::now());
         }
 
         if ($this->dateInterval === null) {
@@ -1862,7 +1871,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 )(...$parameters));
         }
 
-        if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
+        $dateClass = $this->dateClass;
+
+        if ($this->localStrictModeEnabled ?? $dateClass::isStrictModeEnabled()) {
             throw new UnknownMethodException($method);
         }
 
@@ -2724,7 +2735,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 !preg_match('/^R\d/', $value) &&
                 preg_match('/[a-z\d]/i', $value)
             ) {
-                return Carbon::parse($value, $this->tzName);
+                $dateClass = $this->dateClass;
+
+                return $dateClass::parse($value, $this->tzName);
             }
         }
 
