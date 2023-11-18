@@ -34,10 +34,6 @@ parameters:
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
         - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(DateTimeImmutable\|false\)\.$#'
         -
-            message: '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
-            paths:
-                - src/Carbon/Traits/Localization.php
-        -
             message: '#^Undefined variable: \$this$#'
             paths:
                 - src/Carbon/Traits/Mixin.php

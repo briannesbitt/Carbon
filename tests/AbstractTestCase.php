@@ -319,7 +319,6 @@ abstract class AbstractTestCase extends TestCase
 
         if ($aliases === null) {
             $property = new ReflectionProperty(Translator::class, 'aliases');
-            $property->setAccessible(true);
             $aliases = $property->getValue(Translator::get());
         }
 

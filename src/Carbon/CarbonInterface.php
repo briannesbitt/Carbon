@@ -3693,10 +3693,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
      *
      * @param string $locale locale ex. en
-     *
-     * @return bool
      */
-    public static function setLocale(string $locale): bool;
+    public static function setLocale(string $locale): void;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.

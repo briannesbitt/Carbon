@@ -465,15 +465,13 @@ trait Localization
 
     /**
      * Set the current translator locale and indicate if the source locale file exists.
-     * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
+     * Pass 'auto' as locale to use the closest language to the current LC_TIME locale.
      *
      * @param string $locale locale ex. en
-     *
-     * @return bool
      */
-    public static function setLocale(string $locale): bool
+    public static function setLocale(string $locale): void
     {
-        return static::getLocaleAwareTranslator()->setLocale($locale) !== false;
+        static::getLocaleAwareTranslator()->setLocale($locale);
     }
 
     /**
@@ -531,7 +529,14 @@ trait Localization
     public static function executeWithLocale($locale, $func)
     {
         $currentLocale = static::getLocale();
-        $result = $func(static::setLocale($locale) ? static::getLocale() : false, static::translator());
+        static::setLocale($locale);
+        $newLocale = static::getLocale();
+        $result = $func(
+            $newLocale === 'en' && strtolower(substr((string) $locale, 0, 2)) !== 'en'
+                ? false
+                : $newLocale,
+            static::translator(),
+        );
         static::setLocale($currentLocale);
 
         return $result;

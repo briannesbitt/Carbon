@@ -302,10 +302,8 @@ abstract class AbstractTranslator extends Translation\Translator
      * Set the current translator locale and indicate if the source locale file exists
      *
      * @param string $locale locale ex. en
-     *
-     * @return bool
      */
-    public function setLocale($locale)
+    public function setLocale($locale): void
     {
         $locale = preg_replace_callback('/[-_]([a-z]{2,}|\d{2,})/', function ($matches) {
             // _2-letters or YUE is a region, _3+-letters is a variant
@@ -321,7 +319,7 @@ abstract class AbstractTranslator extends Translation\Translator
         $previousLocale = $this->getLocale();
 
         if ($previousLocale === $locale && isset($this->messages[$locale])) {
-            return true;
+            return;
         }
 
         unset(static::$singletons[$previousLocale]);
@@ -356,12 +354,10 @@ abstract class AbstractTranslator extends Translation\Translator
         }
 
         if (!$this->loadMessagesFromFile($locale) && !$this->initializing) {
-            return false;
+            return;
         }
 
         parent::setLocale($locale);
-
-        return true;
     }
 
     /**
