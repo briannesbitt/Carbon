@@ -105,6 +105,12 @@ class FromStringTest extends AbstractTestCase
 
         // case insensitive
         yield ['1Y 3MO 1W 3D 12H 23M 42S', new CarbonInterval(1, 3, 1, 3, 12, 23, 42)];
+
+        // big numbers
+        yield ['1999999999999.5 hours', new CarbonInterval(0, 0, 0, 0, 1999999999999, 30, 0)];
+        yield [(0x7fffffffffffffff).' days', new CarbonInterval(0, 0, 0, 0x7fffffffffffffff, 0, 0, 0)];
+        yield ['1999999999999.5 hours -85 minutes', new CarbonInterval(0, 0, 0, 0, 1999999999999, -55, 0)];
+        yield ['2.333 seconds', new CarbonInterval(0, 0, 0, 0, 0, 0, 2, 333000)];
     }
 
     /**

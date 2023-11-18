@@ -17,13 +17,18 @@ use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\Exceptions\InvalidFormatException;
+use Carbon\Exceptions\OutOfRangeException;
 use DateInterval;
+use Exception;
 use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
 {
     public function testInheritedConstruct()
     {
+        /** @phpstan-var CarbonInterval $ci */
+        $ci = CarbonInterval::createFromDateString('1 hour');
+        $this->assertSame('PT1H', $ci->spec());
         $ci = new CarbonInterval('PT0S');
         $this->assertInstanceOf(CarbonInterval::class, $ci);
         $this->assertInstanceOf(DateInterval::class, $ci);
@@ -34,6 +39,14 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame('PT0S', $ci->spec());
         $ci = CarbonInterval::create('P1Y2M3D');
         $this->assertSame('P1Y2M3D', $ci->spec());
+        $ci = CarbonInterval::create('P1Y2M3.0D');
+        $this->assertSame('P1Y2M3D', $ci->spec());
+        $ci = CarbonInterval::create('PT9.5H+85M');
+        $this->assertSame('PT9H115M', $ci->spec());
+        $ci = CarbonInterval::create('PT9H+85M');
+        $this->assertSame('PT9H85M', $ci->spec());
+        $ci = CarbonInterval::create('PT1999999999999.5H+85M');
+        $this->assertSame('PT1999999999999H115M', $ci->spec());
     }
 
     public function testConstructWithDateInterval()
@@ -316,6 +329,25 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(30.0, CarbonInterval::make('3 decades')->totalYears);
         $this->assertSame(300.0, CarbonInterval::make('3 centuries')->totalYears);
         $this->assertSame(3000.0, CarbonInterval::make('3 millennia')->totalYears);
+    }
+
+    public function testBadFormats()
+    {
+        $this->expectExceptionObject(new Exception('PT1999999999999.5.5H+85M'));
+
+        CarbonInterval::create('PT1999999999999.5.5H+85M');
+    }
+
+    public function testOutOfRange()
+    {
+        $this->expectExceptionObject(new OutOfRangeException(
+            'hour',
+            -0x7fffffffffffffff,
+            0x7fffffffffffffff,
+            999999999999999999999999
+        ));
+
+        CarbonInterval::create('PT999999999999999999999999H');
     }
 
     public function testCallInvalidStaticMethod()

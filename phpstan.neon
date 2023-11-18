@@ -23,21 +23,16 @@ parameters:
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis|toAppTz|copyWithAppTz)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\CarbonInterval::(multiply|andAgain|copyAndAgain)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\CarbonPeriod::(oneMoreDay|copyOneMoreDay|endNextDay)\(\)\.$#'
-        - '#^Call to an undefined method DateTimeInterface::setTimezone\(\)\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\Carbon\)(\|null)? but returns Carbon\\Carbon(Interface)?(\|null)?\.$#'
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\)(\|null)? but returns Carbon\\Carbon(Immutable|Interface)(\|null)?\.$#'
-        - '#should return (\S*)(static|\$this)\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
-        - '#should return (\S*)\$this\(Carbon\\CarbonInterval\) but returns static\(Carbon\\CarbonInterval\)\.$#'
+        - '#should return (\S*)\$this\(Carbon\\CarbonInterval\)(\|null)? but returns static\(Carbon\\CarbonInterval\)(\|null)?\.$#'
+        - '#should return (\S*)static\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
         - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
         - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
         - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(DateTimeImmutable\|false\)\.$#'
-        -
-            message: '#^Result of method Symfony\\Contracts\\Translation\\LocaleAwareInterface::setLocale\(\) \(void\) is used\.$#'
-            paths:
-                - src/Carbon/Traits/Localization.php
         -
             message: '#^Undefined variable: \$this$#'
             paths:
@@ -77,3 +72,4 @@ parameters:
         - '*/tests/CarbonPeriod/Fixtures/filters.php'
         - '*/tests/Fixtures/dynamicInterval.php'
         - '*/tests/PHPStan/*.php'
+        - '*/tests/PHPUnit/AssertObjectHasPropertyPolyfillTrait.php'

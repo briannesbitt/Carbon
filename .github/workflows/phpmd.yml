@@ -1,4 +1,4 @@
-name: Linting
+name: PHPMD
 
 on: [ pull_request, push ]
 
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

@@ -318,7 +318,7 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testSetLocale(string $locale)
     {
-        $this->assertTrue(Carbon::setLocale($locale));
+        Carbon::setLocale($locale);
         $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
     }
 
@@ -341,7 +341,8 @@ class LocalizationTest extends AbstractTestCase
 
     public function testSetLocaleWithKnownLocale()
     {
-        $this->assertTrue(Carbon::setLocale('fr'));
+        Carbon::setLocale('fr');
+        $this->assertSame('fr', Carbon::getLocale());
     }
 
     /**
@@ -366,17 +367,27 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testSetLocaleWithMalformedLocale(string $malformedLocale)
     {
-        $this->assertTrue(Carbon::setLocale($malformedLocale));
+        Carbon::setLocale($malformedLocale);
+        $split = preg_split('/[-_]/', $malformedLocale);
+
+        $this->assertSame(
+            strtolower($split[0]).(\count($split) === 1 ? '' : '_'.strtoupper($split[1])),
+            Carbon::getLocale(),
+        );
     }
 
     public function testSetLocaleWithNonExistingLocale()
     {
-        $this->assertFalse(Carbon::setLocale('pt-XX'));
+        Carbon::setLocale('pt-XX');
+
+        $this->assertSame('pt', Carbon::getLocale());
     }
 
     public function testSetLocaleWithUnknownLocale()
     {
-        $this->assertFalse(Carbon::setLocale('zz'));
+        Carbon::setLocale('zz');
+
+        $this->assertSame('en', Carbon::getLocale());
     }
 
     public function testCustomTranslation()
@@ -404,7 +415,8 @@ class LocalizationTest extends AbstractTestCase
             'day' => '1 boring day|%count% boring days',
         ];
 
-        $this->assertTrue(Carbon::setLocale('en'));
+        Carbon::setLocale('en');
+        $this->assertSame('en', Carbon::getLocale());
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
         $translator->setMessages('en', $enBoring);
@@ -431,7 +443,8 @@ class LocalizationTest extends AbstractTestCase
         $this->assertArrayHasKey('en_Boring', $messages);
         $this->assertSame($enBoring, $messages['en_Boring']);
 
-        $this->assertTrue(Carbon::setLocale('en_Boring'));
+        Carbon::setLocale('en_Boring');
+        $this->assertSame('en_Boring', Carbon::getLocale());
 
         $diff = Carbon::create(2018, 1, 1, 0, 0, 0)
             ->diffForHumans(Carbon::create(2018, 1, 4, 4, 0, 0), true, false, 2);
@@ -443,12 +456,13 @@ class LocalizationTest extends AbstractTestCase
 
         $this->assertSame([], $translator->getMessages());
 
-        $this->assertTrue(Carbon::setLocale('en'));
+        Carbon::setLocale('en');
+        $this->assertSame('en', Carbon::getLocale());
     }
 
     public function testCustomWeekStart()
     {
-        $this->assertTrue(Carbon::setLocale('ru'));
+        Carbon::setLocale('ru');
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -473,7 +487,7 @@ class LocalizationTest extends AbstractTestCase
 
         $translator->resetMessages('ru');
 
-        $this->assertTrue(Carbon::setLocale('en'));
+        Carbon::setLocale('en');
     }
 
     public function testAddAndRemoveDirectory()
@@ -487,24 +501,24 @@ class LocalizationTest extends AbstractTestCase
         $translator = Carbon::getTranslator();
         Carbon::setLocale('en');
 
-        $this->assertFalse(Carbon::setLocale('foo'));
+        Carbon::setLocale('foo');
         $this->assertSame('Saturday', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
         $translator->addDirectory($directory);
 
-        $this->assertTrue(Carbon::setLocale('foo'));
+        Carbon::setLocale('foo');
         $this->assertSame('samedi', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
         Carbon::setLocale('en');
         $translator->removeDirectory($directory);
 
-        $this->assertFalse(Carbon::setLocale('bar'));
+        Carbon::setLocale('bar');
         $this->assertSame('Saturday', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
-        $this->assertTrue(Carbon::setLocale('foo'));
+        Carbon::setLocale('foo');
         $this->assertSame('samedi', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
-        $this->assertTrue(Carbon::setLocale('en'));
+        Carbon::setLocale('en');
     }
 
     public function testLocaleHasShortUnits()

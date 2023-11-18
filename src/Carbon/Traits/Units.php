@@ -217,7 +217,7 @@ trait Units
     public function add($unit, $value = 1, ?bool $overflow = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
-            $unit = CarbonInterval::make($unit);
+            $unit = CarbonInterval::make($unit, [], true);
         }
 
         if ($unit instanceof CarbonConverterInterface) {
@@ -374,7 +374,7 @@ trait Units
     public function sub($unit, $value = 1, ?bool $overflow = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
-            $unit = CarbonInterval::make($unit);
+            $unit = CarbonInterval::make($unit, [], true);
         }
 
         if ($unit instanceof CarbonConverterInterface) {
@@ -410,7 +410,7 @@ trait Units
     public function subtract($unit, $value = 1, ?bool $overflow = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
-            $unit = CarbonInterval::make($unit);
+            $unit = CarbonInterval::make($unit, [], true);
         }
 
         return $this->sub($unit, $value, $overflow);

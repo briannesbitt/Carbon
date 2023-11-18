@@ -516,6 +516,8 @@ use Throwable;
  * @method        string           longRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  *
  * </autodoc>
+ *
+ * @codeCoverageIgnore
  */
 interface CarbonInterface extends DateTimeInterface, JsonSerializable
 {
@@ -3691,10 +3693,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
      *
      * @param string $locale locale ex. en
-     *
-     * @return bool
      */
-    public static function setLocale(string $locale): bool;
+    public static function setLocale(string $locale): void;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4928,8 +4928,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param DateTimeInterface|Closure|static|string|false|null $testNow  real or mock Carbon instance
      * @param Closure(): T                                       $callback
      *
-     * @return mixed
-     * @phpstan-return T
+     * @return T
      */
     public static function withTestNow($testNow, $callback);
 
