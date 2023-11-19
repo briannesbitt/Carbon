@@ -18,6 +18,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
 use Carbon\Translator;
 use Closure;
 use DateTime;
@@ -326,5 +327,20 @@ abstract class AbstractTestCase extends TestCase
         $b = $aliases[$b] ?? $b;
 
         return $a === $b;
+    }
+
+    protected function firstValidTimezoneAmong(array $timezones): CarbonTimeZone
+    {
+        $firstError = null;
+
+        foreach ($timezones as $timezone) {
+            try {
+                return new CarbonTimeZone($timezone);
+            } catch (Throwable $exception) {
+                $firstError = $firstError ?? $exception;
+            }
+        }
+
+        throw $firstError;
     }
 }

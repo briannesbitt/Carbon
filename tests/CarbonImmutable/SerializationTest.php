@@ -95,12 +95,14 @@ class SerializationTest extends AbstractTestCase
 
     public function testDateSerializationReflectionCompatibility()
     {
+        $tz = $this->firstValidTimezoneAmong(['America/Los_Angeles', 'US/Pacific'])->getName();
+
         try {
             $reflection = (new ReflectionClass(DateTimeImmutable::class))->newInstanceWithoutConstructor();
 
             @$reflection->date = '1990-01-17 10:28:07';
             @$reflection->timezone_type = 3;
-            @$reflection->timezone = 'US/Pacific';
+            @$reflection->timezone = $tz;
 
             $date = unserialize(serialize($reflection));
         } catch (Throwable $exception) {
@@ -115,7 +117,7 @@ class SerializationTest extends AbstractTestCase
 
         @$reflection->date = '1990-01-17 10:28:07';
         @$reflection->timezone_type = 3;
-        @$reflection->timezone = 'US/Pacific';
+        @$reflection->timezone = $tz;
 
         $date = unserialize(serialize($reflection));
 
@@ -143,7 +145,7 @@ class SerializationTest extends AbstractTestCase
 
         $setValue('date', '1990-01-17 10:28:07');
         $setValue('timezone_type', 3);
-        $setValue('timezone', 'US/Pacific');
+        $setValue('timezone', $tz);
 
         $date = unserialize(serialize($target));
 
@@ -209,17 +211,19 @@ class SerializationTest extends AbstractTestCase
 
     public function testWakeupRawMethod(): void
     {
+        $tz = $this->firstValidTimezoneAmong(['America/Los_Angeles', 'US/Pacific'])->getName();
+
         /** @var Carbon $date */
         $date = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
 
         @$date->date = '1990-01-17 10:28:07';
         @$date->timezone_type = 3;
-        @$date->timezone = 'US/Pacific';
+        @$date->timezone = $tz;
         @$date->dumpLocale = 'es';
 
         $date->__wakeup();
 
-        $this->assertSame('1990-01-17 10:28:07 US/Pacific', $date->format('Y-m-d H:i:s e'));
+        $this->assertSame('1990-01-17 10:28:07 '.$tz, $date->format('Y-m-d H:i:s e'));
         $this->assertSame('es', $date->locale);
     }
 
