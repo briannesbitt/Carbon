@@ -590,6 +590,39 @@ foreach ($tags as $tag) {
     }
 }
 
+$units = ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'quarters', 'years', 'decades', 'centuries', 'millennia'];
+$unitOfUnit = [
+    'dayOfYear' => false,
+    'weeksInYear' => false,
+];
+
+foreach ($units as $small) {
+    array_shift($units);
+
+    foreach ($units as $big) {
+        $singularSmall = Carbon::singularUnit($small);
+        $singularBig = Carbon::singularUnit($big);
+        $name = $singularSmall.'Of'.ucfirst($singularBig);
+        $unitOfUnit[$name] ??= [
+            '@method',
+            'int|static',
+            $name.'(?int $'.$singularSmall.' = null)',
+            'Return the value of the '.$singularSmall.' starting from the beginning of the current '.$singularBig.' when called with no parameters, change the current '.$singularSmall.' when called with an integer value',
+        ];
+        $name = $small.'In'.ucfirst($singularBig);
+        $unitOfUnit[$name] ??= [
+            '@method',
+            'int',
+            $name.'()',
+            'Return the number of '.$small.' contained in the current '.$singularBig,
+        ];
+    }
+}
+
+ksort($unitOfUnit);
+
+array_push($autoDocLines, ...array_values(array_filter($unitOfUnit)));
+
 $fileTemplate = <<<EOF
 <?php
 

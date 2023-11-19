@@ -473,6 +473,7 @@ class GettersTest extends AbstractTestCase
     public function testUnitOfUnitMethod()
     {
         $date = Carbon::createFromDate(2018, 7, 6);
+
         $this->assertSame(6, $date->dayOfQuarter());
 
         $date = Carbon::createFromDate(2018, 8, 6);

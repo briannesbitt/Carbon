@@ -42,7 +42,7 @@ parameters:
             paths:
                 - src/Carbon/Traits/Mixin.php
         -
-            message: '#^Call to an undefined method Carbon\\Carbon::\[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
+            message: '#^Call to an undefined method Carbon\\Carbon::[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
             paths:
                 - tests/Carbon/SettersTest.php
         -
@@ -50,7 +50,7 @@ parameters:
             paths:
                 - tests/CarbonImmutable/GettersTest.php
         -
-            message: '#^Call to an undefined method Carbon\\CarbonImmutable::\[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
+            message: '#^Call to an undefined method Carbon\\CarbonImmutable::[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
             paths:
                 - tests/CarbonImmutable/GettersTest.php
         -
