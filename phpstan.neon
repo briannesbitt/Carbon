@@ -42,6 +42,10 @@ parameters:
             paths:
                 - src/Carbon/Traits/Mixin.php
         -
+            message: '#^Access to an undefined property Carbon\\CarbonImmutable::\$[a-zA-Z]+\.$#'
+            paths:
+                - tests/CarbonImmutable/GettersTest.php
+        -
             message: '#^Cannot access property \$locale on Carbon\\CarbonPeriod\|string\.$#'
             paths:
                 - tests/CarbonPeriod/GettersTest.php

@@ -164,6 +164,7 @@ function dumpParameter(string $method, ReflectionParameter $parameter): string
 }
 
 $deprecated = [];
+$unitOfUnit = [];
 
 foreach ($tags as $tag) {
     if (\is_array($tag)) {
@@ -518,12 +519,57 @@ foreach ($tags as $tag) {
             continue;
         }
 
+        if (
+            \in_array($tag, ['property', 'property-read'], true) &&
+            preg_match('/^([a-z]{2,})(In|Of)([A-Z][a-z]+)$/', $vars->name)
+        ) {
+            $unitOfUnit[$vars->name] = [
+                '@'.$tag,
+                $vars->type,
+                '$'.$variable,
+                $description ?: '',
+            ];
+
+            continue;
+        }
+
         $autoDocLines[] = [
             '@'.$tag,
             $vars->type,
             '$'.$variable,
             $description ?: '',
         ];
+    }
+
+    if ($tag === 'property-read') {
+        $units = ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'quarters', 'years', 'decades', 'centuries', 'millennia'];
+
+        foreach ($units as $small) {
+            array_shift($units);
+
+            foreach ($units as $big) {
+                $singularSmall = Carbon::singularUnit($small);
+                $singularBig = Carbon::singularUnit($big);
+                $name = $singularSmall.'Of'.ucfirst($singularBig);
+                $unitOfUnit[$name] ??= [
+                    '@property',
+                    'int',
+                    '$'.$name,
+                    'The value of the '.$singularSmall.' starting from the beginning of the current '.$singularBig,
+                ];
+                $name = $small.'In'.ucfirst($singularBig);
+                $unitOfUnit[$name] ??= [
+                    '@property',
+                    'int',
+                    '$'.$name,
+                    'The number of '.$small.' contained in the current '.$singularBig,
+                ];
+            }
+        }
+
+        ksort($unitOfUnit);
+
+        array_push($autoDocLines, ...array_values($unitOfUnit));
     }
 }
 

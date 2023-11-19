@@ -66,17 +66,13 @@ use Throwable;
  * @property      int              $isoWeek                                                                           1 through 53
  * @property      int              $weekYear                                                                          year according to week format
  * @property      int              $isoWeekYear                                                                       year according to ISO week format
- * @property      int              $dayOfYear                                                                         1 through 366
  * @property      int              $age                                                                               does a diffInYears() with default parameters
  * @property      int              $offset                                                                            the timezone offset in seconds from UTC
  * @property      int              $offsetMinutes                                                                     the timezone offset in minutes from UTC
  * @property      int              $offsetHours                                                                       the timezone offset in hours from UTC
  * @property      CarbonTimeZone   $timezone                                                                          the current timezone
  * @property      CarbonTimeZone   $tz                                                                                alias of $timezone
- * @property-read int              $dayOfWeek                                                                         0 (for Sunday) through 6 (for Saturday)
  * @property-read int              $dayOfWeekIso                                                                      1 (for Monday) through 7 (for Sunday)
- * @property-read int              $weekOfYear                                                                        ISO-8601 week number of year, weeks starting on Monday
- * @property-read int              $daysInMonth                                                                       number of days in the given month
  * @property-read string           $latinMeridiem                                                                     "am"/"pm" (Ante meridiem or Post meridiem latin lowercase mark)
  * @property-read string           $latinUpperMeridiem                                                                "AM"/"PM" (Ante meridiem or Post meridiem latin uppercase mark)
  * @property-read string           $timezoneAbbreviatedName                                                           the current timezone abbreviated name
@@ -89,13 +85,10 @@ use Throwable;
  * @property-read string           $meridiem                                                                          lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
  * @property-read string           $upperMeridiem                                                                     uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
  * @property-read int              $noZeroHour                                                                        current hour from 1 to 24
- * @property-read int              $weeksInYear                                                                       51 through 53
  * @property-read int              $isoWeeksInYear                                                                    51 through 53
- * @property-read int              $weekOfMonth                                                                       1 through 5
  * @property-read int              $weekNumberInMonth                                                                 1 through 5
  * @property-read int              $firstWeekDay                                                                      0 through 6
  * @property-read int              $lastWeekDay                                                                       0 through 6
- * @property-read int              $daysInYear                                                                        365 or 366
  * @property-read int              $quarter                                                                           the quarter of this instance, 1 - 4
  * @property-read int              $decade                                                                            the decade of this instance
  * @property-read int              $century                                                                           the century of this instance
@@ -106,6 +99,162 @@ use Throwable;
  * @property-read string           $timezoneName                                                                      the current timezone name
  * @property-read string           $tzName                                                                            alias of $timezoneName
  * @property-read string           $locale                                                                            locale of the current instance
+ * @property      int              $centuriesInMillennium                                                             The number of centuries contained in the current millennium
+ * @property      int              $centuryOfMillennium                                                               The value of the century starting from the beginning of the current millennium
+ * @property      int              $dayOfCentury                                                                      The value of the day starting from the beginning of the current century
+ * @property      int              $dayOfDecade                                                                       The value of the day starting from the beginning of the current decade
+ * @property      int              $dayOfMillennium                                                                   The value of the day starting from the beginning of the current millennium
+ * @property      int              $dayOfMonth                                                                        The value of the day starting from the beginning of the current month
+ * @property      int              $dayOfQuarter                                                                      The value of the day starting from the beginning of the current quarter
+ * @property-read int              $dayOfWeek                                                                         0 (for Sunday) through 6 (for Saturday)
+ * @property      int              $dayOfYear                                                                         1 through 366
+ * @property      int              $daysInCentury                                                                     The number of days contained in the current century
+ * @property      int              $daysInDecade                                                                      The number of days contained in the current decade
+ * @property      int              $daysInMillennium                                                                  The number of days contained in the current millennium
+ * @property-read int              $daysInMonth                                                                       number of days in the given month
+ * @property      int              $daysInQuarter                                                                     The number of days contained in the current quarter
+ * @property      int              $daysInWeek                                                                        The number of days contained in the current week
+ * @property-read int              $daysInYear                                                                        365 or 366
+ * @property      int              $decadeOfCentury                                                                   The value of the decade starting from the beginning of the current century
+ * @property      int              $decadeOfMillennium                                                                The value of the decade starting from the beginning of the current millennium
+ * @property      int              $decadesInCentury                                                                  The number of decades contained in the current century
+ * @property      int              $decadesInMillennium                                                               The number of decades contained in the current millennium
+ * @property      int              $hourOfCentury                                                                     The value of the hour starting from the beginning of the current century
+ * @property      int              $hourOfDay                                                                         The value of the hour starting from the beginning of the current day
+ * @property      int              $hourOfDecade                                                                      The value of the hour starting from the beginning of the current decade
+ * @property      int              $hourOfMillennium                                                                  The value of the hour starting from the beginning of the current millennium
+ * @property      int              $hourOfMonth                                                                       The value of the hour starting from the beginning of the current month
+ * @property      int              $hourOfQuarter                                                                     The value of the hour starting from the beginning of the current quarter
+ * @property      int              $hourOfWeek                                                                        The value of the hour starting from the beginning of the current week
+ * @property      int              $hourOfYear                                                                        The value of the hour starting from the beginning of the current year
+ * @property      int              $hoursInCentury                                                                    The number of hours contained in the current century
+ * @property      int              $hoursInDay                                                                        The number of hours contained in the current day
+ * @property      int              $hoursInDecade                                                                     The number of hours contained in the current decade
+ * @property      int              $hoursInMillennium                                                                 The number of hours contained in the current millennium
+ * @property      int              $hoursInMonth                                                                      The number of hours contained in the current month
+ * @property      int              $hoursInQuarter                                                                    The number of hours contained in the current quarter
+ * @property      int              $hoursInWeek                                                                       The number of hours contained in the current week
+ * @property      int              $hoursInYear                                                                       The number of hours contained in the current year
+ * @property      int              $microsecondOfCentury                                                              The value of the microsecond starting from the beginning of the current century
+ * @property      int              $microsecondOfDay                                                                  The value of the microsecond starting from the beginning of the current day
+ * @property      int              $microsecondOfDecade                                                               The value of the microsecond starting from the beginning of the current decade
+ * @property      int              $microsecondOfHour                                                                 The value of the microsecond starting from the beginning of the current hour
+ * @property      int              $microsecondOfMillennium                                                           The value of the microsecond starting from the beginning of the current millennium
+ * @property      int              $microsecondOfMillisecond                                                          The value of the microsecond starting from the beginning of the current millisecond
+ * @property      int              $microsecondOfMinute                                                               The value of the microsecond starting from the beginning of the current minute
+ * @property      int              $microsecondOfMonth                                                                The value of the microsecond starting from the beginning of the current month
+ * @property      int              $microsecondOfQuarter                                                              The value of the microsecond starting from the beginning of the current quarter
+ * @property      int              $microsecondOfSecond                                                               The value of the microsecond starting from the beginning of the current second
+ * @property      int              $microsecondOfWeek                                                                 The value of the microsecond starting from the beginning of the current week
+ * @property      int              $microsecondOfYear                                                                 The value of the microsecond starting from the beginning of the current year
+ * @property      int              $microsecondsInCentury                                                             The number of microseconds contained in the current century
+ * @property      int              $microsecondsInDay                                                                 The number of microseconds contained in the current day
+ * @property      int              $microsecondsInDecade                                                              The number of microseconds contained in the current decade
+ * @property      int              $microsecondsInHour                                                                The number of microseconds contained in the current hour
+ * @property      int              $microsecondsInMillennium                                                          The number of microseconds contained in the current millennium
+ * @property      int              $microsecondsInMillisecond                                                         The number of microseconds contained in the current millisecond
+ * @property      int              $microsecondsInMinute                                                              The number of microseconds contained in the current minute
+ * @property      int              $microsecondsInMonth                                                               The number of microseconds contained in the current month
+ * @property      int              $microsecondsInQuarter                                                             The number of microseconds contained in the current quarter
+ * @property      int              $microsecondsInSecond                                                              The number of microseconds contained in the current second
+ * @property      int              $microsecondsInWeek                                                                The number of microseconds contained in the current week
+ * @property      int              $microsecondsInYear                                                                The number of microseconds contained in the current year
+ * @property      int              $millisecondOfCentury                                                              The value of the millisecond starting from the beginning of the current century
+ * @property      int              $millisecondOfDay                                                                  The value of the millisecond starting from the beginning of the current day
+ * @property      int              $millisecondOfDecade                                                               The value of the millisecond starting from the beginning of the current decade
+ * @property      int              $millisecondOfHour                                                                 The value of the millisecond starting from the beginning of the current hour
+ * @property      int              $millisecondOfMillennium                                                           The value of the millisecond starting from the beginning of the current millennium
+ * @property      int              $millisecondOfMinute                                                               The value of the millisecond starting from the beginning of the current minute
+ * @property      int              $millisecondOfMonth                                                                The value of the millisecond starting from the beginning of the current month
+ * @property      int              $millisecondOfQuarter                                                              The value of the millisecond starting from the beginning of the current quarter
+ * @property      int              $millisecondOfSecond                                                               The value of the millisecond starting from the beginning of the current second
+ * @property      int              $millisecondOfWeek                                                                 The value of the millisecond starting from the beginning of the current week
+ * @property      int              $millisecondOfYear                                                                 The value of the millisecond starting from the beginning of the current year
+ * @property      int              $millisecondsInCentury                                                             The number of milliseconds contained in the current century
+ * @property      int              $millisecondsInDay                                                                 The number of milliseconds contained in the current day
+ * @property      int              $millisecondsInDecade                                                              The number of milliseconds contained in the current decade
+ * @property      int              $millisecondsInHour                                                                The number of milliseconds contained in the current hour
+ * @property      int              $millisecondsInMillennium                                                          The number of milliseconds contained in the current millennium
+ * @property      int              $millisecondsInMinute                                                              The number of milliseconds contained in the current minute
+ * @property      int              $millisecondsInMonth                                                               The number of milliseconds contained in the current month
+ * @property      int              $millisecondsInQuarter                                                             The number of milliseconds contained in the current quarter
+ * @property      int              $millisecondsInSecond                                                              The number of milliseconds contained in the current second
+ * @property      int              $millisecondsInWeek                                                                The number of milliseconds contained in the current week
+ * @property      int              $millisecondsInYear                                                                The number of milliseconds contained in the current year
+ * @property      int              $minuteOfCentury                                                                   The value of the minute starting from the beginning of the current century
+ * @property      int              $minuteOfDay                                                                       The value of the minute starting from the beginning of the current day
+ * @property      int              $minuteOfDecade                                                                    The value of the minute starting from the beginning of the current decade
+ * @property      int              $minuteOfHour                                                                      The value of the minute starting from the beginning of the current hour
+ * @property      int              $minuteOfMillennium                                                                The value of the minute starting from the beginning of the current millennium
+ * @property      int              $minuteOfMonth                                                                     The value of the minute starting from the beginning of the current month
+ * @property      int              $minuteOfQuarter                                                                   The value of the minute starting from the beginning of the current quarter
+ * @property      int              $minuteOfWeek                                                                      The value of the minute starting from the beginning of the current week
+ * @property      int              $minuteOfYear                                                                      The value of the minute starting from the beginning of the current year
+ * @property      int              $minutesInCentury                                                                  The number of minutes contained in the current century
+ * @property      int              $minutesInDay                                                                      The number of minutes contained in the current day
+ * @property      int              $minutesInDecade                                                                   The number of minutes contained in the current decade
+ * @property      int              $minutesInHour                                                                     The number of minutes contained in the current hour
+ * @property      int              $minutesInMillennium                                                               The number of minutes contained in the current millennium
+ * @property      int              $minutesInMonth                                                                    The number of minutes contained in the current month
+ * @property      int              $minutesInQuarter                                                                  The number of minutes contained in the current quarter
+ * @property      int              $minutesInWeek                                                                     The number of minutes contained in the current week
+ * @property      int              $minutesInYear                                                                     The number of minutes contained in the current year
+ * @property      int              $monthOfCentury                                                                    The value of the month starting from the beginning of the current century
+ * @property      int              $monthOfDecade                                                                     The value of the month starting from the beginning of the current decade
+ * @property      int              $monthOfMillennium                                                                 The value of the month starting from the beginning of the current millennium
+ * @property      int              $monthOfQuarter                                                                    The value of the month starting from the beginning of the current quarter
+ * @property      int              $monthOfYear                                                                       The value of the month starting from the beginning of the current year
+ * @property      int              $monthsInCentury                                                                   The number of months contained in the current century
+ * @property      int              $monthsInDecade                                                                    The number of months contained in the current decade
+ * @property      int              $monthsInMillennium                                                                The number of months contained in the current millennium
+ * @property      int              $monthsInQuarter                                                                   The number of months contained in the current quarter
+ * @property      int              $monthsInYear                                                                      The number of months contained in the current year
+ * @property      int              $quarterOfCentury                                                                  The value of the quarter starting from the beginning of the current century
+ * @property      int              $quarterOfDecade                                                                   The value of the quarter starting from the beginning of the current decade
+ * @property      int              $quarterOfMillennium                                                               The value of the quarter starting from the beginning of the current millennium
+ * @property      int              $quarterOfYear                                                                     The value of the quarter starting from the beginning of the current year
+ * @property      int              $quartersInCentury                                                                 The number of quarters contained in the current century
+ * @property      int              $quartersInDecade                                                                  The number of quarters contained in the current decade
+ * @property      int              $quartersInMillennium                                                              The number of quarters contained in the current millennium
+ * @property      int              $quartersInYear                                                                    The number of quarters contained in the current year
+ * @property      int              $secondOfCentury                                                                   The value of the second starting from the beginning of the current century
+ * @property      int              $secondOfDay                                                                       The value of the second starting from the beginning of the current day
+ * @property      int              $secondOfDecade                                                                    The value of the second starting from the beginning of the current decade
+ * @property      int              $secondOfHour                                                                      The value of the second starting from the beginning of the current hour
+ * @property      int              $secondOfMillennium                                                                The value of the second starting from the beginning of the current millennium
+ * @property      int              $secondOfMinute                                                                    The value of the second starting from the beginning of the current minute
+ * @property      int              $secondOfMonth                                                                     The value of the second starting from the beginning of the current month
+ * @property      int              $secondOfQuarter                                                                   The value of the second starting from the beginning of the current quarter
+ * @property      int              $secondOfWeek                                                                      The value of the second starting from the beginning of the current week
+ * @property      int              $secondOfYear                                                                      The value of the second starting from the beginning of the current year
+ * @property      int              $secondsInCentury                                                                  The number of seconds contained in the current century
+ * @property      int              $secondsInDay                                                                      The number of seconds contained in the current day
+ * @property      int              $secondsInDecade                                                                   The number of seconds contained in the current decade
+ * @property      int              $secondsInHour                                                                     The number of seconds contained in the current hour
+ * @property      int              $secondsInMillennium                                                               The number of seconds contained in the current millennium
+ * @property      int              $secondsInMinute                                                                   The number of seconds contained in the current minute
+ * @property      int              $secondsInMonth                                                                    The number of seconds contained in the current month
+ * @property      int              $secondsInQuarter                                                                  The number of seconds contained in the current quarter
+ * @property      int              $secondsInWeek                                                                     The number of seconds contained in the current week
+ * @property      int              $secondsInYear                                                                     The number of seconds contained in the current year
+ * @property      int              $weekOfCentury                                                                     The value of the week starting from the beginning of the current century
+ * @property      int              $weekOfDecade                                                                      The value of the week starting from the beginning of the current decade
+ * @property      int              $weekOfMillennium                                                                  The value of the week starting from the beginning of the current millennium
+ * @property-read int              $weekOfMonth                                                                       1 through 5
+ * @property      int              $weekOfQuarter                                                                     The value of the week starting from the beginning of the current quarter
+ * @property-read int              $weekOfYear                                                                        ISO-8601 week number of year, weeks starting on Monday
+ * @property      int              $weeksInCentury                                                                    The number of weeks contained in the current century
+ * @property      int              $weeksInDecade                                                                     The number of weeks contained in the current decade
+ * @property      int              $weeksInMillennium                                                                 The number of weeks contained in the current millennium
+ * @property      int              $weeksInMonth                                                                      The number of weeks contained in the current month
+ * @property      int              $weeksInQuarter                                                                    The number of weeks contained in the current quarter
+ * @property-read int              $weeksInYear                                                                       51 through 53
+ * @property      int              $yearOfCentury                                                                     The value of the year starting from the beginning of the current century
+ * @property      int              $yearOfDecade                                                                      The value of the year starting from the beginning of the current decade
+ * @property      int              $yearOfMillennium                                                                  The value of the year starting from the beginning of the current millennium
+ * @property      int              $yearsInCentury                                                                    The number of years contained in the current century
+ * @property      int              $yearsInDecade                                                                     The number of years contained in the current decade
+ * @property      int              $yearsInMillennium                                                                 The number of years contained in the current millennium
  *
  * @method        bool             isUtc()                                                                            Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
  * @method        bool             isLocal()                                                                          Check if the current instance has non-UTC timezone.
@@ -1001,6 +1150,26 @@ trait Date
             // @property-read string locale of the current instance
             case $name === 'locale':
                 return $this->getTranslatorLocale();
+
+            case preg_match('/^([a-z]{2,})(In|Of)([A-Z][a-z]+)$/', $name, $match):
+                [, $firstUnit, $operator, $secondUnit] = $match;
+
+                try {
+                    $start = $this->avoidMutation()->startOf($secondUnit);
+                    $value = $operator === 'Of'
+                        ? (\in_array($firstUnit, [
+                            // Unit with indexes starting at 1 (other units start at 0)
+                            'day',
+                            'week',
+                            'month',
+                            'quarter',
+                        ], true) ? 1 : 0) + floor($start->diffInUnit($firstUnit, $this))
+                        : round($start->diffInUnit($firstUnit, $start->avoidMutation()->add($secondUnit, 1)));
+
+                    return (int) $value;
+                } catch (UnknownUnitException) {
+                    // default to macro
+                }
 
             default:
                 $macro = $this->getLocalMacro('get'.ucfirst($name));
