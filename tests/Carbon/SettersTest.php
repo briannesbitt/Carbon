@@ -127,6 +127,24 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(2, $d->second);
     }
 
+    public function testUnitOfUnit()
+    {
+        $date = Carbon::create(2018, 1, 27, 20, 12, 42, 'America/Toronto');
+        $date->minuteOfYear = (95 * 24 + 3) * 60 + 50;
+
+        $this->assertSame('2018-04-06 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+    }
+
+    public function testUnitOfUnitFloat()
+    {
+        $this->expectExceptionObject(new UnitException(
+            '->minuteOfYear expects integer value',
+        ));
+
+        $date = Carbon::create(2018, 1, 27, 20, 12, 42, 'America/Toronto');
+        $date->minuteOfYear = (float) ((95 * 24 + 3) * 60 + 50);
+    }
+
     public function testTimeSetter()
     {
         $d = Carbon::now();
