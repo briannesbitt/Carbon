@@ -2781,6 +2781,8 @@ trait Date
 
         if (preg_match('/^([a-z]{2,})(In|Of)([A-Z][a-z]+)$/', $method, $match)) {
             $value = null;
+            $localStrictModeEnabled = $this->localStrictModeEnabled;
+            $this->localStrictModeEnabled = true;
 
             try {
                 $value = isset($parameters[0])
@@ -2788,6 +2790,8 @@ trait Date
                     : $this->get($method);
             } catch (UnknownGetterException|UnknownSetterException) {
                 // continue to macro
+            } finally {
+                $this->localStrictModeEnabled = $localStrictModeEnabled;
             }
 
             if ($value !== null) {
