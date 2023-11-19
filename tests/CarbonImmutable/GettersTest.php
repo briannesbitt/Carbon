@@ -30,6 +30,17 @@ class GettersTest extends AbstractTestCase
         $d->doesNotExit;
     }
 
+    public function testGettersThrowExceptionOnUnknownOfGetter()
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            "Unknown getter 'fooOfBar'",
+        ));
+
+        /** @var mixed $d */
+        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d->fooOfBar;
+    }
+
     public function testYearGetter()
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
@@ -436,5 +447,72 @@ class GettersTest extends AbstractTestCase
         ];
 
         $this->assertSame($days, Carbon::getDays());
+    }
+
+    public function testUnitOfUnit()
+    {
+        $date = Carbon::createFromDate(2018, 7, 6);
+        $this->assertSame(6, $date->dayOfQuarter);
+
+        $date = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame(6 + 31, $date->dayOfQuarter);
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'UTC');
+        $this->assertSame((95 * 24 + 4) * 60 + 50, $date->minuteOfYear);
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame((95 * 24 + 3) * 60 + 50, $date->minuteOfYear);
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(0, $date->yearOfMinute);
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(1, $date->dayOfMinute);
+    }
+
+    public function testUnitOfUnitMethod()
+    {
+        $date = Carbon::createFromDate(2018, 7, 6);
+
+        $this->assertSame(6, $date->dayOfQuarter());
+
+        $date = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame(6 + 31, $date->dayOfQuarter());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'UTC');
+        $this->assertSame((95 * 24 + 4) * 60 + 50, $date->minuteOfYear());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame((95 * 24 + 3) * 60 + 50, $date->minuteOfYear());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(0, $date->yearOfMinute());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(1, $date->dayOfMinute());
+    }
+
+    public function testUnitInUnit()
+    {
+        $date = Carbon::createFromDate(2018, 7, 6);
+        $this->assertSame(7, $date->daysInWeek);
+
+        $date = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame(92, $date->daysInQuarter);
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'UTC');
+        $this->assertSame(365 * 24 * 60, $date->minutesInYear);
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(365 * 24 * 60, $date->minutesInYears);
+
+        $date = Carbon::create(2024, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(366 * 24 * 60, $date->minuteInYear);
+
+        $date = Carbon::create(2024, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(0, $date->yearsInMinute);
+
+        $date = Carbon::create(2024, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(0, $date->daysInMinute);
     }
 }

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Carbon;
 
+use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\Exceptions\UnitException;
 use DateTimeZone;
@@ -125,6 +126,66 @@ class SettersTest extends AbstractTestCase
         $d = Carbon::now();
         $d->second = 2;
         $this->assertSame(2, $d->second);
+    }
+
+    public function testUnitOfUnit()
+    {
+        $date = Carbon::create(2023, 1, 27, 20, 12, 42, 'America/Toronto');
+        $date->minuteOfYear = (95 * 24 + 3) * 60 + 50;
+
+        $this->assertSame('2023-04-06 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+
+        $date->dayOfWeek = 2;
+
+        $this->assertSame('2023-04-04 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+
+        $date->dayOfWeek = 6;
+
+        $this->assertSame('2023-04-08 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+
+        $date->dayOfWeek = 0;
+
+        $this->assertSame('2023-04-02 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+
+        $date->dayOfWeekIso = 7;
+
+        $this->assertSame('2023-04-02 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+
+        $date->dayOfWeek = 4;
+
+        $this->assertSame('2023-04-06 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+
+        $date->dayOfWeekIso = 7;
+
+        $this->assertSame('2023-04-09 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+    }
+
+    public function testUnitOfUnitMethod()
+    {
+        $date = Carbon::create(2023, 1, 27, 20, 12, 42, 'America/Toronto');
+        $date->minuteOfYear((95 * 24 + 3) * 60 + 50);
+
+        $this->assertSame('2023-04-06 04:50:42 America/Toronto', $date->format('Y-m-d H:i:s e'));
+    }
+
+    public function testUnitOfUnitUnknownMethod()
+    {
+        $this->expectExceptionObject(new BadMethodCallException(
+            'Method fooOfBar does not exist.',
+        ));
+
+        $date = Carbon::create(2023, 1, 27, 20, 12, 42, 'America/Toronto');
+        $date->fooOfBar((95 * 24 + 3) * 60 + 50);
+    }
+
+    public function testUnitOfUnitFloat()
+    {
+        $this->expectExceptionObject(new UnitException(
+            '->minuteOfYear expects integer value',
+        ));
+
+        $date = Carbon::create(2018, 1, 27, 20, 12, 42, 'America/Toronto');
+        $date->minuteOfYear = (float) ((95 * 24 + 3) * 60 + 50);
     }
 
     public function testTimeSetter()

@@ -20,6 +20,7 @@ use Carbon\Exceptions\BadComparisonUnitException;
 use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\InvalidTimeZoneException;
 use Carbon\Exceptions\InvalidTypeException;
+use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnknownSetterException;
@@ -54,6 +55,7 @@ use Throwable;
  * @property      int              $second
  * @property      int              $micro
  * @property      int              $microsecond
+ * @property      int              $dayOfWeekIso                                                                      1 (for Monday) through 7 (for Sunday)
  * @property      int|float|string $timestamp                                                                         seconds since the Unix Epoch
  * @property      string           $englishDayOfWeek                                                                  the day of week in English
  * @property      string           $shortEnglishDayOfWeek                                                             the abbreviated day of week in English
@@ -66,17 +68,90 @@ use Throwable;
  * @property      int              $isoWeek                                                                           1 through 53
  * @property      int              $weekYear                                                                          year according to week format
  * @property      int              $isoWeekYear                                                                       year according to ISO week format
- * @property      int              $dayOfYear                                                                         1 through 366
  * @property      int              $age                                                                               does a diffInYears() with default parameters
  * @property      int              $offset                                                                            the timezone offset in seconds from UTC
  * @property      int              $offsetMinutes                                                                     the timezone offset in minutes from UTC
  * @property      int              $offsetHours                                                                       the timezone offset in hours from UTC
  * @property      CarbonTimeZone   $timezone                                                                          the current timezone
  * @property      CarbonTimeZone   $tz                                                                                alias of $timezone
- * @property-read int              $dayOfWeek                                                                         0 (for Sunday) through 6 (for Saturday)
- * @property-read int              $dayOfWeekIso                                                                      1 (for Monday) through 7 (for Sunday)
- * @property-read int              $weekOfYear                                                                        ISO-8601 week number of year, weeks starting on Monday
- * @property-read int              $daysInMonth                                                                       number of days in the given month
+ * @property      int              $centuryOfMillennium                                                               The value of the century starting from the beginning of the current millennium
+ * @property      int              $dayOfCentury                                                                      The value of the day starting from the beginning of the current century
+ * @property      int              $dayOfDecade                                                                       The value of the day starting from the beginning of the current decade
+ * @property      int              $dayOfMillennium                                                                   The value of the day starting from the beginning of the current millennium
+ * @property      int              $dayOfMonth                                                                        The value of the day starting from the beginning of the current month
+ * @property      int              $dayOfQuarter                                                                      The value of the day starting from the beginning of the current quarter
+ * @property      int              $dayOfWeek                                                                         0 (for Sunday) through 6 (for Saturday)
+ * @property      int              $dayOfYear                                                                         1 through 366
+ * @property      int              $decadeOfCentury                                                                   The value of the decade starting from the beginning of the current century
+ * @property      int              $decadeOfMillennium                                                                The value of the decade starting from the beginning of the current millennium
+ * @property      int              $hourOfCentury                                                                     The value of the hour starting from the beginning of the current century
+ * @property      int              $hourOfDay                                                                         The value of the hour starting from the beginning of the current day
+ * @property      int              $hourOfDecade                                                                      The value of the hour starting from the beginning of the current decade
+ * @property      int              $hourOfMillennium                                                                  The value of the hour starting from the beginning of the current millennium
+ * @property      int              $hourOfMonth                                                                       The value of the hour starting from the beginning of the current month
+ * @property      int              $hourOfQuarter                                                                     The value of the hour starting from the beginning of the current quarter
+ * @property      int              $hourOfWeek                                                                        The value of the hour starting from the beginning of the current week
+ * @property      int              $hourOfYear                                                                        The value of the hour starting from the beginning of the current year
+ * @property      int              $microsecondOfCentury                                                              The value of the microsecond starting from the beginning of the current century
+ * @property      int              $microsecondOfDay                                                                  The value of the microsecond starting from the beginning of the current day
+ * @property      int              $microsecondOfDecade                                                               The value of the microsecond starting from the beginning of the current decade
+ * @property      int              $microsecondOfHour                                                                 The value of the microsecond starting from the beginning of the current hour
+ * @property      int              $microsecondOfMillennium                                                           The value of the microsecond starting from the beginning of the current millennium
+ * @property      int              $microsecondOfMillisecond                                                          The value of the microsecond starting from the beginning of the current millisecond
+ * @property      int              $microsecondOfMinute                                                               The value of the microsecond starting from the beginning of the current minute
+ * @property      int              $microsecondOfMonth                                                                The value of the microsecond starting from the beginning of the current month
+ * @property      int              $microsecondOfQuarter                                                              The value of the microsecond starting from the beginning of the current quarter
+ * @property      int              $microsecondOfSecond                                                               The value of the microsecond starting from the beginning of the current second
+ * @property      int              $microsecondOfWeek                                                                 The value of the microsecond starting from the beginning of the current week
+ * @property      int              $microsecondOfYear                                                                 The value of the microsecond starting from the beginning of the current year
+ * @property      int              $millisecondOfCentury                                                              The value of the millisecond starting from the beginning of the current century
+ * @property      int              $millisecondOfDay                                                                  The value of the millisecond starting from the beginning of the current day
+ * @property      int              $millisecondOfDecade                                                               The value of the millisecond starting from the beginning of the current decade
+ * @property      int              $millisecondOfHour                                                                 The value of the millisecond starting from the beginning of the current hour
+ * @property      int              $millisecondOfMillennium                                                           The value of the millisecond starting from the beginning of the current millennium
+ * @property      int              $millisecondOfMinute                                                               The value of the millisecond starting from the beginning of the current minute
+ * @property      int              $millisecondOfMonth                                                                The value of the millisecond starting from the beginning of the current month
+ * @property      int              $millisecondOfQuarter                                                              The value of the millisecond starting from the beginning of the current quarter
+ * @property      int              $millisecondOfSecond                                                               The value of the millisecond starting from the beginning of the current second
+ * @property      int              $millisecondOfWeek                                                                 The value of the millisecond starting from the beginning of the current week
+ * @property      int              $millisecondOfYear                                                                 The value of the millisecond starting from the beginning of the current year
+ * @property      int              $minuteOfCentury                                                                   The value of the minute starting from the beginning of the current century
+ * @property      int              $minuteOfDay                                                                       The value of the minute starting from the beginning of the current day
+ * @property      int              $minuteOfDecade                                                                    The value of the minute starting from the beginning of the current decade
+ * @property      int              $minuteOfHour                                                                      The value of the minute starting from the beginning of the current hour
+ * @property      int              $minuteOfMillennium                                                                The value of the minute starting from the beginning of the current millennium
+ * @property      int              $minuteOfMonth                                                                     The value of the minute starting from the beginning of the current month
+ * @property      int              $minuteOfQuarter                                                                   The value of the minute starting from the beginning of the current quarter
+ * @property      int              $minuteOfWeek                                                                      The value of the minute starting from the beginning of the current week
+ * @property      int              $minuteOfYear                                                                      The value of the minute starting from the beginning of the current year
+ * @property      int              $monthOfCentury                                                                    The value of the month starting from the beginning of the current century
+ * @property      int              $monthOfDecade                                                                     The value of the month starting from the beginning of the current decade
+ * @property      int              $monthOfMillennium                                                                 The value of the month starting from the beginning of the current millennium
+ * @property      int              $monthOfQuarter                                                                    The value of the month starting from the beginning of the current quarter
+ * @property      int              $monthOfYear                                                                       The value of the month starting from the beginning of the current year
+ * @property      int              $quarterOfCentury                                                                  The value of the quarter starting from the beginning of the current century
+ * @property      int              $quarterOfDecade                                                                   The value of the quarter starting from the beginning of the current decade
+ * @property      int              $quarterOfMillennium                                                               The value of the quarter starting from the beginning of the current millennium
+ * @property      int              $quarterOfYear                                                                     The value of the quarter starting from the beginning of the current year
+ * @property      int              $secondOfCentury                                                                   The value of the second starting from the beginning of the current century
+ * @property      int              $secondOfDay                                                                       The value of the second starting from the beginning of the current day
+ * @property      int              $secondOfDecade                                                                    The value of the second starting from the beginning of the current decade
+ * @property      int              $secondOfHour                                                                      The value of the second starting from the beginning of the current hour
+ * @property      int              $secondOfMillennium                                                                The value of the second starting from the beginning of the current millennium
+ * @property      int              $secondOfMinute                                                                    The value of the second starting from the beginning of the current minute
+ * @property      int              $secondOfMonth                                                                     The value of the second starting from the beginning of the current month
+ * @property      int              $secondOfQuarter                                                                   The value of the second starting from the beginning of the current quarter
+ * @property      int              $secondOfWeek                                                                      The value of the second starting from the beginning of the current week
+ * @property      int              $secondOfYear                                                                      The value of the second starting from the beginning of the current year
+ * @property      int              $weekOfCentury                                                                     The value of the week starting from the beginning of the current century
+ * @property      int              $weekOfDecade                                                                      The value of the week starting from the beginning of the current decade
+ * @property      int              $weekOfMillennium                                                                  The value of the week starting from the beginning of the current millennium
+ * @property      int              $weekOfMonth                                                                       1 through 5
+ * @property      int              $weekOfQuarter                                                                     The value of the week starting from the beginning of the current quarter
+ * @property      int              $weekOfYear                                                                        ISO-8601 week number of year, weeks starting on Monday
+ * @property      int              $yearOfCentury                                                                     The value of the year starting from the beginning of the current century
+ * @property      int              $yearOfDecade                                                                      The value of the year starting from the beginning of the current decade
+ * @property      int              $yearOfMillennium                                                                  The value of the year starting from the beginning of the current millennium
  * @property-read string           $latinMeridiem                                                                     "am"/"pm" (Ante meridiem or Post meridiem latin lowercase mark)
  * @property-read string           $latinUpperMeridiem                                                                "AM"/"PM" (Ante meridiem or Post meridiem latin uppercase mark)
  * @property-read string           $timezoneAbbreviatedName                                                           the current timezone abbreviated name
@@ -89,13 +164,10 @@ use Throwable;
  * @property-read string           $meridiem                                                                          lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
  * @property-read string           $upperMeridiem                                                                     uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
  * @property-read int              $noZeroHour                                                                        current hour from 1 to 24
- * @property-read int              $weeksInYear                                                                       51 through 53
  * @property-read int              $isoWeeksInYear                                                                    51 through 53
- * @property-read int              $weekOfMonth                                                                       1 through 5
  * @property-read int              $weekNumberInMonth                                                                 1 through 5
  * @property-read int              $firstWeekDay                                                                      0 through 6
  * @property-read int              $lastWeekDay                                                                       0 through 6
- * @property-read int              $daysInYear                                                                        365 or 366
  * @property-read int              $quarter                                                                           the quarter of this instance, 1 - 4
  * @property-read int              $decade                                                                            the decade of this instance
  * @property-read int              $century                                                                           the century of this instance
@@ -106,6 +178,84 @@ use Throwable;
  * @property-read string           $timezoneName                                                                      the current timezone name
  * @property-read string           $tzName                                                                            alias of $timezoneName
  * @property-read string           $locale                                                                            locale of the current instance
+ * @property-read int              $centuriesInMillennium                                                             The number of centuries contained in the current millennium
+ * @property-read int              $daysInCentury                                                                     The number of days contained in the current century
+ * @property-read int              $daysInDecade                                                                      The number of days contained in the current decade
+ * @property-read int              $daysInMillennium                                                                  The number of days contained in the current millennium
+ * @property-read int              $daysInMonth                                                                       number of days in the given month
+ * @property-read int              $daysInQuarter                                                                     The number of days contained in the current quarter
+ * @property-read int              $daysInWeek                                                                        The number of days contained in the current week
+ * @property-read int              $daysInYear                                                                        365 or 366
+ * @property-read int              $decadesInCentury                                                                  The number of decades contained in the current century
+ * @property-read int              $decadesInMillennium                                                               The number of decades contained in the current millennium
+ * @property-read int              $hoursInCentury                                                                    The number of hours contained in the current century
+ * @property-read int              $hoursInDay                                                                        The number of hours contained in the current day
+ * @property-read int              $hoursInDecade                                                                     The number of hours contained in the current decade
+ * @property-read int              $hoursInMillennium                                                                 The number of hours contained in the current millennium
+ * @property-read int              $hoursInMonth                                                                      The number of hours contained in the current month
+ * @property-read int              $hoursInQuarter                                                                    The number of hours contained in the current quarter
+ * @property-read int              $hoursInWeek                                                                       The number of hours contained in the current week
+ * @property-read int              $hoursInYear                                                                       The number of hours contained in the current year
+ * @property-read int              $microsecondsInCentury                                                             The number of microseconds contained in the current century
+ * @property-read int              $microsecondsInDay                                                                 The number of microseconds contained in the current day
+ * @property-read int              $microsecondsInDecade                                                              The number of microseconds contained in the current decade
+ * @property-read int              $microsecondsInHour                                                                The number of microseconds contained in the current hour
+ * @property-read int              $microsecondsInMillennium                                                          The number of microseconds contained in the current millennium
+ * @property-read int              $microsecondsInMillisecond                                                         The number of microseconds contained in the current millisecond
+ * @property-read int              $microsecondsInMinute                                                              The number of microseconds contained in the current minute
+ * @property-read int              $microsecondsInMonth                                                               The number of microseconds contained in the current month
+ * @property-read int              $microsecondsInQuarter                                                             The number of microseconds contained in the current quarter
+ * @property-read int              $microsecondsInSecond                                                              The number of microseconds contained in the current second
+ * @property-read int              $microsecondsInWeek                                                                The number of microseconds contained in the current week
+ * @property-read int              $microsecondsInYear                                                                The number of microseconds contained in the current year
+ * @property-read int              $millisecondsInCentury                                                             The number of milliseconds contained in the current century
+ * @property-read int              $millisecondsInDay                                                                 The number of milliseconds contained in the current day
+ * @property-read int              $millisecondsInDecade                                                              The number of milliseconds contained in the current decade
+ * @property-read int              $millisecondsInHour                                                                The number of milliseconds contained in the current hour
+ * @property-read int              $millisecondsInMillennium                                                          The number of milliseconds contained in the current millennium
+ * @property-read int              $millisecondsInMinute                                                              The number of milliseconds contained in the current minute
+ * @property-read int              $millisecondsInMonth                                                               The number of milliseconds contained in the current month
+ * @property-read int              $millisecondsInQuarter                                                             The number of milliseconds contained in the current quarter
+ * @property-read int              $millisecondsInSecond                                                              The number of milliseconds contained in the current second
+ * @property-read int              $millisecondsInWeek                                                                The number of milliseconds contained in the current week
+ * @property-read int              $millisecondsInYear                                                                The number of milliseconds contained in the current year
+ * @property-read int              $minutesInCentury                                                                  The number of minutes contained in the current century
+ * @property-read int              $minutesInDay                                                                      The number of minutes contained in the current day
+ * @property-read int              $minutesInDecade                                                                   The number of minutes contained in the current decade
+ * @property-read int              $minutesInHour                                                                     The number of minutes contained in the current hour
+ * @property-read int              $minutesInMillennium                                                               The number of minutes contained in the current millennium
+ * @property-read int              $minutesInMonth                                                                    The number of minutes contained in the current month
+ * @property-read int              $minutesInQuarter                                                                  The number of minutes contained in the current quarter
+ * @property-read int              $minutesInWeek                                                                     The number of minutes contained in the current week
+ * @property-read int              $minutesInYear                                                                     The number of minutes contained in the current year
+ * @property-read int              $monthsInCentury                                                                   The number of months contained in the current century
+ * @property-read int              $monthsInDecade                                                                    The number of months contained in the current decade
+ * @property-read int              $monthsInMillennium                                                                The number of months contained in the current millennium
+ * @property-read int              $monthsInQuarter                                                                   The number of months contained in the current quarter
+ * @property-read int              $monthsInYear                                                                      The number of months contained in the current year
+ * @property-read int              $quartersInCentury                                                                 The number of quarters contained in the current century
+ * @property-read int              $quartersInDecade                                                                  The number of quarters contained in the current decade
+ * @property-read int              $quartersInMillennium                                                              The number of quarters contained in the current millennium
+ * @property-read int              $quartersInYear                                                                    The number of quarters contained in the current year
+ * @property-read int              $secondsInCentury                                                                  The number of seconds contained in the current century
+ * @property-read int              $secondsInDay                                                                      The number of seconds contained in the current day
+ * @property-read int              $secondsInDecade                                                                   The number of seconds contained in the current decade
+ * @property-read int              $secondsInHour                                                                     The number of seconds contained in the current hour
+ * @property-read int              $secondsInMillennium                                                               The number of seconds contained in the current millennium
+ * @property-read int              $secondsInMinute                                                                   The number of seconds contained in the current minute
+ * @property-read int              $secondsInMonth                                                                    The number of seconds contained in the current month
+ * @property-read int              $secondsInQuarter                                                                  The number of seconds contained in the current quarter
+ * @property-read int              $secondsInWeek                                                                     The number of seconds contained in the current week
+ * @property-read int              $secondsInYear                                                                     The number of seconds contained in the current year
+ * @property-read int              $weeksInCentury                                                                    The number of weeks contained in the current century
+ * @property-read int              $weeksInDecade                                                                     The number of weeks contained in the current decade
+ * @property-read int              $weeksInMillennium                                                                 The number of weeks contained in the current millennium
+ * @property-read int              $weeksInMonth                                                                      The number of weeks contained in the current month
+ * @property-read int              $weeksInQuarter                                                                    The number of weeks contained in the current quarter
+ * @property-read int              $weeksInYear                                                                       51 through 53
+ * @property-read int              $yearsInCentury                                                                    The number of years contained in the current century
+ * @property-read int              $yearsInDecade                                                                     The number of years contained in the current decade
+ * @property-read int              $yearsInMillennium                                                                 The number of years contained in the current millennium
  *
  * @method        bool             isUtc()                                                                            Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
  * @method        bool             isLocal()                                                                          Check if the current instance has non-UTC timezone.
@@ -523,6 +673,160 @@ use Throwable;
  * @method        string           longRelativeToNowDiffForHumans(DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string           shortRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string           longRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        int              centuriesInMillennium()                                                            Return the number of centuries contained in the current millennium
+ * @method        int|static       centuryOfMillennium(?int $century = null)                                          Return the value of the century starting from the beginning of the current millennium when called with no parameters, change the current century when called with an integer value
+ * @method        int|static       dayOfCentury(?int $day = null)                                                     Return the value of the day starting from the beginning of the current century when called with no parameters, change the current day when called with an integer value
+ * @method        int|static       dayOfDecade(?int $day = null)                                                      Return the value of the day starting from the beginning of the current decade when called with no parameters, change the current day when called with an integer value
+ * @method        int|static       dayOfMillennium(?int $day = null)                                                  Return the value of the day starting from the beginning of the current millennium when called with no parameters, change the current day when called with an integer value
+ * @method        int|static       dayOfMonth(?int $day = null)                                                       Return the value of the day starting from the beginning of the current month when called with no parameters, change the current day when called with an integer value
+ * @method        int|static       dayOfQuarter(?int $day = null)                                                     Return the value of the day starting from the beginning of the current quarter when called with no parameters, change the current day when called with an integer value
+ * @method        int|static       dayOfWeek(?int $day = null)                                                        Return the value of the day starting from the beginning of the current week when called with no parameters, change the current day when called with an integer value
+ * @method        int              daysInCentury()                                                                    Return the number of days contained in the current century
+ * @method        int              daysInDecade()                                                                     Return the number of days contained in the current decade
+ * @method        int              daysInMillennium()                                                                 Return the number of days contained in the current millennium
+ * @method        int              daysInMonth()                                                                      Return the number of days contained in the current month
+ * @method        int              daysInQuarter()                                                                    Return the number of days contained in the current quarter
+ * @method        int              daysInWeek()                                                                       Return the number of days contained in the current week
+ * @method        int              daysInYear()                                                                       Return the number of days contained in the current year
+ * @method        int|static       decadeOfCentury(?int $decade = null)                                               Return the value of the decade starting from the beginning of the current century when called with no parameters, change the current decade when called with an integer value
+ * @method        int|static       decadeOfMillennium(?int $decade = null)                                            Return the value of the decade starting from the beginning of the current millennium when called with no parameters, change the current decade when called with an integer value
+ * @method        int              decadesInCentury()                                                                 Return the number of decades contained in the current century
+ * @method        int              decadesInMillennium()                                                              Return the number of decades contained in the current millennium
+ * @method        int|static       hourOfCentury(?int $hour = null)                                                   Return the value of the hour starting from the beginning of the current century when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfDay(?int $hour = null)                                                       Return the value of the hour starting from the beginning of the current day when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfDecade(?int $hour = null)                                                    Return the value of the hour starting from the beginning of the current decade when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfMillennium(?int $hour = null)                                                Return the value of the hour starting from the beginning of the current millennium when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfMonth(?int $hour = null)                                                     Return the value of the hour starting from the beginning of the current month when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfQuarter(?int $hour = null)                                                   Return the value of the hour starting from the beginning of the current quarter when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfWeek(?int $hour = null)                                                      Return the value of the hour starting from the beginning of the current week when called with no parameters, change the current hour when called with an integer value
+ * @method        int|static       hourOfYear(?int $hour = null)                                                      Return the value of the hour starting from the beginning of the current year when called with no parameters, change the current hour when called with an integer value
+ * @method        int              hoursInCentury()                                                                   Return the number of hours contained in the current century
+ * @method        int              hoursInDay()                                                                       Return the number of hours contained in the current day
+ * @method        int              hoursInDecade()                                                                    Return the number of hours contained in the current decade
+ * @method        int              hoursInMillennium()                                                                Return the number of hours contained in the current millennium
+ * @method        int              hoursInMonth()                                                                     Return the number of hours contained in the current month
+ * @method        int              hoursInQuarter()                                                                   Return the number of hours contained in the current quarter
+ * @method        int              hoursInWeek()                                                                      Return the number of hours contained in the current week
+ * @method        int              hoursInYear()                                                                      Return the number of hours contained in the current year
+ * @method        int|static       microsecondOfCentury(?int $microsecond = null)                                     Return the value of the microsecond starting from the beginning of the current century when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfDay(?int $microsecond = null)                                         Return the value of the microsecond starting from the beginning of the current day when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfDecade(?int $microsecond = null)                                      Return the value of the microsecond starting from the beginning of the current decade when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfHour(?int $microsecond = null)                                        Return the value of the microsecond starting from the beginning of the current hour when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfMillennium(?int $microsecond = null)                                  Return the value of the microsecond starting from the beginning of the current millennium when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfMillisecond(?int $microsecond = null)                                 Return the value of the microsecond starting from the beginning of the current millisecond when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfMinute(?int $microsecond = null)                                      Return the value of the microsecond starting from the beginning of the current minute when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfMonth(?int $microsecond = null)                                       Return the value of the microsecond starting from the beginning of the current month when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfQuarter(?int $microsecond = null)                                     Return the value of the microsecond starting from the beginning of the current quarter when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfSecond(?int $microsecond = null)                                      Return the value of the microsecond starting from the beginning of the current second when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfWeek(?int $microsecond = null)                                        Return the value of the microsecond starting from the beginning of the current week when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int|static       microsecondOfYear(?int $microsecond = null)                                        Return the value of the microsecond starting from the beginning of the current year when called with no parameters, change the current microsecond when called with an integer value
+ * @method        int              microsecondsInCentury()                                                            Return the number of microseconds contained in the current century
+ * @method        int              microsecondsInDay()                                                                Return the number of microseconds contained in the current day
+ * @method        int              microsecondsInDecade()                                                             Return the number of microseconds contained in the current decade
+ * @method        int              microsecondsInHour()                                                               Return the number of microseconds contained in the current hour
+ * @method        int              microsecondsInMillennium()                                                         Return the number of microseconds contained in the current millennium
+ * @method        int              microsecondsInMillisecond()                                                        Return the number of microseconds contained in the current millisecond
+ * @method        int              microsecondsInMinute()                                                             Return the number of microseconds contained in the current minute
+ * @method        int              microsecondsInMonth()                                                              Return the number of microseconds contained in the current month
+ * @method        int              microsecondsInQuarter()                                                            Return the number of microseconds contained in the current quarter
+ * @method        int              microsecondsInSecond()                                                             Return the number of microseconds contained in the current second
+ * @method        int              microsecondsInWeek()                                                               Return the number of microseconds contained in the current week
+ * @method        int              microsecondsInYear()                                                               Return the number of microseconds contained in the current year
+ * @method        int|static       millisecondOfCentury(?int $millisecond = null)                                     Return the value of the millisecond starting from the beginning of the current century when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfDay(?int $millisecond = null)                                         Return the value of the millisecond starting from the beginning of the current day when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfDecade(?int $millisecond = null)                                      Return the value of the millisecond starting from the beginning of the current decade when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfHour(?int $millisecond = null)                                        Return the value of the millisecond starting from the beginning of the current hour when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfMillennium(?int $millisecond = null)                                  Return the value of the millisecond starting from the beginning of the current millennium when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfMinute(?int $millisecond = null)                                      Return the value of the millisecond starting from the beginning of the current minute when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfMonth(?int $millisecond = null)                                       Return the value of the millisecond starting from the beginning of the current month when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfQuarter(?int $millisecond = null)                                     Return the value of the millisecond starting from the beginning of the current quarter when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfSecond(?int $millisecond = null)                                      Return the value of the millisecond starting from the beginning of the current second when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfWeek(?int $millisecond = null)                                        Return the value of the millisecond starting from the beginning of the current week when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int|static       millisecondOfYear(?int $millisecond = null)                                        Return the value of the millisecond starting from the beginning of the current year when called with no parameters, change the current millisecond when called with an integer value
+ * @method        int              millisecondsInCentury()                                                            Return the number of milliseconds contained in the current century
+ * @method        int              millisecondsInDay()                                                                Return the number of milliseconds contained in the current day
+ * @method        int              millisecondsInDecade()                                                             Return the number of milliseconds contained in the current decade
+ * @method        int              millisecondsInHour()                                                               Return the number of milliseconds contained in the current hour
+ * @method        int              millisecondsInMillennium()                                                         Return the number of milliseconds contained in the current millennium
+ * @method        int              millisecondsInMinute()                                                             Return the number of milliseconds contained in the current minute
+ * @method        int              millisecondsInMonth()                                                              Return the number of milliseconds contained in the current month
+ * @method        int              millisecondsInQuarter()                                                            Return the number of milliseconds contained in the current quarter
+ * @method        int              millisecondsInSecond()                                                             Return the number of milliseconds contained in the current second
+ * @method        int              millisecondsInWeek()                                                               Return the number of milliseconds contained in the current week
+ * @method        int              millisecondsInYear()                                                               Return the number of milliseconds contained in the current year
+ * @method        int|static       minuteOfCentury(?int $minute = null)                                               Return the value of the minute starting from the beginning of the current century when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfDay(?int $minute = null)                                                   Return the value of the minute starting from the beginning of the current day when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfDecade(?int $minute = null)                                                Return the value of the minute starting from the beginning of the current decade when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfHour(?int $minute = null)                                                  Return the value of the minute starting from the beginning of the current hour when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfMillennium(?int $minute = null)                                            Return the value of the minute starting from the beginning of the current millennium when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfMonth(?int $minute = null)                                                 Return the value of the minute starting from the beginning of the current month when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfQuarter(?int $minute = null)                                               Return the value of the minute starting from the beginning of the current quarter when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfWeek(?int $minute = null)                                                  Return the value of the minute starting from the beginning of the current week when called with no parameters, change the current minute when called with an integer value
+ * @method        int|static       minuteOfYear(?int $minute = null)                                                  Return the value of the minute starting from the beginning of the current year when called with no parameters, change the current minute when called with an integer value
+ * @method        int              minutesInCentury()                                                                 Return the number of minutes contained in the current century
+ * @method        int              minutesInDay()                                                                     Return the number of minutes contained in the current day
+ * @method        int              minutesInDecade()                                                                  Return the number of minutes contained in the current decade
+ * @method        int              minutesInHour()                                                                    Return the number of minutes contained in the current hour
+ * @method        int              minutesInMillennium()                                                              Return the number of minutes contained in the current millennium
+ * @method        int              minutesInMonth()                                                                   Return the number of minutes contained in the current month
+ * @method        int              minutesInQuarter()                                                                 Return the number of minutes contained in the current quarter
+ * @method        int              minutesInWeek()                                                                    Return the number of minutes contained in the current week
+ * @method        int              minutesInYear()                                                                    Return the number of minutes contained in the current year
+ * @method        int|static       monthOfCentury(?int $month = null)                                                 Return the value of the month starting from the beginning of the current century when called with no parameters, change the current month when called with an integer value
+ * @method        int|static       monthOfDecade(?int $month = null)                                                  Return the value of the month starting from the beginning of the current decade when called with no parameters, change the current month when called with an integer value
+ * @method        int|static       monthOfMillennium(?int $month = null)                                              Return the value of the month starting from the beginning of the current millennium when called with no parameters, change the current month when called with an integer value
+ * @method        int|static       monthOfQuarter(?int $month = null)                                                 Return the value of the month starting from the beginning of the current quarter when called with no parameters, change the current month when called with an integer value
+ * @method        int|static       monthOfYear(?int $month = null)                                                    Return the value of the month starting from the beginning of the current year when called with no parameters, change the current month when called with an integer value
+ * @method        int              monthsInCentury()                                                                  Return the number of months contained in the current century
+ * @method        int              monthsInDecade()                                                                   Return the number of months contained in the current decade
+ * @method        int              monthsInMillennium()                                                               Return the number of months contained in the current millennium
+ * @method        int              monthsInQuarter()                                                                  Return the number of months contained in the current quarter
+ * @method        int              monthsInYear()                                                                     Return the number of months contained in the current year
+ * @method        int|static       quarterOfCentury(?int $quarter = null)                                             Return the value of the quarter starting from the beginning of the current century when called with no parameters, change the current quarter when called with an integer value
+ * @method        int|static       quarterOfDecade(?int $quarter = null)                                              Return the value of the quarter starting from the beginning of the current decade when called with no parameters, change the current quarter when called with an integer value
+ * @method        int|static       quarterOfMillennium(?int $quarter = null)                                          Return the value of the quarter starting from the beginning of the current millennium when called with no parameters, change the current quarter when called with an integer value
+ * @method        int|static       quarterOfYear(?int $quarter = null)                                                Return the value of the quarter starting from the beginning of the current year when called with no parameters, change the current quarter when called with an integer value
+ * @method        int              quartersInCentury()                                                                Return the number of quarters contained in the current century
+ * @method        int              quartersInDecade()                                                                 Return the number of quarters contained in the current decade
+ * @method        int              quartersInMillennium()                                                             Return the number of quarters contained in the current millennium
+ * @method        int              quartersInYear()                                                                   Return the number of quarters contained in the current year
+ * @method        int|static       secondOfCentury(?int $second = null)                                               Return the value of the second starting from the beginning of the current century when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfDay(?int $second = null)                                                   Return the value of the second starting from the beginning of the current day when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfDecade(?int $second = null)                                                Return the value of the second starting from the beginning of the current decade when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfHour(?int $second = null)                                                  Return the value of the second starting from the beginning of the current hour when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfMillennium(?int $second = null)                                            Return the value of the second starting from the beginning of the current millennium when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfMinute(?int $second = null)                                                Return the value of the second starting from the beginning of the current minute when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfMonth(?int $second = null)                                                 Return the value of the second starting from the beginning of the current month when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfQuarter(?int $second = null)                                               Return the value of the second starting from the beginning of the current quarter when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfWeek(?int $second = null)                                                  Return the value of the second starting from the beginning of the current week when called with no parameters, change the current second when called with an integer value
+ * @method        int|static       secondOfYear(?int $second = null)                                                  Return the value of the second starting from the beginning of the current year when called with no parameters, change the current second when called with an integer value
+ * @method        int              secondsInCentury()                                                                 Return the number of seconds contained in the current century
+ * @method        int              secondsInDay()                                                                     Return the number of seconds contained in the current day
+ * @method        int              secondsInDecade()                                                                  Return the number of seconds contained in the current decade
+ * @method        int              secondsInHour()                                                                    Return the number of seconds contained in the current hour
+ * @method        int              secondsInMillennium()                                                              Return the number of seconds contained in the current millennium
+ * @method        int              secondsInMinute()                                                                  Return the number of seconds contained in the current minute
+ * @method        int              secondsInMonth()                                                                   Return the number of seconds contained in the current month
+ * @method        int              secondsInQuarter()                                                                 Return the number of seconds contained in the current quarter
+ * @method        int              secondsInWeek()                                                                    Return the number of seconds contained in the current week
+ * @method        int              secondsInYear()                                                                    Return the number of seconds contained in the current year
+ * @method        int|static       weekOfCentury(?int $week = null)                                                   Return the value of the week starting from the beginning of the current century when called with no parameters, change the current week when called with an integer value
+ * @method        int|static       weekOfDecade(?int $week = null)                                                    Return the value of the week starting from the beginning of the current decade when called with no parameters, change the current week when called with an integer value
+ * @method        int|static       weekOfMillennium(?int $week = null)                                                Return the value of the week starting from the beginning of the current millennium when called with no parameters, change the current week when called with an integer value
+ * @method        int|static       weekOfMonth(?int $week = null)                                                     Return the value of the week starting from the beginning of the current month when called with no parameters, change the current week when called with an integer value
+ * @method        int|static       weekOfQuarter(?int $week = null)                                                   Return the value of the week starting from the beginning of the current quarter when called with no parameters, change the current week when called with an integer value
+ * @method        int|static       weekOfYear(?int $week = null)                                                      Return the value of the week starting from the beginning of the current year when called with no parameters, change the current week when called with an integer value
+ * @method        int              weeksInCentury()                                                                   Return the number of weeks contained in the current century
+ * @method        int              weeksInDecade()                                                                    Return the number of weeks contained in the current decade
+ * @method        int              weeksInMillennium()                                                                Return the number of weeks contained in the current millennium
+ * @method        int              weeksInMonth()                                                                     Return the number of weeks contained in the current month
+ * @method        int              weeksInQuarter()                                                                   Return the number of weeks contained in the current quarter
+ * @method        int|static       yearOfCentury(?int $year = null)                                                   Return the value of the year starting from the beginning of the current century when called with no parameters, change the current year when called with an integer value
+ * @method        int|static       yearOfDecade(?int $year = null)                                                    Return the value of the year starting from the beginning of the current decade when called with no parameters, change the current year when called with an integer value
+ * @method        int|static       yearOfMillennium(?int $year = null)                                                Return the value of the year starting from the beginning of the current millennium when called with no parameters, change the current year when called with an integer value
+ * @method        int              yearsInCentury()                                                                   Return the number of years contained in the current century
+ * @method        int              yearsInDecade()                                                                    Return the number of years contained in the current decade
+ * @method        int              yearsInMillennium()                                                                Return the number of years contained in the current millennium
  *
  * </autodoc>
  */
@@ -784,11 +1088,11 @@ trait Date
             'micro' => 'u',
             // @property int
             'microsecond' => 'u',
-            // @property-read int 0 (for Sunday) through 6 (for Saturday)
+            // @property int 0 (for Sunday) through 6 (for Saturday)
             'dayOfWeek' => 'w',
-            // @property-read int 1 (for Monday) through 7 (for Sunday)
+            // @property int 1 (for Monday) through 7 (for Sunday)
             'dayOfWeekIso' => 'N',
-            // @property-read int ISO-8601 week number of year, weeks starting on Monday
+            // @property int ISO-8601 week number of year, weeks starting on Monday
             'weekOfYear' => 'W',
             // @property-read int number of days in the given month
             'daysInMonth' => 't',
@@ -900,7 +1204,7 @@ trait Date
             case $name === 'isoWeeksInYear':
                 return $this->isoWeeksInYear();
 
-            // @property-read int 1 through 5
+            // @property int 1 through 5
             case $name === 'weekOfMonth':
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
 
@@ -1001,6 +1305,26 @@ trait Date
             // @property-read string locale of the current instance
             case $name === 'locale':
                 return $this->getTranslatorLocale();
+
+            case preg_match('/^([a-z]{2,})(In|Of)([A-Z][a-z]+)$/', $name, $match):
+                [, $firstUnit, $operator, $secondUnit] = $match;
+
+                try {
+                    $start = $this->avoidMutation()->startOf($secondUnit);
+                    $value = $operator === 'Of'
+                        ? (\in_array($firstUnit, [
+                            // Unit with indexes starting at 1 (other units start at 0)
+                            'day',
+                            'week',
+                            'month',
+                            'quarter',
+                        ], true) ? 1 : 0) + floor($start->diffInUnit($firstUnit, $this))
+                        : round($start->diffInUnit($firstUnit, $start->avoidMutation()->add($secondUnit, 1)));
+
+                    return (int) $value;
+                } catch (UnknownUnitException) {
+                    // default to macro
+                }
 
             default:
                 $macro = $this->getLocalMacro('get'.ucfirst($name));
@@ -1138,6 +1462,16 @@ trait Date
 
                 break;
 
+            case 'dayOfWeek':
+                $this->addDays($value - $this->dayOfWeek);
+
+                break;
+
+            case 'dayOfWeekIso':
+                $this->addDays($value - $this->dayOfWeekIso);
+
+                break;
+
             case 'timestamp':
                 $this->setTimestamp($value);
 
@@ -1165,6 +1499,32 @@ trait Date
                 break;
 
             default:
+                if (preg_match('/^([a-z]{2,})Of([A-Z][a-z]+)$/', $name, $match)) {
+                    [, $firstUnit, $secondUnit] = $match;
+
+                    try {
+                        $start = $this->avoidMutation()->startOf($secondUnit);
+                        $currentValue = (\in_array($firstUnit, [
+                            // Unit with indexes starting at 1 (other units start at 0)
+                            'day',
+                            'week',
+                            'month',
+                            'quarter',
+                        ], true) ? 1 : 0) + (int) floor($start->diffInUnit($firstUnit, $this));
+
+                        // We check $value a posteriori to give precedence to UnknownUnitException
+                        if (!\is_int($value)) {
+                            throw new UnitException("->$name expects integer value");
+                        }
+
+                        $this->addUnit($firstUnit, $value - $currentValue);
+
+                        break;
+                    } catch (UnknownUnitException) {
+                        // default to macro
+                    }
+                }
+
                 $macro = $this->getLocalMacro('set'.ucfirst($name));
 
                 if ($macro) {
@@ -1250,9 +1610,15 @@ trait Date
     /**
      * Get/set the day of year.
      *
+     * @template T of int|null
+     *
      * @param int|null $value new value for day of year if using as setter.
      *
+     * @psalm-param T $value
+     *
      * @return static|int
+     *
+     * @psalm-return (T is int ? static : int)
      */
     public function dayOfYear($value = null)
     {
@@ -2564,6 +2930,26 @@ trait Date
                 );
             } catch (InvalidArgumentException) {
                 // Try macros
+            }
+        }
+
+        if (preg_match('/^([a-z]{2,})(In|Of)([A-Z][a-z]+)$/', $method, $match)) {
+            $value = null;
+            $localStrictModeEnabled = $this->localStrictModeEnabled;
+            $this->localStrictModeEnabled = true;
+
+            try {
+                $value = isset($parameters[0])
+                    ? $this->set($method, $parameters[0])
+                    : $this->get($method);
+            } catch (UnknownGetterException|UnknownSetterException) {
+                // continue to macro
+            } finally {
+                $this->localStrictModeEnabled = $localStrictModeEnabled;
+            }
+
+            if ($value !== null) {
+                return $value;
             }
         }
 

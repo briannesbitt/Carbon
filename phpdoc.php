@@ -178,6 +178,7 @@ foreach ($tags as $tag) {
         continue;
     }
 
+    $unitOfUnit = [];
     preg_match_all('/\/\/ @'.$tag.'\s+(?<type>'.$pattern.')(?:\s+\$(?<name>\S+)(?:[^\S\n](?<description>.*))?\n|(?:[^\S\n](?<description2>.*))?\n(?<comments>(?:[ \t]+\/\/[^\n]*\n)*)[^\']*\'(?<name2>[^\']+)\')/', $code, $matches, PREG_SET_ORDER);
 
     foreach ($matches as $match) {
@@ -518,6 +519,20 @@ foreach ($tags as $tag) {
             continue;
         }
 
+        if (
+            \in_array($tag, ['property', 'property-read'], true) &&
+            preg_match('/^[a-z]{2,}(?<operator>In|Of)[A-Z][a-z]+$/', $vars->name, $match)
+        ) {
+            $unitOfUnit[$vars->name] = [
+                '@'.($match['operator'] === 'Of' ? 'property' : 'property-read'),
+                $vars->type,
+                '$'.$variable,
+                $description ?: '',
+            ];
+
+            continue;
+        }
+
         $autoDocLines[] = [
             '@'.$tag,
             $vars->type,
@@ -525,7 +540,88 @@ foreach ($tags as $tag) {
             $description ?: '',
         ];
     }
+
+    if ($tag === 'property') {
+        $units = ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'quarters', 'years', 'decades', 'centuries', 'millennia'];
+
+        foreach ($units as $small) {
+            array_shift($units);
+
+            foreach ($units as $big) {
+                $singularSmall = Carbon::singularUnit($small);
+                $singularBig = Carbon::singularUnit($big);
+                $name = $singularSmall.'Of'.ucfirst($singularBig);
+                $unitOfUnit[$name] ??= [
+                    '@property',
+                    'int',
+                    '$'.$name,
+                    'The value of the '.$singularSmall.' starting from the beginning of the current '.$singularBig,
+                ];
+            }
+        }
+
+        ksort($unitOfUnit);
+
+        array_push($autoDocLines, ...array_values($unitOfUnit));
+    }
+
+    if ($tag === 'property-read') {
+        $units = ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'quarters', 'years', 'decades', 'centuries', 'millennia'];
+
+        foreach ($units as $small) {
+            array_shift($units);
+
+            foreach ($units as $big) {
+                $singularSmall = Carbon::singularUnit($small);
+                $singularBig = Carbon::singularUnit($big);
+                $name = $small.'In'.ucfirst($singularBig);
+                $unitOfUnit[$name] ??= [
+                    '@property-read',
+                    'int',
+                    '$'.$name,
+                    'The number of '.$small.' contained in the current '.$singularBig,
+                ];
+            }
+        }
+
+        ksort($unitOfUnit);
+
+        array_push($autoDocLines, ...array_values($unitOfUnit));
+    }
 }
+
+$units = ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'quarters', 'years', 'decades', 'centuries', 'millennia'];
+$unitOfUnit = [
+    'dayOfYear' => false,
+    'weeksInYear' => false,
+];
+
+foreach ($units as $small) {
+    array_shift($units);
+
+    foreach ($units as $big) {
+        $singularSmall = Carbon::singularUnit($small);
+        $singularBig = Carbon::singularUnit($big);
+        $name = $singularSmall.'Of'.ucfirst($singularBig);
+        $unitOfUnit[$name] ??= [
+            '@method',
+            'int|static',
+            $name.'(?int $'.$singularSmall.' = null)',
+            'Return the value of the '.$singularSmall.' starting from the beginning of the current '.$singularBig.' when called with no parameters, change the current '.$singularSmall.' when called with an integer value',
+        ];
+        $name = $small.'In'.ucfirst($singularBig);
+        $unitOfUnit[$name] ??= [
+            '@method',
+            'int',
+            $name.'()',
+            'Return the number of '.$small.' contained in the current '.$singularBig,
+        ];
+    }
+}
+
+ksort($unitOfUnit);
+
+array_push($autoDocLines, ...array_values(array_filter($unitOfUnit)));
 
 $fileTemplate = <<<EOF
 <?php

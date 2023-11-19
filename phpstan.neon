@@ -42,6 +42,18 @@ parameters:
             paths:
                 - src/Carbon/Traits/Mixin.php
         -
+            message: '#^Call to an undefined method Carbon\\Carbon::[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
+            paths:
+                - tests/Carbon/SettersTest.php
+        -
+            message: '#^Access to an undefined property Carbon\\CarbonImmutable::\$[a-zA-Z]+\.$#'
+            paths:
+                - tests/CarbonImmutable/GettersTest.php
+        -
+            message: '#^Call to an undefined method Carbon\\CarbonImmutable::[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
+            paths:
+                - tests/CarbonImmutable/GettersTest.php
+        -
             message: '#^Cannot access property \$locale on Carbon\\CarbonPeriod\|string\.$#'
             paths:
                 - tests/CarbonPeriod/GettersTest.php
