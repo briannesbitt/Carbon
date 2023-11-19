@@ -470,6 +470,27 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(1, $date->dayOfMinute);
     }
 
+    public function testUnitOfUnitMethod()
+    {
+        $date = Carbon::createFromDate(2018, 7, 6);
+        $this->assertSame(6, $date->dayOfQuarter());
+
+        $date = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame(6 + 31, $date->dayOfQuarter());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'UTC');
+        $this->assertSame((95 * 24 + 4) * 60 + 50, $date->minuteOfYear());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame((95 * 24 + 3) * 60 + 50, $date->minuteOfYear());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(0, $date->yearOfMinute());
+
+        $date = Carbon::create(2018, 4, 6, 4, 50, 0, 'America/Toronto');
+        $this->assertSame(1, $date->dayOfMinute());
+    }
+
     public function testUnitInUnit()
     {
         $date = Carbon::createFromDate(2018, 7, 6);

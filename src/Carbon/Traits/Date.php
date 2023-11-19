@@ -936,7 +936,7 @@ trait Date
             'microsecond' => 'u',
             // @property int 0 (for Sunday) through 6 (for Saturday)
             'dayOfWeek' => 'w',
-            // @property-read int 1 (for Monday) through 7 (for Sunday)
+            // @property int 1 (for Monday) through 7 (for Sunday)
             'dayOfWeekIso' => 'N',
             // @property int ISO-8601 week number of year, weeks starting on Monday
             'weekOfYear' => 'W',
@@ -1308,6 +1308,16 @@ trait Date
 
                 break;
 
+            case 'dayOfWeek':
+                $this->addDays($value - $this->dayOfWeek);
+
+                break;
+
+            case 'dayOfWeekIso':
+                $this->addDays($value - $this->dayOfWeekIso);
+
+                break;
+
             case 'timestamp':
                 $this->setTimestamp($value);
 
@@ -1349,7 +1359,7 @@ trait Date
                         ], true) ? 1 : 0) + (int) floor($start->diffInUnit($firstUnit, $this));
 
                         // We check $value a posteriori to give precedence to UnknownUnitException
-                        if (!is_int($value)) {
+                        if (!\is_int($value)) {
                             throw new UnitException("->$name expects integer value");
                         }
 
@@ -1446,9 +1456,15 @@ trait Date
     /**
      * Get/set the day of year.
      *
+     * @template T of int|null
+     *
      * @param int|null $value new value for day of year if using as setter.
      *
+     * @psalm-param T $value
+     *
      * @return static|int
+     *
+     * @psalm-return (T is int ? static : int)
      */
     public function dayOfYear($value = null)
     {
@@ -2760,6 +2776,22 @@ trait Date
                 );
             } catch (InvalidArgumentException) {
                 // Try macros
+            }
+        }
+
+        if (preg_match('/^([a-z]{2,})(In|Of)([A-Z][a-z]+)$/', $method, $match)) {
+            $value = null;
+
+            try {
+                $value = isset($parameters[0])
+                    ? $this->set($method, $parameters[0])
+                    : $this->get($method);
+            } catch (UnknownGetterException|UnknownSetterException) {
+                // continue to macro
+            }
+
+            if ($value !== null) {
+                return $value;
             }
         }
 
