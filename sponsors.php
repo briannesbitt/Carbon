@@ -105,7 +105,7 @@ function getOpenCollectiveSponsors(): string
         $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
         $alt = htmlspecialchars($member['name']);
 
-        return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank" rel="sponsored">'.
+        return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank">'.
             '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
             '</a>';
     }, $list))."\n";
