@@ -897,7 +897,7 @@ it in the <strong>config/app.php</strong> file:</p>
                                     var alt = $('<div>').text(member.name).html();
                                     var sponsor = (status === 'sponsor');
 
-                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank" rel="sponsored">' +
+                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank">' +
                                         '<img' + (sponsor ? ' onload="adjustImageSize(this)"' : '') + ' onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
                                         (member.star ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') +
                                         '</a>';
