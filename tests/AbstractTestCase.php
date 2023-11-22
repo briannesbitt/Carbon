@@ -30,8 +30,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
 
-use function class_exists;
-
 /**
  * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
