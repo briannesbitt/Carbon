@@ -18,7 +18,7 @@ use Carbon\Carbon;
 use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Translator;
-use Carbon\TranslatorImmutable;
+use Carbon\AbstractTranslatorImmutable;
 use ReflectionMethod;
 use Tests\AbstractTestCase;
 
@@ -83,8 +83,8 @@ class TranslatorTest extends AbstractTestCase
     public function testTranslatorImmutable()
     {
         $this->expectExceptionObject(
-            new ImmutableException('setTranslations not allowed on '.TranslatorImmutable::class)
+            new ImmutableException('setTranslations not allowed on '.AbstractTranslatorImmutable::class)
         );
-        TranslatorImmutable::get('en')->setTranslations([]);
+        AbstractTranslatorImmutable::get('en')->setTranslations([]);
     }
 }

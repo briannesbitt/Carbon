@@ -23,9 +23,14 @@ use Carbon\Translator;
 use Closure;
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use ReflectionProperty;
+use Symfony\Component\Translation;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
+
+use function class_exists;
 
 /**
  * @SuppressWarnings(PHPMD.NumberOfChildren)
@@ -343,5 +348,20 @@ abstract class AbstractTestCase extends TestCase
         }
 
         throw $firstError;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function translatorHasReturnType()
+    {
+        $transMethod = new ReflectionMethod(
+            class_exists(TranslatorInterface::class)
+                ? TranslatorInterface::class
+                : Translation\Translator::class,
+            'trans'
+        );
+
+        return $transMethod->hasReturnType();
     }
 }

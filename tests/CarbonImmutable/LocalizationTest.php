@@ -377,16 +377,28 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testSetLocaleWithMalformedLocale($malformedLocale)
     {
+        if ($this->translatorHasReturnType()) {
+            $this->markTestSkipped('Translator::setLocale returns void');
+        }
+
         $this->assertTrue(Carbon::setLocale($malformedLocale));
     }
 
     public function testSetLocaleWithNonExistingLocale()
     {
+        if ($this->translatorHasReturnType()) {
+            $this->markTestSkipped('Translator::setLocale returns void');
+        }
+
         $this->assertFalse(Carbon::setLocale('pt-XX'));
     }
 
     public function testSetLocaleWithUnknownLocale()
     {
+        if ($this->translatorHasReturnType()) {
+            $this->markTestSkipped('Translator::setLocale returns void');
+        }
+
         $this->assertFalse(Carbon::setLocale('zz'));
     }
 
@@ -498,24 +510,42 @@ class LocalizationTest extends AbstractTestCase
         $translator = Carbon::getTranslator();
         Carbon::setLocale('en');
 
-        $this->assertFalse(Carbon::setLocale('foo'));
+        $setLocale = Carbon::setLocale('foo');
+        if (!$this->translatorHasReturnType()) {
+            $this->assertFalse($setLocale);
+        }
+
         $this->assertSame('Saturday', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
         $translator->addDirectory($directory);
 
-        $this->assertTrue(Carbon::setLocale('foo'));
+        $setLocale = Carbon::setLocale('foo');
+        if (!$this->translatorHasReturnType()) {
+            $this->assertTrue($setLocale);
+        }
+
         $this->assertSame('samedi', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
         Carbon::setLocale('en');
         $translator->removeDirectory($directory);
 
-        $this->assertFalse(Carbon::setLocale('bar'));
+        $setLocale = Carbon::setLocale('bar');
+        if (!$this->translatorHasReturnType()) {
+            $this->assertFalse($setLocale);
+        }
+
         $this->assertSame('Saturday', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
-        $this->assertTrue(Carbon::setLocale('foo'));
+        $setLocale = Carbon::setLocale('foo');
+        if (!$this->translatorHasReturnType()) {
+            $this->assertTrue($setLocale);
+        }
+
         $this->assertSame('samedi', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
-        $this->assertTrue(Carbon::setLocale('en'));
+        if (!$this->translatorHasReturnType()) {
+            $this->assertTrue(Carbon::setLocale('en'));
+        }
     }
 
     public function testLocaleHasShortUnits()
@@ -559,6 +589,10 @@ class LocalizationTest extends AbstractTestCase
 
     public function testLocaleHasDiffSyntax()
     {
+        if ($this->translatorHasReturnType()) {
+            $this->markTestSkipped('Translator::setLocale returns void');
+        }
+
         $withDiffSyntax = [
             'year' => 'foo',
             'ago' => ':time ago',
@@ -577,11 +611,19 @@ class LocalizationTest extends AbstractTestCase
         $translator->setMessages($withDiffSyntaxLocale, $withDiffSyntax);
         $translator->setMessages($withoutDiffSyntaxLocale, $withoutDiffSyntax);
 
-        $this->assertTrue(Carbon::localeHasDiffSyntax($withDiffSyntaxLocale));
-        $this->assertFalse(Carbon::localeHasDiffSyntax($withoutDiffSyntaxLocale));
+        if ($this->translatorHasReturnType()) {
+            $this->expectException(Symfony\Component\Translation\Exception\InvalidArgumentException::class);
+            Carbon::localeHasDiffSyntax($withoutDiffSyntaxLocale);
 
-        $this->assertTrue(Carbon::localeHasDiffSyntax('ka'));
-        $this->assertFalse(Carbon::localeHasDiffSyntax('foobar'));
+            $this->expectException(Symfony\Component\Translation\Exception\InvalidArgumentException::class);
+            Carbon::localeHasDiffSyntax('foobar');
+        } else {
+            $this->assertTrue(Carbon::localeHasDiffSyntax($withDiffSyntaxLocale));
+            $this->assertFalse(Carbon::localeHasDiffSyntax($withoutDiffSyntaxLocale));
+
+            $this->assertTrue(Carbon::localeHasDiffSyntax('ka'));
+            $this->assertFalse(Carbon::localeHasDiffSyntax('foobar'));
+        }
     }
 
     public function testLocaleHasDiffOneDayWords()
