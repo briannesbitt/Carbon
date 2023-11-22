@@ -46,7 +46,7 @@
         "psr/clock": "^1.0",
         "symfony/polyfill-mbstring": "^1.0",
         "symfony/polyfill-php80": "^1.16",
-        "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0"
+        "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "doctrine/dbal": "^2.0 || ^3.1.4 || ^4.0",
