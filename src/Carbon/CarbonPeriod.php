@@ -2319,7 +2319,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function round($precision = null, $function = 'round')
     {
         return $this->roundWith(
-            $precision ?? $this->getDateInterval()->setLocalTranslator(TranslatorImmutable::get('en'))->forHumans(),
+            $precision ?? $this->getDateInterval()->setLocalTranslator(AbstractTranslatorImmutable::get('en'))->forHumans(),
             $function
         );
     }

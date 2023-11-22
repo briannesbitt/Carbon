@@ -11,89 +11,22 @@
 
 namespace Carbon;
 
-use Carbon\Exceptions\ImmutableException;
-use Symfony\Component\Config\ConfigCacheFactoryInterface;
-use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
+use ReflectionMethod;
+use Symfony\Component\Translation;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class TranslatorImmutable extends Translator
+$transMethod = new ReflectionMethod(
+    class_exists(TranslatorInterface::class)
+        ? TranslatorInterface::class
+        : Translation\Translator::class,
+    'trans'
+);
+
+require $transMethod->hasReturnType()
+    ? __DIR__.'/../../lazy/Carbon/TranslatorImmutableStrongType.php'
+    : __DIR__.'/../../lazy/Carbon/TranslatorImmutableWeakType.php';
+
+class TranslatorImmutable extends LazyTranslatorImmutable
 {
-    /** @var bool */
-    private $constructed = false;
-
-    public function __construct($locale, MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
-    {
-        parent::__construct($locale, $formatter, $cacheDir, $debug);
-        $this->constructed = true;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function setDirectories(array $directories)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        return parent::setDirectories($directories);
-    }
-
-    public function setLocale($locale)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        return parent::setLocale($locale);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function setMessages($locale, $messages)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        return parent::setMessages($locale, $messages);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function setTranslations($messages)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        return parent::setTranslations($messages);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function setConfigCacheFactory(ConfigCacheFactoryInterface $configCacheFactory)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        parent::setConfigCacheFactory($configCacheFactory);
-    }
-
-    public function resetMessages($locale = null)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        return parent::resetMessages($locale);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function setFallbackLocales(array $locales)
-    {
-        $this->disallowMutation(__METHOD__);
-
-        parent::setFallbackLocales($locales);
-    }
-
-    private function disallowMutation($method)
-    {
-        if ($this->constructed) {
-            throw new ImmutableException($method.' not allowed on '.static::class);
-        }
-    }
+    // Proxy dynamically loaded LazyTranslator in a static way
 }

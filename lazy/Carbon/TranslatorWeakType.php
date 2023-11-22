@@ -11,6 +11,8 @@
 
 namespace Carbon;
 
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
+
 if (!class_exists(LazyTranslator::class, false)) {
     class LazyTranslator extends AbstractTranslator
     {
@@ -27,6 +29,17 @@ if (!class_exists(LazyTranslator::class, false)) {
         public function trans($id, array $parameters = [], $domain = null, $locale = null)
         {
             return $this->translate($id, $parameters, $domain, $locale);
+        }
+
+        public function setLocale($locale)
+        {
+            try {
+                parent::setLocaleIdentifier($locale);
+            } catch (InvalidArgumentException $e) {
+                return false;
+            }
+
+            return true;
         }
     }
 }

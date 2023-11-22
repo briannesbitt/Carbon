@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 
 if (!class_exists(LazyTranslator::class, false)) {
@@ -47,6 +48,14 @@ if (!class_exists(LazyTranslator::class, false)) {
             return (function (string $field) {
                 return $this->$field;
             })->call($instance, $field);
+        }
+
+        /**
+         * @throws InvalidArgumentException
+         */
+        public function setLocale(string $locale): void
+        {
+            parent::setLocaleIdentifier($locale);
         }
     }
 }
