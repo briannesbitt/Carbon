@@ -17,9 +17,11 @@ $newComposer = preg_replace(
     $composer
 );
 
+require_once __DIR__.'/functions.php';
+
 echo $newComposer === $composer
     ? 'nesbot/carbon is already on '
-    : (file_put_contents(__DIR__ . '/../composer.json', $newComposer)
+    : (writeJson('composer.json', $newComposer)
         ? 'Upgraded nesbot/carbon to '
         : 'Unable to upgrade nesbot/carbon to '
     );

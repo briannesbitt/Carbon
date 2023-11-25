@@ -3,6 +3,7 @@
 namespace ApiHistory;
 
 include_once __DIR__.'/config.php';
+require_once __DIR__.'/functions.php';
 
 set_time_limit(0);
 chdir(__DIR__.'/..');
@@ -172,7 +173,7 @@ function getMethodsOfVersion($version)
     chdir('..');
 
     if (strpos($output, 'Installation failed') !== false) {
-        file_put_contents(__DIR__.'/../temp.txt', $output);
+        writeFile('temp.txt', $output);
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
@@ -180,7 +181,7 @@ function getMethodsOfVersion($version)
     $output = shell_exec('php '.__FILE__.' current '.escapeshellarg('sandbox'));
 
     if (!empty($output)) {
-        file_put_contents(__DIR__.'/cache/methods_of_version_'.$version.'.json', $output);
+        writeFile('tools/cache/methods_of_version_'.$version.'.json', $output);
     }
 
     return $output;
@@ -192,7 +193,7 @@ foreach (array_reverse($versions) as $index => $version) {
     $data = json_decode($output);
 
     if (!is_array($data) && !is_object($data)) {
-        file_put_contents(__DIR__.'/../temp2.txt', $output);
+        writeFile('temp2.txt', $output);
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
@@ -200,7 +201,7 @@ foreach (array_reverse($versions) as $index => $version) {
     $data = (array) $data;
 
     if (isset($data['error'])) {
-        file_put_contents(__DIR__.'/../temp3.txt', var_export($data, true));
+        writeFile('temp3.txt', var_export($data, true));
         echo "\nError on $version:\n";
         print_r($data);
         exit(1);
@@ -213,7 +214,7 @@ foreach (array_reverse($versions) as $index => $version) {
 
 echo "100%\nDumping results.\n";
 
-file_put_contents('history.json', json_encode($methods, JSON_PRETTY_PRINT));
+writeJson('history.json', $methods);
 
 echo "Done\n";
 

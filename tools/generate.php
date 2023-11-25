@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__.'/config.php';
+require_once __DIR__.'/functions.php';
 
 date_default_timezone_set('UTC');
 setlocale(LC_ALL, 'en');
@@ -390,7 +391,7 @@ function genHtml($page, $out, $jumbotron = '')
     $html = str_replace('#{openCollectiveBackers}', getOpenCollective('backer'), $html);
     $html = str_replace('#{openCollectiveHelpers}', getOpenCollective('helper'), $html);
 
-    file_put_contents($out, cleanupHtml($html));
+    writeFileAtPath($out, cleanupHtml($html));
 
     echo "$out generated\n";
 }
@@ -539,10 +540,10 @@ function compile($src, $dest = null)
         'carbonDocVarDump' => 'var_dump',
     ]));
 
-    return $dest ? file_put_contents($dest, $code) : $code;
+    return $dest ? writeFileAtPath($dest, $code) : $code;
 }
 
-file_put_contents('languages.json', json_encode(Language::all(), JSON_PRETTY_PRINT));
+writeJson('languages.json', Language::all());
 
 $languages = array_map(function ($code) {
     $lang = new Language($code);
@@ -556,7 +557,7 @@ $languages = array_map(function ($code) {
     ]);
 }, Carbon::getAvailableLocales());
 
-file_put_contents('contribute/translate/assets/languages.json', json_encode($languages, JSON_PRETTY_PRINT));
+writeJson('contribute/translate/assets/languages.json', $languages);
 
 $translations = [
     ['CarbonInterval::years(2)', '->forHumans()'],
@@ -646,9 +647,9 @@ foreach ($languages as $language) {
         $output[$start.$end] = eval("use Carbon\Carbon; use Carbon\CarbonInterval; return {$start}->locale('{$locale}'){$end};");
     }
 
-    file_put_contents(
+    writeJson(
         'contribute/translate/assets/translations/'.$locale.'.json',
-        str_replace("\r", '', json_encode($output, JSON_PRETTY_PRINT))
+        $output
     );
 }
 

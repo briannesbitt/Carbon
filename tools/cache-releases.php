@@ -41,4 +41,6 @@ do {
     }
 } while (count($data));
 
-file_put_contents(__DIR__.'/../releases.json', json_encode($releases, JSON_PRETTY_PRINT));
+require_once __DIR__.'/functions.php';
+
+writeJson('releases.json', $releases);
