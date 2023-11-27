@@ -130,11 +130,13 @@ trait Rounding
         $normalizedValue = floor($function(($value - $minimum) / $precision) * $precision + $minimum);
 
         /** @var CarbonInterface $result */
-        $result = $this->$normalizedUnit($normalizedValue);
+        $result = $this;
 
         foreach ($changes as $unit => $value) {
             $result = $result->$unit($value);
         }
+
+        $result = $result->$normalizedUnit($normalizedValue);
 
         return $normalizedUnit === 'month' && $precision <= 1 && abs($result->month - $initialMonth) === 2
             // Re-run the change in case an overflow occurred
