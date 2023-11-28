@@ -300,7 +300,7 @@ function getAllBackers(): array
 
         if ($monthlyContribution > 29) {
             $status = 'sponsor';
-        } elseif ($monthlyContribution > 3 || $yearlyContribution > 20) {
+        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 29) {
             $status = 'backer';
         } elseif ($member['totalAmountDonated'] > 0) {
             $status = 'helper';
@@ -338,13 +338,22 @@ function getOpenCollective(string $status): string
             [$x, $y] = @getimagesize($src) ?: [0, 0];
             $validImage = ($x && $y);
             $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
-            $height = $status === 'helper' ? 32 : 64;
+            $height = match ($status) {
+                'sponsor' => 64,
+                'backer' => 48,
+                default => 32,
+            };
+            $margin = match ($status) {
+                'sponsor' => 10,
+                'backer' => 6,
+                default => 5,
+            };
             $width = $validImage ? round($x * $height / $y) : $height;
             $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
             $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
             $alt = htmlspecialchars($member['name']);
 
-            return "\n".'        <a style="position: relative; margin: 10px; display: inline-block; border: '.($height / 8).'px solid '.($member['star'] ? '#7ac35f' : 'transparent').';'.($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;').'" title="'.$title.'" href="'.$href.'" target="_blank">'.
+            return "\n".'        <a style="position: relative; margin: '.$margin.'px; display: inline-block; border: '.($height / 8).'px solid '.($member['star'] ? '#7ac35f' : 'transparent').';'.($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;').'" title="'.$title.'" href="'.$href.'" target="_blank">'.
                 '<img alt="'.$alt.'" src="'.$src.'" width="'.min($width, 2 * $height).'" height="'.$height.'">'.
                 ($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '').
                 '</a>';
