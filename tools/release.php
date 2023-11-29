@@ -21,7 +21,7 @@ require_once __DIR__.'/functions.php';
 
 echo $newComposer === $composer
     ? 'nesbot/carbon is already on '
-    : (writeJson('composer.json', $newComposer)
+    : (writeFile('composer.json', $newComposer)
         ? 'Upgraded nesbot/carbon to '
         : 'Unable to upgrade nesbot/carbon to '
     );

@@ -118,7 +118,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                         'return'      => $return,
                         'prototype'   => '<em>Native PHP method</em>',
                         'className'   => preg_replace('/^Carbon\\\\/', '', $className),
-                        'description' => 'See <a href="http://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
+                        'description' => 'See <a href="https://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
                         'history'     => '',
                     ];
 

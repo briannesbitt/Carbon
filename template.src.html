@@ -700,13 +700,20 @@
                                 .map(function (member) {
                                     var href = $('<div>').text(member.website || member.profile).html();
                                     var src = $('<div>').text(member.image || member.profile.replace('https://opencollective.com/', 'https://images.opencollective.com/') + '/avatar/256.png').html();
-                                    var size = member.status === 'helper' ? 32 : 64;
+                                    var size = ({
+                                        sponsor: 64,
+                                        backer: 48,
+                                    })[member.status] || 32;
+                                    var margin = ({
+                                        sponsor: 10,
+                                        backer: 6,
+                                    })[member.status] || 5;
                                     href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
                                     var title = $('<div>').text(member.description || member.name).html();
                                     var alt = $('<div>').text(member.name).html();
                                     var sponsor = (status === 'sponsor');
 
-                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank">' +
+                                    return '<a style="position: relative; margin: ' + margin + 'px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank">' +
                                         '<img' + (sponsor ? ' onload="adjustImageSize(this)"' : '') + ' onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
                                         (member.star ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') +
                                         '</a>';

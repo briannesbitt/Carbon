@@ -160,34 +160,13 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "^2.71.0"
+        "nesbot/carbon": "^2.72.0"
     }
 }</code></pre></p>
-
-            <p>Carbon 2 is officially supported by Laravel since the version 5.8, if you want to use it on a lower version, you can follow those steps:</p>
-
-            <p>Set explicitly the Carbon version and add the adapter in your <strong>composer.json</strong>:</p>
-
-            <p><pre><code class="js">{
-    "require": {
-        "nesbot/carbon": "2.71.0 as 1.39.0"
-        "kylekatarnls/laravel-carbon-2": "^1.0.0"
-    }
-}</code></pre></p>
-
-            <p>Use 1.25.0 alias for Laravel 5.6, 1.39.0 for other versions as each version of Laravel has its own range of Carbon compatibility, you have to take 2.71.0
-                as the real used version, then pick an alias among versions Laravel supports. You may have other dependencies with other Carbon restrictions. If so,
-                we cannot ensure Carbon 2 will works with them as Carbon 1 did, but you can still try an other version alias. To be sure an alias will be compatible
-                with all of your current dependencies, you can choose the version of Carbon you have before upgrading to Carbon 2 using <code>composer show nesbot/carbon</code>.</p>
-
-            <p>Then update your dependencies by running.</p>
-
-            <p><pre><code>$ composer update</code></pre></p>
-
         </div>
         <div role="tabpanel" class="tab-pane" id="nocomposer">
             <p></p>
-            <p>Why are you not using <a href="http://getcomposer.org/">composer</a>?</p>
+            <p>Why not using <a href="https://getcomposer.org/">composer</a>?</p>
             <p>Download the last release (or any other you want) here: <a href="https://github.com/briannesbitt/Carbon/releases">releases</a>.</p>
             <p>Release package is the asset named <strong>Carbon-x.y.z.zip</strong> where <strong>x.y.z</strong> is the version number.</p>
             <p>Extract the zip in a directory in your project, then require the <strong>autoload.php</strong> file to make any Carbon class available:</p>
@@ -929,13 +908,20 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
                                 .map(function (member) {
                                     var href = $('<div>').text(member.website || member.profile).html();
                                     var src = $('<div>').text(member.image || member.profile.replace('https://opencollective.com/', 'https://images.opencollective.com/') + '/avatar/256.png').html();
-                                    var size = member.status === 'helper' ? 32 : 64;
+                                    var size = ({
+                                        sponsor: 64,
+                                        backer: 48,
+                                    })[member.status] || 32;
+                                    var margin = ({
+                                        sponsor: 10,
+                                        backer: 6,
+                                    })[member.status] || 5;
                                     href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
                                     var title = $('<div>').text(member.description || member.name).html();
                                     var alt = $('<div>').text(member.name).html();
                                     var sponsor = (status === 'sponsor');
 
-                                    return '<a style="position: relative; margin: 10px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank">' +
+                                    return '<a style="position: relative; margin: ' + margin + 'px; display: inline-block; border: ' + (size / 8) + 'px solid ' + (member.star ? '#7ac35f' : (sponsor ? '#e3e3e3' : 'transparent')) + ';' + (sponsor ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') + '" title="' + title + '" href="' + href + '" target="_blank">' +
                                         '<img' + (sponsor ? ' onload="adjustImageSize(this)"' : '') + ' onerror="fallbackImage(this)" alt="' + alt + '" src="' + src + '" width="' + size + '" height="' + size + '">' +
                                         (member.star ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') +
                                         '</a>';
