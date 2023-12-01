@@ -36,11 +36,11 @@ class TranslatorImmutable extends Translator
         return parent::setDirectories($directories);
     }
 
-    public function setLocale($locale)
+    public function setLocale($locale): void
     {
         $this->disallowMutation(__METHOD__);
 
-        return parent::setLocale($locale);
+        parent::setLocale($locale);
     }
 
     /**
@@ -66,7 +66,7 @@ class TranslatorImmutable extends Translator
     /**
      * @codeCoverageIgnore
      */
-    public function setConfigCacheFactory(ConfigCacheFactoryInterface $configCacheFactory)
+    public function setConfigCacheFactory(ConfigCacheFactoryInterface $configCacheFactory): void
     {
         $this->disallowMutation(__METHOD__);
 
@@ -83,7 +83,7 @@ class TranslatorImmutable extends Translator
     /**
      * @codeCoverageIgnore
      */
-    public function setFallbackLocales(array $locales)
+    public function setFallbackLocales(array $locales): void
     {
         $this->disallowMutation(__METHOD__);
 
