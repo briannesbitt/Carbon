@@ -12,7 +12,10 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
+      - name: Ignore comments in switch
+        run: php tests/remove-comments-in-switch.php
+
       - name: Check for code style violation with PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@3.7.0
+        uses: docker://oskarstark/php-cs-fixer-ga
         with:
           args: --diff --dry-run
