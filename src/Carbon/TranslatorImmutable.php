@@ -66,7 +66,7 @@ class TranslatorImmutable extends Translator
     /**
      * @codeCoverageIgnore
      */
-    public function setConfigCacheFactory(ConfigCacheFactoryInterface $configCacheFactory)
+    public function setConfigCacheFactory(ConfigCacheFactoryInterface $configCacheFactory): void
     {
         $this->disallowMutation(__METHOD__);
 
