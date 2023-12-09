@@ -323,14 +323,12 @@ function getOpenCollective(string $status): string
     $members = $members ?? getAllBackers();
 
     if (!isset($content[$status])) {
-        $list = array_filter($members, static function ($item) use ($status) {
-            return ($item['status'] ?? null) === $status;
-        });
+        $list = array_filter($members, static fn ($item) => ($item['status'] ?? null) === $status);
 
-        usort($list, static function (array $a, array $b) {
-            return ($b['monthlyContribution'] <=> $a['monthlyContribution'])
-                ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated']);
-        });
+        usort($list, static fn (array $a, array $b) => (
+            ($b['monthlyContribution'] <=> $a['monthlyContribution'])
+            ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated'])
+        ));
 
         $content[$status] = implode('', array_map(static function (array $member) use ($status) {
             $href = htmlspecialchars($member['website'] ?? $member['profile']);
@@ -340,7 +338,7 @@ function getOpenCollective(string $status): string
             $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
             $height = match ($status) {
                 'sponsor' => 64,
-                'backer' => 48,
+                'backer' => 42,
                 default => 32,
             };
             $margin = match ($status) {
@@ -349,7 +347,7 @@ function getOpenCollective(string $status): string
                 default => 5,
             };
             $width = $validImage ? round($x * $height / $y) : $height;
-            $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
             $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
             $alt = htmlspecialchars($member['name']);
 
@@ -464,9 +462,7 @@ function compile($src, $dest = null)
     $code = file_get_contents($src);
 
     if (is_null($imports)) {
-        $imports = implode('', array_map(function ($import) {
-            return "use $import; ";
-        }, [
+        $imports = implode('', array_map(static fn ($import) => "use $import; ", [
             Carbon::class,
             CarbonImmutable::class,
             CarbonInterface::class,
