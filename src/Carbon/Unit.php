@@ -96,12 +96,12 @@ enum Unit: string
         return $this->interval()->locale($locale);
     }
 
-    public function toPeriod(...$params): CarbonPeriodImmutable
+    public function toPeriod(...$params): CarbonPeriod
     {
         return $this->interval()->toPeriod(...$params);
     }
 
-    public function stepBy(mixed $interval, Unit|string|null $unit = null): CarbonPeriodImmutable
+    public function stepBy(mixed $interval, Unit|string|null $unit = null): CarbonPeriod
     {
         return $this->interval()->stepBy($interval, $unit);
     }

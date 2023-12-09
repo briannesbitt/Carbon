@@ -32,6 +32,7 @@ use Carbon\Traits\ToStringFormat;
 use Closure;
 use DateInterval;
 use DateMalformedIntervalStringException;
+use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
@@ -2112,9 +2113,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @param DateTimeInterface|string|int ...$params Start date, [end date or recurrences] and optional settings.
      *
-     * @return CarbonPeriodImmutable
+     * @return CarbonPeriod
      */
-    public function toPeriod(...$params): CarbonPeriodImmutable
+    public function toPeriod(...$params): CarbonPeriod
     {
         if ($this->tzName) {
             $tz = \is_string($this->tzName) ? new DateTimeZone($this->tzName) : $this->tzName;
@@ -2124,7 +2125,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
         }
 
-        return CarbonPeriodImmutable::create($this, ...$params);
+        $class = ($params[0] ?? null) instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
+
+        return $class::create($this, ...$params);
     }
 
     /**
@@ -2133,9 +2136,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @param mixed|int|DateInterval|string|Closure|Unit|null $interval interval or number of the given $unit
      * @param Unit|string|null                                $unit     if specified, $interval must be an integer
      *
-     * @return CarbonPeriodImmutable
+     * @return CarbonPeriod
      */
-    public function stepBy($interval, Unit|string|null $unit = null): CarbonPeriodImmutable
+    public function stepBy($interval, Unit|string|null $unit = null): CarbonPeriod
     {
         $start = $this->startDate ?: CarbonImmutable::make($this->startDate ?: 'now');
         $end = $this->endDate ?: $start->copy()->add($this);
@@ -2150,7 +2153,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $step = static::make(1, $interval);
         }
 
-        return CarbonPeriodImmutable::create($step, $start, $end);
+        $class = $start instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
+
+        return $class::create($step, $start, $end);
     }
 
     /**
