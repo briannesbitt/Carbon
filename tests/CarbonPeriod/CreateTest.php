@@ -16,10 +16,13 @@ namespace Tests\CarbonPeriod;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonPeriodImmutable;
 use Carbon\Exceptions\NotAPeriodException;
+use Carbon\Month;
+use Carbon\Unit;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -783,38 +786,70 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(
             [Carbon::class, Carbon::class, Carbon::class],
             iterator_to_array(
-                CarbonPeriod::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class')
-            )
+                CarbonPeriod::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class'),
+            ),
         );
         $this->assertSame(
             [Carbon::class, Carbon::class, Carbon::class],
             iterator_to_array(
-                CarbonPeriod::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class')
-            )
+                CarbonPeriod::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class'),
+            ),
         );
         $this->assertSame(
             [Carbon::class, Carbon::class, Carbon::class],
             iterator_to_array(
-                CarbonPeriod::between('today', 'today + 2 days')->map('get_class')
-            )
+                CarbonPeriod::between('today', 'today + 2 days')->map('get_class'),
+            ),
         );
         $this->assertSame(
             [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
             iterator_to_array(
-                CarbonPeriodImmutable::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class')
-            )
+                CarbonPeriodImmutable::between(Carbon::today(), Carbon::today()->addDays(2))->map(get_class(...)),
+            ),
         );
         $this->assertSame(
             [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
             iterator_to_array(
-                CarbonPeriodImmutable::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class')
-            )
+                CarbonPeriodImmutable::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class'),
+            ),
         );
         $this->assertSame(
             [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
             iterator_to_array(
-                CarbonPeriodImmutable::between('today', 'today + 2 days')->map('get_class')
-            )
+                CarbonPeriodImmutable::between('today', 'today + 2 days')->map('get_class'),
+            ),
         );
+    }
+
+    public function testEnums()
+    {
+        $periodClass = static::$periodClass;
+        /** @var CarbonPeriod $period */
+        $period = $periodClass::create(Month::January, Unit::Month, Month::June);
+
+        $this->assertTrue($period->isStartIncluded());
+        $this->assertTrue($period->isEndIncluded());
+        $carbonClass = $periodClass === CarbonPeriodImmutable::class ? CarbonImmutable::class : Carbon::class;
+
+        $this->assertSame(
+            array_fill(0, 6, $carbonClass),
+            iterator_to_array($period->map(get_class(...))),
+        );
+        $this->assertSame(
+            ['01-01', '02-01', '03-01', '04-01', '05-01', '06-01'],
+            iterator_to_array($period->map(static fn (CarbonInterface $date) => $date->format('m-d'))),
+        );
+
+        $period->setDateInterval(Unit::Week);
+
+        $this->assertSame(22, $period->count());
+
+        $period->setDateInterval(3, Unit::Week);
+
+        $this->assertSame(8, $period->count());
+
+        $period->setDateInterval(Unit::Quarter);
+
+        $this->assertSame(2, $period->count());
     }
 }

@@ -22,6 +22,13 @@ use Tests\AbstractTestCase;
 
 class UnitTest extends AbstractTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        CarbonImmutable::setLocale('en');
+    }
+
     /**
      * @dataProvider dataForFromName
      */

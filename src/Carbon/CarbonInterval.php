@@ -1207,7 +1207,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public static function make($interval, $unit = null, bool $skipCopy = false): ?self
     {
         if ($interval instanceof Unit) {
-            $interval = $interval->value;
+            $interval = $interval->interval();
         }
 
         if ($unit instanceof Unit) {

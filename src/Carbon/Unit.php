@@ -88,7 +88,7 @@ enum Unit: string
 
     public function interval(int|float $value = 1): CarbonInterval
     {
-        return CarbonInterval::{$this->name}($value);
+        return CarbonInterval::fromString("$value $this->name");
     }
 
     public function locale(string $locale): CarbonInterval

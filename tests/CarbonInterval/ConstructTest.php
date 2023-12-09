@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\OutOfRangeException;
+use Carbon\Unit;
 use DateInterval;
 use Exception;
 use Tests\AbstractTestCase;
@@ -383,5 +384,11 @@ class ConstructTest extends AbstractTestCase
         ));
 
         CarbonInterval::createFromDateString('foo bar');
+    }
+
+    public function testEnums()
+    {
+        $this->assertCarbonInterval(CarbonInterval::make(3, Unit::Hour), 0, 0, 0, 3, 0, 0);
+        $this->assertCarbonInterval(CarbonInterval::make(Unit::Week), 0, 0, 7, 0, 0, 0);
     }
 }

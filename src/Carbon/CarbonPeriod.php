@@ -223,7 +223,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @var int
      */
-    public const EXCLUDE_END_DATE = 2;
+    public const EXCLUDE_END_DATE = 8;
 
     /**
      * Yield CarbonImmutable instances.
@@ -564,10 +564,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return $count ? $result : $target;
     }
 
-    private static function makeInterval(string $string): ?CarbonInterval
+    private static function makeInterval(mixed $input): ?CarbonInterval
     {
         try {
-            return CarbonInterval::make($string);
+            return CarbonInterval::make($input);
         } catch (Throwable) {
             return null;
         }
@@ -724,7 +724,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     $argument instanceof Closure ||
                     $argument instanceof Unit
                 ) &&
-                $parsedInterval = @CarbonInterval::make($argument)
+                $parsedInterval = self::makeInterval($argument)
             ) {
                 $this->setDateInterval($parsedInterval);
             } elseif ($this->startDate === null && $parsedDate = $this->makeDateTime($argument)) {
@@ -908,11 +908,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public function setDateInterval(mixed $interval, Unit|string|null $unit = null): static
     {
         if ($interval instanceof Unit) {
-            $interval = $interval->value;
+            $interval = $interval->interval();
         }
 
         if ($unit instanceof Unit) {
-            $unit = $unit->value;
+            $unit = $unit->name;
         }
 
         if (!$interval = CarbonInterval::make($interval, $unit)) {
