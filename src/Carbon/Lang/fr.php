@@ -23,6 +23,12 @@
  * - Pete Scopes (pdscopes)
  */
 return [
+    'millennium' => ':count millénaire|:count millénaires',
+    'a_millennium' => 'un millénaire|:count millénaires',
+    'century' => ':count siècle|:count siècles',
+    'a_century' => 'un siècle|:count siècles',
+    'decade' => ':count décennie|:count décennies',
+    'a_decade' => 'une décennie|:count décennies',
     'year' => ':count an|:count ans',
     'a_year' => 'un an|:count ans',
     'y' => ':count an|:count ans',

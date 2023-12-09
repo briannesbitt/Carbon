@@ -94,7 +94,7 @@ trait Difference
 
     /**
      * @param string                                                 $unit     microsecond, millisecond, second, minute,
-     *                                                                         hour, day, week, months, quarter, years,
+     *                                                                         hour, day, week, month, quarter, year,
      *                                                                         century, millennium
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference

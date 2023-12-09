@@ -17,7 +17,9 @@ use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\OutOfRangeException;
+use Carbon\Month;
 use Carbon\Translator;
+use Carbon\WeekDay;
 use Closure;
 use DateMalformedStringException;
 use DateTimeImmutable;
@@ -56,10 +58,14 @@ trait Creator
      * @throws InvalidFormatException
      */
     public function __construct(
-        DateTimeInterface|string|int|float|null $time = null,
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time = null,
         DateTimeZone|string|int|null $tz = null,
     ) {
-        if ($time instanceof DateTimeInterface) {
+        if ($time instanceof Month) {
+            $time = $time->name.' 1';
+        } elseif ($time instanceof WeekDay) {
+            $time = $time->name;
+        } elseif ($time instanceof DateTimeInterface) {
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 

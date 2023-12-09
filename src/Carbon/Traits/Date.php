@@ -25,7 +25,9 @@ use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Month;
 use Carbon\Translator;
+use Carbon\WeekDay;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -322,10 +324,10 @@ use Throwable;
  * @method        CarbonInterface  year(int $value)                                                                   Set current instance year to the given value.
  * @method        CarbonInterface  setYears(int $value)                                                               Set current instance year to the given value.
  * @method        CarbonInterface  setYear(int $value)                                                                Set current instance year to the given value.
- * @method        CarbonInterface  months(int $value)                                                                 Set current instance month to the given value.
- * @method        CarbonInterface  month(int $value)                                                                  Set current instance month to the given value.
- * @method        CarbonInterface  setMonths(int $value)                                                              Set current instance month to the given value.
- * @method        CarbonInterface  setMonth(int $value)                                                               Set current instance month to the given value.
+ * @method        CarbonInterface  months(Month|int $value)                                                           Set current instance month to the given value.
+ * @method        CarbonInterface  month(Month|int $value)                                                            Set current instance month to the given value.
+ * @method        CarbonInterface  setMonths(Month|int $value)                                                        Set current instance month to the given value.
+ * @method        CarbonInterface  setMonth(Month|int $value)                                                         Set current instance month to the given value.
  * @method        CarbonInterface  days(int $value)                                                                   Set current instance day to the given value.
  * @method        CarbonInterface  day(int $value)                                                                    Set current instance day to the given value.
  * @method        CarbonInterface  setDays(int $value)                                                                Set current instance day to the given value.
@@ -1630,11 +1632,11 @@ trait Date
     /**
      * Get/set the weekday from 0 (Sunday) to 6 (Saturday).
      *
-     * @param int|null $value new value for weekday if using as setter.
+     * @param WeekDay|int|null $value new value for weekday if using as setter.
      *
      * @return static|int
      */
-    public function weekday($value = null)
+    public function weekday(WeekDay|int|null $value = null)
     {
         if ($value === null) {
             return $this->dayOfWeek;
@@ -1643,36 +1645,36 @@ trait Date
         $firstDay = (int) ($this->getTranslationMessage('first_day_of_week') ?? 0);
         $dayOfWeek = ($this->dayOfWeek + 7 - $firstDay) % 7;
 
-        return $this->addDays((($value + 7 - $firstDay) % 7) - $dayOfWeek);
+        return $this->addDays(((WeekDay::int($value) + 7 - $firstDay) % 7) - $dayOfWeek);
     }
 
     /**
      * Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
      *
-     * @param int|null $value new value for weekday if using as setter.
+     * @param WeekDay|int|null $value new value for weekday if using as setter.
      *
      * @return static|int
      */
-    public function isoWeekday($value = null)
+    public function isoWeekday(WeekDay|int|null $value = null)
     {
         $dayOfWeekIso = $this->dayOfWeekIso;
 
-        return $value === null ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
+        return $value === null ? $dayOfWeekIso : $this->addDays(WeekDay::int($value) - $dayOfWeekIso);
     }
 
     /**
      * Return the number of days since the start of the week (using the current locale or the first parameter
      * if explicitly given).
      *
-     * @param int|null $weekStartsAt optional start allow you to specify the day of week to use to start the week,
-     *                               if not provided, start of week is inferred from the locale
-     *                               (Sunday for en_US, Monday for de_DE, etc.)
+     * @param WeekDay|int|null $weekStartsAt optional start allow you to specify the day of week to use to start the week,
+     *                                       if not provided, start of week is inferred from the locale
+     *                                       (Sunday for en_US, Monday for de_DE, etc.)
      *
      * @return int
      */
-    public function getDaysFromStartOfWeek(int $weekStartsAt = null): int
+    public function getDaysFromStartOfWeek(WeekDay|int|null $weekStartsAt = null): int
     {
-        $firstDay = (int) ($weekStartsAt ?? $this->getTranslationMessage('first_day_of_week') ?? 0);
+        $firstDay = (int) (WeekDay::int($weekStartsAt) ?? $this->getTranslationMessage('first_day_of_week') ?? 0);
 
         return ($this->dayOfWeek + 7 - $firstDay) % 7;
     }
@@ -1681,16 +1683,16 @@ trait Date
      * Set the day (keeping the current time) to the start of the week + the number of days passed as the first
      * parameter. First day of week is driven by the locale unless explicitly set with the second parameter.
      *
-     * @param int      $numberOfDays number of days to add after the start of the current week
-     * @param int|null $weekStartsAt optional start allow you to specify the day of week to use to start the week,
-     *                               if not provided, start of week is inferred from the locale
-     *                               (Sunday for en_US, Monday for de_DE, etc.)
+     * @param int              $numberOfDays number of days to add after the start of the current week
+     * @param WeekDay|int|null $weekStartsAt optional start allow you to specify the day of week to use to start the week,
+     *                                       if not provided, start of week is inferred from the locale
+     *                                       (Sunday for en_US, Monday for de_DE, etc.)
      *
      * @return static
      */
-    public function setDaysFromStartOfWeek(int $numberOfDays, int $weekStartsAt = null)
+    public function setDaysFromStartOfWeek(int $numberOfDays, WeekDay|int|null $weekStartsAt = null)
     {
-        return $this->addDays($numberOfDays - $this->getDaysFromStartOfWeek($weekStartsAt));
+        return $this->addDays($numberOfDays - $this->getDaysFromStartOfWeek(WeekDay::int($weekStartsAt)));
     }
 
     /**
@@ -2694,6 +2696,11 @@ trait Date
     public function setUnit($unit, $value = null)
     {
         $unit = static::singularUnit($unit);
+
+        if ($unit === 'month' && $value instanceof Month) {
+            $value = $value->value;
+        }
+
         $dateUnits = ['year', 'month', 'day'];
         if (\in_array($unit, $dateUnits)) {
             return $this->setDate(...array_map(function ($name) use ($unit, $value) {
