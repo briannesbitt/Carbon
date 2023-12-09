@@ -13,6 +13,8 @@ namespace Carbon;
 
 use Carbon\Traits\Date;
 use Carbon\Traits\DeprecatedProperties;
+use Carbon\Traits\StaticOptions;
+use Carbon\Traits\Test;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -815,6 +817,8 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
     use Date {
         __clone as dateTraitClone;
     }
+    use StaticOptions;
+    use Test;
 
     public function __clone(): void
     {

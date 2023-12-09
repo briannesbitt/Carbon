@@ -62,7 +62,7 @@ enum Month: int
 
     public function ofTheYear(CarbonImmutable|int|null $now = null): CarbonImmutable
     {
-        if (is_int($now)) {
+        if (\is_int($now)) {
             return CarbonImmutable::create($now, $this->value);
         }
 

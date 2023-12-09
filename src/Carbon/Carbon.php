@@ -13,6 +13,8 @@ namespace Carbon;
 
 use Carbon\Traits\Date;
 use Carbon\Traits\DeprecatedProperties;
+use Carbon\Traits\StaticOptionsLink;
+use Carbon\Traits\TestLink;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -813,6 +815,8 @@ use DateTimeZone;
 class Carbon extends DateTime implements CarbonInterface
 {
     use Date;
+    use StaticOptionsLink;
+    use TestLink;
 
     /**
      * Returns true if the current class/instance is mutable.

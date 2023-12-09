@@ -36,7 +36,7 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNow($yesterday = Carbon::yesterday());
 
         $this->assertTrue(Carbon::hasTestNow());
-        $this->assertSame($yesterday, Carbon::getTestNow());
+        $this->assertEquals($yesterday, Carbon::getTestNow());
     }
 
     public function testTestingAidsWithTestNowSetToString()

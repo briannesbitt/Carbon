@@ -33,7 +33,7 @@ trait Test
     protected static $testNow;
 
     /**
-     * The timezone to resto to when clearing the time mock.
+     * The timezone to restore to when clearing the time mock.
      *
      * @var string|null
      */
@@ -142,7 +142,7 @@ trait Test
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return Closure|static the current instance used for testing
+     * @return Closure|CarbonInterface the current instance used for testing
      */
     public static function getTestNow()
     {

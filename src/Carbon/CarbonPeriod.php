@@ -25,6 +25,7 @@ use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
+use Carbon\Traits\StaticOptionsLink;
 use Carbon\Traits\ToStringFormat;
 use Closure;
 use Countable;
@@ -186,6 +187,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     use Options {
         Options::__debugInfo as baseDebugInfo;
     }
+    use StaticOptionsLink;
     use ToStringFormat;
 
     /**
