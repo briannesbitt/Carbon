@@ -109,8 +109,13 @@ class CarbonTypesTest extends AbstractTestCase
             'precision' => null,
         ], $this->getMySQLPlatform()));
 
+        DateTimeDefaultPrecision::set(4);
+        $this->assertSame('DATETIME(4)', $type->getSQLDeclaration([
+            'precision' => null,
+        ], $this->getMySQLPlatform()));
+
         DateTimeDefaultPrecision::set(9);
-        $this->assertSame('DATETIME(9)', $type->getSQLDeclaration([
+        $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
             'precision' => null,
         ], $this->getMySQLPlatform()));
 
