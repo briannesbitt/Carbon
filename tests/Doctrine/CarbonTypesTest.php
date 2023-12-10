@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\Doctrine\CarbonImmutableType;
 use Carbon\Doctrine\CarbonType;
+use Carbon\Doctrine\CarbonTypeConverter;
 use Carbon\Doctrine\DateTimeDefaultPrecision;
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
@@ -67,6 +68,7 @@ class CarbonTypesTest extends AbstractTestCase
     {
         $type = Type::getType($name);
 
+        $adaptPrecisionToPlatform = method_exists(CarbonTypeConverter::class, 'getMaximumPrecision');
         $precision = DateTimeDefaultPrecision::get();
         $this->assertSame(6, $precision);
         $supportZeroPrecision = self::supportsZeroPrecision();
@@ -115,7 +117,7 @@ class CarbonTypesTest extends AbstractTestCase
         ], $this->getMySQLPlatform()));
 
         DateTimeDefaultPrecision::set(9);
-        $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
+        $this->assertSame($adaptPrecisionToPlatform ? 'DATETIME(6)' : 'DATETIME(9)', $type->getSQLDeclaration([
             'precision' => null,
         ], $this->getMySQLPlatform()));
 
