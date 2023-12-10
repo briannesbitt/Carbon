@@ -49,7 +49,8 @@ class ModifyTest extends AbstractTestCase
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
-        $b->addRealHours(24);
+        // @phpstan-ignore-next-line
+        $b->addUTCHours(24);
         $this->assertSame(-24.0, $b->diffInHours($a, false));
         $this->assertSame(-24.0 * 60, $b->diffInMinutes($a, false));
         $this->assertSame(-24.0 * 60 * 60, $b->diffInSeconds($a, false));

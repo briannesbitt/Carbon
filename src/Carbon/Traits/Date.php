@@ -2872,9 +2872,10 @@ trait Date
 
         if ($action === 'add' || $action === 'sub') {
             $unit = substr($unit, 3);
+            $utcUnit = $this->getUTCUnit($unit);
 
-            if (str_starts_with($unit, 'Real')) {
-                $unit = static::singularUnit(substr($unit, 4));
+            if ($utcUnit) {
+                $unit = static::singularUnit($utcUnit);
 
                 return $this->{"{$action}RealUnit"}($unit, ...$parameters);
             }
@@ -3115,5 +3116,18 @@ trait Date
         }
 
         return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
+    }
+
+    private function getUTCUnit(string $unit): ?string
+    {
+        if (str_starts_with($unit, 'Real')) {
+            return substr($unit, 4);
+        }
+
+        if (str_starts_with($unit, 'UTC')) {
+            return substr($unit, 3);
+        }
+
+        return null;
     }
 }
