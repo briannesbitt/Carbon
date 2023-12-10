@@ -19,6 +19,7 @@ use Carbon\CarbonImmutable;
 trait StaticOptionsLink
 {
     use StaticOptions;
+    use StaticLocalizationLink;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.

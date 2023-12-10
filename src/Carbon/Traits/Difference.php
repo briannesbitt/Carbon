@@ -30,7 +30,6 @@ use DateTimeInterface;
  * @method bool lessThan($date)
  * @method static copy()
  * @method static resolveCarbon($date = null)
- * @method static Translator translator()
  */
 trait Difference
 {
