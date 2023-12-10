@@ -13,6 +13,9 @@ namespace Carbon;
 
 use Carbon\Traits\Date;
 use Carbon\Traits\DeprecatedProperties;
+use Carbon\Traits\StaticLocalization;
+use Carbon\Traits\StaticOptions;
+use Carbon\Traits\Test;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -300,10 +303,10 @@ use DateTimeZone;
  * @method        CarbonImmutable  year(int $value)                                                                                Set current instance year to the given value.
  * @method        CarbonImmutable  setYears(int $value)                                                                            Set current instance year to the given value.
  * @method        CarbonImmutable  setYear(int $value)                                                                             Set current instance year to the given value.
- * @method        CarbonImmutable  months(int $value)                                                                              Set current instance month to the given value.
- * @method        CarbonImmutable  month(int $value)                                                                               Set current instance month to the given value.
- * @method        CarbonImmutable  setMonths(int $value)                                                                           Set current instance month to the given value.
- * @method        CarbonImmutable  setMonth(int $value)                                                                            Set current instance month to the given value.
+ * @method        CarbonImmutable  months(Month|int $value)                                                                        Set current instance month to the given value.
+ * @method        CarbonImmutable  month(Month|int $value)                                                                         Set current instance month to the given value.
+ * @method        CarbonImmutable  setMonths(Month|int $value)                                                                     Set current instance month to the given value.
+ * @method        CarbonImmutable  setMonth(Month|int $value)                                                                      Set current instance month to the given value.
  * @method        CarbonImmutable  days(int $value)                                                                                Set current instance day to the given value.
  * @method        CarbonImmutable  day(int $value)                                                                                 Set current instance day to the given value.
  * @method        CarbonImmutable  setDays(int $value)                                                                             Set current instance day to the given value.
@@ -815,6 +818,9 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
     use Date {
         __clone as dateTraitClone;
     }
+    use StaticOptions;
+    use StaticLocalization;
+    use Test;
 
     public function __clone(): void
     {

@@ -291,28 +291,29 @@ foreach ($tags as $tag) {
                     $unit = $vars->name;
                     $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
+                    $enums = $unitName === 'month' ? 'Month|' : '';
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        "$plUnit(int \$value)",
+                        "$plUnit({$enums}int \$value)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        "$unit(int \$value)",
+                        "$unit({$enums}int \$value)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'set'.ucfirst($plUnit).'(int $value)',
+                        'set'.ucfirst($plUnit)."({$enums}int \$value)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'set'.ucfirst($unit).'(int $value)',
+                        'set'.ucfirst($unit)."({$enums}int \$value)",
                         "Set current instance $unitName to the given value.",
                     ];
 

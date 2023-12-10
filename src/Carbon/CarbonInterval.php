@@ -27,10 +27,12 @@ use Carbon\Traits\IntervalStep;
 use Carbon\Traits\MagicParameter;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
+use Carbon\Traits\StaticOptionsLink;
 use Carbon\Traits\ToStringFormat;
 use Closure;
 use DateInterval;
 use DateMalformedIntervalStringException;
+use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
@@ -197,6 +199,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         Mixin::mixin as baseMixin;
     }
     use Options;
+    use StaticOptionsLink;
     use ToStringFormat;
 
     /**
@@ -377,14 +380,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected static function getDefaultCascadeFactors(): array
     {
         return [
-            'milliseconds' => [Carbon::MICROSECONDS_PER_MILLISECOND, 'microseconds'],
-            'seconds' => [Carbon::MILLISECONDS_PER_SECOND, 'milliseconds'],
-            'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
-            'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
-            'dayz' => [Carbon::HOURS_PER_DAY, 'hours'],
-            'weeks' => [Carbon::DAYS_PER_WEEK, 'dayz'],
-            'months' => [Carbon::WEEKS_PER_MONTH, 'weeks'],
-            'years' => [Carbon::MONTHS_PER_YEAR, 'months'],
+            'milliseconds' => [CarbonInterface::MICROSECONDS_PER_MILLISECOND, 'microseconds'],
+            'seconds' => [CarbonInterface::MILLISECONDS_PER_SECOND, 'milliseconds'],
+            'minutes' => [CarbonInterface::SECONDS_PER_MINUTE, 'seconds'],
+            'hours' => [CarbonInterface::MINUTES_PER_HOUR, 'minutes'],
+            'dayz' => [CarbonInterface::HOURS_PER_DAY, 'hours'],
+            'weeks' => [CarbonInterface::DAYS_PER_WEEK, 'dayz'],
+            'months' => [CarbonInterface::WEEKS_PER_MONTH, 'weeks'],
+            'years' => [CarbonInterface::MONTHS_PER_YEAR, 'months'],
         ];
     }
 
@@ -1193,18 +1196,26 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * Always return a new instance. Parse only strings and only these likely to be intervals (skip dates
      * and recurrences). Throw an exception for invalid format, but otherwise return null.
      *
-     * @param mixed|int|DateInterval|string|Closure|null $interval interval or number of the given $unit
-     * @param string|null                                $unit     if specified, $interval must be an integer
-     * @param bool                                       $skipCopy set to true to return the passed object
-     *                                                             (without copying it) if it's already of the
-     *                                                             current class
+     * @param mixed|int|DateInterval|string|Closure|Unit|null $interval interval or number of the given $unit
+     * @param Unit|string|null                                $unit     if specified, $interval must be an integer
+     * @param bool                                            $skipCopy set to true to return the passed object
+     *                                                                  (without copying it) if it's already of the
+     *                                                                  current class
      *
      * @return static|null
      */
     public static function make($interval, $unit = null, bool $skipCopy = false): ?self
     {
+        if ($interval instanceof Unit) {
+            $interval = $interval->interval();
+        }
+
+        if ($unit instanceof Unit) {
+            $unit = $unit->value;
+        }
+
         if ($unit) {
-            $interval = "$interval ".Carbon::pluralUnit($unit);
+            $interval = "$interval $unit";
         }
 
         if ($interval instanceof DateInterval) {
@@ -2114,33 +2125,37 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
         }
 
-        return CarbonPeriod::create($this, ...$params);
+        $class = ($params[0] ?? null) instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
+
+        return $class::create($this, ...$params);
     }
 
     /**
      * Decompose the current interval into
      *
-     * @param mixed|int|DateInterval|string|Closure|null $interval interval or number of the given $unit
-     * @param string|null                                $unit     if specified, $interval must be an integer
+     * @param mixed|int|DateInterval|string|Closure|Unit|null $interval interval or number of the given $unit
+     * @param Unit|string|null                                $unit     if specified, $interval must be an integer
      *
      * @return CarbonPeriod
      */
-    public function stepBy($interval, ?string $unit = null): CarbonPeriod
+    public function stepBy($interval, Unit|string|null $unit = null): CarbonPeriod
     {
-        $start = $this->startDate ?: Carbon::make($this->startDate ?: 'now');
+        $start = $this->startDate ?: CarbonImmutable::make($this->startDate ?: 'now');
         $end = $this->endDate ?: $start->copy()->add($this);
 
         try {
             $step = static::make($interval, $unit);
         } catch (InvalidFormatException $exception) {
-            if ($unit || !\is_string($interval) || preg_match('/(\s|\d)/', $interval)) {
+            if ($unit || (\is_string($interval) ? preg_match('/(\s|\d)/', $interval) : !($interval instanceof Unit))) {
                 throw $exception;
             }
 
-            $step = static::make("1 $interval");
+            $step = static::make(1, $interval);
         }
 
-        return CarbonPeriod::create($step, $start, $end);
+        $class = $start instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
+
+        return $class::create($step, $start, $end);
     }
 
     /**
@@ -3065,6 +3080,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * @template T of DateInterval
      *
      * @param DateInterval $interval
+     *
      * @psalm-param class-string<T> $className
      *
      * @return T

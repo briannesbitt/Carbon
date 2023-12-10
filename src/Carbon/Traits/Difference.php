@@ -17,7 +17,6 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\UnknownUnitException;
-use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
@@ -30,7 +29,6 @@ use DateTimeInterface;
  * @method bool lessThan($date)
  * @method static copy()
  * @method static resolveCarbon($date = null)
- * @method static Translator translator()
  */
 trait Difference
 {
@@ -94,7 +92,7 @@ trait Difference
 
     /**
      * @param string                                                 $unit     microsecond, millisecond, second, minute,
-     *                                                                         hour, day, week, months, quarter, years,
+     *                                                                         hour, day, week, month, quarter, year,
      *                                                                         century, millennium
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference

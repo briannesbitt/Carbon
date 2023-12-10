@@ -1134,11 +1134,9 @@ class CreateTest extends AbstractTestCase
         return array_combine(
             $locales,
             array_map(
-                static function (string $locale) {
-                    return [$locale];
-                },
-                $locales
-            )
+                static fn (string $locale) => [$locale],
+                $locales,
+            ),
         );
     }
 }

@@ -30,93 +30,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 trait Localization
 {
     /**
-     * Default translator.
-     *
-     * @var TranslatorInterface
-     */
-    protected static $translator;
-
-    /**
      * Specific translator of the current instance.
      *
      * @var TranslatorInterface|null
      */
     protected $localTranslator;
-
-    /**
-     * Options for diffForHumans().
-     *
-     * @var int
-     */
-    protected static $humanDiffOptions = 0;
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather use the ->settings() method.
-     * @see settings
-     *
-     * @param int $humanDiffOptions
-     */
-    public static function setHumanDiffOptions($humanDiffOptions)
-    {
-        static::$humanDiffOptions = $humanDiffOptions;
-    }
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather use the ->settings() method.
-     * @see settings
-     *
-     * @param int $humanDiffOption
-     */
-    public static function enableHumanDiffOption($humanDiffOption)
-    {
-        static::$humanDiffOptions = static::getHumanDiffOptions() | $humanDiffOption;
-    }
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather use the ->settings() method.
-     * @see settings
-     *
-     * @param int $humanDiffOption
-     */
-    public static function disableHumanDiffOption($humanDiffOption)
-    {
-        static::$humanDiffOptions = static::getHumanDiffOptions() & ~$humanDiffOption;
-    }
-
-    /**
-     * Return default humanDiff() options (merged flags as integer).
-     *
-     * @return int
-     */
-    public static function getHumanDiffOptions()
-    {
-        return static::$humanDiffOptions;
-    }
-
-    /**
-     * Get the default translator instance in use.
-     *
-     * @return TranslatorInterface
-     */
-    public static function getTranslator()
-    {
-        return static::translator();
-    }
-
-    /**
-     * Set the default translator instance to use.
-     *
-     * @param TranslatorInterface $translator
-     *
-     * @return void
-     */
-    public static function setTranslator(TranslatorInterface $translator)
-    {
-        static::$translator = $translator;
-    }
 
     /**
      * Return true if the current instance has its own translator.
@@ -135,7 +53,7 @@ trait Localization
      */
     public function getLocalTranslator()
     {
-        return $this->localTranslator ?: static::translator();
+        return $this->localTranslator ?: static::getTranslator();
     }
 
     /**
@@ -535,7 +453,7 @@ trait Localization
             $newLocale === 'en' && strtolower(substr((string) $locale, 0, 2)) !== 'en'
                 ? false
                 : $newLocale,
-            static::translator(),
+            static::getTranslator(),
         );
         static::setLocale($currentLocale);
 
@@ -680,20 +598,6 @@ trait Localization
     }
 
     /**
-     * Initialize the default translator instance if necessary.
-     *
-     * @return TranslatorInterface
-     */
-    protected static function translator()
-    {
-        if (static::$translator === null) {
-            static::$translator = Translator::get();
-        }
-
-        return static::$translator;
-    }
-
-    /**
      * Get the locale of a given translator.
      *
      * If null or omitted, current local translator is used.
@@ -724,7 +628,7 @@ trait Localization
     protected static function getLocaleAwareTranslator($translator = null)
     {
         if (\func_num_args() === 0) {
-            $translator = static::translator();
+            $translator = static::getTranslator();
         }
 
         if ($translator && !($translator instanceof LocaleAwareInterface || method_exists($translator, 'getLocale'))) {

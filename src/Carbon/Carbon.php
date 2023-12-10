@@ -13,6 +13,8 @@ namespace Carbon;
 
 use Carbon\Traits\Date;
 use Carbon\Traits\DeprecatedProperties;
+use Carbon\Traits\StaticOptionsLink;
+use Carbon\Traits\TestLink;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -300,10 +302,10 @@ use DateTimeZone;
  * @method        $this            year(int $value)                                                                                Set current instance year to the given value.
  * @method        $this            setYears(int $value)                                                                            Set current instance year to the given value.
  * @method        $this            setYear(int $value)                                                                             Set current instance year to the given value.
- * @method        $this            months(int $value)                                                                              Set current instance month to the given value.
- * @method        $this            month(int $value)                                                                               Set current instance month to the given value.
- * @method        $this            setMonths(int $value)                                                                           Set current instance month to the given value.
- * @method        $this            setMonth(int $value)                                                                            Set current instance month to the given value.
+ * @method        $this            months(Month|int $value)                                                                        Set current instance month to the given value.
+ * @method        $this            month(Month|int $value)                                                                         Set current instance month to the given value.
+ * @method        $this            setMonths(Month|int $value)                                                                     Set current instance month to the given value.
+ * @method        $this            setMonth(Month|int $value)                                                                      Set current instance month to the given value.
  * @method        $this            days(int $value)                                                                                Set current instance day to the given value.
  * @method        $this            day(int $value)                                                                                 Set current instance day to the given value.
  * @method        $this            setDays(int $value)                                                                             Set current instance day to the given value.
@@ -813,6 +815,8 @@ use DateTimeZone;
 class Carbon extends DateTime implements CarbonInterface
 {
     use Date;
+    use StaticOptionsLink;
+    use TestLink;
 
     /**
      * Returns true if the current class/instance is mutable.

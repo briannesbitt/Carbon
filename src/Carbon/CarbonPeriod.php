@@ -25,6 +25,7 @@ use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
+use Carbon\Traits\StaticOptionsLink;
 use Carbon\Traits\ToStringFormat;
 use Closure;
 use Countable;
@@ -186,6 +187,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     use Options {
         Options::__debugInfo as baseDebugInfo;
     }
+    use StaticOptionsLink;
     use ToStringFormat;
 
     /**
@@ -221,7 +223,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @var int
      */
-    public const EXCLUDE_END_DATE = 2;
+    public const EXCLUDE_END_DATE = 8;
 
     /**
      * Yield CarbonImmutable instances.
@@ -562,10 +564,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return $count ? $result : $target;
     }
 
-    private static function makeInterval(string $string): ?CarbonInterval
+    private static function makeInterval(mixed $input): ?CarbonInterval
     {
         try {
-            return CarbonInterval::make($string);
+            return CarbonInterval::make($input);
         } catch (Throwable) {
             return null;
         }
@@ -719,9 +721,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                         $argument,
                     )) ||
                     $argument instanceof DateInterval ||
-                    $argument instanceof Closure
+                    $argument instanceof Closure ||
+                    $argument instanceof Unit
                 ) &&
-                $parsedInterval = @CarbonInterval::make($argument)
+                $parsedInterval = self::makeInterval($argument)
             ) {
                 $this->setDateInterval($parsedInterval);
             } elseif ($this->startDate === null && $parsedDate = $this->makeDateTime($argument)) {
@@ -896,14 +899,22 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * Change the period date interval.
      *
      * @param DateInterval|string|int $interval
-     * @param string                  $unit     the unit of $interval if it's a number
+     * @param Unit|string             $unit     the unit of $interval if it's a number
      *
      * @throws InvalidIntervalException
      *
      * @return static
      */
-    public function setDateInterval(mixed $interval, ?string $unit = null)
+    public function setDateInterval(mixed $interval, Unit|string|null $unit = null): static
     {
+        if ($interval instanceof Unit) {
+            $interval = $interval->interval();
+        }
+
+        if ($unit instanceof Unit) {
+            $unit = $unit->name;
+        }
+
         if (!$interval = CarbonInterval::make($interval, $unit)) {
             throw new InvalidIntervalException('Invalid interval.');
         }
@@ -2726,6 +2737,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     {
         if ($value instanceof DateTimeInterface) {
             return $value;
+        }
+
+        if ($value instanceof WeekDay || $value instanceof Month) {
+            $dateClass = $this->dateClass;
+
+            return new $dateClass($value, $this->tzName);
         }
 
         if (\is_string($value)) {

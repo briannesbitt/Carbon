@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\Exceptions\UnitException;
+use Carbon\Month;
 use DateTimeZone;
 use InvalidArgumentException;
 use RuntimeException;
@@ -39,6 +41,28 @@ class SettersTest extends AbstractTestCase
 
         $d = Carbon::now();
         $d->month = 3;
+    }
+
+    public function testMonthEnumOnWrongUnit()
+    {
+        $this->expectExceptionObject(new UnitException(
+            'Month enum cannot be used to set hour',
+        ));
+
+        $d = Carbon::now();
+        $d->setHours(Month::February);
+    }
+
+    public function testMonthEnum()
+    {
+        $d = Carbon::parse('2023-10-25 21:14:51');
+        $result = $d->setMonth(Month::February);
+
+        $this->assertSame('2023-02-25 21:14:51', $result->format('Y-m-d H:i:s'));
+
+        $result = $d->setMonth(Month::July);
+
+        $this->assertSame('2023-07-25 21:14:51', $result->format('Y-m-d H:i:s'));
     }
 
     public function testMonthSetterWithWrap()

@@ -17,7 +17,10 @@ use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\OutOfRangeException;
+use Carbon\Exceptions\UnitException;
+use Carbon\Month;
 use Carbon\Translator;
+use Carbon\WeekDay;
 use Closure;
 use DateMalformedStringException;
 use DateTimeImmutable;
@@ -56,10 +59,14 @@ trait Creator
      * @throws InvalidFormatException
      */
     public function __construct(
-        DateTimeInterface|string|int|float|null $time = null,
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time = null,
         DateTimeZone|string|int|null $tz = null,
     ) {
-        if ($time instanceof DateTimeInterface) {
+        if ($time instanceof Month) {
+            $time = $time->name.' 1';
+        } elseif ($time instanceof WeekDay) {
+            $time = $time->name;
+        } elseif ($time instanceof DateTimeInterface) {
             $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
@@ -326,6 +333,8 @@ trait Creator
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null): ?self
     {
+        $month = self::monthToInt($month);
+
         if ((\is_string($year) && !is_numeric($year)) || $year instanceof DateTimeInterface) {
             return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
         }
@@ -410,6 +419,7 @@ trait Creator
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null): ?self
     {
+        $month = self::monthToInt($month);
         $fields = static::getRangesByUnit();
 
         foreach ($fields as $field => $range) {
@@ -919,5 +929,18 @@ trait Creator
     public static function getLastErrors()
     {
         return static::$lastErrors;
+    }
+
+    private static function monthToInt(mixed $value, string $unit = 'month'): mixed
+    {
+        if ($value instanceof Month) {
+            if ($unit !== 'month') {
+                throw new UnitException("Month enum cannot be used to set $unit");
+            }
+
+            return Month::int($value);
+        }
+
+        return $value;
     }
 }
