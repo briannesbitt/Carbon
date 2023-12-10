@@ -16,6 +16,7 @@ namespace Tests\Carbon;
 use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\Exceptions\UnitException;
+use Carbon\Month;
 use DateTimeZone;
 use Exception;
 use Generator;
@@ -25,6 +26,29 @@ use Tests\AbstractTestCase;
 class SettersTest extends AbstractTestCase
 {
     public const SET_UNIT_NO_OVERFLOW_SAMPLE = 200;
+
+    public function testMonthEnum()
+    {
+        $d = Carbon::parse('2023-10-25 21:14:51');
+        $d->month = Month::February;
+
+        $this->assertSame('2023-02-25 21:14:51', $d->format('Y-m-d H:i:s'));
+
+        $d->setMonth(Month::July);
+
+        $this->assertSame('2023-07-25 21:14:51', $d->format('Y-m-d H:i:s'));
+    }
+
+    public function testMonthEnumOnWrongUnit()
+    {
+        $this->expectExceptionObject(new UnitException(
+            'Month enum cannot be used to set year',
+        ));
+
+        $d = Carbon::now();
+        // @phpstan-ignore-next-line
+        $d->year = Month::February;
+    }
 
     public function testSingularUnit()
     {

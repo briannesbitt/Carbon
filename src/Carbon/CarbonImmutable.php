@@ -13,7 +13,6 @@ namespace Carbon;
 
 use Carbon\Traits\Date;
 use Carbon\Traits\DeprecatedProperties;
-use Carbon\Traits\Localization;
 use Carbon\Traits\StaticLocalization;
 use Carbon\Traits\StaticOptions;
 use Carbon\Traits\Test;

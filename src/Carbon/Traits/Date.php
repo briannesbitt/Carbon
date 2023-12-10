@@ -1433,7 +1433,7 @@ trait Date
             case 'minute':
             case 'second':
                 [$year, $month, $day, $hour, $minute, $second] = array_map('intval', explode('-', $this->rawFormat('Y-n-j-G-i-s')));
-                $$name = $value;
+                $$name = self::monthToInt($value, $name);
                 $this->setDateTime($year, $month, $day, $hour, $minute, $second);
 
                 break;
@@ -2687,8 +2687,8 @@ trait Date
     /**
      * Set specified unit to new given value.
      *
-     * @param string $unit  year, month, day, hour, minute, second or microsecond
-     * @param int    $value new value for given unit
+     * @param string    $unit  year, month, day, hour, minute, second or microsecond
+     * @param Month|int $value new value for given unit
      *
      * @return static
      */
@@ -2696,9 +2696,7 @@ trait Date
     {
         $unit = static::singularUnit($unit);
 
-        if ($unit === 'month' && $value instanceof Month) {
-            $value = $value->value;
-        }
+        $value = self::monthToInt($value, $unit);
 
         $dateUnits = ['year', 'month', 'day'];
         if (\in_array($unit, $dateUnits)) {

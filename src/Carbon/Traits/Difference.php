@@ -17,7 +17,6 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\UnknownUnitException;
-use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
