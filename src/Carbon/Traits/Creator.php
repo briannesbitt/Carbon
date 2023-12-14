@@ -18,6 +18,7 @@ use Carbon\Exceptions\InvalidDateException;
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Exceptions\UnitException;
+use Carbon\FactoryImmutable;
 use Carbon\Month;
 use Carbon\Translator;
 use Carbon\WeekDay;
@@ -27,6 +28,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
+use Psr\Clock\ClockInterface;
 use ReturnTypeWillChange;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -45,10 +47,13 @@ trait Creator
 
     /**
      * The errors that can occur.
-     *
-     * @var array
      */
-    protected static $lastErrors;
+    protected static ?array $lastErrors = null;
+
+    /**
+     * The clock that generated the current instance (or FactoryImmutable::getDefaultInstance() if none)
+     */
+    private ?ClockInterface $clock;
 
     /**
      * Create a new Carbon instance.
@@ -62,6 +67,8 @@ trait Creator
         DateTimeInterface|WeekDay|Month|string|int|float|null $time = null,
         DateTimeZone|string|int|null $tz = null,
     ) {
+        $this->clock = FactoryImmutable::getCurrentClock();
+
         if ($time instanceof Month) {
             $time = $time->name.' 1';
         } elseif ($time instanceof WeekDay) {
@@ -79,17 +86,21 @@ trait Creator
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         $isNow = \in_array($time, [null, '', 'now'], true);
+        $tz = static::safeCreateDateTimeZone($tz) ?? null;
 
-        if (method_exists(static::class, 'hasTestNow') &&
-            method_exists(static::class, 'getTestNow') &&
-            static::hasTestNow() &&
+        if (
+            ($this->clock || (
+                method_exists(static::class, 'hasTestNow') &&
+                method_exists(static::class, 'getTestNow') &&
+                static::hasTestNow()
+            )) &&
             ($isNow || static::hasRelativeKeywords($time))
         ) {
-            static::mockConstructorParameters($time, $tz);
+            $this->mockConstructorParameters($time, $tz);
         }
 
         try {
-            parent::__construct($time ?? 'now', static::safeCreateDateTimeZone($tz) ?? null);
+            parent::__construct($time ?? 'now', $tz);
         } catch (Exception $exception) {
             throw new InvalidFormatException($exception->getMessage(), 0, $exception);
         }
@@ -132,7 +143,7 @@ trait Creator
     /**
      * Create a Carbon instance from a DateTime one.
      */
-    public static function instance(DateTimeInterface $date): static
+    public static function instance(mixed $date): static
     {
         if ($date instanceof static) {
             return clone $date;
@@ -922,13 +933,10 @@ trait Creator
 
     /**
      * {@inheritdoc}
-     *
-     * @return array
      */
-    #[ReturnTypeWillChange]
-    public static function getLastErrors()
+    public static function getLastErrors(): array|false
     {
-        return static::$lastErrors;
+        return static::$lastErrors ?? false;
     }
 
     private static function monthToInt(mixed $value, string $unit = 'month'): mixed

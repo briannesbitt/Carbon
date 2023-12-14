@@ -29,41 +29,33 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 trait Localization
 {
+    use StaticLocalization;
+
     /**
      * Specific translator of the current instance.
-     *
-     * @var TranslatorInterface|null
      */
-    protected $localTranslator;
+    protected ?TranslatorInterface $localTranslator = null;
 
     /**
      * Return true if the current instance has its own translator.
-     *
-     * @return bool
      */
-    public function hasLocalTranslator()
+    public function hasLocalTranslator(): bool
     {
         return isset($this->localTranslator);
     }
 
     /**
      * Get the translator of the current instance or the default if none set.
-     *
-     * @return TranslatorInterface
      */
-    public function getLocalTranslator()
+    public function getLocalTranslator(): TranslatorInterface
     {
-        return $this->localTranslator ?: static::getTranslator();
+        return $this->localTranslator ?? static::getTranslator();
     }
 
     /**
      * Set the translator for the current instance.
-     *
-     * @param TranslatorInterface $translator
-     *
-     * @return $this
      */
-    public function setLocalTranslator(TranslatorInterface $translator)
+    public function setLocalTranslator(TranslatorInterface $translator): self
     {
         $this->localTranslator = $translator;
 

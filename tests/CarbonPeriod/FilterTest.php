@@ -300,7 +300,7 @@ class FilterTest extends AbstractTestCase
         $period->setEndDate(null);
         $period->setRecurrences(null);
 
-        $this->assertEmpty($period->getFilters());
+        $this->assertSame([], $period->getFilters());
     }
 
     public function testAcceptEveryOther()
@@ -332,7 +332,7 @@ class FilterTest extends AbstractTestCase
 
         $period->addFilter($periodClass::END_ITERATION);
 
-        $this->assertEmpty($this->standardizeDates($period));
+        $this->assertSame([], $this->standardizeDates($period));
     }
 
     public function testAcceptOnlyEvenDays()
@@ -437,7 +437,7 @@ class FilterTest extends AbstractTestCase
 
         $period->removeFilter($string)->removeFilter($array);
 
-        $this->assertEmpty($period->getFilters());
+        $this->assertSame([], $period->getFilters());
     }
 
     public function testRunCallableFilters()

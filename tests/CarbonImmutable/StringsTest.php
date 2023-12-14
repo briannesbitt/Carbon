@@ -91,42 +91,6 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
     }
 
-    public function testToLocalizedFormattedDateString()
-    {
-        Carbon::useStrictMode(false);
-
-        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-            $date = $d->formatLocalized('%A %d %B %Y');
-
-            $this->assertSame('jeudi 25 décembre 1975', $date);
-        });
-    }
-
-    public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
-    {
-        Carbon::useStrictMode(false);
-
-        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/Paris');
-            Carbon::setUtf8(false);
-            $nonUtf8Date = $d->formatLocalized('%B');
-            Carbon::setUtf8(true);
-            $utf8Date = $d->formatLocalized('%B');
-            Carbon::setUtf8(false);
-
-            $this->assertSame('décembre', $nonUtf8Date);
-            $this->assertSame(mb_convert_encoding('décembre', 'UTF-8', mb_list_encodings()), $utf8Date);
-        });
-    }
-
-    public function testToLocalizedFormattedTimezonedDateString()
-    {
-        Carbon::useStrictMode(false);
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
-        $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));
-    }
-
     public function testToTimeString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);

@@ -11,6 +11,8 @@
 
 namespace Carbon\Traits;
 
+use Carbon\FactoryImmutable;
+
 /**
  * Trait Macros.
  *
@@ -19,20 +21,6 @@ namespace Carbon\Traits;
 trait Macro
 {
     use Mixin;
-
-    /**
-     * The registered macros.
-     *
-     * @var array
-     */
-    protected static $globalMacros = [];
-
-    /**
-     * The registered generic macros.
-     *
-     * @var array
-     */
-    protected static $globalGenericMacros = [];
 
     /**
      * Register a custom macro.
@@ -54,18 +42,17 @@ trait Macro
      *
      * @return void
      */
-    public static function macro($name, $macro)
+    public static function macro(string $name, object|callable $macro): void
     {
-        static::$globalMacros[$name] = $macro;
+        FactoryImmutable::getDefaultInstance()->macro($name, $macro);
     }
 
     /**
      * Remove all macros and generic macros.
      */
-    public static function resetMacros()
+    public static function resetMacros(): void
     {
-        static::$globalMacros = [];
-        static::$globalGenericMacros = [];
+        FactoryImmutable::getDefaultInstance()->resetMacros();
     }
 
     /**
@@ -76,14 +63,9 @@ trait Macro
      *
      * @return void
      */
-    public static function genericMacro($macro, $priority = 0)
+    public static function genericMacro(object|callable $macro, int $priority = 0): void
     {
-        if (!isset(static::$globalGenericMacros[$priority])) {
-            static::$globalGenericMacros[$priority] = [];
-            krsort(static::$globalGenericMacros, SORT_NUMERIC);
-        }
-
-        static::$globalGenericMacros[$priority][] = $macro;
+        FactoryImmutable::getDefaultInstance()->genericMacro($macro, $priority);
     }
 
     /**
@@ -93,21 +75,17 @@ trait Macro
      *
      * @return bool
      */
-    public static function hasMacro($name)
+    public static function hasMacro(string $name): bool
     {
-        return isset(static::$globalMacros[$name]);
+        return FactoryImmutable::getDefaultInstance()->hasMacro($name);
     }
 
     /**
      * Get the raw callable macro registered globally for a given name.
-     *
-     * @param string $name
-     *
-     * @return callable|null
      */
-    public static function getMacro($name)
+    public static function getMacro(string $name): object|callable|null
     {
-        return static::$globalMacros[$name] ?? null;
+        return FactoryImmutable::getDefaultInstance()->getMacro($name);
     }
 
     /**

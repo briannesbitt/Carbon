@@ -212,7 +212,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($end, $period->getOptions());
 
         $period = $period->toggleOptions($end, false);
-        $this->assertEmpty($period->getOptions());
+        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
     }
 
     public function testToggleOptionsOnAndOff()
@@ -227,7 +227,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($start, $period->getOptions());
 
         $period = $period->toggleOptions($start);
-        $this->assertEmpty($period->getOptions());
+        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
 
         $period = $period->setOptions($start);
         $period = $period->toggleOptions($start | $end);
@@ -240,7 +240,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($start | $end, $period->getOptions());
 
         $period = $period->toggleOptions($start | $end);
-        $this->assertEmpty($period->getOptions());
+        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
     }
 
     public function testSetStartDateInclusiveOrExclusive()
@@ -310,7 +310,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
 
         $period = $period->excludeStartDate(false);
-        $this->assertEmpty($period->getOptions());
+        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
     }
 
     public function testExcludeEndDate()
@@ -325,7 +325,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
 
         $period = $period->excludeEndDate(false);
-        $this->assertEmpty($period->getOptions());
+        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
     }
 
     public function testSetRelativeDates()

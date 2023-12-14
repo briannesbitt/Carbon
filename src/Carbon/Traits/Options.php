@@ -26,6 +26,7 @@ use Throwable;
  */
 trait Options
 {
+    use StaticOptions;
     use Localization;
 
     /**
@@ -131,6 +132,8 @@ trait Options
             }
 
             $this->locale(...$locales);
+        } elseif (isset($settings['translator']) && property_exists($this, 'localTranslator')) {
+            $this->localTranslator = $settings['translator'];
         }
 
         if (isset($settings['innerTimezone'])) {

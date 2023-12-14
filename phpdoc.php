@@ -62,14 +62,11 @@ foreach (glob(__DIR__.'/src/Carbon/Traits/*.php') as $file) {
 
 function unitName($unit)
 {
-    switch ($unit) {
-        case 'milli':
-            return 'millisecond';
-        case 'micro':
-            return 'microsecond';
-        default:
-            return $unit;
-    }
+    return match ($unit) {
+        'milli' => 'millisecond',
+        'micro' => 'microsecond',
+        default => $unit,
+    };
 }
 
 function pluralize($word)
@@ -99,6 +96,10 @@ function dumpValue($value)
 
 function cleanClassName($name)
 {
+    if ($name === 'CarbonInterval') {
+        throw new \Exception('stop');
+    }
+
     if (preg_match('/^[A-Z]/', $name)) {
         $name = "\\$name";
     }
@@ -126,11 +127,12 @@ function dumpType(ReflectionType $type, bool $deep = true, bool $allowsNull = fa
         )).($deep ? ')' : '');
     }
 
-    $name = cleanClassName($type->getName());
+    $name = cleanClassName($type instanceof ReflectionNamedType ? $type->getName() : (string) $type);
+    $nullable = $allowsNull && $name !== 'mixed';
 
-    return (!$deep && $allowsNull ? '?' : '').
+    return (!$deep && $nullable ? '?' : '').
         $name.
-        ($deep && $allowsNull ? '|null' : '');
+        ($deep && $nullable ? '|null' : '');
 }
 
 function dumpParameter(string $method, ReflectionParameter $parameter): string
@@ -755,15 +757,12 @@ $methods = '';
 $carbonMethods = get_class_methods(Carbon::class);
 sort($carbonMethods);
 
-function getMethodReturnType(ReflectionMethod $method)
+function getMethodReturnType(ReflectionMethod $method): string
 {
     $type = $method->getReturnType();
+    $type = $type ? dumpType($type, false, $type->allowsNull()) : null;
 
-    if (!$type || $type->getName() === 'self') {
-        return '';
-    }
-
-    return ': '.preg_replace('/^Carbon\\\\/', '', $type->getName());
+    return $type ? ': '.$type : '';
 }
 
 foreach ($carbonMethods as $method) {
@@ -788,8 +787,8 @@ foreach ($carbonMethods as $method) {
         $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
         $returnType = $function->getReturnType();
 
-        if ($returnType instanceof ReflectionNamedType) {
-            $returnType = $returnType->getName();
+        if ($returnType instanceof ReflectionType) {
+            $returnType = dumpType($returnType, false, $returnType->allowsNull());
         }
 
         if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
@@ -854,9 +853,13 @@ foreach ($carbonMethods as $method) {
     $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
 }
 
-$files->$interface = strtr(preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {
-    return $matches[1]."$methods\n\n    // ".$matches[3];
-}, $files->$interface, 1), [
+$files->$interface = strtr(preg_replace_callback(
+    '/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU',
+    static fn ($matches) => "{$matches[1]}$methods\n\n    // {$matches[3]}",
+    $files->$interface,
+    1,
+), [
+    '|CarbonInterface' => '|self',
     'CarbonInterface::TRANSLATE_ALL' => 'self::TRANSLATE_ALL',
 ]);
 
@@ -868,9 +871,12 @@ $factories = [
 foreach ($factories as $file => $methods) {
     $autoDoc = compileDoc($methods, $file);
     $content = file_get_contents($file);
-    $files->$file = preg_replace_callback('/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU', function ($matches) use ($file, $autoDoc) {
-        return $matches[1]."\n *$autoDoc\n *\n * ".$matches[3];
-    }, $content, 1);
+    $files->$file = preg_replace_callback(
+        '/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU',
+        static fn ($matches) => "{$matches[1]}\n *$autoDoc\n *\n * {$matches[3]}",
+        $content,
+        1,
+    );
 }
 
 foreach ($files as $file => $contents) {

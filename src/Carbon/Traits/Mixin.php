@@ -30,10 +30,8 @@ trait Mixin
 {
     /**
      * Stack of macro instance contexts.
-     *
-     * @var array
      */
-    protected static $macroContextStack = [];
+    protected static array $macroContextStack = [];
 
     /**
      * Mix another object into the class.
@@ -60,13 +58,9 @@ trait Mixin
      * echo "$previousBlackMoon\n";
      * ```
      *
-     * @param object|string $mixin
-     *
      * @throws ReflectionException
-     *
-     * @return void
      */
-    public static function mixin($mixin)
+    public static function mixin(object|string $mixin): void
     {
         \is_string($mixin) && trait_exists($mixin)
             ? self::loadMixinTrait($mixin)
@@ -74,11 +68,9 @@ trait Mixin
     }
 
     /**
-     * @param object|string $mixin
-     *
      * @throws ReflectionException
      */
-    private static function loadMixinClass($mixin)
+    private static function loadMixinClass(object|string $mixin): void
     {
         $methods = (new ReflectionClass($mixin))->getMethods(
             ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED,
@@ -89,16 +81,11 @@ trait Mixin
                 continue;
             }
 
-            $method->setAccessible(true);
-
             static::macro($method->name, $method->invoke($mixin));
         }
     }
 
-    /**
-     * @param string $trait
-     */
-    private static function loadMixinTrait($trait)
+    private static function loadMixinTrait(string $trait): void
     {
         $context = eval(self::getAnonymousClassCodeForTrait($trait));
         $className = \get_class($context);
@@ -167,7 +154,7 @@ trait Mixin
         }
     }
 
-    private static function getAnonymousClassCodeForTrait(string $trait)
+    private static function getAnonymousClassCodeForTrait(string $trait): string
     {
         return 'return new class() extends '.static::class.' {use '.$trait.';};';
     }

@@ -171,8 +171,7 @@ class ToArrayTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $result = $periodClass::create(0)->toArray();
 
-        $this->assertIsArray($result);
-        $this->assertEmpty($result);
+        $this->assertSame([], $result);
     }
 
     public function testCountOfEmptyPeriod()

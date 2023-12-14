@@ -466,7 +466,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
         $this->assertSame('P2D', $period->getDateInterval()->spec());
         $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions() & $periodClass::EXCLUDE_END_DATE);
     }
 
     public function testCreateFromIso()
@@ -478,7 +478,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('P2D', $period->getDateInterval()->spec());
         $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
         $this->assertSame(3, $period->getRecurrences());
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions() & $periodClass::EXCLUDE_END_DATE);
     }
 
     public function testCreateEmpty()
@@ -490,7 +490,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
-        $this->assertSame(0, $period->getOptions());
+        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
     }
 
     public function testCreateFromDateStringsWithTimezones()
@@ -762,8 +762,8 @@ class CreateTest extends AbstractTestCase
     public function testInstanceInvalidType()
     {
         $this->expectExceptionObject(new NotAPeriodException(
-            'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
-            'must be an instance of DatePeriod or Carbon\CarbonPeriod, string given.',
+            'Argument 1 passed to '.static::$periodClass.'::instance() '.
+            'must be an instance of DatePeriod or '.static::$periodClass.', string given.',
         ));
 
         $periodClass = static::$periodClass;
@@ -773,8 +773,8 @@ class CreateTest extends AbstractTestCase
     public function testInstanceInvalidInstance()
     {
         $this->expectExceptionObject(new NotAPeriodException(
-            'Argument 1 passed to Carbon\CarbonPeriod::Carbon\CarbonPeriod::instance() '.
-            'must be an instance of DatePeriod or Carbon\CarbonPeriod, instance of Carbon\Carbon given.',
+            'Argument 1 passed to '.static::$periodClass.'::instance() '.
+            'must be an instance of DatePeriod or '.static::$periodClass.', instance of Carbon\Carbon given.',
         ));
 
         $periodClass = static::$periodClass;
@@ -824,12 +824,13 @@ class CreateTest extends AbstractTestCase
     public function testEnums()
     {
         $periodClass = static::$periodClass;
+        $immutable = ($periodClass === CarbonPeriodImmutable::class);
         /** @var CarbonPeriod $period */
         $period = $periodClass::create(Month::January, Unit::Month, Month::June);
 
         $this->assertTrue($period->isStartIncluded());
         $this->assertTrue($period->isEndIncluded());
-        $carbonClass = $periodClass === CarbonPeriodImmutable::class ? CarbonImmutable::class : Carbon::class;
+        $carbonClass = $immutable ? CarbonImmutable::class : Carbon::class;
 
         $this->assertSame(
             array_fill(0, 6, $carbonClass),
@@ -840,15 +841,33 @@ class CreateTest extends AbstractTestCase
             iterator_to_array($period->map(static fn (CarbonInterface $date) => $date->format('m-d'))),
         );
 
-        $period->setDateInterval(Unit::Week);
+        $result = $period->setDateInterval(Unit::Week);
+
+        if ($immutable) {
+            $this->assertSame(6, $period->count());
+
+            $period = $result;
+        }
 
         $this->assertSame(22, $period->count());
 
-        $period->setDateInterval(3, Unit::Week);
+        $result = $period->setDateInterval(3, Unit::Week);
+
+        if ($immutable) {
+            $this->assertSame(22, $period->count());
+
+            $period = $result;
+        }
 
         $this->assertSame(8, $period->count());
 
-        $period->setDateInterval(Unit::Quarter);
+        $result = $period->setDateInterval(Unit::Quarter);
+
+        if ($immutable) {
+            $this->assertSame(8, $period->count());
+
+            $period = $result;
+        }
 
         $this->assertSame(2, $period->count());
     }

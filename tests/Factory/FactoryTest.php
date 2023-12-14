@@ -200,4 +200,21 @@ class FactoryTest extends AbstractTestCase
             (int) round(10 * ((float) $after->format('U.u') - ((float) $before->format('U.u')))),
         );
     }
+
+    public function testIsolation(): void
+    {
+        CarbonImmutable::setTestNow('1990-07-31 23:59:59');
+
+        $libAFactory = new FactoryImmutable();
+        $libAFactory->setTestNow('2000-02-05 15:20:00');
+
+        $libBFactory = new FactoryImmutable();
+        $libBFactory->setTestNow('2050-12-01 00:00:00');
+
+        $this->assertSame('2000-02-05 15:20:00', (string) $libAFactory->now());
+        $this->assertSame('2050-12-01 00:00:00', (string) $libBFactory->now());
+        $this->assertSame('1990-07-31 23:59:59', (string) CarbonImmutable::now());
+
+        CarbonImmutable::setTestNow();
+    }
 }

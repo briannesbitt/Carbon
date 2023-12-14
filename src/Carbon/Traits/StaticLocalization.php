@@ -11,7 +11,7 @@
 
 namespace Carbon\Traits;
 
-use Carbon\Translator;
+use Carbon\FactoryImmutable;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -20,63 +20,41 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 trait StaticLocalization
 {
     /**
-     * Default translator.
-     *
-     * @var TranslatorInterface
-     */
-    protected static $translator;
-
-    /**
-     * Options for diffForHumans().
-     *
-     * @var int
-     */
-    protected static $humanDiffOptions = 0;
-
-    /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
      * @see settings
-     *
-     * @param int $humanDiffOptions
      */
-    public static function setHumanDiffOptions($humanDiffOptions)
+    public static function setHumanDiffOptions(int $humanDiffOptions): void
     {
-        static::$humanDiffOptions = $humanDiffOptions;
+        FactoryImmutable::getDefaultInstance()->setHumanDiffOptions($humanDiffOptions);
     }
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
      * @see settings
-     *
-     * @param int $humanDiffOption
      */
-    public static function enableHumanDiffOption($humanDiffOption)
+    public static function enableHumanDiffOption(int $humanDiffOption): void
     {
-        static::$humanDiffOptions = static::getHumanDiffOptions() | $humanDiffOption;
+        FactoryImmutable::getDefaultInstance()->enableHumanDiffOption($humanDiffOption);
     }
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
      * @see settings
-     *
-     * @param int $humanDiffOption
      */
-    public static function disableHumanDiffOption($humanDiffOption)
+    public static function disableHumanDiffOption(int $humanDiffOption): void
     {
-        static::$humanDiffOptions = static::getHumanDiffOptions() & ~$humanDiffOption;
+        FactoryImmutable::getDefaultInstance()->disableHumanDiffOption($humanDiffOption);
     }
 
     /**
      * Return default humanDiff() options (merged flags as integer).
-     *
-     * @return int
      */
-    public static function getHumanDiffOptions()
+    public static function getHumanDiffOptions(): int
     {
-        return static::$humanDiffOptions;
+        return FactoryImmutable::getDefaultInstance()->getHumanDiffOptions();
     }
 
     /**
@@ -86,18 +64,16 @@ trait StaticLocalization
      *
      * @return void
      */
-    public static function setTranslator(TranslatorInterface $translator)
+    public static function setTranslator(TranslatorInterface $translator): void
     {
-        static::$translator = $translator;
+        FactoryImmutable::getDefaultInstance()->setTranslator($translator);
     }
 
     /**
      * Initialize the default translator instance if necessary.
-     *
-     * @return TranslatorInterface
      */
-    public static function getTranslator()
+    public static function getTranslator(): TranslatorInterface
     {
-        return static::$translator ??= Translator::get();
+        return FactoryImmutable::getDefaultInstance()->getTranslator();
     }
 }

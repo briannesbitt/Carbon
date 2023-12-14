@@ -13,31 +13,17 @@ namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
+use Carbon\Factory;
+use Carbon\FactoryImmutable;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
-use InvalidArgumentException;
-use Throwable;
 
 trait Test
 {
     ///////////////////////////////////////////////////////////////////
     ///////////////////////// TESTING AIDS ////////////////////////////
     ///////////////////////////////////////////////////////////////////
-
-    /**
-     * A test Carbon instance to be returned when now instances are created.
-     *
-     * @var Closure|static|null
-     */
-    protected static $testNow;
-
-    /**
-     * The timezone to restore to when clearing the time mock.
-     *
-     * @var string|null
-     */
-    protected static $testDefaultTimezone;
 
     /**
      * Set a Carbon instance (real or mock) to be returned when a "now"
@@ -61,11 +47,9 @@ trait Test
      *
      * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
      */
-    public static function setTestNow($testNow = null)
+    public static function setTestNow(mixed $testNow = null): void
     {
-        static::$testNow = $testNow instanceof self || $testNow instanceof Closure
-            ? $testNow
-            : static::make($testNow);
+        FactoryImmutable::getDefaultInstance()->setTestNow($testNow);
     }
 
     /**
@@ -87,28 +71,9 @@ trait Test
      *
      * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
      */
-    public static function setTestNowAndTimezone($testNow = null, $tz = null)
+    public static function setTestNowAndTimezone($testNow = null, $tz = null): void
     {
-        if ($testNow) {
-            self::$testDefaultTimezone ??= date_default_timezone_get();
-        }
-
-        $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;
-
-        if ($useDateInstanceTimezone) {
-            self::setDefaultTimezone($testNow->getTimezone()->getName(), $testNow);
-        }
-
-        static::setTestNow($testNow);
-
-        if (!$useDateInstanceTimezone) {
-            $now = static::getMockedTestNow(\func_num_args() === 1 ? null : $tz);
-            self::setDefaultTimezone($now?->tzName ?? self::$testDefaultTimezone ?? 'UTC', $now);
-        }
-
-        if (!$testNow) {
-            self::$testDefaultTimezone = null;
-        }
+        FactoryImmutable::getDefaultInstance()->setTestNowAndTimezone($testNow, $tz);
     }
 
     /**
@@ -125,28 +90,20 @@ trait Test
      *
      * @return T
      */
-    public static function withTestNow($testNow, $callback)
+    public static function withTestNow(mixed $testNow, callable $callback): mixed
     {
-        static::setTestNow($testNow);
-
-        try {
-            $result = $callback();
-        } finally {
-            static::setTestNow();
-        }
-
-        return $result;
+        return FactoryImmutable::getDefaultInstance()->withTestNow($testNow, $callback);
     }
 
     /**
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return Closure|CarbonInterface the current instance used for testing
+     * @return Closure|CarbonInterface|null the current instance used for testing
      */
-    public static function getTestNow()
+    public static function getTestNow(): Closure|CarbonInterface|null
     {
-        return static::$testNow;
+        return FactoryImmutable::getDefaultInstance()->getTestNow();
     }
 
     /**
@@ -155,9 +112,9 @@ trait Test
      *
      * @return bool true if there is a test instance, otherwise false
      */
-    public static function hasTestNow()
+    public static function hasTestNow(): bool
     {
-        return static::getTestNow() !== null;
+        return FactoryImmutable::getDefaultInstance()->hasTestNow();
     }
 
     /**
@@ -167,7 +124,7 @@ trait Test
      *
      * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
      */
-    protected static function getMockedTestNow($tz)
+    protected static function getMockedTestNow($tz): CarbonInterface|self|null
     {
         $testNow = static::getTestNow();
 
@@ -185,10 +142,12 @@ trait Test
             : $testNow;
     }
 
-    protected static function mockConstructorParameters(&$time, $tz)
+    private function mockConstructorParameters(&$time, ?CarbonTimeZone $tz): void
     {
-        /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
-        $testInstance = clone static::getMockedTestNow($tz);
+        $now = $this->clock instanceof Factory
+            ? $this->clock->getTestNow()
+            : $this->nowFromClock($tz);
+        $testInstance = $now ?? clone static::getMockedTestNow($tz);
 
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);
@@ -199,29 +158,10 @@ trait Test
             : $testInstance->format(static::MOCK_DATETIME_FORMAT);
     }
 
-    private static function setDefaultTimezone($timezone, DateTimeInterface $date = null)
+    private function nowFromClock(?CarbonTimeZone $tz): ?DateTimeImmutable
     {
-        $previous = null;
-        $success = false;
+        $now = $this->clock?->now();
 
-        try {
-            $success = date_default_timezone_set($timezone ?? 'UTC');
-        } catch (Throwable $exception) {
-            $previous = $exception;
-        }
-
-        if (!$success) {
-            $suggestion = @CarbonTimeZone::create($timezone)->toRegionName($date);
-
-            throw new InvalidArgumentException(
-                "Timezone ID '$timezone' is invalid".
-                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.')."\n".
-                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
-                'For the record, hours/minutes offset are relevant only for a particular moment, '.
-                'but not as a default timezone.',
-                0,
-                $previous
-            );
-        }
+        return $now && $tz ? $now->setTimezone($tz) : null;
     }
 }

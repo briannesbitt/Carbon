@@ -27,7 +27,6 @@ use Carbon\Traits\IntervalStep;
 use Carbon\Traits\MagicParameter;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
-use Carbon\Traits\StaticOptionsLink;
 use Carbon\Traits\ToStringFormat;
 use Closure;
 use DateInterval;
@@ -198,7 +197,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         Mixin::mixin as baseMixin;
     }
     use Options;
-    use StaticOptionsLink;
     use ToStringFormat;
 
     /**
@@ -2072,7 +2070,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function __toString(): string
     {
-        $format = $this->localToStringFormat ?? static::$toStringFormat;
+        $format = $this->localToStringFormat
+            ?? FactoryImmutable::getDefaultInstance()->getSettings()['toStringFormat']
+            ?? null;
 
         if (!$format) {
             return $this->forHumans();

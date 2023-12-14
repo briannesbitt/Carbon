@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonPeriodImmutable;
 use Carbon\Exceptions\UnitException;
+use Carbon\FactoryImmutable;
 use Closure;
 use DateTime;
 use DateTimeImmutable;
@@ -49,7 +50,9 @@ trait Converter
     #[ReturnTypeWillChange]
     public function format($format)
     {
-        $function = $this->localFormatFunction ?: static::$formatFunction;
+        $function = $this->localFormatFunction
+            ?? FactoryImmutable::getDefaultInstance()->getSettings()['formatFunction']
+            ?? static::$formatFunction;
 
         if (!$function) {
             return $this->rawFormat($format);
@@ -86,7 +89,9 @@ trait Converter
      */
     public function __toString()
     {
-        $format = $this->localToStringFormat ?? static::$toStringFormat;
+        $format = $this->localToStringFormat
+            ?? FactoryImmutable::getDefaultInstance()->getSettings()['toStringFormat']
+            ?? null;
 
         return $format instanceof Closure
             ? $format($this)
