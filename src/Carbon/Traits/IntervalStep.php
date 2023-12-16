@@ -81,6 +81,7 @@ trait IntervalStep
                         !is_a($carbonDate, $name) &&
                         is_a($name, CarbonInterface::class, true)
                     ) {
+                        /** @var CarbonInterface $carbonDate */
                         $carbonDate = $carbonDate->cast($name);
                     }
                 }

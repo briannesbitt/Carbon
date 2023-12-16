@@ -28,7 +28,6 @@ parameters:
         - '#should return (\S*)\$this\(Carbon\\CarbonInterval\)(\|null)? but returns static\(Carbon\\CarbonInterval\)(\|null)?\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
         - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
-        - '#^PHPDoc tag @mixin contains invalid type Carbon\\Traits\\DeprecatedProperties\.$#'
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'

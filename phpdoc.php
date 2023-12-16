@@ -627,27 +627,6 @@ ksort($unitOfUnit);
 
 array_push($autoDocLines, ...array_values(array_filter($unitOfUnit)));
 
-$fileTemplate = <<<EOF
-<?php
-
-declare(strict_types=1);
-
-/**
- * This file is part of the Carbon package.
- *
- * (c) Brian Nesbitt <brian@nesbot.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Carbon\Traits;
-
-trait DeprecatedProperties
-{/* content */}
-
-EOF;
-
 $propertyTemplate = '
     /**
      * %description%
@@ -662,28 +641,6 @@ $propertyTemplate = '
 
 $lineGlue = preg_replace('/^[\s\S]*%line1%([\s\S]*)%line2%[\s\S]*$/', '$1', $propertyTemplate);
 $propertyTemplate = preg_replace('/(%line1%[\s\S]*%line2%)/', '%deprecation%', $propertyTemplate);
-
-file_put_contents(
-    __DIR__.'/src/Carbon/Traits/DeprecatedProperties.php',
-    strtr($fileTemplate, [
-        '/* content */' => implode('', array_map(static function (array $property) use ($lineGlue, $propertyTemplate) {
-            if (isset($property['deprecation']['since'])) {
-                $property['deprecation']['since'] = 'Deprecated since '.$property['deprecation']['since'];
-            }
-
-            return strtr($propertyTemplate, [
-                '%description%' => $property['description'],
-                '%type%' => $property['type'],
-                '%variable%' => $property['variable'],
-                '%deprecation%' => implode($lineGlue, array_filter([
-                    $property['deprecation']['reason'] ?? null,
-                    $property['deprecation']['replacement'] ?? null,
-                    $property['deprecation']['since'] ?? null,
-                ])),
-            ]);
-        }, array_merge($deprecated['property'] ?? [], $deprecated['property-read'] ?? []))),
-    ])
-);
 
 function compileDoc($autoDocLines, $file)
 {
