@@ -147,7 +147,7 @@ return [
         'sameElse' => 'L',
     ],
     'weekdays' => ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'],
-    'weekdays_short' => ['ned', 'pod', 'uto', 'str', 'štv', 'pia', 'sob'],
+    'weekdays_short' => ['ned', 'pon', 'uto', 'str', 'štv', 'pia', 'sob'],
     'weekdays_min' => ['ne', 'po', 'ut', 'st', 'št', 'pi', 'so'],
     'months' => ['január', 'február', 'marec', 'apríl', 'máj', 'jún', 'júl', 'august', 'september', 'október', 'november', 'december'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 'sep', 'okt', 'nov', 'dec'],
