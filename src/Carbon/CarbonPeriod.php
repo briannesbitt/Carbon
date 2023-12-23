@@ -934,6 +934,22 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     }
 
     /**
+     * Reset the date interval to the default value.
+     *
+     * Difference with simply setting interval to 1-day is that P1D will not appear when calling toIso8601String()
+     * and also next adding to the interval won't include the default 1-day.
+     */
+    public function resetDateInterval(): static
+    {
+        $self = $this->copyIfImmutable();
+        $self->setDateInterval(CarbonInterval::day());
+
+        $self->isDefaultInterval = true;
+
+        return $self;
+    }
+
+    /**
      * Invert the period date interval.
      */
     public function invertDateInterval(): static

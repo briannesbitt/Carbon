@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
-use Generator;
 use Tests\AbstractTestCase;
 
 class ToStringTest extends AbstractTestCase
@@ -36,48 +35,55 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public static function dataForToString(): Generator
+    public static function dataForToString(): array
     {
         $periodClass = static::$periodClass;
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
-        yield [
+        $set = [
+            [
                 $periodClass::create('R4/2012-07-01T12:00:00/P7D'),
                 '4 times every 1 week from 2012-07-01 12:00:00',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create(
                     Carbon::parse('2015-09-30'),
                     Carbon::parse('2015-10-03'),
                 ),
                 'Every 1 day from 2015-09-30 to 2015-10-03',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create(
                     Carbon::parse('2015-09-30 12:50'),
                     CarbonInterval::days(3)->hours(5),
                     Carbon::parse('2015-10-03 19:00'),
                 ),
                 'Every 3 days and 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create('2015-09-30 17:30'),
                 'Every 1 day from 2015-09-30 17:30:00',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create('P1M14D'),
                 'Every 1 month and 2 weeks from 2015-09-01',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create('2015-09-30 13:30', 'P17D')->setRecurrences(1),
                 'Once every 2 weeks and 3 days from 2015-09-30 13:30:00',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create('2015-10-01', '2015-10-05', 'PT30M'),
                 'Every 30 minutes from 2015-10-01 to 2015-10-05',
-            ];
+            ],
+        ];
 
         Carbon::setTestNowAndTimezone();
+
+        return array_combine(
+            array_column($set, 1),
+            $set,
+        );
     }
 
     public function testMagicToString()
@@ -108,43 +114,70 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    public static function dataForToIso8601String(): Generator
+    public static function dataForToIso8601String(): array
     {
         $periodClass = static::$periodClass;
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
-        yield [
+        $set = [
+            [
                 $periodClass::create('R4/2012-07-01T00:00:00-04:00/P7D'),
                 'R4/2012-07-01T00:00:00-04:00/P7D',
-            ];
-        yield [
+            ],
+            [
+                $periodClass::create(
+                    Carbon::parse('2015-09-30', 'America/Toronto'),
+                    CarbonInterval::day(),
+                    Carbon::parse('2015-10-03', 'America/Toronto'),
+                ),
+                '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00',
+            ],
+            [
                 $periodClass::create(
                     Carbon::parse('2015-09-30', 'America/Toronto'),
                     Carbon::parse('2015-10-03', 'America/Toronto'),
                 ),
-                '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00',
-            ];
-        yield [
+                '2015-09-30T00:00:00-04:00/2015-10-03T00:00:00-04:00',
+            ],
+            [
+                $periodClass::create(
+                    Carbon::parse('2015-09-30', 'America/Toronto'),
+                    CarbonInterval::day(),
+                    Carbon::parse('2015-10-03', 'America/Toronto'),
+                )->resetDateInterval(),
+                '2015-09-30T00:00:00-04:00/2015-10-03T00:00:00-04:00',
+            ],
+            [
                 $periodClass::create(
                     Carbon::parse('2015-09-30 12:50', 'America/Toronto'),
                     CarbonInterval::days(3)->hours(5),
                     Carbon::parse('2015-10-03 19:00', 'America/Toronto'),
                 ),
                 '2015-09-30T12:50:00-04:00/P3DT5H/2015-10-03T19:00:00-04:00',
-            ];
-        yield [
+            ],
+            [
                 $periodClass::create(
                     Carbon::parse('2015-09-30 12:50', 'America/Toronto'),
                     CarbonInterval::days(3),
                 ),
                 '2015-09-30T12:50:00-04:00/P3D',
-            ];
-        yield [
-                $periodClass::create(),
+            ],
+            [
+                $periodClass::create('1 day'),
                 '2015-09-01T00:00:00-04:00/P1D',
-            ];
+            ],
+            [
+                $periodClass::create(),
+                '2015-09-01T00:00:00-04:00',
+            ],
+        ];
 
         Carbon::setTestNowAndTimezone();
+
+        return array_combine(
+            array_column($set, 1),
+            $set,
+        );
     }
 
     public function testSpec()

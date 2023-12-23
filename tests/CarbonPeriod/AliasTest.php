@@ -241,6 +241,18 @@ class AliasTest extends AbstractTestCase
 
         $period = $period->years(0)->months(0)->dayz(0)->hours(0)->minutes(0)->seconds(1);
         $this->assertSame('PT1S', $period->getDateInterval()->spec());
+
+        $period = $periodClass::create();
+        $this->assertSame('P1D', $period->getDateInterval()->spec());
+
+        $period = $periodClass::create()->hours(12);
+        $this->assertSame('PT12H', $period->getDateInterval()->spec());
+
+        $period = $periodClass::day()->hours(12);
+        $this->assertSame('P1DT12H', $period->getDateInterval()->spec());
+
+        $period = $periodClass::day()->resetDateInterval()->hours(12);
+        $this->assertSame('PT12H', $period->getDateInterval()->spec());
     }
 
     public function testModifyIntervalSingular()
