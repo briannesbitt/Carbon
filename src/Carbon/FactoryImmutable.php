@@ -78,11 +78,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @method string                  getLocale()                                                                                                                    Get the current translator locale.
  * @method callable|null           getMacro($name)                                                                                                                Get the raw callable macro registered globally for a given name.
  * @method int                     getMidDayAt()                                                                                                                  get midday/noon hour
- * @method Closure|CarbonImmutable getTestNow()                                                                                                                   Get the Carbon instance (real or mock) to be returned when a "now"
+ * @method Closure|CarbonInterface getTestNow()                                                                                                                   Get the Carbon instance (real or mock) to be returned when a "now"
  *                                                                                                                                                                instance is created.
  * @method string                  getTimeFormatByPrecision($unitPrecision)                                                                                       Return a format from H:i to H:i:s.u according to given unit precision.
  * @method string|Closure|null     getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)                           Returns raw translation message for a given key.
- * @method TranslatorInterface     getTranslator()                                                                                                                Get the default translator instance in use.
+ * @method TranslatorInterface     getTranslator()                                                                                                                Initialize the default translator instance if necessary.
  * @method int                     getWeekEndsAt(?string $locale = null)                                                                                          Get the last day of week.
  * @method int                     getWeekStartsAt(?string $locale = null)                                                                                        Get the first day of week.
  * @method array                   getWeekendDays()                                                                                                               Get weekend days
