@@ -133,6 +133,18 @@ class ToStringTest extends AbstractTestCase
                 '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00',
             ],
             [
+                $periodClass::createFromIso(
+                    '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00'
+                ),
+                '2015-09-30T00:00:00-04:00/P1D/2015-10-03T00:00:00-04:00',
+            ],
+            [
+                $periodClass::createFromIso(
+                    '2015-09-30T00:00:00-04:00/2015-10-03T00:00:00-04:00',
+                ),
+                '2015-09-30T00:00:00-04:00/2015-10-03T00:00:00-04:00',
+            ],
+            [
                 $periodClass::create(
                     Carbon::parse('2015-09-30', 'America/Toronto'),
                     Carbon::parse('2015-10-03', 'America/Toronto'),
