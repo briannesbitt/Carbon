@@ -1075,7 +1075,6 @@ trait Date
             // @property int
             'yearIso' => 'o',
             // @property int
-            // @call isSameUnit
             'month' => 'n',
             // @property int
             'day' => 'j',
@@ -1234,7 +1233,6 @@ trait Date
                 return (int) $this->diffInYears();
 
             // @property-read int the quarter of this instance, 1 - 4
-            // @call isSameUnit
             case $name === 'quarter':
                 return (int) ceil($this->month / static::MONTHS_PER_QUARTER);
 

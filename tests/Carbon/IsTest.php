@@ -119,11 +119,13 @@ class IsTest extends AbstractTestCase
     public function testIsNextQuarterFalse()
     {
         $this->assertFalse(Carbon::now()->addQuartersNoOverflow(2)->isNextQuarter());
+        $this->assertFalse(Carbon::now()->addQuartersNoOverflow(5)->isNextQuarter());
     }
 
     public function testIsLastQuarterFalse()
     {
         $this->assertFalse(Carbon::now()->subQuartersNoOverflow(2)->isLastQuarter());
+        $this->assertFalse(Carbon::now()->subQuartersNoOverflow(5)->isLastQuarter());
     }
 
     public function testIsNextMonthTrue()
@@ -139,12 +141,14 @@ class IsTest extends AbstractTestCase
     public function testIsNextMonthFalse()
     {
         $this->assertFalse(Carbon::now()->addMonthsNoOverflow(2)->isNextMonth());
+        $this->assertFalse(Carbon::now()->addMonthsNoOverflow(13)->isNextMonth());
     }
 
     public function testIsLastMonthFalse()
     {
         Carbon::setTestNow(Carbon::create(2018, 5, 31));
         $this->assertFalse(Carbon::now()->subMonthsNoOverflow(2)->isLastMonth());
+        $this->assertFalse(Carbon::now()->subMonthsNoOverflow(13)->isLastMonth());
     }
 
     public function testIsNextYearTrue()

@@ -643,9 +643,17 @@ trait Comparison
      */
     public function isSameUnit(string $unit, $date = null): bool
     {
+        if ($unit === /* @call isSameUnit */ 'quarter') {
+            $other = $this->resolveCarbon($date);
+
+            return $other->year === $this->year && $other->quarter === $this->quarter;
+        }
+
         $units = [
             // @call isSameUnit
             'year' => 'Y',
+            // @call isSameUnit
+            'month' => 'Y-n',
             // @call isSameUnit
             'week' => 'o-W',
             // @call isSameUnit
