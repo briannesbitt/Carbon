@@ -665,6 +665,10 @@ trait Comparison
             // @call isSameUnit
             'second' => 'Y-m-d H:i:s',
             // @call isSameUnit
+            'milli' => 'Y-m-d H:i:s.v',
+            // @call isSameUnit
+            'millisecond' => 'Y-m-d H:i:s.v',
+            // @call isSameUnit
             'micro' => 'Y-m-d H:i:s.u',
             // @call isSameUnit
             'microsecond' => 'Y-m-d H:i:s.u',

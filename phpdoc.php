@@ -179,9 +179,10 @@ foreach ($tags as $tag) {
     }
 
     $unitOfUnit = [];
-    preg_match_all('/\/\/ @'.$tag.'\s+(?<type>'.$pattern.')(?:\s+\$(?<name>\S+)(?:[^\S\n](?<description>.*))?\n|(?:[^\S\n](?<description2>.*))?\n(?<comments>(?:[ \t]+\/\/[^\n]*\n)*)[^\']*\'(?<name2>[^\']+)\')/', $code, $matches, PREG_SET_ORDER);
+    preg_match_all('/\/\/ @'.$tag.'\s+(?<type>'.$pattern.')(?:\s+\$(?<name>\S+)(?:[^\S\n](?<description>.*))?\n|(?:[^\S\n](?<description2>.*))?\n(?<comments>(?:[ \t]+\/\/[^\n]*\n)*)[^\']*\'(?<name2>[^\']+)\')/', $code, $oneLine, PREG_SET_ORDER);
+    preg_match_all('/\/\* *@'.$tag.'\s+(?<type>'.$pattern.') *\*\/[^\']*\'(?<name2>[^\']+)\'/', $code, $multiLine, PREG_SET_ORDER);
 
-    foreach ($matches as $match) {
+    foreach ([...$oneLine, ...$multiLine] as $match) {
         $vars = (object) $match;
         $deprecation = null;
 
@@ -208,8 +209,8 @@ foreach ($tags as $tag) {
             }
         }
 
-        $vars->name = $vars->name ?: $vars->name2;
-        $vars->description = $vars->description ?: $vars->description2;
+        $vars->name = ($vars->name ?? null) ?: ($vars->name2 ?? '');
+        $vars->description = ($vars->description ?? null) ?: ($vars->description2 ?? '');
 
         if ($tag === 'mode') {
             $modes[$vars->type] ??= [];

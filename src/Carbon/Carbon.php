@@ -252,6 +252,9 @@ use DateTimeZone;
  * @method        bool             isCurrentYear()                                                                                 Checks if the instance is in the same year as the current moment.
  * @method        bool             isNextYear()                                                                                    Checks if the instance is in the same year as the current moment next year.
  * @method        bool             isLastYear()                                                                                    Checks if the instance is in the same year as the current moment last year.
+ * @method        bool             isCurrentMonth()                                                                                Checks if the instance is in the same month as the current moment.
+ * @method        bool             isNextMonth()                                                                                   Checks if the instance is in the same month as the current moment next month.
+ * @method        bool             isLastMonth()                                                                                   Checks if the instance is in the same month as the current moment last month.
  * @method        bool             isSameWeek(Carbon|DateTimeInterface|string|null $date = null)                                   Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool             isCurrentWeek()                                                                                 Checks if the instance is in the same week as the current moment.
  * @method        bool             isNextWeek()                                                                                    Checks if the instance is in the same week as the current moment next week.
@@ -272,6 +275,14 @@ use DateTimeZone;
  * @method        bool             isCurrentSecond()                                                                               Checks if the instance is in the same second as the current moment.
  * @method        bool             isNextSecond()                                                                                  Checks if the instance is in the same second as the current moment next second.
  * @method        bool             isLastSecond()                                                                                  Checks if the instance is in the same second as the current moment last second.
+ * @method        bool             isSameMilli(Carbon|DateTimeInterface|string|null $date = null)                                  Checks if the given date is in the same millisecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool             isCurrentMilli()                                                                                Checks if the instance is in the same millisecond as the current moment.
+ * @method        bool             isNextMilli()                                                                                   Checks if the instance is in the same millisecond as the current moment next millisecond.
+ * @method        bool             isLastMilli()                                                                                   Checks if the instance is in the same millisecond as the current moment last millisecond.
+ * @method        bool             isSameMillisecond(Carbon|DateTimeInterface|string|null $date = null)                            Checks if the given date is in the same millisecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool             isCurrentMillisecond()                                                                          Checks if the instance is in the same millisecond as the current moment.
+ * @method        bool             isNextMillisecond()                                                                             Checks if the instance is in the same millisecond as the current moment next millisecond.
+ * @method        bool             isLastMillisecond()                                                                             Checks if the instance is in the same millisecond as the current moment last millisecond.
  * @method        bool             isSameMicro(Carbon|DateTimeInterface|string|null $date = null)                                  Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool             isCurrentMicro()                                                                                Checks if the instance is in the same microsecond as the current moment.
  * @method        bool             isNextMicro()                                                                                   Checks if the instance is in the same microsecond as the current moment next microsecond.
@@ -280,12 +291,6 @@ use DateTimeZone;
  * @method        bool             isCurrentMicrosecond()                                                                          Checks if the instance is in the same microsecond as the current moment.
  * @method        bool             isNextMicrosecond()                                                                             Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool             isLastMicrosecond()                                                                             Checks if the instance is in the same microsecond as the current moment last microsecond.
- * @method        bool             isCurrentMonth()                                                                                Checks if the instance is in the same month as the current moment.
- * @method        bool             isNextMonth()                                                                                   Checks if the instance is in the same month as the current moment next month.
- * @method        bool             isLastMonth()                                                                                   Checks if the instance is in the same month as the current moment last month.
- * @method        bool             isCurrentQuarter()                                                                              Checks if the instance is in the same quarter as the current moment.
- * @method        bool             isNextQuarter()                                                                                 Checks if the instance is in the same quarter as the current moment next quarter.
- * @method        bool             isLastQuarter()                                                                                 Checks if the instance is in the same quarter as the current moment last quarter.
  * @method        bool             isSameDecade(Carbon|DateTimeInterface|string|null $date = null)                                 Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool             isCurrentDecade()                                                                               Checks if the instance is in the same decade as the current moment.
  * @method        bool             isNextDecade()                                                                                  Checks if the instance is in the same decade as the current moment next decade.
@@ -298,6 +303,9 @@ use DateTimeZone;
  * @method        bool             isCurrentMillennium()                                                                           Checks if the instance is in the same millennium as the current moment.
  * @method        bool             isNextMillennium()                                                                              Checks if the instance is in the same millennium as the current moment next millennium.
  * @method        bool             isLastMillennium()                                                                              Checks if the instance is in the same millennium as the current moment last millennium.
+ * @method        bool             isCurrentQuarter()                                                                              Checks if the instance is in the same quarter as the current moment.
+ * @method        bool             isNextQuarter()                                                                                 Checks if the instance is in the same quarter as the current moment next quarter.
+ * @method        bool             isLastQuarter()                                                                                 Checks if the instance is in the same quarter as the current moment last quarter.
  * @method        $this            years(int $value)                                                                               Set current instance year to the given value.
  * @method        $this            year(int $value)                                                                                Set current instance year to the given value.
  * @method        $this            setYears(int $value)                                                                            Set current instance year to the given value.

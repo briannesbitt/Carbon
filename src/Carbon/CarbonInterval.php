@@ -1275,10 +1275,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @link https://php.net/manual/en/dateinterval.createfromdatestring.php
      */
-    #[ReturnTypeWillChange]
-    public static function createFromDateString($time): ?self
+    public static function createFromDateString(string $time): self
     {
-        $string = strtr((string) $time, [
+        $string = strtr($time, [
             ',' => ' ',
             ' and ' => ' ',
         ]);
@@ -1287,15 +1286,16 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         try {
             $interval = parent::createFromDateString($string);
         } catch (Throwable $exception) {
+            $interval = null;
             $previousException = $exception;
         }
 
-        $interval ?? throw new InvalidFormatException(
+        $interval ?: throw new InvalidFormatException(
             'Could not create interval from: '.var_export($time, true),
             previous: $previousException,
         );
 
-        if ($interval instanceof DateInterval) {
+        if (!($interval instanceof self)) {
             $interval = static::instance($interval);
         }
 
