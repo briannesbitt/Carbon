@@ -982,7 +982,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      */
-    public function __construct(DateTimeInterface|string|int|float|null $time = null, DateTimeZone|string|int|null $tz = null);
+    public function __construct(DateTimeInterface|WeekDay|Month|string|int|float|null $time = null, DateTimeZone|string|int|null $tz = null);
 
     /**
      * Show truthy properties on var_dump().
@@ -2514,7 +2514,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null);
 
     /**
-     * Get the default translator instance in use.
+     * Initialize the default translator instance if necessary.
      *
      * @return TranslatorInterface
      */
@@ -4147,8 +4147,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set specified unit to new given value.
      *
-     * @param string $unit  year, month, day, hour, minute, second or microsecond
-     * @param int    $value new value for given unit
+     * @param string    $unit  year, month, day, hour, minute, second or microsecond
+     * @param Month|int $value new value for given unit
      *
      * @return static
      */
