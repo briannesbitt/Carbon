@@ -172,22 +172,11 @@ class StringsTest extends AbstractTestCase
             new ErrorException('Function strftime() is deprecated', E_DEPRECATED),
         );
 
-        $previous = set_error_handler(static function (int $code, string $message, string $file, int $line) {
-            throw new ErrorException($message, $code, $code, $file, $line);
-        });
-
-        $errorReporting = error_reporting();
-
-        try {
-            error_reporting(E_ALL);
-
+        $this->withErrorAsException(function () {
             $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
                 Carbon::parse('2021-05-26')->formatLocalized('%A %d %B %Y');
             });
-        } finally {
-            error_reporting($errorReporting);
-            set_error_handler($previous);
-        }
+        });
     }
 
     public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
