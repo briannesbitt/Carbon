@@ -28,7 +28,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
             try {
                 return self::this()->modify($time);
             } catch (Throwable $exception) {
-                if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
+                if (preg_match('(Could not modify with|Failed to parse)', $exception->getMessage())) {
                     throw new BadMethodCallException('Try next macro', 0, $exception);
                 }
 

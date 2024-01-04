@@ -1283,12 +1283,16 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         ]);
         $previousException = null;
 
+        // @codeCoverageIgnoreStart
+
         try {
             $interval = parent::createFromDateString($string);
         } catch (Throwable $exception) {
             $interval = null;
             $previousException = $exception;
         }
+
+        // @codeCoverageIgnoreEnd
 
         $interval ?: throw new InvalidFormatException(
             'Could not create interval from: '.var_export($time, true),
