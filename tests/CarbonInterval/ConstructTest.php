@@ -397,6 +397,26 @@ class ConstructTest extends AbstractTestCase
         });
     }
 
+    public function testMakeFromDateIncorrectString()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: '.var_export('foo bar', true),
+        ));
+
+        CarbonInterval::make('foo bar');
+    }
+
+    public function testMakeFromDateIncorrectStringWithErrorAsException()
+    {
+        $this->expectExceptionObject(new InvalidFormatException(
+            'Could not create interval from: '.var_export('foo bar', true),
+        ));
+
+        $this->withErrorAsException(function () {
+            CarbonInterval::make('foo bar');
+        });
+    }
+
     public function testEnums()
     {
         $this->assertCarbonInterval(CarbonInterval::make(3, Unit::Hour), 0, 0, 0, 3, 0, 0);
