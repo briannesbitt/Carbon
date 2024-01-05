@@ -214,6 +214,19 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNowAndTimezone(Carbon::parse('2018-05-06T12:00:00-05:00'));
     }
 
+    public function testSetTestNowAndTimezoneWithBadTimezoneWithErrorAsException(): void
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            "Timezone ID '-05:00' is invalid, did you mean 'America/Chicago'?\n".
+            "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
+            'For the record, hours/minutes offset are relevant only for a particular moment, but not as a default timezone.'
+        ));
+
+        $this->withErrorAsException(function () {
+            Carbon::setTestNowAndTimezone(Carbon::parse('2018-05-06T12:00:00-05:00'));
+        });
+    }
+
     public function testSetTestNowAndTimezoneWithNull(): void
     {
         Carbon::setTestNowAndTimezone();

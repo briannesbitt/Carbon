@@ -22,6 +22,7 @@ use Carbon\CarbonTimeZone;
 use Carbon\Translator;
 use Closure;
 use DateTime;
+use ErrorException;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use Tests\PHPUnit\AssertObjectHasPropertyTrait;
@@ -116,7 +117,7 @@ abstract class AbstractTestCase extends TestCase
         $translator->resetMessages();
     }
 
-    public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null): void
     {
         $expected = [
             'years' => $year,
@@ -153,7 +154,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function assertCarbonTime(CarbonInterface $d, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbonTime(CarbonInterface $d, $hour = null, $minute = null, $second = null, $micro = null): void
     {
         $actual = [];
 
@@ -185,12 +186,12 @@ abstract class AbstractTestCase extends TestCase
     /**
      * @phpstan-assert CarbonInterface $d
      */
-    public function assertInstanceOfCarbon($d)
+    public function assertInstanceOfCarbon($d): void
     {
         $this->assertInstanceOf(CarbonInterface::class, $d);
     }
 
-    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null, $inverted = null)
+    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null, $inverted = null): void
     {
         $actual = ['years' => $ci->years];
 
@@ -236,12 +237,12 @@ abstract class AbstractTestCase extends TestCase
     /**
      * @phpstan-assert CarbonInterval $d
      */
-    public function assertInstanceOfCarbonInterval($d)
+    public function assertInstanceOfCarbonInterval($d): void
     {
         $this->assertInstanceOf(CarbonInterval::class, $d);
     }
 
-    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
+    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null): void
     {
         $test = Carbon::getTestNow();
         $immutableTest = CarbonImmutable::getTestNow();
@@ -253,12 +254,12 @@ abstract class AbstractTestCase extends TestCase
         CarbonImmutable::setTestNowAndTimezone($immutableTest);
     }
 
-    public function wrapWithNonDstDate(Closure $func)
+    public function wrapWithNonDstDate(Closure $func): void
     {
         $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
     }
 
-    public function wrapWithUtf8LcTimeLocale($locale, Closure $func)
+    public function wrapWithUtf8LcTimeLocale($locale, Closure $func): void
     {
         $currentLocale = setlocale(LC_TIME, '0');
         $locales = ["$locale.UTF-8", "$locale.utf8"];
@@ -275,18 +276,28 @@ abstract class AbstractTestCase extends TestCase
             $this->markTestSkipped("UTF-8 test need $locale.UTF-8 (a locale with accents).");
         }
 
-        $exception = null;
-
         try {
             $func();
-        } catch (Throwable $e) {
-            $exception = $e;
+        } finally {
+            setlocale(LC_TIME, $currentLocale);
         }
+    }
 
-        setlocale(LC_TIME, $currentLocale);
+    public function withErrorAsException(Closure $func): void
+    {
+        $previous = set_error_handler(static function (int $code, string $message, string $file, int $line) {
+            throw new ErrorException($message, $code, $code, $file, $line);
+        });
 
-        if ($exception) {
-            throw $exception;
+        $errorReporting = error_reporting();
+
+        try {
+            error_reporting(E_ALL);
+
+            $func();
+        } finally {
+            error_reporting($errorReporting);
+            set_error_handler($previous);
         }
     }
 
@@ -314,7 +325,7 @@ abstract class AbstractTestCase extends TestCase
         return $result;
     }
 
-    protected function areSameLocales($a, $b)
+    protected function areSameLocales($a, $b): bool
     {
         static $aliases = null;
 

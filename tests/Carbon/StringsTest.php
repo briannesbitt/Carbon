@@ -155,16 +155,27 @@ class StringsTest extends AbstractTestCase
         });
     }
 
-    public function testToLocalizedFormattedDeprecation()
+    public function testToLocalizedFormatted()
     {
-        $this->expectExceptionObject(
-            new ErrorException('Function strftime() is deprecated', E_DEPRECATED)
-        );
-
         $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            $date = Carbon::parse('2021-05-26')->formatLocalized('%A %d %B %Y');
+            $date = Carbon::parse('2021-05-26')
+                ->settings(['strictMode' => false])
+                ->formatLocalized('%A %d %B %Y');
 
             $this->assertSame('mercredi 26 mai 2021', $date);
+        });
+    }
+
+    public function testToLocalizedFormattedThrowDeprecation()
+    {
+        $this->expectExceptionObject(
+            new ErrorException('Function strftime() is deprecated', E_DEPRECATED),
+        );
+
+        $this->withErrorAsException(function () {
+            $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
+                Carbon::parse('2021-05-26')->formatLocalized('%A %d %B %Y');
+            });
         });
     }
 

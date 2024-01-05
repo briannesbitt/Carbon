@@ -34,6 +34,20 @@ class MacroTest extends AbstractTestCase
         });
 
         $this->assertFalse($macro->isStatic());
+
+        $this->withErrorAsException(function () {
+            $macro = new Macro(Carbon::class, 'calendarBerlin', static function (): string {
+                return self::this()->tz('Europe/Berlin')->calendar();
+            });
+
+            $this->assertTrue($macro->isStatic());
+
+            $macro = new Macro(Carbon::class, 'calendarBerlin', function (): string {
+                return $this->tz('Europe/Berlin')->calendar();
+            });
+
+            $this->assertFalse($macro->isStatic());
+        });
     }
 
     public function testGetDeclaringClass()

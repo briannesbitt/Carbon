@@ -213,7 +213,7 @@ jobs:
 
       - name: Run test suite
         run: |
-          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
+          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings;
         env:
           PHP_VERSION: ${{ matrix.php }}
           REDIS_HOST: 127.0.0.1

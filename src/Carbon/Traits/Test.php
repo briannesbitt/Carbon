@@ -90,7 +90,7 @@ trait Test
     public static function setTestNowAndTimezone($testNow = null, $tz = null)
     {
         if ($testNow) {
-            self::$testDefaultTimezone = self::$testDefaultTimezone ?? date_default_timezone_get();
+            self::$testDefaultTimezone ??= date_default_timezone_get();
         }
 
         $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;

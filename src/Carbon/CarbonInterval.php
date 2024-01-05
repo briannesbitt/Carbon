@@ -31,7 +31,6 @@ use Carbon\Traits\StaticOptionsLink;
 use Carbon\Traits\ToStringFormat;
 use Closure;
 use DateInterval;
-use DateMalformedIntervalStringException;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -1245,16 +1244,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return static::fromString($interval);
         }
 
-        // @codeCoverageIgnoreStart
-        try {
-            /** @var static $interval */
-            $interval = static::createFromDateString($interval);
-        } catch (DateMalformedIntervalStringException $e) {
-            return null;
-        }
-        // @codeCoverageIgnoreEnd
+        $intervalInstance = static::createFromDateString($interval);
 
-        return !$interval || $interval->isEmpty() ? null : $interval;
+        return $intervalInstance->isEmpty() ? null : $intervalInstance;
     }
 
     protected function resolveInterval($interval): ?self
@@ -1269,16 +1261,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Sets up a DateInterval from the relative parts of the string.
      *
-     * @param string $time
+     * @param string $datetime
      *
      * @return static
      *
      * @link https://php.net/manual/en/dateinterval.createfromdatestring.php
      */
-    #[ReturnTypeWillChange]
-    public static function createFromDateString($time): ?self
+    public static function createFromDateString(string $datetime): static
     {
-        $string = strtr((string) $time, [
+        $string = strtr($datetime, [
             ',' => ' ',
             ' and ' => ' ',
         ]);
@@ -1287,19 +1278,20 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         try {
             $interval = parent::createFromDateString($string);
         } catch (Throwable $exception) {
+            $interval = null;
             $previousException = $exception;
         }
 
-        $interval ?? throw new InvalidFormatException(
-            'Could not create interval from: '.var_export($time, true),
+        $interval ?: throw new InvalidFormatException(
+            'Could not create interval from: '.var_export($datetime, true),
             previous: $previousException,
         );
 
-        if ($interval instanceof DateInterval) {
+        if (!($interval instanceof static)) {
             $interval = static::instance($interval);
         }
 
-        return self::withOriginal($interval, $time);
+        return self::withOriginal($interval, $datetime);
     }
 
     ///////////////////////////////////////////////////////////////////
