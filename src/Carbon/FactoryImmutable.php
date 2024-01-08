@@ -12,6 +12,7 @@
 namespace Carbon;
 
 use Closure;
+use DateTimeInterface;
 use DateTimeZone;
 use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\Clock\NativeClock;
@@ -143,8 +144,12 @@ class FactoryImmutable extends Factory implements ClockInterface
     /**
      * @internal Set instance before creating new dates.
      */
-    public static function setCurrentClock(?ClockInterface $currentClock): void
+    public static function setCurrentClock(ClockInterface|Factory|DateTimeInterface|null $currentClock): void
     {
+        if ($currentClock && !($currentClock instanceof ClockInterface)) {
+            $currentClock = new WrapperClock($currentClock);
+        }
+
         self::$currentClock = $currentClock;
     }
 
@@ -166,10 +171,8 @@ class FactoryImmutable extends Factory implements ClockInterface
 
     public function sleep(int|float $seconds): void
     {
-        $className = $this->className;
-
-        if ($className::hasTestNow()) {
-            $className::setTestNow($className::getTestNow()->avoidMutation()->addSeconds($seconds));
+        if ($this->hasTestNow()) {
+            $this->setTestNow($this->getTestNow()->avoidMutation()->addSeconds($seconds));
 
             return;
         }

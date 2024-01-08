@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\Factory;
 use DateTime;
-use ErrorException;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\BadIsoCarbon;

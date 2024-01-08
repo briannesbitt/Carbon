@@ -12,6 +12,7 @@
 namespace Carbon\PHPStan;
 
 use Carbon\CarbonInterface;
+use Carbon\FactoryImmutable;
 use PHPStan\Reflection\ReflectionProvider;
 use ReflectionClass;
 use ReflectionException;
@@ -68,11 +69,8 @@ final class MacroScanner
      */
     public function getMethod(string $className, string $methodName): Macro
     {
-        $reflectionClass = new ReflectionClass($className);
-        $property = $reflectionClass->getProperty('globalMacros');
-
-        $property->setAccessible(true);
-        $macro = $property->getValue()[$methodName];
+        $macros = FactoryImmutable::getDefaultInstance()->getSettings()['macros'] ?? [];
+        $macro = $macros[$methodName] ?? throw new \InvalidArgumentException("Macro '$methodName' not found");
 
         return new Macro(
             $className,
