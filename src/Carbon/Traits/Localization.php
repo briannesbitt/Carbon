@@ -49,7 +49,7 @@ trait Localization
      */
     public function getLocalTranslator(): TranslatorInterface
     {
-        return $this->localTranslator ?? static::getTranslator();
+        return $this->localTranslator ?? $this->transmitFactory(static fn () => static::getTranslator());
     }
 
     /**

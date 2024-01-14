@@ -24,6 +24,7 @@ use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\IntervalStep;
+use Carbon\Traits\LocalFactory;
 use Carbon\Traits\MagicParameter;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
@@ -190,6 +191,7 @@ use Throwable;
  */
 class CarbonInterval extends DateInterval implements CarbonConverterInterface
 {
+    use LocalFactory;
     use IntervalRounding;
     use IntervalStep;
     use MagicParameter;
@@ -2071,7 +2073,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public function __toString(): string
     {
         $format = $this->localToStringFormat
-            ?? FactoryImmutable::getDefaultInstance()->getSettings()['toStringFormat']
+            ?? $this->getFactory()->getSettings()['toStringFormat']
             ?? null;
 
         if (!$format) {

@@ -464,7 +464,11 @@ trait Comparison
      */
     public function isWeekend(): bool
     {
-        return \in_array($this->dayOfWeek, static::getWeekendDays(), true);
+        return \in_array(
+            $this->dayOfWeek,
+            $this->transmitFactory(static fn () => static::getWeekendDays()),
+            true,
+        );
     }
 
     /**
@@ -480,7 +484,9 @@ trait Comparison
      */
     public function isYesterday(): bool
     {
-        return $this->toDateString() === static::yesterday($this->getTimezone())->toDateString();
+        return $this->toDateString() === $this->transmitFactory(
+            fn () => static::yesterday($this->getTimezone())->toDateString(),
+        );
     }
 
     /**
@@ -512,7 +518,9 @@ trait Comparison
      */
     public function isTomorrow(): bool
     {
-        return $this->toDateString() === static::tomorrow($this->getTimezone())->toDateString();
+        return $this->toDateString() === $this->transmitFactory(
+            fn () => static::tomorrow($this->getTimezone())->toDateString(),
+        );
     }
 
     /**
@@ -683,7 +691,7 @@ trait Comparison
             return $this->resolveCarbon($date)->$unit === $this->$unit;
         }
 
-        if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
+        if ($this->isLocalStrictModeEnabled()) {
             throw new BadComparisonUnitException($unit);
         }
 
@@ -919,7 +927,7 @@ trait Comparison
      */
     public static function hasFormat(?string $date, string $format): bool
     {
-        return FactoryImmutable::getDefaultInstance()->hasFormat($date, $format);
+        return FactoryImmutable::getInstance()->hasFormat($date, $format);
     }
 
     /**
@@ -938,7 +946,7 @@ trait Comparison
      */
     public static function hasFormatWithModifiers(?string $date, string $format): bool
     {
-        return FactoryImmutable::getDefaultInstance()->hasFormatWithModifiers($date, $format);
+        return FactoryImmutable::getInstance()->hasFormatWithModifiers($date, $format);
     }
 
     /**
@@ -992,8 +1000,6 @@ trait Comparison
      * ```
      *
      * @param string $tester day name, month name, hour, date, etc. as string
-     *
-     * @return bool
      */
     public function is(string $tester): bool
     {
@@ -1004,17 +1010,22 @@ trait Comparison
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
-            return $this->isSameMonth(static::parse($tester));
+            return $this->isSameMonth(
+                $this->transmitFactory(static fn () => static::parse($tester)),
+            );
         }
 
         if (preg_match('/^\d{1,2}-\d{1,2}$/', $tester)) {
-            return $this->isSameDay(static::parse($this->year.'-'.$tester));
+            return $this->isSameDay(
+                $this->transmitFactory(fn () => static::parse($this->year.'-'.$tester)),
+            );
         }
 
         $modifier = preg_replace('/(\d)h$/i', '$1:00', $tester);
 
         /* @var CarbonInterface $max */
-        $median = static::parse('5555-06-15 12:30:30.555555')->modify($modifier);
+        $median = $this->transmitFactory(static fn () => static::parse('5555-06-15 12:30:30.555555'))
+            ->modify($modifier);
         $current = $this->avoidMutation();
         /* @var CarbonInterface $other */
         $other = $this->avoidMutation()->modify($modifier);

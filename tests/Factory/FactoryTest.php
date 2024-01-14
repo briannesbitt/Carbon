@@ -151,6 +151,8 @@ class FactoryTest extends AbstractTestCase
 
     public function testPsrClock()
     {
+        FactoryImmutable::setCurrentClock(null);
+        FactoryImmutable::getDefaultInstance()->setTestNow(null);
         $initial = Carbon::now('UTC');
         $factory = new FactoryImmutable();
         $factory->setTestNow($initial);

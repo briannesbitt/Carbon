@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -24,15 +25,84 @@ final class WrapperClock implements ClockInterface
     ) {
     }
 
+    public function unwrap(): PsrClockInterface|Factory|DateTimeInterface
+    {
+        return $this->currentClock;
+    }
+
+    public function getFactory(): Factory
+    {
+        if ($this->currentClock instanceof Factory) {
+            return $this->currentClock;
+        }
+
+        if ($this->currentClock instanceof DateTime) {
+            $factory = new Factory();
+            $factory->setTestNow($this->currentClock);
+
+            return $factory;
+        }
+
+        if ($this->currentClock instanceof DateTimeImmutable) {
+            $factory = new FactoryImmutable();
+            $factory->setTestNow($this->currentClock);
+
+            return $factory;
+        }
+
+        $factory = new FactoryImmutable();
+        $factory->setTestNow(fn () => $this->currentClock->now());
+
+        return $factory;
+    }
+
+    private function nowRaw(): DateTimeInterface
+    {
+        if ($this->currentClock instanceof DateTimeInterface) {
+            return $this->currentClock;
+        }
+
+        if ($this->currentClock instanceof Factory) {
+            return $this->currentClock->__call('now', []);
+        }
+
+        return $this->currentClock->now();
+    }
+
     public function now(): DateTimeImmutable
     {
-        $now = $this->currentClock instanceof DateTimeInterface
-            ? $this->currentClock
-            : $this->currentClock->now();
+        $now = $this->nowRaw();
 
         return $now instanceof DateTimeImmutable
             ? $now
-            :  new CarbonImmutable($now);
+            : new CarbonImmutable($now);
+    }
+
+    /**
+     * @template T of CarbonInterface
+     *
+     * @param class-string<T> $class
+     *
+     * @return T
+     */
+    public function nowAs(string $class, DateTimeZone|string|int|null $tz = null): CarbonInterface
+    {
+        $now = $this->nowRaw();
+        $date = $now instanceof $class ? $now : $class::instance($now);
+
+        return ($tz === null ? $date : $date->setTimezone($tz));
+    }
+
+    public function nowAsCarbon(DateTimeZone|string|int|null $tz = null): CarbonInterface
+    {
+        $now = $this->nowRaw();
+
+        return $now instanceof CarbonInterface
+            ? ($tz === null ? $now : $now->setTimezone($tz))
+            : ($now instanceof DateTimeImmutable
+                ? new CarbonImmutable($now, $tz)
+                : new Carbon($now, $tz)
+            );
     }
 
     public function sleep(float|int $seconds): void

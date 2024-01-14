@@ -54,7 +54,7 @@ trait StaticLocalization
      */
     public static function getHumanDiffOptions(): int
     {
-        return FactoryImmutable::getDefaultInstance()->getHumanDiffOptions();
+        return FactoryImmutable::getInstance()->getHumanDiffOptions();
     }
 
     /**
@@ -74,6 +74,6 @@ trait StaticLocalization
      */
     public static function getTranslator(): TranslatorInterface
     {
-        return FactoryImmutable::getDefaultInstance()->getTranslator();
+        return FactoryImmutable::getInstance()->getTranslator();
     }
 }

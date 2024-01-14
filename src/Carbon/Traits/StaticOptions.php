@@ -69,7 +69,7 @@ trait StaticOptions
      */
     public static function isStrictModeEnabled(): bool
     {
-        return FactoryImmutable::getDefaultInstance()->isStrictModeEnabled();
+        return FactoryImmutable::getInstance()->isStrictModeEnabled();
     }
 
     /**
@@ -113,7 +113,7 @@ trait StaticOptions
      */
     public static function shouldOverflowMonths(): bool
     {
-        return FactoryImmutable::getDefaultInstance()->shouldOverflowMonths();
+        return FactoryImmutable::getInstance()->shouldOverflowMonths();
     }
 
     /**
@@ -157,6 +157,6 @@ trait StaticOptions
      */
     public static function shouldOverflowYears(): bool
     {
-        return FactoryImmutable::getDefaultInstance()->shouldOverflowYears();
+        return FactoryImmutable::getInstance()->shouldOverflowYears();
     }
 }

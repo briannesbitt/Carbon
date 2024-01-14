@@ -32,31 +32,23 @@ trait Options
     /**
      * Indicates if months should be calculated with overflow.
      * Specific setting.
-     *
-     * @var bool|null
      */
     protected ?bool $localMonthsOverflow;
 
     /**
      * Indicates if years should be calculated with overflow.
      * Specific setting.
-     *
-     * @var bool|null
      */
     protected ?bool $localYearsOverflow;
 
     /**
      * Indicates if the strict mode is in use.
      * Specific setting.
-     *
-     * @var bool|null
      */
     protected ?bool $localStrictModeEnabled = null;
 
     /**
      * Options for diffForHumans and forHumans methods.
-     *
-     * @var bool|null
      */
     protected ?bool $localHumanDiffOptions;
 
@@ -76,15 +68,11 @@ trait Options
 
     /**
      * Instance-specific macros.
-     *
-     * @var array|null
      */
     protected ?array $localMacros = null;
 
     /**
      * Instance-specific generic macros.
-     *
-     * @var array|null
      */
     protected ?array $localGenericMacros = null;
 
@@ -149,8 +137,6 @@ trait Options
 
     /**
      * Returns current local settings.
-     *
-     * @return array
      */
     public function getSettings(): array
     {
@@ -182,8 +168,6 @@ trait Options
 
     /**
      * Show truthy properties on var_dump().
-     *
-     * @return array
      */
     public function __debugInfo(): array
     {
@@ -205,6 +189,12 @@ trait Options
         }
 
         return $infos;
+    }
+
+    protected function isLocalStrictModeEnabled(): bool
+    {
+        return $this->localStrictModeEnabled
+            ?? $this->transmitFactory(static fn () => static::isStrictModeEnabled());
     }
 
     protected function addExtraDebugInfos(array &$infos): void

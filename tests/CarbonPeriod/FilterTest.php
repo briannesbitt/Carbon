@@ -16,6 +16,7 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use DateInterval;
 use DateTime;
 use RuntimeException;
@@ -38,10 +39,11 @@ class FilterTest extends AbstractTestCase
         $period = new $periodClass();
 
         $this->assertSame([], $period->getFilters());
-        $this->assertSame($period, $period->setFilters($filters = [
+        $result = $period->setFilters($filters = [
             [$this->dummyFilter(), null],
-        ]));
-        $this->assertSame($filters, $period->getFilters());
+        ]);
+        $this->assertSame($filters, $result->getFilters());
+        $this->assertMutatorResult($period, $result);
     }
 
     public function testUpdateInternalStateWhenBuiltInFiltersAreRemoved()
@@ -52,16 +54,19 @@ class FilterTest extends AbstractTestCase
             $end = new DateTime('2018-07-15'),
         );
 
-        $period->setRecurrences($recurrences = 3);
-        $period->setFilters($period->getFilters());
+        $result = $period->setRecurrences($recurrences = 3);
 
-        $this->assertEquals($end, $period->getEndDate());
-        $this->assertSame($recurrences, $period->getRecurrences());
+        $this->assertMutatorResult($period, $result);
+
+        $period->setFilters($result->getFilters());
+
+        $this->assertEquals($end, $result->getEndDate());
+        $this->assertSame($recurrences, $result->getRecurrences());
 
         $period->setFilters([]);
 
-        $this->assertNull($period->getEndDate());
-        $this->assertNull($period->getRecurrences());
+        $this->assertNull($result->getEndDate());
+        $this->assertNull($result->getRecurrences());
     }
 
     public function testResetFilters()
@@ -72,10 +77,14 @@ class FilterTest extends AbstractTestCase
             $end = new DateTime('2018-07-15'),
         );
 
-        $period->addFilter($this->dummyFilter())
+        $result = $period->addFilter($this->dummyFilter())
             ->prependFilter($this->dummyFilter());
 
-        $this->assertSame($period, $period->resetFilters());
+        $this->assertMutatorResult($period, $result);
+
+        $result2 = $result->resetFilters();
+
+        $this->assertMutatorResult($result2, $result);
 
         $this->assertSame([
             [$periodClass::END_DATE_FILTER, null],
@@ -460,5 +469,17 @@ class FilterTest extends AbstractTestCase
             $this->standardizeDates(['2017-03-10', '2017-03-12', '2017-03-16', '2017-03-18']),
             $this->standardizeDates($period),
         );
+    }
+
+    protected function assertMutatorResult(CarbonPeriod $a, CarbonPeriod $b): void
+    {
+        if (self::$periodClass === CarbonPeriodImmutable::class) {
+            $this->assertNotSame($a, $b);
+            $this->assertEquals($a, $b);
+
+            return;
+        }
+
+        $this->assertSame($a, $b);
     }
 }

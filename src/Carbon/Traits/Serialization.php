@@ -239,7 +239,7 @@ trait Serialization
     public function jsonSerialize(): mixed
     {
         $serializer = $this->localSerializer
-            ?? FactoryImmutable::getDefaultInstance()->getSettings()['toJsonFormat']
+            ?? $this->getFactory()->getSettings()['toJsonFormat']
             ?? null;
 
         if ($serializer) {

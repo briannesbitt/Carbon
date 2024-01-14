@@ -39,13 +39,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @method ?CarbonImmutable    createFromLocaleIsoFormat(string $format, string $locale, string $time, $tz = null)                                            Create a Carbon instance from a specific ISO format and a string in a given language.
  * @method CarbonImmutable     createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)                                                                Create a Carbon instance from just a time. The date portion is set to today.
  * @method CarbonImmutable     createFromTimeString($time, $tz = null)                                                                                        Create a Carbon instance from a time string. The date portion is set to today.
- * @method CarbonImmutable     createFromTimestamp($timestamp, $tz = null)                                                                                    Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
+ * @method CarbonImmutable     createFromTimestamp(string|int|float $timestamp, DateTimeZone|string|null $tz = null)                                          Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
- * @method CarbonImmutable     createFromTimestampMs($timestamp, $tz = null)                                                                                  Create a Carbon instance from a timestamp in milliseconds.
+ * @method CarbonImmutable     createFromTimestampMs(string|int|float $timestamp, DateTimeZone|string|null $tz = null)                                        Create a Carbon instance from a timestamp in milliseconds.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
  * @method CarbonImmutable     createFromTimestampMsUTC($timestamp)                                                                                           Create a Carbon instance from a timestamp in milliseconds.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
- * @method CarbonImmutable     createFromTimestampUTC($timestamp)                                                                                             Create a Carbon instance from an timestamp keeping the timezone to UTC.
+ * @method CarbonImmutable     createFromTimestampUTC(string|int|float $timestamp)                                                                            Create a Carbon instance from an timestamp keeping the timezone to UTC.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
  * @method CarbonImmutable     createMidnightDate($year = null, $month = null, $day = null, $tz = null)                                                       Create a Carbon instance from just a date. The time portion is set to midnight.
  * @method ?CarbonImmutable    createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)                 Create a new safe Carbon instance from a specific date and time.
@@ -65,19 +65,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                            (It will ignore custom translator dynamic loading.)
  * @method Language[]          getAvailableLocalesInfo()                                                                                                      Returns list of Language object for each available locale. This object allow you to get the ISO name, native
  *                                                                                                                                                            name, region and variant of the locale.
- * @method array               getDays()                                                                                                                      Get the days of the week
+ * @method array               getDays()                                                                                                                      Get the days of the week.
  * @method string|null         getFallbackLocale()                                                                                                            Get the fallback locale.
  * @method array               getFormatsToIsoReplacements()                                                                                                  List of replacements from date() format to isoFormat().
  * @method array               getIsoUnits()                                                                                                                  Returns list of locale units for ISO formatting.
  * @method array|false         getLastErrors()                                                                                                                {@inheritdoc}
  * @method string              getLocale()                                                                                                                    Get the current translator locale.
  * @method int                 getMidDayAt()                                                                                                                  get midday/noon hour
- * @method string              getTimeFormatByPrecision($unitPrecision)                                                                                       Return a format from H:i to H:i:s.u according to given unit precision.
+ * @method string              getTimeFormatByPrecision(string $unitPrecision)                                                                                Return a format from H:i to H:i:s.u according to given unit precision.
  * @method string|Closure|null getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)                           Returns raw translation message for a given key.
  * @method int                 getWeekEndsAt(?string $locale = null)                                                                                          Get the last day of week.
  * @method int                 getWeekStartsAt(?string $locale = null)                                                                                        Get the first day of week.
- * @method bool                hasRelativeKeywords($time)                                                                                                     Determine if a time string will produce a relative date.
- * @method CarbonImmutable     instance(mixed $date)                                                                                                          Create a Carbon instance from a DateTime one.
+ * @method bool                hasRelativeKeywords(?string $time)                                                                                             Determine if a time string will produce a relative date.
+ * @method CarbonImmutable     instance(DateTimeInterface $date)                                                                                              Create a Carbon instance from a DateTime one.
  * @method bool                isImmutable()                                                                                                                  Returns true if the current class/instance is immutable.
  * @method bool                isModifiableUnit($unit)                                                                                                        Returns true if a property can be changed via setter.
  * @method bool                isMutable()                                                                                                                    Returns true if the current class/instance is mutable.
@@ -99,7 +99,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                            This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                            as it allows you to do Carbon::parse('Monday next week')->fn() rather
  *                                                                                                                                                            than (new Carbon('Monday next week'))->fn().
- * @method CarbonImmutable     parseFromLocale($time, $locale = null, $tz = null)                                                                             Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
+ * @method CarbonImmutable     parseFromLocale(string $time, ?string $locale = null, DateTimeZone|string|null $tz = null)                                     Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
  * @method string              pluralUnit(string $unit)                                                                                                       Returns standardized plural of a given singular/plural unit name (in English).
  * @method ?CarbonImmutable    rawCreateFromFormat(string $format, string $time, $tz = null)                                                                  Create a Carbon instance from a specific format.
  * @method ?CarbonImmutable    rawParse($time = null, $tz = null)                                                                                             Create a carbon instance from a string.
@@ -117,11 +117,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                                            $date->setTime(13, 0, 0, 0)
  *                                                                                                                                                            Set midday/noon hour
  * @method string              singularUnit(string $unit)                                                                                                     Returns standardized singular of a given singular/plural unit name (in English).
- * @method CarbonImmutable     today($tz = null)                                                                                                              Create a Carbon instance for today.
- * @method CarbonImmutable     tomorrow($tz = null)                                                                                                           Create a Carbon instance for tomorrow.
+ * @method CarbonImmutable     today(DateTimeZone|string|null $tz = null)                                                                                     Create a Carbon instance for today.
+ * @method CarbonImmutable     tomorrow(DateTimeZone|string|null $tz = null)                                                                                  Create a Carbon instance for tomorrow.
  * @method string              translateTimeString(string $timeString, ?string $from = null, ?string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL)  Translate a time string from a locale to an other.
  * @method string              translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null)                            Translate using translation string or callback available.
- * @method CarbonImmutable     yesterday($tz = null)                                                                                                          Create a Carbon instance for yesterday.
+ * @method CarbonImmutable     yesterday(DateTimeZone|string|null $tz = null)                                                                                 Create a Carbon instance for yesterday.
  *
  * </autodoc>
  */
@@ -131,7 +131,7 @@ class FactoryImmutable extends Factory implements ClockInterface
 
     private static ?self $defaultInstance = null;
 
-    private static ?ClockInterface $currentClock = null;
+    private static ?WrapperClock $currentClock = null;
 
     /**
      * @internal Instance used for static calls, such as Carbon::getTranslator(), CarbonImmutable::setTestNow(), etc.
@@ -142,11 +142,19 @@ class FactoryImmutable extends Factory implements ClockInterface
     }
 
     /**
+     * @internal Instance used for static calls possibly called by non-static methods.
+     */
+    public static function getInstance(): Factory
+    {
+        return self::$currentClock?->getFactory() ?? self::$defaultInstance ??= new self();
+    }
+
+    /**
      * @internal Set instance before creating new dates.
      */
     public static function setCurrentClock(ClockInterface|Factory|DateTimeInterface|null $currentClock): void
     {
-        if ($currentClock && !($currentClock instanceof ClockInterface)) {
+        if ($currentClock && !($currentClock instanceof WrapperClock)) {
             $currentClock = new WrapperClock($currentClock);
         }
 
@@ -156,7 +164,7 @@ class FactoryImmutable extends Factory implements ClockInterface
     /**
      * @internal Instance used to link new object to their factory creator.
      */
-    public static function getCurrentClock(): ?ClockInterface
+    public static function getCurrentClock(): ?WrapperClock
     {
         return self::$currentClock;
     }

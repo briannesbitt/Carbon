@@ -77,7 +77,7 @@ trait Macro
      */
     public static function hasMacro(string $name): bool
     {
-        return FactoryImmutable::getDefaultInstance()->hasMacro($name);
+        return FactoryImmutable::getInstance()->hasMacro($name);
     }
 
     /**
@@ -85,30 +85,26 @@ trait Macro
      */
     public static function getMacro(string $name): object|callable|null
     {
-        return FactoryImmutable::getDefaultInstance()->getMacro($name);
+        return FactoryImmutable::getInstance()->getMacro($name);
     }
 
     /**
      * Checks if macro is registered globally or locally.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
-    public function hasLocalMacro($name)
+    public function hasLocalMacro(string $name): bool
     {
-        return ($this->localMacros && isset($this->localMacros[$name])) || static::hasMacro($name);
+        return ($this->localMacros && isset($this->localMacros[$name])) || $this->transmitFactory(
+            static fn () => static::hasMacro($name),
+        );
     }
 
     /**
      * Get the raw callable macro registered globally or locally for a given name.
-     *
-     * @param string $name
-     *
-     * @return callable|null
      */
-    public function getLocalMacro($name)
+    public function getLocalMacro(string $name): ?callable
     {
-        return ($this->localMacros ?? [])[$name] ?? static::getMacro($name);
+        return ($this->localMacros ?? [])[$name] ?? $this->transmitFactory(
+            static fn () => static::getMacro($name),
+        );
     }
 }

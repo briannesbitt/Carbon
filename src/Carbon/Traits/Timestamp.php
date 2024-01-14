@@ -11,6 +11,8 @@
 
 namespace Carbon\Traits;
 
+use DateTimeZone;
+
 /**
  * Trait Timestamp.
  */
@@ -20,27 +22,20 @@ trait Timestamp
      * Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
-     *
-     * @param float|int|string          $timestamp
-     * @param \DateTimeZone|string|null $tz
-     *
-     * @return static
      */
-    public static function createFromTimestamp($timestamp, $tz = null): static
+    public static function createFromTimestamp(float|int|string $timestamp, DateTimeZone|string|null $tz = null): static
     {
-        return static::createFromTimestampUTC($timestamp)->setTimezone($tz);
+        $date = static::createFromTimestampUTC($timestamp);
+
+        return $tz === null ? $date : $date->setTimezone($tz);
     }
 
     /**
      * Create a Carbon instance from an timestamp keeping the timezone to UTC.
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
-     *
-     * @param float|int|string $timestamp
-     *
-     * @return static
      */
-    public static function createFromTimestampUTC($timestamp): static
+    public static function createFromTimestampUTC(float|int|string $timestamp): static
     {
         [$integer, $decimal] = self::getIntegerAndDecimalParts($timestamp);
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
@@ -79,30 +74,22 @@ trait Timestamp
      * Create a Carbon instance from a timestamp in milliseconds.
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
-     *
-     * @param float|int|string          $timestamp
-     * @param \DateTimeZone|string|null $tz
-     *
-     * @return static
      */
-    public static function createFromTimestampMs($timestamp, $tz = null): static
+    public static function createFromTimestampMs(float|int|string $timestamp, DateTimeZone|string|null $tz = null): static
     {
-        return static::createFromTimestampMsUTC($timestamp)
-            ->setTimezone($tz);
+        $date = static::createFromTimestampMsUTC($timestamp);
+
+        return $tz === null ? $date : $date->setTimezone($tz);
     }
 
     /**
      * Set the instance's timestamp.
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
-     *
-     * @param float|int|string $unixTimestamp
-     *
-     * @return static
      */
-    public function timestamp($unixTimestamp): static
+    public function timestamp(float|int|string $timestamp): static
     {
-        return $this->setTimestamp($unixTimestamp);
+        return $this->setTimestamp($timestamp);
     }
 
     /**

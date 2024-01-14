@@ -99,12 +99,8 @@ trait IntervalStep
 
     /**
      * Convert DateTimeImmutable instance to CarbonImmutable instance and DateTime instance to Carbon instance.
-     *
-     * @param DateTimeInterface $dateTime
-     *
-     * @return Carbon|CarbonImmutable
      */
-    private function resolveCarbon(DateTimeInterface $dateTime)
+    private function resolveCarbon(DateTimeInterface $dateTime): Carbon|CarbonImmutable
     {
         if ($dateTime instanceof DateTimeImmutable) {
             return CarbonImmutable::instance($dateTime);

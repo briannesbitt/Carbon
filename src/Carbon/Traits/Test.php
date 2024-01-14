@@ -18,6 +18,7 @@ use Carbon\FactoryImmutable;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 
 trait Test
 {
@@ -103,7 +104,7 @@ trait Test
      */
     public static function getTestNow(): Closure|CarbonInterface|null
     {
-        return FactoryImmutable::getDefaultInstance()->getTestNow();
+        return FactoryImmutable::getInstance()->getTestNow();
     }
 
     /**
@@ -114,17 +115,15 @@ trait Test
      */
     public static function hasTestNow(): bool
     {
-        return FactoryImmutable::getDefaultInstance()->hasTestNow();
+        return FactoryImmutable::getInstance()->hasTestNow();
     }
 
     /**
      * Get the mocked date passed in setTestNow() and if it's a Closure, execute it.
      *
-     * @param string|\DateTimeZone $tz
-     *
      * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
      */
-    protected static function getMockedTestNow($tz): CarbonInterface|self|null
+    protected static function getMockedTestNow(DateTimeZone|string|null $tz): CarbonInterface|self|null
     {
         $testNow = static::getTestNow();
 
@@ -137,9 +136,13 @@ trait Test
         }
         /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
 
-        return $testNow instanceof CarbonInterface
-            ? $testNow->avoidMutation()->tz($tz)
-            : $testNow;
+        if (!($testNow instanceof CarbonInterface)) {
+            return $testNow;
+        }
+
+        $testNow = $testNow->avoidMutation();
+
+        return $tz ? $testNow->setTimezone($tz) : $testNow;
     }
 
     private function mockConstructorParameters(&$time, ?CarbonTimeZone $tz): void
@@ -147,7 +150,11 @@ trait Test
         $now = $this->clock instanceof Factory
             ? $this->clock->getTestNow()
             : $this->nowFromClock($tz);
-        $testInstance = $now ?? clone static::getMockedTestNow($tz);
+        $testInstance = $now ?? static::getMockedTestNowClone($tz);
+
+        if (!$testInstance) {
+            return;
+        }
 
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);
@@ -156,6 +163,13 @@ trait Test
         $time = $testInstance instanceof self
             ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT)
             : $testInstance->format(static::MOCK_DATETIME_FORMAT);
+    }
+
+    private function getMockedTestNowClone($tz): CarbonInterface|self|null
+    {
+        $mock = static::getMockedTestNow($tz);
+
+        return $mock ? clone $mock : null;
     }
 
     private function nowFromClock(?CarbonTimeZone $tz): ?DateTimeImmutable

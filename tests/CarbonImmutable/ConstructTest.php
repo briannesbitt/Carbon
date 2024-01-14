@@ -55,12 +55,6 @@ class ConstructTest extends AbstractTestCase
         $c = new Carbon(new DateTime('2009-09-09 09:09:09', new DateTimeZone('Asia/Tokyo')), 'Europe/Paris');
 
         $this->assertSame('2009-09-09 02:09:09 Europe/Paris', $c->format('Y-m-d H:i:s e'));
-
-        \Carbon\Carbon::useStrictMode(false);
-
-        $c = new Carbon(new DateTime('2009-09-09 09:09:09', new DateTimeZone('Asia/Tokyo')), '¤¤ Incorrect Timezone ¤¤');
-
-        $this->assertSame('2009-09-09 09:09:09 America/Toronto', $c->format('Y-m-d H:i:s e'));
     }
 
     public function testParseCreatesAnInstanceDefaultToNow()

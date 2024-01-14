@@ -23,6 +23,7 @@ use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
 use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
+use Carbon\Traits\LocalFactory;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Carbon\Traits\ToStringFormat;
@@ -179,6 +180,7 @@ require PHP_VERSION < 8.2
  */
 class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 {
+    use LocalFactory;
     use IntervalRounding;
     use Mixin {
         Mixin::mixin as baseMixin;
@@ -1422,7 +1424,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public function toString(): string
     {
         $format = $this->localToStringFormat
-            ?? FactoryImmutable::getDefaultInstance()->getSettings()['toStringFormat']
+            ?? $this->getFactory()->getSettings()['toStringFormat']
             ?? null;
 
         if ($format instanceof Closure) {

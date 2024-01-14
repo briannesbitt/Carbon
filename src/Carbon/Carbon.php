@@ -825,10 +825,8 @@ class Carbon extends DateTime implements CarbonInterface
 
     /**
      * Returns true if the current class/instance is mutable.
-     *
-     * @return bool
      */
-    public static function isMutable()
+    public static function isMutable(): bool
     {
         return true;
     }

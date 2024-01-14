@@ -58,7 +58,7 @@ trait Units
                 $microtime = str_pad((string) $diff, 6, '0', STR_PAD_LEFT);
                 $tz = $this->tz;
 
-                return $this->tz('UTC')->modify("@$time.$microtime")->tz($tz);
+                return $this->tz('UTC')->modify("@$time.$microtime")->setTimezone($tz);
 
             // @call addRealUnit
             case 'milli':
@@ -131,7 +131,7 @@ trait Units
                 break;
 
             default:
-                if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
+                if ($this->isLocalStrictModeEnabled()) {
                     throw new UnitException("Invalid unit for real timestamp add/sub: '$unit'");
                 }
 
@@ -272,7 +272,7 @@ trait Units
         }
 
         if ($unit === 'weekday') {
-            $weekendDays = static::getWeekendDays();
+            $weekendDays = $this->transmitFactory(static fn () => static::getWeekendDays());
 
             if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
                 $absoluteValue = abs($value);
