@@ -242,7 +242,7 @@ trait Creator
         string $time,
         ?string $locale = null,
         DateTimeZone|string|int|null $tz = null,
-    ): static  {
+    ): static {
         return static::rawParse(static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
 
@@ -549,14 +549,10 @@ trait Creator
     private static function createFromFormatAndTimezone(string $format, string $time, $originalTz): ?DateTimeInterface
     {
         if ($originalTz === null) {
-            return parent::createFromFormat($format, (string) $time) ?: null;
+            return parent::createFromFormat($format, $time) ?: null;
         }
 
-        $tz = \is_int($originalTz)
-            ? (@timezone_name_from_abbr('', (int) ($originalTz * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE), 1)
-                ?: throw new InvalidTimeZoneException("Invalid offset timezone $originalTz")
-            )
-            : $originalTz;
+        $tz = \is_int($originalTz) ? self::getOffsetTimezone($originalTz) : $originalTz;
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
@@ -564,7 +560,16 @@ trait Creator
             return null;
         }
 
-        return parent::createFromFormat($format, (string) $time, $tz) ?: null;
+        return parent::createFromFormat($format, $time, $tz) ?: null;
+    }
+
+    private static function getOffsetTimezone(int $offset): string
+    {
+        $minutes = (int) ($offset * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE);
+
+        return @timezone_name_from_abbr('', $minutes, 1) ?: throw new InvalidTimeZoneException(
+            "Invalid offset timezone $offset",
+        );
     }
 
     /**

@@ -20,7 +20,6 @@ use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\UnknownUnitException;
 use Closure;
 use DateTime;
-use InvalidArgumentException;
 use Tests\AbstractTestCase;
 use TypeError;
 

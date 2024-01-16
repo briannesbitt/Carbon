@@ -16,8 +16,6 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
-use Carbon\CarbonPeriodImmutable;
 use DateInterval;
 use DateTime;
 use InvalidArgumentException;

@@ -128,7 +128,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame(DateTimeZone::class, \get_class($tz));
         $this->assertSame('America/Toronto', $tz->getName());
 
-        $obj = new class ('UTC') extends CarbonTimeZone {
+        $obj = new class('UTC') extends CarbonTimeZone {
         };
         $class = \get_class($obj);
 

@@ -72,11 +72,11 @@ abstract class AbstractTranslator extends Translation\Translator
     {
         $locale = $locale ?: 'en';
         $key = static::class === Translator::class ? $locale : static::class.'|'.$locale;
-        $count = count(static::$singletons);
+        $count = \count(static::$singletons);
 
         // Remember only the last 10 translators created
         if ($count > 10) {
-            foreach (array_slice(array_keys(static::$singletons), 0, $count - 10) as $index) {
+            foreach (\array_slice(array_keys(static::$singletons), 0, $count - 10) as $index) {
                 unset(static::$singletons[$index]);
             }
         }
@@ -303,7 +303,7 @@ abstract class AbstractTranslator extends Translation\Translator
      *
      * @param string $locale locale ex. en
      */
-    public function setLocale(string $locale): void
+    public function setLocale($locale): void
     {
         $locale = preg_replace_callback('/[-_]([a-z]{2,}|\d{2,})/', function ($matches) {
             // _2-letters or YUE is a region, _3+-letters is a variant

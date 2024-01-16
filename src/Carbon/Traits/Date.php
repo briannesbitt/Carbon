@@ -21,7 +21,6 @@ use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\BadComparisonUnitException;
 use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\InvalidTimeZoneException;
-use Carbon\Exceptions\InvalidTypeException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
@@ -41,7 +40,6 @@ use DateTimeZone;
 use Generator;
 use InvalidArgumentException;
 use ReflectionException;
-use ReturnTypeWillChange;
 use Symfony\Component\Clock\NativeClock;
 use Throwable;
 

@@ -92,7 +92,7 @@ final class WrapperClock implements ClockInterface
         $now = $this->nowRaw();
         $date = $now instanceof $class ? $now : $class::instance($now);
 
-        return ($tz === null ? $date : $date->setTimezone($tz));
+        return $tz === null ? $date : $date->setTimezone($tz);
     }
 
     public function nowAsCarbon(DateTimeZone|string|int|null $tz = null): CarbonInterface
@@ -101,10 +101,14 @@ final class WrapperClock implements ClockInterface
 
         return $now instanceof CarbonInterface
             ? ($tz === null ? $now : $now->setTimezone($tz))
-            : ($now instanceof DateTimeImmutable
-                ? new CarbonImmutable($now, $tz)
-                : new Carbon($now, $tz)
-            );
+            : $this->dateAsCarbon($now);
+    }
+
+    private function dateAsCarbon(DateTimeInterface $date, DateTimeZone|string|int|null $tz = null): CarbonInterface
+    {
+        return $date instanceof DateTimeImmutable
+            ? new CarbonImmutable($date, $tz)
+            : new Carbon($date, $tz);
     }
 
     public function sleep(float|int $seconds): void
