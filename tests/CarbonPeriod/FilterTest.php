@@ -58,13 +58,15 @@ class FilterTest extends AbstractTestCase
 
         $this->assertMutatorResult($period, $result);
 
-        $period->setFilters($result->getFilters());
+        $result = $result->setFilters($result->getFilters());
 
+        $this->assertMutatorResult($result, $period);
         $this->assertEquals($end, $result->getEndDate());
         $this->assertSame($recurrences, $result->getRecurrences());
 
-        $period->setFilters([]);
+        $result = $result->setFilters([]);
 
+        $this->assertMutatorResult($result, $period);
         $this->assertNull($result->getEndDate());
         $this->assertNull($result->getRecurrences());
     }
@@ -96,15 +98,16 @@ class FilterTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = new $periodClass();
 
-        $period->addFilter($filter1 = $this->dummyFilter())
+        $result = $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter())
             ->prependFilter($filter3 = $this->dummyFilter());
+        $this->assertMutatorResult($result, $period);
 
         $this->assertSame([
             [$filter3, null],
             [$filter1, null],
             [$filter2, null],
-        ], $period->getFilters());
+        ], $result->getFilters());
     }
 
     public function testRemoveFilterByInstance()
@@ -112,16 +115,25 @@ class FilterTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = new $periodClass();
 
-        $period->addFilter($filter1 = $this->dummyFilter())
+        $result = $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter())
             ->addFilter($filter3 = $this->dummyFilter());
 
-        $period->removeFilter($filter2);
+        $this->assertMutatorResult($result, $period);
+
+        $this->assertSame([
+            [$filter1, null],
+            [$filter2, null],
+            [$filter3, null],
+        ], $result->getFilters());
+
+        $result = $result->removeFilter($filter2);
+        $this->assertMutatorResult($result, $period);
 
         $this->assertSame([
             [$filter1, null],
             [$filter3, null],
-        ], $period->getFilters());
+        ], $result->getFilters());
     }
 
     public function testRemoveFilterByName()
@@ -129,19 +141,28 @@ class FilterTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = new $periodClass();
 
-        $period->addFilter($filter1 = $this->dummyFilter())
+        $result = $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter(), 'foo')
             ->addFilter($filter3 = $this->dummyFilter())
             ->addFilter($filter4 = $this->dummyFilter(), 'foo')
             ->addFilter($filter5 = $this->dummyFilter());
 
-        $period->removeFilter('foo');
+        $this->assertSame([
+            [$filter1, null],
+            [$filter2, 'foo'],
+            [$filter3, null],
+            [$filter4, 'foo'],
+            [$filter5, null],
+        ], $result->getFilters());
+
+        $result = $result->removeFilter('foo');
+        $this->assertMutatorResult($result, $period);
 
         $this->assertSame([
             [$filter1, null],
             [$filter3, null],
             [$filter5, null],
-        ], $period->getFilters());
+        ], $result->getFilters());
     }
 
     public function testAcceptOnlyWeekdays()
@@ -155,13 +176,15 @@ class FilterTest extends AbstractTestCase
 
         $period = $periodClass::create('R4/2018-04-14T00:00:00/P4D');
 
-        $period->addFilter(function ($date) {
+        $result = $period->addFilter(function ($date) {
             return $date->isWeekday();
         });
 
+        $this->assertMutatorResult($result, $period);
+
         $this->assertSame(
             $this->standardizeDates(['2018-04-18', '2018-04-26', '2018-04-30', '2018-05-04']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
@@ -177,13 +200,15 @@ class FilterTest extends AbstractTestCase
             new DateTime('2019-07-15'),
         );
 
-        $period->addFilter(function ($date) {
+        $result = $period->addFilter(function ($date) {
             return $date->year === 2018;
         });
 
+        $this->assertMutatorResult($result, $period);
+
         $this->assertSame(
             $this->standardizeDates(['2018-02-16', '2018-07-16', '2018-12-16']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
@@ -199,13 +224,15 @@ class FilterTest extends AbstractTestCase
             new DateTime('2018-07-15'),
         );
 
-        $period->addFilter(function ($date) use ($periodClass) {
+        $result = $period->addFilter(function ($date) use ($periodClass) {
             return $date->month === 5 ? $periodClass::END_ITERATION : true;
         });
 
+        $this->assertMutatorResult($result, $period);
+
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-19', '2018-04-22', '2018-04-25', '2018-04-28']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
@@ -224,18 +251,20 @@ class FilterTest extends AbstractTestCase
             $this->standardizeDates($period),
         );
 
-        $period = $period->setOptions($periodClass::EXCLUDE_START_DATE);
+        $result = $period->setOptions($periodClass::EXCLUDE_START_DATE);
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['2018-04-17', '2018-04-18']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
 
-        $period = $period->setOptions($periodClass::EXCLUDE_END_DATE);
+        $result = $result->setOptions($periodClass::EXCLUDE_END_DATE);
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-17']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
@@ -271,7 +300,7 @@ class FilterTest extends AbstractTestCase
         $period = $period->addFilter(function ($current, $key, $iterator) use (&$wasCalled, $period, $test) {
             $test->assertInstanceOfCarbon($current);
             $test->assertIsInt($key);
-            $test->assertSame($period, $iterator);
+            $test->assertMutatorResult($period, $iterator);
 
             return $wasCalled = true;
         });
@@ -306,10 +335,10 @@ class FilterTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = $periodClass::create(new DateTime('2018-04-16'), new DateTime('2018-07-15'))->setRecurrences(3);
 
-        $period->setEndDate(null);
-        $period->setRecurrences(null);
+        $result = $period->setEndDate(null)->setRecurrences(null);
 
-        $this->assertSame([], $period->getFilters());
+        $this->assertMutatorResult($result, $period);
+        $this->assertSame([], $result->getFilters());
     }
 
     public function testAcceptEveryOther()
@@ -322,15 +351,16 @@ class FilterTest extends AbstractTestCase
 
         // Note: Without caching validation results the dates would be unpredictable
         // as we cannot know how many calls to the filter will occur per iteration.
-        $period = $period->addFilter(function ($date) {
+        $result = $period->addFilter(static function () {
             static $accept;
 
             return $accept = !$accept;
         });
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['2018-04-16', '2018-04-18', '2018-04-20']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
@@ -339,9 +369,10 @@ class FilterTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = new $periodClass('2018-04-16', 5);
 
-        $period->addFilter($periodClass::END_ITERATION);
+        $result = $period->addFilter($periodClass::END_ITERATION);
 
-        $this->assertSame([], $this->standardizeDates($period));
+        $this->assertMutatorResult($result, $period);
+        $this->assertSame([], $this->standardizeDates($result));
     }
 
     public function testAcceptOnlyEvenDays()
@@ -359,11 +390,12 @@ class FilterTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = $periodClass::create('2018-01-01', '2018-06-01');
 
-        $period->addFilter('isLastOfMonth');
+        $result = $period->addFilter('isLastOfMonth');
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['2018-01-31', '2018-02-28', '2018-03-31', '2018-04-30', '2018-05-31']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
@@ -379,103 +411,119 @@ class FilterTest extends AbstractTestCase
             return $date->day === 10;
         });
 
-        $period->addFilter('isTenDay');
+        $result = $period->addFilter('isTenDay');
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['2018-01-10', '2018-02-10', '2018-03-10', '2018-04-10', '2018-05-10']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
     public function testAddFilterFromCarbonMethodWithArguments()
     {
-        $period = CarbonPeriod::create('2017-01-01', 'P2M16D', '2018-12-31');
+        $periodClass = static::$periodClass;
+        $period = $periodClass::create('2017-01-01', 'P2M16D', '2018-12-31');
 
-        $period->addFilter('isSameAs', 'm', new Carbon('2018-06-01'));
+        $result = $period->addFilter('isSameAs', 'm', new Carbon('2018-06-01'));
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['2017-06-02', '2018-06-20']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
     public function testRemoveFilterFromCarbonMethod()
     {
-        $period = CarbonPeriod::create('1970-01-01', '1970-01-03')->addFilter('isFuture');
+        $periodClass = static::$periodClass;
+        $period = $periodClass::create('1970-01-01', '1970-01-03')->addFilter('isFuture');
 
-        $period->removeFilter('isFuture');
+        $result = $period->removeFilter('isFuture');
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame(
             $this->standardizeDates(['1970-01-01', '1970-01-02', '1970-01-03']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
     public function testInvalidCarbonMethodShouldNotBeConvertedToCallback()
     {
-        $period = new CarbonPeriod();
+        $periodClass = static::$periodClass;
+        $period = new $periodClass();
 
-        $period->addFilter('toDateTimeString');
+        $result = $period->addFilter('toDateTimeString');
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame([
             ['toDateTimeString', null],
-        ], $period->getFilters());
+        ], $result->getFilters());
     }
 
     public function testAddCallableFilters()
     {
-        $period = new CarbonPeriod();
+        $periodClass = static::$periodClass;
+        $period = new $periodClass();
 
-        $period->addFilter($string = 'date_offset_get')
+        $result = $period->addFilter($string = 'date_offset_get')
             ->addFilter($array = [new DateTime(), 'getOffset']);
 
+        $this->assertMutatorResult($result, $period);
         $this->assertSame([
             [$string, null],
             [$array, null],
-        ], $period->getFilters());
+        ], $result->getFilters());
     }
 
     public function testRemoveCallableFilters()
     {
-        $period = new CarbonPeriod();
+        $periodClass = static::$periodClass;
+        $period = new $periodClass();
 
-        $period->setFilters([
+        $result = $period->setFilters([
             [$string = 'date_offset_get', null],
             [$array = [new DateTime(), 'getOffset'], null],
         ]);
 
-        $period->removeFilter($string)->removeFilter($array);
+        $this->assertMutatorResult($result, $period);
 
-        $this->assertSame([], $period->getFilters());
+        $result = $period->removeFilter($string)->removeFilter($array);
+
+        $this->assertMutatorResult($result, $period);
+        $this->assertSame([], $result->getFilters());
     }
 
     public function testRunCallableFilters()
     {
         include_once 'Fixtures/filters.php';
 
-        $period = new CarbonPeriod('2017-03-10', '2017-03-19');
+        $periodClass = static::$periodClass;
+        $period = new $periodClass('2017-03-10', '2017-03-19');
         $callable = [new FooFilters(), 'bar'];
 
         $this->assertFalse($period->hasFilter($callable));
         $this->assertFalse($period->hasFilter('foobar_filter'));
         $this->assertFalse($period->hasFilter('not_callable'));
-        $period->addFilter($callable);
-        $period->addFilter('foobar_filter');
-        $this->assertTrue($period->hasFilter($callable));
-        $this->assertTrue($period->hasFilter('foobar_filter'));
-        $this->assertFalse($period->hasFilter('not_callable'));
+
+        $result = $period->addFilter($callable)->addFilter('foobar_filter');
+
+        $this->assertMutatorResult($result, $period);
+
+        $this->assertTrue($result->hasFilter($callable));
+        $this->assertTrue($result->hasFilter('foobar_filter'));
+        $this->assertFalse($result->hasFilter('not_callable'));
 
         $this->assertSame(
             $this->standardizeDates(['2017-03-10', '2017-03-12', '2017-03-16', '2017-03-18']),
-            $this->standardizeDates($period),
+            $this->standardizeDates($result),
         );
     }
 
     protected function assertMutatorResult(CarbonPeriod $a, CarbonPeriod $b): void
     {
-        if (self::$periodClass === CarbonPeriodImmutable::class) {
+        if (static::$periodClass === CarbonPeriodImmutable::class) {
             $this->assertNotSame($a, $b);
-            $this->assertEquals($a, $b);
 
             return;
         }

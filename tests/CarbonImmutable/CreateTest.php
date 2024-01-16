@@ -202,7 +202,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateWithInvalidTimezoneOffset()
     {
         $this->expectExceptionObject(new InvalidTimeZoneException(
-            'Invalid offset timezone -28236',
+            'Unknown or bad timezone (-28236)',
         ));
 
         Carbon::createFromDate(2000, 1, 1, -28236);

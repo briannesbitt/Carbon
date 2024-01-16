@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -78,7 +80,7 @@ trait Creator
             $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
-        // If the class has a test now set and we are trying to create a now()
+        // If the class has a test now set, and we are trying to create a now()
         // instance then override as required
         $isNow = \in_array($time, [null, '', 'now'], true);
         $tz = static::safeCreateDateTimeZone($tz) ?? null;
@@ -173,8 +175,10 @@ trait Creator
      *
      * @return static
      */
-    public static function rawParse($time = null, $tz = null): ?self
-    {
+    public static function rawParse(
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time,
+        DateTimeZone|string|int|null $tz = null,
+    ): ?self {
         if ($time instanceof DateTimeInterface) {
             return static::instance($time);
         }
@@ -207,8 +211,10 @@ trait Creator
      *
      * @throws InvalidFormatException
      */
-    public static function parse($time = null, $tz = null): ?static
-    {
+    public static function parse(
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time,
+        DateTimeZone|string|int|null $tz = null,
+    ): ?static {
         $function = static::$parseFunction;
 
         if (!$function) {
@@ -235,7 +241,7 @@ trait Creator
     public static function parseFromLocale(
         string $time,
         ?string $locale = null,
-        DateTimeZone|string|null $tz = null,
+        DateTimeZone|string|int|null $tz = null,
     ): static  {
         return static::rawParse(static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
@@ -251,7 +257,7 @@ trait Creator
     /**
      * Create a Carbon instance for today.
      */
-    public static function today(DateTimeZone|string|null $tz = null): static
+    public static function today(DateTimeZone|string|int|null $tz = null): static
     {
         return static::rawParse('today', $tz);
     }
@@ -259,7 +265,7 @@ trait Creator
     /**
      * Create a Carbon instance for tomorrow.
      */
-    public static function tomorrow(DateTimeZone|string|null $tz = null): static
+    public static function tomorrow(DateTimeZone|string|int|null $tz = null): static
     {
         return static::rawParse('tomorrow', $tz);
     }
@@ -267,7 +273,7 @@ trait Creator
     /**
      * Create a Carbon instance for yesterday.
      */
-    public static function yesterday(DateTimeZone|string|null $tz = null): static
+    public static function yesterday(DateTimeZone|string|int|null $tz = null): static
     {
         return static::rawParse('yesterday', $tz);
     }

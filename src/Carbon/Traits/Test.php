@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -15,6 +17,7 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
+use Carbon\WrapperClock;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -123,7 +126,7 @@ trait Test
      *
      * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
      */
-    protected static function getMockedTestNow(DateTimeZone|string|null $tz): CarbonInterface|self|null
+    protected static function getMockedTestNow(DateTimeZone|string|int|null $tz): CarbonInterface|self|null
     {
         $testNow = static::getTestNow();
 
@@ -147,13 +150,18 @@ trait Test
 
     private function mockConstructorParameters(&$time, ?CarbonTimeZone $tz): void
     {
-        $now = $this->clock instanceof Factory
-            ? $this->clock->getTestNow()
+        $clock = $this->clock?->unwrap();
+        $now = $clock instanceof Factory
+            ? $clock->getTestNow()
             : $this->nowFromClock($tz);
         $testInstance = $now ?? static::getMockedTestNowClone($tz);
 
         if (!$testInstance) {
             return;
+        }
+
+        if ($tz) {
+            $testInstance = $testInstance->setTimezone($tz);
         }
 
         if (static::hasRelativeKeywords($time)) {

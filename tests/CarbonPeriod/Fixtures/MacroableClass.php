@@ -46,7 +46,7 @@ class MacroableClass
 
     public function __call($method, $parameters)
     {
-        $macro = static::$globalMacros[$method] ?? null;
+        $macro = static::getMacro($method) ?? null;
 
         if ($macro instanceof Closure) {
             return $macro->call($this);

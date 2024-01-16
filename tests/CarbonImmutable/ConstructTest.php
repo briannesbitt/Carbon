@@ -59,7 +59,7 @@ class ConstructTest extends AbstractTestCase
 
     public function testParseCreatesAnInstanceDefaultToNow()
     {
-        $c = Carbon::parse();
+        $c = Carbon::parse(null);
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
         $this->assertSame($now->tzName, $c->tzName);

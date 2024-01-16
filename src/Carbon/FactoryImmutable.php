@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -39,9 +41,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @method ?CarbonImmutable    createFromLocaleIsoFormat(string $format, string $locale, string $time, $tz = null)                                            Create a Carbon instance from a specific ISO format and a string in a given language.
  * @method CarbonImmutable     createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)                                                                Create a Carbon instance from just a time. The date portion is set to today.
  * @method CarbonImmutable     createFromTimeString($time, $tz = null)                                                                                        Create a Carbon instance from a time string. The date portion is set to today.
- * @method CarbonImmutable     createFromTimestamp(string|int|float $timestamp, DateTimeZone|string|null $tz = null)                                          Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
+ * @method CarbonImmutable     createFromTimestamp(string|int|float $timestamp, DateTimeZone|string|int|null $tz = null)                                      Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
- * @method CarbonImmutable     createFromTimestampMs(string|int|float $timestamp, DateTimeZone|string|null $tz = null)                                        Create a Carbon instance from a timestamp in milliseconds.
+ * @method CarbonImmutable     createFromTimestampMs(string|int|float $timestamp, DateTimeZone|string|int|null $tz = null)                                    Create a Carbon instance from a timestamp in milliseconds.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
  * @method CarbonImmutable     createFromTimestampMsUTC($timestamp)                                                                                           Create a Carbon instance from a timestamp in milliseconds.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
@@ -95,14 +97,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                            Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
  *                                                                                                                                                            and recurrences). Throw an exception for invalid format, but otherwise return null.
  * @method void                mixin(object|string $mixin)                                                                                                    Mix another object into the class.
- * @method ?CarbonImmutable    parse($time = null, $tz = null)                                                                                                Create a carbon instance from a string.
+ * @method ?CarbonImmutable    parse(DateTimeInterface|WeekDay|Month|string|int|float|null $time, DateTimeZone|string|int|null $tz = null)                    Create a carbon instance from a string.
  *                                                                                                                                                            This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                            as it allows you to do Carbon::parse('Monday next week')->fn() rather
  *                                                                                                                                                            than (new Carbon('Monday next week'))->fn().
- * @method CarbonImmutable     parseFromLocale(string $time, ?string $locale = null, DateTimeZone|string|null $tz = null)                                     Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
+ * @method CarbonImmutable     parseFromLocale(string $time, ?string $locale = null, DateTimeZone|string|int|null $tz = null)                                 Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
  * @method string              pluralUnit(string $unit)                                                                                                       Returns standardized plural of a given singular/plural unit name (in English).
  * @method ?CarbonImmutable    rawCreateFromFormat(string $format, string $time, $tz = null)                                                                  Create a Carbon instance from a specific format.
- * @method ?CarbonImmutable    rawParse($time = null, $tz = null)                                                                                             Create a carbon instance from a string.
+ * @method ?CarbonImmutable    rawParse(DateTimeInterface|WeekDay|Month|string|int|float|null $time, DateTimeZone|string|int|null $tz = null)                 Create a carbon instance from a string.
  *                                                                                                                                                            This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                            as it allows you to do Carbon::parse('Monday next week')->fn() rather
  *                                                                                                                                                            than (new Carbon('Monday next week'))->fn().
@@ -117,11 +119,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *                                                                                                                                                                            $date->setTime(13, 0, 0, 0)
  *                                                                                                                                                            Set midday/noon hour
  * @method string              singularUnit(string $unit)                                                                                                     Returns standardized singular of a given singular/plural unit name (in English).
- * @method CarbonImmutable     today(DateTimeZone|string|null $tz = null)                                                                                     Create a Carbon instance for today.
- * @method CarbonImmutable     tomorrow(DateTimeZone|string|null $tz = null)                                                                                  Create a Carbon instance for tomorrow.
+ * @method CarbonImmutable     today(DateTimeZone|string|int|null $tz = null)                                                                                 Create a Carbon instance for today.
+ * @method CarbonImmutable     tomorrow(DateTimeZone|string|int|null $tz = null)                                                                              Create a Carbon instance for tomorrow.
  * @method string              translateTimeString(string $timeString, ?string $from = null, ?string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL)  Translate a time string from a locale to an other.
  * @method string              translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null)                            Translate using translation string or callback available.
- * @method CarbonImmutable     yesterday(DateTimeZone|string|null $tz = null)                                                                                 Create a Carbon instance for yesterday.
+ * @method CarbonImmutable     yesterday(DateTimeZone|string|int|null $tz = null)                                                                             Create a Carbon instance for yesterday.
  *
  * </autodoc>
  */

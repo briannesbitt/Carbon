@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -41,9 +43,9 @@ use Throwable;
  * @method ?Carbon             createFromLocaleIsoFormat(string $format, string $locale, string $time, $tz = null)                                            Create a Carbon instance from a specific ISO format and a string in a given language.
  * @method Carbon              createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)                                                                Create a Carbon instance from just a time. The date portion is set to today.
  * @method Carbon              createFromTimeString($time, $tz = null)                                                                                        Create a Carbon instance from a time string. The date portion is set to today.
- * @method Carbon              createFromTimestamp(string|int|float $timestamp, DateTimeZone|string|null $tz = null)                                          Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
+ * @method Carbon              createFromTimestamp(string|int|float $timestamp, DateTimeZone|string|int|null $tz = null)                                      Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
- * @method Carbon              createFromTimestampMs(string|int|float $timestamp, DateTimeZone|string|null $tz = null)                                        Create a Carbon instance from a timestamp in milliseconds.
+ * @method Carbon              createFromTimestampMs(string|int|float $timestamp, DateTimeZone|string|int|null $tz = null)                                    Create a Carbon instance from a timestamp in milliseconds.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
  * @method Carbon              createFromTimestampMsUTC($timestamp)                                                                                           Create a Carbon instance from a timestamp in milliseconds.
  *                                                                                                                                                            Timestamp input can be given as int, float or a string containing one or more numbers.
@@ -98,14 +100,14 @@ use Throwable;
  *                                                                                                                                                            and recurrences). Throw an exception for invalid format, but otherwise return null.
  * @method void                mixin(object|string $mixin)                                                                                                    Mix another object into the class.
  * @method Carbon              now(DateTimeZone|string|int|null $tz = null)                                                                                   Get a Carbon instance for the current date and time.
- * @method ?Carbon             parse($time = null, $tz = null)                                                                                                Create a carbon instance from a string.
+ * @method ?Carbon             parse(DateTimeInterface|WeekDay|Month|string|int|float|null $time, DateTimeZone|string|int|null $tz = null)                    Create a carbon instance from a string.
  *                                                                                                                                                            This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                            as it allows you to do Carbon::parse('Monday next week')->fn() rather
  *                                                                                                                                                            than (new Carbon('Monday next week'))->fn().
- * @method Carbon              parseFromLocale(string $time, ?string $locale = null, DateTimeZone|string|null $tz = null)                                     Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
+ * @method Carbon              parseFromLocale(string $time, ?string $locale = null, DateTimeZone|string|int|null $tz = null)                                 Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
  * @method string              pluralUnit(string $unit)                                                                                                       Returns standardized plural of a given singular/plural unit name (in English).
  * @method ?Carbon             rawCreateFromFormat(string $format, string $time, $tz = null)                                                                  Create a Carbon instance from a specific format.
- * @method ?Carbon             rawParse($time = null, $tz = null)                                                                                             Create a carbon instance from a string.
+ * @method ?Carbon             rawParse(DateTimeInterface|WeekDay|Month|string|int|float|null $time, DateTimeZone|string|int|null $tz = null)                 Create a carbon instance from a string.
  *                                                                                                                                                            This is an alias for the constructor that allows better fluent syntax
  *                                                                                                                                                            as it allows you to do Carbon::parse('Monday next week')->fn() rather
  *                                                                                                                                                            than (new Carbon('Monday next week'))->fn().
@@ -121,11 +123,11 @@ use Throwable;
  *                                                                                                                                                            Set midday/noon hour
  * @method string              singularUnit(string $unit)                                                                                                     Returns standardized singular of a given singular/plural unit name (in English).
  * @method void                sleep(int|float $seconds)
- * @method Carbon              today(DateTimeZone|string|null $tz = null)                                                                                     Create a Carbon instance for today.
- * @method Carbon              tomorrow(DateTimeZone|string|null $tz = null)                                                                                  Create a Carbon instance for tomorrow.
+ * @method Carbon              today(DateTimeZone|string|int|null $tz = null)                                                                                 Create a Carbon instance for today.
+ * @method Carbon              tomorrow(DateTimeZone|string|int|null $tz = null)                                                                              Create a Carbon instance for tomorrow.
  * @method string              translateTimeString(string $timeString, ?string $from = null, ?string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL)  Translate a time string from a locale to an other.
  * @method string              translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null)                            Translate using translation string or callback available.
- * @method Carbon              yesterday(DateTimeZone|string|null $tz = null)                                                                                 Create a Carbon instance for yesterday.
+ * @method Carbon              yesterday(DateTimeZone|string|int|null $tz = null)                                                                             Create a Carbon instance for yesterday.
  *
  * </autodoc>
  */
@@ -513,13 +515,8 @@ class Factory
      * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
      * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
      * ```
-     *
-     * @param string $date
-     * @param string $format
-     *
-     * @return bool
      */
-    public function hasFormat(?string $date, string $format): bool
+    public function hasFormat(string $date, string $format): bool
     {
         // createFromFormat() is known to handle edge cases silently.
         // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
@@ -536,13 +533,8 @@ class Factory
      * Carbon::hasFormatWithModifiers('31/08/2015', 'd#m#Y'); // true
      * Carbon::hasFormatWithModifiers('31/08/2015', 'm#d#Y'); // false
      * ```
-     *
-     * @param string $date
-     * @param string $format
-     *
-     * @return bool
      */
-    public function hasFormatWithModifiers(?string $date, string $format): bool
+    public function hasFormatWithModifiers(string $date, string $format): bool
     {
         return $this->matchFormatPattern($date, $format, array_merge($this->regexFormats, $this->regexFormatModifiers));
     }
@@ -654,6 +646,14 @@ class Factory
      */
     public function getTestNow(): Closure|CarbonInterface|null
     {
+        if ($this->testNow === null) {
+            $factory = FactoryImmutable::getDefaultInstance();
+
+            if ($factory !== $this) {
+                return $factory->getTestNow();
+            }
+        }
+
         return $this->testNow;
     }
 
@@ -683,14 +683,21 @@ class Factory
                 return \in_array($parameter->getName(), ['tz', 'timezone'], true);
             });
 
-            if (isset($arguments[0]) && \in_array($name, ['instance', 'make', 'create', 'parse', 'now'], true)) {
+            if (isset($arguments[0]) && \in_array($name, ['instance', 'make', 'create', 'parse'], true)) {
                 if ($arguments[0] instanceof DateTimeInterface) {
                     $settings['innerTimezone'] = $settings['timezone'];
                 } elseif (\is_string($arguments[0]) && date_parse($arguments[0])['is_localtime']) {
                     unset($settings['timezone'], $settings['innerTimezone']);
                 }
-            } elseif (\count($tzParameters)) {
-                array_splice($arguments, key($tzParameters), 0, [$settings['timezone']]);
+            }
+
+            if (\count($tzParameters)) {
+                $index = key($tzParameters);
+
+                if (!isset($arguments[$index])) {
+                    array_splice($arguments, key($tzParameters), 0, [$settings['timezone']]);
+                }
+
                 unset($settings['timezone']);
             }
         }
@@ -754,7 +761,7 @@ class Factory
      *
      * @return bool
      */
-    private function matchFormatPattern(?string $date, string $format, array $replacements): bool
+    private function matchFormatPattern(string $date, string $format, array $replacements): bool
     {
         // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
         $regex = str_replace('\\\\', '\\', $format);
@@ -769,16 +776,16 @@ class Factory
         // Escape not escaped slashes
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date ?? '');
+        return (bool) @preg_match('/^'.$regex.'$/', $date);
     }
 
-    private function setDefaultTimezone($timezone, DateTimeInterface $date = null)
+    private function setDefaultTimezone(string $timezone, ?DateTimeInterface $date = null): void
     {
         $previous = null;
         $success = false;
 
         try {
-            $success = date_default_timezone_set($timezone ?? 'UTC');
+            $success = date_default_timezone_set($timezone);
         } catch (Throwable $exception) {
             $previous = $exception;
         }

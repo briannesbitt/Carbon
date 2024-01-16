@@ -74,7 +74,7 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
         return parent::setTimestamp($timestamp);
     }
 
-    public function setTimezone(\DateTimeZone|string $timeZone): static
+    public function setTimezone(\DateTimeZone|string|int $timeZone): static
     {
         return parent::setTimezone($timeZone);
     }

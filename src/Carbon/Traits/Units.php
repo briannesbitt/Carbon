@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -221,11 +223,17 @@ trait Units
         }
 
         if ($unit instanceof CarbonConverterInterface) {
-            return $this->resolveCarbon($unit->convertDate($this, false));
+            $unit = Closure::fromCallable([$unit, 'convertDate']);
         }
 
         if ($unit instanceof Closure) {
-            return $this->resolveCarbon($unit($this, false));
+            $result = $this->resolveCarbon($unit($this, false));
+
+            if ($this !== $result && $this->isMutable()) {
+                return $this->setDateTimeFrom($result);
+            }
+
+            return $result;
         }
 
         if ($unit instanceof DateInterval) {
@@ -378,11 +386,17 @@ trait Units
         }
 
         if ($unit instanceof CarbonConverterInterface) {
-            return $this->resolveCarbon($unit->convertDate($this, true));
+            $unit = Closure::fromCallable([$unit, 'convertDate']);
         }
 
         if ($unit instanceof Closure) {
-            return $this->resolveCarbon($unit($this, true));
+            $result = $this->resolveCarbon($unit($this, true));
+
+            if ($this !== $result && $this->isMutable()) {
+                return $this->setDateTimeFrom($result);
+            }
+
+            return $result;
         }
 
         if ($unit instanceof DateInterval) {

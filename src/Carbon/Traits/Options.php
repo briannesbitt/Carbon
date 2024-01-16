@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -33,13 +35,13 @@ trait Options
      * Indicates if months should be calculated with overflow.
      * Specific setting.
      */
-    protected ?bool $localMonthsOverflow;
+    protected ?bool $localMonthsOverflow = null;
 
     /**
      * Indicates if years should be calculated with overflow.
      * Specific setting.
      */
-    protected ?bool $localYearsOverflow;
+    protected ?bool $localYearsOverflow = null;
 
     /**
      * Indicates if the strict mode is in use.
@@ -50,21 +52,21 @@ trait Options
     /**
      * Options for diffForHumans and forHumans methods.
      */
-    protected ?bool $localHumanDiffOptions;
+    protected ?int $localHumanDiffOptions = null;
 
     /**
      * Format to use on string cast.
      *
      * @var string|callable|null
      */
-    protected $localToStringFormat;
+    protected $localToStringFormat = null;
 
     /**
      * Format to use on JSON serialization.
      *
      * @var string|callable|null
      */
-    protected $localSerializer;
+    protected $localSerializer = null;
 
     /**
      * Instance-specific macros.
@@ -81,7 +83,7 @@ trait Options
      *
      * @var string|callable|null
      */
-    protected $localFormatFunction;
+    protected $localFormatFunction = null;
 
     /**
      * Set specific options.
@@ -202,7 +204,7 @@ trait Options
         if ($this instanceof DateTimeInterface) {
             try {
                 $infos['date'] ??= $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
-                $infos['timezone'] ??= $this->tzName;
+                $infos['timezone'] ??= $this->tzName ?? $this->timezone;
             } catch (Throwable) {
                 // noop
             }

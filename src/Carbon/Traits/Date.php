@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -1071,13 +1073,13 @@ trait Date
     {
         static $localizedFormats = [
             // @property string the day of week in current locale
-            'localeDayOfWeek' => 'MMM',
+            'localeDayOfWeek' => 'dddd',
             // @property string the abbreviated day of week in current locale
-            'shortLocaleDayOfWeek' => 'dddd',
+            'shortLocaleDayOfWeek' => 'ddd',
             // @property string the month in current locale
-            'localeMonth' => 'ddd',
+            'localeMonth' => 'MMMM',
             // @property string the abbreviated month in current locale
-            'shortLocaleMonth' => 'MMMM',
+            'shortLocaleMonth' => 'MMM',
         ];
 
         if (isset($localizedFormats[$name])) {
@@ -1365,16 +1367,13 @@ trait Date
     }
 
     /**
-     * Set a part of the Carbon object
-     *
-     * @param string|array            $name
-     * @param string|int|DateTimeZone $value
+     * Set a part of the Carbon object.
      *
      * @throws ImmutableException|UnknownSetterException
      *
      * @return $this
      */
-    public function set($name, $value = null)
+    public function set(array|string $name, DateTimeZone|Month|string|int|float $value = null): static
     {
         if ($this->isImmutable()) {
             throw new ImmutableException(sprintf('%s class', static::class));
@@ -1805,7 +1804,7 @@ trait Date
     /**
      * @alias setTimezone
      */
-    public function timezone(DateTimeZone|string $value): static
+    public function timezone(DateTimeZone|string|int $value): static
     {
         return $this->setTimezone($value);
     }
@@ -1813,7 +1812,7 @@ trait Date
     /**
      * Set the timezone or returns the timezone name if no arguments passed.
      */
-    public function tz(DateTimeZone|string|null $value = null): static|string
+    public function tz(DateTimeZone|string|int|null $value = null): static|string
     {
         if ($value === null) {
             return $this->tzName;
@@ -1825,7 +1824,7 @@ trait Date
     /**
      * Set the instance's timezone from a string or object.
      */
-    public function setTimezone(DateTimeZone|string $timeZone): static
+    public function setTimezone(DateTimeZone|string|int $timeZone): static
     {
         return parent::setTimezone(static::safeCreateDateTimeZone($timeZone));
     }
@@ -2211,7 +2210,7 @@ trait Date
      */
     public function getAltNumber(string $key): string
     {
-        return $this->translateNumber(\strlen($key) > 1 ? $this->$key : $this->rawFormat('h'));
+        return $this->translateNumber((int) (\strlen($key) > 1 ? $this->$key : $this->rawFormat($key)));
     }
 
     /**
@@ -2494,8 +2493,20 @@ trait Date
      * @param string    $unit  year, month, day, hour, minute, second or microsecond
      * @param Month|int $value new value for given unit
      */
-    public function setUnit(string $unit, Month|int $value = null): static
+    public function setUnit(string $unit, Month|int|float $value = null): static
     {
+        if (\is_float($value)) {
+            $int = (int) $value;
+
+            if ((float) $int !== $value) {
+                throw new InvalidArgumentException(
+                    "$unit cannot be changed to float value $value, integer expected",
+                );
+            }
+
+            $value = $int;
+        }
+
         $unit = static::singularUnit($unit);
         $value = self::monthToInt($value, $unit);
         $dateUnits = ['year', 'month', 'day'];
@@ -2693,7 +2704,7 @@ trait Date
             $lowerUnit = strtolower(substr($unit, 6));
 
             if (static::isModifiableUnit($lowerUnit)) {
-                return $this->avoidMutation()->addUnit($lowerUnit, $factor, false)->isSameUnit($lowerUnit, ...$parameters);
+                return $this->avoidMutation()->addUnit($lowerUnit, $factor, false)->isSameUnit($lowerUnit, ...($parameters ?: ['now']));
             }
         }
 

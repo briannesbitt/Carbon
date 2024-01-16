@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -143,12 +145,17 @@ trait Localization
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, ?TranslatorInterface $translator = null, bool $altNumbers = false): string
-    {
+    public function translate(
+        string $key,
+        array $parameters = [],
+        string|int|float|null $number = null,
+        ?TranslatorInterface $translator = null,
+        bool $altNumbers = false,
+    ): string {
         $translation = static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
 
         if ($number !== null && $altNumbers) {
-            return str_replace($number, $this->translateNumber($number), $translation);
+            return str_replace((string) $number, $this->translateNumber((int) $number), $translation);
         }
 
         return $translation;
@@ -336,7 +343,7 @@ trait Localization
      *
      * @return $this|string
      */
-    public function locale(string $locale = null, ...$fallbackLocales)
+    public function locale(string $locale = null, string ...$fallbackLocales): static|string
     {
         if ($locale === null) {
             return $this->getTranslatorLocale();

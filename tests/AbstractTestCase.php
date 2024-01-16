@@ -18,6 +18,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use Carbon\CarbonTimeZone;
 use Carbon\Translator;
 use Closure;
@@ -35,43 +36,25 @@ abstract class AbstractTestCase extends TestCase
 {
     use AssertObjectHasPropertyTrait;
 
-    /**
-     * @var \Carbon\Carbon
-     */
-    protected $now;
+    private ?string $saveTz = null;
+    protected ?Carbon $now = null;
+    protected ?CarbonImmutable $immutableNow = null;
+    protected bool $oldNow = false;
+    protected bool $oldImmutableNow = false;
 
-    /**
-     * @var \Carbon\CarbonImmutable
-     */
-    protected $immutableNow;
+    /** @var class-string<CarbonPeriod> */
+    protected static string $periodClass = CarbonPeriod::class;
+    protected int $initialOptions = 0;
 
-    /**
-     * @var bool
-     */
-    protected $oldNow = false;
-
-    /**
-     * @var bool
-     */
-    protected $oldImmutableNow = false;
-
-    /**
-     * @var string
-     */
-    private $saveTz;
-
-    /**
-     * @var class-string<CarbonPeriod>
-     */
-    protected static $periodClass = CarbonPeriod::class;
-
-    protected function getTimestamp()
+    protected function getTimestamp(): int
     {
         return (new DateTime())->getTimestamp();
     }
 
     protected function setUp(): void
     {
+        $this->initialOptions = static::$periodClass === CarbonPeriodImmutable::class ? CarbonPeriod::IMMUTABLE : 0;
+
         //save current timezone
         $this->saveTz = date_default_timezone_get();
 
@@ -353,5 +336,10 @@ abstract class AbstractTestCase extends TestCase
         }
 
         throw $firstError;
+    }
+
+    protected function assertPeriodOptions(int $options, CarbonPeriod $period): void
+    {
+        $this->assertSame($this->initialOptions | $options, $period->getOptions());
     }
 }

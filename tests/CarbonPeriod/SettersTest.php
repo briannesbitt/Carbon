@@ -16,6 +16,8 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use DateInterval;
 use DateTime;
 use InvalidArgumentException;
@@ -203,16 +205,16 @@ class SettersTest extends AbstractTestCase
         $period = new $periodClass();
 
         $period = $period->toggleOptions($start, true);
-        $this->assertSame($start, $period->getOptions());
+        $this->assertPeriodOptions($start, $period);
 
         $period = $period->toggleOptions($end, true);
-        $this->assertSame($start | $end, $period->getOptions());
+        $this->assertPeriodOptions($start | $end, $period);
 
         $period = $period->toggleOptions($start, false);
-        $this->assertSame($end, $period->getOptions());
+        $this->assertPeriodOptions($end, $period);
 
         $period = $period->toggleOptions($end, false);
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
     }
 
     public function testToggleOptionsOnAndOff()
@@ -224,10 +226,10 @@ class SettersTest extends AbstractTestCase
         $period = new $periodClass();
 
         $period = $period->toggleOptions($start);
-        $this->assertSame($start, $period->getOptions());
+        $this->assertPeriodOptions($start, $period);
 
         $period = $period->toggleOptions($start);
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
 
         $period = $period->setOptions($start);
         $period = $period->toggleOptions($start | $end);
@@ -240,7 +242,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($start | $end, $period->getOptions());
 
         $period = $period->toggleOptions($start | $end);
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertSame(0, $period->getOptions());
     }
 
     public function testSetStartDateInclusiveOrExclusive()
@@ -304,13 +306,13 @@ class SettersTest extends AbstractTestCase
         $period = new $periodClass();
 
         $period = $period->excludeStartDate();
-        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
+        $this->assertPeriodOptions($periodClass::EXCLUDE_START_DATE, $period);
 
         $period = $period->excludeStartDate(true);
-        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions());
+        $this->assertPeriodOptions($periodClass::EXCLUDE_START_DATE, $period);
 
         $period = $period->excludeStartDate(false);
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
     }
 
     public function testExcludeEndDate()
@@ -319,13 +321,13 @@ class SettersTest extends AbstractTestCase
         $period = new $periodClass();
 
         $period = $period->excludeEndDate();
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertPeriodOptions($periodClass::EXCLUDE_END_DATE, $period);
 
         $period = $period->excludeEndDate(true);
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertPeriodOptions($periodClass::EXCLUDE_END_DATE, $period);
 
         $period = $period->excludeEndDate(false);
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
     }
 
     public function testSetRelativeDates()

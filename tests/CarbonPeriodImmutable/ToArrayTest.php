@@ -17,5 +17,5 @@ use Carbon\CarbonPeriodImmutable;
 
 class ToArrayTest extends \Tests\CarbonPeriod\ToArrayTest
 {
-    protected static $periodClass = CarbonPeriodImmutable::class;
+    protected static string $periodClass = CarbonPeriodImmutable::class;
 }

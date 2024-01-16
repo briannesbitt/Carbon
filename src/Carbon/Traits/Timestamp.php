@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -23,7 +25,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
-    public static function createFromTimestamp(float|int|string $timestamp, DateTimeZone|string|null $tz = null): static
+    public static function createFromTimestamp(float|int|string $timestamp, DateTimeZone|string|int|null $tz = null): static
     {
         $date = static::createFromTimestampUTC($timestamp);
 
@@ -63,9 +65,9 @@ trait Timestamp
         $microseconds = $sign * abs($microseconds) + static::MICROSECONDS_PER_MILLISECOND * ($milliseconds % static::MILLISECONDS_PER_SECOND);
         $seconds = $sign * floor($milliseconds / static::MILLISECONDS_PER_SECOND);
         $delta = floor($microseconds / static::MICROSECONDS_PER_SECOND);
-        $seconds += $delta;
+        $seconds = (int) ($seconds + $delta);
         $microseconds -= $delta * static::MICROSECONDS_PER_SECOND;
-        $microseconds = str_pad($microseconds, 6, '0', STR_PAD_LEFT);
+        $microseconds = str_pad((string) (int) $microseconds, 6, '0', STR_PAD_LEFT);
 
         return static::rawCreateFromFormat('U u', "$seconds $microseconds");
     }
@@ -75,7 +77,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
-    public static function createFromTimestampMs(float|int|string $timestamp, DateTimeZone|string|null $tz = null): static
+    public static function createFromTimestampMs(float|int|string $timestamp, DateTimeZone|string|int|null $tz = null): static
     {
         $date = static::createFromTimestampMsUTC($timestamp);
 

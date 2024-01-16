@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriodImmutable;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
