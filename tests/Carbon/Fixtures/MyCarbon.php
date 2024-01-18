@@ -17,5 +17,8 @@ use Carbon\Carbon;
 
 class MyCarbon extends Carbon
 {
-    //
+    public function addTwoHours(): static
+    {
+        return $this->addHours(2);
+    }
 }

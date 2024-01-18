@@ -331,7 +331,7 @@ trait Creator
         $month = self::monthToInt($month);
 
         if ((\is_string($year) && !is_numeric($year)) || $year instanceof DateTimeInterface) {
-            return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
+            return static::parse($year, $tz ?? (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
         }
 
         $defaults = null;
@@ -382,7 +382,7 @@ trait Creator
             $instance = $instance->addYears($fixYear);
         }
 
-        return $instance ?: null;
+        return $instance ?? null;
     }
 
     /**
@@ -539,15 +539,11 @@ trait Creator
         return static::today($tz)->setTimeFromTimeString($time);
     }
 
-    /**
-     * @param string                         $format     Datetime format
-     * @param string                         $time
-     * @param DateTimeZone|string|false|null $originalTz
-     *
-     * @return DateTimeInterface|null
-     */
-    private static function createFromFormatAndTimezone(string $format, string $time, $originalTz): ?DateTimeInterface
-    {
+    private static function createFromFormatAndTimezone(
+        string $format,
+        string $time,
+        DateTimeZone|string|int|null $originalTz,
+    ): ?DateTimeInterface {
         if ($originalTz === null) {
             return parent::createFromFormat($format, $time) ?: null;
         }
@@ -555,10 +551,6 @@ trait Creator
         $tz = \is_int($originalTz) ? self::getOffsetTimezone($originalTz) : $originalTz;
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
-
-        if ($tz === null) {
-            return null;
-        }
 
         return parent::createFromFormat($format, $time, $tz) ?: null;
     }
@@ -701,7 +693,7 @@ trait Creator
             static $formats = null;
 
             if ($formats === null) {
-                $translator = $translator ?: Translator::get($locale);
+                $translator ??= Translator::get($locale);
 
                 $formats = [
                     'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),

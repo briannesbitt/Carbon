@@ -104,7 +104,7 @@ trait Localization
      */
     public function getTranslationMessage(string $key, ?string $locale = null, ?string $default = null, $translator = null)
     {
-        return static::getTranslationMessageWith($translator ?: $this->getLocalTranslator(), $key, $locale, $default);
+        return static::getTranslationMessageWith($translator ?? $this->getLocalTranslator(), $key, $locale, $default);
     }
 
     /**
@@ -152,7 +152,7 @@ trait Localization
         ?TranslatorInterface $translator = null,
         bool $altNumbers = false,
     ): string {
-        $translation = static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
+        $translation = static::translateWith($translator ?? $this->getLocalTranslator(), $key, $parameters, $number);
 
         if ($number !== null && $altNumbers) {
             return str_replace((string) $number, $this->translateNumber((int) $number), $translation);
@@ -227,8 +227,12 @@ trait Localization
      *
      * @return string
      */
-    public static function translateTimeString(string $timeString, string $from = null, string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL): string
-    {
+    public static function translateTimeString(
+        string $timeString,
+        ?string $from = null,
+        ?string $to = null,
+        int $mode = CarbonInterface::TRANSLATE_ALL,
+    ): string {
         // Fallback source and destination locales
         $from = $from ?: static::getLocale();
         $to = $to ?: CarbonInterface::DEFAULT_LOCALE;
@@ -330,7 +334,7 @@ trait Localization
      *
      * @return string
      */
-    public function translateTimeStringTo(string $timeString, string $to = null): string
+    public function translateTimeStringTo(string $timeString, ?string $to = null): string
     {
         return static::translateTimeString($timeString, $this->getTranslatorLocale(), $to);
     }
@@ -420,10 +424,8 @@ trait Localization
      * Get the fallback locale.
      *
      * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
-     *
-     * @return string|null
      */
-    public static function getFallbackLocale()
+    public static function getFallbackLocale(): ?string
     {
         $translator = static::getTranslator();
 
@@ -443,7 +445,7 @@ trait Localization
      *
      * @return mixed
      */
-    public static function executeWithLocale($locale, $func)
+    public static function executeWithLocale(string $locale, callable $func): mixed
     {
         $currentLocale = static::getLocale();
         static::setLocale($locale);
@@ -467,7 +469,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasShortUnits($locale)
+    public static function localeHasShortUnits(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return ($newLocale && (($y = static::translateWith($translator, 'y')) !== 'y' && $y !== static::translateWith($translator, 'year'))) || (
@@ -488,7 +490,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasDiffSyntax($locale)
+    public static function localeHasDiffSyntax(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             if (!$newLocale) {
@@ -519,7 +521,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasDiffOneDayWords($locale)
+    public static function localeHasDiffOneDayWords(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&
@@ -537,7 +539,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasDiffTwoDayWords($locale)
+    public static function localeHasDiffTwoDayWords(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&

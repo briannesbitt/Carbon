@@ -900,7 +900,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Number of X in Y.
      */
-    public const YEARS_PER_MILLENNIUM = 1000;
+    public const YEARS_PER_MILLENNIUM = 1_000;
     public const YEARS_PER_CENTURY = 100;
     public const YEARS_PER_DECADE = 10;
     public const MONTHS_PER_YEAR = 12;
@@ -913,9 +913,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const HOURS_PER_DAY = 24;
     public const MINUTES_PER_HOUR = 60;
     public const SECONDS_PER_MINUTE = 60;
-    public const MILLISECONDS_PER_SECOND = 1000;
-    public const MICROSECONDS_PER_MILLISECOND = 1000;
-    public const MICROSECONDS_PER_SECOND = 1000000;
+    public const MILLISECONDS_PER_SECOND = 1_000;
+    public const MICROSECONDS_PER_MILLISECOND = 1_000;
+    public const MICROSECONDS_PER_SECOND = 1_000_000;
 
     /**
      * Special settings to get the start of week from current locale culture.
@@ -1976,7 +1976,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return mixed
      */
-    public static function executeWithLocale($locale, $func);
+    public static function executeWithLocale(string $locale, callable $func): mixed;
 
     /**
      * Get the farthest date from the instance (second-precision).
@@ -2188,10 +2188,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the fallback locale.
      *
      * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
-     *
-     * @return string|null
      */
-    public static function getFallbackLocale();
+    public static function getFallbackLocale(): ?string;
 
     /**
      * List of replacements from date() format to isoFormat().
@@ -3078,7 +3076,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function localeHasDiffOneDayWords($locale);
+    public static function localeHasDiffOneDayWords(string $locale): bool;
 
     /**
      * Returns true if the given locale is internally supported and has diff syntax support (ago, from now, before, after).
@@ -3088,7 +3086,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function localeHasDiffSyntax($locale);
+    public static function localeHasDiffSyntax(string $locale): bool;
 
     /**
      * Returns true if the given locale is internally supported and has words for 2-days diff (before yesterday, after tomorrow).
@@ -3098,7 +3096,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function localeHasDiffTwoDayWords($locale);
+    public static function localeHasDiffTwoDayWords(string $locale): bool;
 
     /**
      * Returns true if the given locale is internally supported and has period syntax support (X times, every X, from X, to X).
@@ -3118,7 +3116,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return bool
      */
-    public static function localeHasShortUnits($locale);
+    public static function localeHasShortUnits(string $locale): bool;
 
     /**
      * Determines if the instance is less (before) than another

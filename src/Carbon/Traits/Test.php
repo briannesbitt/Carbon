@@ -122,24 +122,13 @@ trait Test
 
     /**
      * Get the mocked date passed in setTestNow() and if it's a Closure, execute it.
-     *
-     * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
      */
-    protected static function getMockedTestNow(DateTimeZone|string|int|null $tz): CarbonInterface|self|null
+    protected static function getMockedTestNow(DateTimeZone|string|int|null $tz): ?CarbonInterface
     {
-        $testNow = static::getTestNow();
+        $testNow = FactoryImmutable::getInstance()->handleTestNowClosure(static::getTestNow(), $tz);
 
-        if ($testNow instanceof Closure) {
-            $realNow = new DateTimeImmutable('now');
-            $testNow = $testNow(static::parse(
-                $realNow->format('Y-m-d H:i:s.u'),
-                $tz ?: $realNow->getTimezone(),
-            ));
-        }
-        /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
-
-        if (!($testNow instanceof CarbonInterface)) {
-            return $testNow;
+        if ($testNow === null) {
+            return null;
         }
 
         $testNow = $testNow->avoidMutation();
@@ -166,6 +155,14 @@ trait Test
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);
         }
+
+        $factory = $this->getClock()?->unwrap();
+
+        if (!($factory instanceof Factory)) {
+            $factory = FactoryImmutable::getInstance();
+        }
+
+        $testInstance = $factory->handleTestNowClosure($testInstance, $tz);
 
         $time = $testInstance instanceof self
             ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT)

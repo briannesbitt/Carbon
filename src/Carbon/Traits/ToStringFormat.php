@@ -30,7 +30,7 @@ trait ToStringFormat
      */
     public static function resetToStringFormat(): void
     {
-        FactoryImmutable::getDefaultInstance()->setToStringFormat(null);
+        FactoryImmutable::getDefaultInstance()->resetToStringFormat();
     }
 
     /**

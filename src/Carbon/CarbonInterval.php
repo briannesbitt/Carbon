@@ -2110,8 +2110,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function stepBy($interval, Unit|string|null $unit = null): CarbonPeriod
     {
-        $start = $this->startDate ?: CarbonImmutable::make($this->startDate ?: 'now');
-        $end = $this->endDate ?: $start->copy()->add($this);
+        $start = $this->startDate ?? CarbonImmutable::make('now');
+        $end = $this->endDate ?? $start->copy()->add($this);
 
         try {
             $step = static::make($interval, $unit);

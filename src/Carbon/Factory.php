@@ -18,7 +18,9 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use ReflectionFunction;
 use ReflectionMethod;
+use RuntimeException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
@@ -62,7 +64,7 @@ use Throwable;
  *                                                                                                                                                            If one of the set values is not valid, an InvalidDateException
  *                                                                                                                                                            will be thrown.
  * @method Carbon              createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $tz = null)   Create a new Carbon instance from a specific date and time using strict validation.
- * @method mixed               executeWithLocale($locale, $func)                                                                                              Set the current locale to the given, execute the passed function, reset the locale to previous one,
+ * @method mixed               executeWithLocale(string $locale, callable $func)                                                                              Set the current locale to the given, execute the passed function, reset the locale to previous one,
  *                                                                                                                                                            then return the result of the closure (or null if the closure was void).
  * @method Carbon              fromSerialized($value)                                                                                                         Create an instance from a serialized string.
  * @method array               getAvailableLocales()                                                                                                          Returns the list of internally available locales and already loaded custom locales.
@@ -70,7 +72,7 @@ use Throwable;
  * @method Language[]          getAvailableLocalesInfo()                                                                                                      Returns list of Language object for each available locale. This object allow you to get the ISO name, native
  *                                                                                                                                                            name, region and variant of the locale.
  * @method array               getDays()                                                                                                                      Get the days of the week.
- * @method string|null         getFallbackLocale()                                                                                                            Get the fallback locale.
+ * @method ?string             getFallbackLocale()                                                                                                            Get the fallback locale.
  * @method array               getFormatsToIsoReplacements()                                                                                                  List of replacements from date() format to isoFormat().
  * @method array               getIsoUnits()                                                                                                                  Returns list of locale units for ISO formatting.
  * @method array|false         getLastErrors()                                                                                                                {@inheritdoc}
@@ -85,15 +87,15 @@ use Throwable;
  * @method bool                isImmutable()                                                                                                                  Returns true if the current class/instance is immutable.
  * @method bool                isModifiableUnit($unit)                                                                                                        Returns true if a property can be changed via setter.
  * @method bool                isMutable()                                                                                                                    Returns true if the current class/instance is mutable.
- * @method bool                localeHasDiffOneDayWords($locale)                                                                                              Returns true if the given locale is internally supported and has words for 1-day diff (just now, yesterday, tomorrow).
+ * @method bool                localeHasDiffOneDayWords(string $locale)                                                                                       Returns true if the given locale is internally supported and has words for 1-day diff (just now, yesterday, tomorrow).
  *                                                                                                                                                            Support is considered enabled if the 3 words are translated in the given locale.
- * @method bool                localeHasDiffSyntax($locale)                                                                                                   Returns true if the given locale is internally supported and has diff syntax support (ago, from now, before, after).
+ * @method bool                localeHasDiffSyntax(string $locale)                                                                                            Returns true if the given locale is internally supported and has diff syntax support (ago, from now, before, after).
  *                                                                                                                                                            Support is considered enabled if the 4 sentences are translated in the given locale.
- * @method bool                localeHasDiffTwoDayWords($locale)                                                                                              Returns true if the given locale is internally supported and has words for 2-days diff (before yesterday, after tomorrow).
+ * @method bool                localeHasDiffTwoDayWords(string $locale)                                                                                       Returns true if the given locale is internally supported and has words for 2-days diff (before yesterday, after tomorrow).
  *                                                                                                                                                            Support is considered enabled if the 2 words are translated in the given locale.
  * @method bool                localeHasPeriodSyntax($locale)                                                                                                 Returns true if the given locale is internally supported and has period syntax support (X times, every X, from X, to X).
  *                                                                                                                                                            Support is considered enabled if the 4 sentences are translated in the given locale.
- * @method bool                localeHasShortUnits($locale)                                                                                                   Returns true if the given locale is internally supported and has short-units support.
+ * @method bool                localeHasShortUnits(string $locale)                                                                                            Returns true if the given locale is internally supported and has short-units support.
  *                                                                                                                                                            Support is considered enabled if either year, day or hour has a short variant translated.
  * @method ?Carbon             make($var)                                                                                                                     Make a Carbon instance from given variable if possible.
  *                                                                                                                                                            Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
@@ -146,6 +148,11 @@ class Factory
      * The timezone to restore to when clearing the time mock.
      */
     protected ?string $testDefaultTimezone = null;
+
+    /**
+     * Is true when test-now is generated by a closure and timezone should be taken on the fly from it.
+     */
+    protected bool $useTimezoneFromTestNow = false;
 
     /**
      * Default translator.
@@ -563,6 +570,7 @@ class Factory
      */
     public function setTestNow(mixed $testNow = null): void
     {
+        $this->useTimezoneFromTestNow = false;
         $this->testNow = $testNow instanceof self || $testNow instanceof Closure
             ? $testNow
             : $this->make($testNow);
@@ -600,6 +608,7 @@ class Factory
         }
 
         $this->setTestNow($testNow);
+        $this->useTimezoneFromTestNow = ($tz === null && $testNow instanceof Closure);
 
         if (!$useDateInstanceTimezone) {
             $now = $this->getMockedTestNow(\func_num_args() === 1 ? null : $tz);
@@ -657,6 +666,38 @@ class Factory
         return $this->testNow;
     }
 
+    public function handleTestNowClosure(
+        Closure|CarbonInterface|null $testNow,
+        DateTimeZone|string|int|null $tz = null,
+    ): ?CarbonInterface {
+        if ($testNow instanceof Closure) {
+            $generateTestNow = $testNow;
+            $realNow = new DateTimeImmutable('now');
+            $testNow = $generateTestNow($this->parse(
+                $realNow->format('Y-m-d H:i:s.u'),
+                $tz ?? $realNow->getTimezone(),
+            ));
+
+            if ($testNow !== null && !($testNow instanceof DateTimeInterface)) {
+                $function = new ReflectionFunction($generateTestNow);
+                $type = is_object($testNow) ? $testNow::class : gettype($testNow);
+
+                throw new RuntimeException(
+                    'The test closure defined in '.$function->getFileName() .
+                    ' at line '.$function->getStartLine().' returned '.$type.
+                    '; expected '.CarbonInterface::class.'|null',
+                );
+            }
+
+            if (!($testNow instanceof CarbonInterface)) {
+                $tz ??= $this->useTimezoneFromTestNow ? $testNow->getTimezone() : null;
+                $testNow = $this->__call('instance', [$testNow, $tz]);
+            }
+        }
+
+        return $testNow;
+    }
+
     /**
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
@@ -670,7 +711,10 @@ class Factory
 
     public function withTimeZone(DateTimeZone|string|int|null $timezone): static
     {
-        return new static(['timezone' => $timezone]);
+        $factory = clone $this;
+        $factory->settings['timezone'] = $timezone;
+
+        return $factory;
     }
 
     public function __call(string $name, array $arguments): mixed
@@ -723,27 +767,20 @@ class Factory
 
     /**
      * Get the mocked date passed in setTestNow() and if it's a Closure, execute it.
-     *
-     * @param string|\DateTimeZone $tz
-     *
-     * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
      */
-    protected function getMockedTestNow($tz)
+    protected function getMockedTestNow(DateTimeZone|string|int|null $tz): ?CarbonInterface
     {
-        $testNow = $this->getTestNow();
+        $testNow = $this->handleTestNowClosure($this->getTestNow());
 
-        if ($testNow instanceof Closure) {
-            $realNow = new DateTimeImmutable('now');
-            $testNow = $testNow($this->parse(
-                $realNow->format('Y-m-d H:i:s.u'),
-                $tz ?: $realNow->getTimezone(),
-            ));
+        if ($testNow instanceof CarbonInterface) {
+            $testNow = $testNow->avoidMutation();
+
+            if ($tz !== null) {
+                return $testNow->setTimezone($tz);
+            }
         }
-        /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
 
-        return $testNow instanceof CarbonInterface
-            ? $testNow->avoidMutation()->setTimezone($tz)
-            : $testNow;
+        return $testNow;
     }
 
     /**

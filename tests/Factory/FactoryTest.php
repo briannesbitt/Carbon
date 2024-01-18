@@ -15,10 +15,13 @@ namespace Tests\Factory;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
+use ReflectionFunction;
+use RuntimeException;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -218,5 +221,33 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame('1990-07-31 23:59:59', (string) CarbonImmutable::now());
 
         CarbonImmutable::setTestNow();
+    }
+
+    public function testClosureMock(): void
+    {
+        $factory = new Factory();
+        $now = Carbon::parse('2024-01-18 00:00:00');
+        $factory->setTestNow(static fn () => $now);
+
+        $result = $factory->now();
+
+        $this->assertNotSame($now, $result);
+        $this->assertSame($now->format('Y-m-d H:i:s.u e'), $result->format('Y-m-d H:i:s.u e'));
+    }
+
+    public function testClosureMockTypeFailure(): void
+    {
+        $factory = new Factory();
+        $closure = static fn () => 42;
+        $factory->setTestNow($closure);
+        $function = new ReflectionFunction($closure);
+
+        $this->expectExceptionObject(new RuntimeException(
+            'The test closure defined in '.$function->getFileName() .
+            ' at line '.$function->getStartLine().' returned integer'.
+            '; expected '.CarbonInterface::class.'|null',
+        ));
+
+        $factory->now();
     }
 }

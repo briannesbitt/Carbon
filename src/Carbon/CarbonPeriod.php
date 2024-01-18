@@ -370,7 +370,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         if ($period instanceof self) {
             return new static(
                 $period->getStartDate(),
-                $period->getEndDate() ?: $period->getRecurrences(),
+                $period->getEndDate() ?? $period->getRecurrences(),
                 $period->getDateInterval(),
                 $period->getOptions(),
             );
@@ -618,7 +618,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             if ($arguments[0] instanceof self) {
                 $arguments = [
                     $arguments[0]->getStartDate(),
-                    $arguments[0]->getEndDate() ?: $arguments[0]->getRecurrences(),
+                    $arguments[0]->getEndDate() ?? $arguments[0]->getRecurrences(),
                     $arguments[0]->getDateInterval(),
                     $arguments[0]->getOptions(),
                 ];

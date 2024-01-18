@@ -59,11 +59,6 @@ class CarbonTimeZone extends DateTimeZone
         return $timezone;
     }
 
-    protected static function getDateTimeZoneFromName(string|int &$name): ?DateTimeZone
-    {
-        return @timezone_open($name = static::getDateTimeZoneNameFromMixed($name)) ?: null;
-    }
-
     /**
      * Cast the current instance into the given class.
      *

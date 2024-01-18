@@ -18,6 +18,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Psr\Clock\ClockInterface as PsrClockInterface;
+use RuntimeException;
 use Symfony\Component\Clock\ClockInterface;
 
 final class WrapperClock implements ClockInterface
@@ -53,7 +54,7 @@ final class WrapperClock implements ClockInterface
         }
 
         $factory = new FactoryImmutable();
-        $factory->setTestNow(fn () => $this->currentClock->now());
+        $factory->setTestNowAndTimezone(fn () => $this->currentClock->now());
 
         return $factory;
     }
@@ -111,8 +112,17 @@ final class WrapperClock implements ClockInterface
             : new Carbon($date, $tz);
     }
 
+    /** @param int<0, max>|float<0> */
     public function sleep(float|int $seconds): void
     {
+        if ($seconds === 0 || $seconds === 0.0) {
+            return;
+        }
+
+        if ($seconds < 0) {
+            throw new RuntimeException('Expected positive number of seconds, '.$seconds.' given');
+        }
+
         if ($this->currentClock instanceof DateTimeInterface) {
             $this->currentClock = $this->addSeconds($this->currentClock, $seconds);
 
@@ -151,10 +161,28 @@ final class WrapperClock implements ClockInterface
 
     private function addSeconds(DateTimeInterface $date, float|int $seconds): DateTimeInterface
     {
-        if ($date instanceof DateTimeImmutable) {
-            return $date->modify("$seconds seconds");
+        $secondsPerHour = CarbonInterface::SECONDS_PER_MINUTE * CarbonInterface::MINUTES_PER_HOUR;
+        $hours = number_format(
+            floor($seconds / $secondsPerHour),
+            thousands_separator: '',
+        );
+        $microseconds = number_format(
+            ($seconds - $hours * $secondsPerHour) * CarbonInterface::MICROSECONDS_PER_SECOND,
+            thousands_separator: '',
+        );
+
+        if (!($date instanceof DateTimeImmutable)) {
+            $date = clone $date;
         }
 
-        return (clone $date)->modify("$seconds seconds");
+        if ($hours !== '0') {
+            $date = $date->modify("$hours hours");
+        }
+
+        if ($microseconds !== '0') {
+            $date = $date->modify("$microseconds microseconds");
+        }
+
+        return $date;
     }
 }

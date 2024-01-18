@@ -2226,7 +2226,7 @@ trait Date
     {
         $result = '';
         $length = mb_strlen($format);
-        $originalFormat = $originalFormat ?: $format;
+        $originalFormat ??= $format;
         $inEscaped = false;
         $formats = null;
         $units = null;
