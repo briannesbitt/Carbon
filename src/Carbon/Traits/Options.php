@@ -204,7 +204,7 @@ trait Options
         if ($this instanceof DateTimeInterface) {
             try {
                 $infos['date'] ??= $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
-                $infos['timezone'] ??= $this->tzName ?? $this->timezone;
+                $infos['timezone'] ??= $this->tzName ?? $this->timezoneSetting ?? $this->timezone ?? null;
             } catch (Throwable) {
                 // noop
             }

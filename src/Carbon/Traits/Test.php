@@ -153,7 +153,7 @@ trait Test
         $now = $clock instanceof Factory
             ? $clock->getTestNow()
             : $this->nowFromClock($tz);
-        $testInstance = $now ?? static::getMockedTestNowClone($tz);
+        $testInstance = $now ?? self::getMockedTestNowClone($tz);
 
         if (!$testInstance) {
             return;

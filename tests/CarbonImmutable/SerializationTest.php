@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\CarbonTimeZone;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use ReflectionClass;
@@ -24,43 +25,42 @@ use Throwable;
 
 class SerializationTest extends AbstractTestCase
 {
-    /**
-     * @var string
-     */
-    protected $serialized;
+    protected string $serialized;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->serialized = \extension_loaded('msgpack')
-            ? [
-                "O:22:\"Carbon\CarbonImmutable\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:18:\"dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:96:\"O:21:\"Carbon\CarbonTimeZone\":2:{s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";}\";}}",
-                "O:22:\"Carbon\CarbonImmutable\":4:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:15:\"America/Toronto\";s:18:\"dumpDateProperties\";a:2:{s:4:\"date\";s:26:\"2016-02-01 13:20:25.000000\";s:8:\"timezone\";s:23:\"s:15:\"America/Toronto\";\";}}",
-            ]
-            : ['O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}'];
+            ? 'O:22:"Carbon\CarbonImmutable":4:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";s:18:"dumpDateProperties";a:2:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:8:"timezone";s:15:"America/Toronto";}}'
+            : 'O:22:"Carbon\CarbonImmutable":3:{s:4:"date";s:26:"2016-02-01 13:20:25.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:15:"America/Toronto";}';
     }
 
     protected function cleanSerialization(string $serialization): string
     {
-        return preg_replace('/s:\d+:\"[^"]*dumpDateProperties\"/', 's:18:"dumpDateProperties"', $serialization);
+        return preg_replace('/s:\d+:"[^"]*dumpDateProperties"/', 's:18:"dumpDateProperties"', $serialization);
     }
 
     public function testSerialize()
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
-        $message = "not in:\n".implode("\n", $this->serialized);
-        $this->assertContains($this->cleanSerialization($dt->serialize()), $this->serialized, $message);
-        $this->assertContains($this->cleanSerialization(serialize($dt)), $this->serialized, $message);
+        $this->assertSame($this->serialized, $this->cleanSerialization($dt->serialize()));
+        $this->assertSame($this->serialized, $this->cleanSerialization(serialize($dt)));
     }
 
     public function testFromUnserialized()
     {
-        $dt = Carbon::fromSerialized($this->serialized[0]);
+        $dt = Carbon::fromSerialized($this->serialized);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
+        $timezone = $dt->getTimezone();
+        $this->assertSame(CarbonTimeZone::class, $timezone::class);
+        $this->assertSame('America/Toronto', $timezone->getName());
 
-        $dt = unserialize($this->serialized[0]);
+        $dt = unserialize($this->serialized);
+        $timezone = $dt->getTimezone();
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
+        $this->assertSame(CarbonTimeZone::class, $timezone::class);
+        $this->assertSame('America/Toronto', $timezone->getName());
     }
 
     public function testSerialization()
@@ -197,7 +197,7 @@ class SerializationTest extends AbstractTestCase
         if (\extension_loaded('msgpack')) {
             $expected['dumpDateProperties'] = [
                 'date' => $date->format('Y-m-d H:i:s.u'),
-                'timezone' => serialize($date->timezone),
+                'timezone' => $date->tzName,
             ];
         }
 

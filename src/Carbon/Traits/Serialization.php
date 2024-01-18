@@ -15,6 +15,7 @@ namespace Carbon\Traits;
 
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\FactoryImmutable;
+use DateTimeZone;
 use ReturnTypeWillChange;
 use Throwable;
 
@@ -142,9 +143,9 @@ trait Serialization
         // @codeCoverageIgnoreStart
         if (isset($this->timezone_type, $this->timezone, $this->date)) {
             return [
-                'date' => $this->date ?? null,
+                'date' => $this->date,
                 'timezone_type' => $this->timezone_type,
-                'timezone' => $this->timezone ?? null,
+                'timezone' => $this->dumpTimezone($this->timezone),
             ];
         }
         // @codeCoverageIgnoreEnd
@@ -158,9 +159,10 @@ trait Serialization
 
         // @codeCoverageIgnoreStart
         if (\extension_loaded('msgpack') && isset($this->constructedObjectId)) {
+            $timezone = $this->timezone ?? null;
             $export['dumpDateProperties'] = [
                 'date' => $this->format('Y-m-d H:i:s.u'),
-                'timezone' => serialize($this->timezone ?? null),
+                'timezone' => $this->dumpTimezone($timezone),
             ];
         }
         // @codeCoverageIgnoreEnd
@@ -187,7 +189,7 @@ trait Serialization
                 try {
                     // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                     ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
-                    parent::__construct($date, unserialize($timezone));
+                    parent::__construct($date, $timezone);
                 } catch (Throwable) {
                     throw $exception;
                 }
@@ -223,7 +225,7 @@ trait Serialization
             try {
                 // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                 ['date' => $date, 'timezone' => $timezone] = $data['dumpDateProperties'];
-                $this->__construct($date, unserialize($timezone));
+                $this->__construct($date, $timezone);
             } catch (Throwable) {
                 throw $exception;
             }
@@ -296,9 +298,10 @@ trait Serialization
         }
 
         if (isset($this->constructedObjectId)) {
+            $timezone = $this->timezone ?? null;
             $this->dumpDateProperties = [
                 'date' => $this->format('Y-m-d H:i:s.u'),
-                'timezone' => serialize($this->timezone ?? null),
+                'timezone' => $this->dumpTimezone($timezone),
             ];
 
             $properties[] = 'dumpDateProperties';
@@ -306,5 +309,10 @@ trait Serialization
 
         return $properties;
         // @codeCoverageIgnoreEnd
+    }
+
+    private function dumpTimezone(mixed $timezone): mixed
+    {
+        return $timezone instanceof DateTimeZone ? $timezone->getName() : $timezone;
     }
 }

@@ -40,14 +40,14 @@ final class WrapperClock implements ClockInterface
 
         if ($this->currentClock instanceof DateTime) {
             $factory = new Factory();
-            $factory->setTestNow($this->currentClock);
+            $factory->setTestNowAndTimezone($this->currentClock);
 
             return $factory;
         }
 
         if ($this->currentClock instanceof DateTimeImmutable) {
             $factory = new FactoryImmutable();
-            $factory->setTestNow($this->currentClock);
+            $factory->setTestNowAndTimezone($this->currentClock);
 
             return $factory;
         }
@@ -131,7 +131,7 @@ final class WrapperClock implements ClockInterface
     public function withTimeZone(DateTimeZone|string $timezone): static
     {
         if ($this->currentClock instanceof ClockInterface) {
-            return $this->currentClock->withTimeZone($timezone);
+            return new self($this->currentClock->withTimeZone($timezone));
         }
 
         $now = $this->currentClock instanceof DateTimeInterface

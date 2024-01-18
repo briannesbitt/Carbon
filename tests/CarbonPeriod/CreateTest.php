@@ -466,7 +466,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
         $this->assertSame('P2D', $period->getDateInterval()->spec());
         $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions() & $periodClass::EXCLUDE_END_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_END_DATE, $period);
     }
 
     public function testCreateFromIso()
@@ -478,7 +478,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('P2D', $period->getDateInterval()->spec());
         $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
         $this->assertSame(3, $period->getRecurrences());
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions() & $periodClass::EXCLUDE_END_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_END_DATE, $period);
     }
 
     public function testCreateEmpty()
@@ -490,7 +490,7 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
     }
 
     public function testCreateFromDateStringsWithTimezones()

@@ -44,7 +44,7 @@ trait LocalFactory
      *
      * @template T
      *
-     * @param Closure<T> $action
+     * @param Closure(): T $action
      *
      * @return T
      */

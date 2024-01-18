@@ -1089,6 +1089,8 @@ trait Date
             'year' => 'Y',
             // @property int
             'yearIso' => 'o',
+            // @--property-read int
+            // @--property-write Month|int
             // @property int
             'month' => 'n',
             // @property int
@@ -1207,7 +1209,7 @@ trait Date
 
             // @property-read int 0 through 6
             case $name === 'lastWeekDay':
-                return $this->transmitFactory(fn () => static::weekRotate($this->getTranslationMessage('first_day_of_week'), -1));
+                return $this->transmitFactory(fn () => static::weekRotate((int) $this->getTranslationMessage('first_day_of_week'), -1));
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
@@ -1280,6 +1282,10 @@ trait Date
             case $name === 'utc':
                 return $this->getOffset() === 0;
 
+            // @--property-write DateTimeZone|string|int $timezone the current timezone
+            // @--property-write DateTimeZone|string|int $tz alias of $timezone
+            // @--property-read CarbonTimeZone $timezone the current timezone
+            // @--property-read CarbonTimeZone $tz alias of $timezone
             // @property CarbonTimeZone $timezone the current timezone
             // @property CarbonTimeZone $tz alias of $timezone
             case $name === 'timezone' || $name === 'tz':

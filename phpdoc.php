@@ -18,6 +18,7 @@ use Carbon\FactoryImmutable;
 $tags = [
     'property',
     'property-read',
+    'property-write',
     PHP_EOL,
     'mode',
     ['call', 'is'],

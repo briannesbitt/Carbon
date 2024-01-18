@@ -33,15 +33,15 @@ class AliasTest extends AbstractTestCase
             $this->assertEquals(Carbon::parse($date), $period->start);
         }
 
-        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions() & $periodClass::EXCLUDE_START_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_START_DATE, $period);
 
         $period = $period->since($date = '2014-10-12 15:42:34', true);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
 
         $period = $period->sinceNow(false);
         $this->assertEquals(Carbon::now(), $period->getStartDate());
-        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions() & $periodClass::EXCLUDE_START_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_START_DATE, $period);
     }
 
     public function testSetStartDateWithNamedParameters()
@@ -57,7 +57,7 @@ class AliasTest extends AbstractTestCase
             $this->assertEquals(Carbon::parse($date), $period->start);
         }
 
-        $this->assertSame(CarbonPeriod::EXCLUDE_START_DATE, $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE);
+        $this->assertPeriodOptions(CarbonPeriod::EXCLUDE_START_DATE, $period);
 
         /** @var CarbonPeriod $period */
         $period = $periodClass::start(date: $date);
@@ -68,20 +68,20 @@ class AliasTest extends AbstractTestCase
             $this->assertEquals(Carbon::parse($date), $period->start);
         }
 
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
 
         $date = '2014-10-12 15:42:34';
         $period = $period->since(date: $date, inclusive: true);
         $this->assertEquals(Carbon::parse($date), $period->getStartDate());
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
 
         $period = $period->sinceNow(inclusive: false);
         $this->assertEquals(Carbon::now(), $period->getStartDate());
-        $this->assertSame($periodClass::EXCLUDE_START_DATE, $period->getOptions() & $periodClass::EXCLUDE_START_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_START_DATE, $period);
 
         $period = $periodClass::sinceNow();
         $this->assertEquals(Carbon::now(), $period->getStartDate());
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
     }
 
     public function testSetEndDate()
@@ -95,15 +95,15 @@ class AliasTest extends AbstractTestCase
             $this->assertEquals(Carbon::parse($date), $period->end);
         }
 
-        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions() & CarbonPeriod::EXCLUDE_END_DATE);
+        $this->assertPeriodOptions(CarbonPeriod::EXCLUDE_END_DATE, $period);
 
         $period = $period->until($date = '2014-10-12 15:42:34', true);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
 
         $period = $period->untilNow(false);
         $this->assertEquals(Carbon::now(), $period->getEndDate());
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions() & $periodClass::EXCLUDE_END_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_END_DATE, $period);
 
         $period = $period->end(null);
         $this->assertNull($period->getEndDate());
@@ -122,16 +122,16 @@ class AliasTest extends AbstractTestCase
             $this->assertEquals(Carbon::parse($date), $period->end);
         }
 
-        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions() & CarbonPeriod::EXCLUDE_END_DATE);
+        $this->assertPeriodOptions(CarbonPeriod::EXCLUDE_END_DATE, $period);
 
         $date = '2014-10-12 15:42:34';
         $period = $period->until(date: $date, inclusive: true);
         $this->assertEquals(Carbon::parse($date), $period->getEndDate());
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
 
         $period = $period->untilNow(inclusive: false);
         $this->assertEquals(Carbon::now(), $period->getEndDate());
-        $this->assertSame($periodClass::EXCLUDE_END_DATE, $period->getOptions() & $periodClass::EXCLUDE_END_DATE);
+        $this->assertPeriodOptions($periodClass::EXCLUDE_END_DATE, $period);
     }
 
     public function testManageFilters()
@@ -193,7 +193,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame($start, $period->options());
 
         $period = $period->options(null);
-        $this->assertSame(0, $period->getOptions() & ~$periodClass::IMMUTABLE);
+        $this->assertPeriodOptions(0, $period);
     }
 
     public function testSetDates()

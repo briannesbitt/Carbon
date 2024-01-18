@@ -682,6 +682,7 @@ class Factory
             $tzParameters = array_filter($method->getParameters(), function ($parameter) {
                 return \in_array($parameter->getName(), ['tz', 'timezone'], true);
             });
+            $timezoneSetting = $settings['timezone'];
 
             if (isset($arguments[0]) && \in_array($name, ['instance', 'make', 'create', 'parse'], true)) {
                 if ($arguments[0] instanceof DateTimeInterface) {
@@ -695,7 +696,7 @@ class Factory
                 $index = key($tzParameters);
 
                 if (!isset($arguments[$index])) {
-                    array_splice($arguments, key($tzParameters), 0, [$settings['timezone']]);
+                    array_splice($arguments, key($tzParameters), 0, [$timezoneSetting]);
                 }
 
                 unset($settings['timezone']);

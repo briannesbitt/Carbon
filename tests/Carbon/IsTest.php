@@ -17,7 +17,6 @@ use BadMethodCallException;
 use Carbon\Carbon;
 use DateTime;
 use Generator;
-use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
 use TypeError;

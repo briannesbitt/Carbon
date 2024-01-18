@@ -102,12 +102,12 @@ class SettersTest extends AbstractTestCase
 
         $period = $period->setDateClass(CarbonImmutable::class);
 
-        $this->assertNotSame(0, $period->getOptions() & $periodClass::IMMUTABLE);
+        $this->assertSame($periodClass::IMMUTABLE, $period->getOptions());
         $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
 
         $period = $period->setDateClass(Carbon::class);
 
-        $this->assertSame(0, $period->getOptions() & $periodClass::IMMUTABLE);
+        $this->assertSame(0, $period->getOptions());
         $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
 
         $period = $period->toggleOptions($periodClass::IMMUTABLE, true);

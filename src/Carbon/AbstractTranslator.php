@@ -331,13 +331,12 @@ abstract class AbstractTranslator extends Translation\Translator
 
             $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
 
-            $getScore = function ($language) use ($completeLocaleChunks) {
-                return self::compareChunkLists($completeLocaleChunks, preg_split('/[_.-]+/', $language));
-            };
+            $getScore = static fn ($language) => self::compareChunkLists(
+                $completeLocaleChunks,
+                preg_split('/[_.-]+/', $language),
+            );
 
-            usort($locales, function ($first, $second) use ($getScore) {
-                return $getScore($second) <=> $getScore($first);
-            });
+            usort($locales, static fn ($first, $second) => $getScore($second) <=> $getScore($first));
 
             $locale = $locales[0];
         }

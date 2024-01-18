@@ -27,10 +27,10 @@ parameters:
         - '#should return (\S*)(static|\$this)\(Carbon\\CarbonImmutable\)(\|null)? but returns Carbon\\Carbon(Immutable|Interface)(\|null)?\.$#'
         - '#should return (\S*)\$this\(Carbon\\CarbonInterval\)(\|null)? but returns static\(Carbon\\CarbonInterval\)(\|null)?\.$#'
         - '#should return (\S*)static\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
-        - '#^PHPDoc tag @return with type Carbon\\CarbonTimeZone is not subtype of native type static\(Carbon\\CarbonTimeZone\)\.$#'
         - '#^Access to an undefined property DatePeriod::\$include_end_date\.$#'
         - '#^Call to an undefined method DatePeriod::[a-zA-Z]+\(\)\.$#'
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
+        - '#^Property Carbon\\Carbon::\$timezone \(Carbon\\CarbonTimeZone\) does not accept string\.$#'
         - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(DateTimeImmutable\|false\)\.$#'
         -
             message: '#^Undefined variable: \$this$#'

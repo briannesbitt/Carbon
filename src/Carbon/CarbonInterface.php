@@ -1249,20 +1249,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Ceil the current instance second with given precision if specified.
-     *
-     * @param float|int|string|\DateInterval|null $precision
-     *
-     * @return CarbonInterface
      */
     public function ceil(DateInterval|string|int|float $precision = 1): static;
 
     /**
      * Ceil the current instance at the given unit with given precision if specified.
-     *
-     * @param string    $unit
-     * @param float|int $precision
-     *
-     * @return CarbonInterface
      */
     public function ceilUnit(string $unit, DateInterval|string|int|float $precision = 1): static;
 
@@ -2035,10 +2026,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Round the current instance second with given precision if specified.
-     *
-     * @param float|int|string|\DateInterval|null $precision
-     *
-     * @return CarbonInterface
      */
     public function floor(DateInterval|string|int|float $precision = 1): static;
 
