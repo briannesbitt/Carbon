@@ -243,7 +243,7 @@ class FactoryTest extends AbstractTestCase
         $function = new ReflectionFunction($closure);
 
         $this->expectExceptionObject(new RuntimeException(
-            'The test closure defined in '.$function->getFileName() .
+            'The test closure defined in '.$function->getFileName().
             ' at line '.$function->getStartLine().' returned integer'.
             '; expected '.CarbonInterface::class.'|null',
         ));

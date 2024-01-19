@@ -1241,11 +1241,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Cast the current instance into the given class.
      *
-     * @param string $className The $className::instance() method will be called to cast the current object.
+     * @template T
      *
-     * @return DateTimeInterface
+     * @param class-string<T> $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return T
      */
-    public function cast(string $className);
+    public function cast(string $className): mixed;
 
     /**
      * Ceil the current instance second with given precision if specified.

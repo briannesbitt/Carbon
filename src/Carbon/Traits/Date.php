@@ -948,7 +948,7 @@ trait Date
      */
     public function getTimezone(): CarbonTimeZone
     {
-        return CarbonTimeZone::instance(parent::getTimezone());
+        return $this->transmitFactory(fn () => CarbonTimeZone::instance(parent::getTimezone()));
     }
 
     /**

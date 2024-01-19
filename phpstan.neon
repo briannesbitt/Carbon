@@ -64,6 +64,10 @@ parameters:
             message: '#^Access to an undefined property Carbon\\CarbonPeriod::\$locale\.$#'
             paths:
                 - tests/CarbonPeriod/GettersTest.php
+        -
+            message: '#^Parameter \$foo of anonymous function has invalid type Tests\\Factory\\FooBar\.#'
+            paths:
+                - tests/Factory/CallbackTest.php
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'

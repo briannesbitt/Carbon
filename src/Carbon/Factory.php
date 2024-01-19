@@ -18,7 +18,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
-use ReflectionFunction;
 use ReflectionMethod;
 use RuntimeException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -671,19 +670,19 @@ class Factory
         DateTimeZone|string|int|null $tz = null,
     ): ?CarbonInterface {
         if ($testNow instanceof Closure) {
-            $generateTestNow = $testNow;
+            $callback = Callback::fromClosure($testNow);
             $realNow = new DateTimeImmutable('now');
-            $testNow = $generateTestNow($this->parse(
+            $testNow = $testNow($callback->prepareParameter($this->parse(
                 $realNow->format('Y-m-d H:i:s.u'),
                 $tz ?? $realNow->getTimezone(),
-            ));
+            )));
 
             if ($testNow !== null && !($testNow instanceof DateTimeInterface)) {
-                $function = new ReflectionFunction($generateTestNow);
-                $type = is_object($testNow) ? $testNow::class : gettype($testNow);
+                $function = $callback->getReflectionFunction();
+                $type = \is_object($testNow) ? $testNow::class : \gettype($testNow);
 
                 throw new RuntimeException(
-                    'The test closure defined in '.$function->getFileName() .
+                    'The test closure defined in '.$function->getFileName().
                     ' at line '.$function->getStartLine().' returned '.$type.
                     '; expected '.CarbonInterface::class.'|null',
                 );

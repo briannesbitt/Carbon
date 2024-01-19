@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Carbon\Traits;
 
+use Carbon\Callback;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
-use ReflectionFunction;
-use ReflectionNamedType;
 
 trait IntervalStep
 {
@@ -69,25 +68,7 @@ trait IntervalStep
         $carbonDate = $dateTime instanceof CarbonInterface ? $dateTime : $this->resolveCarbon($dateTime);
 
         if ($this->step) {
-            $carbonDate = $carbonDate->avoidMutation();
-
-            if ($this->step instanceof Closure) {
-                $function = new ReflectionFunction($this->step);
-                $type = ($function->getParameters()[0] ?? null)?->getType();
-
-                if ($type instanceof ReflectionNamedType) {
-                    $name = $type->getName();
-
-                    if (
-                        class_exists($name) &&
-                        !is_a($carbonDate, $name) &&
-                        is_a($name, CarbonInterface::class, true)
-                    ) {
-                        /** @var CarbonInterface $carbonDate */
-                        $carbonDate = $carbonDate->cast($name);
-                    }
-                }
-            }
+            $carbonDate = Callback::parameter($this->step, $carbonDate->avoidMutation());
 
             return $carbonDate->setDateTimeFrom(($this->step)($carbonDate, $negated));
         }

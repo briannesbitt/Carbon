@@ -26,11 +26,13 @@ trait Cast
     /**
      * Cast the current instance into the given class.
      *
-     * @param string $className The $className::instance() method will be called to cast the current object.
+     * @template T
      *
-     * @return DateTimeInterface
+     * @param class-string<T> $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return T
      */
-    public function cast(string $className)
+    public function cast(string $className): mixed
     {
         if (!method_exists($className, 'instance')) {
             if (is_a($className, DateTimeInterface::class, true)) {

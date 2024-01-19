@@ -112,7 +112,6 @@ final class WrapperClock implements ClockInterface
             : new Carbon($date, $tz);
     }
 
-    /** @param int<0, max>|float<0> */
     public function sleep(float|int $seconds): void
     {
         if ($seconds === 0 || $seconds === 0.0) {

@@ -68,7 +68,7 @@ class SettersTest extends AbstractTestCase
     public function testMonthFloatFailWithDecimalPart()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "month cannot be changed to float value 2.5, integer expected",
+            'month cannot be changed to float value 2.5, integer expected',
         ));
 
         $d = Carbon::parse('2023-10-25 21:14:51');

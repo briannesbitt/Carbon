@@ -1129,7 +1129,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *
      * @return T
      */
-    public function cast(string $className)
+    public function cast(string $className): mixed
     {
         return self::castIntervalToClass($this, $className);
     }
