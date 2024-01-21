@@ -11,11 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Tests\CarbonPeriodImmutable;
+use Carbon\Carbon;
 
-use Carbon\CarbonPeriodImmutable;
-
-class GettersTest extends \Tests\CarbonPeriod\GettersTest
+class SubCarbon extends Carbon
 {
-    protected static string $periodClass = CarbonPeriodImmutable::class;
 }

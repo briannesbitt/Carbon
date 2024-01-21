@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 class BadIsoCarbon extends Carbon
 {
-    public static function getIsoUnits()
+    public static function getIsoUnits(): array
     {
         return [
             'MMM' => ['fooxyz', ['barxyz']],

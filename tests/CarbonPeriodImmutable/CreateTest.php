@@ -17,5 +17,5 @@ use Carbon\CarbonPeriodImmutable;
 
 class CreateTest extends \Tests\CarbonPeriod\CreateTest
 {
-    protected static $periodClass = CarbonPeriodImmutable::class;
+    protected static string $periodClass = CarbonPeriodImmutable::class;
 }

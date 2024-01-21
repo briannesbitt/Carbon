@@ -17,5 +17,5 @@ use Carbon\CarbonPeriodImmutable;
 
 class ComparisonTest extends \Tests\CarbonPeriod\ComparisonTest
 {
-    protected static $periodClass = CarbonPeriodImmutable::class;
+    protected static string $periodClass = CarbonPeriodImmutable::class;
 }

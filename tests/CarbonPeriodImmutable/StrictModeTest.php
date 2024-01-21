@@ -17,5 +17,5 @@ use Carbon\CarbonPeriodImmutable;
 
 class StrictModeTest extends \Tests\CarbonPeriod\StrictModeTest
 {
-    protected static $periodClass = CarbonPeriodImmutable::class;
+    protected static string $periodClass = CarbonPeriodImmutable::class;
 }

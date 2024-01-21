@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidTimeZoneException;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -53,17 +54,23 @@ class ConstructTest extends AbstractTestCase
         $c = new Carbon(new DateTime('2009-09-09 09:09:09', new DateTimeZone('Asia/Tokyo')), 'Europe/Paris');
 
         $this->assertSame('2009-09-09 02:09:09 Europe/Paris', $c->format('Y-m-d H:i:s e'));
+    }
+
+    public function testCreatesAnInstanceFromADateTimeException()
+    {
+        $this->expectException(InvalidTimeZoneException::class);
 
         Carbon::useStrictMode(false);
 
-        $c = new Carbon(new DateTime('2009-09-09 09:09:09', new DateTimeZone('Asia/Tokyo')), '¤¤ Incorrect Timezone ¤¤');
-
-        $this->assertSame('2009-09-09 09:09:09 America/Toronto', $c->format('Y-m-d H:i:s e'));
+        new Carbon(
+            new DateTime('2009-09-09 09:09:09', new DateTimeZone('Asia/Tokyo')),
+            '¤¤ Incorrect Timezone ¤¤',
+        );
     }
 
     public function testParseCreatesAnInstanceDefaultToNow()
     {
-        $c = Carbon::parse();
+        $c = Carbon::parse('');
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
         $this->assertSame($now->tzName, $c->tzName);

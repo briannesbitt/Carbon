@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -13,31 +15,18 @@ namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
+use Carbon\Factory;
+use Carbon\FactoryImmutable;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
-use InvalidArgumentException;
-use Throwable;
+use DateTimeZone;
 
 trait Test
 {
     ///////////////////////////////////////////////////////////////////
     ///////////////////////// TESTING AIDS ////////////////////////////
     ///////////////////////////////////////////////////////////////////
-
-    /**
-     * A test Carbon instance to be returned when now instances are created.
-     *
-     * @var Closure|static|null
-     */
-    protected static $testNow;
-
-    /**
-     * The timezone to restore to when clearing the time mock.
-     *
-     * @var string|null
-     */
-    protected static $testDefaultTimezone;
 
     /**
      * Set a Carbon instance (real or mock) to be returned when a "now"
@@ -61,11 +50,9 @@ trait Test
      *
      * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
      */
-    public static function setTestNow($testNow = null)
+    public static function setTestNow(mixed $testNow = null): void
     {
-        static::$testNow = $testNow instanceof self || $testNow instanceof Closure
-            ? $testNow
-            : static::make($testNow);
+        FactoryImmutable::getDefaultInstance()->setTestNow($testNow);
     }
 
     /**
@@ -87,28 +74,9 @@ trait Test
      *
      * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
      */
-    public static function setTestNowAndTimezone($testNow = null, $tz = null)
+    public static function setTestNowAndTimezone($testNow = null, $tz = null): void
     {
-        if ($testNow) {
-            self::$testDefaultTimezone ??= date_default_timezone_get();
-        }
-
-        $useDateInstanceTimezone = $testNow instanceof DateTimeInterface;
-
-        if ($useDateInstanceTimezone) {
-            self::setDefaultTimezone($testNow->getTimezone()->getName(), $testNow);
-        }
-
-        static::setTestNow($testNow);
-
-        if (!$useDateInstanceTimezone) {
-            $now = static::getMockedTestNow(\func_num_args() === 1 ? null : $tz);
-            self::setDefaultTimezone($now?->tzName ?? self::$testDefaultTimezone ?? 'UTC', $now);
-        }
-
-        if (!$testNow) {
-            self::$testDefaultTimezone = null;
-        }
+        FactoryImmutable::getDefaultInstance()->setTestNowAndTimezone($testNow, $tz);
     }
 
     /**
@@ -125,28 +93,20 @@ trait Test
      *
      * @return T
      */
-    public static function withTestNow($testNow, $callback)
+    public static function withTestNow(mixed $testNow, callable $callback): mixed
     {
-        static::setTestNow($testNow);
-
-        try {
-            $result = $callback();
-        } finally {
-            static::setTestNow();
-        }
-
-        return $result;
+        return FactoryImmutable::getDefaultInstance()->withTestNow($testNow, $callback);
     }
 
     /**
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return Closure|CarbonInterface the current instance used for testing
+     * @return Closure|CarbonInterface|null the current instance used for testing
      */
-    public static function getTestNow()
+    public static function getTestNow(): Closure|CarbonInterface|null
     {
-        return static::$testNow;
+        return FactoryImmutable::getInstance()->getTestNow();
     }
 
     /**
@@ -155,73 +115,71 @@ trait Test
      *
      * @return bool true if there is a test instance, otherwise false
      */
-    public static function hasTestNow()
+    public static function hasTestNow(): bool
     {
-        return static::getTestNow() !== null;
+        return FactoryImmutable::getInstance()->hasTestNow();
     }
 
     /**
      * Get the mocked date passed in setTestNow() and if it's a Closure, execute it.
-     *
-     * @param string|\DateTimeZone $tz
-     *
-     * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
      */
-    protected static function getMockedTestNow($tz)
+    protected static function getMockedTestNow(DateTimeZone|string|int|null $tz): ?CarbonInterface
     {
-        $testNow = static::getTestNow();
+        $testNow = FactoryImmutable::getInstance()->handleTestNowClosure(static::getTestNow(), $tz);
 
-        if ($testNow instanceof Closure) {
-            $realNow = new DateTimeImmutable('now');
-            $testNow = $testNow(static::parse(
-                $realNow->format('Y-m-d H:i:s.u'),
-                $tz ?: $realNow->getTimezone(),
-            ));
+        if ($testNow === null) {
+            return null;
         }
-        /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
 
-        return $testNow instanceof CarbonInterface
-            ? $testNow->avoidMutation()->tz($tz)
-            : $testNow;
+        $testNow = $testNow->avoidMutation();
+
+        return $tz ? $testNow->setTimezone($tz) : $testNow;
     }
 
-    protected static function mockConstructorParameters(&$time, $tz)
+    private function mockConstructorParameters(&$time, ?CarbonTimeZone $tz): void
     {
-        /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
-        $testInstance = clone static::getMockedTestNow($tz);
+        $clock = $this->clock?->unwrap();
+        $now = $clock instanceof Factory
+            ? $clock->getTestNow()
+            : $this->nowFromClock($tz);
+        $testInstance = $now ?? self::getMockedTestNowClone($tz);
+
+        if (!$testInstance) {
+            return;
+        }
+
+        if ($tz) {
+            $testInstance = $testInstance->setTimezone($tz);
+        }
 
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);
         }
+
+        $factory = $this->getClock()?->unwrap();
+
+        if (!($factory instanceof Factory)) {
+            $factory = FactoryImmutable::getInstance();
+        }
+
+        $testInstance = $factory->handleTestNowClosure($testInstance, $tz);
 
         $time = $testInstance instanceof self
             ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT)
             : $testInstance->format(static::MOCK_DATETIME_FORMAT);
     }
 
-    private static function setDefaultTimezone($timezone, DateTimeInterface $date = null)
+    private function getMockedTestNowClone($tz): CarbonInterface|self|null
     {
-        $previous = null;
-        $success = false;
+        $mock = static::getMockedTestNow($tz);
 
-        try {
-            $success = date_default_timezone_set($timezone ?? 'UTC');
-        } catch (Throwable $exception) {
-            $previous = $exception;
-        }
+        return $mock ? clone $mock : null;
+    }
 
-        if (!$success) {
-            $suggestion = @CarbonTimeZone::create($timezone)->toRegionName($date);
+    private function nowFromClock(?CarbonTimeZone $tz): ?DateTimeImmutable
+    {
+        $now = $this->clock?->now();
 
-            throw new InvalidArgumentException(
-                "Timezone ID '$timezone' is invalid".
-                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.')."\n".
-                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
-                'For the record, hours/minutes offset are relevant only for a particular moment, '.
-                'but not as a default timezone.',
-                0,
-                $previous
-            );
-        }
+        return $now && $tz ? $now->setTimezone($tz) : null;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -14,6 +16,8 @@ namespace Carbon\Traits;
 use BadMethodCallException;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\BadComparisonUnitException;
+use Carbon\FactoryImmutable;
+use DateTimeInterface;
 use InvalidArgumentException;
 
 /**
@@ -32,11 +36,9 @@ use InvalidArgumentException;
  */
 trait Comparison
 {
-    /** @var bool */
-    protected $endOfTime = false;
+    protected bool $endOfTime = false;
 
-    /** @var bool */
-    protected $startOfTime = false;
+    protected bool $startOfTime = false;
 
     /**
      * Determines if the instance is equal to another
@@ -48,13 +50,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->eq('2018-07-25 12:45:17'); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see equalTo()
-     *
-     * @return bool
      */
-    public function eq($date): bool
+    public function eq(DateTimeInterface|string $date): bool
     {
         return $this->equalTo($date);
     }
@@ -68,16 +66,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->equalTo(Carbon::parse('2018-07-25 12:45:16')); // true
      * Carbon::parse('2018-07-25 12:45:16')->equalTo('2018-07-25 12:45:17'); // false
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @return bool
      */
-    public function equalTo($date): bool
+    public function equalTo(DateTimeInterface|string $date): bool
     {
-        $this->discourageNull($date);
-        $this->discourageBoolean($date);
-
         return $this == $this->resolveCarbon($date);
     }
 
@@ -91,13 +82,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->ne('2018-07-25 12:45:17'); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see notEqualTo()
-     *
-     * @return bool
      */
-    public function ne($date): bool
+    public function ne(DateTimeInterface|string $date): bool
     {
         return $this->notEqualTo($date);
     }
@@ -111,12 +98,8 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->notEqualTo(Carbon::parse('2018-07-25 12:45:16')); // false
      * Carbon::parse('2018-07-25 12:45:16')->notEqualTo('2018-07-25 12:45:17'); // true
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @return bool
      */
-    public function notEqualTo($date): bool
+    public function notEqualTo(DateTimeInterface|string $date): bool
     {
         return !$this->equalTo($date);
     }
@@ -131,13 +114,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:17'); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see greaterThan()
-     *
-     * @return bool
      */
-    public function gt($date): bool
+    public function gt(DateTimeInterface|string $date): bool
     {
         return $this->greaterThan($date);
     }
@@ -151,16 +130,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:16'); // false
      * Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:17'); // false
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @return bool
      */
-    public function greaterThan($date): bool
+    public function greaterThan(DateTimeInterface|string $date): bool
     {
-        $this->discourageNull($date);
-        $this->discourageBoolean($date);
-
         return $this > $this->resolveCarbon($date);
     }
 
@@ -174,13 +146,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:17'); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see greaterThan()
-     *
-     * @return bool
      */
-    public function isAfter($date): bool
+    public function isAfter(DateTimeInterface|string $date): bool
     {
         return $this->greaterThan($date);
     }
@@ -195,13 +163,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:17'); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see greaterThanOrEqualTo()
-     *
-     * @return bool
      */
-    public function gte($date): bool
+    public function gte(DateTimeInterface|string $date): bool
     {
         return $this->greaterThanOrEqualTo($date);
     }
@@ -215,16 +179,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:16'); // true
      * Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:17'); // false
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @return bool
      */
-    public function greaterThanOrEqualTo($date): bool
+    public function greaterThanOrEqualTo(DateTimeInterface|string $date): bool
     {
-        $this->discourageNull($date);
-        $this->discourageBoolean($date);
-
         return $this >= $this->resolveCarbon($date);
     }
 
@@ -238,13 +195,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:17'); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see lessThan()
-     *
-     * @return bool
      */
-    public function lt($date): bool
+    public function lt(DateTimeInterface|string $date): bool
     {
         return $this->lessThan($date);
     }
@@ -258,16 +211,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:16'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:17'); // true
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @return bool
      */
-    public function lessThan($date): bool
+    public function lessThan(DateTimeInterface|string $date): bool
     {
-        $this->discourageNull($date);
-        $this->discourageBoolean($date);
-
         return $this < $this->resolveCarbon($date);
     }
 
@@ -281,13 +227,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:17'); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see lessThan()
-     *
-     * @return bool
      */
-    public function isBefore($date): bool
+    public function isBefore(DateTimeInterface|string $date): bool
     {
         return $this->lessThan($date);
     }
@@ -302,13 +244,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:17'); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
      * @see lessThanOrEqualTo()
-     *
-     * @return bool
      */
-    public function lte($date): bool
+    public function lte(DateTimeInterface|string $date): bool
     {
         return $this->lessThanOrEqualTo($date);
     }
@@ -322,16 +260,9 @@ trait Comparison
      * Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:16'); // true
      * Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); // true
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @return bool
      */
-    public function lessThanOrEqualTo($date): bool
+    public function lessThanOrEqualTo(DateTimeInterface|string $date): bool
     {
-        $this->discourageNull($date);
-        $this->discourageBoolean($date);
-
         return $this <= $this->resolveCarbon($date);
     }
 
@@ -350,13 +281,9 @@ trait Comparison
      * Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', false); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
-     * @param bool                                    $equal Indicates if an equal to comparison should be done
-     *
-     * @return bool
+     * @param bool $equal Indicates if an equal to comparison should be done
      */
-    public function between($date1, $date2, bool $equal = true): bool
+    public function between(DateTimeInterface|string $date1, DateTimeInterface|string $date2, bool $equal = true): bool
     {
         $date1 = $this->resolveCarbon($date1);
         $date2 = $this->resolveCarbon($date2);
@@ -381,13 +308,8 @@ trait Comparison
      * Carbon::parse('2018-07-25')->betweenIncluded('2018-08-01', '2018-08-20'); // false
      * Carbon::parse('2018-07-25')->betweenIncluded('2018-07-25', '2018-08-01'); // true
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
-     *
-     * @return bool
      */
-    public function betweenIncluded($date1, $date2): bool
+    public function betweenIncluded(DateTimeInterface|string $date1, DateTimeInterface|string $date2): bool
     {
         return $this->between($date1, $date2, true);
     }
@@ -401,13 +323,8 @@ trait Comparison
      * Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
      * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // false
      * ```
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
-     *
-     * @return bool
      */
-    public function betweenExcluded($date1, $date2): bool
+    public function betweenExcluded(DateTimeInterface|string $date1, DateTimeInterface|string $date2): bool
     {
         return $this->between($date1, $date2, false);
     }
@@ -423,13 +340,9 @@ trait Comparison
      * Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', false); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
-     * @param bool                                    $equal Indicates if an equal to comparison should be done
-     *
-     * @return bool
+     * @param bool $equal Indicates if an equal to comparison should be done
      */
-    public function isBetween($date1, $date2, bool $equal = true): bool
+    public function isBetween(DateTimeInterface|string $date1, DateTimeInterface|string $date2, bool $equal = true): bool
     {
         return $this->between($date1, $date2, $equal);
     }
@@ -442,8 +355,6 @@ trait Comparison
      * Carbon::parse('2019-07-14')->isWeekday(); // false
      * Carbon::parse('2019-07-15')->isWeekday(); // true
      * ```
-     *
-     * @return bool
      */
     public function isWeekday(): bool
     {
@@ -458,12 +369,14 @@ trait Comparison
      * Carbon::parse('2019-07-14')->isWeekend(); // true
      * Carbon::parse('2019-07-15')->isWeekend(); // false
      * ```
-     *
-     * @return bool
      */
     public function isWeekend(): bool
     {
-        return \in_array($this->dayOfWeek, static::$weekendDays, true);
+        return \in_array(
+            $this->dayOfWeek,
+            $this->transmitFactory(static fn () => static::getWeekendDays()),
+            true,
+        );
     }
 
     /**
@@ -474,12 +387,12 @@ trait Comparison
      * Carbon::yesterday()->isYesterday(); // true
      * Carbon::tomorrow()->isYesterday(); // false
      * ```
-     *
-     * @return bool
      */
     public function isYesterday(): bool
     {
-        return $this->toDateString() === static::yesterday($this->getTimezone())->toDateString();
+        return $this->toDateString() === $this->transmitFactory(
+            fn () => static::yesterday($this->getTimezone())->toDateString(),
+        );
     }
 
     /**
@@ -490,8 +403,6 @@ trait Comparison
      * Carbon::today()->isToday(); // true
      * Carbon::tomorrow()->isToday(); // false
      * ```
-     *
-     * @return bool
      */
     public function isToday(): bool
     {
@@ -506,12 +417,12 @@ trait Comparison
      * Carbon::tomorrow()->isTomorrow(); // true
      * Carbon::yesterday()->isTomorrow(); // false
      * ```
-     *
-     * @return bool
      */
     public function isTomorrow(): bool
     {
-        return $this->toDateString() === static::tomorrow($this->getTimezone())->toDateString();
+        return $this->toDateString() === $this->transmitFactory(
+            fn () => static::tomorrow($this->getTimezone())->toDateString(),
+        );
     }
 
     /**
@@ -522,8 +433,6 @@ trait Comparison
      * Carbon::now()->addHours(5)->isFuture(); // true
      * Carbon::now()->subHours(5)->isFuture(); // false
      * ```
-     *
-     * @return bool
      */
     public function isFuture(): bool
     {
@@ -538,8 +447,6 @@ trait Comparison
      * Carbon::now()->subHours(5)->isPast(); // true
      * Carbon::now()->addHours(5)->isPast(); // false
      * ```
-     *
-     * @return bool
      */
     public function isPast(): bool
     {
@@ -554,8 +461,6 @@ trait Comparison
      * Carbon::parse('2020-01-01')->isLeapYear(); // true
      * Carbon::parse('2019-01-01')->isLeapYear(); // false
      * ```
-     *
-     * @return bool
      */
     public function isLeapYear(): bool
     {
@@ -577,8 +482,6 @@ trait Comparison
      * ```
      *
      * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
-     *
-     * @return bool
      */
     public function isLongYear(): bool
     {
@@ -598,10 +501,8 @@ trait Comparison
      * ```
      *
      * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
-     *
-     * @return bool
      */
-    public function isLongIsoYear()
+    public function isLongIsoYear(): bool
     {
         return static::create($this->isoWeekYear, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
     }
@@ -615,12 +516,10 @@ trait Comparison
      * Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // false
      * ```
      *
-     * @param string                                        $format date formats to compare.
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date   instance to compare with or null to use current day.
-     *
-     * @return bool
+     * @param string                   $format date formats to compare.
+     * @param DateTimeInterface|string $date   instance to compare with or null to use current day.
      */
-    public function isSameAs(string $format, $date = null): bool
+    public function isSameAs(string $format, DateTimeInterface|string $date): bool
     {
         return $this->rawFormat($format) === $this->resolveCarbon($date)->rawFormat($format);
     }
@@ -634,14 +533,14 @@ trait Comparison
      * Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // false
      * ```
      *
-     * @param string                                        $unit singular unit string
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date instance to compare with or null to use current day.
+     * @param string                   $unit singular unit string
+     * @param DateTimeInterface|string $date instance to compare with or null to use current day.
      *
      * @throws BadComparisonUnitException
      *
      * @return bool
      */
-    public function isSameUnit(string $unit, $date = null): bool
+    public function isSameUnit(string $unit, DateTimeInterface|string $date): bool
     {
         if ($unit === /* @call isSameUnit */ 'quarter') {
             $other = $this->resolveCarbon($date);
@@ -682,7 +581,7 @@ trait Comparison
             return $this->resolveCarbon($date)->$unit === $this->$unit;
         }
 
-        if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
+        if ($this->isLocalStrictModeEnabled()) {
             throw new BadComparisonUnitException($unit);
         }
 
@@ -701,12 +600,10 @@ trait Comparison
      * @param string $unit The unit to test.
      *
      * @throws BadMethodCallException
-     *
-     * @return bool
      */
     public function isCurrentUnit(string $unit): bool
     {
-        return $this->{'isSame'.ucfirst($unit)}();
+        return $this->{'isSame'.ucfirst($unit)}('now');
     }
 
     /**
@@ -720,12 +617,12 @@ trait Comparison
      * Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date       The instance to compare with or null to use current day.
-     * @param bool                                          $ofSameYear Check if it is the same month in the same year.
+     * @param DateTimeInterface|string $date       The instance to compare with or null to use current day.
+     * @param bool                     $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
-    public function isSameQuarter($date = null, bool $ofSameYear = true): bool
+    public function isSameQuarter(DateTimeInterface|string $date, bool $ofSameYear = true): bool
     {
         $date = $this->resolveCarbon($date);
 
@@ -743,12 +640,12 @@ trait Comparison
      * Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date       The instance to compare with or null to use the current date.
-     * @param bool                                          $ofSameYear Check if it is the same month in the same year.
+     * @param DateTimeInterface|string $date       The instance to compare with or null to use the current date.
+     * @param bool                     $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
-    public function isSameMonth($date = null, bool $ofSameYear = true): bool
+    public function isSameMonth(DateTimeInterface|string $date, bool $ofSameYear = true): bool
     {
         return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $date);
     }
@@ -788,13 +685,13 @@ trait Comparison
      * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date The instance to compare with or null to use current day.
+     * @param DateTimeInterface|string|null $date The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isBirthday($date = null): bool
+    public function isBirthday(DateTimeInterface|string|null $date = null): bool
     {
-        return $this->isSameAs('md', $date);
+        return $this->isSameAs('md', $date ?? 'now');
     }
 
     /**
@@ -808,8 +705,6 @@ trait Comparison
      * Carbon::parse('2019-03-31')->isLastOfMonth(); // true
      * Carbon::parse('2019-04-30')->isLastOfMonth(); // true
      * ```
-     *
-     * @return bool
      */
     public function isLastOfMonth(): bool
     {
@@ -829,8 +724,6 @@ trait Comparison
      * ```
      *
      * @param bool $checkMicroseconds check time at microseconds precision
-     *
-     * @return bool
      */
     public function isStartOfDay(bool $checkMicroseconds = false): bool
     {
@@ -855,8 +748,6 @@ trait Comparison
      * ```
      *
      * @param bool $checkMicroseconds check time at microseconds precision
-     *
-     * @return bool
      */
     public function isEndOfDay(bool $checkMicroseconds = false): bool
     {
@@ -875,8 +766,6 @@ trait Comparison
      * Carbon::parse('2019-02-28 00:00:00.999999')->isMidnight(); // true
      * Carbon::parse('2019-02-28 00:00:01')->isMidnight(); // false
      * ```
-     *
-     * @return bool
      */
     public function isMidnight(): bool
     {
@@ -893,8 +782,6 @@ trait Comparison
      * Carbon::parse('2019-02-28 12:00:00.999999')->isMidday(); // true
      * Carbon::parse('2019-02-28 12:00:01')->isMidday(); // false
      * ```
-     *
-     * @return bool
      */
     public function isMidday(): bool
     {
@@ -910,19 +797,10 @@ trait Comparison
      * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
      * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
      * ```
-     *
-     * @param string $date
-     * @param string $format
-     *
-     * @return bool
      */
-    public static function hasFormat(?string $date, string $format): bool
+    public static function hasFormat(string $date, string $format): bool
     {
-        // createFromFormat() is known to handle edge cases silently.
-        // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
-        // To ensure we're really testing against our desired format, perform an additional regex validation.
-
-        return self::matchFormatPattern($date, preg_quote($format, '/'), static::$regexFormats);
+        return FactoryImmutable::getInstance()->hasFormat($date, $format);
     }
 
     /**
@@ -941,7 +819,7 @@ trait Comparison
      */
     public static function hasFormatWithModifiers(?string $date, string $format): bool
     {
-        return self::matchFormatPattern($date, $format, array_merge(static::$regexFormats, static::$regexFormatModifiers));
+        return FactoryImmutable::getInstance()->hasFormatWithModifiers($date, $format);
     }
 
     /**
@@ -995,8 +873,6 @@ trait Comparison
      * ```
      *
      * @param string $tester day name, month name, hour, date, etc. as string
-     *
-     * @return bool
      */
     public function is(string $tester): bool
     {
@@ -1007,17 +883,22 @@ trait Comparison
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
-            return $this->isSameMonth(static::parse($tester));
+            return $this->isSameMonth(
+                $this->transmitFactory(static fn () => static::parse($tester)),
+            );
         }
 
         if (preg_match('/^\d{1,2}-\d{1,2}$/', $tester)) {
-            return $this->isSameDay(static::parse($this->year.'-'.$tester));
+            return $this->isSameDay(
+                $this->transmitFactory(fn () => static::parse($this->year.'-'.$tester)),
+            );
         }
 
         $modifier = preg_replace('/(\d)h$/i', '$1:00', $tester);
 
         /* @var CarbonInterface $max */
-        $median = static::parse('5555-06-15 12:30:30.555555')->modify($modifier);
+        $median = $this->transmitFactory(static fn () => static::parse('5555-06-15 12:30:30.555555'))
+            ->modify($modifier);
         $current = $this->avoidMutation();
         /* @var CarbonInterface $other */
         $other = $this->avoidMutation()->modify($modifier);
@@ -1066,42 +947,6 @@ trait Comparison
     }
 
     /**
-     * Checks if the (date)time string is in a given format with
-     * given list of pattern replacements.
-     *
-     * @example
-     * ```
-     * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
-     * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
-     * ```
-     *
-     * @param string $date
-     * @param string $format
-     * @param array  $replacements
-     *
-     * @return bool
-     */
-    private static function matchFormatPattern(?string $date, string $format, array $replacements): bool
-    {
-        // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
-        $regex = str_replace('\\\\', '\\', $format);
-        // Replace not-escaped letters
-        $regex = preg_replace_callback(
-            '/(?<!\\\\)((?:\\\\{2})*)(['.implode('', array_keys($replacements)).'])/',
-            function ($match) use ($replacements) {
-                return $match[1].strtr($match[2], $replacements);
-            },
-            $regex,
-        );
-        // Replace escaped letters by the letter itself
-        $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);
-        // Escape not escaped slashes
-        $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
-
-        return (bool) @preg_match('/^'.$regex.'$/', $date ?? '');
-    }
-
-    /**
      * Returns true if the date was created using CarbonImmutable::startOfTime()
      *
      * @return bool
@@ -1119,19 +964,5 @@ trait Comparison
     public function isEndOfTime(): bool
     {
         return $this->endOfTime ?? false;
-    }
-
-    private function discourageNull($value): void
-    {
-        if ($value === null) {
-            @trigger_error("Since 2.61.0, it's deprecated to compare a date to null, meaning of such comparison is ambiguous and will no longer be possible in 3.0.0, you should explicitly pass 'now' or make an other check to eliminate null values.", \E_USER_DEPRECATED);
-        }
-    }
-
-    private function discourageBoolean($value): void
-    {
-        if (\is_bool($value)) {
-            @trigger_error("Since 2.61.0, it's deprecated to compare a date to true or false, meaning of such comparison is ambiguous and will no longer be possible in 3.0.0, you should explicitly pass 'now' or make an other check to eliminate boolean values.", \E_USER_DEPRECATED);
-        }
     }
 }

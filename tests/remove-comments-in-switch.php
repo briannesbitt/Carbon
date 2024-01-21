@@ -18,6 +18,7 @@ $files = [
 ];
 
 $comments = [
+    '// @--property',
     '// @property',
     '// @call ',
     '// Words with feminine grammatical gender: semaine',

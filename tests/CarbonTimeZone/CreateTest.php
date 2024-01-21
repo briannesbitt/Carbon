@@ -52,14 +52,14 @@ class CreateTest extends AbstractTestCase
 
     public function testInstance()
     {
-        $tz = new CarbonTimeZone();
+        $tz = new CarbonTimeZone('UTC');
 
         $this->assertSame($tz, CarbonTimeZone::instance($tz));
     }
 
     public function testUnknown()
     {
-        $tz = new UnknownZone();
+        $tz = new UnknownZone('UTC');
 
         $this->assertSame('unknown', $tz->getAbbreviatedName());
     }

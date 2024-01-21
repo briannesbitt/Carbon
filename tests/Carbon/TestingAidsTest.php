@@ -14,11 +14,13 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
 use stdClass;
+use SubCarbon;
 use Tests\AbstractTestCase;
 
 class TestingAidsTest extends AbstractTestCase
@@ -68,7 +70,6 @@ class TestingAidsTest extends AbstractTestCase
         $testNow = Carbon::yesterday();
 
         $this->wrapWithTestNow(function () use ($testNow) {
-            $this->assertEquals($testNow, Carbon::parse());
             $this->assertEquals($testNow, Carbon::parse(null));
             $this->assertEquals($testNow, Carbon::parse(''));
             $this->assertEquals($testNow, Carbon::parse('now'));
@@ -329,6 +330,17 @@ class TestingAidsTest extends AbstractTestCase
         $n2 = Carbon::now();
 
         $this->assertTrue($n2 > $n1);
+    }
+
+    public function testSetTestNowGlobally(): void
+    {
+        require_once __DIR__.'/../Fixtures/SubCarbon.php';
+
+        SubCarbon::setTestNow('2018-05-06 05:10:15.123456');
+
+        $this->assertSame('2018-05-06 05:10:15.123456', SubCarbon::now()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2018-05-06 05:10:15.123456', Carbon::now()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2018-05-06 05:10:15.123456', CarbonImmutable::now()->format('Y-m-d H:i:s.u'));
     }
 
     public function testWithTestNow()

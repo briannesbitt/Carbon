@@ -18,15 +18,8 @@ use Carbon\CarbonImmutable;
 
 abstract class AbstractTestCaseWithOldNow extends AbstractTestCase
 {
-    /**
-     * @var bool
-     */
-    protected $oldNow = true;
-
-    /**
-     * @var bool
-     */
-    protected $oldImmutableNow = true;
+    protected bool $oldNow = true;
+    protected bool $oldImmutableNow = true;
 
     protected function tearDown(): void
     {

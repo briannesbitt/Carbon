@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidFormatException;
+use DateTimeZone;
 use Generator;
 use Tests\AbstractTestCase;
 
@@ -66,6 +67,13 @@ class ToPeriodTest extends AbstractTestCase
 
         $this->assertSame('2021-08-14 00:00 Asia/Tokyo', $period->start()->format('Y-m-d H:i e'));
         $this->assertSame('2021-08-14 02:00 Asia/Tokyo', $period->end()->format('Y-m-d H:i e'));
+
+        $period = CarbonInterval::minutes(30)
+            ->setTimezone(new DateTimeZone('America/New_York'))
+            ->toPeriod('2021-08-14 00:00', '2021-08-14 02:00');
+
+        $this->assertSame('2021-08-14 00:00 America/New_York', $period->start()->format('Y-m-d H:i e'));
+        $this->assertSame('2021-08-14 02:00 America/New_York', $period->end()->format('Y-m-d H:i e'));
     }
 
     public function testStepBy(): void

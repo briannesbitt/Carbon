@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -16,6 +18,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Exceptions\InvalidFormatException;
+use Carbon\Exceptions\InvalidTimeZoneException;
 use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Month;
@@ -42,13 +45,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 trait Creator
 {
     use ObjectInitialisation;
+    use LocalFactory;
 
     /**
      * The errors that can occur.
-     *
-     * @var array
      */
-    protected static $lastErrors;
+    protected static ?array $lastErrors = null;
 
     /**
      * Create a new Carbon instance.
@@ -62,6 +64,8 @@ trait Creator
         DateTimeInterface|WeekDay|Month|string|int|float|null $time = null,
         DateTimeZone|string|int|null $tz = null,
     ) {
+        $this->initLocalFactory();
+
         if ($time instanceof Month) {
             $time = $time->name.' 1';
         } elseif ($time instanceof WeekDay) {
@@ -76,20 +80,24 @@ trait Creator
             $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
-        // If the class has a test now set and we are trying to create a now()
+        // If the class has a test now set, and we are trying to create a now()
         // instance then override as required
         $isNow = \in_array($time, [null, '', 'now'], true);
+        $tz = static::safeCreateDateTimeZone($tz) ?? null;
 
-        if (method_exists(static::class, 'hasTestNow') &&
-            method_exists(static::class, 'getTestNow') &&
-            static::hasTestNow() &&
+        if (
+            ($this->clock || (
+                method_exists(static::class, 'hasTestNow') &&
+                method_exists(static::class, 'getTestNow') &&
+                static::hasTestNow()
+            )) &&
             ($isNow || static::hasRelativeKeywords($time))
         ) {
-            static::mockConstructorParameters($time, $tz);
+            $this->mockConstructorParameters($time, $tz);
         }
 
         try {
-            parent::__construct($time ?? 'now', static::safeCreateDateTimeZone($tz) ?? null);
+            parent::__construct($time ?? 'now', $tz);
         } catch (Exception $exception) {
             throw new InvalidFormatException($exception->getMessage(), 0, $exception);
         }
@@ -110,7 +118,7 @@ trait Creator
             $safeTz = static::safeCreateDateTimeZone($tz);
 
             if ($safeTz) {
-                return ($date instanceof DateTimeImmutable ? $date : clone $date)->setTimezone($safeTz);
+                $date = ($date instanceof DateTimeImmutable ? $date : clone $date)->setTimezone($safeTz);
             }
 
             return $date;
@@ -137,8 +145,6 @@ trait Creator
         if ($date instanceof static) {
             return clone $date;
         }
-
-        static::expectDateTime($date);
 
         $instance = new static($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
 
@@ -169,8 +175,10 @@ trait Creator
      *
      * @return static
      */
-    public static function rawParse($time = null, $tz = null): ?self
-    {
+    public static function rawParse(
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time,
+        DateTimeZone|string|int|null $tz = null,
+    ): ?self {
         if ($time instanceof DateTimeInterface) {
             return static::instance($time);
         }
@@ -202,11 +210,11 @@ trait Creator
      * @param DateTimeZone|string|null      $tz
      *
      * @throws InvalidFormatException
-     *
-     * @return static
      */
-    public static function parse($time = null, $tz = null): ?self
-    {
+    public static function parse(
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time,
+        DateTimeZone|string|int|null $tz = null,
+    ): ?static {
         $function = static::$parseFunction;
 
         if (!$function) {
@@ -229,20 +237,17 @@ trait Creator
      * @param DateTimeZone|string|null $tz     optional timezone for the new instance.
      *
      * @throws InvalidFormatException
-     *
-     * @return static
      */
-    public static function parseFromLocale($time, $locale = null, $tz = null)
-    {
+    public static function parseFromLocale(
+        string $time,
+        ?string $locale = null,
+        DateTimeZone|string|int|null $tz = null,
+    ): static {
         return static::rawParse(static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $tz);
     }
 
     /**
      * Get a Carbon instance for the current date and time.
-     *
-     * @param DateTimeZone|string|null $tz
-     *
-     * @return static
      */
     public static function now(DateTimeZone|string|int|null $tz = null): static
     {
@@ -251,41 +256,29 @@ trait Creator
 
     /**
      * Create a Carbon instance for today.
-     *
-     * @param DateTimeZone|string|null $tz
-     *
-     * @return static
      */
-    public static function today($tz = null)
+    public static function today(DateTimeZone|string|int|null $tz = null): static
     {
         return static::rawParse('today', $tz);
     }
 
     /**
      * Create a Carbon instance for tomorrow.
-     *
-     * @param DateTimeZone|string|null $tz
-     *
-     * @return static
      */
-    public static function tomorrow($tz = null)
+    public static function tomorrow(DateTimeZone|string|int|null $tz = null): static
     {
         return static::rawParse('tomorrow', $tz);
     }
 
     /**
      * Create a Carbon instance for yesterday.
-     *
-     * @param DateTimeZone|string|null $tz
-     *
-     * @return static
      */
-    public static function yesterday($tz = null)
+    public static function yesterday(DateTimeZone|string|int|null $tz = null): static
     {
         return static::rawParse('yesterday', $tz);
     }
 
-    private static function assertBetween($unit, $value, $min, $max)
+    private static function assertBetween($unit, $value, $min, $max): void
     {
         if (static::isStrictModeEnabled() && ($value < $min || $value > $max)) {
             throw new OutOfRangeException($unit, $min, $max, $value);
@@ -304,7 +297,9 @@ trait Creator
             return $now(static::now($tz));
         }
 
-        return $now->avoidMutation()->tz($tz);
+        $now = $now->avoidMutation();
+
+        return $tz === null ? $now : $now->setTimezone($tz);
     }
 
     /**
@@ -336,7 +331,7 @@ trait Creator
         $month = self::monthToInt($month);
 
         if ((\is_string($year) && !is_numeric($year)) || $year instanceof DateTimeInterface) {
-            return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
+            return static::parse($year, $tz ?? (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
         }
 
         $defaults = null;
@@ -387,7 +382,7 @@ trait Creator
             $instance = $instance->addYears($fixYear);
         }
 
-        return $instance ?: null;
+        return $instance ?? null;
     }
 
     /**
@@ -544,30 +539,29 @@ trait Creator
         return static::today($tz)->setTimeFromTimeString($time);
     }
 
-    /**
-     * @param string                         $format     Datetime format
-     * @param string                         $time
-     * @param DateTimeZone|string|false|null $originalTz
-     *
-     * @return DateTimeInterface|null
-     */
-    private static function createFromFormatAndTimezone(string $format, string $time, $originalTz): ?DateTimeInterface
-    {
+    private static function createFromFormatAndTimezone(
+        string $format,
+        string $time,
+        DateTimeZone|string|int|null $originalTz,
+    ): ?DateTimeInterface {
         if ($originalTz === null) {
-            return parent::createFromFormat($format, (string) $time) ?: null;
+            return parent::createFromFormat($format, $time) ?: null;
         }
 
-        $tz = \is_int($originalTz)
-            ? @timezone_name_from_abbr('', (int) ($originalTz * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE), 1)
-            : $originalTz;
+        $tz = \is_int($originalTz) ? self::getOffsetTimezone($originalTz) : $originalTz;
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
-        if ($tz === null) {
-            return null;
-        }
+        return parent::createFromFormat($format, $time, $tz) ?: null;
+    }
 
-        return parent::createFromFormat($format, (string) $time, $tz) ?: null;
+    private static function getOffsetTimezone(int $offset): string
+    {
+        $minutes = (int) ($offset * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE);
+
+        return @timezone_name_from_abbr('', $minutes, 1) ?: throw new InvalidTimeZoneException(
+            "Invalid offset timezone $offset",
+        );
     }
 
     /**
@@ -640,7 +634,7 @@ trait Creator
         }
 
         if (static::isStrictModeEnabled()) {
-            throw new InvalidFormatException(implode(PHP_EOL, $lastErrors['errors']));
+            throw new InvalidFormatException(implode(PHP_EOL, (array) $lastErrors['errors']));
         }
 
         return null;
@@ -699,7 +693,7 @@ trait Creator
             static $formats = null;
 
             if ($formats === null) {
-                $translator = $translator ?: Translator::get($locale);
+                $translator ??= Translator::get($locale);
 
                 $formats = [
                     'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),
@@ -922,13 +916,10 @@ trait Creator
 
     /**
      * {@inheritdoc}
-     *
-     * @return array
      */
-    #[ReturnTypeWillChange]
-    public static function getLastErrors()
+    public static function getLastErrors(): array|false
     {
-        return static::$lastErrors;
+        return static::$lastErrors ?? false;
     }
 
     private static function monthToInt(mixed $value, string $unit = 'month'): mixed

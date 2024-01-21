@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonInterval;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use DateInterval;
 use DateTime;
@@ -21,6 +22,7 @@ use DateTimeImmutable;
 use Generator;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
+use Tests\Carbon\Fixtures\MyCarbon;
 
 class AddTest extends AbstractTestCase
 {
@@ -189,6 +191,12 @@ class AddTest extends AbstractTestCase
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTimeImmutable('2020-06-14')), 2020, 6, 17, 0, 0, 0);
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTime('2020-06-14'), true), 2020, 6, 11, 0, 0, 0);
         $this->assertCarbon(CarbonInterval::days(3)->convertDate(new DateTimeImmutable('2020-06-14'), true), 2020, 6, 11, 0, 0, 0);
+
+        $interval = new CarbonInterval(static fn (MyCarbon $carbon) => $carbon->addTwoHours());
+        $result = CarbonImmutable::parse('2024-01-18 08:00')->add($interval);
+
+        $this->assertSame(CarbonImmutable::class, $result::class);
+        $this->assertSame('2024-01-18 10:00:00', $result->format('Y-m-d H:i:s'));
     }
 
     public function testMagicAddAndSubMethods()

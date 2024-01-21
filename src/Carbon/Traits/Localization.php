@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -29,41 +31,33 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 trait Localization
 {
+    use StaticLocalization;
+
     /**
      * Specific translator of the current instance.
-     *
-     * @var TranslatorInterface|null
      */
-    protected $localTranslator;
+    protected ?TranslatorInterface $localTranslator = null;
 
     /**
      * Return true if the current instance has its own translator.
-     *
-     * @return bool
      */
-    public function hasLocalTranslator()
+    public function hasLocalTranslator(): bool
     {
         return isset($this->localTranslator);
     }
 
     /**
      * Get the translator of the current instance or the default if none set.
-     *
-     * @return TranslatorInterface
      */
-    public function getLocalTranslator()
+    public function getLocalTranslator(): TranslatorInterface
     {
-        return $this->localTranslator ?: static::getTranslator();
+        return $this->localTranslator ?? $this->transmitFactory(static fn () => static::getTranslator());
     }
 
     /**
      * Set the translator for the current instance.
-     *
-     * @param TranslatorInterface $translator
-     *
-     * @return $this
      */
-    public function setLocalTranslator(TranslatorInterface $translator)
+    public function setLocalTranslator(TranslatorInterface $translator): self
     {
         $this->localTranslator = $translator;
 
@@ -110,7 +104,7 @@ trait Localization
      */
     public function getTranslationMessage(string $key, ?string $locale = null, ?string $default = null, $translator = null)
     {
-        return static::getTranslationMessageWith($translator ?: $this->getLocalTranslator(), $key, $locale, $default);
+        return static::getTranslationMessageWith($translator ?? $this->getLocalTranslator(), $key, $locale, $default);
     }
 
     /**
@@ -151,12 +145,17 @@ trait Localization
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, ?TranslatorInterface $translator = null, bool $altNumbers = false): string
-    {
-        $translation = static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
+    public function translate(
+        string $key,
+        array $parameters = [],
+        string|int|float|null $number = null,
+        ?TranslatorInterface $translator = null,
+        bool $altNumbers = false,
+    ): string {
+        $translation = static::translateWith($translator ?? $this->getLocalTranslator(), $key, $parameters, $number);
 
         if ($number !== null && $altNumbers) {
-            return str_replace($number, $this->translateNumber($number), $translation);
+            return str_replace((string) $number, $this->translateNumber((int) $number), $translation);
         }
 
         return $translation;
@@ -228,8 +227,12 @@ trait Localization
      *
      * @return string
      */
-    public static function translateTimeString(string $timeString, string $from = null, string $to = null, int $mode = CarbonInterface::TRANSLATE_ALL): string
-    {
+    public static function translateTimeString(
+        string $timeString,
+        ?string $from = null,
+        ?string $to = null,
+        int $mode = CarbonInterface::TRANSLATE_ALL,
+    ): string {
         // Fallback source and destination locales
         $from = $from ?: static::getLocale();
         $to = $to ?: CarbonInterface::DEFAULT_LOCALE;
@@ -331,7 +334,7 @@ trait Localization
      *
      * @return string
      */
-    public function translateTimeStringTo(string $timeString, string $to = null): string
+    public function translateTimeStringTo(string $timeString, ?string $to = null): string
     {
         return static::translateTimeString($timeString, $this->getTranslatorLocale(), $to);
     }
@@ -344,7 +347,7 @@ trait Localization
      *
      * @return $this|string
      */
-    public function locale(string $locale = null, ...$fallbackLocales)
+    public function locale(string $locale = null, string ...$fallbackLocales): static|string
     {
         if ($locale === null) {
             return $this->getTranslatorLocale();
@@ -421,10 +424,8 @@ trait Localization
      * Get the fallback locale.
      *
      * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
-     *
-     * @return string|null
      */
-    public static function getFallbackLocale()
+    public static function getFallbackLocale(): ?string
     {
         $translator = static::getTranslator();
 
@@ -444,7 +445,7 @@ trait Localization
      *
      * @return mixed
      */
-    public static function executeWithLocale($locale, $func)
+    public static function executeWithLocale(string $locale, callable $func): mixed
     {
         $currentLocale = static::getLocale();
         static::setLocale($locale);
@@ -468,7 +469,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasShortUnits($locale)
+    public static function localeHasShortUnits(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return ($newLocale && (($y = static::translateWith($translator, 'y')) !== 'y' && $y !== static::translateWith($translator, 'year'))) || (
@@ -489,7 +490,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasDiffSyntax($locale)
+    public static function localeHasDiffSyntax(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             if (!$newLocale) {
@@ -520,7 +521,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasDiffOneDayWords($locale)
+    public static function localeHasDiffOneDayWords(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&
@@ -538,7 +539,7 @@ trait Localization
      *
      * @return bool
      */
-    public static function localeHasDiffTwoDayWords($locale)
+    public static function localeHasDiffTwoDayWords(string $locale): bool
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&

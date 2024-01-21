@@ -45,7 +45,7 @@ final class DumpCarbon extends Carbon
         $this->formatBroken = true;
     }
 
-    public function format($format)
+    public function format(string $format): string
     {
         if ($this->formatBroken) {
             throw new Exception('Broken');

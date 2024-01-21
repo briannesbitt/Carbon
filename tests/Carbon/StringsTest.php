@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\Factory;
 use DateTime;
-use ErrorException;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\BadIsoCarbon;
@@ -141,67 +140,6 @@ class StringsTest extends AbstractTestCase
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
-    }
-
-    public function testToLocalizedFormattedDateString()
-    {
-        Carbon::useStrictMode(false);
-
-        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-            $date = $d->formatLocalized('%A %d %B %Y');
-
-            $this->assertSame('jeudi 25 décembre 1975', $date);
-        });
-    }
-
-    public function testToLocalizedFormatted()
-    {
-        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            $date = Carbon::parse('2021-05-26')
-                ->settings(['strictMode' => false])
-                ->formatLocalized('%A %d %B %Y');
-
-            $this->assertSame('mercredi 26 mai 2021', $date);
-        });
-    }
-
-    public function testToLocalizedFormattedThrowDeprecation()
-    {
-        $this->expectExceptionObject(
-            new ErrorException('Function strftime() is deprecated', E_DEPRECATED),
-        );
-
-        $this->withErrorAsException(function () {
-            $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-                Carbon::parse('2021-05-26')->formatLocalized('%A %d %B %Y');
-            });
-        });
-    }
-
-    public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
-    {
-        Carbon::useStrictMode(false);
-
-        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
-            $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/Paris');
-            Carbon::setUtf8(false);
-            $nonUtf8Date = $d->formatLocalized('%B');
-            Carbon::setUtf8(true);
-            $utf8Date = $d->formatLocalized('%B');
-            Carbon::setUtf8(false);
-
-            $this->assertSame('décembre', $nonUtf8Date);
-            $this->assertSame(mb_convert_encoding('décembre', 'UTF-8', mb_list_encodings()), $utf8Date);
-        });
-    }
-
-    public function testToLocalizedFormattedTimezonedDateString()
-    {
-        Carbon::useStrictMode(false);
-
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
-        $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));
     }
 
     public function testToTimeString()

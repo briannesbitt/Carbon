@@ -65,6 +65,24 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('2023-07-25 21:14:51', $result->format('Y-m-d H:i:s'));
     }
 
+    public function testMonthFloatFailWithDecimalPart()
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'month cannot be changed to float value 2.5, integer expected',
+        ));
+
+        $d = Carbon::parse('2023-10-25 21:14:51');
+        $d->setMonth(2.5);
+    }
+
+    public function testMonthFloatPassWithZeroDecimalPart()
+    {
+        $d = Carbon::parse('2023-10-25 21:14:51');
+        $result = $d->setMonth(2.0);
+
+        $this->assertSame('2023-02-25 21:14:51', $result->format('Y-m-d H:i:s'));
+    }
+
     public function testMonthSetterWithWrap()
     {
         $this->expectExceptionObject(new RuntimeException(

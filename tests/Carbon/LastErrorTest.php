@@ -77,7 +77,7 @@ class LastErrorTest extends AbstractTestCase
                 self::setLastErrors(false);
             }
         };
-        $this->assertNull($obj::getLastErrors());
+        $this->assertFalse($obj::getLastErrors());
         $obj->triggerError();
         $this->assertSame([
             'warning_count' => 0,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -12,6 +14,8 @@
 namespace Carbon\Traits;
 
 use Carbon\Exceptions\InvalidFormatException;
+use Carbon\FactoryImmutable;
+use DateTimeZone;
 use ReturnTypeWillChange;
 use Throwable;
 
@@ -37,18 +41,11 @@ trait Serialization
     use ObjectInitialisation;
 
     /**
-     * The custom Carbon JSON serializer.
-     *
-     * @var callable|null
-     */
-    protected static $serializer;
-
-    /**
      * List of key to use for dump/serialization.
      *
      * @var string[]
      */
-    protected $dumpProperties = ['date', 'timezone_type', 'timezone'];
+    protected array $dumpProperties = ['date', 'timezone_type', 'timezone'];
 
     /**
      * Locale to dump comes here before serialization.
@@ -67,10 +64,8 @@ trait Serialization
 
     /**
      * Return a serialized string of the instance.
-     *
-     * @return string
      */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize($this);
     }
@@ -84,7 +79,7 @@ trait Serialization
      *
      * @return static
      */
-    public static function fromSerialized($value)
+    public static function fromSerialized($value): static
     {
         $instance = @unserialize((string) $value);
 
@@ -148,9 +143,9 @@ trait Serialization
         // @codeCoverageIgnoreStart
         if (isset($this->timezone_type, $this->timezone, $this->date)) {
             return [
-                'date' => $this->date ?? null,
+                'date' => $this->date,
                 'timezone_type' => $this->timezone_type,
-                'timezone' => $this->timezone ?? null,
+                'timezone' => $this->dumpTimezone($this->timezone),
             ];
         }
         // @codeCoverageIgnoreEnd
@@ -164,9 +159,10 @@ trait Serialization
 
         // @codeCoverageIgnoreStart
         if (\extension_loaded('msgpack') && isset($this->constructedObjectId)) {
+            $timezone = $this->timezone ?? null;
             $export['dumpDateProperties'] = [
                 'date' => $this->format('Y-m-d H:i:s.u'),
-                'timezone' => serialize($this->timezone ?? null),
+                'timezone' => $this->dumpTimezone($timezone),
             ];
         }
         // @codeCoverageIgnoreEnd
@@ -182,11 +178,8 @@ trait Serialization
      * Set locale if specified on unserialize() called.
      *
      * Only used by PHP < 7.4.
-     *
-     * @return void
      */
-    #[ReturnTypeWillChange]
-    public function __wakeup()
+    public function __wakeup(): void
     {
         if (parent::class && method_exists(parent::class, '__wakeup')) {
             // @codeCoverageIgnoreStart
@@ -196,7 +189,7 @@ trait Serialization
                 try {
                     // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                     ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
-                    parent::__construct($date, unserialize($timezone));
+                    parent::__construct($date, $timezone);
                 } catch (Throwable) {
                     throw $exception;
                 }
@@ -218,8 +211,6 @@ trait Serialization
      * Set locale if specified on unserialize() called.
      *
      * Only used by PHP >= 7.4.
-     *
-     * @return void
      */
     public function __unserialize(array $data): void
     {
@@ -234,7 +225,7 @@ trait Serialization
             try {
                 // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
                 ['date' => $date, 'timezone' => $timezone] = $data['dumpDateProperties'];
-                $this->__construct($date, unserialize($timezone));
+                $this->__construct($date, $timezone);
             } catch (Throwable) {
                 throw $exception;
             }
@@ -248,13 +239,12 @@ trait Serialization
 
     /**
      * Prepare the object for JSON serialization.
-     *
-     * @return array|string
      */
-    #[ReturnTypeWillChange]
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
-        $serializer = $this->localSerializer ?? static::$serializer;
+        $serializer = $this->localSerializer
+            ?? $this->getFactory()->getSettings()['toJsonFormat']
+            ?? null;
 
         if ($serializer) {
             return \is_string($serializer)
@@ -270,14 +260,10 @@ trait Serialization
      *             You should rather transform Carbon object before the serialization.
      *
      * JSON serialize all Carbon instances using the given callback.
-     *
-     * @param callable $callback
-     *
-     * @return void
      */
-    public static function serializeUsing($callback)
+    public static function serializeUsing(string|callable|null $format): void
     {
-        static::$serializer = $callback;
+        FactoryImmutable::getDefaultInstance()->serializeUsing($format);
     }
 
     /**
@@ -287,7 +273,7 @@ trait Serialization
      * var_export($date)
      * get_object_vars($date)
      */
-    public function cleanupDumpProperties()
+    public function cleanupDumpProperties(): self
     {
         // @codeCoverageIgnoreStart
         if (PHP_VERSION < 8.2) {
@@ -312,9 +298,10 @@ trait Serialization
         }
 
         if (isset($this->constructedObjectId)) {
+            $timezone = $this->timezone ?? null;
             $this->dumpDateProperties = [
                 'date' => $this->format('Y-m-d H:i:s.u'),
-                'timezone' => serialize($this->timezone ?? null),
+                'timezone' => $this->dumpTimezone($timezone),
             ];
 
             $properties[] = 'dumpDateProperties';
@@ -322,5 +309,10 @@ trait Serialization
 
         return $properties;
         // @codeCoverageIgnoreEnd
+    }
+
+    private function dumpTimezone(mixed $timezone): mixed
+    {
+        return $timezone instanceof DateTimeZone ? $timezone->getName() : $timezone;
     }
 }

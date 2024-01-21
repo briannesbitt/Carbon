@@ -17,9 +17,9 @@ use BadMethodCallException;
 use Carbon\Carbon;
 use DateTime;
 use Generator;
-use InvalidArgumentException;
 use stdClass;
 use Tests\AbstractTestCase;
+use TypeError;
 
 class IsTest extends AbstractTestCase
 {
@@ -670,9 +670,7 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameAsWithInvalidArgument()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Expected null, string, DateTime or DateTimeInterface, stdClass given',
-        ));
+        $this->expectException(TypeError::class);
 
         $current = Carbon::createFromDate(2012, 1, 2);
         $current->isSameAs('Y-m-d', new stdClass());
@@ -894,7 +892,7 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
 
         // Format failure
-        $this->assertFalse(Carbon::hasFormat(null, 'd m Y'));
+        $this->assertFalse(Carbon::hasFormat('', 'd m Y'));
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
         $this->assertFalse(Carbon::hasFormat('1975-01-30\\', '\\Y-m-d\\\\'));
         $this->assertFalse(Carbon::hasFormat('Foo 21st', 'D jS'));

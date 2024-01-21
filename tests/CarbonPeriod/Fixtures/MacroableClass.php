@@ -14,16 +14,18 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod\Fixtures;
 
 use BadMethodCallException;
+use Carbon\Traits\LocalFactory;
 use Carbon\Traits\Macro;
 use Closure;
 
 class MacroableClass
 {
+    use LocalFactory;
     use Macro;
 
     public $endDate;
 
-    protected $localMacros = [];
+    protected array $localMacros = [];
 
     public function getEndDate()
     {
@@ -46,7 +48,7 @@ class MacroableClass
 
     public function __call($method, $parameters)
     {
-        $macro = static::$globalMacros[$method] ?? null;
+        $macro = static::getMacro($method) ?? null;
 
         if ($macro instanceof Closure) {
             return $macro->call($this);

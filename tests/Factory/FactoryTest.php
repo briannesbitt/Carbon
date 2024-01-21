@@ -15,10 +15,13 @@ namespace Tests\Factory;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
+use ReflectionFunction;
+use RuntimeException;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -151,6 +154,8 @@ class FactoryTest extends AbstractTestCase
 
     public function testPsrClock()
     {
+        FactoryImmutable::setCurrentClock(null);
+        FactoryImmutable::getDefaultInstance()->setTestNow(null);
         $initial = Carbon::now('UTC');
         $factory = new FactoryImmutable();
         $factory->setTestNow($initial);
@@ -199,5 +204,50 @@ class FactoryTest extends AbstractTestCase
             5,
             (int) round(10 * ((float) $after->format('U.u') - ((float) $before->format('U.u')))),
         );
+    }
+
+    public function testIsolation(): void
+    {
+        CarbonImmutable::setTestNow('1990-07-31 23:59:59');
+
+        $libAFactory = new FactoryImmutable();
+        $libAFactory->setTestNow('2000-02-05 15:20:00');
+
+        $libBFactory = new FactoryImmutable();
+        $libBFactory->setTestNow('2050-12-01 00:00:00');
+
+        $this->assertSame('2000-02-05 15:20:00', (string) $libAFactory->now());
+        $this->assertSame('2050-12-01 00:00:00', (string) $libBFactory->now());
+        $this->assertSame('1990-07-31 23:59:59', (string) CarbonImmutable::now());
+
+        CarbonImmutable::setTestNow();
+    }
+
+    public function testClosureMock(): void
+    {
+        $factory = new Factory();
+        $now = Carbon::parse('2024-01-18 00:00:00');
+        $factory->setTestNow(static fn () => $now);
+
+        $result = $factory->now();
+
+        $this->assertNotSame($now, $result);
+        $this->assertSame($now->format('Y-m-d H:i:s.u e'), $result->format('Y-m-d H:i:s.u e'));
+    }
+
+    public function testClosureMockTypeFailure(): void
+    {
+        $factory = new Factory();
+        $closure = static fn () => 42;
+        $factory->setTestNow($closure);
+        $function = new ReflectionFunction($closure);
+
+        $this->expectExceptionObject(new RuntimeException(
+            'The test closure defined in '.$function->getFileName().
+            ' at line '.$function->getStartLine().' returned integer'.
+            '; expected '.CarbonInterface::class.'|null',
+        ));
+
+        $factory->now();
     }
 }

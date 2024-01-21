@@ -51,7 +51,7 @@
     </rule>
     <rule ref="rulesets/naming.xml/LongVariable">
         <properties>
-            <property name="subtract-suffixes" value="Enabled,Function,Factory,Timezone,FloorEnd,DiffOptions" />
+            <property name="subtract-suffixes" value="Enabled,Function,Factory,Timezone,FloorEnd,DiffOptions,FromTestNow" />
         </properties>
     </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName">

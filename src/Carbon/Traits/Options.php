@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -26,64 +28,53 @@ use Throwable;
  */
 trait Options
 {
+    use StaticOptions;
     use Localization;
 
     /**
      * Indicates if months should be calculated with overflow.
      * Specific setting.
-     *
-     * @var bool|null
      */
-    protected ?bool $localMonthsOverflow;
+    protected ?bool $localMonthsOverflow = null;
 
     /**
      * Indicates if years should be calculated with overflow.
      * Specific setting.
-     *
-     * @var bool|null
      */
-    protected ?bool $localYearsOverflow;
+    protected ?bool $localYearsOverflow = null;
 
     /**
      * Indicates if the strict mode is in use.
      * Specific setting.
-     *
-     * @var bool|null
      */
     protected ?bool $localStrictModeEnabled = null;
 
     /**
      * Options for diffForHumans and forHumans methods.
-     *
-     * @var bool|null
      */
-    protected ?bool $localHumanDiffOptions;
+    protected ?int $localHumanDiffOptions = null;
 
     /**
      * Format to use on string cast.
      *
      * @var string|callable|null
      */
-    protected $localToStringFormat;
+    protected $localToStringFormat = null;
 
     /**
      * Format to use on JSON serialization.
      *
      * @var string|callable|null
      */
-    protected $localSerializer;
+    protected $localSerializer = null;
 
     /**
      * Instance-specific macros.
-     *
-     * @var array|null
      */
     protected ?array $localMacros = null;
 
     /**
      * Instance-specific generic macros.
-     *
-     * @var array|null
      */
     protected ?array $localGenericMacros = null;
 
@@ -92,7 +83,7 @@ trait Options
      *
      * @var string|callable|null
      */
-    protected $localFormatFunction;
+    protected $localFormatFunction = null;
 
     /**
      * Set specific options.
@@ -131,6 +122,8 @@ trait Options
             }
 
             $this->locale(...$locales);
+        } elseif (isset($settings['translator']) && property_exists($this, 'localTranslator')) {
+            $this->localTranslator = $settings['translator'];
         }
 
         if (isset($settings['innerTimezone'])) {
@@ -146,8 +139,6 @@ trait Options
 
     /**
      * Returns current local settings.
-     *
-     * @return array
      */
     public function getSettings(): array
     {
@@ -179,8 +170,6 @@ trait Options
 
     /**
      * Show truthy properties on var_dump().
-     *
-     * @return array
      */
     public function __debugInfo(): array
     {
@@ -204,12 +193,18 @@ trait Options
         return $infos;
     }
 
+    protected function isLocalStrictModeEnabled(): bool
+    {
+        return $this->localStrictModeEnabled
+            ?? $this->transmitFactory(static fn () => static::isStrictModeEnabled());
+    }
+
     protected function addExtraDebugInfos(array &$infos): void
     {
         if ($this instanceof DateTimeInterface) {
             try {
                 $infos['date'] ??= $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
-                $infos['timezone'] ??= $this->tzName;
+                $infos['timezone'] ??= $this->tzName ?? $this->timezoneSetting ?? $this->timezone ?? null;
             } catch (Throwable) {
                 // noop
             }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -30,10 +32,8 @@ trait Mixin
 {
     /**
      * Stack of macro instance contexts.
-     *
-     * @var array
      */
-    protected static $macroContextStack = [];
+    protected static array $macroContextStack = [];
 
     /**
      * Mix another object into the class.
@@ -60,13 +60,9 @@ trait Mixin
      * echo "$previousBlackMoon\n";
      * ```
      *
-     * @param object|string $mixin
-     *
      * @throws ReflectionException
-     *
-     * @return void
      */
-    public static function mixin($mixin)
+    public static function mixin(object|string $mixin): void
     {
         \is_string($mixin) && trait_exists($mixin)
             ? self::loadMixinTrait($mixin)
@@ -74,11 +70,9 @@ trait Mixin
     }
 
     /**
-     * @param object|string $mixin
-     *
      * @throws ReflectionException
      */
-    private static function loadMixinClass($mixin)
+    private static function loadMixinClass(object|string $mixin): void
     {
         $methods = (new ReflectionClass($mixin))->getMethods(
             ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED,
@@ -89,16 +83,11 @@ trait Mixin
                 continue;
             }
 
-            $method->setAccessible(true);
-
             static::macro($method->name, $method->invoke($mixin));
         }
     }
 
-    /**
-     * @param string $trait
-     */
-    private static function loadMixinTrait($trait)
+    private static function loadMixinTrait(string $trait): void
     {
         $context = eval(self::getAnonymousClassCodeForTrait($trait));
         $className = \get_class($context);
@@ -167,7 +156,7 @@ trait Mixin
         }
     }
 
-    private static function getAnonymousClassCodeForTrait(string $trait)
+    private static function getAnonymousClassCodeForTrait(string $trait): string
     {
         return 'return new class() extends '.static::class.' {use '.$trait.';};';
     }
@@ -185,15 +174,8 @@ trait Mixin
 
     /**
      * Stack a Carbon context from inside calls of self::this() and execute a given action.
-     *
-     * @param static|null $context
-     * @param callable    $callable
-     *
-     * @throws Throwable
-     *
-     * @return mixed
      */
-    protected static function bindMacroContext($context, callable $callable)
+    protected static function bindMacroContext(?self $context, callable $callable): mixed
     {
         static::$macroContextStack[] = $context;
 
@@ -206,20 +188,16 @@ trait Mixin
 
     /**
      * Return the current context from inside a macro callee or a null if static.
-     *
-     * @return static|null
      */
-    protected static function context()
+    protected static function context(): ?static
     {
         return end(static::$macroContextStack) ?: null;
     }
 
     /**
      * Return the current context from inside a macro callee or a new one if static.
-     *
-     * @return static
      */
-    protected static function this()
+    protected static function this(): static
     {
         return end(static::$macroContextStack) ?: new static();
     }

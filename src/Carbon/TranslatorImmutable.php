@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Carbon package.
  *
@@ -28,7 +30,7 @@ class TranslatorImmutable extends Translator
     /**
      * @codeCoverageIgnore
      */
-    public function setDirectories(array $directories)
+    public function setDirectories(array $directories): static
     {
         $this->disallowMutation(__METHOD__);
 
@@ -45,7 +47,7 @@ class TranslatorImmutable extends Translator
     /**
      * @codeCoverageIgnore
      */
-    public function setMessages($locale, $messages)
+    public function setMessages(string $locale, array $messages): static
     {
         $this->disallowMutation(__METHOD__);
 
@@ -55,7 +57,7 @@ class TranslatorImmutable extends Translator
     /**
      * @codeCoverageIgnore
      */
-    public function setTranslations($messages)
+    public function setTranslations(array $messages): static
     {
         $this->disallowMutation(__METHOD__);
 
@@ -72,7 +74,7 @@ class TranslatorImmutable extends Translator
         parent::setConfigCacheFactory($configCacheFactory);
     }
 
-    public function resetMessages($locale = null)
+    public function resetMessages(?string $locale = null): bool
     {
         $this->disallowMutation(__METHOD__);
 

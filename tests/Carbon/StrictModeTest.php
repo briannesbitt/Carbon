@@ -23,7 +23,7 @@ class StrictModeTest extends AbstractTestCase
     public function testSafeCreateDateTimeZoneWithStrictMode1()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (-15)',
+            'Invalid offset timezone -15',
         ));
 
         Carbon::createFromDate(2001, 1, 1, -15);
@@ -36,13 +36,6 @@ class StrictModeTest extends AbstractTestCase
         ));
 
         Carbon::createFromDate(2001, 1, 1, 'foobar');
-    }
-
-    public function testSafeCreateDateTimeZoneWithoutStrictMode()
-    {
-        Carbon::useStrictMode(false);
-        $this->assertNull(Carbon::createFromDate(2001, 1, 1, -15));
-        $this->assertNull(Carbon::createFromDate(2001, 1, 1, 'foobar'));
     }
 
     public function testSetWithStrictMode()
@@ -82,13 +75,13 @@ class StrictModeTest extends AbstractTestCase
             'Bad comparison unit: \'foobar\'',
         ));
 
-        Carbon::now()->isSameUnit('foobar');
+        Carbon::now()->isSameUnit('foobar', 'now');
     }
 
     public function testIsSameUnitWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
-        $this->assertFalse(Carbon::now()->isSameUnit('foobar'));
+        $this->assertFalse(Carbon::now()->isSameUnit('foobar', 'now'));
     }
 
     public function testAddRealUnitWithStrictMode()

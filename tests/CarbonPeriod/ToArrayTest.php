@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonPeriodImmutable;
 use Carbon\Exceptions\EndLessPeriodException;
 use DateTimeInterface;
 use Tests\AbstractTestCase;
@@ -171,8 +172,7 @@ class ToArrayTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $result = $periodClass::create(0)->toArray();
 
-        $this->assertIsArray($result);
-        $this->assertEmpty($result);
+        $this->assertSame([], $result);
     }
 
     public function testCountOfEmptyPeriod()
@@ -251,10 +251,11 @@ class ToArrayTest extends AbstractTestCase
     public function testDebugInfo()
     {
         $periodClass = static::$periodClass;
+        $dateClass = $periodClass === CarbonPeriodImmutable::class ? CarbonImmutable::class : Carbon::class;
         $period = $periodClass::create('2018-05-13 12:00 Asia/Kabul', 'PT1H', 3);
 
         $expected = [
-            'dateClass' => Carbon::class,
+            'dateClass' => $dateClass,
             'dateInterval' => CarbonInterval::hour()->optimize(),
             'filters' => [
                 [
@@ -262,8 +263,9 @@ class ToArrayTest extends AbstractTestCase
                     null,
                 ],
             ],
-            'startDate' => Carbon::parse('2018-05-13 12:00 Asia/Kabul'),
+            'startDate' => $dateClass::parse('2018-05-13 12:00 Asia/Kabul'),
             'recurrences' => 3,
+            ...($this->initialOptions ? ['options' => $this->initialOptions] : []),
         ];
         $actual = $period->__debugInfo();
         $actual['dateInterval']->optimize();

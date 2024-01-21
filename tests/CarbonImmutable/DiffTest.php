@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of the Carbon package.
  *
@@ -20,8 +18,8 @@ use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\UnknownUnitException;
 use Closure;
 use DateTime;
-use InvalidArgumentException;
 use Tests\AbstractTestCase;
+use TypeError;
 
 class DiffTest extends AbstractTestCase
 {
@@ -1617,18 +1615,14 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffWithInvalidType()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Expected null, string, DateTime or DateTimeInterface, integer given',
-        ));
+        $this->expectException(TypeError::class);
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(10);
     }
 
     public function testDiffWithInvalidObject()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given',
-        ));
+        $this->expectException(TypeError::class);
 
         Carbon::createFromDate(2000, 1, 25)->diffInHours(new CarbonInterval());
     }

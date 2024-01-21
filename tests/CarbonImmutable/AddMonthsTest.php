@@ -18,10 +18,7 @@ use Tests\AbstractTestCase;
 
 class AddMonthsTest extends AbstractTestCase
 {
-    /**
-     * @var \Carbon\CarbonImmutable
-     */
-    private $carbon;
+    private ?Carbon $carbon = null;
 
     protected function setUp(): void
     {
