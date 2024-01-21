@@ -170,7 +170,7 @@ class StringsTest extends AbstractTestCase
         });
     }
 
-    public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
+    public function testToLocalizedFormattedDateStringWhenUtf8IsNeeded()
     {
         Carbon::useStrictMode(false);
 

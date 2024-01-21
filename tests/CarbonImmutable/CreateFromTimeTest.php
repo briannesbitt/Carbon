@@ -107,7 +107,7 @@ class CreateFromTimeTest extends AbstractTestCase
         Carbon::setTestNow($test);
 
         // tested without microseconds
-        // because they appear withing calls to Carbon
+        // because they appear within calls to Carbon
         $this->assertSame($now->format('c'), $dt->format('c'));
     }
 }

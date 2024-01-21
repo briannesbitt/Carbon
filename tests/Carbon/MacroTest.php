@@ -90,7 +90,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('05/04', Carbon::easterDate(2015)->format('d/m'));
     }
 
-    public function testCarbonIsMacroableWhithNonClosureCallables()
+    public function testCarbonIsMacroableWithNonClosureCallables()
     {
         Carbon::macro('lower', 'strtolower');
 

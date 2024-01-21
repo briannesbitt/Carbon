@@ -5,7 +5,7 @@
       - feature proposals,
       - and documentation requests
 
-    Having all those informations will allow us to know exactly
+    Having all those information will allow us to know exactly
     what you expect and answer you faster and precisely (answer
     that matches your Carbon version, PHP version and usage).
     
@@ -45,7 +45,7 @@ PHP version: **PUT HERE YOUR PHP VERSION**
     You can use the [Options] button to change the version
     then when you get the bug with this editor, you can use
     the [Export] button, copy the link of the opened tab,
-    then paste it in the issue. Then we can immediatly get
+    then paste it in the issue. Then we can immediately get
     your issue.
 -->
 
