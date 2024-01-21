@@ -205,7 +205,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('foo', $periodClass::recurrences());
     }
 
-    public function testInstatiateViaStaticMacroCall()
+    public function testInstantiateViaStaticMacroCall()
     {
         $periodClass = $this->periodClass;
         $periodClass::macro('fromTomorrow', function () {

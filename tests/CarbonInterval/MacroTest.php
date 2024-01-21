@@ -108,7 +108,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('3 months', CarbonInterval::quarterIfEven(-6)->forHumans());
     }
 
-    public function testCarbonIsMacroableWhithNonClosureCallables()
+    public function testCarbonIsMacroableWithNonClosureCallables()
     {
         CarbonInterval::macro('lower', 'strtolower');
 

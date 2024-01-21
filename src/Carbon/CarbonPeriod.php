@@ -526,7 +526,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Add missing parts of the target date from the soure date.
+     * Add missing parts of the target date from the source date.
      *
      * @param string $source
      * @param string $target
@@ -2034,7 +2034,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
     /**
      * Determines if the instance is equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      *
      * @param mixed $period
      *
@@ -2049,7 +2049,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
     /**
      * Determines if the instance is equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      *
      * @param mixed $period
      *
@@ -2072,7 +2072,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
     /**
      * Determines if the instance is not equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      *
      * @param mixed $period
      *
@@ -2087,7 +2087,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
     /**
      * Determines if the instance is not equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      *
      * @param mixed $period
      *
