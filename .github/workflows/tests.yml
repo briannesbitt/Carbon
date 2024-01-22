@@ -105,7 +105,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
           key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
@@ -196,7 +196,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache-windows.outputs.dir }}
           key: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"

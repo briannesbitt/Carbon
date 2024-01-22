@@ -491,7 +491,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     }
 
     /**
-     * Add missing parts of the target date from the soucre date.
+     * Add missing parts of the target date from the source date.
      */
     protected static function addMissingParts(string $source, string $target): string
     {
@@ -1911,7 +1911,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     /**
      * Determines if the instance is equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      *
      * @see equalTo()
      */
@@ -1922,7 +1922,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     /**
      * Determines if the instance is equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      */
     public function equalTo(mixed $period): bool
     {
@@ -1941,7 +1941,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     /**
      * Determines if the instance is not equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      *
      * @see notEqualTo()
      */
@@ -1952,7 +1952,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     /**
      * Determines if the instance is not equal to another.
-     * Warning: if options differ, instances wil never be equal.
+     * Warning: if options differ, instances will never be equal.
      */
     public function notEqualTo(mixed $period): bool
     {
