@@ -51,7 +51,7 @@
     "Carbon::parse(\"january 2023\")->monthName": "janu\u00e1r",
     "Carbon::parse(\"january 2023\")->shortMonthName": "jan.",
     "Carbon::parse(\"february 2023\")->monthName": "febru\u00e1r",
-    "Carbon::parse(\"february 2023\")->shortMonthName": "feb.",
+    "Carbon::parse(\"february 2023\")->shortMonthName": "febr.",
     "Carbon::parse(\"march 2023\")->monthName": "m\u00e1rcius",
     "Carbon::parse(\"march 2023\")->shortMonthName": "m\u00e1rc.",
     "Carbon::parse(\"april 2023\")->monthName": "\u00e1prilis",

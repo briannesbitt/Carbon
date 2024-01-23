@@ -28,7 +28,7 @@
     "CarbonInterval::second()->forHumans()": "1 sekunda",
     "CarbonInterval::second()->forHumans([\"aUnit\" => true])": "sekunda",
     "Carbon::parse(\"monday\")->dayName": "pondelok",
-    "Carbon::parse(\"monday\")->shortDayName": "pod",
+    "Carbon::parse(\"monday\")->shortDayName": "pon",
     "Carbon::parse(\"monday\")->minDayName": "po",
     "Carbon::parse(\"tuesday\")->dayName": "utorok",
     "Carbon::parse(\"tuesday\")->shortDayName": "uto",
