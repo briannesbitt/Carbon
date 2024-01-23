@@ -2789,7 +2789,7 @@ trait Date
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      */
-    protected function resolveCarbon(DateTimeInterface|string|null $date): static
+    protected function resolveCarbon(DateTimeInterface|string|null $date): self
     {
         if (!$date) {
             return $this->nowWithSameTz();
@@ -2806,12 +2806,8 @@ trait Date
      * Return the Carbon instance passed through, a now instance in UTC
      * if null given or parse the input if string given (using current timezone
      * then switching to UTC).
-     *
-     * @param Carbon|DateTimeInterface|string|null $date
-     *
-     * @return static
      */
-    protected function resolveUTC(DateTimeInterface|string|null $date = null): static
+    protected function resolveUTC(DateTimeInterface|string|null $date = null): self
     {
         if (!$date) {
             return $this->transmitFactory(static fn () => static::now('UTC'));

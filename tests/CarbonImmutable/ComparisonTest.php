@@ -15,6 +15,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use DateTime;
+use SubCarbon;
 use Tests\AbstractTestCase;
 
 class ComparisonTest extends AbstractTestCase
@@ -303,5 +304,15 @@ class ComparisonTest extends AbstractTestCase
         $farthestDate = Carbon::parse('9995-10-11 20:59:06.300000');
 
         $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
+    }
+
+    public function testDifferentType()
+    {
+        require_once __DIR__.'/../Fixtures/SubCarbon.php';
+
+        $subCarbon = new SubCarbon('2024-01-24 00:00');
+        $carbon = new Carbon('2024-01-24 00:00');
+        $this->assertTrue($subCarbon->equalTo($carbon));
+        $this->assertTrue($carbon->equalTo($subCarbon));
     }
 }

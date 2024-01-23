@@ -2413,7 +2413,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Resolve passed arguments or DatePeriod to a CarbonPeriod object.
      */
-    protected function resolveCarbonPeriod(mixed $period, mixed ...$arguments): static
+    protected function resolveCarbonPeriod(mixed $period, mixed ...$arguments): self
     {
         if ($period instanceof self) {
             return $period;

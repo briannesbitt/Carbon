@@ -18,6 +18,7 @@ use Carbon\Exceptions\InvalidTimeZoneException;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use SubCarbon;
 use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
@@ -198,5 +199,15 @@ class ConstructTest extends AbstractTestCase
 
         $date = new Carbon(123.5);
         $this->assertSame('Thursday 1 January 1970 00:02:03.500000', $date->format('l j F Y H:i:s.u'));
+    }
+
+    public function testDifferentType()
+    {
+        require_once __DIR__.'/../Fixtures/SubCarbon.php';
+
+        $subCarbon = new SubCarbon('2024-01-24 00:00');
+        $carbon = new Carbon('2024-01-24 00:00');
+        $this->assertTrue($subCarbon->equalTo($carbon));
+        $this->assertTrue($carbon->equalTo($subCarbon));
     }
 }
