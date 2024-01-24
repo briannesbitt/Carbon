@@ -313,5 +313,6 @@ class ComparisonTest extends AbstractTestCase
         $subCarbon = new SubCarbon('2024-01-24 00:00');
         $carbon = new Carbon('2024-01-24 00:00');
         $this->assertTrue($subCarbon->equalTo($carbon));
+        $this->assertTrue($carbon->equalTo($subCarbon));
     }
 }
