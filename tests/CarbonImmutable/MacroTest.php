@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use BadMethodCallException;
 use Carbon\CarbonImmutable as Carbon;
 use CarbonTimezoneTrait;
+use SubCarbonImmutable;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
 use Tests\CarbonImmutable\Fixtures\Mixin;
@@ -162,5 +163,21 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $date = Carbon::parse('2023-06-12 11:49')->toAppTz(false, 'Europe/Paris');
 
         $this->assertSame('2023-06-12 13:49 Europe/Paris', unserialize(serialize($date))->format('Y-m-d H:i e'));
+    }
+
+    public function testSubClassMacro()
+    {
+        require_once __DIR__.'/../Fixtures/SubCarbonImmutable.php';
+
+        $subCarbon = new SubCarbonImmutable('2024-01-24 00:00');
+
+        SubCarbonImmutable::macro('diffInDecades', function (SubCarbonImmutable|string $dt = null, $abs = true) {
+            return (int) ($this->diffInYears($dt, $abs) / 10);
+        });
+
+        $this->assertSame(2, $subCarbon->diffInDecades(new SubCarbonImmutable('2049-01-24 00:00')));
+        $this->assertSame(2, $subCarbon->diffInDecades('2049-01-24 00:00'));
+
+        SubCarbonImmutable::resetMacros();
     }
 }

@@ -2748,10 +2748,8 @@ trait Date
             $this->localStrictModeEnabled = true;
 
             try {
-                $value = isset($parameters[0])
-                    ? $this->set($method, $parameters[0])
-                    : $this->get($method);
-            } catch (UnknownGetterException|UnknownSetterException) {
+                $value = $this->callGetOrSet($method, $parameters[0] ?? null);
+            } catch (UnknownGetterException|UnknownSetterException|ImmutableException) {
                 // continue to macro
             } finally {
                 $this->localStrictModeEnabled = $localStrictModeEnabled;
@@ -2889,5 +2887,18 @@ trait Date
         }
 
         return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
+    }
+
+    private function callGetOrSet(string $name, mixed $value): mixed
+    {
+        if ($value !== null) {
+            if (\is_string($value) || \is_int($value) || \is_float($value) || $value instanceof DateTimeZone || $value instanceof Month) {
+                return $this->set($name, $value);
+            }
+
+            return null;
+        }
+
+        return $this->get($name);
     }
 }
