@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use CarbonTimezoneTrait;
 use DateTime;
+use SubCarbon;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
 use Tests\Carbon\Fixtures\Mixin;
@@ -325,5 +326,21 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame($mutated, $now);
         $this->assertEquals($mutated, $copy);
         $this->assertNotSame($mutated, $copy);
+    }
+
+    public function testSubClassMacro()
+    {
+        require_once __DIR__.'/../Fixtures/SubCarbon.php';
+
+        $subCarbon = new SubCarbon('2024-01-24 00:00');
+
+        SubCarbon::macro('diffInDecades', function (SubCarbon|string $dt = null, $abs = true) {
+            return (int) ($this->diffInYears($dt, $abs) / 10);
+        });
+
+        $this->assertSame(2, $subCarbon->diffInDecades(new SubCarbon('2049-01-24 00:00')));
+        $this->assertSame(2, $subCarbon->diffInDecades('2049-01-24 00:00'));
+
+        SubCarbon::resetMacros();
     }
 }
