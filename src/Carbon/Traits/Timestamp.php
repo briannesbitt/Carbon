@@ -25,11 +25,13 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
-    public static function createFromTimestamp(float|int|string $timestamp, DateTimeZone|string|int|null $tz = null): static
-    {
+    public static function createFromTimestamp(
+        float|int|string $timestamp,
+        DateTimeZone|string|int|null $timezone = null,
+    ): static {
         $date = static::createFromTimestampUTC($timestamp);
 
-        return $tz === null ? $date : $date->setTimezone($tz);
+        return $timezone === null ? $date : $date->setTimezone($timezone);
     }
 
     /**
@@ -77,11 +79,13 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
-    public static function createFromTimestampMs(float|int|string $timestamp, DateTimeZone|string|int|null $tz = null): static
-    {
+    public static function createFromTimestampMs(
+        float|int|string $timestamp,
+        DateTimeZone|string|int|null $timezone = null,
+    ): static {
         $date = static::createFromTimestampMsUTC($timestamp);
 
-        return $tz === null ? $date : $date->setTimezone($tz);
+        return $timezone === null ? $date : $date->setTimezone($timezone);
     }
 
     /**

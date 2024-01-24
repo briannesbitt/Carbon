@@ -93,23 +93,23 @@ class CarbonTimeZone extends DateTimeZone
         DateTimeZone|string|int|false|null $object,
         DateTimeZone|string|int|false|null $objectDump = null,
     ): ?self {
-        $tz = $object;
+        $timezone = $object;
 
-        if ($tz instanceof static) {
-            return $tz;
+        if ($timezone instanceof static) {
+            return $timezone;
         }
 
-        if ($tz === null || $tz === false) {
+        if ($timezone === null || $timezone === false) {
             return null;
         }
 
         try {
-            if (!($tz instanceof DateTimeZone)) {
+            if (!($timezone instanceof DateTimeZone)) {
                 $name = static::getDateTimeZoneNameFromMixed($object);
-                $tz = new static($name);
+                $timezone = new static($name);
             }
 
-            return $tz instanceof static ? $tz : new static($tz->getName());
+            return $timezone instanceof static ? $timezone : new static($timezone->getName());
         } catch (Exception $exception) {
             throw new InvalidTimeZoneException(
                 'Unknown or bad timezone ('.($objectDump ?: $object).')',
@@ -218,10 +218,10 @@ class CarbonTimeZone extends DateTimeZone
      */
     public function toRegionTimeZone(?DateTimeInterface $date = null): ?self
     {
-        $tz = $this->toRegionName($date);
+        $timezone = $this->toRegionName($date);
 
-        if ($tz !== null) {
-            return new static($tz);
+        if ($timezone !== null) {
+            return new static($timezone);
         }
 
         if (Carbon::isStrictModeEnabled()) {

@@ -20,9 +20,9 @@ use ReturnTypeWillChange;
 
 abstract class AbstractCarbon extends DateTime implements CarbonInterface
 {
-    public function __construct($time = null, $tz = null)
+    public function __construct($time = null, $timezone = null)
     {
-        parent::__construct($time, $tz);
+        parent::__construct($time, $timezone);
     }
 
     public static function __set_state($dump): static

@@ -25,14 +25,14 @@ final class DumpCarbon extends Carbon
     /**
      * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
      */
-    public function __construct($time = null, $tz = null)
+    public function __construct($time = null, $timezone = null)
     {
         ob_start();
         var_dump($this);
         $this->dump = ob_get_contents() ?: '';
         ob_end_clean();
 
-        parent::__construct($time, $tz);
+        parent::__construct($time, $timezone);
     }
 
     public function getDump(): string
