@@ -178,7 +178,7 @@ class UkUaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 роки тому',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2р тому',
+        '2рр тому',
         // Carbon::now()->addSecond()->diffForHumans()
         'за 1 секунду',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -204,13 +204,13 @@ class UkUaTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 хвилина 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2р 3м 1д 1сек',
+        '2рр 3м 1д 1сек',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'за 3 роки',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5м тому',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2р 3м 1д 1сек тому',
+        '2рр 3м 1д 1сек тому',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 тиждень 10 годин',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
