@@ -57,6 +57,16 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($d);
     }
 
+    public function testCreateFromFormatWithNamedArguments()
+    {
+        $d = Carbon::createFromFormat(
+            format: 'Y-m-d H:i:s',
+            time: '1975-05-21 22:32:11',
+            timezone: 'Asia/tokyo',
+        );
+        $this->assertSame('1975-05-21 22:32:11 Asia/tokyo', $d->format('Y-m-d H:i:s e'));
+    }
+
     public function testCreateFromFalseTimezone()
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.123456', false);
