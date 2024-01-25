@@ -2086,12 +2086,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public function toPeriod(...$params): CarbonPeriod
     {
         if ($this->timezoneSetting) {
-            $tz = \is_string($this->timezoneSetting)
+            $timeZone = \is_string($this->timezoneSetting)
                 ? new DateTimeZone($this->timezoneSetting)
                 : $this->timezoneSetting;
 
-            if ($tz instanceof DateTimeZone) {
-                array_unshift($params, $tz);
+            if ($timeZone instanceof DateTimeZone) {
+                array_unshift($params, $timeZone);
             }
         }
 
