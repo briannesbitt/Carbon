@@ -16,6 +16,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
@@ -254,37 +255,22 @@ class GettersTest extends AbstractTestCase
         yield [12, 4];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\GettersTest::dataForTestQuarter
-     *
-     * @param int $month
-     * @param int $quarter
-     */
-    public function testQuarterFirstOfMonth($month, $quarter)
+    #[DataProvider('dataForTestQuarter')]
+    public function testQuarterFirstOfMonth(int $month, int $quarter)
     {
         $c = Carbon::create(2015, $month, 1)->startOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\GettersTest::dataForTestQuarter
-     *
-     * @param int $month
-     * @param int $quarter
-     */
-    public function testQuarterMiddleOfMonth($month, $quarter)
+    #[DataProvider('dataForTestQuarter')]
+    public function testQuarterMiddleOfMonth(int $month, int $quarter)
     {
         $c = Carbon::create(2015, $month, 15, 12, 13, 14);
         $this->assertSame($quarter, $c->quarter);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\GettersTest::dataForTestQuarter
-     *
-     * @param int $month
-     * @param int $quarter
-     */
-    public function testQuarterLastOfMonth($month, $quarter)
+    #[DataProvider('dataForTestQuarter')]
+    public function testQuarterLastOfMonth(int $month, int $quarter)
     {
         $c = Carbon::create(2015, $month, 1)->endOfMonth();
         $this->assertSame($quarter, $c->quarter);

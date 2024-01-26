@@ -18,6 +18,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
@@ -30,14 +31,8 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
         yield [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null];
     }
 
-    /**
-     * @dataProvider \Tests\CommonTraits\MacroContextNestingTest::dataForMacroableClasses
-     *
-     * @param string      $class
-     * @param mixed       $sample
-     * @param string|null $reference
-     */
-    public function testMacroContextNesting($class, $sample, $reference)
+    #[DataProvider('dataForMacroableClasses')]
+    public function testMacroContextNesting(string $class, mixed $sample, ?string $reference): void
     {
         $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
         $class::macro($macro1, static function () {
