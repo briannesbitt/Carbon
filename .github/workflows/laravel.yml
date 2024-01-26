@@ -1,0 +1,90 @@
+name: Laravel
+
+on: [ pull_request, push ]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+
+    services:
+      memcached:
+        image: memcached:1.6-alpine
+        ports:
+          - 11211:11211
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: forge
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      redis:
+        image: redis:7.0
+        ports:
+          - 6379:6379
+        options: --entrypoint redis-server
+      dynamodb:
+        image: amazon/dynamodb-local:2.0.0
+        ports:
+          - 8888:8000
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3']
+        reference: [master]
+
+    name: ${{ matrix.reference }} - PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis-phpredis/phpredis@5.3.7, igbinary, msgpack, lzf, zstd, lz4, memcached, gmp, :php-psr
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
+        env:
+          REDIS_CONFIGURE_OPTS: --enable-redis --enable-redis-igbinary --enable-redis-msgpack --enable-redis-lzf --with-liblzf --enable-redis-zstd --with-libzstd --enable-redis-lz4 --with-liblz4
+          REDIS_LIBS: liblz4-dev, liblzf-dev, libzstd-dev
+
+      - name: Install locales
+        run: |
+          sudo apt-get update || apt --fix-broken install || echo 'Apt failure ignored'
+          sudo apt-get install tzdata locales -y && sudo locale-gen fr_FR.UTF-8 sr_ME.UTF-8 ar_AE.UTF-8 zh_TW.UTF-8 zh_CN.UTF-8 yo_NG.UTF-8 en_US.UTF-8 || echo 'Apt failure ignored'
+
+      - name: Get composer cache directory
+        id: composer-cache-ubuntu
+        run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
+          key: "l${{ matrix.reference }}-php-${{ matrix.php }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "l${{ matrix.reference }}-php-${{ matrix.php }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: |
+            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
+            composer update --prefer-dist --no-progress --prefer-stable;
+
+      - name: Execute tests
+        run: vendor/bin/multi-tester tests/Laravel/laravel-${{ matrix.reference }}.multi-tester.yml
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_USERNAME: root
+          DYNAMODB_CACHE_TABLE: laravel_dynamodb_test
+          DYNAMODB_ENDPOINT: "http://localhost:8888"
+          AWS_ACCESS_KEY_ID: randomKey
+          AWS_SECRET_ACCESS_KEY: randomSecret

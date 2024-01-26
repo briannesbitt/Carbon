@@ -15,6 +15,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class AddMonthsTest extends AbstractTestCase
@@ -42,28 +43,14 @@ class AddMonthsTest extends AbstractTestCase
         yield [2, 2016, 3, 31];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testAddMonthNoOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthNoOverflow')]
+    public function testAddMonthNoOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->addMonthNoOverflow($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testAddMonthsNoOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthNoOverflow')]
+    public function testAddMonthsNoOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->addMonthsNoOverflow($months), $y, $m, $d);
     }
@@ -77,28 +64,14 @@ class AddMonthsTest extends AbstractTestCase
         yield [2, 2015, 11, 30];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSubMonthNoOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthNoOverflow')]
+    public function testSubMonthNoOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->subMonthNoOverflow($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSubMonthsNoOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthNoOverflow')]
+    public function testSubMonthsNoOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->subMonthsNoOverflow($months), $y, $m, $d);
     }
@@ -112,28 +85,14 @@ class AddMonthsTest extends AbstractTestCase
         yield [2, 2016, 3, 31];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testAddMonthWithOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthWithOverflow')]
+    public function testAddMonthWithOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->addMonthWithOverflow($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testAddMonthsWithOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthWithOverflow')]
+    public function testAddMonthsWithOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->addMonthsWithOverflow($months), $y, $m, $d);
     }
@@ -147,28 +106,14 @@ class AddMonthsTest extends AbstractTestCase
         yield [2, 2015, 12, 1];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSubMonthWithOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthWithOverflow')]
+    public function testSubMonthWithOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->subMonthWithOverflow($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSubMonthsWithOverflow($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthWithOverflow')]
+    public function testSubMonthsWithOverflow(int $months, int $y, int $m, int $d)
     {
         $this->assertCarbon($this->carbon->subMonthsWithOverflow($months), $y, $m, $d);
     }
@@ -199,113 +144,57 @@ class AddMonthsTest extends AbstractTestCase
         $this->assertTrue(Carbon::shouldOverflowMonths());
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testUseOverflowAddMonth($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthWithOverflow')]
+    public function testUseOverflowAddMonth(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->addMonth($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testUseOverflowAddMonths($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthWithOverflow')]
+    public function testUseOverflowAddMonths(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->addMonths($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testUseOverflowSubMonth($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthWithOverflow')]
+    public function testUseOverflowSubMonth(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->subMonth($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthWithOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testUseOverflowSubMonths($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthWithOverflow')]
+    public function testUseOverflowSubMonths(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(true);
         $this->assertCarbon($this->carbon->subMonths($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSkipOverflowAddMonth($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthNoOverflow')]
+    public function testSkipOverflowAddMonth(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->addMonth($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestAddMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSkipOverflowAddMonths($months, $y, $m, $d)
+    #[DataProvider('dataForTestAddMonthNoOverflow')]
+    public function testSkipOverflowAddMonths(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->addMonths($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSkipOverflowSubMonth($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthNoOverflow')]
+    public function testSkipOverflowSubMonth(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->subMonth($months), $y, $m, $d);
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\AddMonthsTest::dataForTestSubMonthNoOverflow
-     *
-     * @param int $months
-     * @param int $y
-     * @param int $m
-     * @param int $d
-     */
-    public function testSkipOverflowSubMonths($months, $y, $m, $d)
+    #[DataProvider('dataForTestSubMonthNoOverflow')]
+    public function testSkipOverflowSubMonths(int $months, int $y, int $m, int $d)
     {
         Carbon::useMonthsOverflow(false);
         $this->assertCarbon($this->carbon->subMonths($months), $y, $m, $d);

@@ -15,22 +15,18 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 class ModifyNearDSTChangeTest extends AbstractTestCase
 {
     /**
-     * Tests transition through DST change hour in non default timezone
-     *
-     * @group dst
-     *
-     * @param string $dateString
-     * @param int    $addHours
-     * @param string $expected
-     *
-     * @dataProvider \Tests\CarbonImmutable\ModifyNearDSTChangeTest::dataForTransitionTests
+     * Tests transition through DST change hour in non default timezone.
      */
-    public function testTransitionInNonDefaultTimezone($dateString, $addHours, $expected)
+    #[Group('dst')]
+    #[DataProvider('dataForTransitionTests')]
+    public function testTransitionInNonDefaultTimezone(string $dateString, int $addHours, string $expected): void
     {
         date_default_timezone_set('Europe/london');
         $date = Carbon::parse($dateString, 'America/New_York');
@@ -39,17 +35,11 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
     }
 
     /**
-     * Tests transition through DST change hour in default timezone
-     *
-     * @group dst
-     *
-     * @param string $dateString
-     * @param int    $addHours
-     * @param string $expected
-     *
-     * @dataProvider \Tests\CarbonImmutable\ModifyNearDSTChangeTest::dataForTransitionTests
+     * Tests transition through DST change hour in default timezone.
      */
-    public function testTransitionInDefaultTimezone($dateString, $addHours, $expected)
+    #[Group('dst')]
+    #[DataProvider('dataForTransitionTests')]
+    public function testTransitionInDefaultTimezone(string $dateString, int $addHours, string $expected): void
     {
         date_default_timezone_set('America/New_York');
         $date = Carbon::parse($dateString, 'America/New_York');

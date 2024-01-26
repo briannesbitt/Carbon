@@ -28,6 +28,8 @@ use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use Exception;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 class CarbonTypesTest extends AbstractTestCase
@@ -55,16 +57,9 @@ class CarbonTypesTest extends AbstractTestCase
         return array_combine(array_column($types, 0), $types);
     }
 
-    /**
-     * @group doctrine
-     *
-     * @param string $name
-     *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::dataForTypes
-     *
-     * @throws Exception
-     */
-    public function testGetSQLDeclaration(string $name)
+    #[Group('doctrine')]
+    #[DataProvider('dataForTypes')]
+    public function testGetSQLDeclaration(string $name): void
     {
         $type = Type::getType($name);
 
