@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class En001Test extends LocalizationTestCase
 {
     public const LOCALE = 'en_001'; // English

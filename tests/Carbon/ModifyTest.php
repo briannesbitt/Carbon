@@ -18,6 +18,7 @@ use Carbon\Exceptions\InvalidFormatException;
 use Closure;
 use DateMalformedStringException;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 class ModifyTest extends AbstractTestCase
@@ -30,7 +31,7 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(24.0, $a->diffInHours($b));
     }
 
-    /** @group php-8.1 */
+    #[Group('php-8.1')]
     public function testTimezoneModify()
     {
         $php81Fix = 1.0;

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class SrLatnXkTest extends LocalizationTestCase
 {
     public const LOCALE = 'sr_Latn_XK'; // Serbian

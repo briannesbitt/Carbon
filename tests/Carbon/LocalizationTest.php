@@ -19,6 +19,7 @@ use Carbon\Language;
 use Carbon\Translator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -28,9 +29,7 @@ use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 use Tests\Carbon\Fixtures\NoLocaleTranslator;
 
-/**
- * @group localization
- */
+#[Group('localization')]
 class LocalizationTest extends AbstractTestCase
 {
     public function testGetTranslator()

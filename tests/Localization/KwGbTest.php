@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class KwGbTest extends LocalizationTestCase
 {
     public const LOCALE = 'kw_GB'; // Cornish

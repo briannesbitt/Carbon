@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 /**
@@ -348,9 +349,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         }
     }
 
-    /**
-     * @group language
-     */
+    #[Group('language')]
     public function testLanguage()
     {
         $this->wrapWithNonDstDate(function () {

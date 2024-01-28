@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class FrGpTest extends LocalizationTestCase
 {
     public const LOCALE = 'fr_GP'; // French

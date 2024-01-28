@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class FoDkTest extends LocalizationTestCase
 {
     public const LOCALE = 'fo_DK'; // Faroese

@@ -14,10 +14,9 @@ declare(strict_types=1);
 namespace Tests\Localization;
 
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group localization
- */
+#[Group('localization')]
 class JaTest extends LocalizationTestCase
 {
     public const LOCALE = 'ja'; // Japanese

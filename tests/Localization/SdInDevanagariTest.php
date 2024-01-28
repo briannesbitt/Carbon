@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class SdInDevanagariTest extends LocalizationTestCase
 {
     public const LOCALE = 'sd_IN@devanagari'; // Sindhi

@@ -20,6 +20,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
@@ -76,7 +77,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    /** @group php-8.1 */
+    #[Group('php-8.1')]
     public function testAddMicroseconds()
     {
         $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
