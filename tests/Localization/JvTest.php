@@ -15,7 +15,7 @@ namespace Tests\Localization;
 
 use PHPUnit\Framework\Attributes\Group;
 
-#[Group('localization')]*
+#[Group('localization')]
 class JvTest extends LocalizationTestCase
 {
     public const LOCALE = 'jv'; // Javanese

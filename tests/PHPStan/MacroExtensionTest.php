@@ -19,6 +19,7 @@ use Carbon\CarbonInterval;
 use Carbon\PHPStan\MacroScanner;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use Tests\AbstractTestCase;
 
 class MacroExtensionTest extends AbstractTestCase
@@ -70,6 +71,7 @@ class MacroExtensionTest extends AbstractTestCase
         $this->assertFalse($scanner->hasMethod(CarbonInterface::class, 'foo'));
     }
 
+    #[RequiresPhpunit('<11')]
     public function testGetMacro()
     {
         $scanner = new MacroScanner($this->mockReflectionProvider());
