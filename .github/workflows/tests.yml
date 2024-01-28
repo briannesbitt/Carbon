@@ -3,32 +3,27 @@ name: Tests
 on: [ pull_request, push ]
 
 jobs:
-  ubuntu:
-    runs-on: ubuntu-latest
-
+  tests:
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu, windows]
+        php: [8.1, 8.2, 8.3]
+        setup: [lowest, stable]
         include:
           - php: 8.1
+            os: ubuntu
+            setup: stable
             classmap-authoritative: true
 
-          - php: 8.1
-          - php: 8.1
-            setup: lowest
-
           - php: 8.2
-          - php: 8.2
-            setup: lowest
-
-          - php: 8.3
-          - php: 8.3
-            setup: lowest
-
-          - php: 8.2
+            os: ubuntu
+            setup: stable
             coverage: true
 
-    name: ${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
+    name: ${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}-latest
 
     steps:
       - name: Checkout the code
@@ -44,6 +39,7 @@ jobs:
           coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
 
       - name: Install locales
+        if: matrix.os == 'ubuntu'
         run: |
           sudo apt-get update || apt --fix-broken install || echo 'Apt failure ignored'
           sudo apt-get install tzdata locales -y && sudo locale-gen fr_FR.UTF-8 sr_ME.UTF-8 ar_AE.UTF-8 zh_TW.UTF-8 zh_CN.UTF-8 yo_NG.UTF-8 en_US.UTF-8 || echo 'Apt failure ignored'
@@ -56,8 +52,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
-          key: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.os }}-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.os }}-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
@@ -70,13 +66,14 @@ jobs:
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
 
       - name: Run test suite
-        run: |
-          if [[ "${{ matrix.coverage }}" = 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=clover.xml --coverage-text;
-          fi;
-          if [[ "${{ matrix.coverage }}" != 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
-          fi;
+        if: matrix.coverage != true
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit
+        env:
+          PHP_VERSION: ${{ matrix.php }}
+
+      - name: Run test suite with coverage
+        if: matrix.coverage
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=clover.xml --coverage-text
         env:
           PHP_VERSION: ${{ matrix.php }}
 
@@ -91,67 +88,5 @@ jobs:
         continue-on-error: true
 
       - name: Coverage
-        uses: codecov/codecov-action@v3
         if: matrix.coverage
-
-  windows:
-    runs-on: windows-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - php: 8.1
-          - php: 8.1
-            setup: lowest
-
-          - php: 8.2
-          - php: 8.2
-            setup: lowest
-
-          - php: 8.3
-          - php: 8.3
-            setup: lowest
-
-    name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
-
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: json
-          tools: composer:v2
-          coverage: none
-
-      - name: Get composer cache directory
-        id: composer-cache-windows
-        shell: bash
-        run: echo "dir=$(composer config cache-files-dir)" > $GITHUB_OUTPUT
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache-windows.outputs.dir }}
-          key: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
-
-      - name: Install dependencies
-        uses: nick-fields/retry@v2
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: |
-            composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
-            composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
-
-      - name: Run test suite
-        run: |
-          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings;
-        env:
-          PHP_VERSION: ${{ matrix.php }}
-          REDIS_HOST: 127.0.0.1
-          REDIS_PORT: 6379
+        uses: codecov/codecov-action@v3

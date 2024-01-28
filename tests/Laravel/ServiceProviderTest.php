@@ -134,22 +134,16 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('fr', CarbonPeriod::getLocale());
         $this->assertSame('fr', CarbonInterval::getLocale());
 
-        $service->setAppGetter(static function () use ($app) {
-            return $app;
-        });
+        $service->setAppGetter(static fn () => $app);
         $this->assertSame('fr', Carbon::getLocale());
         $service->updateLocale();
         $this->assertSame('de_DE', Carbon::getLocale());
-        $service->setLocaleGetter(static function () {
-            return 'ckb';
-        });
+        $service->setLocaleGetter(static fn () => 'ckb');
         $this->assertSame('de_DE', Carbon::getLocale());
         $service->updateLocale();
         $this->assertSame('ckb', Carbon::getLocale());
         $service->setLocaleGetter(null);
-        $service->setAppGetter(static function () {
-            return null;
-        });
+        $service->setAppGetter(static fn () => null);
         $service->updateLocale();
         $this->assertSame('ckb', Carbon::getLocale());
     }
