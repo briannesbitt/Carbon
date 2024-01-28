@@ -16,7 +16,7 @@ namespace Tests\Carbon;
 use BadMethodCallException;
 use Carbon\Carbon;
 use DateTime;
-use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\AbstractTestCase;
 use TypeError;
@@ -930,51 +930,51 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormatWithModifiers('1975705-01', 'Y#m#d'));
     }
 
-    public static function dataForFormatLetters(): Generator
+    public static function dataForFormatLetters(): array
     {
-        yield ['d'];
-        yield ['D'];
-        yield ['j'];
-        yield ['l'];
-        yield ['N'];
-        yield ['S'];
-        yield ['w'];
-        yield ['z'];
-        yield ['W'];
-        yield ['F'];
-        yield ['m'];
-        yield ['M'];
-        yield ['n'];
-        yield ['t'];
-        yield ['L'];
-        yield ['o'];
-        yield ['Y'];
-        yield ['y'];
-        yield ['a'];
-        yield ['A'];
-        yield ['B'];
-        yield ['g'];
-        yield ['G'];
-        yield ['h'];
-        yield ['H'];
-        yield ['i'];
-        yield ['s'];
-        yield ['u'];
-        yield ['v'];
-        yield ['e'];
-        yield ['I'];
-        yield ['O'];
-        yield ['P'];
-        yield ['T'];
-        yield ['Z'];
-        yield ['U'];
-        yield ['c'];
-        yield ['r'];
+        return [
+            'd' => ['d'],
+            'D' => ['D'],
+            'j' => ['j'],
+            'l' => ['l'],
+            'N' => ['N'],
+            'S' => ['S'],
+            'w' => ['w'],
+            'z' => ['z'],
+            'W' => ['W'],
+            'F' => ['F'],
+            'm' => ['m'],
+            'M' => ['M'],
+            'n' => ['n'],
+            't' => ['t'],
+            'L' => ['L'],
+            'o' => ['o'],
+            'Y' => ['Y'],
+            'y' => ['y'],
+            'a' => ['a'],
+            'A' => ['A'],
+            'B' => ['B'],
+            'g' => ['g'],
+            'G' => ['G'],
+            'h' => ['h'],
+            'H' => ['H'],
+            'i' => ['i'],
+            's' => ['s'],
+            'u' => ['u'],
+            'v' => ['v'],
+            'e' => ['e'],
+            'I' => ['I'],
+            'O' => ['O'],
+            'P' => ['P'],
+            'T' => ['T'],
+            'Z' => ['Z'],
+            'U' => ['U'],
+            'c' => ['c'],
+            'r' => ['r'],
+        ];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\IsTest::dataForFormatLetters
-     */
+    #[DataProvider('dataForFormatLetters')]
     public function testHasFormatWithSingleLetter($letter)
     {
         $output = Carbon::now()->format($letter);

@@ -17,13 +17,12 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class TotalTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider \Tests\CarbonInterval\TotalTest::dataForIntervalSpecs
-     */
+    #[DataProvider('dataForIntervalSpecs')]
     public function testReturnsTotalValue($spec, $unit, $expected)
     {
         $this->assertSame(
@@ -94,9 +93,7 @@ class TotalTest extends AbstractTestCase
         yield [1, CarbonInterval::hours(0)->hours(-150)->invert()];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonInterval\TotalTest::dataForNegativeIntervals
-     */
+    #[DataProvider('dataForNegativeIntervals')]
     public function testGetNegativeTotalsViaGetters($factor, $interval)
     {
         $this->assertSame($factor * 150.0 * 60 * 60 * 1000 * 1000, $interval->totalMicroseconds);

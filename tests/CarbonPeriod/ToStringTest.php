@@ -17,13 +17,12 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class ToStringTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider \Tests\CarbonPeriod\ToStringTest::dataForToString
-     */
+    #[DataProvider('dataForToString')]
     public function testToString($period, $expected)
     {
         Carbon::setLocale('en');
@@ -101,9 +100,7 @@ class ToStringTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\ToStringTest::dataForToIso8601String
-     */
+    #[DataProvider('dataForToIso8601String')]
     public function testToIso8601String($period, $expected)
     {
         Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));

@@ -28,14 +28,13 @@ use DatePeriod;
 use DateTime;
 use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForIso8601String
-     */
+    #[DataProvider('dataForIso8601String')]
     public function testCreateFromIso8601String($arguments, $expected)
     {
         $periodClass = static::$periodClass;
@@ -96,9 +95,7 @@ class CreateTest extends AbstractTestCase
         $this->assertInfinite($period->getRecurrences());
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForPartialIso8601String
-     */
+    #[DataProvider('dataForPartialIso8601String')]
     public function testCreateFromPartialIso8601String($iso, $from, $to)
     {
         $periodClass = static::$periodClass;
@@ -123,9 +120,7 @@ class CreateTest extends AbstractTestCase
         yield ['2007-12-14T13:30/15:30', '2007-12-14 13:30', '2007-12-14 15:30'];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForInvalidIso8601String
-     */
+    #[DataProvider('dataForInvalidIso8601String')]
     public function testCreateFromInvalidIso8601String($iso)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
@@ -146,9 +141,7 @@ class CreateTest extends AbstractTestCase
         yield ['/'];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndEndDate
-     */
+    #[DataProvider('dataForStartDateAndEndDate')]
     public function testCreateFromStartDateAndEndDate($arguments, $expected)
     {
         $periodClass = static::$periodClass;
@@ -201,9 +194,7 @@ class CreateTest extends AbstractTestCase
             ];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndIntervalAndEndDate
-     */
+    #[DataProvider('dataForStartDateAndIntervalAndEndDate')]
     public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
     {
         $periodClass = static::$periodClass;
@@ -262,9 +253,7 @@ class CreateTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndIntervalAndRecurrences
-     */
+    #[DataProvider('dataForStartDateAndIntervalAndRecurrences')]
     public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
     {
         $periodClass = static::$periodClass;
@@ -293,9 +282,7 @@ class CreateTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForStartDateAndRecurrences
-     */
+    #[DataProvider('dataForStartDateAndRecurrences')]
     public function testCreateFromStartDateAndRecurrences($arguments, $expected)
     {
         $periodClass = static::$periodClass;
@@ -350,9 +337,7 @@ class CreateTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @dataProvider \Tests\CarbonPeriod\CreateTest::dataForInvalidParameters
-     */
+    #[DataProvider('dataForInvalidParameters')]
     public function testCreateFromInvalidParameters(...$arguments)
     {
         $this->expectExceptionObject(new InvalidArgumentException(

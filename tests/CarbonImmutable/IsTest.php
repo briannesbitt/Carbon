@@ -15,8 +15,9 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use DateTime;
-use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use stdClass;
 use Tests\AbstractTestCase;
 use TypeError;
@@ -639,7 +640,7 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subDay()->isCurrentSecond());
     }
 
-    /** @group php-8.1 */
+    #[Group('php-8.1')]
     public function testIsSameMicrosecond()
     {
         $current = new Carbon('2018-05-06T13:30:54.123456');
@@ -936,51 +937,51 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
     }
 
-    public static function dataForFormatLetters(): Generator
+    public static function dataForFormatLetters(): array
     {
-        yield ['d'];
-        yield ['D'];
-        yield ['j'];
-        yield ['l'];
-        yield ['N'];
-        yield ['S'];
-        yield ['w'];
-        yield ['z'];
-        yield ['W'];
-        yield ['F'];
-        yield ['m'];
-        yield ['M'];
-        yield ['n'];
-        yield ['t'];
-        yield ['L'];
-        yield ['o'];
-        yield ['Y'];
-        yield ['y'];
-        yield ['a'];
-        yield ['A'];
-        yield ['B'];
-        yield ['g'];
-        yield ['G'];
-        yield ['h'];
-        yield ['H'];
-        yield ['i'];
-        yield ['s'];
-        yield ['u'];
-        yield ['v'];
-        yield ['e'];
-        yield ['I'];
-        yield ['O'];
-        yield ['P'];
-        yield ['T'];
-        yield ['Z'];
-        yield ['U'];
-        yield ['c'];
-        yield ['r'];
+        return [
+            'd' => ['d'],
+            'D' => ['D'],
+            'j' => ['j'],
+            'l' => ['l'],
+            'N' => ['N'],
+            'S' => ['S'],
+            'w' => ['w'],
+            'z' => ['z'],
+            'W' => ['W'],
+            'F' => ['F'],
+            'm' => ['m'],
+            'M' => ['M'],
+            'n' => ['n'],
+            't' => ['t'],
+            'L' => ['L'],
+            'o' => ['o'],
+            'Y' => ['Y'],
+            'y' => ['y'],
+            'a' => ['a'],
+            'A' => ['A'],
+            'B' => ['B'],
+            'g' => ['g'],
+            'G' => ['G'],
+            'h' => ['h'],
+            'H' => ['H'],
+            'i' => ['i'],
+            's' => ['s'],
+            'u' => ['u'],
+            'v' => ['v'],
+            'e' => ['e'],
+            'I' => ['I'],
+            'O' => ['O'],
+            'P' => ['P'],
+            'T' => ['T'],
+            'Z' => ['Z'],
+            'U' => ['U'],
+            'c' => ['c'],
+            'r' => ['r'],
+        ];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\IsTest::dataForFormatLetters
-     */
+    #[DataProvider('dataForFormatLetters')]
     public function testHasFormatWithSingleLetter($letter)
     {
         $output = Carbon::now()->format($letter);

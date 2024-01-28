@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
-use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class StartEndOfTest extends AbstractTestCase
@@ -442,29 +442,19 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->startOfQuarter());
     }
 
-    public static function dataForTestStartOfQuarter(): Generator
-    {
-        yield [1, 1];
-        yield [2, 1];
-        yield [3, 1];
-        yield [4, 4];
-        yield [5, 4];
-        yield [6, 4];
-        yield [7, 7];
-        yield [8, 7];
-        yield [9, 7];
-        yield [10, 10];
-        yield [11, 10];
-        yield [12, 10];
-    }
-
-    /**
-     * @dataProvider \Tests\Carbon\StartEndOfTest::dataForTestStartOfQuarter
-     *
-     * @param int $month
-     * @param int $startOfQuarterMonth
-     */
-    public function testStartOfQuarter($month, $startOfQuarterMonth)
+    #[TestWith([1, 1])]
+    #[TestWith([2, 1])]
+    #[TestWith([3, 1])]
+    #[TestWith([4, 4])]
+    #[TestWith([5, 4])]
+    #[TestWith([6, 4])]
+    #[TestWith([7, 7])]
+    #[TestWith([8, 7])]
+    #[TestWith([9, 7])]
+    #[TestWith([10, 10])]
+    #[TestWith([11, 10])]
+    #[TestWith([12, 10])]
+    public function testStartOfQuarter(int $month, int $startOfQuarterMonth)
     {
         $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
         $this->assertCarbon($dt->startOfQuarter(), 2015, $startOfQuarterMonth, 1, 0, 0, 0);
@@ -476,30 +466,19 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->endOfQuarter());
     }
 
-    public static function dataForTestEndOfQuarter(): Generator
-    {
-        yield [1, 3, 31];
-        yield [2, 3, 31];
-        yield [3, 3, 31];
-        yield [4, 6, 30];
-        yield [5, 6, 30];
-        yield [6, 6, 30];
-        yield [7, 9, 30];
-        yield [8, 9, 30];
-        yield [9, 9, 30];
-        yield [10, 12, 31];
-        yield [11, 12, 31];
-        yield [12, 12, 31];
-    }
-
-    /**
-     * @dataProvider \Tests\Carbon\StartEndOfTest::dataForTestEndOfQuarter
-     *
-     * @param int $month
-     * @param int $endOfQuarterMonth
-     * @param int $endOfQuarterDay
-     */
-    public function testEndOfQuarter($month, $endOfQuarterMonth, $endOfQuarterDay)
+    #[TestWith([1, 3, 31])]
+    #[TestWith([2, 3, 31])]
+    #[TestWith([3, 3, 31])]
+    #[TestWith([4, 6, 30])]
+    #[TestWith([5, 6, 30])]
+    #[TestWith([6, 6, 30])]
+    #[TestWith([7, 9, 30])]
+    #[TestWith([8, 9, 30])]
+    #[TestWith([9, 9, 30])]
+    #[TestWith([10, 12, 31])]
+    #[TestWith([11, 12, 31])]
+    #[TestWith([12, 12, 31])]
+    public function testEndOfQuarter(int $month, int $endOfQuarterMonth, int $endOfQuarterDay)
     {
         $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
         $this->assertCarbon($dt->endOfQuarter(), 2015, $endOfQuarterMonth, $endOfQuarterDay, 23, 59, 59, 999999);

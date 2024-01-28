@@ -19,13 +19,12 @@ use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTimeZone;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class ToPeriodTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider \Tests\CarbonInterval\ToPeriodTest::dataForToPeriodParameters
-     */
+    #[DataProvider('dataForToPeriodParameters')]
     public function testConvertToDatePeriod($interval, $arguments, $expected)
     {
         $period = ([$interval, 'toPeriod'])(...$arguments);

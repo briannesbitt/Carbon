@@ -27,7 +27,6 @@ use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
-use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
@@ -124,16 +123,8 @@ class CarbonTypesTest extends AbstractTestCase
         DateTimeDefaultPrecision::set($precision);
     }
 
-    /**
-     * @group doctrine
-     *
-     * @param string $name
-     * @param string $class
-     *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::dataForTypes
-     *
-     * @throws Exception
-     */
+    #[Group('doctrine')]
+    #[DataProvider('dataForTypes')]
     public function testConvertToPHPValue(string $name, string $class)
     {
         $type = Type::getType($name);
@@ -153,16 +144,8 @@ class CarbonTypesTest extends AbstractTestCase
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
     }
 
-    /**
-     * @group doctrine
-     *
-     * @param string $name
-     * @param string $class
-     *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::dataForTypes
-     *
-     * @throws Exception
-     */
+    #[Group('doctrine')]
+    #[DataProvider('dataForTypes')]
     public function testConvertToPHPValueFailure(string $name, string $class, string $typeClass)
     {
         $conversion = version_compare(self::getDbalVersion(), '4.0.0', '>=')
@@ -176,15 +159,8 @@ class CarbonTypesTest extends AbstractTestCase
         Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', $this->getMySQLPlatform());
     }
 
-    /**
-     * @group doctrine
-     *
-     * @param string $name
-     *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::dataForTypes
-     *
-     * @throws Exception
-     */
+    #[Group('doctrine')]
+    #[DataProvider('dataForTypes')]
     public function testConvertToDatabaseValue(string $name)
     {
         $type = Type::getType($name);
@@ -196,15 +172,8 @@ class CarbonTypesTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @group doctrine
-     *
-     * @param string $name
-     *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::dataForTypes
-     *
-     * @throws Exception
-     */
+    #[Group('doctrine')]
+    #[DataProvider('dataForTypes')]
     public function testConvertToDatabaseValueFailure(string $name, string $class, string $typeClass)
     {
         $quote = class_exists('Doctrine\\DBAL\\Version') ? "'" : '';
@@ -219,18 +188,8 @@ class CarbonTypesTest extends AbstractTestCase
         Type::getType($name)->convertToDatabaseValue([2020, 06, 23], $this->getMySQLPlatform());
     }
 
-    /**
-     * @group doctrine
-     *
-     * @param string $name
-     * @param string $class
-     * @param string $typeClass
-     * @param bool   $hintRequired
-     *
-     * @dataProvider \Tests\Doctrine\CarbonTypesTest::dataForTypes
-     *
-     * @throws Exception
-     */
+    #[Group('doctrine')]
+    #[DataProvider('dataForTypes')]
     public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
     {
         if (version_compare(self::getDbalVersion(), '4.0.0', '>=')) {

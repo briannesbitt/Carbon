@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
@@ -114,10 +115,8 @@ class IteratorTest extends AbstractTestCase
         $this->assertFalse($period->valid());
     }
 
-    /**
-     * @dataProvider dataForIterateBackwardsArguments
-     */
-    public function testIterateBackwards($arguments, $expected)
+    #[DataProvider('dataForIterateBackwardsArguments')]
+    public function testIterateBackwards(array $arguments, array $expected)
     {
         $periodClass = static::$periodClass;
         $period = $periodClass::create(...$arguments);

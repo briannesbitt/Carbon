@@ -13,6 +13,7 @@ namespace Tests\Carbon\Exceptions;
 
 use Carbon\Exceptions\NotLocaleAwareException;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\AbstractTestCase;
 
@@ -30,15 +31,8 @@ class NotLocaleAwareExceptionTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\Exceptions\NotLocaleAwareExceptionTest::dataForTestNotAPeriodException
-     *
-     * @param mixed  $object
-     * @param string $message
-     *
-     * @return void
-     */
-    public function testNotAPeriodException($object, $message): void
+    #[DataProvider('dataForTestNotAPeriodException')]
+    public function testNotAPeriodException(mixed $object, string $message): void
     {
         $exception = new NotLocaleAwareException($object);
 

@@ -17,6 +17,7 @@ use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonTimeZone;
 use DateTimeImmutable;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -79,12 +80,8 @@ class SerializationTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @dataProvider \Tests\CarbonImmutable\SerializationTest::dataForTestFromUnserializedWithInvalidValue
-     */
-    public function testFromUnserializedWithInvalidValue($value)
+    #[DataProvider('dataForTestFromUnserializedWithInvalidValue')]
+    public function testFromUnserializedWithInvalidValue(mixed $value)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             "Invalid serialized value: $value",

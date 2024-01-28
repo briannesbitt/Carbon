@@ -18,6 +18,7 @@ use Carbon\CarbonTimeZone;
 use DateTimeZone;
 use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\AbstractTestCaseWithOldNow;
 
@@ -78,14 +79,8 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         yield ['2018-06-20', '+00:00', 'UTC'];
     }
 
-    /**
-     * @param string     $date
-     * @param string     $expectedOffset
-     * @param string|int $timezone
-     *
-     * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataForToOffsetName
-     */
-    public function testToOffsetName($date, $expectedOffset, $timezone)
+    #[DataProvider('dataForToOffsetName')]
+    public function testToOffsetName(string $date, string $expectedOffset, string|int $timezone)
     {
         Carbon::setTestNow(Carbon::parse($date));
         $offset = (new CarbonTimeZone($timezone))->toOffsetName();
@@ -93,14 +88,8 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame($expectedOffset, $offset);
     }
 
-    /**
-     * @param string     $date
-     * @param string     $expectedOffset
-     * @param string|int $timezone
-     *
-     * @dataProvider \Tests\CarbonTimeZone\ConversionsTest::dataForToOffsetName
-     */
-    public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone)
+    #[DataProvider('dataForToOffsetName')]
+    public function testToOffsetNameDateAsParam(string $date, string $expectedOffset, string|int $timezone)
     {
         $offset = (new CarbonTimeZone($timezone))->toOffsetName(Carbon::parse($date));
 
