@@ -23,6 +23,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Events\EventDispatcher;
 use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Date;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -42,10 +43,8 @@ class ServiceProviderTest extends TestCase
         yield [new EventDispatcher()];
     }
 
-    /**
-     * @dataProvider \Tests\Laravel\ServiceProviderTest::dataForDispatchers
-     */
-    public function testBoot($dispatcher)
+    #[DataProvider('dataForDispatchers')]
+    public function testBoot(EventDispatcherBase $dispatcher)
     {
         // Reset language
         Carbon::setLocale('en');

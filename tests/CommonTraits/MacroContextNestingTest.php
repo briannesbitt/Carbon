@@ -59,12 +59,10 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
     }
 
     /**
-     * @dataProvider \Tests\CommonTraits\MacroContextNestingTest::dataForMacroableClasses
-     *
-     * @param string $class
-     * @param mixed  $sample
+     * @param class-string $class
      */
-    public function testMacroContextDetectionNesting($class, $sample)
+    #[DataProvider('dataForMacroableClasses')]
+    public function testMacroContextDetectionNesting(string $class, mixed $sample)
     {
         $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
         $class::macro($macro1, static function () {

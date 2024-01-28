@@ -21,7 +21,12 @@ jobs:
             setup: stable
             coverage: true
 
-    name: ${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ${{ matrix.os }}
+          - php: 8.3
+            os: ubuntu
+            setup: stable
+            phpunit: 11
+
+    name: ${{ matrix.phpunit && format('PHPUnit {0} - ', matrix.phpunit) || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}-latest
 
@@ -52,8 +57,16 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache-ubuntu.outputs.dir }}
-          key: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.os }}-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.os }}-${{ hashFiles('**/composer.json') }}"
+          key: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.os }}-${{ matrix.phpunit }}-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-${{ matrix.setup }}-${{ matrix.os }}-${{ matrix.phpunit }}-${{ hashFiles('**/composer.json') }}"
+
+      - name: Select PHPUnit version
+        if: matrix.phpunit
+        run: composer require --no-update phpunit/phpunit:^${{ matrix.phpunit }} --no-interaction --dev
+
+      - name: Remove conflicting optional dependencies
+        if: matrix.phpunit >= 11
+        run: composer remove --no-update ondrejmirtes/better-reflection --no-interaction --dev
 
       - name: Install dependencies
         uses: nick-fields/retry@v2
@@ -67,7 +80,7 @@ jobs:
 
       - name: Run test suite
         if: matrix.coverage != true
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
         env:
           PHP_VERSION: ${{ matrix.php }}
 

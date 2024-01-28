@@ -16,16 +16,13 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class CascadeTest extends AbstractTestCase
 {
-    /**
-     * @param CarbonInterval $interval
-     * @param string         $spec
-     * @param bool|int       $inverted
-     */
-    protected function assertIntervalSpec(CarbonInterval $interval, string $spec, $inverted = false)
+    protected function assertIntervalSpec(CarbonInterval $interval, string $spec, bool|int $inverted = false): void
     {
         $this->assertSame(
             ($inverted ? '- ' : '+ ').$spec,
@@ -33,9 +30,11 @@ class CascadeTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForIntervalSpecs
-     */
+    #[TestWith(['3600s', 'PT1H'])]
+    #[TestWith(['10000s', 'PT2H46M40S'])]
+    #[TestWith(['1276d', 'P3Y9M16D'])]
+    #[TestWith(['47d 14h', 'P1M19DT14H'])]
+    #[TestWith(['2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'])]
     public function testCascadesOverflowedValues($spec, $expected)
     {
         $interval = CarbonInterval::fromString($spec)->cascade();
@@ -45,20 +44,7 @@ class CascadeTest extends AbstractTestCase
         $this->assertIntervalSpec($interval, $expected, true);
     }
 
-    public static function dataForIntervalSpecs(): Generator
-    {
-        yield ['3600s', 'PT1H'];
-        yield ['10000s', 'PT2H46M40S'];
-        yield ['1276d', 'P3Y9M16D'];
-        yield ['47d 14h', 'P1M19DT14H'];
-        yield ['2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'];
-    }
-
-    /**
-     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForMixedSignsIntervalSpecs
-     *
-     * @throws \Exception
-     */
+    #[DataProvider('dataForMixedSignsIntervalSpecs')]
     public function testMixedSignsCascadesOverflowedValues($units, $expected, $expectingInversion)
     {
         $interval = new CarbonInterval(0);
@@ -218,9 +204,11 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame(43012, $interval->microseconds);
     }
 
-    /**
-     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForCustomIntervalSpecs
-     */
+    #[TestWith(['3600s', '1h'])]
+    #[TestWith(['10000s', '2h 46m 40s'])]
+    #[TestWith(['1276d', '255w 1d'])]
+    #[TestWith(['47d 14h', '9w 3d 6h'])]
+    #[TestWith(['2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'])]
     public function testCustomCascadesOverflowedValues($spec, $expected)
     {
         $cascades = CarbonInterval::getCascadeFactors();
@@ -236,18 +224,11 @@ class CascadeTest extends AbstractTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public static function dataForCustomIntervalSpecs(): Generator
-    {
-        yield ['3600s', '1h'];
-        yield ['10000s', '2h 46m 40s'];
-        yield ['1276d', '255w 1d'];
-        yield ['47d 14h', '9w 3d 6h'];
-        yield ['2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'];
-    }
-
-    /**
-     * @dataProvider \Tests\CarbonInterval\CascadeTest::dataForCustomIntervalSpecsLongFormat
-     */
+    #[TestWith(['3600s', '1 hour'])]
+    #[TestWith(['10000s', '2 hours 46 minutes 40 seconds'])]
+    #[TestWith(['1276d', '255 weeks 1 day'])]
+    #[TestWith(['47d 14h', '9 weeks 3 days 6 hours'])]
+    #[TestWith(['2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'])]
     public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
     {
         $cascades = CarbonInterval::getCascadeFactors();
@@ -261,17 +242,6 @@ class CascadeTest extends AbstractTestCase
         CarbonInterval::setCascadeFactors($cascades);
 
         $this->assertSame($expected, $actual);
-    }
-
-    public static function dataForCustomIntervalSpecsLongFormat()
-    {
-        return [
-            ['3600s',                        '1 hour'],
-            ['10000s',                       '2 hours 46 minutes 40 seconds'],
-            ['1276d',                        '255 weeks 1 day'],
-            ['47d 14h',                      '9 weeks 3 days 6 hours'],
-            ['2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'],
-        ];
     }
 
     public function testMultipleAdd()

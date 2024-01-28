@@ -16,18 +16,14 @@ namespace Tests\CarbonInterval;
 use Carbon\CarbonInterval;
 use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class ParseFromLocaleTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::dataForValidStrings
-     *
-     * @param string         $string
-     * @param string         $locale
-     * @param CarbonInterval $expected
-     */
-    public function testReturnsInterval($string, $locale, $expected)
+    #[DataProvider('dataForValidStrings')]
+    public function testReturnsInterval(string $string, string $locale, CarbonInterval $expected)
     {
         $result = CarbonInterval::parseFromLocale($string, $locale);
 
@@ -111,14 +107,10 @@ class ParseFromLocaleTest extends AbstractTestCase
         yield ['2 jours 3 heures', 'fr', new CarbonInterval(0, 0, 0, 2, 3, 0, 0)];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonInterval\ParseFromLocaleTest::dataForInvalidStrings
-     *
-     * @param string $string
-     * @param string $part
-     * @param string $locale
-     */
-    public function testThrowsExceptionForUnknownValues($string, $part, $locale)
+    #[TestWith(['1q', '1q', 'en'])]
+    #[TestWith(['about 12..14m', '12..', 'en'])]
+    #[TestWith(['4h 13', '13', 'en'])]
+    public function testThrowsExceptionForUnknownValues(string $string, string $part, string $locale)
     {
         $message = null;
 
@@ -129,12 +121,5 @@ class ParseFromLocaleTest extends AbstractTestCase
         }
 
         $this->assertStringContainsString($part, $message);
-    }
-
-    public static function dataForInvalidStrings(): Generator
-    {
-        yield ['1q', '1q', 'en'];
-        yield ['about 12..14m', '12..', 'en'];
-        yield ['4h 13', '13', 'en'];
     }
 }

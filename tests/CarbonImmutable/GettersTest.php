@@ -15,6 +15,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
@@ -177,7 +178,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
-    public static function dataForTestQuarter()
+    public static function dataForTestQuarter(): array
     {
         return [
             [1, 1],
@@ -195,37 +196,22 @@ class GettersTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\GettersTest::dataForTestQuarter
-     *
-     * @param int $month
-     * @param int $quarter
-     */
-    public function testQuarterFirstOfMonth($month, $quarter)
+    #[DataProvider('dataForTestQuarter')]
+    public function testQuarterFirstOfMonth(int $month, int $quarter)
     {
         $c = Carbon::create(2015, $month, 1)->startOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\GettersTest::dataForTestQuarter
-     *
-     * @param int $month
-     * @param int $quarter
-     */
-    public function testQuarterMiddleOfMonth($month, $quarter)
+    #[DataProvider('dataForTestQuarter')]
+    public function testQuarterMiddleOfMonth(int $month, int $quarter)
     {
         $c = Carbon::create(2015, $month, 15, 12, 13, 14);
         $this->assertSame($quarter, $c->quarter);
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\GettersTest::dataForTestQuarter
-     *
-     * @param int $month
-     * @param int $quarter
-     */
-    public function testQuarterLastOfMonth($month, $quarter)
+    #[DataProvider('dataForTestQuarter')]
+    public function testQuarterLastOfMonth(int $month, int $quarter)
     {
         $c = Carbon::create(2015, $month, 1)->endOfMonth();
         $this->assertSame($quarter, $c->quarter);

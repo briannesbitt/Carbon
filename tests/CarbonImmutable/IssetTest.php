@@ -15,6 +15,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class IssetTest extends AbstractTestCase
@@ -93,11 +94,7 @@ class IssetTest extends AbstractTestCase
         yield ['yearIso'];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\IssetTest::dataForTestIssetReturnTrueForProperties
-     *
-     * @param string $property
-     */
+    #[DataProvider('dataForTestIssetReturnTrueForProperties')]
     public function testIssetReturnTrueForProperties(string $property): void
     {
         Carbon::useStrictMode(false);

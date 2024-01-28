@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use BadMethodCallException;
 use Carbon\CarbonImmutable as Carbon;
 use CarbonTimezoneTrait;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use SubCarbonImmutable;
 use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\FooBar;
@@ -23,12 +24,9 @@ use Tests\CarbonImmutable\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCaseWithOldNow
 {
+    #[RequiresPhpExtension('calendar')]
     public function testCarbonIsMacroableWhenNotCalledDynamically()
     {
-        if (!\function_exists('easter_days')) {
-            $this->markTestSkipped('This test requires ext-calendar to be enabled.');
-        }
-
         Carbon::macro('easterDays', function ($year = 2019) {
             return easter_days($year);
         });
@@ -46,12 +44,9 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertTrue($now->otherParameterName());
     }
 
+    #[RequiresPhpExtension('calendar')]
     public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis()
     {
-        if (!\function_exists('easter_days')) {
-            $this->markTestSkipped('This test requires ext-calendar to be enabled.');
-        }
-
         Carbon::macro('diffFromEaster', function ($year) {
             /** @var Carbon $date */
             $date = $this;
@@ -70,12 +65,9 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame(1020, $now->diffFromEaster(2020)->days);
     }
 
+    #[RequiresPhpExtension('calendar')]
     public function testCarbonIsMacroableWhenCalledStatically()
     {
-        if (!\function_exists('easter_days')) {
-            $this->markTestSkipped('This test requires ext-calendar to be enabled.');
-        }
-
         Carbon::macro('easterDate', function ($year) {
             return Carbon::create($year, 3, 21)->addDays(easter_days($year));
         });

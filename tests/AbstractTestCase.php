@@ -280,7 +280,7 @@ abstract class AbstractTestCase extends TestCase
             $func();
         } finally {
             error_reporting($errorReporting);
-            set_error_handler($previous);
+            restore_error_handler();
         }
     }
 

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class RuRuTest extends LocalizationTestCase
 {
     public const LOCALE = 'ru_RU'; // Russian

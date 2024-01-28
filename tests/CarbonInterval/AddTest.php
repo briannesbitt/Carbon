@@ -19,8 +19,9 @@ use Carbon\CarbonInterval;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
-use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -76,7 +77,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    /** @group php-8.1 */
+    #[Group('php-8.1')]
     public function testAddMicroseconds()
     {
         $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
@@ -118,26 +119,15 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    public static function dataForAddsResults(): Generator
-    {
-        yield [5, 2, 7];
-        yield [-5, -2, -7];
-        yield [-5, 2, -3];
-        yield [5, -2, 3];
-        yield [2, 5, 7];
-        yield [-2, -5, -7];
-        yield [-2, 5, 3];
-        yield [2, -5, -3];
-    }
-
-    /**
-     * @dataProvider \Tests\CarbonInterval\AddTest::dataForAddsResults
-     *
-     * @param int $base
-     * @param int $increment
-     * @param int $expectedResult
-     */
-    public function testAddSign($base, $increment, $expectedResult)
+    #[TestWith([5, 2, 7])]
+    #[TestWith([-5, -2, -7])]
+    #[TestWith([-5, 2, -3])]
+    #[TestWith([5, -2, 3])]
+    #[TestWith([2, 5, 7])]
+    #[TestWith([-2, -5, -7])]
+    #[TestWith([-2, 5, 3])]
+    #[TestWith([2, -5, -3])]
+    public function testAddSign(int $base, int $increment, int $expectedResult)
     {
         $interval = new CarbonInterval();
         $interval->hours(abs($base));

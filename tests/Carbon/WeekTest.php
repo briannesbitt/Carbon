@@ -15,6 +15,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
 class WeekTest extends AbstractTestCase
@@ -5459,9 +5460,7 @@ class WeekTest extends AbstractTestCase
         $this->assertSame(CarbonInterface::SUNDAY, Carbon::getWeekEndsAt('fr_FR'));
     }
 
-    /**
-     * @dataProvider getDaysFromStartOfWeekDataProvider
-     */
+    #[DataProvider('getDaysFromStartOfWeekDataProvider')]
     public function testGetDaysFromStartOfWeek(string $locale, string $date, int $daysCount)
     {
         $this->assertSame(
@@ -5494,9 +5493,7 @@ class WeekTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider getDaysFromStartOfWeekDataProviderExplicit
-     */
+    #[DataProvider('getDaysFromStartOfWeekDataProviderExplicit')]
     public function testGetDaysFromStartOfWeekExplicit(int $start, string $date, int $daysCount)
     {
         static $locales = [null, 'pt_BR', 'de_CH', 'ar_MA'];

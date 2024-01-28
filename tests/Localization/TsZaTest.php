@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
-/**
- * @group localization
- */
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('localization')]
 class TsZaTest extends LocalizationTestCase
 {
     public const LOCALE = 'ts_ZA'; // Tsonga

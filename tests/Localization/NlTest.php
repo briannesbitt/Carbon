@@ -16,10 +16,9 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group localization
- */
+#[Group('localization')]
 class NlTest extends LocalizationTestCase
 {
     public const LOCALE = 'nl'; // Dutch

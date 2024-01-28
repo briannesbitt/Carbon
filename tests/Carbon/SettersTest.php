@@ -19,8 +19,8 @@ use Carbon\Exceptions\UnitException;
 use Carbon\Month;
 use DateTimeZone;
 use Exception;
-use Generator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
@@ -583,29 +583,17 @@ class SettersTest extends AbstractTestCase
         $date->doesNotExit = 'bb';
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\SettersTest::dataForTestSetTimeFromTimeString
-     *
-     * @param int    $hour
-     * @param int    $minute
-     * @param int    $second
-     * @param string $time
-     */
-    public function testSetTimeFromTimeString($hour, $minute, $second, $time)
+    #[TestWith([9, 15, 30, '09:15:30'])]
+    #[TestWith([9, 15, 0, '09:15'])]
+    #[TestWith([9, 0, 0, '09'])]
+    #[TestWith([9, 5, 3, '9:5:3'])]
+    #[TestWith([9, 5, 0, '9:5'])]
+    #[TestWith([9, 0, 0, '9'])]
+    public function testSetTimeFromTimeString(int $hour, int $minute, int $second, string $time)
     {
         Carbon::setTestNow(Carbon::create(2016, 2, 12, 1, 2, 3));
         $d = Carbon::now()->setTimeFromTimeString($time);
         $this->assertCarbon($d, 2016, 2, 12, $hour, $minute, $second);
-    }
-
-    public static function dataForTestSetTimeFromTimeString(): Generator
-    {
-        yield [9, 15, 30, '09:15:30'];
-        yield [9, 15, 0, '09:15'];
-        yield [9, 0, 0, '09'];
-        yield [9, 5, 3, '9:5:3'];
-        yield [9, 5, 0, '9:5'];
-        yield [9, 0, 0, '9'];
     }
 
     public function testWeekendDaysSetter()

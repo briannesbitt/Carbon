@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriodImmutable;
 use Carbon\Unit;
 use Carbon\WeekDay;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class UnitTest extends AbstractTestCase
@@ -29,37 +30,28 @@ class UnitTest extends AbstractTestCase
         CarbonImmutable::setLocale('en');
     }
 
-    /**
-     * @dataProvider dataForFromName
-     */
+    #[TestWith([Unit::Microsecond, 'microseconds'])]
+    #[TestWith([Unit::Millisecond, 'millisecond'])]
+    #[TestWith([Unit::Second, 'second'])]
+    #[TestWith([Unit::Minute, 'minute'])]
+    #[TestWith([Unit::Hour, 'hours'])]
+    #[TestWith([Unit::Day, 'day'])]
+    #[TestWith([Unit::Week, 'WEEK'])]
+    #[TestWith([Unit::Month, 'Month'])]
+    #[TestWith([Unit::Quarter, 'quarters'])]
+    #[TestWith([Unit::Year, 'year'])]
+    #[TestWith([Unit::Decade, 'decade'])]
+    #[TestWith([Unit::Century, 'centuries'])]
+    #[TestWith([Unit::Millennium, 'millennia'])]
+    #[TestWith([Unit::Day, 'day'])]
+    #[TestWith([Unit::Day, 'day'])]
+    #[TestWith([Unit::Day, 'jour', 'fr_BE'])]
+    #[TestWith([Unit::Day, 'JOUR', 'fr'])]
+    #[TestWith([Unit::Month, 'Monaten', 'de'])]
+    #[TestWith([Unit::Month, 'monaten', 'de'])]
     public function testFromName(Unit $unit, string $name, ?string $locale = null): void
     {
         $this->assertSame($unit, Unit::fromName($name, $locale));
-    }
-
-    public static function dataForFromName(): array
-    {
-        return [
-            [Unit::Microsecond, 'microseconds'],
-            [Unit::Millisecond, 'millisecond'],
-            [Unit::Second, 'second'],
-            [Unit::Minute, 'minute'],
-            [Unit::Hour, 'hours'],
-            [Unit::Day, 'day'],
-            [Unit::Week, 'WEEK'],
-            [Unit::Month, 'Month'],
-            [Unit::Quarter, 'quarters'],
-            [Unit::Year, 'year'],
-            [Unit::Decade, 'decade'],
-            [Unit::Century, 'centuries'],
-            [Unit::Millennium, 'millennia'],
-            [Unit::Day, 'day'],
-            [Unit::Day, 'day'],
-            [Unit::Day, 'jour', 'fr_BE'],
-            [Unit::Day, 'JOUR', 'fr'],
-            [Unit::Month, 'Monaten', 'de'],
-            [Unit::Month, 'monaten', 'de'],
-        ];
     }
 
     public function testSingular(): void

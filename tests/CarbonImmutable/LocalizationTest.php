@@ -18,6 +18,9 @@ use Carbon\CarbonInterval;
 use Carbon\Language;
 use Carbon\Translator;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
@@ -25,9 +28,7 @@ use Symfony\Component\Translation\Translator as SymfonyTranslator;
 use Tests\AbstractTestCase;
 use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
-/**
- * @group localization
- */
+#[Group('localization')]
 class LocalizationTest extends AbstractTestCase
 {
     protected function tearDown(): void
@@ -168,163 +169,157 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocale
      * @see \Tests\CarbonImmutable\LocalizationTest::testSetTranslator
-     *
-     * @return array
      */
     public static function dataForLocales(): array
     {
         return [
-            ['af'],
-            ['ar'],
-            ['ar_DZ'],
-            ['ar_KW'],
-            ['ar_LY'],
-            ['ar_MA'],
-            ['ar_SA'],
-            ['ar_Shakl'],
-            ['ar_TN'],
-            ['az'],
-            ['be'],
-            ['bg'],
-            ['bm'],
-            ['bn'],
-            ['bo'],
-            ['br'],
-            ['bs'],
-            ['bs_BA'],
-            ['ca'],
-            ['cs'],
-            ['cv'],
-            ['cy'],
-            ['da'],
-            ['de'],
-            ['de_AT'],
-            ['de_CH'],
-            ['dv'],
-            ['dv_MV'],
-            ['el'],
-            ['en'],
-            ['en_AU'],
-            ['en_CA'],
-            ['en_GB'],
-            ['en_IE'],
-            ['en_IL'],
-            ['en_NZ'],
-            ['eo'],
-            ['es'],
-            ['es_DO'],
-            ['es_US'],
-            ['et'],
-            ['eu'],
-            ['fa'],
-            ['fi'],
-            ['fo'],
-            ['fr'],
-            ['fr_CA'],
-            ['fr_CH'],
-            ['fy'],
-            ['gd'],
-            ['gl'],
-            ['gom_Latn'],
-            ['gu'],
-            ['he'],
-            ['hi'],
-            ['hr'],
-            ['hu'],
-            ['hy'],
-            ['hy_AM'],
-            ['id'],
-            ['is'],
-            ['it'],
-            ['ja'],
-            ['jv'],
-            ['ka'],
-            ['kk'],
-            ['km'],
-            ['kn'],
-            ['ko'],
-            ['ku'],
-            ['ky'],
-            ['lb'],
-            ['lo'],
-            ['lt'],
-            ['lv'],
-            ['me'],
-            ['mi'],
-            ['mk'],
-            ['ml'],
-            ['mn'],
-            ['mr'],
-            ['ms'],
-            ['ms_MY'],
-            ['mt'],
-            ['my'],
-            ['nb'],
-            ['ne'],
-            ['nl'],
-            ['nl_BE'],
-            ['nn'],
-            ['no'],
-            ['oc'],
-            ['pa_IN'],
-            ['pl'],
-            ['ps'],
-            ['pt'],
-            ['pt_BR'],
-            ['ro'],
-            ['ru'],
-            ['sd'],
-            ['se'],
-            ['sh'],
-            ['si'],
-            ['sk'],
-            ['sl'],
-            ['sq'],
-            ['sr'],
-            ['sr_Cyrl'],
-            ['sr_Cyrl_ME'],
-            ['sr_Latn_ME'],
-            ['sr_ME'],
-            ['ss'],
-            ['sv'],
-            ['sw'],
-            ['ta'],
-            ['te'],
-            ['tet'],
-            ['tg'],
-            ['th'],
-            ['tl_PH'],
-            ['tlh'],
-            ['tr'],
-            ['tzl'],
-            ['tzm'],
-            ['tzm_Latn'],
-            ['ug_CN'],
-            ['uk'],
-            ['ur'],
-            ['uz'],
-            ['uz_Latn'],
-            ['vi'],
-            ['yo'],
-            ['zh'],
-            ['zh_CN'],
-            ['zh_HK'],
-            ['zh_TW'],
+            'af' => ['af'],
+            'ar' => ['ar'],
+            'ar_DZ' => ['ar_DZ'],
+            'ar_KW' => ['ar_KW'],
+            'ar_LY' => ['ar_LY'],
+            'ar_MA' => ['ar_MA'],
+            'ar_SA' => ['ar_SA'],
+            'ar_Shakl' => ['ar_Shakl'],
+            'ar_TN' => ['ar_TN'],
+            'az' => ['az'],
+            'be' => ['be'],
+            'bg' => ['bg'],
+            'bm' => ['bm'],
+            'bn' => ['bn'],
+            'bo' => ['bo'],
+            'br' => ['br'],
+            'bs' => ['bs'],
+            'bs_BA' => ['bs_BA'],
+            'ca' => ['ca'],
+            'cs' => ['cs'],
+            'cv' => ['cv'],
+            'cy' => ['cy'],
+            'da' => ['da'],
+            'de' => ['de'],
+            'de_AT' => ['de_AT'],
+            'de_CH' => ['de_CH'],
+            'dv' => ['dv'],
+            'dv_MV' => ['dv_MV'],
+            'el' => ['el'],
+            'en' => ['en'],
+            'en_AU' => ['en_AU'],
+            'en_CA' => ['en_CA'],
+            'en_GB' => ['en_GB'],
+            'en_IE' => ['en_IE'],
+            'en_IL' => ['en_IL'],
+            'en_NZ' => ['en_NZ'],
+            'eo' => ['eo'],
+            'es' => ['es'],
+            'es_DO' => ['es_DO'],
+            'es_US' => ['es_US'],
+            'et' => ['et'],
+            'eu' => ['eu'],
+            'fa' => ['fa'],
+            'fi' => ['fi'],
+            'fo' => ['fo'],
+            'fr' => ['fr'],
+            'fr_CA' => ['fr_CA'],
+            'fr_CH' => ['fr_CH'],
+            'fy' => ['fy'],
+            'gd' => ['gd'],
+            'gl' => ['gl'],
+            'gom_Latn' => ['gom_Latn'],
+            'gu' => ['gu'],
+            'he' => ['he'],
+            'hi' => ['hi'],
+            'hr' => ['hr'],
+            'hu' => ['hu'],
+            'hy' => ['hy'],
+            'hy_AM' => ['hy_AM'],
+            'id' => ['id'],
+            'is' => ['is'],
+            'it' => ['it'],
+            'ja' => ['ja'],
+            'jv' => ['jv'],
+            'ka' => ['ka'],
+            'kk' => ['kk'],
+            'km' => ['km'],
+            'kn' => ['kn'],
+            'ko' => ['ko'],
+            'ku' => ['ku'],
+            'ky' => ['ky'],
+            'lb' => ['lb'],
+            'lo' => ['lo'],
+            'lt' => ['lt'],
+            'lv' => ['lv'],
+            'me' => ['me'],
+            'mi' => ['mi'],
+            'mk' => ['mk'],
+            'ml' => ['ml'],
+            'mn' => ['mn'],
+            'mr' => ['mr'],
+            'ms' => ['ms'],
+            'ms_MY' => ['ms_MY'],
+            'mt' => ['mt'],
+            'my' => ['my'],
+            'nb' => ['nb'],
+            'ne' => ['ne'],
+            'nl' => ['nl'],
+            'nl_BE' => ['nl_BE'],
+            'nn' => ['nn'],
+            'no' => ['no'],
+            'oc' => ['oc'],
+            'pa_IN' => ['pa_IN'],
+            'pl' => ['pl'],
+            'ps' => ['ps'],
+            'pt' => ['pt'],
+            'pt_BR' => ['pt_BR'],
+            'ro' => ['ro'],
+            'ru' => ['ru'],
+            'sd' => ['sd'],
+            'se' => ['se'],
+            'sh' => ['sh'],
+            'si' => ['si'],
+            'sk' => ['sk'],
+            'sl' => ['sl'],
+            'sq' => ['sq'],
+            'sr' => ['sr'],
+            'sr_Cyrl' => ['sr_Cyrl'],
+            'sr_Cyrl_ME' => ['sr_Cyrl_ME'],
+            'sr_Latn_ME' => ['sr_Latn_ME'],
+            'sr_ME' => ['sr_ME'],
+            'ss' => ['ss'],
+            'sv' => ['sv'],
+            'sw' => ['sw'],
+            'ta' => ['ta'],
+            'te' => ['te'],
+            'tet' => ['tet'],
+            'tg' => ['tg'],
+            'th' => ['th'],
+            'tl_PH' => ['tl_PH'],
+            'tlh' => ['tlh'],
+            'tr' => ['tr'],
+            'tzl' => ['tzl'],
+            'tzm' => ['tzm'],
+            'tzm_Latn' => ['tzm_Latn'],
+            'ug_CN' => ['ug_CN'],
+            'uk' => ['uk'],
+            'ur' => ['ur'],
+            'uz' => ['uz'],
+            'uz_Latn' => ['uz_Latn'],
+            'vi' => ['vi'],
+            'yo' => ['yo'],
+            'zh' => ['zh'],
+            'zh_CN' => ['zh_CN'],
+            'zh_HK' => ['zh_HK'],
+            'zh_TW' => ['zh_TW'],
         ];
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForLocales
-     */
+    #[DataProvider('dataForLocales')]
     public function testSetLocale(string $locale)
     {
         Carbon::setLocale($locale);
         $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
     }
 
-    /**
-     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForLocales
-     */
+    #[DataProvider('dataForLocales')]
     public function testSetTranslator(string $locale)
     {
         $ori = Carbon::getTranslator();
@@ -345,26 +340,14 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('fr', Carbon::getLocale());
     }
 
-    /**
-     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocaleWithMalformedLocale
-     */
-    public static function dataForTestSetLocaleWithMalformedLocale(): array
-    {
-        return [
-            ['DE'],
-            ['pt-BR'],
-            ['pt-br'],
-            ['PT-br'],
-            ['PT-BR'],
-            ['pt_br'],
-            ['PT_br'],
-            ['PT_BR'],
-        ];
-    }
-
-    /**
-     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForTestSetLocaleWithMalformedLocale
-     */
+    #[TestWith(['DE'])]
+    #[TestWith(['pt-BR'])]
+    #[TestWith(['pt-br'])]
+    #[TestWith(['PT-br'])]
+    #[TestWith(['PT-BR'])]
+    #[TestWith(['pt_br'])]
+    #[TestWith(['PT_br'])]
+    #[TestWith(['PT_BR'])]
     public function testSetLocaleWithMalformedLocale(string $malformedLocale)
     {
         Carbon::setLocale($malformedLocale);

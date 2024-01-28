@@ -19,6 +19,8 @@ use Carbon\Exceptions\OutOfRangeException;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
@@ -306,11 +308,8 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2021-01-27 00:00:00', $date->format('Y-m-d H:i:s'));
     }
 
-    /**
-     * @dataProvider \Tests\Carbon\CreateTest::dataForLocales
-     *
-     * @group localization
-     */
+    #[Group('localization')]
+    #[DataProvider('dataForLocales')]
     public function testParseFromLocaleForEachLocale($locale)
     {
         $expectedDate = Carbon::parse('today 4:26');

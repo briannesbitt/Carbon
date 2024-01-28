@@ -17,6 +17,8 @@ use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonTimeZone;
 use DateTimeImmutable;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -79,12 +81,8 @@ class SerializationTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @dataProvider \Tests\CarbonImmutable\SerializationTest::dataForTestFromUnserializedWithInvalidValue
-     */
-    public function testFromUnserializedWithInvalidValue($value)
+    #[DataProvider('dataForTestFromUnserializedWithInvalidValue')]
+    public function testFromUnserializedWithInvalidValue(mixed $value)
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             "Invalid serialized value: $value",
@@ -152,12 +150,9 @@ class SerializationTest extends AbstractTestCase
         $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
     }
 
+    #[RequiresPhpExtension('msgpack')]
     public function testMsgPackExtension(): void
     {
-        if (!\extension_loaded('msgpack')) {
-            $this->markTestSkipped('This test needs msgpack extension to be enabled.');
-        }
-
         $string = '2018-06-01 21:25:13.321654 Europe/Vilnius';
         $date = Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
         $message = @msgpack_pack($date);
