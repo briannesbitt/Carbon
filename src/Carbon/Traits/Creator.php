@@ -173,7 +173,7 @@ trait Creator
     public static function rawParse(
         DateTimeInterface|WeekDay|Month|string|int|float|null $time,
         DateTimeZone|string|int|null $timezone = null,
-    ): ?self {
+    ): static {
         if ($time instanceof DateTimeInterface) {
             return static::instance($time);
         }
@@ -206,7 +206,7 @@ trait Creator
     public static function parse(
         DateTimeInterface|WeekDay|Month|string|int|float|null $time,
         DateTimeZone|string|int|null $timezone = null,
-    ): ?static {
+    ): static {
         $function = static::$parseFunction;
 
         if (!$function) {
