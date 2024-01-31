@@ -45,6 +45,10 @@ parameters:
             paths:
                 - tests/Carbon/SettersTest.php
         -
+            message: "#^Property Carbon\\\\Carbon\\:\\:\\$month \\(int\\) does not accept Carbon\\\\Month\\:\\:February\\.$#"
+            paths:
+                - tests/Carbon/SettersTest.php
+        -
             message: '#^Access to an undefined property Carbon\\CarbonImmutable::\$[a-zA-Z]+\.$#'
             paths:
                 - tests/CarbonImmutable/GettersTest.php
