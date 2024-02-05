@@ -70,7 +70,7 @@ jobs:
           restore-keys: "l${{ matrix.reference }}-php-${{ matrix.php }}-ubuntu-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v3
         if: steps.composer-cache.outputs.cache-hit != 'true'
         with:
           timeout_minutes: 10
