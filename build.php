@@ -44,6 +44,18 @@ if (strtolower($tag) !== 'all') {
     $tags = [$tag];
 }
 
+function getPhpLevel($tag) {
+    if (version_compare($tag, '2.0.0-dev', '<')) {
+        return '5.3.9';
+    }
+
+    if (version_compare($tag, '3.0.0-dev', '<')) {
+        return '7.1.8';
+    }
+
+    return '8.1.0';
+}
+
 foreach ($tags as $tag) {
     $archive = "Carbon-$tag.zip";
     if (isset($argv[2]) && $argv[2] === 'missing' && file_exists($archive)) {
@@ -54,7 +66,7 @@ foreach ($tags as $tag) {
     shell_exec('git stash');
     shell_exec("git branch -d $branch");
     shell_exec("git checkout tags/$tag -b $branch");
-    $phpVersion = version_compare($tag, '2.0.0-dev', '<') ? '5.3.9' : '7.1.8';
+    $phpVersion = getPhpLevel($tag);
     shell_exec("composer config platform.php $phpVersion");
     shell_exec('composer remove friendsofphp/php-cs-fixer --dev');
     shell_exec('composer remove kylekatarnls/multi-tester --dev');
