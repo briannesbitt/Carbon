@@ -57,12 +57,12 @@ trait Macro
     /**
      * Register a custom macro.
      *
-     * @param object|callable $macro
-     * @param int             $priority marco with higher priority is tried first
+     * @param callable $macro
+     * @param int      $priority marco with higher priority is tried first
      *
      * @return void
      */
-    public static function genericMacro(object|callable $macro, int $priority = 0): void
+    public static function genericMacro(callable $macro, int $priority = 0): void
     {
         FactoryImmutable::getDefaultInstance()->genericMacro($macro, $priority);
     }
@@ -82,7 +82,7 @@ trait Macro
     /**
      * Get the raw callable macro registered globally for a given name.
      */
-    public static function getMacro(string $name): object|callable|null
+    public static function getMacro(string $name): ?callable
     {
         return FactoryImmutable::getInstance()->getMacro($name);
     }

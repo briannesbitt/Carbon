@@ -2118,12 +2118,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Register a custom macro.
      *
-     * @param object|callable $macro
-     * @param int             $priority marco with higher priority is tried first
+     * @param callable $macro
+     * @param int      $priority marco with higher priority is tried first
      *
      * @return void
      */
-    public static function genericMacro(callable|object $macro, int $priority = 0): void;
+    public static function genericMacro(callable $macro, int $priority = 0): void;
 
     /**
      * Get a part of the Carbon object.
@@ -2235,7 +2235,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the raw callable macro registered globally for a given name.
      */
-    public static function getMacro(string $name): callable|object|null;
+    public static function getMacro(string $name): ?callable;
 
     /**
      * get midday/noon hour
@@ -3160,7 +3160,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::yesterday()->hours(11)->userFormat();
      * ```
      */
-    public static function macro(string $name, callable|object|null $macro): void;
+    public static function macro(string $name, ?callable $macro): void;
 
     /**
      * Make a Carbon instance from given variable if possible.

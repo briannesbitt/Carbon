@@ -343,12 +343,12 @@ class Factory
     /**
      * Register a custom macro.
      *
-     * @param object|callable $macro
-     * @param int             $priority marco with higher priority is tried first
+     * @param callable $macro
+     * @param int      $priority marco with higher priority is tried first
      *
      * @return void
      */
-    public function genericMacro(object|callable $macro, int $priority = 0): void
+    public function genericMacro(callable $macro, int $priority = 0): void
     {
         $genericMacros = $this->getSettings()['genericMacros'] ?? [];
 

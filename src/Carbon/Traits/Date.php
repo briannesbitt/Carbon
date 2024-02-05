@@ -2481,6 +2481,7 @@ trait Date
                     continue;
                 }
             }
+
             if (static::isStrictModeEnabled()) {
                 throw new UnknownMethodException(sprintf('%s::%s', static::class, $method));
             }
@@ -2823,7 +2824,7 @@ trait Date
         return (static::DAYS_PER_WEEK + $rotation % static::DAYS_PER_WEEK + $day) % static::DAYS_PER_WEEK;
     }
 
-    protected function executeCallable($macro, ...$parameters)
+    protected function executeCallable(callable $macro, ...$parameters)
     {
         if ($macro instanceof Closure) {
             $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
@@ -2834,7 +2835,7 @@ trait Date
         return \call_user_func_array($macro, $parameters);
     }
 
-    protected function executeCallableWithContext($macro, ...$parameters)
+    protected function executeCallableWithContext(callable $macro, ...$parameters)
     {
         return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
             return $this->executeCallable($macro, ...$parameters);
@@ -2856,7 +2857,7 @@ trait Date
         }
     }
 
-    protected static function executeStaticCallable($macro, ...$parameters)
+    protected static function executeStaticCallable(callable $macro, ...$parameters)
     {
         return static::bindMacroContext(null, function () use (&$macro, &$parameters) {
             if ($macro instanceof Closure) {
