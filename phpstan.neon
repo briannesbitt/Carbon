@@ -40,6 +40,10 @@ parameters:
             message: '#^Call to an undefined method Doctrine\\DBAL\\Types\\Type::requiresSQLCommentHint\(\)\.#'
             paths:
                 - tests/Doctrine/CarbonTypesTest.php
+        -
+            message: '#^Instantiated class Doctrine\\DBAL\\Platforms\\MySQL57Platform not found\.#'
+            paths:
+                - tests/Doctrine/CarbonTypesTest.php
     excludePaths:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/src/Carbon/PHPStan/*'
