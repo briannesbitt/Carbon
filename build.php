@@ -97,7 +97,7 @@ foreach ($tags as $tag) {
     shell_exec("git checkout $currentBranch");
     shell_exec("git branch -d $branch");
     shell_exec('git stash pop');
-    shell_exec('composer config platform.php 7.1.8');
+    shell_exec('composer config platform.php 8.1.0');
     shell_exec('composer update --no-interaction');
 }
 
