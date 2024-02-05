@@ -514,6 +514,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Register a custom macro.
      *
+     * Pass null macro to remove it.
+     *
      * @example
      * ```
      * CarbonPeriod::macro('middle', function () {
@@ -521,13 +523,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * });
      * echo CarbonPeriod::since('2011-05-12')->until('2011-06-03')->middle();
      * ```
-     *
-     * @param string          $name
-     * @param object|callable $macro
-     *
-     * @return void
      */
-    public static function macro(string $name, $macro): void
+    public static function macro(string $name, object|callable|null $macro): void
     {
         static::$macros[$name] = $macro;
     }

@@ -1469,6 +1469,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Register a custom macro.
      *
+     * Pass null macro to remove it.
+     *
      * @example
      * ```
      * CarbonInterval::macro('twice', function () {
@@ -1476,13 +1478,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * });
      * echo CarbonInterval::hours(2)->twice();
      * ```
-     *
-     * @param string          $name
-     * @param object|callable $macro
-     *
-     * @return void
      */
-    public static function macro(string $name, $macro): void
+    public static function macro(string $name, object|callable|null $macro): void
     {
         static::$macros[$name] = $macro;
     }
