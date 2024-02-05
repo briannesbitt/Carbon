@@ -27,6 +27,8 @@ trait Macro
     /**
      * Register a custom macro.
      *
+     * Pass null macro to remove it.
+     *
      * @example
      * ```
      * $userSettings = [
@@ -38,10 +40,8 @@ trait Macro
      * });
      * echo Carbon::yesterday()->hours(11)->userFormat();
      * ```
-     *
-     * Pass null macro to remove it.
      */
-    public static function macro(string $name, object|callable|null $macro): void
+    public static function macro(string $name, ?callable $macro): void
     {
         FactoryImmutable::getDefaultInstance()->macro($name, $macro);
     }

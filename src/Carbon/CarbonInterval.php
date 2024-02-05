@@ -1479,7 +1479,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      * echo CarbonInterval::hours(2)->twice();
      * ```
      */
-    public static function macro(string $name, object|callable|null $macro): void
+    public static function macro(string $name, ?callable $macro): void
     {
         static::$macros[$name] = $macro;
     }

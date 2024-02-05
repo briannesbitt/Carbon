@@ -319,7 +319,7 @@ class Factory
      * echo $factory->yesterday()->hours(11)->userFormat();
      * ```
      */
-    public function macro(string $name, object|callable|null $macro): void
+    public function macro(string $name, ?callable $macro): void
     {
         $macros = $this->getSettings()['macros'] ?? [];
         $macros[$name] = $macro;
@@ -375,7 +375,7 @@ class Factory
     /**
      * Get the raw callable macro registered globally for a given name.
      */
-    public function getMacro(string $name): object|callable|null
+    public function getMacro(string $name): ?callable
     {
         return $this->getSettings()['macros'][$name] ?? null;
     }
