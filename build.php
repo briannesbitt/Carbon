@@ -44,7 +44,8 @@ if (strtolower($tag) !== 'all') {
     $tags = [$tag];
 }
 
-function getPhpLevel($tag) {
+function getPhpLevel($tag)
+{
     if (version_compare($tag, '2.0.0-dev', '<')) {
         return '5.3.9';
     }
