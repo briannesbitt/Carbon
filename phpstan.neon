@@ -82,6 +82,10 @@ parameters:
             paths:
                 - tests/Carbon/MacroTest.php
                 - tests/CarbonImmutable/MacroTest.php
+        -
+            message: '#^Call to an undefined method Doctrine\\DBAL\\Types\\Type::requiresSQLCommentHint\(\)\.#'
+            paths:
+                - tests/Doctrine/CarbonTypesTest.php
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'

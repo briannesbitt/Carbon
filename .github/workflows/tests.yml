@@ -69,7 +69,7 @@ jobs:
         run: composer remove --no-update ondrejmirtes/better-reflection --no-interaction --dev
 
       - name: Install dependencies
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v3
         if: steps.composer-cache.outputs.cache-hit != 'true'
         with:
           timeout_minutes: 10
@@ -102,4 +102,4 @@ jobs:
 
       - name: Coverage
         if: matrix.coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
