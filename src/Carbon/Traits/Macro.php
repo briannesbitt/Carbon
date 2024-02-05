@@ -39,12 +39,9 @@ trait Macro
      * echo Carbon::yesterday()->hours(11)->userFormat();
      * ```
      *
-     * @param string          $name
-     * @param object|callable $macro
-     *
-     * @return void
+     * Pass null macro to remove it.
      */
-    public static function macro(string $name, object|callable $macro): void
+    public static function macro(string $name, object|callable|null $macro): void
     {
         FactoryImmutable::getDefaultInstance()->macro($name, $macro);
     }

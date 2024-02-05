@@ -3146,6 +3146,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Register a custom macro.
      *
+     * Pass null macro to remove it.
+     *
      * @example
      * ```
      * $userSettings = [
@@ -3157,13 +3159,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * });
      * echo Carbon::yesterday()->hours(11)->userFormat();
      * ```
-     *
-     * @param string          $name
-     * @param object|callable $macro
-     *
-     * @return void
      */
-    public static function macro(string $name, callable|object $macro): void;
+    public static function macro(string $name, callable|object|null $macro): void;
 
     /**
      * Make a Carbon instance from given variable if possible.

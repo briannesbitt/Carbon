@@ -305,19 +305,21 @@ class Factory
     /**
      * Register a custom macro.
      *
+     * Pass null macro to remove it.
+     *
      * @example
      * ```
      * $userSettings = [
      *   'locale' => 'pt',
      *   'timezone' => 'America/Sao_Paulo',
      * ];
-     * Carbon::macro('userFormat', function () use ($userSettings) {
+     * $factory->macro('userFormat', function () use ($userSettings) {
      *   return $this->copy()->locale($userSettings['locale'])->tz($userSettings['timezone'])->calendar();
      * });
-     * echo Carbon::yesterday()->hours(11)->userFormat();
+     * echo $factory->yesterday()->hours(11)->userFormat();
      * ```
      */
-    public function macro(string $name, object|callable $macro): void
+    public function macro(string $name, object|callable|null $macro): void
     {
         $macros = $this->getSettings()['macros'] ?? [];
         $macros[$name] = $macro;
