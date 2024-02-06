@@ -17,13 +17,14 @@ use Carbon\Exceptions\InvalidFormatException;
 
 enum WeekDay: int
 {
-    case Sunday = CarbonInterface::SUNDAY;
-    case Monday = CarbonInterface::MONDAY;
-    case Tuesday = CarbonInterface::TUESDAY;
-    case Wednesday = CarbonInterface::WEDNESDAY;
-    case Thursday = CarbonInterface::THURSDAY;
-    case Friday = CarbonInterface::FRIDAY;
-    case Saturday = CarbonInterface::SATURDAY;
+    // Using constants is only safe starting from PHP 8.2
+    case Sunday = 0; // CarbonInterface::SUNDAY
+    case Monday = 1; // CarbonInterface::MONDAY
+    case Tuesday = 2; // CarbonInterface::TUESDAY
+    case Wednesday = 3; // CarbonInterface::WEDNESDAY
+    case Thursday = 4; // CarbonInterface::THURSDAY
+    case Friday = 5; // CarbonInterface::FRIDAY
+    case Saturday = 6; // CarbonInterface::SATURDAY
 
     public static function int(self|int|null $value): ?int
     {
