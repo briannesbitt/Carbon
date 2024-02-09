@@ -347,19 +347,19 @@ class MznTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after',
-        '1 ثانیه پس از',
+        '1 ثانیه بعد',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after',
-        '1 ثانیه پس از',
+        '1 ثانیه بعد',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before',
-        '1 ثانیه پیش از',
+        '1 ثانیه قبل',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before',
-        '1 ثانیه پیش از',
+        '1 ثانیه قبل',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',
