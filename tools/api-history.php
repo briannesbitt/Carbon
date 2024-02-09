@@ -2,19 +2,26 @@
 
 namespace ApiHistory;
 
+use Throwable;
+
 include_once __DIR__.'/config.php';
 require_once __DIR__.'/functions.php';
 
 set_time_limit(0);
 chdir(__DIR__.'/..');
 $arguments = $argv ?? [];
+// $arguments = ['tools/api-history.php', 'current', 'sandbox'];
 $verbose = in_array('--verbose', $arguments, true);
 $target = $arguments[1] ?? null;
 
 function loadDependencies()
 {
     try {
-        require_once __DIR__.'/../vendor/autoload.php';
+        // Use relative path to follow chdir() location
+        $autoload = file_exists('vendor/autoload.php')
+            ? 'vendor/autoload.php'
+            : __DIR__.'/../vendor/autoload.php';
+        require_once $autoload;
         require_once __DIR__.'/methods.php';
     } catch (\Throwable $e) {
         echo "Catch\n";
@@ -46,38 +53,53 @@ if ($target === 'current') {
 
     loadDependencies();
 
-    foreach (@methods(false) as [$carbonObject, $className, $method, $parameters]) {
-        if ($parameters === null) {
-            $parameters = [];
+    try {
+        foreach (methods(false) as [$carbonObject, $className, $method, $parameters]) {
+            if ($parameters === null) {
+                $parameters = [];
 
-            foreach ((new \ReflectionMethod($carbonObject, $method))->getParameters() as $parameter) {
-                $defaultValue = '';
-                $type = '';
+                foreach ((new \ReflectionMethod($carbonObject, $method))->getParameters() as $parameter) {
+                    $defaultValue = '';
+                    $type = '';
 
-                if ($hint = @$parameter->getType()) {
-                    $type = ltrim($hint, '\\').' ';
-                }
-
-                try {
-                    if ($parameter->isDefaultValueAvailable()) {
-                        $defaultValue .= ' = '.convertType(var_export($parameter->getDefaultValue(), true));
+                    if ($hint = @$parameter->getType()) {
+                        $type = ltrim($hint, '\\').' ';
                     }
-                } catch (\Throwable $e) {
-                }
 
-                $parameters[] = $type.'$'.nameAlias($parameter->getName()).$defaultValue;
+                    try {
+                        if ($parameter->isDefaultValueAvailable()) {
+                            $defaultValue .= ' = '.convertType(var_export($parameter->getDefaultValue(), true));
+                        }
+                    } catch (\Throwable $e) {
+                    }
+
+                    $parameters[] = $type.'$'.nameAlias($parameter->getName()).$defaultValue;
+                }
             }
+            $methods["$className::$method"] = $parameters;
         }
-        $methods["$className::$method"] = $parameters;
+    } catch (Throwable $exception) {
+        $methods = [
+            'error' => $exception::class,
+            'message' => $exception->getMessage(),
+            'file' => $exception->getFile(),
+            'line'=> $exception->getLine(),
+            'trace'=> $exception->getTrace(),
+        ];
     }
 
-    $data = @json_encode($methods);
-
     if (json_last_error()) {
-        $data = json_encode([
+        $methods = [
             'error' => json_last_error(),
             'message' => json_last_error_msg(),
-        ]);
+        ];
+    }
+
+    $data = \is_array($methods) ? @json_encode($methods) : null;
+
+    if (!\is_string($data) || \strlen($data) < 24) {
+        var_dump($methods);
+        exit;
     }
 
     echo $data;
@@ -146,7 +168,32 @@ function requireCarbon($branch)
     $path = $path ? 'php '.$path : 'composer';
     $suffix = $verbose ? '' : ' 2>&1';
 
-    return executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
+    $result = executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
+
+    $files = [
+        'vendor/nesbot/carbon/src/Carbon/Traits/Creator.php' => [
+            'function setLastErrors(array $lastErrors)' =>
+                'function setLastErrors(array|false $lastErrors)',
+        ],
+        'vendor/nesbot/carbon/src/Carbon/CarbonPeriod.php' => [
+            'return $this->toArray();' =>
+                'return [static::class];',
+        ],
+    ];
+
+    foreach ($files as $file => $replacements) {
+        $contents = @file_get_contents($file);
+
+        if ($contents) {
+            $newContents = strtr($contents, $replacements);
+
+            if ($contents !== $newContents) {
+                file_put_contents($file, $newContents);
+            }
+        }
+    }
+
+    return $result;
 }
 
 foreach (methods() as [$carbonObject, $className, $method]) {
@@ -157,11 +204,11 @@ ksort($methods);
 
 $count = count($versions);
 
-function getMethodsOfVersion($version)
+function getMethodsOfVersion($version, bool $forceRebuild = false)
 {
     $cache = __DIR__.'/cache/methods_of_version_'.$version.'.json';
 
-    if (file_exists($cache)) {
+    if (!$forceRebuild && file_exists($cache)) {
         return file_get_contents($cache);
     }
 
@@ -172,7 +219,7 @@ function getMethodsOfVersion($version)
     $output = requireCarbon($branch);
     chdir('..');
 
-    if (strpos($output, 'Installation failed') !== false) {
+    if (str_contains($output, 'Installation failed')) {
         writeFile('temp.txt', $output);
         echo "\nError on $version:\n$output\n";
         exit(1);
@@ -189,21 +236,23 @@ function getMethodsOfVersion($version)
 
 foreach (array_reverse($versions) as $index => $version) {
     echo round($index * 100 / $count)."% $version\n";
-    $output = getMethodsOfVersion($version);
-    $data = json_decode($output);
 
-    if (!is_array($data) && !is_object($data)) {
-        writeFile('temp2.txt', $output);
-        echo "\nError on $version:\n$output\n";
-        exit(1);
+    foreach ([false, true] as $forceRebuild) {
+        $output = getMethodsOfVersion($version, $forceRebuild);
+        $data = @json_decode($output, true);
+        $decodable = is_array($data);
+        $error = $decodable ? ($data['error'] ?? null) : ($output ?? 'Missing output');
+
+        if ($error === null) {
+            break;
+        }
     }
 
-    $data = (array) $data;
-
-    if (isset($data['error'])) {
-        writeFile('temp3.txt', var_export($data, true));
-        echo "\nError on $version:\n";
-        print_r($data);
+    if ($error !== null) {
+        $display = ($decodable ? var_export($data, true) : $output)
+            ?? json_encode($error, JSON_PRETTY_PRINT);
+        writeFile('temp2.txt', $display);
+        echo "\nError on $version:\n$display";
         exit(1);
     }
 

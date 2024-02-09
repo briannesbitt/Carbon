@@ -144,7 +144,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                 $version = key($globalHistory[$key]);
             }
 
-            $history .= historyLine('Method added', $version, $ref);
+            $history .= "\n        ".historyLine('Method added', $version, $ref);
         }
 
         $description = preg_replace(
@@ -171,7 +171,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             'prototype'   => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
             'className'   => preg_replace('/^Carbon\\\\/', '', $className),
             'description' => $description,
-            'history'     => empty($info) ? "<table class='info-table method-history'>$history</table>" : '',
+            'history'     => empty($info) ? "<table class='info-table method-history'>$history\n    </table>" : '',
         ];
     }
 });
