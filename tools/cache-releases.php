@@ -18,7 +18,7 @@ do {
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
     $env = [];
-    $envFile = __DIR__ . '/../.env';
+    $envFile = __DIR__.'/../.env';
 
     foreach (file_exists($envFile) ? file($envFile) : [] as $line) {
         [$key, $value] = array_pad(explode('=', trim($line), 2), 2, null);
@@ -26,7 +26,7 @@ do {
     }
 
     if (isset($env['GITHUB_TOKEN'])) {
-        curl_setopt($ch, CURLOPT_HEADER, 'Authorization: Bearer ' . $env['GITHUB_TOKEN']);
+        curl_setopt($ch, CURLOPT_HEADER, 'Authorization: Bearer '.$env['GITHUB_TOKEN']);
     }
 
     $json = curl_exec($ch);

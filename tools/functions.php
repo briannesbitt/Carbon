@@ -11,7 +11,7 @@ function writeFileAtPath(string $path, string $content): bool
 
 function writeFile(string $path, string $content): bool
 {
-    return writeFileAtPath(__DIR__ . '/../' . $path, $content);
+    return writeFileAtPath(__DIR__.'/../'.$path, $content);
 }
 
 function writeJson(string $path, mixed $data): bool

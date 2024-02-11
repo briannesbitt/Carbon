@@ -11,7 +11,7 @@ use ReflectionParameter;
 use function Carbon\Doc\Methods\methods;
 
 const MAXIMUM_MISSING_METHODS_THRESHOLD = 0;
-define('VERBOSE', (isset($argv[1]) && $argv[1] === 'verbose'));
+define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/../tools/methods.php';
@@ -56,7 +56,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
     )$/x", $method);
     $methodFQCN = "$className::$method";
     $exclusion = $exclusion || in_array($methodFQCN, [
-            Translator::class . '::getFromCatalogue',
+            Translator::class.'::getFromCatalogue',
         ], true);
     $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
 
@@ -132,7 +132,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
                     $argumentValues = $empty ? [''] : array_filter(
                         explode(',', $argumentsString),
                         static function ($argumentValue) use (&$argumentsDocumented) {
-                            if (preg_match('/^\s*(?<name>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\s*:[^:]/', $argumentValue, $match)){
+                            if (preg_match('/^\s*(?<name>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\s*:[^:]/', $argumentValue, $match)) {
                                 if (isset($argumentsDocumented[$match['name']])) {
                                     $argumentsDocumented[$match['name']] = true;
                                 }

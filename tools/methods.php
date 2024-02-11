@@ -101,7 +101,7 @@ function getClassesData($excludeMixins = true): Generator
                     new Carbon(),
                     Carbon::class,
                     'Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>',
-                    new class () extends BusinessTimeCarbon {
+                    new class() extends BusinessTimeCarbon {
                         use SeasonMixin;
                     },
                     SeasonMixin::class,
