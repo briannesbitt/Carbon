@@ -23,8 +23,15 @@ do {
         curl_setopt($ch, CURLOPT_HEADER, 'Authorization: Bearer ' . $env['GITHUB_TOKEN']);
     }
 
-    $data = json_decode(curl_exec($ch), JSON_OBJECT_AS_ARRAY);
+    $json = curl_exec($ch);
+    $data = json_decode($json, true);
     curl_close($ch);
+
+    if (!(is_array($data) && array_is_list($data))) {
+        echo 'Error (strlen = '.strlen($json).")\n";
+        echo "$json\n";
+        exit(1);
+    }
 
     foreach ($data as $release) {
         $properties = [

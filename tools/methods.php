@@ -86,7 +86,7 @@ function getClassesData($excludeMixins = true)
 
     if (class_exists(\Carbon\CarbonTimeZone::class)) {
         yield [
-            new \Carbon\CarbonTimeZone(),
+            new \Carbon\CarbonTimeZone('Europe/Paris'),
             new \DateTimeZone('Europe/Paris'),
         ];
     }
@@ -113,8 +113,22 @@ function getClasses($excludeMixins = true)
     }
 }
 
-function convertType($type)
+function convertType($type): string
 {
+    if ($type instanceof ReflectionUnionType) {
+        $type = implode('|', array_map(
+            __FUNCTION__,
+            $type->getTypes(),
+        ));
+    } elseif ($type instanceof ReflectionIntersectionType) {
+        $type = implode('&', array_map(
+            __FUNCTION__,
+            $type->getTypes(),
+        ));
+    } elseif ($type instanceof ReflectionNamedType) {
+        $type = $type->getName();
+    }
+
     return strtr($type, [
         'NULL' => 'null',
         'FALSE' => 'false',
@@ -123,7 +137,7 @@ function convertType($type)
     ]);
 }
 
-function convertReturnType($type, $className)
+function convertReturnType($type, $className): string
 {
     $type = convertType($type);
 
@@ -254,7 +268,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
                 $method,
                 null,
                 $rc->hasReturnType()
-                    ? convertReturnType($rc->getReturnType()->getName(), $className)
+                    ? convertReturnType($rc->getReturnType(), $className)
                     : $docReturn,
                 $docComment,
                 $dateTimeObject,
