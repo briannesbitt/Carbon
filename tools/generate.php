@@ -1,5 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Generate;
+
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
+use Carbon\Carbonite;
+use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
+use Carbon\Factory;
+use Carbon\FactoryImmutable;
+use Carbon\Language;
+use Carbon\Translator;
+use ReflectionMethod;
+
+use Throwable;
+use function Carbon\Doc\Functions\writeFileAtPath;
+use function Carbon\Doc\Functions\writeJson;
+use function Carbon\Doc\Methods\methods;
+
 include_once __DIR__.'/config.php';
 require_once __DIR__.'/functions.php';
 
@@ -24,21 +46,9 @@ chdir(__DIR__.'/..');
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/methods.php';
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
-use Carbon\CarbonInterval;
-use Carbon\Carbonite;
-use Carbon\CarbonPeriod;
-use Carbon\CarbonTimeZone;
-use Carbon\Factory;
-use Carbon\FactoryImmutable;
-use Carbon\Language;
-use Carbon\Translator;
-
-function carbonDocVarDump()
+function carbonDocVarDump(): void
 {
-    call_user_func_array('var_dump', array_map(function ($value) {
+    call_user_func_array('var_dump', array_map(static function ($value) {
         if (is_object($value) && method_exists($value, '__debugInfo')) {
             return $value->__debugInfo();
         }
@@ -47,7 +57,7 @@ function carbonDocVarDump()
     }, func_get_args()));
 }
 
-function isHistoryUpToDate()
+function isHistoryUpToDate(): bool
 {
     if (!file_exists('history.json')) {
         return false;
@@ -67,14 +77,14 @@ function isHistoryUpToDate()
     return Carbon::parse($versionData['time'])->timestamp < filemtime('history.json');
 }
 
-function historyLine($event, $version, $ref)
+function historyLine($event, $version, $ref): string
 {
     $ref = empty($ref) ? '<em>no arguments</em>' : "<code>$ref</code>";
 
     return "<tr><td>$event</td><td>$version</td><td>$ref</td></tr>";
 }
 
-$globalHistory = @json_decode(file_get_contents('history.json'), JSON_OBJECT_AS_ARRAY);
+$globalHistory = @json_decode(file_get_contents('history.json'), true);
 
 Carbon::macro('getAvailableMacroLocales', function () {
     $locales = [];
@@ -89,7 +99,7 @@ Carbon::macro('getAvailableMacroLocales', function () {
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
     foreach (@methods(false, false) as [$carbonObject, $className, $method, $parameters, $return, $description, $dateTimeObject, $info]) {
         $classes = trim(implode(' ', [
-            strpos($description ?? '', '@deprecated') !== false ? 'deprecated' : '',
+            str_contains($description ?? '', '@deprecated') ? 'deprecated' : '',
         ]));
 
         if (method_exists($dateTimeObject, $method)) {
@@ -100,7 +110,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             if ($rcCarbon == $rcDate) {
                 $dateClass = trim($dateClass, '/\\');
 
-                yield strpos($dateClass, 'Symfony\\') === 0
+                yield str_starts_with($dateClass, 'Symfony\\')
                     ? [
                         'info'        => $info,
                         'name'        => $method,
@@ -176,7 +186,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
     }
 });
 
-Carbon::macro('describeIsoFormat', function ($code) {
+Carbon::macro('describeIsoFormat', static function (string $code): string {
     return [
         'D'         => 'Day of month number (from 1 to 31)',
         'DD'        => 'Day of month number with trailing zero (from 01 to 31)',
@@ -254,8 +264,6 @@ Carbon::macro('describeIsoFormat', function ($code) {
         'ZZ'        => 'Time zone offset HHmm',
     ][$code] ?? '';
 });
-
-$template = file_get_contents('template.src.html');
 
 function filterBackers(array $list, ?array $include, ?array $exclude): array
 {
@@ -361,14 +369,16 @@ function getOpenCollective(string $status): string
     return $content[$status];
 }
 
-function cleanupHtml($code)
+function cleanupHtml(string $code): string
 {
     return preg_replace('/\n(([\t ]+)\n)+/', "\n\n", str_replace("\r", '', $code));
 }
 
-function genHtml($page, $out, $jumbotron = '')
+function genHtml(string $page, string $out, string $jumbotron = ''): void
 {
-    global $template;
+    static $template = null;
+
+    $template ??= file_get_contents('template.src.html');
 
     $menu = '';
     $page = preg_replace_callback('/<nav>([\s\S]*?)<\/nav>/', function ($match) use (&$menu) {
@@ -390,7 +400,7 @@ function genHtml($page, $out, $jumbotron = '')
     }, $page);
     $html = $template;
     $html = str_replace('#{page}', $page, $html);
-    $html = str_replace('#{pageWidth}', $pageWidth, $html);
+    $html = str_replace('#{pageWidth}', (string) $pageWidth, $html);
     $html = str_replace('#{jumbotron}', $jumbotron, $html);
     $html = str_replace('#{menu}', $menu, $html);
     $html = str_replace('#{scripts}', $scripts, $html);
@@ -416,7 +426,7 @@ function evaluateCode(&$__state, $__code)
         unset($__value);
         try {
             $lastResult = eval(strtr($__code, [
-                'var_dump' => 'carbonDocVarDump',
+                'var_dump' => '\\' . __NAMESPACE__ . '\\carbonDocVarDump',
             ]));
         } catch (Throwable $e) {
             echo "$__code\n\n";
@@ -508,7 +518,7 @@ function compile($src, $dest = null)
             $ob = evaluateCode($__state, $imports.$code);
 
             // remove the extra newline from a var_dump
-            if (strpos($src, 'var_dump(') === 0) {
+            if (str_starts_with($src, 'var_dump(')) {
                 $ob = trim($ob);
             }
 

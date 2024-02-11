@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\CacheReleases;
+
+use function Carbon\Doc\Functions\writeJson;
+
 $releases = [];
 $page = 0;
 

@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "^8.2",
+        "ext-curl": "*",
         "ext-json": "*",
         "cmixin/business-time": "dev-master",
         "cmixin/season": "dev-main",

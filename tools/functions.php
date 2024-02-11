@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Functions;
+
 function writeFileAtPath(string $path, string $content): bool
 {
     return file_put_contents($path, str_replace("\r", '', $content)) > 0;

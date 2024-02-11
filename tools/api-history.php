@@ -1,8 +1,22 @@
 <?php
 
-namespace ApiHistory;
+declare(strict_types=1);
 
+namespace Carbon\Doc\ApiHistory;
+
+use Carbon\CarbonInterface;
+use ErrorException;
+use Exception;
+use ReflectionMethod;
 use Throwable;
+
+use function Carbon\Doc\Functions\writeFile;
+use function Carbon\Doc\Functions\writeJson;
+use function Carbon\Doc\Methods\convertType;
+use function Carbon\Doc\Methods\methods;
+
+use const Carbon\Doc\Config\BLACKLIST;
+use const Carbon\Doc\Config\MASTER_BRANCH;
 
 include_once __DIR__.'/config.php';
 require_once __DIR__.'/functions.php';
@@ -10,11 +24,10 @@ require_once __DIR__.'/functions.php';
 set_time_limit(0);
 chdir(__DIR__.'/..');
 $arguments = $argv ?? [];
-// $arguments = ['tools/api-history.php', 'current', 'sandbox'];
-$verbose = in_array('--verbose', $arguments, true);
+// $verbose = in_array('--verbose', $arguments, true);
 $target = $arguments[1] ?? null;
 
-function loadDependencies()
+function loadDependencies(): void
 {
     try {
         // Use relative path to follow chdir() location
@@ -23,12 +36,13 @@ function loadDependencies()
             : __DIR__.'/../vendor/autoload.php';
         require_once $autoload;
         require_once __DIR__.'/methods.php';
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         echo "Catch\n";
         echo getcwd() . "\n";
         echo $e->getMessage();
         echo realpath('vendor/autoload.php') . "\n\n";
-        exit((new \Exception())->getTraceAsString());
+        echo (new Exception())->getTraceAsString();
+        exit(1);
     }
 }
 
@@ -54,23 +68,29 @@ if ($target === 'current') {
     loadDependencies();
 
     try {
+        /**
+         * @var CarbonInterface $carbonObject
+         * @var class-string<CarbonInterface> $className
+         * @var string $method
+         * @var ?array $parameters
+         */
         foreach (methods(false) as [$carbonObject, $className, $method, $parameters]) {
             if ($parameters === null) {
                 $parameters = [];
 
-                foreach ((new \ReflectionMethod($carbonObject, $method))->getParameters() as $parameter) {
+                foreach ((new ReflectionMethod($carbonObject, $method))->getParameters() as $parameter) {
                     $defaultValue = '';
                     $type = '';
 
                     if ($hint = @$parameter->getType()) {
-                        $type = ltrim($hint, '\\').' ';
+                        $type = ltrim((string) $hint, '\\').' ';
                     }
 
                     try {
                         if ($parameter->isDefaultValueAvailable()) {
                             $defaultValue .= ' = '.convertType(var_export($parameter->getDefaultValue(), true));
                         }
-                    } catch (\Throwable $e) {
+                    } catch (Throwable) {
                     }
 
                     $parameters[] = $type.'$'.nameAlias($parameter->getName()).$defaultValue;
@@ -117,7 +137,7 @@ $versions = array_filter(array_map(function ($version) {
 
 usort($versions, 'version_compare');
 
-function executeCommand($command)
+function executeCommand($command): string
 {
     $output = '';
     $handle = popen($command, 'r');
@@ -131,7 +151,7 @@ function executeCommand($command)
     return $output;
 }
 
-function removeDirectory($dir)
+function removeDirectory($dir): bool
 {
     if (!is_dir($dir)) {
         return true;
@@ -154,14 +174,14 @@ function removeDirectory($dir)
     return rmdir($dir);
 }
 
-function requireCarbon($branch)
+function requireCarbon($branch): string
 {
     global $verbose;
 
     @unlink('composer.lock');
 
     if (!removeDirectory('vendor')) {
-        throw new \ErrorException('Cannot remove vendor directory.');
+        throw new ErrorException('Cannot remove vendor directory.');
     }
 
     $path = realpath(__DIR__.'/../composer.phar');

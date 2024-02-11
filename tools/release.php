@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Release;
+
+use function Carbon\Doc\Functions\writeFile;
+
 $releases = json_decode(file_get_contents(__DIR__.'/../releases.json'));
 
 $composer = file_get_contents(__DIR__.'/../composer.json');
