@@ -38,9 +38,9 @@ function loadDependencies(): void
         require_once __DIR__.'/methods.php';
     } catch (Throwable $e) {
         echo "Catch\n";
-        echo getcwd() . "\n";
+        echo getcwd()."\n";
         echo $e->getMessage();
-        echo realpath('vendor/autoload.php') . "\n\n";
+        echo realpath('vendor/autoload.php')."\n\n";
         echo (new Exception())->getTraceAsString();
         exit(1);
     }
@@ -69,10 +69,10 @@ if ($target === 'current') {
 
     try {
         /**
-         * @var CarbonInterface $carbonObject
+         * @var CarbonInterface               $carbonObject
          * @var class-string<CarbonInterface> $className
-         * @var string $method
-         * @var ?array $parameters
+         * @var string                        $method
+         * @var ?array                        $parameters
          */
         foreach (methods(false) as [$carbonObject, $className, $method, $parameters]) {
             if ($parameters === null) {
@@ -103,8 +103,8 @@ if ($target === 'current') {
             'error' => $exception::class,
             'message' => $exception->getMessage(),
             'file' => $exception->getFile(),
-            'line'=> $exception->getLine(),
-            'trace'=> $exception->getTrace(),
+            'line' => $exception->getLine(),
+            'trace' => $exception->getTrace(),
         ];
     }
 
