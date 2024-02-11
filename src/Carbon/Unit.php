@@ -29,6 +29,17 @@ enum Unit: string
     case Century = 'century';
     case Millennium = 'millennium';
 
+    public static function toName(self|string $unit): string
+    {
+        return $unit instanceof self ? $unit->value : $unit;
+    }
+
+    /** @internal */
+    public static function toNameIfUnit(mixed $unit): mixed
+    {
+        return $unit instanceof self ? $unit->value : $unit;
+    }
+
     public static function fromName(string $name, ?string $locale = null): self
     {
         if ($locale !== null) {

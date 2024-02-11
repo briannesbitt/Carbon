@@ -19,6 +19,7 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Unit;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
@@ -93,7 +94,7 @@ trait Difference
     }
 
     /**
-     * @param string                                                 $unit     microsecond, millisecond, second, minute,
+     * @param Unit|string                                            $unit     microsecond, millisecond, second, minute,
      *                                                                         hour, day, week, month, quarter, year,
      *                                                                         century, millennium
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
@@ -101,9 +102,9 @@ trait Difference
      *
      * @return float
      */
-    public function diffInUnit(string $unit, $date = null, bool $absolute = false): float
+    public function diffInUnit(Unit|string $unit, $date = null, bool $absolute = false): float
     {
-        $unit = static::pluralUnit(rtrim($unit, 'z'));
+        $unit = static::pluralUnit($unit instanceof Unit ? $unit->value : rtrim($unit, 'z'));
         $method = 'diffIn'.$unit;
 
         if (!method_exists($this, $method)) {

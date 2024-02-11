@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
-use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
@@ -239,20 +238,22 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
-    public static function dataForTestQuarter(): Generator
+    public static function dataForTestQuarter(): array
     {
-        yield [1, 1];
-        yield [2, 1];
-        yield [3, 1];
-        yield [4, 2];
-        yield [5, 2];
-        yield [6, 2];
-        yield [7, 3];
-        yield [8, 3];
-        yield [9, 3];
-        yield [10, 4];
-        yield [11, 4];
-        yield [12, 4];
+        return [
+            [1, 1],
+            [2, 1],
+            [3, 1],
+            [4, 2],
+            [5, 2],
+            [6, 2],
+            [7, 3],
+            [8, 3],
+            [9, 3],
+            [10, 4],
+            [11, 4],
+            [12, 4],
+        ];
     }
 
     #[DataProvider('dataForTestQuarter')]

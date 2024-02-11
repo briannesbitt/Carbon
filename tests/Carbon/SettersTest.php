@@ -17,6 +17,7 @@ use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\Exceptions\UnitException;
 use Carbon\Month;
+use Carbon\Unit;
 use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
@@ -37,6 +38,15 @@ class SettersTest extends AbstractTestCase
         $d->setMonth(Month::July);
 
         $this->assertSame('2023-07-25 21:14:51', $d->format('Y-m-d H:i:s'));
+    }
+
+    public function testSetMonthUnit()
+    {
+        $d = Carbon::parse('2023-10-25 21:14:51');
+        $d->set(Unit::Month, Month::February);
+
+        $this->assertSame(2, $d->get(Unit::Month));
+        $this->assertSame('2023-02-25 21:14:51', $d->format('Y-m-d H:i:s'));
     }
 
     public function testMonthEnumOnWrongUnit()
