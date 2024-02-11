@@ -29,6 +29,7 @@ use Carbon\Exceptions\UnknownUnitException;
 use Carbon\FactoryImmutable;
 use Carbon\Month;
 use Carbon\Translator;
+use Carbon\Unit;
 use Carbon\WeekDay;
 use Closure;
 use DateInterval;
@@ -1067,7 +1068,7 @@ trait Date
      *
      * @return string|int|bool|DateTimeZone|null
      */
-    public function get(string $name): mixed
+    public function get(Unit|string $name): mixed
     {
         static $localizedFormats = [
             // @property string the day of week in current locale
@@ -1079,6 +1080,8 @@ trait Date
             // @property string the abbreviated month in current locale
             'shortLocaleMonth' => 'MMM',
         ];
+
+        $name = Unit::toName($name);
 
         if (isset($localizedFormats[$name])) {
             return $this->isoFormat($localizedFormats[$name]);
@@ -1377,7 +1380,7 @@ trait Date
      *
      * @return $this
      */
-    public function set(array|string $name, DateTimeZone|Month|string|int|float $value = null): static
+    public function set(Unit|array|string $name, DateTimeZone|Month|string|int|float $value = null): static
     {
         if ($this->isImmutable()) {
             throw new ImmutableException(sprintf('%s class', static::class));
@@ -1390,6 +1393,8 @@ trait Date
 
             return $this;
         }
+
+        $name = Unit::toName($name);
 
         switch ($name) {
             case 'milliseconds':
@@ -2545,15 +2550,11 @@ trait Date
     {
         $unit = rtrim(mb_strtolower($unit), 's');
 
-        if ($unit === 'centurie') {
-            return 'century';
-        }
-
-        if ($unit === 'millennia') {
-            return 'millennium';
-        }
-
-        return $unit;
+        return match ($unit) {
+            'centurie' => 'century',
+            'millennia' => 'millennium',
+            default => $unit,
+        };
     }
 
     /**

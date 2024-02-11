@@ -100,13 +100,13 @@ $rules = [
 ];
 
 return (new Config())->setRules($rules)
-             ->setFinder(
-                 Finder::create()
-                    ->in(__DIR__)
-                    ->notPath([
-                        'src/Carbon/Doctrine/DateTimeImmutableType.php',
-                        'src/Carbon/Doctrine/DateTimeType.php',
-                    ])
-             )
-             ->setUsingCache(true)
-             ->setRiskyAllowed(true);
+    ->setFinder(
+        Finder::create()
+            ->in(__DIR__)
+            ->notPath([
+                'src/Carbon/Doctrine/DateTimeImmutableType.php',
+                'src/Carbon/Doctrine/DateTimeType.php',
+            ]),
+    )
+    ->setUsingCache(true)
+    ->setRiskyAllowed(true);

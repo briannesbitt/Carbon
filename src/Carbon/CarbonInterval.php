@@ -1266,15 +1266,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
     /**
      * Get a part of the CarbonInterval object.
-     *
-     * @param string $name
-     *
-     * @throws UnknownGetterException
-     *
-     * @return int|float|string
      */
-    public function get(string $name)
+    public function get(Unit|string $name): int|float|string|null
     {
+        $name = Unit::toName($name);
+
         if (str_starts_with($name, 'total')) {
             return $this->total(substr($name, 5));
         }
@@ -1308,14 +1304,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
     /**
      * Get a part of the CarbonInterval object.
-     *
-     * @param string $name
-     *
-     * @throws UnknownGetterException
-     *
-     * @return int|float|string
      */
-    public function __get(string $name)
+    public function __get(string $name): int|float|string|null
     {
         return $this->get($name);
     }
@@ -1323,8 +1313,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     /**
      * Set a part of the CarbonInterval object.
      *
-     * @param string|array $name
-     * @param int          $value
+     * @param Unit|string|array $name
+     * @param int               $value
      *
      * @throws UnknownSetterException
      *
@@ -1335,7 +1325,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $properties = \is_array($name) ? $name : [$name => $value];
 
         foreach ($properties as $key => $value) {
-            switch (Carbon::singularUnit(rtrim($key, 'z'))) {
+            switch (Carbon::singularUnit($key instanceof Unit ? $key->value : rtrim((string) $key, 'z'))) {
                 case 'year':
                     $this->checkIntegerValue($key, $value);
                     $this->y = $value;
@@ -1645,8 +1635,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $skip = [];
         extract($this->getForHumansInitialVariables($syntax, $short));
         $skip = array_map(
+            static fn ($unit) => $unit instanceof Unit ? $unit->value : $unit,
+            (array) $skip,
+        );
+        $skip = array_map(
             'strtolower',
-            array_filter((array) $skip, static fn ($value) => \is_string($value) && $value !== ''),
+            array_filter($skip, static fn ($unit) => \is_string($unit) && $unit !== ''),
         );
 
         $syntax ??= CarbonInterface::DIFF_ABSOLUTE;
@@ -2413,6 +2407,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             static::PERIOD_MONTHS => abs($interval->m),
             static::PERIOD_DAYS => abs($interval->d),
         ]);
+
+        $skip = array_map([Unit::class, 'toNameIfUnit'], $skip);
 
         if (
             $interval->days >= CarbonInterface::DAYS_PER_WEEK * CarbonInterface::WEEKS_PER_MONTH &&

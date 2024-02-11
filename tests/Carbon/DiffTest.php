@@ -18,6 +18,7 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Unit;
 use Closure;
 use DateTime;
 use Tests\AbstractTestCase;
@@ -709,6 +710,11 @@ class DiffTest extends AbstractTestCase
                 'parts' => 3,
                 'skip' => 's',
             ])
+        );
+
+        $this->assertSame(
+            '2 days 190 minutes ago',
+            Carbon::parse('-2 days -3 hours -10 minutes')->diffForHumans(['parts' => 3, 'skip' => [Unit::Hour]]),
         );
     }
 
@@ -2004,6 +2010,7 @@ class DiffTest extends AbstractTestCase
     public function testDiffInUnit()
     {
         $this->assertSame(5.5, Carbon::make('2020-08-13 05:00')->diffInUnit('hour', '2020-08-13 10:30'));
+        $this->assertSame(4.5, Carbon::make('2020-08-13 06:00')->diffInUnit(Unit::Hour, '2020-08-13 10:30'));
     }
 
     public function testDiffInUnitException()

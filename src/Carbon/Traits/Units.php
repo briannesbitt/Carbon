@@ -20,6 +20,7 @@ use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnsupportedUnitException;
+use Carbon\Unit;
 use Closure;
 use DateInterval;
 use DateMalformedStringException;
@@ -209,15 +210,18 @@ trait Units
      * @example $date->add(15, 'days')
      * @example $date->add(CarbonInterval::days(4))
      *
-     * @param string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param int|float                                            $value
-     * @param bool|null                                            $overflow
+     * @param Unit|string|DateInterval|Closure|CarbonConverterInterface $unit
+     * @param int|float                                                 $value
+     * @param bool|null                                                 $overflow
      *
      * @return static
      */
     #[ReturnTypeWillChange]
     public function add($unit, $value = 1, ?bool $overflow = null): static
     {
+        $unit = Unit::toNameIfUnit($unit);
+        $value = Unit::toNameIfUnit($value);
+
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit, [], true);
         }
@@ -249,15 +253,11 @@ trait Units
 
     /**
      * Add given units to the current instance.
-     *
-     * @param string    $unit
-     * @param int|float $value
-     * @param bool|null $overflow
-     *
-     * @return static
      */
-    public function addUnit(string $unit, $value = 1, ?bool $overflow = null): static
+    public function addUnit(Unit|string $unit, $value = 1, ?bool $overflow = null): static
     {
+        $unit = Unit::toName($unit);
+
         $originalArgs = \func_get_args();
 
         $date = $this;
@@ -341,24 +341,14 @@ trait Units
 
     /**
      * Subtract given units to the current instance.
-     *
-     * @param string    $unit
-     * @param int|float $value
-     * @param bool|null $overflow
-     *
-     * @return static
      */
-    public function subUnit(string $unit, $value = 1, ?bool $overflow = null): static
+    public function subUnit(Unit|string $unit, $value = 1, ?bool $overflow = null): static
     {
         return $this->addUnit($unit, -$value, $overflow);
     }
 
     /**
      * Call native PHP DateTime/DateTimeImmutable sub() method.
-     *
-     * @param DateInterval $interval
-     *
-     * @return static
      */
     public function rawSub(DateInterval $interval): static
     {
@@ -372,9 +362,9 @@ trait Units
      * @example $date->sub(15, 'days')
      * @example $date->sub(CarbonInterval::days(4))
      *
-     * @param string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param int|float                                            $value
-     * @param bool|null                                            $overflow
+     * @param Unit|string|DateInterval|Closure|CarbonConverterInterface $unit
+     * @param int|float                                                 $value
+     * @param bool|null                                                 $overflow
      *
      * @return static
      */
