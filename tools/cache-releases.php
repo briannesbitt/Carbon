@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\CacheReleases;
+
+use function Carbon\Doc\Functions\writeJson;
+
 $releases = [];
 $page = 0;
 
@@ -12,7 +18,7 @@ do {
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
     $env = [];
-    $envFile = __DIR__ . '/../.env';
+    $envFile = __DIR__.'/../.env';
 
     foreach (file_exists($envFile) ? file($envFile) : [] as $line) {
         [$key, $value] = array_pad(explode('=', trim($line), 2), 2, null);
@@ -20,11 +26,18 @@ do {
     }
 
     if (isset($env['GITHUB_TOKEN'])) {
-        curl_setopt($ch, CURLOPT_HEADER, 'Authorization: Bearer ' . $env['GITHUB_TOKEN']);
+        curl_setopt($ch, CURLOPT_HEADER, 'Authorization: Bearer '.$env['GITHUB_TOKEN']);
     }
 
-    $data = json_decode(curl_exec($ch), JSON_OBJECT_AS_ARRAY);
+    $json = curl_exec($ch);
+    $data = json_decode($json, true);
     curl_close($ch);
+
+    if (!(is_array($data) && array_is_list($data))) {
+        echo 'Error (strlen = '.strlen($json).")\n";
+        echo "$json\n";
+        exit(1);
+    }
 
     foreach ($data as $release) {
         $properties = [

@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Functions;
+
 function writeFileAtPath(string $path, string $content): bool
 {
     return file_put_contents($path, str_replace("\r", '', $content)) > 0;
@@ -7,7 +11,7 @@ function writeFileAtPath(string $path, string $content): bool
 
 function writeFile(string $path, string $content): bool
 {
-    return writeFileAtPath(__DIR__ . '/../' . $path, $content);
+    return writeFileAtPath(__DIR__.'/../'.$path, $content);
 }
 
 function writeJson(string $path, mixed $data): bool

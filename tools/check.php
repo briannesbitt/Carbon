@@ -1,8 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Check;
+
 use Carbon\Translator;
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
+use ReflectionMethod;
+use ReflectionParameter;
+use function Carbon\Doc\Methods\methods;
+
+const MAXIMUM_MISSING_METHODS_THRESHOLD = 0;
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require __DIR__.'/../vendor/autoload.php';
@@ -14,9 +22,9 @@ $methodsCount = 0;
 $missingMethodsCount = 0;
 $missingArguments = 0;
 
-function display($message)
+function display(string $message): void
 {
-    if (substr(PHP_OS, 0, 3) === 'WIN') {
+    if (str_starts_with(PHP_OS, 'WIN')) {
         $message = preg_replace("/\033\\[\d+(;\d+)?m/", '', $message);
     }
 
@@ -32,6 +40,9 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         getFactorWithDefault |
         isUnfilteredAndEndLess |
         getType |
+        baseDebugInfo |
+        original|optimize|absolute |
+        createFromISO8601String|getIterator |
         baseMixin|clone|setISODate |
         has(Positive|Negative)Values |
         getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate|getFormatsToIsoReplacements|getTimeFormatByPrecision|hasLocalTranslator |
@@ -40,11 +51,12 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
         (set|get)$upperUnit |
         (startOf|endOf)$upperUnit |
+        $lowerUnit(In|Of)$upperUnit |
         $lowerUnit
     )$/x", $method);
     $methodFQCN = "$className::$method";
     $exclusion = $exclusion || in_array($methodFQCN, [
-            Translator::class . '::getFromCatalogue',
+            Translator::class.'::getFromCatalogue',
         ], true);
     $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
 
@@ -58,9 +70,10 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
 
     $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-    $parameterList = $parameters === null ? array_filter((new \ReflectionMethod($carbonObject, $method))->getParameters(), function (ReflectionParameter $parameter) {
-        return !$parameter->isVariadic();
-    }) : $parameters;
+    $parameterList = $parameters === null ? array_filter(
+        (new ReflectionMethod($carbonObject, $method))->getParameters(),
+        static fn (ReflectionParameter $parameter): bool => !$parameter->isVariadic(),
+    ) : $parameters;
     $argumentsDocumented = [];
 
     foreach ($parameterList as $parameter) {
@@ -77,8 +90,8 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         $exclusion ||
         $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
         $argumentsCount === 3 && preg_match('/^getTranslated(Day|Month)Name$/', $method) ||
-        $argumentsCount === 4 && $method === 'diffFiltered' ||
-        $argumentsCount === 2 && preg_match('/^((diff|floatDiff)In[A-Z].*s|.*Until)$/', $method) ||
+        $argumentsCount === 4 && ($method === 'diffFiltered' || $method === 'diff') ||
+        $argumentsCount === 2 && preg_match('/^((diff|floatDiff)(AsDateInterval|In[A-Z].*s)|.*Until)$/', $method) ||
         $argumentsCount > 0 && preg_match('/^(plus|minus|createStrict)$/', $method) ||
         $method === '__set'
     ) {
@@ -96,14 +109,15 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         $coveredArgs = 0;
 
         if (!empty($matches[0])) {
-            foreach ($matches[0] as $data) {
+            foreach ($matches[0] as [$opening, $position]) {
                 if (preg_match('/^(
-                [^"\'()]+ |
-                "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-                \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                (\\(([^()\'"]+|(?1))*\\)) |
-            )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
+                    [^"\'()]+ |
+                    "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+                    \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
+                    (\\(([^()\'"]+|(?1))*\\)) |
+                )*\)/x', substr($documentation, $position + strlen($opening)), $match)) {
                     $argumentsString = substr($match[0], 0, -1);
+                    $empty = ($argumentsString === '');
                     $argumentsString = preg_replace('/(
                         "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                         \'(?:\\\\[\\S\\s]|[^\'\\\\])*\'
@@ -114,10 +128,11 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
                         ({([^{}\'"]+|(?1))*}) |
                         [^{}()\\[\\]\'"]+
                     \\))*/x', '', $argumentsString);
-                    $argumentValues = array_filter(
+                    // TODO replace [''] with [] and document methods with 1 optional argument properly
+                    $argumentValues = $empty ? [''] : array_filter(
                         explode(',', $argumentsString),
                         static function ($argumentValue) use (&$argumentsDocumented) {
-                            if (preg_match('/^\s*(?<name>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\s*:[^:]/', $argumentValue, $match)){
+                            if (preg_match('/^\s*(?<name>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\s*:[^:]/', $argumentValue, $match)) {
                                 if (isset($argumentsDocumented[$match['name']])) {
                                     $argumentsDocumented[$match['name']] = true;
                                 }
@@ -143,7 +158,6 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
 
         $allArgumentsDocumented = $argumentsCount <= $coveredArgs;
         $color = $allArgumentsDocumented ? 32 : 31;
-        $message = $documented ? 'documented' : 'missing';
 
         if (VERBOSE || $documented) {
             $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";

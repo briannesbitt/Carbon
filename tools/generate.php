@@ -1,5 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Generate;
+
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
+use Carbon\Carbonite;
+use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
+use Carbon\Factory;
+use Carbon\FactoryImmutable;
+use Carbon\Language;
+use Carbon\Translator;
+use ReflectionMethod;
+
+use Throwable;
+use function Carbon\Doc\Functions\writeFileAtPath;
+use function Carbon\Doc\Functions\writeJson;
+use function Carbon\Doc\Methods\methods;
+
 include_once __DIR__.'/config.php';
 require_once __DIR__.'/functions.php';
 
@@ -24,21 +46,9 @@ chdir(__DIR__.'/..');
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/methods.php';
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
-use Carbon\CarbonInterval;
-use Carbon\Carbonite;
-use Carbon\CarbonPeriod;
-use Carbon\CarbonTimeZone;
-use Carbon\Factory;
-use Carbon\FactoryImmutable;
-use Carbon\Language;
-use Carbon\Translator;
-
-function carbonDocVarDump()
+function carbonDocVarDump(): void
 {
-    call_user_func_array('var_dump', array_map(function ($value) {
+    call_user_func_array('var_dump', array_map(static function ($value) {
         if (is_object($value) && method_exists($value, '__debugInfo')) {
             return $value->__debugInfo();
         }
@@ -47,7 +57,7 @@ function carbonDocVarDump()
     }, func_get_args()));
 }
 
-function isHistoryUpToDate()
+function isHistoryUpToDate(): bool
 {
     if (!file_exists('history.json')) {
         return false;
@@ -67,14 +77,14 @@ function isHistoryUpToDate()
     return Carbon::parse($versionData['time'])->timestamp < filemtime('history.json');
 }
 
-function historyLine($event, $version, $ref)
+function historyLine($event, $version, $ref): string
 {
     $ref = empty($ref) ? '<em>no arguments</em>' : "<code>$ref</code>";
 
     return "<tr><td>$event</td><td>$version</td><td>$ref</td></tr>";
 }
 
-$globalHistory = @json_decode(file_get_contents('history.json'), JSON_OBJECT_AS_ARRAY);
+$globalHistory = @json_decode(file_get_contents('history.json'), true);
 
 Carbon::macro('getAvailableMacroLocales', function () {
     $locales = [];
@@ -89,7 +99,7 @@ Carbon::macro('getAvailableMacroLocales', function () {
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
     foreach (@methods(false, false) as [$carbonObject, $className, $method, $parameters, $return, $description, $dateTimeObject, $info]) {
         $classes = trim(implode(' ', [
-            strpos($description ?? '', '@deprecated') !== false ? 'deprecated' : '',
+            str_contains($description ?? '', '@deprecated') ? 'deprecated' : '',
         ]));
 
         if (method_exists($dateTimeObject, $method)) {
@@ -100,26 +110,26 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             if ($rcCarbon == $rcDate) {
                 $dateClass = trim($dateClass, '/\\');
 
-                yield strpos($dateClass, 'Symfony\\') === 0
+                yield str_starts_with($dateClass, 'Symfony\\')
                     ? [
-                        'info'        => $info,
-                        'name'        => $method,
-                        'classes'     => $classes,
-                        'return'      => $return,
-                        'prototype'   => '<em>Method from Symfony interhited class</em>',
-                        'className'   => preg_replace('/^Carbon\\\\/', '', $className),
+                        'info' => $info,
+                        'name' => $method,
+                        'classes' => $classes,
+                        'return' => $return,
+                        'prototype' => '<em>Method from Symfony interhited class</em>',
+                        'className' => preg_replace('/^Carbon\\\\/', '', $className),
                         'description' => 'See '.$dateClass.'::'.$method,
-                        'history'     => '',
+                        'history' => '',
                     ]
                     : [
-                        'info'        => $info,
-                        'name'        => $method,
-                        'classes'     => $classes,
-                        'return'      => $return,
-                        'prototype'   => '<em>Native PHP method</em>',
-                        'className'   => preg_replace('/^Carbon\\\\/', '', $className),
+                        'info' => $info,
+                        'name' => $method,
+                        'classes' => $classes,
+                        'return' => $return,
+                        'prototype' => '<em>Native PHP method</em>',
+                        'className' => preg_replace('/^Carbon\\\\/', '', $className),
                         'description' => 'See <a href="https://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
-                        'history'     => '',
+                        'history' => '',
                     ];
 
                 continue;
@@ -144,7 +154,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                 $version = key($globalHistory[$key]);
             }
 
-            $history .= historyLine('Method added', $version, $ref);
+            $history .= "\n        ".historyLine('Method added', $version, $ref);
         }
 
         $description = preg_replace(
@@ -164,98 +174,96 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         );
 
         yield [
-            'info'        => $info,
-            'name'        => $method,
-            'classes'     => $classes,
-            'return'      => $return,
-            'prototype'   => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
-            'className'   => preg_replace('/^Carbon\\\\/', '', $className),
+            'info' => $info,
+            'name' => $method,
+            'classes' => $classes,
+            'return' => $return,
+            'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
+            'className' => preg_replace('/^Carbon\\\\/', '', $className),
             'description' => $description,
-            'history'     => empty($info) ? "<table class='info-table method-history'>$history</table>" : '',
+            'history' => empty($info) ? "<table class='info-table method-history'>$history\n    </table>" : '',
         ];
     }
 });
 
-Carbon::macro('describeIsoFormat', function ($code) {
+Carbon::macro('describeIsoFormat', static function (string $code): string {
     return [
-        'D'         => 'Day of month number (from 1 to 31)',
-        'DD'        => 'Day of month number with trailing zero (from 01 to 31)',
-        'Do'        => 'Day of month with ordinal suffix (from 1st to 31th), translatable',
-        'd'         => 'Day of week number (from 0 (Sunday) to 6 (Saturday))',
-        'dd'        => 'Minified day name (from Su to Sa), translatable',
-        'ddd'       => 'Short day name (from Sun to Sat), translatable',
-        'dddd'      => 'Day name (from Sunday to Saturday), translatable',
-        'DDD'       => 'Day of year number (from 1 to 366)',
-        'DDDD'      => 'Day of year number with trailing zeros (3 digits, from 001 to 366)',
-        'DDDo'      => 'Day of year number with ordinal suffix (from 1st to 366th), translatable',
-        'e'         => 'Day of week number (from 0 (Sunday) to 6 (Saturday)), similar to "d" but this one is translatable (takes first day of week of the current locale)',
-        'E'         => 'Day of week number (from 1 (Monday) to 7 (Sunday))',
-        'H'         => 'Hour from 0 to 23',
-        'HH'        => 'Hour with trailing zero from 00 to 23',
-        'h'         => 'Hour from 0 to 12',
-        'hh'        => 'Hour with trailing zero from 00 to 12',
-        'k'         => 'Hour from 1 to 24',
-        'kk'        => 'Hour with trailing zero from 01 to 24',
-        'm'         => 'Minute from 0 to 59',
-        'mm'        => 'Minute with trailing zero from 00 to 59',
-        'a'         => 'Meridiem am/pm',
-        'A'         => 'Meridiem AM/PM',
-        's'         => 'Second from 0 to 59',
-        'ss'        => 'Second with trailing zero from 00 to 59',
-        'S'         => 'Second tenth',
-        'SS'        => 'Second hundredth (on 2 digits with trailing zero)',
-        'SSS'       => 'Millisecond (on 3 digits with trailing zeros)',
-        'SSSS'      => 'Second ten thousandth (on 4 digits with trailing zeros)',
-        'SSSSS'     => 'Second hundred thousandth (on 5 digits with trailing zeros)',
-        'SSSSSS'    => 'Microsecond (on 6 digits with trailing zeros)',
-        'SSSSSSS'   => 'Second ten millionth (on 7 digits with trailing zeros)',
-        'SSSSSSSS'  => 'Second hundred millionth (on 8 digits with trailing zeros)',
+        'D' => 'Day of month number (from 1 to 31)',
+        'DD' => 'Day of month number with trailing zero (from 01 to 31)',
+        'Do' => 'Day of month with ordinal suffix (from 1st to 31th), translatable',
+        'd' => 'Day of week number (from 0 (Sunday) to 6 (Saturday))',
+        'dd' => 'Minified day name (from Su to Sa), translatable',
+        'ddd' => 'Short day name (from Sun to Sat), translatable',
+        'dddd' => 'Day name (from Sunday to Saturday), translatable',
+        'DDD' => 'Day of year number (from 1 to 366)',
+        'DDDD' => 'Day of year number with trailing zeros (3 digits, from 001 to 366)',
+        'DDDo' => 'Day of year number with ordinal suffix (from 1st to 366th), translatable',
+        'e' => 'Day of week number (from 0 (Sunday) to 6 (Saturday)), similar to "d" but this one is translatable (takes first day of week of the current locale)',
+        'E' => 'Day of week number (from 1 (Monday) to 7 (Sunday))',
+        'H' => 'Hour from 0 to 23',
+        'HH' => 'Hour with trailing zero from 00 to 23',
+        'h' => 'Hour from 0 to 12',
+        'hh' => 'Hour with trailing zero from 00 to 12',
+        'k' => 'Hour from 1 to 24',
+        'kk' => 'Hour with trailing zero from 01 to 24',
+        'm' => 'Minute from 0 to 59',
+        'mm' => 'Minute with trailing zero from 00 to 59',
+        'a' => 'Meridiem am/pm',
+        'A' => 'Meridiem AM/PM',
+        's' => 'Second from 0 to 59',
+        'ss' => 'Second with trailing zero from 00 to 59',
+        'S' => 'Second tenth',
+        'SS' => 'Second hundredth (on 2 digits with trailing zero)',
+        'SSS' => 'Millisecond (on 3 digits with trailing zeros)',
+        'SSSS' => 'Second ten thousandth (on 4 digits with trailing zeros)',
+        'SSSSS' => 'Second hundred thousandth (on 5 digits with trailing zeros)',
+        'SSSSSS' => 'Microsecond (on 6 digits with trailing zeros)',
+        'SSSSSSS' => 'Second ten millionth (on 7 digits with trailing zeros)',
+        'SSSSSSSS' => 'Second hundred millionth (on 8 digits with trailing zeros)',
         'SSSSSSSSS' => 'Nanosecond (on 9 digits with trailing zeros)',
-        'M'         => 'Month from 1 to 12',
-        'MM'        => 'Month with trailing zero from 01 to 12',
-        'MMM'       => 'Short month name, translatable',
-        'MMMM'      => 'Month name, translatable',
-        'Mo'        => 'Month with ordinal suffix from 1st to 12th, translatable',
-        'OY'        => 'Year number with alternative numbers such as ۱۹۹۸ for 1998 if locale is fa',
-        'OM'        => 'Month number with alternative numbers such as ၀၂ for 2 if locale is my_MM',
-        'OD'        => 'Day number with alternative numbers such as 三 for 3 if locale is ja_JP',
-        'OH'        => '24-hours number with alternative numbers such as ႑႓ for 13 if locale is shn_MM',
-        'Oh'        => '12-hours number with alternative numbers such as 十一 for 11 if locale is lzh_TW',
-        'Om'        => 'Minute number with alternative numbers such as ୫୭ for 57 if locale is or',
-        'Os'        => 'Second number with alternative numbers such as 十五 for 15 if locale is ja_JP',
-        'Q'         => 'Quarter from 1 to 4',
-        'Qo'        => 'Quarter with ordinal suffix from 1st to 4th, translatable',
-        'G'         => 'ISO week year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)',
-        'GG'        => 'ISO week year (on 2 digits with trailing zero)',
-        'GGG'       => 'ISO week year (on 3 digits with trailing zeros)',
-        'GGGG'      => 'ISO week year (on 4 digits with trailing zeros)',
-        'GGGGG'     => 'ISO week year (on 5 digits with trailing zeros)',
-        'g'         => 'Week year according to locale settings, translatable',
-        'gg'        => 'Week year according to locale settings (on 2 digits with trailing zero), translatable',
-        'ggg'       => 'Week year according to locale settings (on 3 digits with trailing zeros), translatable',
-        'gggg'      => 'Week year according to locale settings (on 4 digits with trailing zeros), translatable',
-        'ggggg'     => 'Week year according to locale settings (on 5 digits with trailing zeros), translatable',
-        'W'         => 'ISO week number in the year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)',
-        'WW'        => 'ISO week number in the year (on 2 digits with trailing zero)',
-        'Wo'        => 'ISO week number in the year with ordinal suffix, translatable',
-        'w'         => 'Week number in the year according to locale settings, translatable',
-        'ww'        => 'Week number in the year according to locale settings (on 2 digits with trailing zero)',
-        'wo'        => 'Week number in the year according to locale settings with ordinal suffix, translatable',
-        'x'         => 'Millisecond-precision timestamp (same as <code>date.getTime()</code> in JavaScript)',
-        'X'         => 'Timestamp (number of seconds since 1970-01-01)',
-        'Y'         => 'Full year from -9999 to 9999',
-        'YY'        => 'Year on 2 digits from 00 to 99',
-        'YYYY'      => 'Year on 4 digits from 0000 to 9999',
-        'YYYYY'     => 'Year on 5 digits from 00000 to 09999',
-        'YYYYYY'    => 'Year on 5 digits with sign from -09999 to +09999',
-        'z'         => 'Abbreviated time zone name',
-        'zz'        => 'Time zone name',
-        'Z'         => 'Time zone offset HH:mm',
-        'ZZ'        => 'Time zone offset HHmm',
+        'M' => 'Month from 1 to 12',
+        'MM' => 'Month with trailing zero from 01 to 12',
+        'MMM' => 'Short month name, translatable',
+        'MMMM' => 'Month name, translatable',
+        'Mo' => 'Month with ordinal suffix from 1st to 12th, translatable',
+        'OY' => 'Year number with alternative numbers such as ۱۹۹۸ for 1998 if locale is fa',
+        'OM' => 'Month number with alternative numbers such as ၀၂ for 2 if locale is my_MM',
+        'OD' => 'Day number with alternative numbers such as 三 for 3 if locale is ja_JP',
+        'OH' => '24-hours number with alternative numbers such as ႑႓ for 13 if locale is shn_MM',
+        'Oh' => '12-hours number with alternative numbers such as 十一 for 11 if locale is lzh_TW',
+        'Om' => 'Minute number with alternative numbers such as ୫୭ for 57 if locale is or',
+        'Os' => 'Second number with alternative numbers such as 十五 for 15 if locale is ja_JP',
+        'Q' => 'Quarter from 1 to 4',
+        'Qo' => 'Quarter with ordinal suffix from 1st to 4th, translatable',
+        'G' => 'ISO week year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)',
+        'GG' => 'ISO week year (on 2 digits with trailing zero)',
+        'GGG' => 'ISO week year (on 3 digits with trailing zeros)',
+        'GGGG' => 'ISO week year (on 4 digits with trailing zeros)',
+        'GGGGG' => 'ISO week year (on 5 digits with trailing zeros)',
+        'g' => 'Week year according to locale settings, translatable',
+        'gg' => 'Week year according to locale settings (on 2 digits with trailing zero), translatable',
+        'ggg' => 'Week year according to locale settings (on 3 digits with trailing zeros), translatable',
+        'gggg' => 'Week year according to locale settings (on 4 digits with trailing zeros), translatable',
+        'ggggg' => 'Week year according to locale settings (on 5 digits with trailing zeros), translatable',
+        'W' => 'ISO week number in the year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)',
+        'WW' => 'ISO week number in the year (on 2 digits with trailing zero)',
+        'Wo' => 'ISO week number in the year with ordinal suffix, translatable',
+        'w' => 'Week number in the year according to locale settings, translatable',
+        'ww' => 'Week number in the year according to locale settings (on 2 digits with trailing zero)',
+        'wo' => 'Week number in the year according to locale settings with ordinal suffix, translatable',
+        'x' => 'Millisecond-precision timestamp (same as <code>date.getTime()</code> in JavaScript)',
+        'X' => 'Timestamp (number of seconds since 1970-01-01)',
+        'Y' => 'Full year from -9999 to 9999',
+        'YY' => 'Year on 2 digits from 00 to 99',
+        'YYYY' => 'Year on 4 digits from 0000 to 9999',
+        'YYYYY' => 'Year on 5 digits from 00000 to 09999',
+        'YYYYYY' => 'Year on 5 digits with sign from -09999 to +09999',
+        'z' => 'Abbreviated time zone name',
+        'zz' => 'Time zone name',
+        'Z' => 'Time zone offset HH:mm',
+        'ZZ' => 'Time zone offset HHmm',
     ][$code] ?? '';
 });
-
-$template = file_get_contents('template.src.html');
 
 function filterBackers(array $list, ?array $include, ?array $exclude): array
 {
@@ -361,14 +369,16 @@ function getOpenCollective(string $status): string
     return $content[$status];
 }
 
-function cleanupHtml($code)
+function cleanupHtml(string $code): string
 {
     return preg_replace('/\n(([\t ]+)\n)+/', "\n\n", str_replace("\r", '', $code));
 }
 
-function genHtml($page, $out, $jumbotron = '')
+function genHtml(string $page, string $out, string $jumbotron = ''): void
 {
-    global $template;
+    static $template = null;
+
+    $template ??= file_get_contents('template.src.html');
 
     $menu = '';
     $page = preg_replace_callback('/<nav>([\s\S]*?)<\/nav>/', function ($match) use (&$menu) {
@@ -390,7 +400,7 @@ function genHtml($page, $out, $jumbotron = '')
     }, $page);
     $html = $template;
     $html = str_replace('#{page}', $page, $html);
-    $html = str_replace('#{pageWidth}', $pageWidth, $html);
+    $html = str_replace('#{pageWidth}', (string) $pageWidth, $html);
     $html = str_replace('#{jumbotron}', $jumbotron, $html);
     $html = str_replace('#{menu}', $menu, $html);
     $html = str_replace('#{scripts}', $scripts, $html);
@@ -416,7 +426,7 @@ function evaluateCode(&$__state, $__code)
         unset($__value);
         try {
             $lastResult = eval(strtr($__code, [
-                'var_dump' => 'carbonDocVarDump',
+                'var_dump' => '\\'.__NAMESPACE__.'\\carbonDocVarDump',
             ]));
         } catch (Throwable $e) {
             echo "$__code\n\n";
@@ -508,7 +518,7 @@ function compile($src, $dest = null)
             $ob = evaluateCode($__state, $imports.$code);
 
             // remove the extra newline from a var_dump
-            if (strpos($src, 'var_dump(') === 0) {
+            if (str_starts_with($src, 'var_dump(')) {
                 $ob = trim($ob);
             }
 
@@ -554,11 +564,11 @@ $languages = array_map(function ($code) {
     $lang = new Language($code);
 
     return array_merge($lang->getNames(), [
-        'id'         => $lang->getId(),
-        'code'       => $lang->getCode(),
-        'region'     => $lang->getRegion(),
+        'id' => $lang->getId(),
+        'code' => $lang->getCode(),
+        'region' => $lang->getRegion(),
         'regionName' => $lang->getRegionName(),
-        'variant'    => $lang->getVariantName(),
+        'variant' => $lang->getVariantName(),
     ]);
 }, Carbon::getAvailableLocales());
 
@@ -641,7 +651,7 @@ $translations = [
     ['Carbon::now()->subHours(2)', '->diffForHumans()'],
     ['Carbon::now()->addHours(2)->addMinute()', '->diffForHumans(["part" => 1])'],
     ['($d = Carbon::now())->copy()->subHours(2)', '->diffForHumans($d)'],
-    ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)']
+    ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)'],
 ];
 
 foreach ($languages as $language) {

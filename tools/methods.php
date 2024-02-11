@@ -1,8 +1,38 @@
 <?php
 
-use Cmixin\SeasonMixin;
+declare(strict_types=1);
 
-function getMethodsFromObject($object)
+namespace Carbon\Doc\Methods;
+
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
+use Carbon\FactoryImmutable;
+use Carbon\Language;
+use Carbon\Translator;
+use Cmixin\BusinessTime;
+use Cmixin\SeasonMixin;
+use DateInterval;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
+use Generator;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionFunction;
+use ReflectionIntersectionType;
+use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionUnionType;
+use stdClass;
+use Stringable;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
+
+/** @return Generator<string|Closure> */
+function getMethodsFromObject($object): Generator
 {
     foreach (get_class_methods($object) as $method) {
         yield $method;
@@ -25,43 +55,53 @@ trait MacroExposer
     {
         $class = get_called_class();
 
-        return $class::$globalMacros;
+        return $class::$globalMacros ?? FactoryImmutable::getDefaultInstance()->getSettings()['macros'];
     }
 }
 
-class BusinessTimeCarbon extends \Carbon\Carbon
+class BusinessTimeCarbon extends Carbon
 {
     use MacroExposer;
 }
 
-function getClassesData($excludeMixins = true)
+/**
+ * @return Generator<array{
+ *     CarbonInterface,
+ *     DateTimeInterface,
+ *     ?class-string,
+ *     ?string,
+ *     ?CarbonInterface,
+ *     ?class-string,
+ *  }>
+ */
+function getClassesData($excludeMixins = true): Generator
 {
-    if (class_exists(\Carbon\Carbon::class)) {
+    if (class_exists(Carbon::class)) {
         yield [
-            new \Carbon\Carbon(),
-            new \DateTime(),
+            new Carbon(),
+            new DateTime(),
         ];
 
         if (!$excludeMixins) {
-            if (class_exists(\Cmixin\BusinessTime::class)) {
+            if (class_exists(BusinessTime::class)) {
                 yield [
-                    \Cmixin\BusinessTime::enable(BusinessTimeCarbon::class),
-                    new \Carbon\Carbon(),
-                    \Carbon\Carbon::class,
+                    BusinessTime::enable(BusinessTimeCarbon::class),
+                    new Carbon(),
+                    Carbon::class,
                     'Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>',
                     new BusinessTimeCarbon(),
                 ];
             }
 
-            if (trait_exists(\Cmixin\SeasonMixin::class)) {
+            if (trait_exists(SeasonMixin::class)) {
                 BusinessTimeCarbon::mixin(SeasonMixin::class);
 
                 yield [
                     new BusinessTimeCarbon(),
-                    new \Carbon\Carbon(),
-                    \Carbon\Carbon::class,
+                    new Carbon(),
+                    Carbon::class,
                     'Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>',
-                    new class () extends BusinessTimeCarbon {
+                    new class() extends BusinessTimeCarbon {
                         use SeasonMixin;
                     },
                     SeasonMixin::class,
@@ -70,51 +110,75 @@ function getClassesData($excludeMixins = true)
         }
     }
 
-    if (class_exists(\Carbon\CarbonInterval::class)) {
+    if (class_exists(CarbonInterval::class)) {
         yield [
-            new \Carbon\CarbonInterval(0, 0, 0, 1),
-            new \DateInterval('P1D'),
+            new CarbonInterval(0, 0, 0, 1),
+            new DateInterval('P1D'),
         ];
     }
 
-    if (class_exists(\Carbon\CarbonPeriod::class)) {
+    if (class_exists(CarbonPeriod::class)) {
         yield [
-            new \Carbon\CarbonPeriod(),
-            new \stdClass(),
+            new CarbonPeriod(),
+            new stdClass(),
         ];
     }
 
-    if (class_exists(\Carbon\CarbonTimeZone::class)) {
+    if (class_exists(CarbonTimeZone::class)) {
         yield [
-            new \Carbon\CarbonTimeZone(),
-            new \DateTimeZone('Europe/Paris'),
+            new CarbonTimeZone('Europe/Paris'),
+            new DateTimeZone('Europe/Paris'),
         ];
     }
 
-    if (class_exists(\Carbon\Translator::class)) {
+    if (class_exists(Translator::class)) {
         yield [
-            new \Carbon\Translator('en'),
-            new \Symfony\Component\Translation\Translator('en'),
+            new Translator('en'),
+            new SymfonyTranslator('en'),
         ];
     }
 
-    if (class_exists(\Carbon\Language::class)) {
+    if (class_exists(Language::class)) {
         yield [
-            new \Carbon\Language('en'),
-            new \stdClass(),
+            new Language('en'),
+            new stdClass(),
         ];
     }
 }
 
-function getClasses($excludeMixins = true)
+/**
+ * @return Generator<array{
+ *     CarbonInterface,
+ *     DateTimeInterface,
+ *     ?class-string,
+ *     ?string,
+ *     ?CarbonInterface,
+ *     ?class-string,
+ *  }>
+ */
+function getClasses($excludeMixins = true): Generator
 {
     foreach (getClassesData($excludeMixins) as $data) {
         yield array_pad($data, 6, null);
     }
 }
 
-function convertType($type)
+function convertType(Stringable|string $type): string
 {
+    if ($type instanceof ReflectionUnionType) {
+        $type = implode('|', array_map(
+            __FUNCTION__,
+            $type->getTypes(),
+        ));
+    } elseif ($type instanceof ReflectionIntersectionType) {
+        $type = implode('&', array_map(
+            __FUNCTION__,
+            $type->getTypes(),
+        ));
+    } elseif ($type instanceof ReflectionNamedType) {
+        $type = $type->getName();
+    }
+
     return strtr($type, [
         'NULL' => 'null',
         'FALSE' => 'false',
@@ -123,7 +187,7 @@ function convertType($type)
     ]);
 }
 
-function convertReturnType($type, $className)
+function convertReturnType(Stringable|string $type, string $className): string
 {
     $type = convertType($type);
 
@@ -137,7 +201,19 @@ function convertReturnType($type, $className)
     return preg_replace('/\\|\\\\/', '|', preg_replace('/Carbon\\\\/', '', $type));
 }
 
-function methods($excludeNatives = false, $excludeMixins = true)
+/**
+ * @return Generator<array{
+ *     CarbonInterface,
+ *     class-string<CarbonInterface>,
+ *     string,
+ *     ?array,
+ *     ?string,
+ *     ?string,
+ *     DateTimeInterface,
+ *     mixed,
+ *   }>
+ */
+function methods(bool $excludeNatives = false, bool $excludeMixins = true): Generator
 {
     $records = [];
 
@@ -171,13 +247,13 @@ function methods($excludeNatives = false, $excludeMixins = true)
 
             $records["$className::$method"] = true;
             try {
-                $rc = new \ReflectionMethod($carbonObject, $method);
-            } catch (\ReflectionException $exception) {
+                $rc = new ReflectionMethod($carbonObject, $method);
+            } catch (ReflectionException $exception) {
                 if (!$trait) {
                     throw $exception;
                 }
 
-                $rc = new \ReflectionMethod($trait, $method);
+                $rc = new ReflectionMethod($trait, $method);
             }
 
             if (!$rc->isPublic()) {
@@ -185,14 +261,14 @@ function methods($excludeNatives = false, $excludeMixins = true)
             }
 
             if (!$trait && $invoke && ($function = $rc->invoke($carbonObject))) {
-                $rc = new \ReflectionFunction($function);
+                $rc = new ReflectionFunction($function);
             }
 
             $docComment = (
                 $rc->getDocComment()
                 ?: (
-                    method_exists(\Carbon\CarbonImmutable::class, $method)
-                        ? (new \ReflectionMethod(\Carbon\CarbonImmutable::class, $method))->getDocComment()
+                    method_exists(CarbonImmutable::class, $method)
+                        ? (new ReflectionMethod(CarbonImmutable::class, $method))->getDocComment()
                         : null
                 )
             ) ?: null;
@@ -254,7 +330,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
                 $method,
                 null,
                 $rc->hasReturnType()
-                    ? convertReturnType($rc->getReturnType()->getName(), $className)
+                    ? convertReturnType($rc->getReturnType(), $className)
                     : $docReturn,
                 $docComment,
                 $dateTimeObject,
@@ -263,10 +339,10 @@ function methods($excludeNatives = false, $excludeMixins = true)
         }
     }
 
-    $className = \Carbon\Carbon::class;
+    $className = Carbon::class;
     $carbonObject = new $className();
-    $dateTimeObject = new \DateTime();
-    $rc = new \ReflectionClass($className);
+    $dateTimeObject = new DateTime();
+    $rc = new ReflectionClass($className);
     preg_match_all('/@method\s+(\S+)\s+([^(\s]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
 
     foreach ($matches as [$all, $return, $method, $parameters, $description]) {
@@ -290,7 +366,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
             $return,
             $description,
             $dateTimeObject,
-            $info,
+            $info ?? null,
         ];
     }
 }

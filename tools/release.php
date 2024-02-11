@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Carbon\Doc\Release;
+
+use function Carbon\Doc\Functions\writeFile;
+
 $releases = json_decode(file_get_contents(__DIR__.'/../releases.json'));
 
 $composer = file_get_contents(__DIR__.'/../composer.json');
@@ -21,7 +27,8 @@ require_once __DIR__.'/functions.php';
 
 echo $newComposer === $composer
     ? 'nesbot/carbon is already on '
-    : (writeFile('composer.json', $newComposer)
+    : (
+        writeFile('composer.json', $newComposer)
         ? 'Upgraded nesbot/carbon to '
         : 'Unable to upgrade nesbot/carbon to '
     );

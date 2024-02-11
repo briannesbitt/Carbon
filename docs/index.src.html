@@ -287,8 +287,8 @@ echo "\n";
     <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception as
         this time is in an hour skipped by the daylight saving time.</p>
 
-    <p>Note 3: The PHP native API allow consider there is a year <code>0</code> between <code>-1</code>
-        and <code>1</code> even if it doesn't regarding to Gregorian calendar. That's why years lower than
+    <p>Note 3: The PHP native API allow to consider there is a year <code>0</code> between <code>-1</code>
+        and <code>1</code> even if it doesn't regarding Gregorian calendar. That's why years lower than
         1 will throw an exception using <code>createSafe</code>. Check
         <a href="#doc-method-Carbon-isValid" data-open-doc="Carbon::isValid">isValid()</a> for year-0 detection.</p>
 
@@ -403,7 +403,7 @@ echo "\n";
 
     <div id="partial-microseconds-support-v1" class="old-way">
         <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed
-            afterwards, this means:</p>
+            afterward, this means:</p>
 
         <p>
         <pre><code class="php">$date = new DateTime('now');
@@ -439,116 +439,17 @@ echo Carbon::now()->micro; // microtime in all PHP version
         </p>
     </div>
 
-    <p>Ever need to loop through some dates to find the earliest or latest date? Didn't know what to set your initial
-        maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
-
-    <p>
-    <pre><code class="php">{{::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{eval}}'
-{{::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{eval}}'
-</code></pre>
-    </p>
-
-    <p>Min and max value mainly depends on the system (32 or 64 bit).</p>
-
-    <p>With a 32-bit OS system or 32-bit version of PHP (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>),
-        the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the
-        constant <code>PHP_INT_MAX</code>.</p>
-
-    <p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31
-        23:59:59. It's even possible to use negative year up to -9999 but be aware you may not have accurate results
-        with some operations as the year 0 exists in PHP but not in the Gregorian calendar.</p>
-
     <h1 id="api-localization">Localization</h1>
 
     <p>With Carbon 2, localization changed a lot, {{eval(echo count(Carbon::getAvailableLocales()) - 73;)}} new locales
-        are supported and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
+        are supported, and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
         and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class
         and language packages for advanced translation, you now benefit of a wide internationalization support. You
-        still use Carbon 1? I hope you would consider to upgrade, version 2 has really cool new features. Otherwise you can
+        still use Carbon 1? I hope you would consider to upgrade, version 2 has really cool new features. Otherwise, you can
         find the <a href="#localization-v1" data-slide-down="#localization-v1">version 1 documentation of Localization
         by clicking here</a>.</p>
 
-    <div id="localization-v1" class="old-way">
-        <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a
-            <code>formatLocalized($format)</code> method was added. The implementation makes a call to <a
-                    href="http://www.php.net/strftime">strftime</a> using the current instance timestamp. If you first set
-            the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string
-            returned will be formatted in the correct locale.</p>
-
-        <p>
-        <pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
-$dt = Carbon::parse('1975-05-21 22:23:00.123456');
-if ($newLocale === false) {
-    echo '"German" locale is not installed on your machine, it may have a different name on your machine or you may need to install it.';
-}
-)}}
-{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
-{{::lint(setlocale(LC_TIME, 'English');)}}
-{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
-{{::lint(setlocale(LC_TIME, ''); // reset locale)}}
-</code></pre>
-        </p>
-
-        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
-            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
-
-        <p>
-        <pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
-{{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
-{{::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{eval}}
-
-{{::lint(Carbon::setLocale('en');)}}
-{{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
-</code></pre>
-        </p>
-
-        <p>Or you can isolate some code with a given locale:</p>
-
-        <p>
-        <pre><code class="php">{{::exec(Carbon::executeWithLocale('de', function ($newLocale) {
-    // You can optionally get $newLocale as the first argument of the closure
-    // It will be set to the new locale or false if the locale was not found.
-
-    echo Carbon::now()->addYear()->diffForHumans();
-});)}} // {{eval}}
-
-// outside the function the locale did not change
-{{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
-
-// or same using a return statement
-{{::int($french = Carbon::executeWithLocale('fr', function () {
-    return Carbon::now()->addYear()->diffForHumans();
-});)}}
-{{::exec(echo $french;)}} // {{eval}}
-</code></pre>
-        </p>
-
-        <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code>
-            mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the
-            formatLocalized() call to the utf8 charset.</p>
-
-        <p>
-        <pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
-{{::lint($dt = Carbon::create(2016, 01, 06, 00, 00, 00);)}}
-{{::lint(Carbon::setUtf8(false);)}}
-{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
-{{::lint(Carbon::setUtf8(true);)}}
-{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
-{{::lint(Carbon::setUtf8(false);)}}
-{{::lint(setlocale(LC_TIME, '');)}}
-</code></pre>
-        </p>
-
-        <blockquote><p><strong>on Linux</strong><br>
-            If you have trouble with translations, check locales installed in your system (local and production).<br>
-            <code>locale -a</code> to list locales enabled.<br>
-            <code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
-            <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
-            And reboot your system.</p></blockquote>
-
-    </div>
-
-    <p>Since 2.9.0, you can easily customize translations:</p>
+    <p>You can easily customize translations:</p>
 
     <p id="custom-translations">
     <pre class="live-editor"><code class="php">{{::lint(
@@ -712,12 +613,10 @@ echo "\n";
         </p>
 
         <p><code>setMessages</code> is equivalent to <code>setTranslations</code> but you can omit the locale as it will
-            use the current one so we recommend to use it when you can as in <a href="#custom-translations">this previous example</a>.</p>
+            use the current one, so we recommend to use it when you can as in <a href="#custom-translations">this previous example</a>.</p>
     </div>
 
-    <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
-        and short variants is driven by locales installed in your operating system. For other translations, it's
-        supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+    <p>You can check what's supported with the following methods:</p>
     <p>
 
     <pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
@@ -815,6 +714,13 @@ Carbon::now()->settings([
 {{::exec(echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');/*pad(76)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');/*pad(76)*/)}} // {{eval}}
+
+// You can find back which factory created a given object:
+{{::lint($a = $factory->now();
+$b = Carbon::now();
+)}}
+{{::exec(var_dump($a->getClock()->unwrap() === $factory);/*pad(49)*/)}} // {{eval}}
+{{::exec(var_dump($b->getClock());/*pad(49)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -823,7 +729,7 @@ echo "\n";
     <p>
     <pre class="live-editor"><code class="php">{{::exec($date = Carbon::parse('Today 12:34:56')->settings([
     'macros' => [
-        'lastSecondDigit' => function () { return self::this()->second % 10; },
+        'lastSecondDigit' => fn () => self::this()->second % 10,
     ],
 ]);
 
@@ -857,9 +763,6 @@ $factory
     <p>Previously there was <code>Carbon::setLocale</code> that set globally the locale. But as for our other
         static setters, we highly discourage you to use it. It breaks the principle of isolation because the
         configuration will apply for every class that uses Carbon.</p>
-
-    <p>You also may know <code>formatLocalized()</code> method from Carbon 1. This method still works the same
-        in Carbon 2 but you should better use <code>isoFormat()</code> instead.</p>
 
     <p><code>->isoFormat(string $format): string</code> use ISO format rather than PHP-specific format and
         use inner translations rather than language packages you need to install on every machine where you deploy your
@@ -1007,7 +910,7 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>An other usefull translated method is <code>calendar($referenceTime = null, array $formats = []): string</code>:</p>
+    <p>Another usefull translated method is <code>calendar($referenceTime = null, array $formats = []): string</code>:</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint($date = CarbonImmutable::now();)}}
@@ -1083,12 +986,14 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
     <p>If you can add missing translations or missing languages, <a href="/contribute/translate/">please go to translation tool</a>,
         your help is welcome.</p>
 
-    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last
+    <p>Note that if you use Laravel, the locale will be automatically set according to current last
         <code>App:setLocale</code> execution. So <code>diffForHumans</code>, <code>isoFormat</code>, <code>translatedFormat</code> and localized
         properties such as <code>->dayName</code> or <code>->monthName</code> will be localized transparently.</p>
 
-    <p>Each Carbon, CarbonImmutable, CarbonInterval or CarbonPeriod instance is linked by default to a
-        <code>Carbon\Translator</code> instance according to its locale set. You can get and/or change it
+    <p>All Carbon, CarbonImmutable, CarbonInterval or CarbonPeriod instances are linked by default to a
+        <code>Carbon\Translator</code> instance handled by <code>FactoryImmutable::getDefaultInstance()</code>
+        (The one changing when calling the static method <code>::setLocale()</code> on one of those classes).
+        You can get and/or change it
         using <code>getLocalTranslator()</code>/<code>setLocalTranslator(Translator $translator)</code>.</p>
 
     <p>If you prefer the <a href="https://php.net/manual/en/function.date.php"><code>date()</code> pattern</a>, you can
@@ -1129,7 +1034,7 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>You can translate a string from a language to an other using dates translations available in Carbon:</p>
+    <p>You can translate a string from a language to another using dates translations available in Carbon:</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::exec(echo Carbon::translateTimeString('mercredi 8 juillet', 'fr', 'nl');)}}
@@ -1254,7 +1159,25 @@ $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
 </code></pre>
     </p>
 
-    <p>Please let me thank some projects that helped us a lot to support more locales, and internationalization features:</p>
+    <p>If ever you have to change globally the locale for a particular process, you
+        should use <code>executeWithLocale</code> to encapsulate this process. This way,
+        even if an exception is thrown the global locale with be set back to its
+        previous value.</p>
+
+    <p>
+    <pre><code class="php">{{::exec(
+Carbon::executeWithLocale('fr', function () {
+    echo CarbonInterval::create(2, 1)->forHumans() . "\n";
+    echo Carbon::parse('-2 hours')->diffForHumans();
+});)}}
+/*
+{{eval}}
+*/
+</code></pre>
+    </p>
+
+    <p>Please let me close this section by thanking some projects that helped us a lot to support more locales,
+        and internationalization features:</p>
 
     <ul>
         <li><a href="https://github.com/jenssegers/date" target="_blank">jenssegers/date</a>: many features were in this project that extends Carbon before being in Carbon itself.</li>
@@ -1276,10 +1199,15 @@ $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
 {{::exec(echo Carbon::getTestNow();/*pad(54)*/)}} // {{eval}}
 {{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
 {{::exec(echo new Carbon();/*pad(54)*/)}} // {{eval}}
-{{::exec(echo Carbon::parse();/*pad(54)*/)}} // {{eval}}
 {{::exec(echo new Carbon('now');/*pad(54)*/)}} // {{eval}}
 {{::exec(echo Carbon::parse('now');/*pad(54)*/)}} // {{eval}}
 {{::exec(echo Carbon::create(2001, 4, 21, 12)->diffForHumans();/*pad(54)*/)}} // {{eval}}
+
+// This will trigger an actual sleep(3) in prod, but when time is mocked,
+// This will set the test-now to 3 seconds later:
+{{::lint(Carbon::sleep(3);)}}
+{{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
+
 {{::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{eval}}
 {{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
 {{::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{eval}}
@@ -1448,15 +1376,6 @@ Carbonite::freeze('2019-12-22'); // Freeze the time to a given date)}}
 {{::exec(var_dump($dt->shortEnglishMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->locale('de')->monthName);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->locale('de')->shortMonthName);/*pad(60)*/)}} // {{eval}}
-
-// Following are deprecated, locale* and shortLocale* properties
-// are translated using formatLocalized() based on LC_TIME language.
-{{::lint(setlocale(LC_TIME, 'German');)}}
-{{::exec(var_dump($dt->localeDayOfWeek);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->shortLocaleDayOfWeek);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->localeMonth);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->shortLocaleMonth);/*pad(60)*/)}} // {{eval}}
-{{::lint(setlocale(LC_TIME, '');)}}
 
 {{::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{eval}}
@@ -2496,28 +2415,29 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 
     <h1 id="api-difference">Difference</h1>
 
-    <p>As <code>Carbon</code> extends <code>DateTime</code> it inherit its methods such as <code>diff()</code> that take
-        a second date object as argument and returns a <code>DateInterval</code> instance.</p>
+    <p><code>Carbon</code> <code>diff()</code> and <code>diffAsCarbonInterval()</code> methods
+        return a <code>CarbonInterval</code> (since Carbon v3,
+        while it returned <code>DateInterval</code> in the previous versions).</p>
 
-    <p>We also provide <code>diffAsCarbonInterval()</code> act like <code>diff()</code> but returns a <code>CarbonInterval</code>
-        instance. Check <a href="#api-interval">CarbonInterval chapter</a> for more information. Carbon add diff methods
-        for each unit too such as <code>diffInYears()</code>, <code>diffInMonths()</code> and so on. <code>diffAsCarbonInterval()</code>
-        and <code>diffIn*()</code> and <code>floatDiffIn*()</code> methods all can take 2 optional arguments: date to
-        compare with (if missing, now is
-        used instead), and an absolute boolean option (<code>true</code> by default) that make the method return an
-        absolute value no matter which date is greater than the other. If set to <code>false</code>, it returns negative
-        value when the instance the method is called on is greater than the compared date (first argument or now). Note
-        that <code>diff()</code> prototype is different: its first argument (the date) is mandatory and its second
-        argument (the absolute option) defaults to <code>false</code>.</p>
+    <p>Check <a href="#api-interval">CarbonInterval chapter</a> for more information.</p>
 
-    <p>These functions always return the <b>total difference</b> expressed in the specified time requested. This differs
-        from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes
-        and 2 seconds via a <code>DateInterval</code> instance. The <code>diffInMinutes()</code> function would simply
-        return 2 while <code>diffInSeconds()</code> would return 122. All values are truncated and not rounded. Each
-        function below has a default first parameter which is the Carbon instance to compare to, or null if you want to
-        use <code>now()</code>. The 2nd parameter again is optional and indicates if you want the return value to be the
-        absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is
-        less than the current instance. This will default to true, return the absolute value.</p>
+    <p>We also provide <code>diffAsDateInterval()</code> act like <code>diff()</code> but returns a <code>DateInterval</code>
+        instance.</p>
+
+    <p>Carbon add diff methods for each unit too, such as <code>diffInYears()</code>, <code>diffInMonths()</code>
+        and so on. <code>diffAsCarbonInterval()</code>
+        and <code>diffIn*()</code> (and <code>floatDiffIn*()</code> for versions < 3 when <code>diffIn*()</code>
+        methods returned integer values, since Carbon 3, they are deprecated as <code>diffIn*()</code> already
+        return floating number, and integer values from it can easily be obtained with an explicit cast
+        <code>(int)</code>).</p>
+
+    <p><code>diffInUnit()</code> allow to get a diff for a unit calculated dynamically: <code>->diffInUnit($unit, $date, $absolute)</code></p>
+
+    <p>All can take 2 optional arguments: date to compare with (if missing, now is
+        used instead), and an absolute boolean option (<code>false</code> by default), it returns negative
+        value when the instance the method is called on is greater than the compared date (first argument or now).
+        If set to <code>true</code>, that makes the method return an absolute value no matter which date is
+        greater than the other.</p>
 
     <p>
     <pre><code class="php">{{::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{eval}}
@@ -2725,25 +2645,13 @@ Carbon::setWeekendDays([
     Carbon::SUNDAY,
 ]);
 // weekend days and start/end of week or not linked
-Carbon::setWeekStartsAt(Carbon::FRIDAY);
-Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to precede the start
+// start/end of week are driven by the locale
 )}}
 
-{{::exec(var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);/*pad(60)*/)}} // {{eval}}
-{{::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
-{{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
-
-{{::lint(
-// Be very careful with those global setters, remember, some other
-// code or third-party library in your app may expect initial weekend
-// days to work properly.
-Carbon::setWeekStartsAt(Carbon::MONDAY);
-Carbon::setWeekEndsAt(Carbon::SUNDAY);
-)}}
-
-{{::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
-{{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::getWeekStartsAt());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::getWeekEndsAt());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::getWeekStartsAt('ar_EG'));/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::getWeekEndsAt('ar_EG'));/*pad(60)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -4348,6 +4256,9 @@ $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
 $period = CarbonPeriod::since('2018-04-21')->days(3)->until('2018-04-27');
 // Start from a CarbonInterval:
 $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
+// From a diff:
+$period = Carbon::parse('2020-08-29')->diff('2020-09-02')->stepBy('day');
+$period = Carbon::parse('2020-08-29')->diff('2020-09-02')->stepBy(12, 'hours');
 // toPeriod can also be called from a Carbon or CarbonImmutable instance:
 $period = Carbon::parse('2018-04-21')->toPeriod('2018-04-27', '3 days'); // pass end and interval
 // interval can be a string, a DateInterval or a CarbonInterval
@@ -4566,6 +4477,15 @@ echo "\n";
 
 {{::lint($period->setDateInterval('PT12H');)}}
 {{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+
+// This can also be set to 12 hours in all the following ways:
+{{::lint($period->setDateInterval('12h');)}}
+{{::lint($period->setDateInterval('12 hours');)}}
+{{::lint($period->setDateInterval(12, 'hours');)}}
+{{::lint($period->setDateInterval(12, \Carbon\Unit::Hour);)}}
+
+// And reset to no explicit interval (will then use 1 day if iterated)
+{{::lint($period->resetDateInterval();)}}
 </code></pre>
     </p>
 
@@ -4998,11 +4918,6 @@ echo "\n";
 echo "\n";
 {{::lint($summer = Carbon::parse('2018-07-01');)}}
 {{::exec(echo $tz->toOffsetName($summer);/*pad(36)*/)}} // {{eval}}
-
-// With no parameters, a default timezone is created:
-{{::exec(echo new CarbonTimeZone();/*pad(36)*/)}} // {{eval}}
-echo "\n";
-{{::exec(echo CarbonTimeZone::create();/*pad(36)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -5084,17 +4999,8 @@ $tz = CarbonTimeZone::instance(new DateTimeZone('Europe/Paris'));
 {{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
 echo "\n";
 
-// Bad timezone will return false without strict mode
+// Bad timezone will throw an exception
 {{::lint(
-Carbon::useStrictMode(false);
-$tz = CarbonTimeZone::instance('Europe/Chicago');
-)}}
-{{::exec(var_dump($tz);/*pad(36)*/)}} // {{eval}}
-echo "\n";
-
-// or throw an exception using strict mode
-{{::lint(
-Carbon::useStrictMode(true);
 try {
     CarbonTimeZone::instance('Europe/Chicago');
 } catch (InvalidArgumentException $exception) {
@@ -5107,10 +5013,11 @@ try {
 // have unclear dump, you may pass a second argument to display
 // instead in the errors
 {{::lint(
-Carbon::useStrictMode(true);
 try {
-    $mixedValue = ['dummy', 'array'];
-    CarbonTimeZone::instance($mixedValue, json_encode($mixedValue));
+    $continent = 'Europe';
+    $city = 'Chicago';
+    $mixedValue = ['continent' => $continent, 'city' => $city];
+    CarbonTimeZone::instance("$continent/$city", json_encode($mixedValue));
 } catch (InvalidArgumentException $exception) {
     $error = $exception->getMessage();
 }
@@ -5122,6 +5029,103 @@ try {
     <p>The same way, <code>Carbon::create()</code> return <code>false</code> if you pass an incorrect value (such as a negative month)
         but it throws an exception in strict mode. <code>Carbon::createStrict()</code> is like <code>create()</code> but throws
         an exception even if not in strict mode.</p>
+
+    <h1 id="api-carbon-3">Migrate to Carbon 3</h1>
+
+    <p>If you plan to migrate from Carbon 2 to Carbon 3, please note the following breaking changes you should
+        take care of.</p>
+
+    <h2 id="api-carbon-3-diff-in">diffIn*</h2>
+
+    <p>Yes, the most impactful change is in <code>diffIn*</code> methods. They were returning positive integer
+        by default, they will now return float:</p>
+
+    <p><pre><code class="php">{{::lint(
+$after = Carbon::now()->addSeconds(2);
+$before = Carbon::now();
+
+var_dump($after->diffInSeconds($before));
+)}}</code></pre></p>
+
+    <p>This was: <code>int(1)</code> in Carbon 2</p>
+
+    <p>This is: <code>double(-1.999508)</code> in Carbon 3</p>
+
+    <p>In Carbon 3, using <code>(int) $after->diffInSeconds($before, true)</code> or
+        <code>(int) abs($after->diffInSeconds($before))</code> allows to get explicitly an
+        absolute and truncated value, so the same result as in v2.
+    </p>
+
+    <h2 id="api-carbon-3-strong-typing">Strong typing</h2>
+
+    <p>Strong typing added in many method parameters will disallow so usages that was never
+        meant to be supported such as <code>bool</code> or <code>null</code> in comparison methods.</p>
+
+    <p>In Carbon v2 the following return arbitrary results
+        (despite it emits <code>E_USER_DEPRECATED</code> notices):</p>
+
+    <p><pre><code class="php">var_dump($date->eq(false)); // false
+var_dump($date->gte(false)); // true
+var_dump($date->gt(false)); // true
+var_dump($date->eq(null)); // false
+var_dump($date->gte(null)); // true
+var_dump($date->gt(null)); // true</code></pre></p>
+
+    <p>In Carbon v3, PHPDoc is moving to real types so any of this will throw a <code>TypeError</code>,
+        it expects <code>DateTimeInterface</code> or <code>string</code> to be passed.</p>
+
+    <h2 id="api-carbon-3-falsable-nullable">falsable => nullable</h2>
+
+    <p><code>create</code>, <code>createFromFormat</code> , <code>createFromIsoFormat</code>,
+        <code>createFromLocaleFormat</code> and <code>createFromLocaleIsoFormat</code> returned
+        <code>Carbon|false</code>, it's now <code>Carbon|null</code> (unlocking <code>?-></code>
+        chaining and <code>?? throw</code> error handling).</p>
+
+    <h2 id="api-carbon-3-removed-methods">Removal of some deprecated methods</h2>
+
+    <p><code>setUtf8</code> are <code>formatLocalized</code> removed. <code>formatLocalized</code>
+        depends on OS language package and relies on <code>setlocale()</code> + <code>strftime()</code>
+        (the last will be removed from PHP itself). <code>->isoFormat()</code> should be used
+        instead which is embedded translation files (so one can rely on getting the same translation
+        everywhere) and is linked to Carbon locale (The current object locale that can be set with
+        <code>$date->locale('de')</code> or if not set, the global one that Laravel is already setting
+        using <code>Carbon::setLocale('de')</code>). And <code>setUtf8</code> is no longer needed since
+        <code>formatLocalized</code> is the only method that possibly had non-UTF-8 output.</p>
+
+    <p><code>setWeekStartsAt</code> and <code>setWeekEndsAt</code> are also removed. You should
+        either specify the day explictly when calling <code>startOfWeek</code>, for instance:
+        <code>->startOfWeek(\Carbon\WeekDay::Wednesday)</code> or change the locale appriopriately,
+        for instance <code>->locale('en_US')->startOfWeek()</code> goes to Sunday, while
+        <code>->locale('en_GB')->startOfWeek()</code> goes to Monday, <code>ar_EG</code>
+        locale sets it to Saturday, etc.</p>
+
+    <p>Note that you can also create custom locales with a different start of week:</p>
+
+    <p><pre><code class="php">{{::lint(
+\Carbon\Translator::get('en_US@Cinema')->setTranslations([
+    'first_day_of_week' => Carbon::FRIDAY,
+]);
+
+\Carbon\Translator::get('fr_FR@Cinema')->setTranslations([
+    'first_day_of_week' => Carbon::WEDNESDAY,
+]);)}}
+
+{{::exec(echo CarbonImmutable::now()->locale('fr_FR')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonImmutable::now()->locale('fr_FR@Cinema')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonImmutable::now()->locale('en_US')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonImmutable::now()->locale('en_US@Cinema')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
+</code></pre></p>
+
+    <h2 id="api-carbon-3-strict-timezone">Strict timezone</h2>
+
+    <p>All named argument <code>tz:</code> have been replaced with <code>timezone:</code> for explicitness
+        and consistency with <code>DateTime</code> methods.</p>
+
+    <p>It's no longer possible to create a <code>CarbonTimeZone</code> object with 0 arguments,
+        the name is now mandatory to construct it.</p>
+
+    <p>Creating timezone with a bad/unknown name will now always throw an exception, it's no longer
+        possible to mute them by disabling strict-mode.</p>
 
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 
