@@ -148,7 +148,7 @@ class FactoryImmutable extends Factory implements ClockInterface
      */
     public static function getInstance(): Factory
     {
-        return self::$currentClock?->getFactory() ?? self::$defaultInstance ??= new self();
+        return self::$currentClock?->getFactory() ?? self::getDefaultInstance();
     }
 
     /**
