@@ -35,7 +35,7 @@ trait Timestamp
     }
 
     /**
-     * Create a Carbon instance from an timestamp keeping the timezone to UTC.
+     * Create a Carbon instance from a timestamp keeping the timezone to UTC.
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
