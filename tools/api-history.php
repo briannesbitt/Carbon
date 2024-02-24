@@ -27,20 +27,18 @@ $arguments = $argv ?? [];
 // $verbose = in_array('--verbose', $arguments, true);
 $target = $arguments[1] ?? null;
 
-function loadDependencies(): void
+function loadDependencies($baseDir = null): void
 {
+    $autoload = rtrim($baseDir ?: __DIR__.'/..', '\\/').'/vendor/autoload.php';
+
     try {
-        // Use relative path to follow chdir() location
-        $autoload = file_exists('vendor/autoload.php')
-            ? 'vendor/autoload.php'
-            : __DIR__.'/../vendor/autoload.php';
         require_once $autoload;
         require_once __DIR__.'/methods.php';
     } catch (Throwable $e) {
         echo "Catch\n";
         echo getcwd()."\n";
         echo $e->getMessage();
-        echo realpath('vendor/autoload.php')."\n\n";
+        echo realpath($autoload)."\n\n";
         echo (new Exception())->getTraceAsString();
         exit(1);
     }
@@ -63,9 +61,9 @@ if ($target === 'current') {
         chdir($sandbox);
     }
 
-    error_reporting(E_ERROR | E_PARSE);
+    error_reporting(E_ALL ^ (E_USER_DEPRECATED | E_DEPRECATED));
 
-    loadDependencies();
+    loadDependencies($sandbox);
 
     try {
         /**
@@ -188,9 +186,13 @@ function requireCarbon($branch): string
     $path = $path ? 'php '.$path : 'composer';
     $suffix = $verbose ? '' : ' 2>&1';
 
-    $result = executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
+    $result = executeCommand("$path require --no-plugins --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
 
     $files = [
+        'vendor/nesbot/carbon/src/Carbon/Carbon.php' => [
+            'function setLastErrors(array $lastErrors)' =>
+                'function setLastErrors(array|false $lastErrors)',
+        ],
         'vendor/nesbot/carbon/src/Carbon/Traits/Creator.php' => [
             'function setLastErrors(array $lastErrors)' =>
                 'function setLastErrors(array|false $lastErrors)',
@@ -198,6 +200,22 @@ function requireCarbon($branch): string
         'vendor/nesbot/carbon/src/Carbon/CarbonPeriod.php' => [
             'return $this->toArray();' =>
                 'return [static::class];',
+        ],
+        'vendor/nesbot/carbon/src/Carbon/CarbonInterface.php' => [
+            'public function modify($modify);' =>
+                '// public function modify($modify);',
+            'public function setDate($year, $month, $day);' =>
+                '// public function setDate($year, $month, $day);',
+            'public function setISODate($year, $week, $day = 1);' =>
+                '// public function setISODate($year, $week, $day = 1);',
+            'public function setISODate($year, $week, $day);' =>
+                '// public function setISODate($year, $week, $day);',
+            'public function setTime($hour, $minute, $second = 0, $microseconds = 0);' =>
+                '// public function setTime($hour, $minute, $second = 0, $microseconds = 0);',
+            'public function setTime($hour, $minute, $second, $microseconds);' =>
+                '// public function setTime($hour, $minute, $second, $microseconds);',
+            'public function setTimestamp($unixtimestamp);' =>
+                '// public function setTimestamp($unixtimestamp);',
         ],
     ];
 
@@ -233,19 +251,21 @@ function getMethodsOfVersion($version, bool $forceRebuild = false)
     }
 
     $branch = $version === MASTER_VERSION ? MASTER_BRANCH : $version;
-    removeDirectory('sandbox');
-    mkdir('sandbox');
-    chdir('sandbox');
+    $baseDir = dirname(__DIR__);
+    $sandboxDir = $baseDir . DIRECTORY_SEPARATOR . 'sandbox';
+    removeDirectory($sandboxDir);
+    mkdir($sandboxDir);
+    chdir($sandboxDir);
     $output = requireCarbon($branch);
-    chdir('..');
+    chdir($baseDir);
 
-    if (str_contains($output, 'Installation failed')) {
+    if (!file_exists($sandboxDir.'/vendor/autoload.php') || str_contains($output, 'Installation failed')) {
         writeFile('temp.txt', $output);
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
 
-    $output = shell_exec('php '.__FILE__.' current '.escapeshellarg('sandbox'));
+    $output = shell_exec('php '.__FILE__.' current '.escapeshellarg($sandboxDir));
 
     if (!empty($output)) {
         writeFile('tools/cache/methods_of_version_'.$version.'.json', $output);
@@ -255,11 +275,16 @@ function getMethodsOfVersion($version, bool $forceRebuild = false)
 }
 
 foreach (array_reverse($versions) as $index => $version) {
+    if (preg_match('/^\d+\.\d+\.\d+-/', $version)) {
+        // Skip pre-releases
+        continue;
+    }
+
     echo round($index * 100 / $count)."% $version\n";
 
     foreach ([false, true] as $forceRebuild) {
         $output = getMethodsOfVersion($version, $forceRebuild);
-        $data = @json_decode($output, true);
+        $data = is_string($output) ? @json_decode($output, true) : null;
         $decodable = is_array($data);
         $error = $decodable ? ($data['error'] ?? null) : ($output ?? 'Missing output');
 

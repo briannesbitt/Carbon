@@ -16,6 +16,7 @@ do {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_HEADER, 'X-GitHub-Api-Version: 2023-11-01');
 
     $env = [];
     $envFile = __DIR__.'/../.env';
@@ -30,8 +31,15 @@ do {
     }
 
     $json = curl_exec($ch);
-    $data = json_decode($json, true);
+
+    if (!is_string($json)) {
+        echo curl_errno($ch).': '.curl_error($ch)."\n";
+        curl_close($ch);
+        exit(1);
+    }
+
     curl_close($ch);
+    $data = json_decode($json, true);
 
     if (!(is_array($data) && array_is_list($data))) {
         echo 'Error (strlen = '.strlen($json).")\n";
