@@ -468,6 +468,16 @@ trait Comparison
     }
 
     /**
+     * Returns true if the date was 29 February in a leap year.
+     *
+     * @return bool
+     */
+    public function isLeapDay(): bool
+    {
+        return $this->isLeapYear() && str_ends_with($this->toDateString(), '02-29');
+    }
+
+    /**
      * Determines if the instance is a long year (using calendar year).
      *
      * ⚠️ This method completely ignores month and day to use the numeric year number,

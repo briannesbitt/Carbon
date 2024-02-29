@@ -360,4 +360,12 @@ class ComparisonTest extends AbstractTestCase
 
         $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
     }
+
+    public function testIsLeapDay()
+    {
+        $this->assertTrue(Carbon::createFromDate(2024, 2, 29)->isLeapDay());
+        $this->assertTrue(Carbon::createFromDate(2020, 2, 29)->isLeapDay());
+        $this->assertFalse(Carbon::createFromDate(2017, 2, 29)->isLeapDay());
+        $this->assertFalse(Carbon::createFromDate(2024, 4, 28)->isLeapDay());
+    }
 }
