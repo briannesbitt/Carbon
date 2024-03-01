@@ -2701,6 +2701,19 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isLeapYear(): bool;
 
     /**
+     * Determines if the instance is the 29 February of a leap year.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2024-02-29')->isLeapDay(); // true
+     * Carbon::parse('2020-02-29')->isLeapDay(); // true
+     * Carbon::parse('2017-02-29')->isLeapDay(); // false
+     * Carbon::parse('2024-04-28')->isLeapDay(); // false
+     * ```
+     */
+    public function isLeapDay(): bool;
+
+    /**
      * Determines if the instance is a long year (using ISO 8601 year).
      *
      * @example
