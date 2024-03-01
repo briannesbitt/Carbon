@@ -474,7 +474,7 @@ trait Comparison
      */
     public function isLeapDay(): bool
     {
-        return $this->isLeapYear() && str_ends_with($this->toDateString(), '02-29');
+        return $this->isLeapYear() && $this->format('m-d') === '02-29';
     }
 
     /**
