@@ -242,7 +242,7 @@ return [
     'TR' => 'Turkey',
     'TT' => 'Trinidad and Tobago',
     'TV' => 'Tuvalu',
-    'TW' => 'Taiwan, Province of China',
+    'TW' => 'Taiwan',
     'TZ' => 'Tanzania, United Republic of',
     'UA' => 'Ukraine',
     'UG' => 'Uganda',
