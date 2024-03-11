@@ -834,7 +834,7 @@ trait Difference
      *
      * @return integer
      */
-    private static function diffCalenderMonths(mixed $fromDate, mixed $toDate){
+    private static function diffCalendarMonths(mixed $fromDate, mixed $toDate){
         $fromDate = Carbon::parse($fromDate)->startOfMonth();
         $toDate = Carbon::parse($toDate)->startOfMonth();
         return $fromDate->diffInMonths($toDate);
