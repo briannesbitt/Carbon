@@ -2903,4 +2903,13 @@ trait Date
 
         return $this->get($name);
     }
+
+    private function diffCalenderMonths(mixed $fromDate, mixed $toDate){
+     
+        if (empty($fromDate) || empty($toDate)){
+            return null;
+        }
+
+        return $this->diffCalenderMonths($fromDate, $toDate);
+    }
 }
