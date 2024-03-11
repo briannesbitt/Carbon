@@ -825,16 +825,15 @@ trait Difference
 
     /**
      * Returns difference between two dates using calender months,
-     * (e.g. diffCalenderMonths(2023-12-25, 2024-02-10) = 2) (from Dec Until January and from January until February)).
-     *
-     * Language, date and time formats will change according to the current locale.
+     * (e.g. diffCalendarMonths(2023-12-25, 2024-02-10) = 2) (from Dec Until January and from January until February)).
      *
      * @param Carbon|\DateTimeInterface|string|null $fromDate
      * @param Carbon|\DateTimeInterface|string|null $toDate
      *
      * @return integer
      */
-    private static function diffCalendarMonths(mixed $fromDate, mixed $toDate){
+    private static function diffCalendarMonths(mixed $fromDate, mixed $toDate)
+    {
         $fromDate = Carbon::parse($fromDate)->startOfMonth();
         $toDate = Carbon::parse($toDate)->startOfMonth();
         return $fromDate->diffInMonths($toDate);
