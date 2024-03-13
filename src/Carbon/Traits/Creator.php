@@ -306,7 +306,7 @@ trait Creator
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param DateTimeInterface|int|null   $year
+     * @param string|DateTimeInterface|int|null   $year
      * @param int|null                     $month
      * @param int|null                     $day
      * @param int|null                     $hour
