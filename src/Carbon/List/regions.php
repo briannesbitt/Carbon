@@ -12,7 +12,32 @@ declare(strict_types=1);
  */
 
 /*
- * ISO 3166-2
+ * ISO 3166-2 short names.
+ *
+ * ⚠ Provided with No Warranty
+ *
+ * This list has no official value, and it's using short name, i.e. the first column of
+ * https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+ *
+ * Without the extra parenthesis unless a particular ambiguity in the list.
+ *
+ * For instance:
+ *  - Falkland Islands and Malvinas both to FK, but we keep only the first for brevity and
+ *    because there is no ambiguity in the list to justify longer name.
+ *  - For Sint Maarten/Saint Martin not to have any confusion between FM and SX codes that
+ *    are on the same island and so to be clear it's not referring to the whole island,
+ *    south (dutch-speaking) and north (french-speaking) parentheses are kept for disambiguation.
+ *  - For Virgin Islands, that can refer to either VG or VI, parentheses are also kept for
+ *    disambiguation.
+ *
+ * We won't take into consideration any change request in this list unless there is an update
+ * in ISO 3166-2 itself that we need to align to.
+ *
+ * It's a purely geographical helper, state sovereignty is out of scope, for political
+ * complains you should address them directly to https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+ *
+ * Anyone needing official state names (such as the second column of the wikipedia page above)
+ * should seek for another tool, this list is not meant to provide long names.
  */
 return [
     'AD' => 'Andorra',
@@ -43,7 +68,7 @@ return [
     'BL' => 'Saint Barthélemy',
     'BM' => 'Bermuda',
     'BN' => 'Brunei Darussalam',
-    'BO' => 'Bolivia (Plurinational State of)',
+    'BO' => 'Bolivia',
     'BQ' => 'Bonaire, Sint Eustatius and Saba',
     'BR' => 'Brazil',
     'BS' => 'Bahamas',
@@ -86,8 +111,8 @@ return [
     'ET' => 'Ethiopia',
     'FI' => 'Finland',
     'FJ' => 'Fiji',
-    'FK' => 'Falkland Islands (Malvinas)',
-    'FM' => 'Micronesia (Federated States of)',
+    'FK' => 'Falkland Islands',
+    'FM' => 'Micronesia',
     'FO' => 'Faroe Islands',
     'FR' => 'France',
     'GA' => 'Gabon',
@@ -122,7 +147,7 @@ return [
     'IN' => 'India',
     'IO' => 'British Indian Ocean Territory',
     'IQ' => 'Iraq',
-    'IR' => 'Iran (Islamic Republic of)',
+    'IR' => 'Iran',
     'IS' => 'Iceland',
     'IT' => 'Italy',
     'JE' => 'Jersey',
@@ -153,12 +178,12 @@ return [
     'LY' => 'Libya',
     'MA' => 'Morocco',
     'MC' => 'Monaco',
-    'MD' => 'Moldova, Republic of',
+    'MD' => 'Moldova',
     'ME' => 'Montenegro',
     'MF' => 'Saint Martin (French part)',
     'MG' => 'Madagascar',
     'MH' => 'Marshall Islands',
-    'MK' => 'Macedonia, the former Yugoslav Republic of',
+    'MK' => 'North Macedonia',
     'ML' => 'Mali',
     'MM' => 'Myanmar',
     'MN' => 'Mongolia',
@@ -197,7 +222,7 @@ return [
     'PM' => 'Saint Pierre and Miquelon',
     'PN' => 'Pitcairn',
     'PR' => 'Puerto Rico',
-    'PS' => 'Palestine, State of',
+    'PS' => 'Palestine',
     'PT' => 'Portugal',
     'PW' => 'Palau',
     'PY' => 'Paraguay',
@@ -243,7 +268,7 @@ return [
     'TT' => 'Trinidad and Tobago',
     'TV' => 'Tuvalu',
     'TW' => 'Taiwan',
-    'TZ' => 'Tanzania, United Republic of',
+    'TZ' => 'Tanzania',
     'UA' => 'Ukraine',
     'UG' => 'Uganda',
     'UM' => 'United States Minor Outlying Islands',
@@ -252,7 +277,7 @@ return [
     'UZ' => 'Uzbekistan',
     'VA' => 'Holy See',
     'VC' => 'Saint Vincent and the Grenadines',
-    'VE' => 'Venezuela (Bolivarian Republic of)',
+    'VE' => 'Venezuela',
     'VG' => 'Virgin Islands (British)',
     'VI' => 'Virgin Islands (U.S.)',
     'VN' => 'Viet Nam',
