@@ -265,7 +265,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'bool',
-                            $method.'(Carbon|DateTimeInterface|string|null $date = null)',
+                            $method.'(DateTimeInterface|string $date)',
                             "Checks if the given date is in the same $unitName as the instance. If null passed, compare to now (with the same timezone).",
                         ];
                     }
