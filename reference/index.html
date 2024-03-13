@@ -277,10 +277,10 @@ if null given or parse the input if string given.</p>
 
 <div class="doc-method " id="doc-method-Carbon-get">
     <h2><span class="class-name">Carbon::</span>get</h2>
-    <code>string $name</code>
+    <code>Carbon\Unit|string $name</code>
     <div class="doc-return">returns <code>mixed</code></div>
     <p class="doc-description">Get a part of the Carbon object.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $name</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $name</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $name</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$name</code></td></tr>
     </table>
 </div>
@@ -306,10 +306,10 @@ if null given or parse the input if string given.</p>
 
 <div class="doc-method " id="doc-method-Carbon-set">
     <h2><span class="class-name">Carbon::</span>set</h2>
-    <code>array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null</code>
+    <code>Carbon\Unit|array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set a part of the Carbon object.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$name, $value = null</code></td></tr>
     </table>
 </div>
@@ -2202,12 +2202,12 @@ current one).</p>
 
 <div class="doc-method " id="doc-method-Carbon-diffInUnit">
     <h2><span class="class-name">Carbon::</span>diffInUnit</h2>
-    <code>string $unit, $date = null, bool $absolute = false</code>
+    <code>Carbon\Unit|string $unit, $date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">@param string                                                 $unit     microsecond, millisecond, second, minute,
+    <p class="doc-description">@param Unit|string                                            $unit     microsecond, millisecond, second, minute,
 hour, day, week, month, quarter, year,
 century, millennium</p>
-    <table class='info-table method-history'>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $unit, $date = null, bool $absolute = false</code></td></tr>
         <tr><td>Method added</td><td>3.0.0</td><td><code>string $unit, $date = null, bool $absolute = false</code></td></tr>
     </table>
 </div>
@@ -3593,7 +3593,7 @@ is anything that is not null.</p>
     <h2><span class="class-name">Carbon::</span>createFromTimestampUTC</h2>
     <code>string|int|float $timestamp</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Create a Carbon instance from an timestamp keeping the timezone to UTC.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
+    <p class="doc-description">Create a Carbon instance from a timestamp keeping the timezone to UTC.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string|int|float $timestamp</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$timestamp</code></td></tr>
     </table>
@@ -3713,20 +3713,20 @@ into the past while negative $value travels forward.</p>
 
 <div class="doc-method " id="doc-method-Carbon-addUnit">
     <h2><span class="class-name">Carbon::</span>addUnit</h2>
-    <code>string $unit, $value = 1, ?bool $overflow = null</code>
+    <code>Carbon\Unit|string $unit, $value = 1, ?bool $overflow = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Add given units to the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, $value = 1, ?bool $overflow = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $unit, $value = 1, ?bool $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, $value = 1, ?bool $overflow = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-subUnit">
     <h2><span class="class-name">Carbon::</span>subUnit</h2>
-    <code>string $unit, $value = 1, ?bool $overflow = null</code>
+    <code>Carbon\Unit|string $unit, $value = 1, ?bool $overflow = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract given units to the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, $value = 1, ?bool $overflow = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $unit, $value = 1, ?bool $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, $value = 1, ?bool $overflow = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr>
     </table>
 </div>
@@ -5472,10 +5472,10 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 
 <div class="doc-method " id="doc-method-CarbonInterval-get">
     <h2><span class="class-name">CarbonInterval::</span>get</h2>
-    <code>string $name</code>
-    <div class="doc-return">returns <code>int|float|string</code></div>
+    <code>Carbon\Unit|string $name</code>
+    <div class="doc-return">returns <code>string|int|float|null</code></div>
     <p class="doc-description">Get a part of the CarbonInterval object.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $name</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $name</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $name</code></td></tr>
         <tr><td>Method added</td><td>2.37.0</td><td><code>$name</code></td></tr>
     </table>
 </div>
@@ -5483,7 +5483,7 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 <div class="doc-method " id="doc-method-CarbonInterval-__get">
     <h2><span class="class-name">CarbonInterval::</span>__get</h2>
     <code>string $name</code>
-    <div class="doc-return">returns <code>int|float|string</code></div>
+    <div class="doc-return">returns <code>string|int|float|null</code></div>
     <p class="doc-description">Get a part of the CarbonInterval object.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $name</code></td></tr>
         <tr><td>Method added</td><td>1.18.0</td><td><code>$name</code></td></tr>
@@ -8617,7 +8617,8 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">Language::</span>regions</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>array</code></div>
-    <p class="doc-description">Get the list of the known regions.</p>
+    <p class="doc-description">Get the list of the known regions.<br><br>⚠ ISO 3166-2 short name provided with no warranty, should not
+be used for any purpose to show official state names.</p>
     <table class='info-table method-history'>
         <tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr>
     </table>
@@ -8687,7 +8688,8 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">Language::</span>getRegionName</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">Returns the region name for the current language.</p>
+    <p class="doc-description">Returns the region name for the current language.<br><br>⚠ ISO 3166-2 short name provided with no warranty, should not
+be used for any purpose to show official state names.</p>
     <table class='info-table method-history'>
         <tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr>
     </table>

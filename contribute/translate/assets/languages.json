@@ -347,7 +347,7 @@
         "id": "ar_PS",
         "code": "ar",
         "region": "PS",
-        "regionName": "Palestine, State of",
+        "regionName": "Palestine",
         "variant": null
     },
     {
@@ -536,7 +536,7 @@
         "id": "az_IR",
         "code": "az",
         "region": "IR",
-        "regionName": "Iran (Islamic Republic of)",
+        "regionName": "Iran",
         "variant": null
     },
     {
@@ -1004,7 +1004,7 @@
         "id": "cmn_TW",
         "code": "cmn",
         "region": "TW",
-        "regionName": "Taiwan, Province of China",
+        "regionName": "Taiwan",
         "variant": null
     },
     {
@@ -1634,7 +1634,7 @@
         "id": "en_FK",
         "code": "en",
         "region": "FK",
-        "regionName": "Falkland Islands (Malvinas)",
+        "regionName": "Falkland Islands",
         "variant": null
     },
     {
@@ -1643,7 +1643,7 @@
         "id": "en_FM",
         "code": "en",
         "region": "FM",
-        "regionName": "Micronesia (Federated States of)",
+        "regionName": "Micronesia",
         "variant": null
     },
     {
@@ -2219,7 +2219,7 @@
         "id": "en_TZ",
         "code": "en",
         "region": "TZ",
-        "regionName": "Tanzania, United Republic of",
+        "regionName": "Tanzania",
         "variant": null
     },
     {
@@ -2372,7 +2372,7 @@
         "id": "es_BO",
         "code": "es",
         "region": "BO",
-        "regionName": "Bolivia (Plurinational State of)",
+        "regionName": "Bolivia",
         "variant": null
     },
     {
@@ -2597,7 +2597,7 @@
         "id": "es_VE",
         "code": "es",
         "region": "VE",
-        "regionName": "Venezuela (Bolivarian Republic of)",
+        "regionName": "Venezuela",
         "variant": null
     },
     {
@@ -2669,7 +2669,7 @@
         "id": "fa_IR",
         "code": "fa",
         "region": "IR",
-        "regionName": "Iran (Islamic Republic of)",
+        "regionName": "Iran",
         "variant": null
     },
     {
@@ -3479,7 +3479,7 @@
         "id": "hak_TW",
         "code": "hak",
         "region": "TW",
-        "regionName": "Taiwan, Province of China",
+        "regionName": "Taiwan",
         "variant": null
     },
     {
@@ -4469,7 +4469,7 @@
         "id": "lzh_TW",
         "code": "lzh",
         "region": "TW",
-        "regionName": "Taiwan, Province of China",
+        "regionName": "Taiwan",
         "variant": null
     },
     {
@@ -4523,7 +4523,7 @@
         "id": "mas_TZ",
         "code": "mas",
         "region": "TZ",
-        "regionName": "Tanzania, United Republic of",
+        "regionName": "Tanzania",
         "variant": null
     },
     {
@@ -4676,7 +4676,7 @@
         "id": "mk_MK",
         "code": "mk",
         "region": "MK",
-        "regionName": "Macedonia, the former Yugoslav Republic of",
+        "regionName": "North Macedonia",
         "variant": null
     },
     {
@@ -4865,7 +4865,7 @@
         "id": "nan_TW",
         "code": "nan",
         "region": "TW",
-        "regionName": "Taiwan, Province of China",
+        "regionName": "Taiwan",
         "variant": null
     },
     {
@@ -5513,7 +5513,7 @@
         "id": "qu_BO",
         "code": "qu",
         "region": "BO",
-        "regionName": "Bolivia (Plurinational State of)",
+        "regionName": "Bolivia",
         "variant": null
     },
     {
@@ -5594,7 +5594,7 @@
         "id": "ro_MD",
         "code": "ro",
         "region": "MD",
-        "regionName": "Moldova, Republic of",
+        "regionName": "Moldova",
         "variant": null
     },
     {
@@ -5657,7 +5657,7 @@
         "id": "ru_MD",
         "code": "ru",
         "region": "MD",
-        "regionName": "Moldova, Republic of",
+        "regionName": "Moldova",
         "variant": null
     },
     {
@@ -6152,7 +6152,7 @@
         "id": "sq_MK",
         "code": "sq",
         "region": "MK",
-        "regionName": "Macedonia, the former Yugoslav Republic of",
+        "regionName": "North Macedonia",
         "variant": null
     },
     {
@@ -6377,7 +6377,7 @@
         "id": "sw_TZ",
         "code": "sw",
         "region": "TZ",
-        "regionName": "Tanzania, United Republic of",
+        "regionName": "Tanzania",
         "variant": null
     },
     {
@@ -7349,7 +7349,7 @@
         "id": "zh_Hant_TW",
         "code": "zh",
         "region": "TW",
-        "regionName": "Taiwan, Province of China",
+        "regionName": "Taiwan",
         "variant": "Hant"
     },
     {
@@ -7376,7 +7376,7 @@
         "id": "zh_TW",
         "code": "zh",
         "region": "TW",
-        "regionName": "Taiwan, Province of China",
+        "regionName": "Taiwan",
         "variant": null
     },
     {
