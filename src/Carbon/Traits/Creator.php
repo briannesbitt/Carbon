@@ -306,13 +306,13 @@ trait Creator
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param DateTimeInterface|int|null   $year
-     * @param int|null                     $month
-     * @param int|null                     $day
-     * @param int|null                     $hour
-     * @param int|null                     $minute
-     * @param int|null                     $second
-     * @param DateTimeZone|string|int|null $timezone
+     * @param DateTimeInterface|string|int|null $year
+     * @param int|null                          $month
+     * @param int|null                          $day
+     * @param int|null                          $hour
+     * @param int|null                          $minute
+     * @param int|null                          $second
+     * @param DateTimeZone|string|int|null      $timezone
      *
      * @throws InvalidFormatException
      *
