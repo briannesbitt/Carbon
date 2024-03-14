@@ -21,7 +21,7 @@ use DateTimeZone;
 trait Timestamp
 {
     /**
-     * Create a Carbon instance from a timestamp and set the timezone (use default one if not specified).
+     * Create a Carbon instance from a timestamp and set the timezone (UTC by default).
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
