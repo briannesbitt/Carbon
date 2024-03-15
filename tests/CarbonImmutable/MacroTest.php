@@ -163,7 +163,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $subCarbon = new SubCarbonImmutable('2024-01-24 00:00');
 
-        SubCarbonImmutable::macro('diffInDecades', function (SubCarbonImmutable|string $dt = null, $abs = true) {
+        SubCarbonImmutable::macro('diffInDecades', function (SubCarbonImmutable|string|null $dt = null, $abs = true) {
             return (int) ($this->diffInYears($dt, $abs) / 10);
         });
 

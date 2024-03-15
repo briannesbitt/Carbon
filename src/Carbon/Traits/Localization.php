@@ -347,7 +347,7 @@ trait Localization
      *
      * @return $this|string
      */
-    public function locale(string $locale = null, string ...$fallbackLocales): static|string
+    public function locale(?string $locale = null, string ...$fallbackLocales): static|string
     {
         if ($locale === null) {
             return $this->getTranslatorLocale();

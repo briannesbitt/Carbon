@@ -925,7 +925,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function toggleOptions(int $options, bool $state = null): static
+    public function toggleOptions(int $options, ?bool $state = null): static
     {
         if ($state === null) {
             $state = ($this->options & $options) !== $options;
@@ -1216,7 +1216,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      *
      * @return static
      */
-    public function setStartDate(mixed $date, bool $inclusive = null): static
+    public function setStartDate(mixed $date, ?bool $inclusive = null): static
     {
         if (!$this->isInfiniteDate($date) && !($date = ([$this->dateClass, 'make'])($date))) {
             throw new InvalidPeriodDateException('Invalid start date.');

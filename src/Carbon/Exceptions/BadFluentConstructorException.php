@@ -32,7 +32,7 @@ class BadFluentConstructorException extends BaseBadMethodCallException implement
      * @param int            $code
      * @param Throwable|null $previous
      */
-    public function __construct($method, $code = 0, Throwable $previous = null)
+    public function __construct($method, $code = 0, ?Throwable $previous = null)
     {
         $this->method = $method;
 
