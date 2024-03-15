@@ -33,7 +33,7 @@ class NotACarbonClassException extends BaseInvalidArgumentException implements I
      * @param int            $code
      * @param Throwable|null $previous
      */
-    public function __construct($className, $code = 0, Throwable $previous = null)
+    public function __construct($className, $code = 0, ?Throwable $previous = null)
     {
         $this->className = $className;
 

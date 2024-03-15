@@ -28,7 +28,7 @@ $transMethod = new ReflectionMethod(
 if ($transMethod->hasReturnType()) {
     class NoLocaleTranslator implements TranslatorInterface
     {
-        public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
+        public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
         {
             return $id;
         }

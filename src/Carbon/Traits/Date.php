@@ -1380,7 +1380,7 @@ trait Date
      *
      * @return $this
      */
-    public function set(Unit|array|string $name, DateTimeZone|Month|string|int|float $value = null): static
+    public function set(Unit|array|string $name, DateTimeZone|Month|string|int|float|null $value = null): static
     {
         if ($this->isImmutable()) {
             throw new ImmutableException(sprintf('%s class', static::class));
@@ -2503,7 +2503,7 @@ trait Date
      * @param string    $unit  year, month, day, hour, minute, second or microsecond
      * @param Month|int $value new value for given unit
      */
-    public function setUnit(string $unit, Month|int|float $value = null): static
+    public function setUnit(string $unit, Month|int|float|null $value = null): static
     {
         if (\is_float($value)) {
             $int = (int) $value;

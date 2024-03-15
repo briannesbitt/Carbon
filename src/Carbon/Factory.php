@@ -251,7 +251,7 @@ class Factory
         return $this;
     }
 
-    public function className(string $className = null): self|string
+    public function className(?string $className = null): self|string
     {
         return $className === null ? $this->getClassName() : $this->setClassName($className);
     }
@@ -268,7 +268,7 @@ class Factory
         return $this;
     }
 
-    public function settings(array $settings = null): self|array
+    public function settings(?array $settings = null): self|array
     {
         return $settings === null ? $this->getSettings() : $this->setSettings($settings);
     }

@@ -225,7 +225,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertInstanceOf(CarbonInterval::class, $d);
     }
 
-    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null): void
+    public function wrapWithTestNow(Closure $func, ?CarbonInterface $dt = null): void
     {
         $test = Carbon::getTestNow();
         $immutableTest = CarbonImmutable::getTestNow();
