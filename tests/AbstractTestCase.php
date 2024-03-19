@@ -342,4 +342,14 @@ abstract class AbstractTestCase extends TestCase
     {
         $this->assertSame($this->initialOptions | $options, $period->getOptions());
     }
+
+    protected function assertVeryClose(mixed $expected, mixed $actual, string $message = ''): void
+    {
+        $this->assertEqualsWithDelta(
+            $expected,
+            $actual,
+            0.000000000000001,
+            $message,
+        );
+    }
 }

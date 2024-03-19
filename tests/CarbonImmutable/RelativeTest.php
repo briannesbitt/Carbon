@@ -42,9 +42,9 @@ class RelativeTest extends AbstractTestCase
         $this->assertSame(60.0, $d->secondsUntilEndOfDay());
 
         $d = Carbon::create(2014, 10, 24, 12, 34, 56);
-        $this->assertEqualsWithDelta(41103.999999, $d->secondsUntilEndOfDay(), 0.00001);
+        $this->assertVeryClose(41103.999999, $d->secondsUntilEndOfDay());
 
         $d = Carbon::create(2014, 10, 24, 0, 0, 0);
-        $this->assertEqualsWithDelta(86399.999999, $d->secondsUntilEndOfDay(), 0.00001);
+        $this->assertVeryClose(86399.99999899999, $d->secondsUntilEndOfDay());
     }
 }
