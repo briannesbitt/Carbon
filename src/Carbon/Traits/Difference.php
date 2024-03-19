@@ -235,17 +235,33 @@ trait Difference
      */
     public function diffInDays($date = null, bool $absolute = false): float
     {
-        $date = $this->resolveUTC($date);
-        $utc = $this->copy()->utc();
+        $date = $this->resolveCarbon($date);
+        $current = $this->copy();
+        $sameTimezone = ($date->timezoneName === $current->timezoneName);
 
-        $hoursDiff = $utc->diffInHours($date, $absolute);
-        $interval = $utc->diffAsDateInterval($date, $absolute);
+        if (!$sameTimezone) {
+            $date = $date->utc();
+            $current = $current->utc();
+        }
+
+        $interval = $current->diffAsDateInterval($date, $absolute);
+
+        if ($sameTimezone) {
+            $minutes = $interval->i + ($interval->s + $interval->f) / static::SECONDS_PER_MINUTE;
+            $hours = ($interval->invert ? -1 : 1) * ($interval->h + $minutes / static::MINUTES_PER_HOUR);
+
+            return $this->getIntervalDayDiff($interval)
+                + $hours / static::HOURS_PER_DAY;
+        }
+
+        $hoursDiff = $current->diffInHours($date, $absolute);
 
         if ($interval->y === 0 && $interval->m === 0 && $interval->d === 0) {
             return $hoursDiff / static::HOURS_PER_DAY;
         }
 
-        return $this->getIntervalDayDiff($interval) + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+        return $this->getIntervalDayDiff($interval)
+            + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
     }
 
     /**

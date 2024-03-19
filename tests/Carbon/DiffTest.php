@@ -21,6 +21,7 @@ use Carbon\Exceptions\UnknownUnitException;
 use Carbon\Unit;
 use Closure;
 use DateTime;
+use DateTimeImmutable;
 use Tests\AbstractTestCase;
 use TypeError;
 
@@ -2041,5 +2042,63 @@ class DiffTest extends AbstractTestCase
             'skip' => ['m', 'w'],
             'minimumUnit' => 'd',
         ]));
+    }
+
+    /**
+     * DST will be ignored (i.e. a day will be considered 23 hours/25 hours if it has a DST)
+     * only if the date the object is compared to is on the exact same timezone (or is a string
+     * with no timezone specified).
+     *
+     * Same cities being currently on the same offset (Europe/Rome and Europe/Berlin for
+     * instance) are not considered the same timezone because they may potentially become
+     * different in the future.
+     */
+    public function testDiffWithTimezones()
+    {
+        $this->assertSame(
+            -132.0,
+            Carbon::parse('2024-02-06', 'Europe/Rome')->diffInDays('2023-09-27'),
+        );
+        $this->assertSame(
+            -132.0,
+            Carbon::parse('2024-02-06 Europe/Rome')->diffInDays('2023-09-27 Europe/Rome'),
+        );
+        $this->assertSame(
+            -132.0,
+            Carbon::parse('2024-02-06 22:12', 'Europe/Rome')->diffInDays('2023-09-27 22:12'),
+        );
+        $this->assertSame(
+            -132.0,
+            Carbon::parse('2024-02-06', 'Europe/Rome')->diffInDays(Carbon::parse('2023-09-27', 'Europe/Rome')),
+        );
+        $this->assertSame(
+            -132.0,
+            Carbon::parse('2024-02-06 Europe/Rome')->diffInDays(new DateTimeImmutable('2023-09-27 Europe/Rome')),
+        );
+        $this->assertEqualsWithDelta(
+            -132.04166666666666,
+            Carbon::parse('2024-02-06', 'Europe/Rome')->diffInDays('2023-09-27 Europe/Berlin'),
+            0.0000000001,
+        );
+        $this->assertEqualsWithDelta(
+            -132.04166666666666,
+            Carbon::parse('2024-02-06', 'Europe/Rome')->diffInDays(Carbon::parse('2023-09-27', 'Europe/Berlin')),
+            0.0000000001,
+        );
+        $this->assertEqualsWithDelta(
+            -132.04166666666666,
+            Carbon::parse('2024-02-06 Europe/Rome')->diffInDays(Carbon::parse('2023-09-27 Europe/Berlin')),
+            0.0000000001,
+        );
+        $this->assertSame(
+            -10.0,
+            Carbon::parse('2024-03-01', 'America/New_York')->addDays(10)
+                ->diffInDays(Carbon::parse('2024-03-01', 'America/New_York')),
+        );
+        $this->assertSame(
+            -10.0,
+            Carbon::parse('2024-04-01', 'America/New_York')->addDays(10)
+                ->diffInDays(Carbon::parse('2024-04-01', 'America/New_York')),
+        );
     }
 }
