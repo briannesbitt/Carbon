@@ -236,22 +236,22 @@ trait Difference
     public function diffInDays($date = null, bool $absolute = false): float
     {
         $date = $this->resolveCarbon($date);
-        $current = $this->copy();
+        $current = $this;
         $sameTimezone = ($date->timezoneName === $current->timezoneName);
 
         if (!$sameTimezone) {
-            $date = $date->utc();
-            $current = $current->utc();
+            $date = $date->copy()->utc();
+            $current = $current->copy()->utc();
         }
 
         $interval = $current->diffAsDateInterval($date, $absolute);
 
         if ($sameTimezone) {
             $minutes = $interval->i + ($interval->s + $interval->f) / static::SECONDS_PER_MINUTE;
-            $hours = ($interval->invert ? -1 : 1) * ($interval->h + $minutes / static::MINUTES_PER_HOUR);
+            $hours = $interval->h + $minutes / static::MINUTES_PER_HOUR;
 
             return $this->getIntervalDayDiff($interval)
-                + $hours / static::HOURS_PER_DAY;
+                + ($interval->invert ? -$hours : $hours) / static::HOURS_PER_DAY;
         }
 
         $hoursDiff = $current->diffInHours($date, $absolute);
