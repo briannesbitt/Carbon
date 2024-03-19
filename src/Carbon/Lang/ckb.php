@@ -11,7 +11,8 @@
 
 /*
  * Authors:
- * - Swara Mohammed and Kawan Pshtiwan
+ * - Swara Mohammed
+ * - Kawan Pshtiwan
  */
 $months = [
     'کانونی دووەم',
