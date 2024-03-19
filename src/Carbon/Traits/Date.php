@@ -2592,8 +2592,29 @@ trait Date
      */
     public function __call(string $method, array $parameters): mixed
     {
-        if (preg_match('/^(?:diff|floatDiff)In(?:Real)?(.+)$/', $method, $match)) {
-            $method = 'diffIn'.$match[1];
+        if (preg_match('/^(diff|floatDiff)In(Real|UTC|Utc)?(.+)$/', $method, $match)) {
+            $mode = strtoupper($match[2] ?? '');
+            $betterMethod = $match[1] === 'floatDiff' ? str_replace('floatDiff', 'diff', $method) : null;
+
+            if ($mode === 'REAL') {
+                $mode = 'UTC';
+                $betterMethod = str_replace($match[1], 'UTC', $betterMethod ?? $method);
+            }
+
+            if ($betterMethod) {
+                @trigger_error(
+                    "Use the method $betterMethod instead to make it more explicit about what it does.\n".
+                    'On next major version, "float" prefix will be removed (as all diff are now returning floating numbers)'.
+                    ' and "Real" methods will be removed in favor of "UTC" because what it actually does is to convert both'.
+                    ' dates to UTC timezone before comparison, while by default it does it only if both dates don\'t have'.
+                    ' exactly the same timezone (Note: 2 timezones with the same offset but different names are considered'.
+                    ' different as it\'s not safe to assume they will always have the same offset).',
+                    \E_USER_DEPRECATED,
+                );
+            }
+
+            $method = 'diffIn'.$match[3];
+            $parameters['utc'] = ($mode === 'UTC');
 
             if (method_exists($this, $method)) {
                 return $this->$method(...$parameters);

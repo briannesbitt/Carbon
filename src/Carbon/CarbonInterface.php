@@ -1626,10 +1626,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInDays($date = null, bool $absolute = false): float;
+    public function diffInDays($date = null, bool $absolute = false, bool $utc = false): float;
 
     /**
      * Get the difference in days using a filter closure rounded down.
@@ -1698,20 +1699,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInMonths($date = null, bool $absolute = false): float;
+    public function diffInMonths($date = null, bool $absolute = false, bool $utc = false): float;
 
     /**
      * Get the difference in quarters rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInQuarters($date = null, bool $absolute = false): float;
+    public function diffInQuarters($date = null, bool $absolute = false, bool $utc = false): float;
 
     /**
      * Get the difference in seconds rounded down.
@@ -1729,10 +1732,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                                         century, millennium
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInUnit(Unit|string $unit, $date = null, bool $absolute = false): float;
+    public function diffInUnit(Unit|string $unit, $date = null, bool $absolute = false, bool $utc = false): float;
 
     /**
      * Get the difference in weekdays rounded down.
@@ -1759,20 +1763,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInWeeks($date = null, bool $absolute = false): float;
+    public function diffInWeeks($date = null, bool $absolute = false, bool $utc = false): float;
 
     /**
      * Get the difference in years
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInYears($date = null, bool $absolute = false): float;
+    public function diffInYears($date = null, bool $absolute = false, bool $utc = false): float;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
