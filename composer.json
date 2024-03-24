@@ -51,14 +51,14 @@
     "require-dev": {
         "doctrine/dbal": "^3.6.3 || ^4.0",
         "doctrine/orm": "^2.15.2 || ^3.0",
-        "friendsofphp/php-cs-fixer": "^3.18.0",
-        "kylekatarnls/multi-tester": "^2.2.0",
-        "ondrejmirtes/better-reflection": "^6.11.0.0",
-        "phpmd/phpmd": "^2.13.0",
-        "phpstan/extension-installer": "^1.3.0",
-        "phpstan/phpstan": "^1.10.20",
-        "phpunit/phpunit": "^10.2.2",
-        "squizlabs/php_codesniffer": "^3.7.2"
+        "friendsofphp/php-cs-fixer": "^3.52.1",
+        "kylekatarnls/multi-tester": "^2.5.3",
+        "ondrejmirtes/better-reflection": "^6.25.0.4",
+        "phpmd/phpmd": "^2.15.0",
+        "phpstan/extension-installer": "^1.3.1",
+        "phpstan/phpstan": "^1.10.65",
+        "phpunit/phpunit": "^10.5.15",
+        "squizlabs/php_codesniffer": "^3.9.0"
     },
     "provide": {
         "psr/clock-implementation": "1.0"
