@@ -2613,8 +2613,12 @@ trait Date
                 );
             }
 
-            $method = 'diffIn'.$match[3];
-            $parameters['utc'] = ($mode === 'UTC');
+            $unit = self::pluralUnit($match[3]);
+            $method = 'diffIn'.ucfirst($unit);
+
+            if (\in_array($unit, ['days', 'weeks', 'months', 'quarters', 'years'])) {
+                $parameters['utc'] = ($mode === 'UTC');
+            }
 
             if (method_exists($this, $method)) {
                 return $this->$method(...$parameters);

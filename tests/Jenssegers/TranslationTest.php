@@ -77,7 +77,6 @@ class TranslationTest extends TestCaseBase
         $this->assertSame('vor 5 Sekunden', $date->ago());
     }
 
-    /** @group i */
     public function testTimespanTranslated()
     {
         JenssegersDate::setLocale('nl');
