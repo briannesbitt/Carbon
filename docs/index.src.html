@@ -328,9 +328,9 @@ echo "\n";
 
     <p>You can create instances from <a href="http://en.wikipedia.org/wiki/Unix_time">unix
         timestamps</a>. <code>createFromTimestamp()</code> create a Carbon instance equal to the given timestamp and
-        will set the timezone as well or default it to the current timezone. <code>createFromTimestampUTC()</code>, is
-        different in that the timezone will remain UTC (GMT+00:00), it's equivalent to <code>Carbon::parse('@'.$timestamp)</code>
-        but it supports int, float or string containing one or more numbers (like the one produced by <code>microtime()</code>)
+        will set the timezone to the given timezone as second parameter, or to UTC if non given (since Carbon 3)
+        (in previous versions it defaulted to <code>date_default_timezone_get()</code>). It supports int, float or
+        string containing one or more numbers (like the one produced by <code>microtime()</code>)
         so it can also set microseconds with no precision lost. The third, <code>createFromTimestampMs()</code>, accepts a
         timestamp in milliseconds instead of seconds. Negative timestamps are also allowed.</p>
 
@@ -5034,6 +5034,18 @@ try {
 
     <p>If you plan to migrate from Carbon 2 to Carbon 3, please note the following breaking changes you should
         take care of.</p>
+
+    <h2 id="api-carbon-3-create-from-timestamp-utc">createFromTimestamp UTC by default</h2>
+
+    <p>Timezone for <code>createFromTimestamp</code> was previously <code>date_default_timezone_get()</code> in Carbon 2.</p>
+
+    <p>In Carbon 3, it's now <code>"UTC"</code> so to be consistent with <code>DateTime</code> behavior when doing <code>new DateTime('@123')</code>.</p>
+
+    <p>Those who use UTC as default timezone will not be impacted. As a reminder we strongly recommend this setup. See
+        <a href="#api-timezone">timezone section</a></p>
+
+    <p>We also recommend to always call <code>createFromTimestamp</code> with 2 parameters (i.e. explicitly pass a timezone)
+        or to use <code>createFromTimestampUTC()</code>.</p>
 
     <h2 id="api-carbon-3-diff-in">diffIn*</h2>
 
