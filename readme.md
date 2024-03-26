@@ -66,7 +66,7 @@ $ composer require nesbot/carbon
 ```json
 {
     "require": {
-        "nesbot/carbon": "^2.16"
+        "nesbot/carbon": "^3"
     }
 }
 ```
@@ -93,9 +93,16 @@ use Carbon\Carbon;
 printf("Now: %s", Carbon::now());
 ```
 
-## Docs
+## Documentation
 
 [https://carbon.nesbot.com/docs](https://carbon.nesbot.com/docs)
+
+⚠️ Documentation is being updated to reflect behavior on the version 3
+[See the migration section listing the main differences between Carbon 2 and Carbon 3](https://carbon.nesbot.com/docs/#api-carbon-3)
+
+If you see a section referring to Carbon 2 behavior outside this section
+or have any doubt about other documentation part, do not hesitate to open
+an issue to raise it.
 
 ## Security contact information
 
@@ -130,12 +137,14 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="Актуальний та повносправний рейтинг онлайн казино України, ґрунтований на відгуках реальних гравців." href="https://uk.onlinecasino.in.ua/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Онлайн казино України" src="https://opencollective-production.s3.us-west-1.amazonaws.com/c0b4b090-eef8-11ec-9cb7-0527a205b226.png" width="64" height="64"></a>
 <a title="OnlineCasinosSpelen" href="https://onlinecasinosspelen.com?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="OnlineCasinosSpelen" src="https://logo.clearbit.com/onlinecasinosspelen.com" width="64" height="64"></a>
 <a title="Актуальний топ-рейтинг українських онлайн казино на гривні! Щоденне оновлення топу та унікальна система ранжування, основана на відгуках гравців!" href="https://onlinecasino.in.ua/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Онлайн Казино Украины" src="https://opencollective-production.s3.us-west-1.amazonaws.com/8fdd8aa0-e273-11ec-a95e-d38fd331cabf.png" width="64" height="64"></a>
+<a title="Parimatch" href="https://parimattchbr.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Parimatch" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/d3d74dd5-49a3-4306-b99e-7445b78a4243/parimatch_-_hero_-_white.png" width="114" height="64"></a>
 <a title="Best non Gamstop sites in the UK" href="https://nongamstopcasinos.net/gb/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Best non Gamstop sites in the UK" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/34e340b8-e1de-4932-8a76-1b3ce2ec7ee8/logo_white%20bg%20(8).png" width="64" height="64"></a>
 <a title="Real Money Pokies" href="https://www.nzfirst.org.nz/real-money-pokies/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Real Money Pokies" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/30d38232-a9d6-4e95-a48c-641fdc4d96fd/NZ_logo%20(6)%20(1)%20(1).jpg" width="64" height="64"></a>
 <a title="Non GamStop Bookies UK" href="https://nongamstopbookies.com/uk/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Non GamStop Bookies UK" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/43c5561c-8907-4ef7-a4ee-c6da054788b8/logo-site%20(3).jpg" width="64" height="64"></a>
 <a title="Entertainment" href="https://www.nongamstopbets.com/casinos-not-on-gamstop/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Non-GamStop Bets UK" src="https://logo.clearbit.com/nongamstopbets.com" width="64" height="64"></a>
-<a title="Twitter Video Downloader HD Tool allows you to store tweets on your device (mobile or PC) for free." href="https://ssstwitter.online/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="SSSTwitter" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/ba0d1daf-a894-4d98-95f7-a44d321364b3/Screenshot%202024-01-16%20at%2011.43.22.png" width="50" height="42"></a>
 <a title="Promo Codes and Coupons in Real-Time" href="https://www.greenpromocode.com?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="GreenPromoCode.com" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/f1160a04-f5dc-4661-aa66-f0cdd8c976a0/greenpromocode_full_1618294538.jpg" width="42" height="42"></a>
+<a title="Twitter Video Downloader HD Tool allows you to store tweets on your device (mobile or PC) for free." href="https://ssstwitter.online/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="SSSTwitter" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/ba0d1daf-a894-4d98-95f7-a44d321364b3/Screenshot%202024-01-16%20at%2011.43.22.png" width="50" height="42"></a>
+<a title="Fortune Tiger" href="https://fortune-tiger-br.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Fortune Tiger" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/88904f4a-f997-49e8-8fd4-5068acc85a98/fortune-tiger-slot-281-img-2.webp" width="42" height="42"></a>
 <a title="Chudovo - international software development company with representative offices in Kyiv, Cologne, New York, Tallinn and London. It has been working on the market since 2006. Company has domain expertise in video security, logistics, medicine, finance and" href="https://chudovo.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Chudovo" src="https://opencollective-production.s3.us-west-1.amazonaws.com/326c19a0-2e87-11eb-a13a-c99a2a201d11.png" width="84" height="42"></a>
 <a title="Entertainment" href="https://casinogap.org/uk/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="UK Casino Gap" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/143f9301-beec-4118-89d5-9a07a01345f3/casinogap-uk.png" width="42" height="42"></a>
 <a title="NZ Gaming Portal" href="https://casinodeps.co.nz?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="NZ Casino Deps" src="https://logo.clearbit.com/casinodeps.co.nz" width="42" height="42"></a>
@@ -148,6 +157,11 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="We will boost your Social Media Likes, Followers , Comments &amp; Views. 24/7 hour support. Privacy Assured." href="https://organicsocialboost.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Organic Social Boost" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/d6773611-52ed-420e-94ed-e4a48a688f7c/Organic%20Social%20Boost%20Youtube%20Services.png" width="42" height="42"></a>
 <a title="BestKru" href="https://bestkru.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="BestKru" src="https://logo.clearbit.com/bestkru.com" width="42" height="42"></a>
 <a title="Sunset City Mushrooms" href="https://www.sunsetcity.ca/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Sunset City Mushrooms" src="https://logo.clearbit.com/www.sunsetcity.ca" width="42" height="42"></a>
+<a title="At TikTokFame, we take immense pride in our role as the premier platform for boosting TikTok engagement. Our expertise lies in enhancing likes." href="https://tiktokfame.co/buy-tiktok-followers/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="TikTokFame" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/32ddc473-84f6-46df-8b5b-0fe04eedce2e/New%20Project%20(30).png" width="42" height="42"></a>
+<a title="Hall Effect Game Controllers" href="https://www.reddit.com/r/goodsmallgames/comments/1b5w5rf/full_list_of_hall_effect_controllers_pc_xbox_ps5/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Hall Effect Game Controllers" src="https://logo.clearbit.com/reddit.com" width="42" height="42"></a>
+<a title="Helping people" href="https://glitteringgenerality.com?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="GlitteringGenerality" src="https://images.opencollective.com/glitteringgeneralityy/avatar/256.png" width="42" height="42"></a>
+<a title="rapid trigger keyboard alternatives to wooting" href="https://medium.com/@hlplanet/best-wooting-alternatives-rapid-trigger-keyboards-e2a802890d96?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Wooting Alternatives" src="https://logo.clearbit.com/medium.com" width="84" height="42"></a>
+<a title="Wagerbit" href="https://reddit.com/r/wagerbit?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Wagerbit" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/b8b578f6-e292-4670-b904-b8c0da9a7350/Wagerbit%20reddit.png" width="42" height="42"></a>
 <a title="A self-hosted web radio management suite, including turnkey installer tools and an easy-to-use web app to manage your stations." href="https://azuracast.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="AzuraCast" src="https://opencollective-production.s3.us-west-1.amazonaws.com/3c12ea10-cdfb-11eb-9cf4-3760b386b76d.png" width="42" height="42"></a>
 <a title="Triplebyte is the first software engineering job platform that is on the developer&#039;s side. Take our coding quiz!" href="https://triplebyte.com/os/opencollective?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Triplebyte" src="https://opencollective-production.s3.us-west-1.amazonaws.com/43e4f9d0-30cd-11ea-9c6b-e1142996e8b2.png" width="42" height="42"></a>
 <a title="One of the best online tools for downloading your favorite Instagram Videos, Photos, Profile Pictures, Reels, IGTV, and other content." href="https://insadown.com?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="InsaDown - Instagram Downloader" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/49f69a4e-5998-4d4a-8530-3bdff7530e44/256.png" width="42" height="42"></a>
