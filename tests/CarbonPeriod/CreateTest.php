@@ -856,4 +856,36 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(2, $period->count());
     }
+
+    public function testStartAndEndFallback()
+    {
+        $this->assertSame([
+            '2024-09-01',
+            '2024-09-30',
+        ], [
+            Carbon::parse('Sep 1')->toPeriod('Sep 30')->start->format('Y-m-d'),
+            Carbon::parse('Sep 1')->toPeriod('Sep 30')->end->format('Y-m-d'),
+        ]);
+
+        $periodClass = static::$periodClass;
+        $period = new $periodClass('Sep 1', 'Sep 30');
+
+        $this->assertSame([
+            '2024-09-01',
+            '2024-09-30',
+        ], [
+            $period->start->format('Y-m-d'),
+            $period->end->format('Y-m-d'),
+        ]);
+
+        $period = new $periodClass('Sep 1');
+
+        $this->assertSame([
+            '2024-09-01',
+            null,
+        ], [
+            $period->start->format('Y-m-d'),
+            $period->end?->format('Y-m-d'),
+        ]);
+    }
 }
