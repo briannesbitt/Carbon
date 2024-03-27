@@ -643,6 +643,19 @@ trait Creator
     {
         $function = static::$createFromFormatFunction;
 
+        // format is a single numeric unit
+        if (\is_int($time) && \in_array(ltrim($format, '!'), ['U', 'Y', 'y', 'X', 'x', 'm', 'n', 'd', 'j', 'w', 'W', 'H', 'h', 'G', 'g', 'i', 's', 'u', 'z', 'v'], true)) {
+            $time = (string) $time;
+        }
+
+        if (!\is_string($time)) {
+            @trigger_error(
+                'createFromFormat() will only accept string or integer for 1-letter format representing a numeric unit int next version',
+                \E_USER_DEPRECATED,
+            );
+            $time = (string) $time;
+        }
+
         if (!$function) {
             return static::rawCreateFromFormat($format, $time, $timezone);
         }
