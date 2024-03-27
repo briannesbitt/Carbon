@@ -595,8 +595,21 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function __construct(...$arguments)
     {
+        $raw = ['R1/2000-01-01T00:00:00Z/P1D'];
+
+        if (isset($arguments['raw'])) {
+            $raw = $arguments['raw'];
+            $this->isDefaultInterval = $arguments['isDefaultInterval'] ?? false;
+
+            if (isset($arguments['dateClass'])) {
+                $this->dateClass = $arguments['dateClass'];
+            }
+
+            $arguments = $raw;
+        }
+
         // Dummy construct, as properties are completely overridden
-        parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
+        parent::__construct(...$raw);
 
         if (is_a($this->dateClass, DateTimeImmutable::class, true)) {
             $this->options = static::IMMUTABLE;
