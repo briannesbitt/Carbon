@@ -63,6 +63,7 @@ jobs:
 
       - name: Select PHPUnit version
         if: matrix.phpunit
+        shell: bash
         run: composer require --no-update --no-interaction --dev "phpunit/phpunit:^${{ matrix.phpunit }}"
 
       - name: Remove conflicting optional dependencies
@@ -71,6 +72,7 @@ jobs:
 
       - name: Downgrade nikic/php-parser
         if: matrix.phpunit < 11
+        shell: bash
         run: composer require --no-update --no-interaction --dev "nikic/php-parser:^4"
 
       - name: Install dependencies

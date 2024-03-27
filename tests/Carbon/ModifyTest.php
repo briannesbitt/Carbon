@@ -18,7 +18,6 @@ use Carbon\Exceptions\InvalidFormatException;
 use Closure;
 use DateMalformedStringException;
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 class ModifyTest extends AbstractTestCase
@@ -31,7 +30,6 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(24.0, $a->diffInHours($b));
     }
 
-    #[Group('php-8.1')]
     public function testTimezoneModify()
     {
         $php81Fix = 1.0;
@@ -50,7 +48,7 @@ class ModifyTest extends AbstractTestCase
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
-        $b->addRealHours(24);
+        $b->addUTCHours(24);
         $this->assertSame(-24.0, $b->diffInHours($a, false));
         $this->assertSame(-24.0 * 60, $b->diffInMinutes($a, false));
         $this->assertSame(-24.0 * 60 * 60, $b->diffInSeconds($a, false));
@@ -111,6 +109,15 @@ class ModifyTest extends AbstractTestCase
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
         $b->addRealDay();
+        $this->assertSame(-24.0, $b->diffInHours($a, false));
+        $this->assertSame(-24.0 * 60, $b->diffInMinutes($a, false));
+        $this->assertSame(-24.0 * 60 * 60, $b->diffInSeconds($a, false));
+        $this->assertSame(-24.0 * 60 * 60 * 1000, $b->diffInMilliseconds($a, false));
+        $this->assertSame(-24.0 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->copy();
+        $b->addUTCDay();
         $this->assertSame(-24.0, $b->diffInHours($a, false));
         $this->assertSame(-24.0 * 60, $b->diffInMinutes($a, false));
         $this->assertSame(-24.0 * 60 * 60, $b->diffInSeconds($a, false));

@@ -506,81 +506,96 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addWeekday()                                                                       Add one weekday to the instance (using date interval).
  * @method        CarbonImmutable  subWeekdays(int|float $value = 1)                                                  Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subWeekday()                                                                       Sub one weekday to the instance (using date interval).
- * @method        CarbonImmutable  addRealMicros(int|float $value = 1)                                                Add microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMicro()                                                                     Add one microsecond to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMicros(int|float $value = 1)                                                Sub microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMicro()                                                                     Sub one microsecond to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMicros(int|float $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMicro()                                                                      Add one microsecond to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMicros(int|float $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMicro()                                                                      Sub one microsecond to the instance (using timestamp).
  * @method        CarbonPeriod     microsUntil($endDate = null, int|float $factor = 1)                                Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
- * @method        CarbonImmutable  addRealMicroseconds(int|float $value = 1)                                          Add microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMicrosecond()                                                               Add one microsecond to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMicroseconds(int|float $value = 1)                                          Sub microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMicrosecond()                                                               Sub one microsecond to the instance (using timestamp).
+ * @method        float            diffInUTCMicros(DateTimeInterface|string|null $date, bool $absolute = false)       Convert current and given date in UTC timezone and return a floating number of microseconds.
+ * @method        CarbonImmutable  addUTCMicroseconds(int|float $value = 1)                                           Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMicroseconds(int|float $value = 1)                                           Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
  * @method        CarbonPeriod     microsecondsUntil($endDate = null, int|float $factor = 1)                          Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
- * @method        CarbonImmutable  addRealMillis(int|float $value = 1)                                                Add milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMilli()                                                                     Add one millisecond to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMillis(int|float $value = 1)                                                Sub milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMilli()                                                                     Sub one millisecond to the instance (using timestamp).
+ * @method        float            diffInUTCMicroseconds(DateTimeInterface|string|null $date, bool $absolute = false) Convert current and given date in UTC timezone and return a floating number of microseconds.
+ * @method        CarbonImmutable  addUTCMillis(int|float $value = 1)                                                 Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMilli()                                                                      Add one millisecond to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMillis(int|float $value = 1)                                                 Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMilli()                                                                      Sub one millisecond to the instance (using timestamp).
  * @method        CarbonPeriod     millisUntil($endDate = null, int|float $factor = 1)                                Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
- * @method        CarbonImmutable  addRealMilliseconds(int|float $value = 1)                                          Add milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMillisecond()                                                               Add one millisecond to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMilliseconds(int|float $value = 1)                                          Sub milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMillisecond()                                                               Sub one millisecond to the instance (using timestamp).
+ * @method        float            diffInUTCMillis(DateTimeInterface|string|null $date, bool $absolute = false)       Convert current and given date in UTC timezone and return a floating number of milliseconds.
+ * @method        CarbonImmutable  addUTCMilliseconds(int|float $value = 1)                                           Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMillisecond()                                                                Add one millisecond to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMilliseconds(int|float $value = 1)                                           Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMillisecond()                                                                Sub one millisecond to the instance (using timestamp).
  * @method        CarbonPeriod     millisecondsUntil($endDate = null, int|float $factor = 1)                          Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
- * @method        CarbonImmutable  addRealSeconds(int|float $value = 1)                                               Add seconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealSecond()                                                                    Add one second to the instance (using timestamp).
- * @method        CarbonImmutable  subRealSeconds(int|float $value = 1)                                               Sub seconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealSecond()                                                                    Sub one second to the instance (using timestamp).
+ * @method        float            diffInUTCMilliseconds(DateTimeInterface|string|null $date, bool $absolute = false) Convert current and given date in UTC timezone and return a floating number of milliseconds.
+ * @method        CarbonImmutable  addUTCSeconds(int|float $value = 1)                                                Add seconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCSecond()                                                                     Add one second to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCSeconds(int|float $value = 1)                                                Sub seconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCSecond()                                                                     Sub one second to the instance (using timestamp).
  * @method        CarbonPeriod     secondsUntil($endDate = null, int|float $factor = 1)                               Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each second or every X seconds if a factor is given.
- * @method        CarbonImmutable  addRealMinutes(int|float $value = 1)                                               Add minutes (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMinute()                                                                    Add one minute to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMinutes(int|float $value = 1)                                               Sub minutes (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMinute()                                                                    Sub one minute to the instance (using timestamp).
+ * @method        float            diffInUTCSeconds(DateTimeInterface|string|null $date, bool $absolute = false)      Convert current and given date in UTC timezone and return a floating number of seconds.
+ * @method        CarbonImmutable  addUTCMinutes(int|float $value = 1)                                                Add minutes (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMinute()                                                                     Add one minute to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMinutes(int|float $value = 1)                                                Sub minutes (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMinute()                                                                     Sub one minute to the instance (using timestamp).
  * @method        CarbonPeriod     minutesUntil($endDate = null, int|float $factor = 1)                               Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each minute or every X minutes if a factor is given.
- * @method        CarbonImmutable  addRealHours(int|float $value = 1)                                                 Add hours (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealHour()                                                                      Add one hour to the instance (using timestamp).
- * @method        CarbonImmutable  subRealHours(int|float $value = 1)                                                 Sub hours (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealHour()                                                                      Sub one hour to the instance (using timestamp).
+ * @method        float            diffInUTCMinutes(DateTimeInterface|string|null $date, bool $absolute = false)      Convert current and given date in UTC timezone and return a floating number of minutes.
+ * @method        CarbonImmutable  addUTCHours(int|float $value = 1)                                                  Add hours (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCHour()                                                                       Add one hour to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCHours(int|float $value = 1)                                                  Sub hours (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCHour()                                                                       Sub one hour to the instance (using timestamp).
  * @method        CarbonPeriod     hoursUntil($endDate = null, int|float $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each hour or every X hours if a factor is given.
- * @method        CarbonImmutable  addRealDays(int|float $value = 1)                                                  Add days (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealDay()                                                                       Add one day to the instance (using timestamp).
- * @method        CarbonImmutable  subRealDays(int|float $value = 1)                                                  Sub days (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealDay()                                                                       Sub one day to the instance (using timestamp).
+ * @method        float            diffInUTCHours(DateTimeInterface|string|null $date, bool $absolute = false)        Convert current and given date in UTC timezone and return a floating number of hours.
+ * @method        CarbonImmutable  addUTCDays(int|float $value = 1)                                                   Add days (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCDay()                                                                        Add one day to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCDays(int|float $value = 1)                                                   Sub days (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCDay()                                                                        Sub one day to the instance (using timestamp).
  * @method        CarbonPeriod     daysUntil($endDate = null, int|float $factor = 1)                                  Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each day or every X days if a factor is given.
- * @method        CarbonImmutable  addRealWeeks(int|float $value = 1)                                                 Add weeks (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealWeek()                                                                      Add one week to the instance (using timestamp).
- * @method        CarbonImmutable  subRealWeeks(int|float $value = 1)                                                 Sub weeks (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealWeek()                                                                      Sub one week to the instance (using timestamp).
+ * @method        float            diffInUTCDays(DateTimeInterface|string|null $date, bool $absolute = false)         Convert current and given date in UTC timezone and return a floating number of days.
+ * @method        CarbonImmutable  addUTCWeeks(int|float $value = 1)                                                  Add weeks (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCWeek()                                                                       Add one week to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCWeeks(int|float $value = 1)                                                  Sub weeks (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCWeek()                                                                       Sub one week to the instance (using timestamp).
  * @method        CarbonPeriod     weeksUntil($endDate = null, int|float $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each week or every X weeks if a factor is given.
- * @method        CarbonImmutable  addRealMonths(int|float $value = 1)                                                Add months (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMonth()                                                                     Add one month to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMonths(int|float $value = 1)                                                Sub months (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMonth()                                                                     Sub one month to the instance (using timestamp).
+ * @method        float            diffInUTCWeeks(DateTimeInterface|string|null $date, bool $absolute = false)        Convert current and given date in UTC timezone and return a floating number of weeks.
+ * @method        CarbonImmutable  addUTCMonths(int|float $value = 1)                                                 Add months (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMonth()                                                                      Add one month to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMonths(int|float $value = 1)                                                 Sub months (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMonth()                                                                      Sub one month to the instance (using timestamp).
  * @method        CarbonPeriod     monthsUntil($endDate = null, int|float $factor = 1)                                Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each month or every X months if a factor is given.
- * @method        CarbonImmutable  addRealQuarters(int|float $value = 1)                                              Add quarters (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealQuarter()                                                                   Add one quarter to the instance (using timestamp).
- * @method        CarbonImmutable  subRealQuarters(int|float $value = 1)                                              Sub quarters (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealQuarter()                                                                   Sub one quarter to the instance (using timestamp).
+ * @method        float            diffInUTCMonths(DateTimeInterface|string|null $date, bool $absolute = false)       Convert current and given date in UTC timezone and return a floating number of months.
+ * @method        CarbonImmutable  addUTCQuarters(int|float $value = 1)                                               Add quarters (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCQuarter()                                                                    Add one quarter to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCQuarters(int|float $value = 1)                                               Sub quarters (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCQuarter()                                                                    Sub one quarter to the instance (using timestamp).
  * @method        CarbonPeriod     quartersUntil($endDate = null, int|float $factor = 1)                              Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each quarter or every X quarters if a factor is given.
- * @method        CarbonImmutable  addRealYears(int|float $value = 1)                                                 Add years (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealYear()                                                                      Add one year to the instance (using timestamp).
- * @method        CarbonImmutable  subRealYears(int|float $value = 1)                                                 Sub years (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealYear()                                                                      Sub one year to the instance (using timestamp).
+ * @method        float            diffInUTCQuarters(DateTimeInterface|string|null $date, bool $absolute = false)     Convert current and given date in UTC timezone and return a floating number of quarters.
+ * @method        CarbonImmutable  addUTCYears(int|float $value = 1)                                                  Add years (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCYear()                                                                       Add one year to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCYears(int|float $value = 1)                                                  Sub years (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCYear()                                                                       Sub one year to the instance (using timestamp).
  * @method        CarbonPeriod     yearsUntil($endDate = null, int|float $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each year or every X years if a factor is given.
- * @method        CarbonImmutable  addRealDecades(int|float $value = 1)                                               Add decades (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealDecade()                                                                    Add one decade to the instance (using timestamp).
- * @method        CarbonImmutable  subRealDecades(int|float $value = 1)                                               Sub decades (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealDecade()                                                                    Sub one decade to the instance (using timestamp).
+ * @method        float            diffInUTCYears(DateTimeInterface|string|null $date, bool $absolute = false)        Convert current and given date in UTC timezone and return a floating number of years.
+ * @method        CarbonImmutable  addUTCDecades(int|float $value = 1)                                                Add decades (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCDecade()                                                                     Add one decade to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCDecades(int|float $value = 1)                                                Sub decades (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCDecade()                                                                     Sub one decade to the instance (using timestamp).
  * @method        CarbonPeriod     decadesUntil($endDate = null, int|float $factor = 1)                               Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each decade or every X decades if a factor is given.
- * @method        CarbonImmutable  addRealCenturies(int|float $value = 1)                                             Add centuries (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealCentury()                                                                   Add one century to the instance (using timestamp).
- * @method        CarbonImmutable  subRealCenturies(int|float $value = 1)                                             Sub centuries (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealCentury()                                                                   Sub one century to the instance (using timestamp).
+ * @method        float            diffInUTCDecades(DateTimeInterface|string|null $date, bool $absolute = false)      Convert current and given date in UTC timezone and return a floating number of decades.
+ * @method        CarbonImmutable  addUTCCenturies(int|float $value = 1)                                              Add centuries (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCCentury()                                                                    Add one century to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCCenturies(int|float $value = 1)                                              Sub centuries (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCCentury()                                                                    Sub one century to the instance (using timestamp).
  * @method        CarbonPeriod     centuriesUntil($endDate = null, int|float $factor = 1)                             Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each century or every X centuries if a factor is given.
- * @method        CarbonImmutable  addRealMillennia(int|float $value = 1)                                             Add millennia (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  addRealMillennium()                                                                Add one millennium to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMillennia(int|float $value = 1)                                             Sub millennia (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonImmutable  subRealMillennium()                                                                Sub one millennium to the instance (using timestamp).
+ * @method        float            diffInUTCCenturies(DateTimeInterface|string|null $date, bool $absolute = false)    Convert current and given date in UTC timezone and return a floating number of centuries.
+ * @method        CarbonImmutable  addUTCMillennia(int|float $value = 1)                                              Add millennia (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  addUTCMillennium()                                                                 Add one millennium to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMillennia(int|float $value = 1)                                              Sub millennia (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonImmutable  subUTCMillennium()                                                                 Sub one millennium to the instance (using timestamp).
  * @method        CarbonPeriod     millenniaUntil($endDate = null, int|float $factor = 1)                             Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.
+ * @method        float            diffInUTCMillennia(DateTimeInterface|string|null $date, bool $absolute = false)    Convert current and given date in UTC timezone and return a floating number of millennia.
  * @method        CarbonImmutable  roundYear(float $precision = 1, string $function = "round")                        Round the current instance year with given precision using the given function.
  * @method        CarbonImmutable  roundYears(float $precision = 1, string $function = "round")                       Round the current instance year with given precision using the given function.
  * @method        CarbonImmutable  floorYear(float $precision = 1)                                                    Truncate the current instance year with given precision.

@@ -453,6 +453,12 @@ foreach ($tags as $tag) {
                         $plUnit.'Until($endDate = null, int|float $factor = 1)',
                         "Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each $unitName or every X $plUnitName if a factor is given.",
                     ];
+                    $autoDocLines[] = [
+                        '@method',
+                        'float',
+                        'diffInUTC'.ucFirst($plUnit).'(DateTimeInterface|string|null $date, bool $absolute = false)',
+                        "Convert current and given date in UTC timezone and return a floating number of $plUnitName.",
+                    ];
 
                     break;
 

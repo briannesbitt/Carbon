@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
-use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 class ModifyTest extends AbstractTestCase
@@ -33,7 +32,6 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(24.0, $a->diffInHours($b));
     }
 
-    #[Group('php-8.1')]
     public function testTimezoneModify()
     {
         $php81Fix = 1.0;
