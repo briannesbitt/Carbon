@@ -288,12 +288,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     protected ?CarbonInterface $endDate = null;
 
+    protected ?array $initialValues = null;
+
     /**
      * Set the instance's timezone from a string or object.
      */
     public function setTimezone(DateTimeZone|string|int $timezone): static
     {
         $this->timezoneSetting = $timezone;
+        $this->checkStartAndEnd();
 
         if ($this->startDate) {
             $this->startDate = $this->startDate
@@ -316,6 +319,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     public function shiftTimezone(DateTimeZone|string|int $timezone): static
     {
         $this->timezoneSetting = $timezone;
+        $this->checkStartAndEnd();
 
         if ($this->startDate) {
             $this->startDate = $this->startDate
@@ -749,6 +753,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function start(): ?CarbonInterface
     {
+        $this->checkStartAndEnd();
+
         return $this->startDate;
     }
 
@@ -759,6 +765,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function end(): ?CarbonInterface
     {
+        $this->checkStartAndEnd();
+
         return $this->endDate;
     }
 
@@ -1086,6 +1094,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $interval->startDate = $start;
         $interval->endDate = $end;
+        $interval->initialValues = $interval->getInnerValues();
 
         return $interval;
     }
@@ -2101,6 +2110,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function stepBy($interval, Unit|string|null $unit = null): CarbonPeriod
     {
+        $this->checkStartAndEnd();
         $start = $this->startDate ?? CarbonImmutable::make('now');
         $end = $this->endDate ?? $start->copy()->add($this);
 
@@ -2536,6 +2546,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         } elseif (!\in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
             throw new UnknownUnitException($unit);
         }
+
+        $this->checkStartAndEnd();
 
         if ($this->startDate && $this->endDate) {
             return $this->startDate->diffInUnit($unit, $this->endDate);
@@ -3235,6 +3247,23 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             }
 
             $this->add($unit, $floatValue - $base);
+        }
+    }
+
+    private function getInnerValues(): array
+    {
+        return [$this->y, $this->m, $this->d, $this->h, $this->i, $this->s, $this->f, $this->invert, $this->days];
+    }
+
+    private function checkStartAndEnd(): void
+    {
+        if (
+            $this->initialValues !== null
+            && ($this->startDate !== null || $this->endDate !== null)
+            && $this->initialValues !== $this->getInnerValues()
+        ) {
+            $this->startDate = null;
+            $this->endDate = null;
         }
     }
 }
