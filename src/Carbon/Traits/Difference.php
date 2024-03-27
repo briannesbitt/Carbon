@@ -99,10 +99,11 @@ trait Difference
      *                                                                         century, millennium
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInUnit(Unit|string $unit, $date = null, bool $absolute = false): float
+    public function diffInUnit(Unit|string $unit, $date = null, bool $absolute = false, bool $utc = false): float
     {
         $unit = static::pluralUnit($unit instanceof Unit ? $unit->value : rtrim($unit, 'z'));
         $method = 'diffIn'.$unit;
@@ -111,7 +112,7 @@ trait Difference
             throw new UnknownUnitException($unit);
         }
 
-        return $this->$method($date, $absolute);
+        return $this->$method($date, $absolute, $utc);
     }
 
     /**
@@ -119,18 +120,27 @@ trait Difference
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInYears($date = null, bool $absolute = false): float
+    public function diffInYears($date = null, bool $absolute = false, bool $utc = false): float
     {
         $start = $this;
         $end = $this->resolveCarbon($date);
+
+        if ($utc) {
+            $start = $start->avoidMutation()->utc();
+            $end = $end->avoidMutation()->utc();
+        }
+
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
+
         if (!$ascending) {
             [$start, $end] = [$end, $start];
         }
+
         $yearsDiff = (int) $start->diff($end, $absolute)->format('%r%y');
         /** @var Carbon|CarbonImmutable $floorEnd */
         $floorEnd = $start->copy()->addYears($yearsDiff);
@@ -154,12 +164,13 @@ trait Difference
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInQuarters($date = null, bool $absolute = false): float
+    public function diffInQuarters($date = null, bool $absolute = false, bool $utc = false): float
     {
-        return $this->diffInMonths($date, $absolute) / static::MONTHS_PER_QUARTER;
+        return $this->diffInMonths($date, $absolute, $utc) / static::MONTHS_PER_QUARTER;
     }
 
     /**
@@ -167,13 +178,20 @@ trait Difference
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInMonths($date = null, bool $absolute = false): float
+    public function diffInMonths($date = null, bool $absolute = false, bool $utc = false): float
     {
         $start = $this;
-        $end = $this->resolveCarbon($date)->avoidMutation()->setTimezone($this->tz);
+        $end = $this->resolveCarbon($date);
+        $compareUsingUtc = $utc || ($end->timezoneName !== $start->timezoneName);
+
+        if ($compareUsingUtc) {
+            $start = $start->avoidMutation()->utc();
+            $end = $end->avoidMutation()->utc();
+        }
 
         [$yearStart, $monthStart, $dayStart] = explode('-', $start->format('Y-m-dHisu'));
         [$yearEnd, $monthEnd, $dayEnd] = explode('-', $end->format('Y-m-dHisu'));
@@ -196,14 +214,14 @@ trait Difference
         }
 
         /** @var Carbon|CarbonImmutable $floorEnd */
-        $floorEnd = $start->copy()->addMonths($monthsDiff);
+        $floorEnd = $start->avoidMutation()->addMonths($monthsDiff);
 
         if ($floorEnd >= $end) {
             return $sign * $monthsDiff;
         }
 
         /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
-        $startOfMonthAfterFloorEnd = $floorEnd->copy()->addMonthNoOverflow()->startOfMonth();
+        $startOfMonthAfterFloorEnd = $floorEnd->avoidMutation()->addMonthNoOverflow()->startOfMonth();
 
         if ($startOfMonthAfterFloorEnd > $end) {
             return $sign * ($monthsDiff + $floorEnd->diffInDays($end) / $floorEnd->daysInMonth);
@@ -217,12 +235,13 @@ trait Difference
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInWeeks($date = null, bool $absolute = false): float
+    public function diffInWeeks($date = null, bool $absolute = false, bool $utc = false): float
     {
-        return $this->diffInDays($date, $absolute) / static::DAYS_PER_WEEK;
+        return $this->diffInDays($date, $absolute, $utc) / static::DAYS_PER_WEEK;
     }
 
     /**
@@ -230,23 +249,24 @@ trait Difference
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
+     * @param bool                                                   $utc      Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
      *
      * @return float
      */
-    public function diffInDays($date = null, bool $absolute = false): float
+    public function diffInDays($date = null, bool $absolute = false, bool $utc = false): float
     {
         $date = $this->resolveCarbon($date);
         $current = $this;
-        $sameTimezone = ($date->timezoneName === $current->timezoneName);
+        $compareUsingUtc = $utc || ($date->timezoneName !== $current->timezoneName);
 
-        if (!$sameTimezone) {
-            $date = $date->copy()->utc();
-            $current = $current->copy()->utc();
+        if ($compareUsingUtc) {
+            $date = $date->avoidMutation()->utc();
+            $current = $current->avoidMutation()->utc();
         }
 
         $interval = $current->diffAsDateInterval($date, $absolute);
 
-        if ($sameTimezone) {
+        if (!$compareUsingUtc) {
             $minutes = $interval->i + ($interval->s + $interval->f) / static::SECONDS_PER_MINUTE;
             $hours = $interval->h + $minutes / static::MINUTES_PER_HOUR;
 

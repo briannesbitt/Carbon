@@ -34,6 +34,8 @@ use ReturnTypeWillChange;
 trait Units
 {
     /**
+     * @deprecated Prefer to use add addUTCUnit() which more accurately defines what it's doing.
+     *
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
@@ -44,13 +46,27 @@ trait Units
      */
     public function addRealUnit(string $unit, $value = 1): static
     {
+        return $this->addUTCUnit($unit, $value);
+    }
+
+    /**
+     * Add seconds to the instance using timestamp. Positive $value travels
+     * forward while negative $value travels into the past.
+     *
+     * @param string         $unit
+     * @param int|float|null $value
+     *
+     * @return static
+     */
+    public function addUTCUnit(string $unit, $value = 1): static
+    {
         $value ??= 0;
 
         switch ($unit) {
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'micro':
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'microsecond':
                 /* @var CarbonInterface $this */
                 $diff = $this->microsecond + $value;
@@ -63,71 +79,71 @@ trait Units
 
                 return $this->tz('UTC')->modify("@$time.$microtime")->setTimezone($timezone);
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'milli':
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'millisecond':
-                return $this->addRealUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
+                return $this->addUTCUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'second':
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'minute':
                 $value *= static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'hour':
                 $value *= static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'day':
                 $value *= static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'week':
                 $value *= static::DAYS_PER_WEEK * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'month':
                 $value *= 30 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'quarter':
                 $value *= static::MONTHS_PER_QUARTER * 30 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'year':
                 $value *= 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'decade':
                 $value *= static::YEARS_PER_DECADE * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'century':
                 $value *= static::YEARS_PER_CENTURY * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
                 break;
 
-            // @call addRealUnit
+            // @call addUTCUnit
             case 'millennium':
                 $value *= static::YEARS_PER_MILLENNIUM * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
 
@@ -147,7 +163,23 @@ trait Units
         );
         $date = $this->setTimestamp($this->getTimestamp() + $seconds);
 
-        return $microseconds ? $date->addRealUnit('microsecond', $microseconds) : $date;
+        return $microseconds ? $date->addUTCUnit('microsecond', $microseconds) : $date;
+    }
+
+    /**
+     * @deprecated Prefer to use add subUTCUnit() which more accurately defines what it's doing.
+     *
+     * Subtract seconds to the instance using timestamp. Positive $value travels
+     * into the past while negative $value travels forward.
+     *
+     * @param string $unit
+     * @param int    $value
+     *
+     * @return static
+     */
+    public function subRealUnit($unit, $value = 1): static
+    {
+        return $this->addUTCUnit($unit, -$value);
     }
 
     /**
@@ -159,9 +191,9 @@ trait Units
      *
      * @return static
      */
-    public function subRealUnit($unit, $value = 1): static
+    public function subUTCUnit($unit, $value = 1): static
     {
-        return $this->addRealUnit($unit, -$value);
+        return $this->addUTCUnit($unit, -$value);
     }
 
     /**

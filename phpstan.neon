@@ -18,6 +18,7 @@ parameters:
         - '#^Call to an undefined static method#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::floatDiffIn([A-Za-z]+)\(\)\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::diffInReal([A-Za-z]+)\(\)\.$#'
+        - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::(add|sub)Real([A-Za-z]+)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.$#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis|toAppTz|copyWithAppTz)\(\)\.$#'

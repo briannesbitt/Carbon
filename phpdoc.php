@@ -26,7 +26,7 @@ $tags = [
     ['call', 'isSameUnit'],
     ['call', 'setUnit'],
     ['call', 'addUnit'],
-    ['call', 'addRealUnit'],
+    ['call', 'addUTCUnit'],
     ['call', 'roundUnit'],
     ['call', 'diffForHumans'],
 ];
@@ -418,7 +418,7 @@ foreach ($tags as $tag) {
 
                     break;
 
-                case 'addRealUnit':
+                case 'addUTCUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
@@ -426,25 +426,25 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'addReal'.ucFirst($plUnit).'(int|float $value = 1)',
+                        'addUTC'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Add $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'addReal'.ucFirst($unit).'()',
+                        'addUTC'.ucFirst($unit).'()',
                         "Add one $unitName to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'subReal'.ucFirst($plUnit).'(int|float $value = 1)',
+                        'subUTC'.ucFirst($plUnit).'(int|float $value = 1)',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'subReal'.ucFirst($unit).'()',
+                        'subUTC'.ucFirst($unit).'()',
                         "Sub one $unitName to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
@@ -452,6 +452,12 @@ foreach ($tags as $tag) {
                         'CarbonPeriod',
                         $plUnit.'Until($endDate = null, int|float $factor = 1)',
                         "Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each $unitName or every X $plUnitName if a factor is given.",
+                    ];
+                    $autoDocLines[] = [
+                        '@method',
+                        'float',
+                        'diffInUTC'.ucFirst($plUnit).'(DateTimeInterface|string|null $date, bool $absolute = false)',
+                        "Convert current and given date in UTC timezone and return a floating number of $plUnitName.",
                     ];
 
                     break;

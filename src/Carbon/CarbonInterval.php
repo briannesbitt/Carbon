@@ -3196,7 +3196,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 "From 3.0.0, decimal part will no longer be truncated and will be cascaded to smaller units.\n".
                 "- To maintain the current behavior, use explicit cast: $name((int) \$value)\n".
                 "- To adopt the new behavior globally, call CarbonInterval::enableFloatSetters()\n",
-                \E_USER_DEPRECATED
+                \E_USER_DEPRECATED,
             );
         }
     }

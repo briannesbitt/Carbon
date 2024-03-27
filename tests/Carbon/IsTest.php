@@ -17,7 +17,6 @@ use BadMethodCallException;
 use Carbon\Carbon;
 use DateTime;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
 use stdClass;
 use Tests\AbstractTestCase;
 use TypeError;
@@ -610,7 +609,6 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subDay()->isCurrentSecond());
     }
 
-    #[Group('php-8.1')]
     public function testIsSameMicrosecond()
     {
         $current = new Carbon('2018-05-06T13:30:54.123456');

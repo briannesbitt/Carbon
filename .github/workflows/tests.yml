@@ -63,11 +63,17 @@ jobs:
 
       - name: Select PHPUnit version
         if: matrix.phpunit
-        run: composer require --no-update phpunit/phpunit:^${{ matrix.phpunit }} --no-interaction --dev
+        shell: bash
+        run: composer require --no-update --no-interaction --dev "phpunit/phpunit:^${{ matrix.phpunit }}"
 
       - name: Remove conflicting optional dependencies
         if: matrix.phpunit >= 11
-        run: composer remove --no-update ondrejmirtes/better-reflection --no-interaction --dev
+        run: composer remove --no-update --no-interaction --dev ondrejmirtes/better-reflection
+
+      - name: Downgrade nikic/php-parser
+        if: matrix.phpunit < 11
+        shell: bash
+        run: composer require --no-update --no-interaction --dev "nikic/php-parser:^4"
 
       - name: Install dependencies
         uses: nick-fields/retry@v3
@@ -76,7 +82,7 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: |
-            composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer kylekatarnls/multi-tester --no-interaction --dev;
+            composer remove --no-update --no-interaction --dev phpmd/phpmd friendsofphp/php-cs-fixer kylekatarnls/multi-tester;
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
 
       - name: Run test suite
