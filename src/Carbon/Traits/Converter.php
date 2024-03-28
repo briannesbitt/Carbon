@@ -534,7 +534,7 @@ trait Converter
         }
 
         return new $class(
-            raw: [$this, $interval, $end],
+            raw: [$this, CarbonInterval::make($interval), $end],
             dateClass: static::class,
             isDefaultInterval: $isDefaultInterval,
         );
