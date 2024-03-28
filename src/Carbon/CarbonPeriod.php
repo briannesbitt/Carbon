@@ -44,6 +44,7 @@ use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
 use Throwable;
+use TypeError;
 
 // @codeCoverageIgnoreStart
 require PHP_VERSION < 8.2
@@ -696,10 +697,24 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $raw = [$arguments[0]];
         }
 
-        $raw ??= ['R1/2000-01-01T00:00:00Z/P1D'];
+        $constructed = false;
 
-        // Dummy construct, as properties are completely overridden
-        parent::__construct(...$raw);
+        if ($raw !== null) {
+            try {
+                parent::__construct(...$raw);
+                $constructed = true;
+            } catch (TypeError) {
+                // $constructed = false
+            }
+        }
+
+        if (!$constructed) {
+            parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
+        }
+
+        if (isset($sortedArguments['start'])) {
+            $this->setStartDate($sortedArguments['start']);
+        }
 
         if (isset($sortedArguments['start'])) {
             $this->setStartDate($sortedArguments['start']);
