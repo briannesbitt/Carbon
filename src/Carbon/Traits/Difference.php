@@ -160,7 +160,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in quarters rounded down.
+     * Get the difference in quarters.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -174,7 +174,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in months rounded down.
+     * Get the difference in months.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -231,7 +231,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in weeks rounded down.
+     * Get the difference in weeks.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -245,7 +245,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in days rounded down.
+     * Get the difference in days.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -375,7 +375,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in hours rounded down.
+     * Get the difference in hours.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -388,7 +388,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in minutes rounded down.
+     * Get the difference in minutes.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -401,7 +401,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in seconds rounded down.
+     * Get the difference in seconds.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -432,7 +432,7 @@ trait Difference
     }
 
     /**
-     * Get the difference in milliseconds rounded down.
+     * Get the difference in milliseconds.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
