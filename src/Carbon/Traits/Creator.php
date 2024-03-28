@@ -104,7 +104,9 @@ trait Creator
 
         $this->constructedObjectId = spl_object_hash($this);
 
-        self::setLastErrors(parent::getLastErrors());
+        if (parent::getLastErrors()) {
+        	self::setLastErrors(parent::getLastErrors());
+        }
     }
 
     /**
