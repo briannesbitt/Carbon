@@ -2613,7 +2613,7 @@ trait Date
 
             if ($mode === 'REAL') {
                 $mode = 'UTC';
-                $betterMethod = str_replace($match[1], 'UTC', $betterMethod ?? $method);
+                $betterMethod = str_replace($match[2], 'UTC', $betterMethod ?? $method);
             }
 
             if ($betterMethod) {
@@ -2623,7 +2623,7 @@ trait Date
                     ' and "Real" methods will be removed in favor of "UTC" because what it actually does is to convert both'.
                     ' dates to UTC timezone before comparison, while by default it does it only if both dates don\'t have'.
                     ' exactly the same timezone (Note: 2 timezones with the same offset but different names are considered'.
-                    ' different as it\'s not safe to assume they will always have the same offset).',
+                    " different as it's not safe to assume they will always have the same offset).",
                     \E_USER_DEPRECATED,
                 );
             }
