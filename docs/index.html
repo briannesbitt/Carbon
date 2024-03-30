@@ -133,13 +133,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(12) "Wednesday 27"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(12) "Wednesday 27"
+var_dump($mutable->isoFormat('dddd D'));             // string(9) "Sunday 31"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Sunday 31"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(10) "Tuesday 26"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(12) "Wednesday 27"
+var_dump($immutable->isoFormat('dddd D'));           // string(11) "Saturday 30"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Sunday 31"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -281,16 +281,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2024-03-26 09:18:20
+echo $now;                               // 2024-03-30 22:42:51
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2024-03-26 00:00:00
+echo $today;                             // 2024-03-30 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2024-03-27 00:00:00
+echo $tomorrow;                          // 2024-03-31 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2024-03-25 00:00:00
+echo $yesterday;                         // 2024-03-29 00:00:00
 </code></pre>
     </p>
 
@@ -451,7 +451,7 @@ echo $dt->diffInYears($dt->avoidMutation()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:18 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 00:42 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -705,7 +705,7 @@ echo $date->diffForHumans();     // il y a 0 seconde
 echo "\n";
 echo $date->monthName;           // mars
 echo "\n";
-echo $date->isoFormat('LLLL');   // mardi 26 mars 2024 09:18
+echo $date->isoFormat('LLLL');   // samedi 30 mars 2024 22:42
 </code></pre>
     </p>
 
@@ -736,13 +736,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 10:18
+Aujourd’hui à 23:42
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 4:18 AM
+Today at 5:42 PM
 */
 </code></pre>
     </p>
@@ -769,9 +769,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 26/03 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 30/03 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 26/03 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 30/03 0h Asia/Tokyo
 
 // You can find back which factory created a given object:
 $a = $factory->now();
@@ -1654,21 +1654,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 9:18 AM
+echo $date->calendar();                                      // Today at 10:42 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 6:18 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 7:42 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 10:55 PM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Wednesday at 12:19 PM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 03/18/2024
+echo $date->sub('8 days')->calendar();                       // 03/22/2024
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 12:18 PM
+echo $date->add('1 day 3 hours')->calendar();                // Monday at 1:42 AM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 7:41 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Wednesday at 9:05 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 04/03/2024
+echo $date->add('8 days')->calendar();                       // 04/07/2024
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 09:18
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 22:42
 </code></pre>
     </p>
 
@@ -5588,7 +5588,7 @@ echo Carbon::now();                                    // 2001-05-21 12:00:03
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2024-03-26 09:18:21
+echo Carbon::now();                                    // 2024-03-30 22:42:52
 // Instead of mock and clear mock, you also can use withTestNow():
 
 Carbon::withTestNow('2010-09-15', static function () {
@@ -5786,7 +5786,7 @@ var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());    
 
 // Returns timezone as CarbonTimeZone
 var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());
-/* object(Carbon\CarbonTimeZone)#827 (3) {
+/* object(Carbon\CarbonTimeZone)#532 (3) {
   ["clock":"Carbon\CarbonTimeZone":private]=>
   NULL
   ["timezone_type"]=>
@@ -5831,12 +5831,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(21)
+var_dump(Carbon::now()->get($unit));                         // int(52)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(21)
+var_dump(Carbon::now()->$unit);                              // int(52)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(21)
+var_dump(Carbon::now()->get($unit));                         // int(52)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5927,8 +5927,8 @@ echo "-----------\n";
 
 var_dump($ar->firstWeekDay);                           // int(6)
 var_dump($ar->lastWeekDay);                            // int(5)
-var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-03-23 00:00"
-var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-03-29 23:59"
+var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-03-30 00:00"
+var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-04-05 23:59"
 
 $en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
 
@@ -6194,7 +6194,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#880 (3) {
+  object(Carbon\CarbonTimeZone)#1102 (3) {
     ["clock":"Carbon\CarbonTimeZone":private]=>
     NULL
     ["timezone_type"]=>
@@ -6207,7 +6207,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#880 (12) {
+object(stdClass)#1102 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -6231,7 +6231,7 @@ object(stdClass)#880 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#957 (3) {
+  object(Carbon\CarbonTimeZone)#961 (3) {
     ["clock":"Carbon\CarbonTimeZone":private]=>
     NULL
     ["timezone_type"]=>
@@ -6244,7 +6244,7 @@ object(stdClass)#880 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#880 (3) {
+object(DateTime)#1102 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -6258,7 +6258,7 @@ object(DateTime)#880 (3) {
 // to both DateTime and DateTimeImmutable
 var_dump($dt->toDateTimeImmutable());
 /*
-object(DateTimeImmutable)#880 (3) {
+object(DateTimeImmutable)#1102 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -6431,8 +6431,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2024-03-26 09:18:21
-echo $dt1->maximum();                              // 2024-03-26 09:18:21
+echo $dt1->max();                                  // 2024-03-30 22:42:52
+echo $dt1->maximum();                              // 2024-03-30 22:42:52
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -6893,7 +6893,7 @@ echo json_encode($units, JSON_PRETTY_PRINT);
         greater than the other.</p>
 
     <p>
-    <pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 1.1E-5
+    <pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 1.0E-5
 
 $dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');
 $dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');
@@ -6996,13 +6996,13 @@ echo $date->floatDiffInMinutes('2019-10-28 12:00:30');            // 2220.5
 echo $date->floatDiffInRealSeconds('2019-10-28 12:00:00.5');      // 133200.5
 echo $date->floatDiffInSeconds('2019-10-28 12:00:00.5');          // 133200.5
 // above day unit, "real" will affect the decimal part based on hours and smaller units
-echo $date->floatDiffInRealDays('2019-10-28 12:30:00');           // 1.5208333333333
+echo $date->floatDiffInRealDays('2019-10-28 12:30:00');           // 1.5625
 echo $date->floatDiffInDays('2019-10-28 12:30:00');               // 1.5208333333333
-echo $date->floatDiffInRealWeeks('2019-10-28 12:30:00');          // 0.2172619047619
+echo $date->floatDiffInRealWeeks('2019-10-28 12:30:00');          // 0.22321428571429
 echo $date->floatDiffInWeeks('2019-10-28 12:30:00');              // 0.2172619047619
-echo $date->floatDiffInRealMonths('2019-10-28 12:30:00');         // 0.049059139784946
+echo $date->floatDiffInRealMonths('2019-10-28 12:30:00');         // 0.050403225806452
 echo $date->floatDiffInMonths('2019-10-28 12:30:00');             // 0.049059139784946
-echo $date->floatDiffInRealYears('2019-10-28 12:30:00');          // 0.0041666666666667
+echo $date->floatDiffInRealYears('2019-10-28 12:30:00');          // 0.0042808219178082
 echo $date->floatDiffInYears('2019-10-28 12:30:00');              // 0.0041666666666667
 </code></pre>
     </p>
@@ -7032,10 +7032,10 @@ echo $littleHandRotations;     // 24
 
 $date = Carbon::now()->addSeconds(3666);
 
-echo $date->diffInSeconds();                       // -3665.999882
-echo $date->diffInMinutes();                       // -61.099996433333
-echo $date->diffInHours();                         // -1.0183332505556
-echo $date->diffInDays();                          // -0.042430551168981
+echo $date->diffInSeconds();                       // -3665.999904
+echo $date->diffInMinutes();                       // -61.09999695
+echo $date->diffInHours();                         // -1.0183332602778
+echo $date->diffInDays();                          // -0.042430551481481
 
 $date = Carbon::create(2016, 1, 5, 22, 40, 32);
 
@@ -7690,7 +7690,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // samedi dernier à 10:18
+echo Carbon::now()->subDays(3)->formatForUser();           // mercredi dernier à 23:42
 </code></pre>
     </p>
 
@@ -7956,7 +7956,7 @@ function dumpDateList($dates) {
 dumpDateList(Carbon::getCurrentWeekDays());                       // 2024-03-25 00:00:00, 2024-03-26 00:00:00, 2024-03-27 00:00:00, 2024-03-28 00:00:00, 2024-03-29 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2024-03-01 00:00:00, 2024-03-02 00:00:00, 2024-03-03 00:00:00, 2024-03-04 00:00:00, 2024-03-05 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2024-02-26 00:00:00, 2024-02-27 00:00:00, 2024-02-28 00:00:00, 2024-02-29 00:00:00, 2024-03-01 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2024-02-01 00:00:00, 2024-02-02 00:00:00, 2024-02-03 00:00:00, 2024-02-04 00:00:00, 2024-02-05 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2024-03-01 00:00:00, 2024-03-02 00:00:00, 2024-03-03 00:00:00, 2024-03-04 00:00:00, 2024-03-05 00:00...
 </code></pre>
     </p>
 
@@ -8935,7 +8935,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2024-03-26, 2024-03-27, 2024-03-28
+echo implode(', ', $days);               // 2024-03-30, 2024-03-31, 2024-04-01
 </code></pre>
     </p>
 
@@ -9486,6 +9486,19 @@ echo CarbonImmutable::now()->locale('en_US@Cinema')->startOfWeek()->dayName; // 
 
     <p>Creating timezone with a bad/unknown name will now always throw an exception, it's no longer
         possible to mute them by disabling strict-mode.</p>
+
+    <h2 id="api-carbon-3-period-start-and-end">Immutable start and end properties of CarbonPeriod</h2>
+
+    <p><code>CarbonPeriod</code> now extends <code>DatePeriod</code> so it can now conveniently substitute
+        it anywhere a <code>DatePeriod</code> is expected. However, it also inherits the constraint
+        that <code>-&gt;start</code> and <code>-&gt;end</code> are immutable properties. We recommend
+        that you use <code>CarbonPeriodImmutable</code> which will then be fully compatible (its properties
+        including start and end cannot be modified); while <code>CarbonPeriod</code> has setters
+        <code>-&gt;setStartDate()</code> and <code>-&gt;setEndDate()</code> that will actually modify
+        from when to when the period iterates and also the value you can retrieve using
+        <code>-&gt;getStartDate()</code> and <code>-&gt;getEndDate()</code>, however
+        <code>-&gt;start</code> and <code>-&gt;end</code> will still contain initial start and end
+        and not the new values after modification.</p>
 
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 

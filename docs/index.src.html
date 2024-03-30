@@ -5139,6 +5139,19 @@ var_dump($date->gt(null)); // true</code></pre></p>
     <p>Creating timezone with a bad/unknown name will now always throw an exception, it's no longer
         possible to mute them by disabling strict-mode.</p>
 
+    <h2 id="api-carbon-3-period-start-and-end">Immutable start and end properties of CarbonPeriod</h2>
+
+    <p><code>CarbonPeriod</code> now extends <code>DatePeriod</code> so it can now conveniently substitute
+        it anywhere a <code>DatePeriod</code> is expected. However, it also inherits the constraint
+        that <code>-&gt;start</code> and <code>-&gt;end</code> are immutable properties. We recommend
+        that you use <code>CarbonPeriodImmutable</code> which will then be fully compatible (its properties
+        including start and end cannot be modified); while <code>CarbonPeriod</code> has setters
+        <code>-&gt;setStartDate()</code> and <code>-&gt;setEndDate()</code> that will actually modify
+        from when to when the period iterates and also the value you can retrieve using
+        <code>-&gt;getStartDate()</code> and <code>-&gt;getEndDate()</code>, however
+        <code>-&gt;start</code> and <code>-&gt;end</code> will still contain initial start and end
+        and not the new values after modification.</p>
+
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 
     <p>If you plan to migrate from Carbon 1 to Carbon 2, please note the following breaking changes you should

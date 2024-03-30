@@ -2202,62 +2202,62 @@ current one).</p>
 
 <div class="doc-method " id="doc-method-Carbon-diffInUnit">
     <h2><span class="class-name">Carbon::</span>diffInUnit</h2>
-    <code>Carbon\Unit|string $unit, $date = null, bool $absolute = false</code>
+    <code>Carbon\Unit|string $unit, $date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">@param Unit|string                                            $unit     microsecond, millisecond, second, minute,
 hour, day, week, month, quarter, year,
 century, millennium</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $unit, $date = null, bool $absolute = false</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>Carbon\Unit|string $unit, $date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.1.0</td><td><code>Carbon\Unit|string $unit, $date = null, bool $absolute = false</code></td></tr>
         <tr><td>Method added</td><td>3.0.0</td><td><code>string $unit, $date = null, bool $absolute = false</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInYears">
     <h2><span class="class-name">Carbon::</span>diffInYears</h2>
-    <code>$date = null, bool $absolute = false</code>
+    <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in years</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInQuarters">
     <h2><span class="class-name">Carbon::</span>diffInQuarters</h2>
-    <code>$date = null, bool $absolute = false</code>
+    <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in quarters rounded down.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr>
+    <p class="doc-description">Get the difference in quarters.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr>
         <tr><td>Method added</td><td>2.31.0</td><td><code>$date = null, $absolute = true</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInMonths">
     <h2><span class="class-name">Carbon::</span>diffInMonths</h2>
-    <code>$date = null, bool $absolute = false</code>
+    <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in months rounded down.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <p class="doc-description">Get the difference in months.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInWeeks">
     <h2><span class="class-name">Carbon::</span>diffInWeeks</h2>
-    <code>$date = null, bool $absolute = false</code>
+    <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in weeks rounded down.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <p class="doc-description">Get the difference in weeks.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInDays">
     <h2><span class="class-name">Carbon::</span>diffInDays</h2>
-    <code>$date = null, bool $absolute = false</code>
+    <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in days rounded down.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <p class="doc-description">Get the difference in days.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2266,7 +2266,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInDaysFiltered</h2>
     <code>Closure $callback, $date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in days using a filter closure rounded down.</p>
+    <p class="doc-description">Get the difference in days using a filter closure.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.12.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2276,7 +2276,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInHoursFiltered</h2>
     <code>Closure $callback, $date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in hours using a filter closure rounded down.</p>
+    <p class="doc-description">Get the difference in hours using a filter closure.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.18.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2296,7 +2296,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInWeekdays</h2>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in weekdays rounded down.</p>
+    <p class="doc-description">Get the difference in weekdays.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2306,7 +2306,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInWeekendDays</h2>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in weekend days using a filter rounded down.</p>
+    <p class="doc-description">Get the difference in weekend days using a filter.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2316,7 +2316,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInHours</h2>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in hours rounded down.</p>
+    <p class="doc-description">Get the difference in hours.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2326,7 +2326,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInMinutes</h2>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in minutes rounded down.</p>
+    <p class="doc-description">Get the difference in minutes.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2336,7 +2336,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInSeconds</h2>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in seconds rounded down.</p>
+    <p class="doc-description">Get the difference in seconds.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
@@ -2356,7 +2356,7 @@ century, millennium</p>
     <h2><span class="class-name">Carbon::</span>diffInMilliseconds</h2>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
-    <p class="doc-description">Get the difference in milliseconds rounded down.</p>
+    <p class="doc-description">Get the difference in milliseconds.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr>
         <tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr>
     </table>
@@ -3669,25 +3669,49 @@ is anything that is not null.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealUnit">
+<div class="doc-method deprecated" id="doc-method-Carbon-addRealUnit">
     <h2><span class="class-name">Carbon::</span>addRealUnit</h2>
     <code>string $unit, $value = 1</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Add seconds to the instance using timestamp. Positive $value travels
+    <p class="doc-description"><div class="alert alert-warning">Prefer to use add addUTCUnit() which more accurately defines what it's doing.</div>
+Add seconds to the instance using timestamp. Positive $value travels
 forward while negative $value travels into the past.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, $value = 1</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealUnit">
+<div class="doc-method " id="doc-method-Carbon-addUTCUnit">
+    <h2><span class="class-name">Carbon::</span>addUTCUnit</h2>
+    <code>string $unit, $value = 1</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Add seconds to the instance using timestamp. Positive $value travels
+forward while negative $value travels into the past.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>string $unit, $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method deprecated" id="doc-method-Carbon-subRealUnit">
     <h2><span class="class-name">Carbon::</span>subRealUnit</h2>
+    <code>$unit, $value = 1</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description"><div class="alert alert-warning">Prefer to use add subUTCUnit() which more accurately defines what it's doing.</div>
+Subtract seconds to the instance using timestamp. Positive $value travels
+into the past while negative $value travels forward.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subUTCUnit">
+    <h2><span class="class-name">Carbon::</span>subUTCUnit</h2>
     <code>$unit, $value = 1</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract seconds to the instance using timestamp. Positive $value travels
 into the past while negative $value travels forward.</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1</code></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>$unit, $value = 1</code></td></tr>
     </table>
 </div>
 
@@ -8927,10 +8951,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameYear">
     <h2><span class="class-name">Carbon::</span>isSameYear</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr>
         <tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
@@ -8997,10 +9021,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameWeek">
     <h2><span class="class-name">Carbon::</span>isSameWeek</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
     </table>
 </div>
@@ -9037,10 +9061,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameDay">
     <h2><span class="class-name">Carbon::</span>isSameDay</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr>
         <tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr>
     </table>
 </div>
@@ -9077,10 +9101,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameHour">
     <h2><span class="class-name">Carbon::</span>isSameHour</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr>
     </table>
 </div>
@@ -9117,10 +9141,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMinute">
     <h2><span class="class-name">Carbon::</span>isSameMinute</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr>
     </table>
 </div>
@@ -9157,10 +9181,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameSecond">
     <h2><span class="class-name">Carbon::</span>isSameSecond</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr>
     </table>
 </div>
@@ -9197,10 +9221,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMilli">
     <h2><span class="class-name">Carbon::</span>isSameMilli</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same millisecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr>
         <tr><td>Method added</td><td>3.0.0</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr>
     </table>
 </div>
@@ -9237,10 +9261,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMillisecond">
     <h2><span class="class-name">Carbon::</span>isSameMillisecond</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same millisecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr>
         <tr><td>Method added</td><td>3.0.0</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr>
     </table>
 </div>
@@ -9277,10 +9301,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMicro">
     <h2><span class="class-name">Carbon::</span>isSameMicro</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
     </table>
 </div>
@@ -9317,10 +9341,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMicrosecond">
     <h2><span class="class-name">Carbon::</span>isSameMicrosecond</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
     </table>
 </div>
@@ -9357,10 +9381,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameDecade">
     <h2><span class="class-name">Carbon::</span>isSameDecade</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
     </table>
 </div>
@@ -9397,10 +9421,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameCentury">
     <h2><span class="class-name">Carbon::</span>isSameCentury</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
     </table>
 </div>
@@ -9437,10 +9461,10 @@ be used for any purpose to show official state names.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMillennium">
     <h2><span class="class-name">Carbon::</span>isSameMillennium</h2>
-    <code>Carbon|DateTimeInterface|string|null $date = null</code>
+    <code>DateTimeInterface|string $date</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr>
     </table>
 </div>
@@ -11505,43 +11529,43 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMicros">
-    <h2><span class="class-name">Carbon::</span>addRealMicros</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMicros">
+    <h2><span class="class-name">Carbon::</span>addUTCMicros</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add microseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.7.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMicro">
-    <h2><span class="class-name">Carbon::</span>addRealMicro</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMicro">
+    <h2><span class="class-name">Carbon::</span>addUTCMicro</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one microsecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.7.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMicros">
-    <h2><span class="class-name">Carbon::</span>subRealMicros</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMicros">
+    <h2><span class="class-name">Carbon::</span>subUTCMicros</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub microseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.7.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMicro">
-    <h2><span class="class-name">Carbon::</span>subRealMicro</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMicro">
+    <h2><span class="class-name">Carbon::</span>subUTCMicro</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one microsecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.7.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11555,43 +11579,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMicroseconds">
-    <h2><span class="class-name">Carbon::</span>addRealMicroseconds</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add microseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMicros">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMicros</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of microseconds.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMicrosecond">
-    <h2><span class="class-name">Carbon::</span>addRealMicrosecond</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMicroseconds">
+    <h2><span class="class-name">Carbon::</span>addUTCMicroseconds</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add microseconds (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCMicrosecond">
+    <h2><span class="class-name">Carbon::</span>addUTCMicrosecond</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one microsecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMicroseconds">
-    <h2><span class="class-name">Carbon::</span>subRealMicroseconds</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMicroseconds">
+    <h2><span class="class-name">Carbon::</span>subUTCMicroseconds</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub microseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMicrosecond">
-    <h2><span class="class-name">Carbon::</span>subRealMicrosecond</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMicrosecond">
+    <h2><span class="class-name">Carbon::</span>subUTCMicrosecond</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one microsecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11605,43 +11639,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMillis">
-    <h2><span class="class-name">Carbon::</span>addRealMillis</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add milliseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.7.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMicroseconds">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMicroseconds</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of microseconds.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMilli">
-    <h2><span class="class-name">Carbon::</span>addRealMilli</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMillis">
+    <h2><span class="class-name">Carbon::</span>addUTCMillis</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add milliseconds (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCMilli">
+    <h2><span class="class-name">Carbon::</span>addUTCMilli</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one millisecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.7.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMillis">
-    <h2><span class="class-name">Carbon::</span>subRealMillis</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMillis">
+    <h2><span class="class-name">Carbon::</span>subUTCMillis</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub milliseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.7.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMilli">
-    <h2><span class="class-name">Carbon::</span>subRealMilli</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMilli">
+    <h2><span class="class-name">Carbon::</span>subUTCMilli</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one millisecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.7.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11655,43 +11699,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMilliseconds">
-    <h2><span class="class-name">Carbon::</span>addRealMilliseconds</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add milliseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.7.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMillis">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMillis</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of milliseconds.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMillisecond">
-    <h2><span class="class-name">Carbon::</span>addRealMillisecond</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMilliseconds">
+    <h2><span class="class-name">Carbon::</span>addUTCMilliseconds</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add milliseconds (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCMillisecond">
+    <h2><span class="class-name">Carbon::</span>addUTCMillisecond</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one millisecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.7.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMilliseconds">
-    <h2><span class="class-name">Carbon::</span>subRealMilliseconds</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMilliseconds">
+    <h2><span class="class-name">Carbon::</span>subUTCMilliseconds</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub milliseconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.7.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMillisecond">
-    <h2><span class="class-name">Carbon::</span>subRealMillisecond</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMillisecond">
+    <h2><span class="class-name">Carbon::</span>subUTCMillisecond</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one millisecond to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.7.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11705,43 +11759,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealSeconds">
-    <h2><span class="class-name">Carbon::</span>addRealSeconds</h2>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMilliseconds">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMilliseconds</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of milliseconds.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCSeconds">
+    <h2><span class="class-name">Carbon::</span>addUTCSeconds</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add seconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealSecond">
-    <h2><span class="class-name">Carbon::</span>addRealSecond</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCSecond">
+    <h2><span class="class-name">Carbon::</span>addUTCSecond</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one second to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealSeconds">
-    <h2><span class="class-name">Carbon::</span>subRealSeconds</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCSeconds">
+    <h2><span class="class-name">Carbon::</span>subUTCSeconds</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub seconds (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealSecond">
-    <h2><span class="class-name">Carbon::</span>subRealSecond</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCSecond">
+    <h2><span class="class-name">Carbon::</span>subUTCSecond</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one second to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11755,43 +11819,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMinutes">
-    <h2><span class="class-name">Carbon::</span>addRealMinutes</h2>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCSeconds">
+    <h2><span class="class-name">Carbon::</span>diffInUTCSeconds</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of seconds.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCMinutes">
+    <h2><span class="class-name">Carbon::</span>addUTCMinutes</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add minutes (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMinute">
-    <h2><span class="class-name">Carbon::</span>addRealMinute</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMinute">
+    <h2><span class="class-name">Carbon::</span>addUTCMinute</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one minute to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMinutes">
-    <h2><span class="class-name">Carbon::</span>subRealMinutes</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMinutes">
+    <h2><span class="class-name">Carbon::</span>subUTCMinutes</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub minutes (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMinute">
-    <h2><span class="class-name">Carbon::</span>subRealMinute</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMinute">
+    <h2><span class="class-name">Carbon::</span>subUTCMinute</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one minute to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11805,43 +11879,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealHours">
-    <h2><span class="class-name">Carbon::</span>addRealHours</h2>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMinutes">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMinutes</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of minutes.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCHours">
+    <h2><span class="class-name">Carbon::</span>addUTCHours</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add hours (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealHour">
-    <h2><span class="class-name">Carbon::</span>addRealHour</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCHour">
+    <h2><span class="class-name">Carbon::</span>addUTCHour</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one hour to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealHours">
-    <h2><span class="class-name">Carbon::</span>subRealHours</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCHours">
+    <h2><span class="class-name">Carbon::</span>subUTCHours</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub hours (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealHour">
-    <h2><span class="class-name">Carbon::</span>subRealHour</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCHour">
+    <h2><span class="class-name">Carbon::</span>subUTCHour</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one hour to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11855,43 +11939,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealDays">
-    <h2><span class="class-name">Carbon::</span>addRealDays</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add days (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCHours">
+    <h2><span class="class-name">Carbon::</span>diffInUTCHours</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of hours.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealDay">
-    <h2><span class="class-name">Carbon::</span>addRealDay</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCDays">
+    <h2><span class="class-name">Carbon::</span>addUTCDays</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add days (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCDay">
+    <h2><span class="class-name">Carbon::</span>addUTCDay</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one day to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealDays">
-    <h2><span class="class-name">Carbon::</span>subRealDays</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCDays">
+    <h2><span class="class-name">Carbon::</span>subUTCDays</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub days (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealDay">
-    <h2><span class="class-name">Carbon::</span>subRealDay</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCDay">
+    <h2><span class="class-name">Carbon::</span>subUTCDay</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one day to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11905,43 +11999,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealWeeks">
-    <h2><span class="class-name">Carbon::</span>addRealWeeks</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add weeks (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCDays">
+    <h2><span class="class-name">Carbon::</span>diffInUTCDays</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of days.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealWeek">
-    <h2><span class="class-name">Carbon::</span>addRealWeek</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCWeeks">
+    <h2><span class="class-name">Carbon::</span>addUTCWeeks</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add weeks (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCWeek">
+    <h2><span class="class-name">Carbon::</span>addUTCWeek</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one week to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealWeeks">
-    <h2><span class="class-name">Carbon::</span>subRealWeeks</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCWeeks">
+    <h2><span class="class-name">Carbon::</span>subUTCWeeks</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub weeks (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealWeek">
-    <h2><span class="class-name">Carbon::</span>subRealWeek</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCWeek">
+    <h2><span class="class-name">Carbon::</span>subUTCWeek</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one week to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -11955,43 +12059,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMonths">
-    <h2><span class="class-name">Carbon::</span>addRealMonths</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add months (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCWeeks">
+    <h2><span class="class-name">Carbon::</span>diffInUTCWeeks</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of weeks.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMonth">
-    <h2><span class="class-name">Carbon::</span>addRealMonth</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMonths">
+    <h2><span class="class-name">Carbon::</span>addUTCMonths</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add months (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCMonth">
+    <h2><span class="class-name">Carbon::</span>addUTCMonth</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one month to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMonths">
-    <h2><span class="class-name">Carbon::</span>subRealMonths</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMonths">
+    <h2><span class="class-name">Carbon::</span>subUTCMonths</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub months (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMonth">
-    <h2><span class="class-name">Carbon::</span>subRealMonth</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMonth">
+    <h2><span class="class-name">Carbon::</span>subUTCMonth</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one month to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -12005,43 +12119,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealQuarters">
-    <h2><span class="class-name">Carbon::</span>addRealQuarters</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add quarters (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMonths">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMonths</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of months.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealQuarter">
-    <h2><span class="class-name">Carbon::</span>addRealQuarter</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCQuarters">
+    <h2><span class="class-name">Carbon::</span>addUTCQuarters</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add quarters (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCQuarter">
+    <h2><span class="class-name">Carbon::</span>addUTCQuarter</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one quarter to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealQuarters">
-    <h2><span class="class-name">Carbon::</span>subRealQuarters</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCQuarters">
+    <h2><span class="class-name">Carbon::</span>subUTCQuarters</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub quarters (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealQuarter">
-    <h2><span class="class-name">Carbon::</span>subRealQuarter</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCQuarter">
+    <h2><span class="class-name">Carbon::</span>subUTCQuarter</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one quarter to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -12055,43 +12179,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealYears">
-    <h2><span class="class-name">Carbon::</span>addRealYears</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add years (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCQuarters">
+    <h2><span class="class-name">Carbon::</span>diffInUTCQuarters</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of quarters.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealYear">
-    <h2><span class="class-name">Carbon::</span>addRealYear</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCYears">
+    <h2><span class="class-name">Carbon::</span>addUTCYears</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add years (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCYear">
+    <h2><span class="class-name">Carbon::</span>addUTCYear</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one year to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealYears">
-    <h2><span class="class-name">Carbon::</span>subRealYears</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCYears">
+    <h2><span class="class-name">Carbon::</span>subUTCYears</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub years (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealYear">
-    <h2><span class="class-name">Carbon::</span>subRealYear</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCYear">
+    <h2><span class="class-name">Carbon::</span>subUTCYear</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one year to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -12105,43 +12239,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealDecades">
-    <h2><span class="class-name">Carbon::</span>addRealDecades</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add decades (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCYears">
+    <h2><span class="class-name">Carbon::</span>diffInUTCYears</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of years.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealDecade">
-    <h2><span class="class-name">Carbon::</span>addRealDecade</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCDecades">
+    <h2><span class="class-name">Carbon::</span>addUTCDecades</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add decades (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCDecade">
+    <h2><span class="class-name">Carbon::</span>addUTCDecade</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one decade to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealDecades">
-    <h2><span class="class-name">Carbon::</span>subRealDecades</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCDecades">
+    <h2><span class="class-name">Carbon::</span>subUTCDecades</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub decades (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealDecade">
-    <h2><span class="class-name">Carbon::</span>subRealDecade</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCDecade">
+    <h2><span class="class-name">Carbon::</span>subUTCDecade</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one decade to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -12155,43 +12299,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealCenturies">
-    <h2><span class="class-name">Carbon::</span>addRealCenturies</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add centuries (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCDecades">
+    <h2><span class="class-name">Carbon::</span>diffInUTCDecades</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of decades.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealCentury">
-    <h2><span class="class-name">Carbon::</span>addRealCentury</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCCenturies">
+    <h2><span class="class-name">Carbon::</span>addUTCCenturies</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add centuries (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCCentury">
+    <h2><span class="class-name">Carbon::</span>addUTCCentury</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one century to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealCenturies">
-    <h2><span class="class-name">Carbon::</span>subRealCenturies</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCCenturies">
+    <h2><span class="class-name">Carbon::</span>subUTCCenturies</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub centuries (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealCentury">
-    <h2><span class="class-name">Carbon::</span>subRealCentury</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCCentury">
+    <h2><span class="class-name">Carbon::</span>subUTCCentury</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one century to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -12205,43 +12359,53 @@ be used for any purpose to show official state names.</p>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMillennia">
-    <h2><span class="class-name">Carbon::</span>addRealMillennia</h2>
-    <code>int|float $value = 1</code>
-    <div class="doc-return">returns <code>$this</code></div>
-    <p class="doc-description">Add millennia (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+<div class="doc-method " id="doc-method-Carbon-diffInUTCCenturies">
+    <h2><span class="class-name">Carbon::</span>diffInUTCCenturies</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of centuries.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-addRealMillennium">
-    <h2><span class="class-name">Carbon::</span>addRealMillennium</h2>
+<div class="doc-method " id="doc-method-Carbon-addUTCMillennia">
+    <h2><span class="class-name">Carbon::</span>addUTCMillennia</h2>
+    <code>int|float $value = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Add millennia (the $value count passed in) to the instance (using timestamp).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addUTCMillennium">
+    <h2><span class="class-name">Carbon::</span>addUTCMillennium</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add one millennium to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMillennia">
-    <h2><span class="class-name">Carbon::</span>subRealMillennia</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMillennia">
+    <h2><span class="class-name">Carbon::</span>subUTCMillennia</h2>
     <code>int|float $value = 1</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub millennia (the $value count passed in) to the instance (using timestamp).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int|float $value = 1</code></td></tr>
-        <tr><td>Method added</td><td>2.0.0</td><td><code>int $value = 1</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>int|float $value = 1</code></td></tr>
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-subRealMillennium">
-    <h2><span class="class-name">Carbon::</span>subRealMillennium</h2>
+<div class="doc-method " id="doc-method-Carbon-subUTCMillennium">
+    <h2><span class="class-name">Carbon::</span>subUTCMillennium</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Sub one millennium to the instance (using timestamp).</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.2.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -12252,6 +12416,16 @@ be used for any purpose to show official state names.</p>
     <p class="doc-description">Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$endDate = null,  int|float $factor = 1</code></td></tr>
         <tr><td>Method added</td><td>2.20.0</td><td><code>$endDate = null,  int $factor = 1</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffInUTCMillennia">
+    <h2><span class="class-name">Carbon::</span>diffInUTCMillennia</h2>
+    <code>DateTimeInterface|string|null $date,  bool $absolute = false</code>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Convert current and given date in UTC timezone and return a floating number of millennia.</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.2.0</td><td><code>DateTimeInterface|string|null $date,  bool $absolute = false</code></td></tr>
     </table>
 </div>
 

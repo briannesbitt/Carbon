@@ -48,7 +48,8 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate|getFormatsToIsoReplacements|getTimeFormatByPrecision|hasLocalTranslator |
         (use|is)StrictMode(Enabled)? |
         __(clone|sleep|wakeup|construct|debugInfo|set_state|serialize|unserialize) |
-        (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
+        diffInUTC$upperUnit |
+        (floor|ceil|round|sub(tract)?(Real|UTC)?|add(Real|UTC)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
         (set|get)$upperUnit |
         (startOf|endOf)$upperUnit |
         $lowerUnit(In|Of)$upperUnit |
@@ -163,6 +164,12 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
             $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
             $argumentNames = array_keys($argumentsDocumented);
             $missingNames = array_slice($argumentNames, $coveredArgs, $argumentsCount - $coveredArgs);
+
+            // Methods diffIn all have the same parameters, so we won't describe each one.
+            if (array_diff($missingNames, ['absolute', 'utc']) === []) {
+                $missingNames = [];
+            }
+
             $allArgumentsDocumented = true;
 
             foreach ($missingNames as $name) {
