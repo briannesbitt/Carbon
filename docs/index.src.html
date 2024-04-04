@@ -12,8 +12,8 @@
 
     <h1 id="api-introduction">Introduction</h1>
 
-    <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a
-            href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
+    <p>The Carbon class is <a href="https://www.php.net/manual/en/language.oop5.inheritance.php">inherited</a>
+        from the PHP <a href="https://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
 
     <p>
     <pre><code class="php">&lt;?php
@@ -42,7 +42,7 @@ class Carbon extends \DateTime
         recommendations</a>.</p>
 
     <p>We also provide CarbonImmutable class extending <a
-            href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
+            href="https://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
         instance, it modifies and returns the same instance, when you use it on CarbonImmutable,
         it returns a new instances with the new value.</p>
@@ -75,20 +75,20 @@ class Carbon extends \DateTime
     </p>
 
     <p>The library also provides CarbonInterface interface extends <a
-            href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
-            href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
+            href="https://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
+            href="https://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
         <a href="#api-interval">CarbonInterval</a> class extends <a
-                href="http://www.php.net/manual/en/class.dateinterval.php">DateInterval</a>,
+                href="https://www.php.net/manual/en/class.dateinterval.php">DateInterval</a>,
         <a href="#api-timezone">CarbonTimeZone</a> class extends <a
-                href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
+                href="https://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
         and <a href="#api-period">CarbonPeriod</a> class polyfills <a
-                href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
+                href="https://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
 
-    <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
+    <p>Carbon has all the functions inherited from the base DateTime class. This approach allows you to access the
         base functionality such as
-        <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
-        <a href="http://php.net/manual/en/datetime.format.php">format</a> or
-        <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
+        <a href="https://www.php.net/manual/en/datetime.modify.php">modify</a>,
+        <a href="https://www.php.net/manual/en/datetime.format.php">format</a> or
+        <a href="https://www.php.net/manual/en/datetime.gettimestamp.php">getTimestamp</a>.</p>
 
     <p>
 
@@ -115,7 +115,7 @@ class Carbon extends \DateTime
     <h1 id="api-instantiation">Instantiation</h1>
 
     <p>There are several different methods available to create a new instance of Carbon. First there is a constructor.
-        It overrides the <a href="http://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you
+        It overrides the <a href="https://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you
         are best to read about the first parameter from the PHP manual and understand the date/time string formats it
         accepts. You'll hopefully find yourself rarely using the constructor but rather relying on the explicit static
         methods for improved readability.</p>
@@ -223,7 +223,7 @@ echo "\n";
         functions allow you to provide as many or as few arguments as you want and will provide default values for all
         others. Generally default values are the current date, time or timezone. Higher values will wrap appropriately
         but invalid values will throw an <code>InvalidArgumentException</code> with an informative message. The message
-        is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a>
+        is obtained from an <a href="https://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a>
         call.</p>
 
     <p>
@@ -297,7 +297,7 @@ echo "\n";
     </p>
 
     <p><code>createFromFormat()</code> is mostly a wrapper for the base php function <a
-            href="http://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>. The difference
+            href="https://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>. The difference
         being again the <code>$tz</code> argument can be a DateTimeZone instance or a string timezone value. Also, if
         there are errors with the format this function will call the <code>DateTime::getLastErrors()</code> method and
         then throw a <code>InvalidArgumentException</code> with the errors as the message.</p>
@@ -326,7 +326,7 @@ echo "\n";
 {{::exec(var_dump(Carbon::hasFormat('21#05#1975!', 'd#m#Y!'));)}} // {{eval}}</code></pre>
     </p>
 
-    <p>You can create instances from <a href="http://en.wikipedia.org/wiki/Unix_time">unix
+    <p>You can create instances from <a href="https://en.wikipedia.org/wiki/Unix_time">unix
         timestamps</a>. <code>createFromTimestamp()</code> create a Carbon instance equal to the given timestamp and
         will set the timezone to the given timezone as second parameter, or to UTC if non given (since Carbon 3)
         (in previous versions it defaulted to <code>date_default_timezone_get()</code>). It supports int, float or
@@ -505,14 +505,14 @@ $date = Carbon::now()->locale('xx', 'xy', 'es')->sub('3 days 6 hours 40 minutes'
 
     <p>Note that you can also use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
         given translator implements <a
-                href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+                href="https://symfony.com/doc/current/translation.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
         And you can get the global default translator using <code>Carbon::getTranslator()</code> (and <code>Carbon::setFallbackLocale($custom)</code>
         and <code>Carbon::getFallbackLocale()</code> for the fallback locale, setFallbackLocale can be called multiple times to get multiple fallback locales)
         but as those method will change the behavior globally (including third-party libraries you may have in your app), it might cause
         unexpected results. You should rather customize translation using custom locales as in the example above.
     </p>
 
-    <p>Carbon embed a default translator that extends <a href="https://api.symfony.com/2.7/Symfony/Component/Translation/Translator.html">Symfony\Component\Translation\Translator</a>
+    <p>Carbon embed a default translator that extends <code">Symfony\Component\Translation\Translator</code>
         You can <a href="#translator-details" data-slide-down="#translator-details">check here the methods we added to it</a>.</p>
 
     <div id="translator-details" class="extra-helper">
@@ -1689,28 +1689,10 @@ $dt->setDateFrom($source2);
 </code></pre>
     </p>
 
-    <h1 id="api-isset">IsSet</h1>
-
-    <p>The PHP function <code>__isset()</code> is implemented. This was done as some external systems (ex. <a
-            href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the
-        existence of a property before using it. This is done using the <code>isset()</code> or <code>empty()</code>
-        method. You can read more about these on the PHP site: <a
-                href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a
-                href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a
-                href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
-
-    <p>
-    <pre><code class="php">{{::exec(var_dump(isset(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump(isset(Carbon::now()->hour));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump(empty(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump(empty(Carbon::now()->year));/*pad(50)*/)}} // {{eval}}
-</code></pre>
-    </p>
-
     <h1 id="api-formatting">String Formatting</h1>
 
     <p>All of the available <code>toXXXString()</code> methods rely on the base class method <a
-            href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>. You'll notice the <code>__toString()</code>
+            href="https://www.php.net/manual/en/datetime.format.php">DateTime::format()</a>. You'll notice the <code>__toString()</code>
         method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a
         string context.</p>
 
@@ -1733,8 +1715,8 @@ $dt->setDateFrom($source2);
 </code></pre>
     </p>
 
-    <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a
-            href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
+    <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) that's used when <a
+            href="https://www.php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
@@ -1777,7 +1759,7 @@ Carbon::resetToStringFormat();
     <h1 id="api-commonformats">Common Formats</h1>
 
     <p>The following are wrappers for the common formats provided in the <a
-            href="http://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
+            href="https://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
 
     <p>
     <pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
@@ -3634,7 +3616,7 @@ class UserTimezoneCarbonMixin
      *
      * @return string
      *
-     * @link http://php.net/manual/en/datetime.format.php
+     * @link https://www.php.net/manual/en/datetime.format.php
      */
     public function tzFormat()
     {
@@ -3749,8 +3731,8 @@ echo "\n";
 
     <h1 id="api-interval">CarbonInterval</h1>
 
-    <p>The CarbonInterval class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a
-            href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
+    <p>The CarbonInterval class is <a href="https://www.php.net/manual/en/language.oop5.inheritance.php">inherited</a> from the PHP <a
+            href="https://www.php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
 
     <p>
     <pre><code class="php">&lt;?php
@@ -4243,7 +4225,7 @@ $interval = CarbonInterval::months(2)->addHours(12)->addSeconds(50);
 
     <h1 id="api-period">CarbonPeriod</h1>
 
-    <p>CarbonPeriod is a human-friendly version of the <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a>
+    <p>CarbonPeriod is a human-friendly version of the <a href="https://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>
         with many shortcuts.</p>
 
     <p>
@@ -4312,7 +4294,7 @@ CarbonPeriod::create('now', CarbonInterval::days(-2), INF)->calculateEnd()->isSt
         values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given
         array as a list of arguments.</p>
 
-    <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It
+    <p>CarbonPeriod implements the <a href="https://www.php.net/manual/en/class.iterator.php">Iterator</a> interface. It
         means that it can be passed directly to a <code>foreach</code> loop:</p>
 
     <p>
@@ -4881,7 +4863,7 @@ $period = CarbonPeriod::create('2019-01-15', '2019-01-31', CarbonPeriod::EXCLUDE
     <h1 id="api-timezone">CarbonTimeZone</h1>
 
     <p>Starting with Carbon 2, timezones are now handled with a dedicated class <code>CarbonTimeZone</code>
-        extending <a href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>.</p>
+        extending <a href="https://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
@@ -4921,11 +4903,11 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>The default timezone is given by <a href="http://php.net/manual/en/function.date-default-timezone-get.php">date_default_timezone_get</a>
+    <p>The default timezone is given by <a href="https://www.php.net/manual/en/function.date-default-timezone-get.php">date_default_timezone_get</a>
         so it will be driven by the INI settings
-        <a href="http://php.net/manual/en/datetime.configuration.php#ini.date.timezone">date.timezone</a> but you really
+        <a href="https://www.php.net/manual/en/datetime.configuration.php#ini.date.timezone">date.timezone</a> but you really
         should override it at application level using
-        <a href="http://php.net/manual/en/function.date-default-timezone-set.php">date_default_timezone_set</a>
+        <a href="https://www.php.net/manual/en/function.date-default-timezone-set.php">date_default_timezone_set</a>
         and you should set it to <code>"UTC"</code>, if you're temped to or already use an other timezone as default,
         please read the following article:
         <a href="https://medium.com/@kylekatarnls/always-use-utc-dates-and-times-8a8200ca3164">Always Use UTC Dates And Times</a>.</p>
@@ -5241,7 +5223,6 @@ Carbon::setToStringFormat(function ($date) {
                 <li><a href="#api-setters">Setters</a></li>
                 <li><a href="#api-week">Weeks</a></li>
                 <li><a href="#api-settersfluent">Fluent Setters</a></li>
-                <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>
                 <li><a href="#api-commonformats">Common Formats</a></li>
                 <li><a href="#api-conversion">Conversion</a></li>

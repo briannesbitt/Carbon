@@ -91,8 +91,8 @@
 
     <h1 id="api-introduction">Introduction</h1>
 
-    <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a
-            href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
+    <p>The Carbon class is <a href="https://www.php.net/manual/en/language.oop5.inheritance.php">inherited</a>
+        from the PHP <a href="https://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
 
     <p>
     <pre><code class="php">&lt;?php
@@ -121,7 +121,7 @@ class Carbon extends \DateTime
         recommendations</a>.</p>
 
     <p>We also provide CarbonImmutable class extending <a
-            href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
+            href="https://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
         instance, it modifies and returns the same instance, when you use it on CarbonImmutable,
         it returns a new instances with the new value.</p>
@@ -133,13 +133,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(9) "Sunday 31"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Sunday 31"
+var_dump($mutable->isoFormat('dddd D'));             // string(8) "Friday 5"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(8) "Friday 5"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(11) "Saturday 30"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Sunday 31"
+var_dump($immutable->isoFormat('dddd D'));           // string(10) "Thursday 4"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(8) "Friday 5"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -154,20 +154,20 @@ var_dump($immutable->isImmutable());                 // bool(true)
     </p>
 
     <p>The library also provides CarbonInterface interface extends <a
-            href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
-            href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
+            href="https://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
+            href="https://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
         <a href="#api-interval">CarbonInterval</a> class extends <a
-                href="http://www.php.net/manual/en/class.dateinterval.php">DateInterval</a>,
+                href="https://www.php.net/manual/en/class.dateinterval.php">DateInterval</a>,
         <a href="#api-timezone">CarbonTimeZone</a> class extends <a
-                href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
+                href="https://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
         and <a href="#api-period">CarbonPeriod</a> class polyfills <a
-                href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
+                href="https://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
 
-    <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
+    <p>Carbon has all the functions inherited from the base DateTime class. This approach allows you to access the
         base functionality such as
-        <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
-        <a href="http://php.net/manual/en/datetime.format.php">format</a> or
-        <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
+        <a href="https://www.php.net/manual/en/datetime.modify.php">modify</a>,
+        <a href="https://www.php.net/manual/en/datetime.format.php">format</a> or
+        <a href="https://www.php.net/manual/en/datetime.gettimestamp.php">getTimestamp</a>.</p>
 
     <p>
 
@@ -194,7 +194,7 @@ echo $dtVancouver->diffInHours($dtToronto); // -3
     <h1 id="api-instantiation">Instantiation</h1>
 
     <p>There are several different methods available to create a new instance of Carbon. First there is a constructor.
-        It overrides the <a href="http://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you
+        It overrides the <a href="https://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you
         are best to read about the first parameter from the PHP manual and understand the date/time string formats it
         accepts. You'll hopefully find yourself rarely using the constructor but rather relying on the explicit static
         methods for improved readability.</p>
@@ -281,16 +281,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2024-03-30 22:42:51
+echo $now;                               // 2024-04-04 17:24:06
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2024-03-30 00:00:00
+echo $today;                             // 2024-04-04 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2024-03-31 00:00:00
+echo $tomorrow;                          // 2024-04-05 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2024-03-29 00:00:00
+echo $yesterday;                         // 2024-04-03 00:00:00
 </code></pre>
     </p>
 
@@ -298,7 +298,7 @@ echo $yesterday;                         // 2024-03-29 00:00:00
         functions allow you to provide as many or as few arguments as you want and will provide default values for all
         others. Generally default values are the current date, time or timezone. Higher values will wrap appropriately
         but invalid values will throw an <code>InvalidArgumentException</code> with an informative message. The message
-        is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a>
+        is obtained from an <a href="https://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a>
         call.</p>
 
     <p>
@@ -368,7 +368,7 @@ try {
     </p>
 
     <p><code>createFromFormat()</code> is mostly a wrapper for the base php function <a
-            href="http://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>. The difference
+            href="https://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>. The difference
         being again the <code>$tz</code> argument can be a DateTimeZone instance or a string timezone value. Also, if
         there are errors with the format this function will call the <code>DateTime::getLastErrors()</code> method and
         then throw a <code>InvalidArgumentException</code> with the errors as the message.</p>
@@ -397,7 +397,7 @@ var_dump(Carbon::hasFormat('21/05/1975', 'd#m#Y!')); // bool(false)
 var_dump(Carbon::hasFormat('21#05#1975!', 'd#m#Y!')); // bool(true)</code></pre>
     </p>
 
-    <p>You can create instances from <a href="http://en.wikipedia.org/wiki/Unix_time">unix
+    <p>You can create instances from <a href="https://en.wikipedia.org/wiki/Unix_time">unix
         timestamps</a>. <code>createFromTimestamp()</code> create a Carbon instance equal to the given timestamp and
         will set the timezone to the given timezone as second parameter, or to UTC if non given (since Carbon 3)
         (in previous versions it defaulted to <code>date_default_timezone_get()</code>). It supports int, float or
@@ -451,7 +451,7 @@ echo $dt->diffInYears($dt->avoidMutation()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 00:42 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:24 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -570,14 +570,14 @@ echo $date->ago(['parts' => 3]); // hace 3 Xday 6 Yhour 40 minutos
 
     <p>Note that you can also use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
         given translator implements <a
-                href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+                href="https://symfony.com/doc/current/translation.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
         And you can get the global default translator using <code>Carbon::getTranslator()</code> (and <code>Carbon::setFallbackLocale($custom)</code>
         and <code>Carbon::getFallbackLocale()</code> for the fallback locale, setFallbackLocale can be called multiple times to get multiple fallback locales)
         but as those method will change the behavior globally (including third-party libraries you may have in your app), it might cause
         unexpected results. You should rather customize translation using custom locales as in the example above.
     </p>
 
-    <p>Carbon embed a default translator that extends <a href="https://api.symfony.com/2.7/Symfony/Component/Translation/Translator.html">Symfony\Component\Translation\Translator</a>
+    <p>Carbon embed a default translator that extends <code">Symfony\Component\Translation\Translator</code>
         You can <a href="#translator-details" data-slide-down="#translator-details">check here the methods we added to it</a>.</p>
 
     <div id="translator-details" class="extra-helper">
@@ -703,9 +703,9 @@ echo $date->locale();            // fr_FR
 echo "\n";
 echo $date->diffForHumans();     // il y a 0 seconde
 echo "\n";
-echo $date->monthName;           // mars
+echo $date->monthName;           // avril
 echo "\n";
-echo $date->isoFormat('LLLL');   // samedi 30 mars 2024 22:42
+echo $date->isoFormat('LLLL');   // jeudi 4 avril 2024 17:24
 </code></pre>
     </p>
 
@@ -736,13 +736,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 23:42
+Aujourd’hui à 19:24
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 5:42 PM
+Today at 12:24 PM
 */
 </code></pre>
     </p>
@@ -769,9 +769,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 30/03 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 04/04 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 30/03 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 04/04 0h Asia/Tokyo
 
 // You can find back which factory created a given object:
 $a = $factory->now();
@@ -1654,21 +1654,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 10:42 PM
+echo $date->calendar();                                      // Today at 5:24 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 7:42 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 2:24 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Wednesday at 12:19 PM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 7:01 AM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 03/22/2024
+echo $date->sub('8 days')->calendar();                       // 03/27/2024
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Monday at 1:42 AM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 8:24 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Wednesday at 9:05 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 3:47 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 04/07/2024
+echo $date->add('8 days')->calendar();                       // 04/12/2024
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 22:42
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 17:24
 </code></pre>
     </p>
 
@@ -5588,7 +5588,7 @@ echo Carbon::now();                                    // 2001-05-21 12:00:03
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2024-03-30 22:42:52
+echo Carbon::now();                                    // 2024-04-04 17:24:07
 // Instead of mock and clear mock, you also can use withTestNow():
 
 Carbon::withTestNow('2010-09-15', static function () {
@@ -5831,12 +5831,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(52)
+var_dump(Carbon::now()->get($unit));                         // int(7)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(52)
+var_dump(Carbon::now()->$unit);                              // int(7)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(52)
+var_dump(Carbon::now()->get($unit));                         // int(7)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5912,16 +5912,16 @@ $ar = CarbonImmutable::now()->locale('ar');
 
 var_dump($en->firstWeekDay);                           // int(0)
 var_dump($en->lastWeekDay);                            // int(6)
-var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-03-24 00:00"
-var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-03-30 23:59"
+var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-03-31 00:00"
+var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-04-06 23:59"
 
 echo "-----------\n";
 
 // We still can force to use an other day as start/end of week
 $start = $en->startOfWeek(Carbon::TUESDAY);
 $end = $en->endOfWeek(Carbon::MONDAY);
-var_dump($start->format('Y-m-d H:i'));                 // string(16) "2024-03-26 00:00"
-var_dump($end->format('Y-m-d H:i'));                   // string(16) "2024-04-01 23:59"
+var_dump($start->format('Y-m-d H:i'));                 // string(16) "2024-04-02 00:00"
+var_dump($end->format('Y-m-d H:i'));                   // string(16) "2024-04-08 23:59"
 
 echo "-----------\n";
 
@@ -6041,28 +6041,10 @@ $dt->setDateTimeFrom($source2); // set date and time including microseconds
 </code></pre>
     </p>
 
-    <h1 id="api-isset">IsSet</h1>
-
-    <p>The PHP function <code>__isset()</code> is implemented. This was done as some external systems (ex. <a
-            href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the
-        existence of a property before using it. This is done using the <code>isset()</code> or <code>empty()</code>
-        method. You can read more about these on the PHP site: <a
-                href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a
-                href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a
-                href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
-
-    <p>
-    <pre><code class="php">var_dump(isset(Carbon::now()->iDoNotExist));       // bool(false)
-var_dump(isset(Carbon::now()->hour));              // bool(true)
-var_dump(empty(Carbon::now()->iDoNotExist));       // bool(true)
-var_dump(empty(Carbon::now()->year));              // bool(false)
-</code></pre>
-    </p>
-
     <h1 id="api-formatting">String Formatting</h1>
 
     <p>All of the available <code>toXXXString()</code> methods rely on the base class method <a
-            href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>. You'll notice the <code>__toString()</code>
+            href="https://www.php.net/manual/en/datetime.format.php">DateTime::format()</a>. You'll notice the <code>__toString()</code>
         method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a
         string context.</p>
 
@@ -6085,8 +6067,8 @@ var_dump(Carbon::hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y 
 </code></pre>
     </p>
 
-    <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a
-            href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
+    <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) that's used when <a
+            href="https://www.php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
 
     <p>
     <pre class="live-editor"><code class="php">echo $dt;                                          // 1975-12-25 14:15:16
@@ -6128,7 +6110,7 @@ echo $dt;                                          // 1975-12-25 14:15:16
     <h1 id="api-commonformats">Common Formats</h1>
 
     <p>The following are wrappers for the common formats provided in the <a
-            href="http://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
+            href="https://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
 
     <p>
     <pre><code class="php">$dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');
@@ -6431,8 +6413,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2024-03-30 22:42:52
-echo $dt1->maximum();                              // 2024-03-30 22:42:52
+echo $dt1->max();                                  // 2024-04-04 17:24:07
+echo $dt1->maximum();                              // 2024-04-04 17:24:07
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -6893,7 +6875,7 @@ echo json_encode($units, JSON_PRETTY_PRINT);
         greater than the other.</p>
 
     <p>
-    <pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 1.0E-5
+    <pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 1.1E-5
 
 $dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');
 $dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');
@@ -7032,10 +7014,10 @@ echo $littleHandRotations;     // 24
 
 $date = Carbon::now()->addSeconds(3666);
 
-echo $date->diffInSeconds();                       // -3665.999904
-echo $date->diffInMinutes();                       // -61.09999695
-echo $date->diffInHours();                         // -1.0183332602778
-echo $date->diffInDays();                          // -0.042430551481481
+echo $date->diffInSeconds();                       // -3665.999869
+echo $date->diffInMinutes();                       // -61.099996116667
+echo $date->diffInHours();                         // -1.0183332377778
+echo $date->diffInDays();                          // -0.042430550520833
 
 $date = Carbon::create(2016, 1, 5, 22, 40, 32);
 
@@ -7688,9 +7670,9 @@ $dateString = '2010-01-23 10:00:00'; // Get this from your database or any input
 // Then now you can easily display any date in a page/e-mail using those user settings and the chosen format
 echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
-echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
+echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // mercredi dernier à 23:42
+echo Carbon::now()->subDays(3)->formatForUser();           // lundi dernier à 19:24
 </code></pre>
     </p>
 
@@ -7953,9 +7935,9 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2024-03-25 00:00:00, 2024-03-26 00:00:00, 2024-03-27 00:00:00, 2024-03-28 00:00:00, 2024-03-29 00:00...
-dumpDateList(Carbon::getCurrentMonthDays());                      // 2024-03-01 00:00:00, 2024-03-02 00:00:00, 2024-03-03 00:00:00, 2024-03-04 00:00:00, 2024-03-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2024-02-26 00:00:00, 2024-02-27 00:00:00, 2024-02-28 00:00:00, 2024-02-29 00:00:00, 2024-03-01 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2024-04-01 00:00:00, 2024-04-02 00:00:00, 2024-04-03 00:00:00, 2024-04-04 00:00:00, 2024-04-05 00:00...
+dumpDateList(Carbon::getCurrentMonthDays());                      // 2024-04-01 00:00:00, 2024-04-02 00:00:00, 2024-04-03 00:00:00, 2024-04-04 00:00:00, 2024-04-05 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2024-03-04 00:00:00, 2024-03-05 00:00:00, 2024-03-06 00:00:00, 2024-03-07 00:00:00, 2024-03-08 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2024-03-01 00:00:00, 2024-03-02 00:00:00, 2024-03-03 00:00:00, 2024-03-04 00:00:00, 2024-03-05 00:00...
 </code></pre>
     </p>
@@ -8039,7 +8021,7 @@ foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::cre
      *
      * @return string
      *
-     * @link http://php.net/manual/en/datetime.format.php
+     * @link https://www.php.net/manual/en/datetime.format.php
      */
     public function tzFormat()
     {
@@ -8060,8 +8042,8 @@ foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::cre
 Carbon::mixin(new UserTimezoneCarbonMixin());
 
 Carbon::setUserTimezone('Europe/Berlin');
-echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 13:00
-echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 16:00
+echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 14:00
+echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 17:00
 Carbon::setUserTimezone('America/Toronto');
 echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 08:00
 echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 11:00
@@ -8148,8 +8130,8 @@ echo Carbon::now()->goTo('Buenos Aires')->tzName; // America/Argentina/Buenos_Ai
 
     <h1 id="api-interval">CarbonInterval</h1>
 
-    <p>The CarbonInterval class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a
-            href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
+    <p>The CarbonInterval class is <a href="https://www.php.net/manual/en/language.oop5.inheritance.php">inherited</a> from the PHP <a
+            href="https://www.php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
 
     <p>
     <pre><code class="php">&lt;?php
@@ -8638,7 +8620,7 @@ Array
 
     <h1 id="api-period">CarbonPeriod</h1>
 
-    <p>CarbonPeriod is a human-friendly version of the <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a>
+    <p>CarbonPeriod is a human-friendly version of the <a href="https://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>
         with many shortcuts.</p>
 
     <p>
@@ -8705,7 +8687,7 @@ CarbonPeriod::create('now', CarbonInterval::days(-2), INF)->calculateEnd()->isSt
         values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given
         array as a list of arguments.</p>
 
-    <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It
+    <p>CarbonPeriod implements the <a href="https://www.php.net/manual/en/class.iterator.php">Iterator</a> interface. It
         means that it can be passed directly to a <code>foreach</code> loop:</p>
 
     <p>
@@ -8935,7 +8917,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2024-03-30, 2024-03-31, 2024-04-01
+echo implode(', ', $days);               // 2024-04-04, 2024-04-05, 2024-04-06
 </code></pre>
     </p>
 
@@ -9244,7 +9226,7 @@ var_dump($period->contains('2019-01-30 23:59:59')); // bool(true)
     <h1 id="api-timezone">CarbonTimeZone</h1>
 
     <p>Starting with Carbon 2, timezones are now handled with a dedicated class <code>CarbonTimeZone</code>
-        extending <a href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>.</p>
+        extending <a href="https://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>.</p>
 
     <p>
     <pre class="live-editor"><code class="php">$tz = new CarbonTimeZone('Europe/Zurich'); // instance way
@@ -9271,7 +9253,7 @@ echo "\n";
 echo $tz->toRegionName();            // Europe/Zurich
 echo "\n";
 // toOffsetName will give the current offset string for this timezone:
-echo $tz->toOffsetName();            // +01:00
+echo $tz->toOffsetName();            // +02:00
 echo "\n";
 // As with DST, this offset can change depending on the date, you may pass a date argument to specify it:
 $winter = Carbon::parse('2018-01-01');
@@ -9282,11 +9264,11 @@ echo $tz->toOffsetName($summer);     // +02:00
 </code></pre>
     </p>
 
-    <p>The default timezone is given by <a href="http://php.net/manual/en/function.date-default-timezone-get.php">date_default_timezone_get</a>
+    <p>The default timezone is given by <a href="https://www.php.net/manual/en/function.date-default-timezone-get.php">date_default_timezone_get</a>
         so it will be driven by the INI settings
-        <a href="http://php.net/manual/en/datetime.configuration.php#ini.date.timezone">date.timezone</a> but you really
+        <a href="https://www.php.net/manual/en/datetime.configuration.php#ini.date.timezone">date.timezone</a> but you really
         should override it at application level using
-        <a href="http://php.net/manual/en/function.date-default-timezone-set.php">date_default_timezone_set</a>
+        <a href="https://www.php.net/manual/en/function.date-default-timezone-set.php">date_default_timezone_set</a>
         and you should set it to <code>"UTC"</code>, if you're temped to or already use an other timezone as default,
         please read the following article:
         <a href="https://medium.com/@kylekatarnls/always-use-utc-dates-and-times-8a8200ca3164">Always Use UTC Dates And Times</a>.</p>
@@ -9586,7 +9568,6 @@ echo CarbonImmutable::now()->locale('en_US@Cinema')->startOfWeek()->dayName; // 
                 <li><a href="#api-setters">Setters</a></li>
                 <li><a href="#api-week">Weeks</a></li>
                 <li><a href="#api-settersfluent">Fluent Setters</a></li>
-                <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>
                 <li><a href="#api-commonformats">Common Formats</a></li>
                 <li><a href="#api-conversion">Conversion</a></li>

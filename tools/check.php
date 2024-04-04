@@ -47,7 +47,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         has(Positive|Negative)Values |
         getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate|getFormatsToIsoReplacements|getTimeFormatByPrecision|hasLocalTranslator |
         (use|is)StrictMode(Enabled)? |
-        __(clone|sleep|wakeup|construct|debugInfo|set_state|serialize|unserialize) |
+        __(isset|clone|sleep|wakeup|construct|debugInfo|set_state|serialize|unserialize) |
         diffInUTC$upperUnit |
         (floor|ceil|round|sub(tract)?(Real|UTC)?|add(Real|UTC)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
         (set|get)$upperUnit |
