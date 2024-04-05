@@ -88,3 +88,4 @@ jobs:
           DYNAMODB_ENDPOINT: "http://localhost:8888"
           AWS_ACCESS_KEY_ID: randomKey
           AWS_SECRET_ACCESS_KEY: randomSecret
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
