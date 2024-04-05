@@ -63,6 +63,7 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isToday());
     }
 
+    /** @group i */
     public function testIsCurrentWeek()
     {
         $this->assertFalse(Carbon::now()->subWeek()->isCurrentWeek());

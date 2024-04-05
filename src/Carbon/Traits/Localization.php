@@ -603,10 +603,6 @@ trait Localization
      *
      * If null or omitted, current local translator is used.
      * If no local translator is in use, current global translator is used.
-     *
-     * @param null $translator
-     *
-     * @return string|null
      */
     protected function getTranslatorLocale($translator = null): ?string
     {
