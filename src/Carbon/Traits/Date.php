@@ -2607,77 +2607,12 @@ trait Date
      */
     public function __call(string $method, array $parameters): mixed
     {
-        if (preg_match('/^(diff|floatDiff)In(Real|UTC|Utc)?(.+)$/', $method, $match)) {
-            $mode = strtoupper($match[2] ?? '');
-            $betterMethod = $match[1] === 'floatDiff' ? str_replace('floatDiff', 'diff', $method) : null;
+        $result = $this->callDiffAlias($method, $parameters)
+            ?? $this->callHumanDiffAlias($method, $parameters)
+            ?? $this->callRoundMethod($method, $parameters);
 
-            if ($mode === 'REAL') {
-                $mode = 'UTC';
-                $betterMethod = str_replace($match[2], 'UTC', $betterMethod ?? $method);
-            }
-
-            if ($betterMethod) {
-                @trigger_error(
-                    "Use the method $betterMethod instead to make it more explicit about what it does.\n".
-                    'On next major version, "float" prefix will be removed (as all diff are now returning floating numbers)'.
-                    ' and "Real" methods will be removed in favor of "UTC" because what it actually does is to convert both'.
-                    ' dates to UTC timezone before comparison, while by default it does it only if both dates don\'t have'.
-                    ' exactly the same timezone (Note: 2 timezones with the same offset but different names are considered'.
-                    " different as it's not safe to assume they will always have the same offset).",
-                    \E_USER_DEPRECATED,
-                );
-            }
-
-            $unit = self::pluralUnit($match[3]);
-            $method = 'diffIn'.ucfirst($unit);
-
-            if (\in_array($unit, ['days', 'weeks', 'months', 'quarters', 'years'])) {
-                $parameters['utc'] = ($mode === 'UTC');
-            }
-
-            if (method_exists($this, $method)) {
-                return $this->$method(...$parameters);
-            }
-        }
-
-        $diffSizes = [
-            // @mode diffForHumans
-            'short' => true,
-            // @mode diffForHumans
-            'long' => false,
-        ];
-        $diffSyntaxModes = [
-            // @call diffForHumans
-            'Absolute' => CarbonInterface::DIFF_ABSOLUTE,
-            // @call diffForHumans
-            'Relative' => CarbonInterface::DIFF_RELATIVE_AUTO,
-            // @call diffForHumans
-            'RelativeToNow' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
-            // @call diffForHumans
-            'RelativeToOther' => CarbonInterface::DIFF_RELATIVE_TO_OTHER,
-        ];
-        $sizePattern = implode('|', array_keys($diffSizes));
-        $syntaxPattern = implode('|', array_keys($diffSyntaxModes));
-
-        if (preg_match("/^(?<size>$sizePattern)(?<syntax>$syntaxPattern)DiffForHumans$/", $method, $match)) {
-            $dates = array_filter($parameters, function ($parameter) {
-                return $parameter instanceof DateTimeInterface;
-            });
-            $other = null;
-
-            if (\count($dates)) {
-                $key = key($dates);
-                $other = current($dates);
-                array_splice($parameters, $key, 1);
-            }
-
-            return $this->diffForHumans($other, $diffSyntaxModes[$match['syntax']], $diffSizes[$match['size']], ...$parameters);
-        }
-
-        $roundedValue = $this->callRoundMethod($method, $parameters);
-
-        if ($roundedValue !== null) {
-            return $roundedValue;
+        if ($result !== null) {
+            return $result;
         }
 
         $unit = rtrim($method, 's');
@@ -2953,6 +2888,83 @@ trait Date
 
         if (str_starts_with($unit, 'UTC')) {
             return substr($unit, 3);
+        }
+
+        return null;
+    }
+
+    private function callDiffAlias(string $method, array $parameters): mixed
+    {
+        if (preg_match('/^(diff|floatDiff)In(Real|UTC|Utc)?(.+)$/', $method, $match)) {
+            $mode = strtoupper($match[2] ?? '');
+            $betterMethod = $match[1] === 'floatDiff' ? str_replace('floatDiff', 'diff', $method) : null;
+
+            if ($mode === 'REAL') {
+                $mode = 'UTC';
+                $betterMethod = str_replace($match[2], 'UTC', $betterMethod ?? $method);
+            }
+
+            if ($betterMethod) {
+                @trigger_error(
+                    "Use the method $betterMethod instead to make it more explicit about what it does.\n".
+                    'On next major version, "float" prefix will be removed (as all diff are now returning floating numbers)'.
+                    ' and "Real" methods will be removed in favor of "UTC" because what it actually does is to convert both'.
+                    ' dates to UTC timezone before comparison, while by default it does it only if both dates don\'t have'.
+                    ' exactly the same timezone (Note: 2 timezones with the same offset but different names are considered'.
+                    " different as it's not safe to assume they will always have the same offset).",
+                    \E_USER_DEPRECATED,
+                );
+            }
+
+            $unit = self::pluralUnit($match[3]);
+            $diffMethod = 'diffIn'.ucfirst($unit);
+
+            if (\in_array($unit, ['days', 'weeks', 'months', 'quarters', 'years'])) {
+                $parameters['utc'] = ($mode === 'UTC');
+            }
+
+            if (method_exists($this, $diffMethod)) {
+                return $this->$diffMethod(...$parameters);
+            }
+        }
+
+        return null;
+    }
+
+    private function callHumanDiffAlias(string $method, array $parameters): ?string
+    {
+        $diffSizes = [
+            // @mode diffForHumans
+            'short' => true,
+            // @mode diffForHumans
+            'long' => false,
+        ];
+        $diffSyntaxModes = [
+            // @call diffForHumans
+            'Absolute' => CarbonInterface::DIFF_ABSOLUTE,
+            // @call diffForHumans
+            'Relative' => CarbonInterface::DIFF_RELATIVE_AUTO,
+            // @call diffForHumans
+            'RelativeToNow' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+            // @call diffForHumans
+            'RelativeToOther' => CarbonInterface::DIFF_RELATIVE_TO_OTHER,
+        ];
+        $sizePattern = implode('|', array_keys($diffSizes));
+        $syntaxPattern = implode('|', array_keys($diffSyntaxModes));
+
+        if (preg_match("/^(?<size>$sizePattern)(?<syntax>$syntaxPattern)DiffForHumans$/", $method, $match)) {
+            $dates = array_filter($parameters, function ($parameter) {
+                return $parameter instanceof DateTimeInterface;
+            });
+            $other = null;
+
+            if (\count($dates)) {
+                $key = key($dates);
+                $other = current($dates);
+                array_splice($parameters, $key, 1);
+            }
+
+            return $this->diffForHumans($other, $diffSyntaxModes[$match['syntax']], $diffSizes[$match['size']], ...$parameters);
         }
 
         return null;

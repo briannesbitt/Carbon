@@ -343,4 +343,11 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         SubCarbon::resetMacros();
     }
+
+    public function testMacroNameCanStartWithDiff()
+    {
+        Carbon::macro('diffInBusinessDays', static fn () => 2);
+
+        $this->assertSame(2, Carbon::now()->diffInBusinessDays());
+    }
 }
