@@ -2158,7 +2158,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws UnknownGetterException
      *
-     * @return string|int|bool|DateTimeZone|null
+     * @return string|int|bool|DateTimeZone
      */
     public function get(Unit|string $name): mixed;
 
