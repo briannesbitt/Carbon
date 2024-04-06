@@ -17,6 +17,7 @@
  * - shaishavgandhi05
  * - Serhan Apaydın
  * - JD Isaacks
+ * - Ademir Šehić
  */
 
 use Carbon\CarbonInterface;
@@ -26,8 +27,8 @@ return [
     'y' => ':count godina|:count godine|:count godina',
     'month' => ':count mjesec|:count mjeseca|:count mjeseci',
     'm' => ':count mjesec|:count mjeseca|:count mjeseci',
-    'week' => ':count sedmice|:count sedmicu|:count sedmica',
-    'w' => ':count sedmice|:count sedmicu|:count sedmica',
+    'week' => ':count sedmica|:count sedmice|:count sedmica',
+    'w' => ':count sedmica|:count sedmice|:count sedmica',
     'day' => ':count dan|:count dana|:count dana',
     'd' => ':count dan|:count dana|:count dana',
     'hour' => ':count sat|:count sata|:count sati',
@@ -36,10 +37,17 @@ return [
     'min' => ':count minut|:count minuta|:count minuta',
     'second' => ':count sekund|:count sekunda|:count sekundi',
     's' => ':count sekund|:count sekunda|:count sekundi',
+
     'ago' => 'prije :time',
     'from_now' => 'za :time',
     'after' => 'nakon :time',
     'before' => ':time ranije',
+
+    'year_ago' => ':count godinu|:count godine|:count godina',
+    'year_from_now' => ':count godinu|:count godine|:count godina',
+    'week_ago' => ':count sedmicu|:count sedmice|:count sedmica',
+    'week_from_now' => ':count sedmicu|:count sedmice|:count sedmica',
+
     'diff_now' => 'sada',
     'diff_today' => 'danas',
     'diff_today_regexp' => 'danas(?:\\s+u)?',

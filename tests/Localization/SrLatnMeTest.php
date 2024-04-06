@@ -162,7 +162,7 @@ class SrLatnMeTest extends LocalizationTestCase
         '6. 1.',
 
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        // '7th 2nd'
+        // '7th 1st'
         '7. 1.',
 
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
