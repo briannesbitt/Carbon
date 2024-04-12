@@ -831,14 +831,13 @@ trait Comparison
      * Carbon::canBeCreatedFromFormat('11:12:45', 'h:i:s'); // true
      * Carbon::canBeCreatedFromFormat('13:12:45', 'h:i:s'); // false
      * ```
-     *
-     * @param string $date
-     * @param string $format
-     *
-     * @return bool
      */
     public static function canBeCreatedFromFormat(?string $date, string $format): bool
     {
+        if ($date === null) {
+            return false;
+        }
+
         try {
             // Try to create a DateTime object. Throws an InvalidArgumentException if the provided time string
             // doesn't match the format in any way.

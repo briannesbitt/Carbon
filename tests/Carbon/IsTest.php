@@ -984,6 +984,7 @@ class IsTest extends AbstractTestCase
     {
         $this->assertTrue(Carbon::canBeCreatedFromFormat('1975-05-01', 'Y-m-d'));
         $this->assertTrue(Carbon::canBeCreatedFromFormat('12/30/2019', 'm/d/Y'));
+        $this->assertFalse(Carbon::canBeCreatedFromFormat(null, 'Y-m-d'));
         $this->assertFalse(Carbon::canBeCreatedFromFormat('1975-05-01', 'd m Y'));
         $this->assertFalse(Carbon::canBeCreatedFromFormat('1975-5-1', 'Y-m-d'));
         $this->assertFalse(Carbon::canBeCreatedFromFormat('19-05-01', 'Y-m-d'));

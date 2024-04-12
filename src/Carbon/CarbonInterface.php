@@ -1242,11 +1242,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::canBeCreatedFromFormat('11:12:45', 'h:i:s'); // true
      * Carbon::canBeCreatedFromFormat('13:12:45', 'h:i:s'); // false
      * ```
-     *
-     * @param string $date
-     * @param string $format
-     *
-     * @return bool
      */
     public static function canBeCreatedFromFormat(?string $date, string $format): bool;
 
