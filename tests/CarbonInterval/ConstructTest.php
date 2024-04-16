@@ -289,6 +289,13 @@ class ConstructTest extends AbstractTestCase
         $this->assertFalse($ci->days);
     }
 
+    public function testInstanceWithSkipCopy()
+    {
+        $ci = CarbonInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
+        $copy = CarbonInterval::instance($ci, [], true);
+        $this->assertSame($ci, $copy);
+    }
+
     public function testInstanceWithNegativeDateInterval()
     {
         $di = new DateInterval('P2Y1M5DT22H33M44S');
