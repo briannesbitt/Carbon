@@ -308,7 +308,9 @@ function getAllBackers(): array
 
         if ($monthlyContribution > 29) {
             $status = 'sponsor';
-        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 29) {
+        } elseif ($monthlyContribution > 14.5) {
+            $status = 'backerPlus';
+        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 40) {
             $status = 'backer';
         } elseif ($member['totalAmountDonated'] > 0) {
             $status = 'helper';
@@ -346,13 +348,15 @@ function getOpenCollective(string $status): string
             $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
             $height = match ($status) {
                 'sponsor' => 64,
-                'backer' => 42,
-                default => 32,
+                'backerPlus' => 42,
+                'backer' => 32,
+                default => 24,
             };
             $margin = match ($status) {
                 'sponsor' => 10,
-                'backer' => 6,
-                default => 5,
+                'backerPlus' => 6,
+                'backer' => 5,
+                default => 3,
             };
             $width = $validImage ? round($x * $height / $y) : $height;
             $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';

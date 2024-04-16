@@ -860,7 +860,9 @@ it in the <strong>config/app.php</strong> file:</p>
 
                         if (monthlyContribution > 29) {
                             status = 'sponsor';
-                        } else if (monthlyContribution > 4 || yearlyContribution > 40) {
+                        } else if (monthlyContribution > 14.5) {
+                            status = 'backer';
+                        } else if (monthlyContribution > 4.5 || yearlyContribution > 40) {
                             status = 'backer';
                         } else if (member.totalAmountDonated > 0) {
                             status = 'helper';
@@ -882,7 +884,7 @@ it in the <strong>config/app.php</strong> file:</p>
                         return b.monthlyContribution - a.monthlyContribution;
                     });
 
-                    ['sponsor', 'backer', 'helper'].forEach(function (status) {
+                    ['sponsor', 'backerPlus', 'backer', 'helper'].forEach(function (status) {
                         $('.open-collective-' + status + 's').html(
                             members
                                 .filter(function (member) {
@@ -893,12 +895,14 @@ it in the <strong>config/app.php</strong> file:</p>
                                     var src = $('<div>').text(member.image || member.profile.replace('https://opencollective.com/', 'https://images.opencollective.com/') + '/avatar/256.png').html();
                                     var size = ({
                                         sponsor: 64,
-                                        backer: 48,
-                                    })[member.status] || 32;
+                                        backerPlus: 48,
+                                        backer: 32,
+                                    })[member.status] || 24;
                                     var margin = ({
                                         sponsor: 10,
-                                        backer: 6,
-                                    })[member.status] || 5;
+                                        backerPlus: 6,
+                                        backer: 5,
+                                    })[member.status] || 3;
                                     href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
                                     var title = $('<div>').text(member.description || member.name).html();
                                     var alt = $('<div>').text(member.name).html();
