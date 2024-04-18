@@ -41,6 +41,7 @@ use InvalidArgumentException;
 use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 /**
@@ -1705,7 +1706,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             ':optional-space' => $optionalSpace,
         ];
 
-        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit, $skip];
+        $translator ??= isset($locale) ? Translator::get($locale) : null;
+
+        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit, $skip, $translator];
     }
 
     protected static function getRoundingMethodFromOptions(int $options): ?string
@@ -1822,7 +1825,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      *                           `  - if $join is missing, a space will be used as glue
      *                           - 'minimumUnit' entry determines the smallest unit of time to display can be long or
      *                           `  short form of the units, e.g. 'hour' or 'h' (default value: s)
-     *                           if int passed, it add modifiers:
+     *                           - 'locale' language in which the diff should be output (has no effect if 'translator' key is set)
+     *                           - 'translator' a custom translator to use to translator the output.
+     *                           if int passed, it adds modifiers:
      *                           Possible values:
      *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
      *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
@@ -1838,7 +1843,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function forHumans($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null): string
     {
-        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit, $skip] = $this
+        /* @var TranslatorInterface|null $translator */
+        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations, $minimumUnit, $skip, $translator] = $this
             ->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
@@ -1852,8 +1858,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
         $declensionMode = null;
 
-        /** @var Translator $translator */
-        $translator = $this->getLocalTranslator();
+        $translator ??= $this->getLocalTranslator();
 
         $handleDeclensions = function ($unit, $count, $index = 0, $parts = 1) use ($interpolations, $transId, $translator, $altNumbers, $absolute, &$declensionMode) {
             if (!$absolute) {

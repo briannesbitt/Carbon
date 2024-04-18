@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\Language;
 use Carbon\Translator;
@@ -462,12 +463,42 @@ class LocalizationTest extends AbstractTestCase
         // en_Boring inherit en because it starts with "en", see symfony-translation behavior
         $this->assertSame('3 boring days 4 hours', $diff);
 
+        Carbon::setLocale('en');
+
+        $diff = Carbon::parse('2018-01-01')
+            ->diffForHumans('2018-01-04 04:00', [
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+                'parts' => 2,
+                'locale' => 'de',
+            ]);
+
+        $this->assertSame('3 Tage 4 Stunden', $diff);
+
         $translator->resetMessages();
 
         $this->assertSame([], $translator->getMessages());
 
-        Carbon::setLocale('en');
         $this->assertSame('en', Carbon::getLocale());
+    }
+
+    public function testLocaleOption()
+    {
+        $translator = Translator::get('en_Boring');
+        $translator->setTranslations([
+            'day' => ':count boring day|:count boring days',
+        ]);
+
+        $diff = Carbon::parse('2018-01-01')
+            ->diffForHumans('2018-01-04 04:00', [
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+                'parts' => 2,
+                'locale' => 'en_Boring',
+            ]);
+
+        $translator->setLocale('en');
+        $translator->resetMessages();
+
+        $this->assertSame('3 boring days 4 hours', $diff);
     }
 
     public function testCustomWeekStart()
