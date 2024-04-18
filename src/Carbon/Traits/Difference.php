@@ -499,7 +499,9 @@ trait Difference
      *                                                            - 'other' entry (see above)
      *                                                            - 'minimumUnit' entry determines the smallest unit of time to display can be long or
      *                                                            `  short form of the units, e.g. 'hour' or 'h' (default value: s)
-     *                                                            if int passed, it add modifiers:
+     *                                                            - 'locale' language in which the diff should be output (has no effect if 'translator' key is set)
+     *                                                            - 'translator' a custom translator to use to translator the output.
+     *                                                            if int passed, it adds modifiers:
      *                                                            Possible values:
      *                                                            - CarbonInterface::DIFF_ABSOLUTE          no modifiers
      *                                                            - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
