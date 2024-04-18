@@ -116,12 +116,17 @@ function getOpenCollectiveSponsors(): string
             'backer' => 32,
             default => 24,
         };
+        $rel = match ($member['status']) {
+            'sponsor', 'backerPlus' => '',
+            default => ' rel="sponsored"',
+        };
+
         $width = min($height * 2, $validImage ? round($x * $height / $y) : $height);
         $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
         $title = getHtmlAttribute(($member['description'] ?? null) ?: $member['name']);
         $alt = getHtmlAttribute($member['name']);
 
-        return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank">'.
+        return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
             '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
             '</a>';
     }, $list))."\n";
