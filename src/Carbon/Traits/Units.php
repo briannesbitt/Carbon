@@ -353,7 +353,7 @@ trait Units
         $previousException = null;
 
         try {
-            $date = self::rawAddUnit($date, $unit, $value);
+            $date = self::rawAddUnit($date, $unit, interval($value));
 
             if (isset($timeString)) {
                 $date = $date?->setTimeFromTimeString($timeString);
