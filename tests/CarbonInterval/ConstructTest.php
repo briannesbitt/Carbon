@@ -435,18 +435,34 @@ class ConstructTest extends AbstractTestCase
         $past = new Carbon('-3 Days');
         $today = new Carbon('today');
         $interval = $today->diffAsCarbonInterval($past);
+        /** @var CarbonInterval $copy */
         $copy =  unserialize(serialize($interval));
+
+        $this->assertInstanceOf(CarbonInterval::class, $copy);
+
+        $this->assertSame('2 days', $interval->forHumans(parts: 1));
+        $this->assertSame('2 days', $copy->forHumans(parts: 1));
 
         $this->assertSame(['en'], array_keys($interval->getLocalTranslator()->getMessages()) ?: ['en']);
         $this->assertSame(['en'], array_keys($copy->getLocalTranslator()->getMessages()) ?: ['en']);
+        $this->assertSame($interval->locale, $copy->locale);
 
-        $this->assertEquals($interval->locale('en'), $copy);
+        // Ignore translator for the English comparison
+        $copy->setLocalTranslator($interval->getLocalTranslator());
 
-        $interval = $today->locale('zh')->diffAsCarbonInterval($past);
+        $this->assertEquals($interval, $copy);
+
+        $interval = $today->locale('ja')->diffAsCarbonInterval($past);
+        /** @var CarbonInterval $copy */
         $copy =  unserialize(serialize($interval));
 
-        $this->assertSame(['zh'], array_keys($interval->getLocalTranslator()->getMessages()) ?: ['en']);
-        $this->assertSame(['zh'], array_keys($copy->getLocalTranslator()->getMessages()) ?: ['en']);
+        $this->assertInstanceOf(CarbonInterval::class, $copy);
+
+        $this->assertSame('二日', $interval->forHumans(['altNumbers' => true, 'parts' => 1]));
+        $this->assertSame('二日', $copy->forHumans(['altNumbers' => true, 'parts' => 1]));
+
+        $this->assertSame(['ja'], array_keys($interval->getLocalTranslator()->getMessages()));
+        $this->assertSame(['ja'], array_keys($copy->getLocalTranslator()->getMessages()));
 
         $this->assertEquals($interval, $copy);
     }

@@ -91,6 +91,10 @@ parameters:
             message: '#^Instantiated class Doctrine\\DBAL\\Platforms\\MySQL57Platform not found\.#'
             paths:
                 - tests/Doctrine/CarbonTypesTest.php
+        -
+            message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface::getMessages\(\)\.#'
+            paths:
+                - tests/CarbonInterval/ConstructTest.php
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'
