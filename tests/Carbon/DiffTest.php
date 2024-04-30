@@ -2169,4 +2169,13 @@ class DiffTest extends AbstractTestCase
                 ->diffInDays(Carbon::parse('2024-04-01', 'America/New_York')),
         );
     }
+
+    public function testAFormat()
+    {
+        $past = new Carbon('-3 Days');
+        $today = new Carbon('today');
+        $interval = $today->diff($past);
+
+        $this->assertSame('2', $interval->format('%a'));
+    }
 }

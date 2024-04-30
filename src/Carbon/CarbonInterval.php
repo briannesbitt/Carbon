@@ -289,6 +289,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     protected ?CarbonInterface $endDate = null;
 
+    /**
+     * End date if interval was created from a difference between 2 dates.
+     */
+    protected ?DateInterval $rawInterval = null;
+
     protected ?array $initialValues = null;
 
     /**
@@ -303,12 +308,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $this->startDate = $this->startDate
                 ->avoidMutation()
                 ->setTimezone($timezone);
+            $this->rawInterval = null;
         }
 
         if ($this->endDate) {
             $this->endDate = $this->endDate
                 ->avoidMutation()
                 ->setTimezone($timezone);
+            $this->rawInterval = null;
         }
 
         return $this;
@@ -326,12 +333,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $this->startDate = $this->startDate
                 ->avoidMutation()
                 ->shiftTimezone($timezone);
+            $this->rawInterval = null;
         }
 
         if ($this->endDate) {
             $this->endDate = $this->endDate
                 ->avoidMutation()
                 ->shiftTimezone($timezone);
+            $this->rawInterval = null;
         }
 
         return $this;
@@ -781,6 +790,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $this->originalInput = null;
         $this->startDate = null;
         $this->endDate = null;
+        $this->rawInterval = null;
 
         return $this;
     }
@@ -1091,8 +1101,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $start = $start instanceof CarbonInterface ? $start : Carbon::make($start);
         $end = $end instanceof CarbonInterface ? $end : Carbon::make($end);
-        $interval = static::instance($start->diffAsDateInterval($end, $absolute), $skip);
+        $rawInterval = $start->diffAsDateInterval($end, $absolute);
+        $interval = static::instance($rawInterval, $skip);
 
+        $interval->rawInterval = $rawInterval;
         $interval->startDate = $start;
         $interval->endDate = $end;
         $interval->initialValues = $interval->getInnerValues();
@@ -2040,6 +2052,19 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $time = [':time' => $time];
 
         return $this->translate($transId, array_merge($time, $interpolations, $time), null, $translator);
+    }
+
+    public function format(string $format): string
+    {
+        $output = parent::format($format);
+
+        if (!str_contains($format, '%a') || !isset($this->startDate, $this->endDate)) {
+            return $output;
+        }
+
+        $this->rawInterval ??= $this->startDate->diffAsDateInterval($this->endDate);
+
+        return str_replace('(unknown)', $this->rawInterval->format('%a'), $output);
     }
 
     /**
@@ -3269,6 +3294,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         ) {
             $this->startDate = null;
             $this->endDate = null;
+            $this->rawInterval = null;
         }
     }
 }
