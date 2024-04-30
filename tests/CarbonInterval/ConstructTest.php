@@ -429,4 +429,25 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::make(3, Unit::Hour), 0, 0, 0, 3, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::make(Unit::Week), 0, 0, 7, 0, 0, 0);
     }
+
+    public function testFromSerialization()
+    {
+        $past = new Carbon('-3 Days');
+        $today = new Carbon('today');
+        $interval = $today->diffAsCarbonInterval($past);
+        $copy =  unserialize(serialize($interval));
+
+        $this->assertSame(['en'], array_keys($interval->getLocalTranslator()->getMessages()) ?: ['en']);
+        $this->assertSame(['en'], array_keys($copy->getLocalTranslator()->getMessages()) ?: ['en']);
+
+        $this->assertEquals($interval->locale('en'), $copy);
+
+        $interval = $today->locale('zh')->diffAsCarbonInterval($past);
+        $copy =  unserialize(serialize($interval));
+
+        $this->assertSame(['zh'], array_keys($interval->getLocalTranslator()->getMessages()) ?: ['en']);
+        $this->assertSame(['zh'], array_keys($copy->getLocalTranslator()->getMessages()) ?: ['en']);
+
+        $this->assertEquals($interval, $copy);
+    }
 }
