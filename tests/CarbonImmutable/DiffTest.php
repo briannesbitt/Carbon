@@ -1935,4 +1935,13 @@ class DiffTest extends AbstractTestCase
             'minimumUnit' => 'd',
         ]));
     }
+
+    public function testAFormat()
+    {
+        $past = new Carbon('-3 Days');
+        $today = new Carbon('today');
+        $interval = $today->diff($past);
+
+        $this->assertSame('2', $interval->format('%a'));
+    }
 }
