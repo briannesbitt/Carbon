@@ -391,6 +391,23 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2000-01-02 00:00:00 UTC', $currentTime->format('Y-m-d H:i:s e'));
     }
 
+    public function testTimezoneConsistency()
+    {
+        Carbon::setTestNow();
+        date_default_timezone_set('UTC');
+        $currentDate = Carbon::now()->setTimezone('America/Los_Angeles');
+        $laDate = $currentDate->format('Y-m-d H:i:s e');
+        $utcDate = $currentDate->copy()->utc()->format('Y-m-d H:i:s e');
+
+        Carbon::setTestNow($currentDate);
+        $this->assertSame($utcDate, Carbon::now()->format('Y-m-d H:i:s e'));
+        $this->assertSame($utcDate, Carbon::now('UTC')->format('Y-m-d H:i:s e'));
+
+        Carbon::setTestNowAndTimezone($currentDate);
+        $this->assertSame($laDate, Carbon::now()->format('Y-m-d H:i:s e'));
+        $this->assertSame($utcDate, Carbon::now('UTC')->format('Y-m-d H:i:s e'));
+    }
+
     public function testSleep()
     {
         $initial = Carbon::now('UTC');
