@@ -3037,6 +3037,19 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         return $this->round($precision, 'ceil');
     }
 
+    public function __unserialize(array $data): void
+    {
+        parent::__unserialize(array_combine(
+            array_map(
+                static fn (mixed $key) => is_string($key)
+                    ? str_replace('tzName', 'timezoneSetting', $key)
+                    : $key,
+                array_keys($data),
+            ),
+            $data,
+        ));
+    }
+
     /**
      * @template T
      *

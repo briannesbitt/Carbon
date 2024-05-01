@@ -466,4 +466,14 @@ class ConstructTest extends AbstractTestCase
 
         $this->assertEquals($interval, $copy);
     }
+
+    public function testFromV2SerializedInterval()
+    {
+        $serializedData = trim(file_get_contents(__DIR__.'/../Fixtures/serialized-interval.txt'));
+        $interval = unserialize($serializedData);
+
+        $this->assertInstanceOf(CarbonInterval::class, $interval);
+        $this->assertSame(2, $interval->m);
+        $this->assertSame(5.4e-5, $interval->f);
+    }
 }
