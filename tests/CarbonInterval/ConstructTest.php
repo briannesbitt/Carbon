@@ -469,7 +469,7 @@ class ConstructTest extends AbstractTestCase
 
     public function testFromV2SerializedInterval()
     {
-        $serializedData = trim(file_get_contents(__DIR__.'/../Fixtures/serialized-interval.txt'));
+        $serializedData = trim(file_get_contents(__DIR__.'/../Fixtures/serialized-interval-from-v2.txt'));
         $interval = unserialize($serializedData);
 
         $this->assertInstanceOf(CarbonInterval::class, $interval);

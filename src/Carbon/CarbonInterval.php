@@ -3039,7 +3039,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
     public function __unserialize(array $data): void
     {
-        parent::__unserialize(array_combine(
+        $properties = array_combine(
             array_map(
                 static fn (mixed $key) => is_string($key)
                     ? str_replace('tzName', 'timezoneSetting', $key)
@@ -3047,7 +3047,25 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 array_keys($data),
             ),
             $data,
-        ));
+        );
+
+        if (method_exists(parent::class, '__unserialize')) {
+            // PHP >= 8.2
+            parent::__unserialize($properties);
+
+            return;
+        }
+
+        // PHP <= 8.1
+        $localStrictMode = $this->localStrictModeEnabled;
+        $this->localStrictModeEnabled = false;
+
+        foreach ($properties as $property => $value) {
+            $name = preg_replace('/^\0\*\0/', '', $property);
+            $this->$name = $value;
+        }
+
+        $this->localStrictModeEnabled ??= $localStrictMode;
     }
 
     /**
