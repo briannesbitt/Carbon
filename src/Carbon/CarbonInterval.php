@@ -1372,6 +1372,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     break;
 
                 case 'day':
+                    if ($value === false) {
+                        $this->days = false;
+
+                        break;
+                    }
+
                     $this->checkIntegerValue($key, $value);
                     $this->d = $value;
                     $this->handleDecimalPart('day', $value, $this->d);
@@ -3041,7 +3047,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     {
         $properties = array_combine(
             array_map(
-                static fn (mixed $key) => is_string($key)
+                static fn (mixed $key) => \is_string($key)
                     ? str_replace('tzName', 'timezoneSetting', $key)
                     : $key,
                 array_keys($data),
@@ -3057,15 +3063,16 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         // PHP <= 8.1
-        $localStrictMode = $this->localStrictModeEnabled;
-        $this->localStrictModeEnabled = false;
-
         foreach ($properties as $property => $value) {
-            $name = preg_replace('/^\0\*\0/', '', $property);
+            $name = preg_replace('/^\0.+\0/', '', $property);
+            $localStrictMode = $this->localStrictModeEnabled;
+            $this->localStrictModeEnabled = false;
             $this->$name = $value;
-        }
 
-        $this->localStrictModeEnabled ??= $localStrictMode;
+            if ($name !== 'localStrictModeEnabled') {
+                $this->localStrictModeEnabled = $localStrictMode;
+            }
+        }
     }
 
     /**
