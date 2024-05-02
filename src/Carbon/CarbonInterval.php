@@ -3063,6 +3063,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         // PHP <= 8.1
+        // @codeCoverageIgnoreStart
         foreach ($properties as $property => $value) {
             $name = preg_replace('/^\0.+\0/', '', $property);
             $localStrictMode = $this->localStrictModeEnabled;
@@ -3073,6 +3074,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 $this->localStrictModeEnabled = $localStrictMode;
             }
         }
+        // @codeCoverageIgnoreEnd
     }
 
     /**
