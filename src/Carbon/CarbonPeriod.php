@@ -215,13 +215,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public const END_ITERATION = [self::class, 'endIteration'];
 
     /**
-     * Exclude start date from iteration.
-     *
-     * @var int
-     */
-    public const EXCLUDE_START_DATE = 1;
-
-    /**
      * Exclude end date from iteration.
      *
      * @var int
