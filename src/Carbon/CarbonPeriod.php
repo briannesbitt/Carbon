@@ -685,10 +685,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             ];
         }
 
-        if ($raw === null && \is_string($arguments[0] ?? null) && substr_count($arguments[0], '/') >= 1) {
-            $raw = [$arguments[0]];
-        }
-
         $this->constructWith($raw);
         $this->setFromAssociativeArray($sortedArguments);
 
@@ -2521,9 +2517,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 parent::__construct(...$raw);
 
                 return;
-            } catch (Throwable) { // @coverCoverageIgnore
+                // @coverCoverageIgnoreStart
+            } catch (Throwable) {
                 // Fallback construct
             }
+            // @coverCoverageIgnoreEnd
         }
 
         parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
