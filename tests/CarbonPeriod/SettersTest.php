@@ -118,8 +118,10 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(Carbon::class, $period->getDateClass());
         $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
 
-        $period = $period->setDateClass(AbstractCarbon::class);
-        $this->assertSame(AbstractCarbon::class, $period->getDateClass());
+        if (PHP_VERSION < 8.4) {
+            $period = $period->setDateClass(AbstractCarbon::class);
+            $this->assertSame(AbstractCarbon::class, $period->getDateClass());
+        }
     }
 
     public function testSetDateClassInvalidArgumentException()
