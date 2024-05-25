@@ -16,11 +16,13 @@ namespace Tests\PHPStan;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\PHPStan\Macro;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use ReflectionClass;
 use Tests\AbstractTestCase;
 
 #[RequiresPhpunit('<11')]
+#[RequiresPhp('<8.4')]
 class MacroTest extends AbstractTestCase
 {
     public function testIsStatic()

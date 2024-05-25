@@ -19,10 +19,12 @@ use Carbon\CarbonInterval;
 use Carbon\PHPStan\MacroScanner;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use Tests\AbstractTestCase;
 
 #[RequiresPhpunit('<11')]
+#[RequiresPhp('<8.4')]
 class MacroExtensionTest extends AbstractTestCase
 {
     private function mockReflectionProvider()
