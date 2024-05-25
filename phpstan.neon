@@ -95,6 +95,10 @@ parameters:
             message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface::getMessages\(\)\.#'
             paths:
                 - tests/CarbonInterval/ConstructTest.php
+        -
+            message: '#^Access to protected property Carbon\\CarbonPeriod::\$dateInterval\.#'
+            paths:
+                - tests/CarbonPeriod/CreateTest.php
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'

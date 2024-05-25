@@ -898,4 +898,20 @@ class CreateTest extends AbstractTestCase
             $period->end?->format('Y-m-d'),
         ]);
     }
+
+    public function testSlashFormat()
+    {
+        $periodClass = static::$periodClass;
+        $period = $periodClass::create('2024-09-01/3 days/2024-09-30');
+
+        $this->assertSame('+3', $period->interval->format('%R%d'));
+        $this->assertSame('3 days', $period->dateInterval->forHumans());
+        $this->assertSame([
+            '2024-09-01',
+            '2024-09-30',
+        ], [
+            $period->start->format('Y-m-d'),
+            $period->end->format('Y-m-d'),
+        ]);
+    }
 }
