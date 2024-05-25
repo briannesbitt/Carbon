@@ -2517,11 +2517,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 parent::__construct(...$raw);
 
                 return;
-                // @coverCoverageIgnoreStart
-            } catch (Throwable) {
+            } catch (Throwable) { // @codeCoverageIgnore
                 // Fallback construct
             }
-            // @coverCoverageIgnoreEnd
         }
 
         parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
