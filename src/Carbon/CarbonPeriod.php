@@ -44,7 +44,6 @@ use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
 use Throwable;
-use TypeError;
 
 // @codeCoverageIgnoreStart
 require PHP_VERSION < 8.2
@@ -435,7 +434,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * Return whether given variable is an ISO 8601 specification.
      *
      * Note: Check is very basic, as actual validation will be done later when parsing.
-     * We just want to ensure that variable is not any other type of a valid parameter.
+     * We just want to ensure that variable is not any other type of valid parameter.
      */
     protected static function isIso8601(mixed $var): bool
     {
@@ -686,48 +685,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             ];
         }
 
-        if ($raw === null && \is_string($arguments[0] ?? null) && substr_count($arguments[0], '/') >= 1) {
-            $raw = [$arguments[0]];
-        }
-
-        $constructed = false;
-
-        if ($raw !== null) {
-            try {
-                parent::__construct(...$raw);
-                $constructed = true;
-            } catch (TypeError) {
-                // $constructed = false
-            }
-        }
-
-        if (!$constructed) {
-            parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
-        }
-
-        if (isset($sortedArguments['start'])) {
-            $this->setStartDate($sortedArguments['start']);
-        }
-
-        if (isset($sortedArguments['start'])) {
-            $this->setStartDate($sortedArguments['start']);
-        }
-
-        if (isset($sortedArguments['end'])) {
-            $this->setEndDate($sortedArguments['end']);
-        }
-
-        if (isset($sortedArguments['recurrences'])) {
-            $this->setRecurrences($sortedArguments['recurrences']);
-        }
-
-        if (isset($sortedArguments['interval'])) {
-            $this->setDateInterval($sortedArguments['interval']);
-        }
-
-        if (isset($sortedArguments['options'])) {
-            $this->setOptions($sortedArguments['options']);
-        }
+        $this->constructWith($raw);
+        $this->setFromAssociativeArray($sortedArguments);
 
         if ($this->startDate === null) {
             $dateClass = $this->dateClass;
@@ -2548,6 +2507,48 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             if (!\array_key_exists($index, $parameters) && !\array_key_exists($name, $parameters)) {
                 $parameters[$index] = $value;
             }
+        }
+    }
+
+    private function constructWith(?array $raw): void
+    {
+        if ($raw !== null) {
+            try {
+                parent::__construct(...$raw);
+
+                return;
+            } catch (Throwable) { // @codeCoverageIgnore
+                // Fallback construct
+            }
+        }
+
+        parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
+    }
+
+    private function setFromAssociativeArray(array $parameters): void
+    {
+        if (isset($parameters['start'])) {
+            $this->setStartDate($parameters['start']);
+        }
+
+        if (isset($parameters['start'])) {
+            $this->setStartDate($parameters['start']);
+        }
+
+        if (isset($parameters['end'])) {
+            $this->setEndDate($parameters['end']);
+        }
+
+        if (isset($parameters['recurrences'])) {
+            $this->setRecurrences($parameters['recurrences']);
+        }
+
+        if (isset($parameters['interval'])) {
+            $this->setDateInterval($parameters['interval']);
+        }
+
+        if (isset($parameters['options'])) {
+            $this->setOptions($parameters['options']);
         }
     }
 }
