@@ -685,7 +685,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             ];
         }
 
-        $this->constructWith($raw);
         $this->setFromAssociativeArray($sortedArguments);
 
         if ($this->startDate === null) {
@@ -703,6 +702,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $this->setOptions(0);
         }
 
+        parent::__construct(
+            $this->startDate,
+            $this->dateInterval,
+            $this->endDate ?? $this->recurrences ?? 1,
+            $this->options,
+        );
         $this->constructed = true;
     }
 
@@ -2508,21 +2513,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $parameters[$index] = $value;
             }
         }
-    }
-
-    private function constructWith(?array $raw): void
-    {
-        if ($raw !== null) {
-            try {
-                parent::__construct(...$raw);
-
-                return;
-            } catch (Throwable) { // @codeCoverageIgnore
-                // Fallback construct
-            }
-        }
-
-        parent::__construct('R1/2000-01-01T00:00:00Z/P1D');
     }
 
     private function setFromAssociativeArray(array $parameters): void

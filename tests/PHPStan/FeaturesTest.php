@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Tests\PHPStan;
 
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use RuntimeException;
 use Tests\AbstractTestCase;
 
+#[RequiresPhp('<8.4')]
 class FeaturesTest extends AbstractTestCase
 {
     /**
