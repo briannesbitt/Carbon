@@ -2512,6 +2512,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     private function constructWith(?array $raw): void
     {
+        if (PHP_VERSION >= 8.2) {
+            return;
+        }
+
         if ($raw !== null) {
             try {
                 parent::__construct(...$raw);
