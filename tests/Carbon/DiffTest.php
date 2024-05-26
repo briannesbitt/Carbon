@@ -2170,6 +2170,19 @@ class DiffTest extends AbstractTestCase
         );
     }
 
+    public function testBigGapInDays()
+    {
+        $start = Carbon::parse('2030-11-03 01:24:22.848816', 'UTC');
+        $end = Carbon::parse('2027-05-02 01:24:22.848816', 'UTC');
+
+        $this->assertSame(-1281.0, $start->diffInDays($end));
+
+        $start = Carbon::parse('2030-11-03 01:24:22.848816', 'America/Toronto');
+        $end = Carbon::parse('2027-05-02 01:24:22.848816', 'America/Toronto');
+
+        $this->assertSame(-1281.0, $start->diffInDays($end));
+    }
+
     public function testAFormat()
     {
         $past = new Carbon('-3 Days');
