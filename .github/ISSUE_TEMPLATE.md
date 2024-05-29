@@ -1,5 +1,20 @@
 <!--
-    🛑 DON'T REMOVE ME.
+    🛑 Important notice to read.
+
+    Before anything else, please search in previous issues (both open and close):
+    https://github.com/briannesbitt/Carbon/issues?q=is%3Aissue
+
+    ⚠️ Please don't create an issue about a problem already disccussed or addressed.
+
+    ⚠️ Please check if the documentation (https://carbon.nesbot.com/docs/) answer
+    your question or talk about the behavior you're about to describe.
+
+    Note that Carbon extends the PHP DateTime class
+    (https://www.php.net/manual/en/class.datetime.php) be sure you report
+    a Carbon-specific problem, if the same happens using DateTime,
+    refer to https://github.com/php/php-src
+
+    ⚠️ Don't remove this template.
     This issue template applies to all
       - bug reports,
       - feature proposals,
