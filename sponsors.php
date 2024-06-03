@@ -45,6 +45,23 @@ function getOpenCollectiveSponsors(): string
     ];
 
     $members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
+    $members[] = [
+        'MemberId' => 1,
+        'createdAt' => '2019-01-01 02:00',
+        'type' => 'ORGANIZATION',
+        'role' => 'BACKER',
+        'tier' => 'backer+',
+        'isActive' => true,
+        'totalAmountDonated' => 1000,
+        'currency' => 'USD',
+        'lastTransactionAt' => CarbonImmutable::now()->format('Y-m-d') . ' 02:00',
+        'lastTransactionAmount' => 25,
+        'profile' => 'https://tidelift.com/',
+        'name' => 'Tidelift',
+        'description' => 'Get professional support for Carbon',
+        'image' => 'https://carbon.nesbot.com/tidelift-brand.png',
+        'website' => 'https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs',
+    ];
 
     $list = array_filter($members, static function ($member): bool {
         return ($member['lastTransactionAmount'] > 3 || $member['isActive']) &&
@@ -78,29 +95,42 @@ function getOpenCollectiveSponsors(): string
             $monthlyContribution = (float) $member['lastTransactionAmount'];
         }
 
+        if ($lastTransactionAt->isBefore('-75 days')) {
+            $days = min(120, $lastTransactionAt->diffInDays('now') - 70);
+            $monthlyContribution *= 1 - $days / 240;
+        }
+
         $yearlyContribution = (float) ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()));
         $status = null;
+        $rank = 0;
 
-        if ($monthlyContribution > 29) {
+        if ($monthlyContribution > 29 || $yearlyContribution > 700) {
             $status = 'sponsor';
-        } elseif ($monthlyContribution > 14.5) {
+            $rank = 4;
+        } elseif ($monthlyContribution > 14.5 || $yearlyContribution > 500) {
             $status = 'backerPlus';
-        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 40) {
+            $rank = 3;
+        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 80) {
             $status = 'backer';
+            $rank = 2;
         } elseif ($member['totalAmountDonated'] > 0) {
             $status = 'helper';
+            $rank = 1;
         }
 
         return array_merge($member, [
-            'star' => ($monthlyContribution > 98 || $yearlyContribution > 500),
+            'star' => ($monthlyContribution > 98 || $yearlyContribution > 800),
             'status' => $status,
+            'rank' => $rank,
             'monthlyContribution' => $monthlyContribution,
             'yearlyContribution' => $yearlyContribution,
         ]);
     }, $list);
 
     usort($list, static function (array $a, array $b): int {
-        return ($b['monthlyContribution'] <=> $a['monthlyContribution'])
+        return ($b['star'] <=> $a['star'])
+            ?: ($b['rank'] <=> $a['rank'])
+            ?: ($b['monthlyContribution'] <=> $a['monthlyContribution'])
             ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated']);
     });
 
@@ -125,6 +155,11 @@ function getOpenCollectiveSponsors(): string
         $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
         $title = getHtmlAttribute(($member['description'] ?? null) ?: $member['name']);
         $alt = getHtmlAttribute($member['name']);
+
+        if ($member['star']) {
+            $width *= 1.5;
+            $height *= 1.5;
+        }
 
         return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
             '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
