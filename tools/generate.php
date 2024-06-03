@@ -284,6 +284,25 @@ function filterBackers(array $list, ?array $include, ?array $exclude): array
 
 function getAllBackers(): array
 {
+    $data = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
+    $data[] = [
+        'MemberId' => 1,
+        'createdAt' => '2019-01-01 02:00',
+        'type' => 'ORGANIZATION',
+        'role' => 'BACKER',
+        'tier' => 'backer+',
+        'isActive' => true,
+        'totalAmountDonated' => 1000,
+        'currency' => 'USD',
+        'lastTransactionAt' => CarbonImmutable::now()->format('Y-m-d') . ' 02:00',
+        'lastTransactionAmount' => 25,
+        'profile' => 'https://tidelift.com/',
+        'name' => 'Tidelift',
+        'description' => 'Get professional support for Carbon',
+        'image' => '/tidelift-brand.png',
+        'website' => 'https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs',
+    ];
+
     return array_map(static function (array $member) {
         $createdAt = CarbonImmutable::parse($member['createdAt']);
         $lastTransactionAt = CarbonImmutable::parse($member['lastTransactionAt']);
@@ -303,26 +322,37 @@ function getAllBackers(): array
             $monthlyContribution = (float) $member['lastTransactionAmount'];
         }
 
+        if ($lastTransactionAt->isBefore('-75 days')) {
+            $days = min(120, $lastTransactionAt->diffInDays('now') - 70);
+            $monthlyContribution *= 1 - $days / 240;
+        }
+
         $yearlyContribution = (float) ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()));
         $status = null;
+        $rank = 0;
 
-        if ($monthlyContribution > 29) {
+        if ($monthlyContribution > 29 || $yearlyContribution > 700) {
             $status = 'sponsor';
-        } elseif ($monthlyContribution > 14.5) {
+            $rank = 4;
+        } elseif ($monthlyContribution > 14.5 || $yearlyContribution > 500) {
             $status = 'backerPlus';
-        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 40) {
+            $rank = 3;
+        } elseif ($monthlyContribution > 4.5 || $yearlyContribution > 80) {
             $status = 'backer';
+            $rank = 2;
         } elseif ($member['totalAmountDonated'] > 0) {
             $status = 'helper';
+            $rank = 1;
         }
 
         return array_merge($member, [
-            'star' => ($monthlyContribution > 98 || $yearlyContribution > 500),
+            'star' => ($monthlyContribution > 98 || $yearlyContribution > 800),
             'status' => $status,
+            'rank' => $rank,
             'monthlyContribution' => $monthlyContribution,
             'yearlyContribution' => $yearlyContribution,
         ]);
-    }, json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true));
+    }, $data);
 }
 
 function getOpenCollective(string $status): string
@@ -336,7 +366,9 @@ function getOpenCollective(string $status): string
         $list = array_filter($members, static fn ($item) => ($item['status'] ?? null) === $status);
 
         usort($list, static fn (array $a, array $b) => (
-            ($b['monthlyContribution'] <=> $a['monthlyContribution'])
+            ($b['star'] <=> $a['star'])
+            ?: ($b['rank'] <=> $a['rank'])
+            ?: ($b['monthlyContribution'] <=> $a['monthlyContribution'])
             ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated'])
         ));
 
@@ -359,7 +391,11 @@ function getOpenCollective(string $status): string
                 default => 3,
             };
             $width = $validImage ? round($x * $height / $y) : $height;
-            $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+
+            if (!str_contains($href, 'utm_source')) {
+                $href .= (!str_contains($href, '?') ? '?' : '&amp;') . 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            }
+
             $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
             $alt = htmlspecialchars($member['name']);
 
