@@ -54,7 +54,7 @@ function getOpenCollectiveSponsors(): string
         'isActive' => true,
         'totalAmountDonated' => 1000,
         'currency' => 'USD',
-        'lastTransactionAt' => CarbonImmutable::now()->format('Y-m-d') . ' 02:00',
+        'lastTransactionAt' => CarbonImmutable::now()->format('Y-m-d').' 02:00',
         'lastTransactionAmount' => 25,
         'profile' => 'https://tidelift.com/',
         'name' => 'Tidelift',
