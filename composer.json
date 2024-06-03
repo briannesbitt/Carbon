@@ -53,7 +53,7 @@
         "doctrine/orm": "^2.7 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "kylekatarnls/multi-tester": "^2.0",
-        "ondrejmirtes/better-reflection": "*",
+        "ondrejmirtes/better-reflection": "<6",
         "phpmd/phpmd": "^2.9",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.99 || ^1.7.14",
