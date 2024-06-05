@@ -2566,7 +2566,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $tester day name, month name, hour, date, etc. as string
      */
-    public function is(string $tester): bool;
+    public function is(WeekDay|Month|string $tester): bool;
 
     /**
      * Determines if the instance is greater (after) than another

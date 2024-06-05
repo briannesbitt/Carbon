@@ -15,6 +15,8 @@ namespace Tests\Carbon;
 
 use BadMethodCallException;
 use Carbon\Carbon;
+use Carbon\Month;
+use Carbon\WeekDay;
 use DateTime;
 use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
@@ -1034,11 +1036,15 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2020-06-02'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('Sunday'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('Monday'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is(WeekDay::Sunday));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is(WeekDay::Monday));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('June'));
         $this->assertTrue(Carbon::parse('2019-05-31 12:23:45')->is('May'));
         $this->assertTrue(Carbon::parse('2019-05-31 12:23:45')->is('mAy'));
         $this->assertFalse(Carbon::parse('2019-05-31 12:23:45')->is('April'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('May'));
+        $this->assertTrue(Carbon::parse('2019-05-31 12:23:45')->is(Month::May));
+        $this->assertFalse(Carbon::parse('2019-05-31 12:23:45')->is(Month::April));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('12:23'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:26'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00'));
