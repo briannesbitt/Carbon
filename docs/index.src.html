@@ -5134,6 +5134,14 @@ var_dump($date->gt(null)); // true</code></pre></p>
         <code>-&gt;start</code> and <code>-&gt;end</code> will still contain initial start and end
         and not the new values after modification.</p>
 
+    <h2 id="api-carbon-3-is-same">isSame*</h2>
+
+    <p>Since Carbon 3, it's no longer allowed to call <code>isSame*</code> methods (such as <code>isSameDay</code>,
+        <code>isSameMonth</code> without parameters. You need to explictly pass a date (string or DateTime object)
+        so it's a comparison between 2: <code>$a->isSameHour($b)</code>, in Carbon 2, it was by default using
+        "now" as default value, now you should tell it explictly if you mean it: <code>$a->isSameHour('now')</code>
+        or you can use <code>->isCurrent*</code> methods instead: <code>$a->isCurrentHour()</code></p>
+
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 
     <p>If you plan to migrate from Carbon 1 to Carbon 2, please note the following breaking changes you should
