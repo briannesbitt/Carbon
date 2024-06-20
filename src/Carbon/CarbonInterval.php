@@ -1428,6 +1428,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                     break;
 
                 default:
+                    if (str_starts_with($key, ' * ')) {
+                        return $this->setSetting(substr($key, 3), $value);
+                    }
+
                     if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
                         throw new UnknownSetterException($key);
                     }
@@ -3338,6 +3342,42 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $this->startDate = null;
             $this->endDate = null;
             $this->rawInterval = null;
+        }
+    }
+
+    /** @return $this */
+    private function setSetting(string $setting, mixed $value): self
+    {
+        switch ($setting) {
+            case 'timezoneSetting':
+                return $value === null ? $this : $this->setTimezone($value);
+
+            case 'step':
+                $this->setStep($value);
+
+                return $this;
+
+            case 'localMonthsOverflow':
+                return $value === null ? $this : $this->settings(['monthOverflow' => $value]);
+
+            case 'localYearsOverflow':
+                return $value === null ? $this : $this->settings(['yearOverflow' => $value]);
+
+            case 'localStrictModeEnabled':
+            case 'localHumanDiffOptions':
+            case 'localToStringFormat':
+            case 'localSerializer':
+            case 'localMacros':
+            case 'localGenericMacros':
+            case 'localFormatFunction':
+            case 'localTranslator':
+                $this->$setting = $value;
+
+                return $this;
+
+            default:
+                // Drop unknown settings
+                return $this;
         }
     }
 }
