@@ -504,6 +504,19 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
     }
 
+    private static function makeTimezone(mixed $input): ?CarbonTimeZone
+    {
+        if (!\is_string($input)) {
+            return null;
+        }
+
+        try {
+            return CarbonTimeZone::create($input);
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
     /**
      * Register a custom macro.
      *
@@ -633,13 +646,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         $optionsSet = false;
+        $originalArguments = [];
         $sortedArguments = [];
 
         foreach ($arguments as $argument) {
             $parsedDate = null;
 
             if ($argument instanceof DateTimeZone) {
-                $this->setTimezone($argument);
+                $sortedArguments = $this->configureTimezone($argument, $sortedArguments, $originalArguments);
             } elseif (!isset($sortedArguments['interval']) &&
                 (
                     (\is_string($argument) && preg_match(
@@ -655,8 +669,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $sortedArguments['interval'] = $parsedInterval;
             } elseif (!isset($sortedArguments['start']) && $parsedDate = $this->makeDateTime($argument)) {
                 $sortedArguments['start'] = $parsedDate;
+                $originalArguments['start'] = $argument;
             } elseif (!isset($sortedArguments['end']) && ($parsedDate = $parsedDate ?? $this->makeDateTime($argument))) {
                 $sortedArguments['end'] = $parsedDate;
+                $originalArguments['end'] = $argument;
             } elseif (!isset($sortedArguments['recurrences']) &&
                 !isset($sortedArguments['end']) &&
                 (\is_int($argument) || \is_float($argument))
@@ -666,6 +682,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             } elseif (!$optionsSet && (\is_int($argument) || $argument === null)) {
                 $optionsSet = true;
                 $sortedArguments['options'] = (((int) $this->options) | ((int) $argument));
+            } elseif ($parsedTimezone = self::makeTimezone($argument)) {
+                $sortedArguments = $this->configureTimezone($parsedTimezone, $sortedArguments, $originalArguments);
             } else {
                 throw new InvalidPeriodParameterException('Invalid constructor parameters.');
             }
@@ -953,11 +971,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function toggleOptions(int $options, ?bool $state = null): static
     {
+        $self = $this->copyIfImmutable();
+
         if ($state === null) {
             $state = ($this->options & $options) !== $options;
         }
 
-        return $this->setOptions(
+        return $self->setOptions(
             $state ?
             $this->options | $options :
             $this->options & ~$options,
@@ -1244,7 +1264,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function setStartDate(mixed $date, ?bool $inclusive = null): static
     {
-        if (!$this->isInfiniteDate($date) && !($date = ([$this->dateClass, 'make'])($date))) {
+        if (!$this->isInfiniteDate($date) && !($date = ([$this->dateClass, 'make'])($date, $this->timezone))) {
             throw new InvalidPeriodDateException('Invalid start date.');
         }
 
@@ -1270,7 +1290,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function setEndDate(mixed $date, ?bool $inclusive = null): static
     {
-        if ($date !== null && !$this->isInfiniteDate($date) && !$date = ([$this->dateClass, 'make'])($date)) {
+        if ($date !== null && !$this->isInfiniteDate($date) && !$date = ([$this->dateClass, 'make'])($date, $this->timezone)) {
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
@@ -2378,7 +2398,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $date = ([$this->dateClass, 'make'])($date);
 
         if ($this->timezone) {
-            $date = $date->setTimezone($this->timezone);
+            return $date->setTimezone($this->timezone);
         }
 
         return $date;
@@ -2540,5 +2560,20 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         if (isset($parameters['options'])) {
             $this->setOptions($parameters['options']);
         }
+    }
+
+    private function configureTimezone(DateTimeZone $timezone, array $sortedArguments, array $originalArguments): array
+    {
+        $this->setTimezone($timezone);
+
+        if (\is_string($originalArguments['start'] ?? null)) {
+            $sortedArguments['start'] = $this->makeDateTime($originalArguments['start']);
+        }
+
+        if (\is_string($originalArguments['end'] ?? null)) {
+            $sortedArguments['end'] = $this->makeDateTime($originalArguments['end']);
+        }
+
+        return $sortedArguments;
     }
 }
