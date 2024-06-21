@@ -148,24 +148,48 @@ class ComparisonTest extends AbstractTestCase
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 15), true));
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 15), true));
 
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(new DateTime('2000-01-01'), new DateTime('2000-01-31'), true));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(new DateTime('2000-01-01'), new DateTime('2000-01-31'), true));
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->between(new DateTime('2000-01-15'), new DateTime('2000-01-31'), true));
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->isBetween(new DateTime('2000-01-15'), new DateTime('2000-01-31'), true));
 
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between('2000-01-01', '2000-01-31', true));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween('2000-01-01', '2000-01-31', true));
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->between('2000-01-01', '2000-01-15', true));
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->isBetween('2000-01-01', '2000-01-15', true));
+
+        $this->assertTrue(Carbon::create(2000, 1, 15, 17, 20, 54)->between('2000-01-15 17:20:50', '2000-01-15 17:20:54', true));
+        $this->assertTrue(Carbon::create(2000, 1, 15, 17, 20, 54)->isBetween('2000-01-15 17:20:50', '2000-01-15 17:20:54', true));
+        $this->assertTrue(Carbon::create(2000, 1, 15, 17, 20, 54)->between('2000-01-15 17:20:54', '2000-01-15 17:20:56', true));
+        $this->assertTrue(Carbon::create(2000, 1, 15, 17, 20, 54)->isBetween('2000-01-15 17:20:54', '2000-01-15 17:20:56', true));
     }
 
     public function testBetweenNotEqualTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
+        $this->assertFalse(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 15), false));
+        $this->assertFalse(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 15), false));
 
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(new DateTime('2000-01-01'), new DateTime('2000-01-31'), false));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(new DateTime('2000-01-01'), new DateTime('2000-01-31'), false));
+        $this->assertFalse(Carbon::createFromDate(2000, 1, 15)->between(new DateTime('2000-01-01'), new DateTime('2000-01-15'), false));
+        $this->assertFalse(Carbon::createFromDate(2000, 1, 15)->isBetween(new DateTime('2000-01-01'), new DateTime('2000-01-15'), false));
 
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between('2000-01-01', '2000-01-31', false));
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween('2000-01-01', '2000-01-31', false));
+        $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->between('2000-01-15', '2000-01-31', false));
+        $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->isBetween('2000-01-15', '2000-01-31', false));
+
+        $this->assertTrue(Carbon::create(2000, 1, 15, 17, 20, 54)->between('2000-01-15 17:20:50', '2000-01-15 17:20:55', false));
+        $this->assertTrue(Carbon::create(2000, 1, 15, 17, 20, 54)->isBetween('2000-01-15 17:20:50', '2000-01-15 17:20:55', false));
+        $this->assertFalse(Carbon::create(2000, 1, 15, 17, 20, 54)->between('2000-01-15 17:20:50', '2000-01-15 17:20:54', false));
+        $this->assertFalse(Carbon::create(2000, 1, 15, 17, 20, 54)->isBetween('2000-01-15 17:20:50', '2000-01-15 17:20:54', false));
+        $this->assertFalse(Carbon::create(2000, 1, 15, 17, 20, 54)->between('2000-01-15 17:20:54', '2000-01-15 17:20:56', false));
+        $this->assertFalse(Carbon::create(2000, 1, 15, 17, 20, 54)->isBetween('2000-01-15 17:20:54', '2000-01-15 17:20:56', false));
     }
 
     public function testBetweenExcludedTrue()
