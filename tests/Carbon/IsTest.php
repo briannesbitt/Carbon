@@ -221,6 +221,20 @@ class IsTest extends AbstractTestCase
         $this->assertTrue($date->is(WeekDay::Saturday));
     }
 
+    public function testIsEndOfWeek()
+    {
+        $date = Carbon::create(1997, 8, 31, 01, 6, 12)->endOfWeek();
+
+        $this->assertTrue($date->isEndOfWeek());
+        $this->assertTrue($date->is(WeekDay::Sunday));
+
+        Carbon::setLocale('ar');
+        $date = Carbon::create(2024, 8, 31, 01, 6, 12)->endOfWeek();
+
+        $this->assertTrue($date->isEndOfWeek());
+        $this->assertTrue($date->is(WeekDay::Friday));
+    }
+
     public function testIsFutureTrue()
     {
         $this->assertTrue(Carbon::now()->addSecond()->isFuture());

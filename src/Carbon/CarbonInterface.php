@@ -2945,6 +2945,19 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isStartOfWeek(): bool;
 
     /**
+     * Determines if the instance is end of week.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2024-08-31')->endOfWeek()->isEndOfWeek(); // true
+     * Carbon::parse('2024-08-31')->isEndOfWeek(); // false
+     * ```
+     *
+     * @return bool
+     */
+    public function isEndOfWeek(): bool;
+
+    /**
      * Determines if the instance is a weekday.
      *
      * @example
