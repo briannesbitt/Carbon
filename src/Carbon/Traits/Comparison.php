@@ -429,6 +429,20 @@ trait Comparison
     }
 
     /**
+     * Determines if the instance is start of week.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2024-08-31')->isStartOfWeek(); // true
+     * Carbon::parse('2024-08-31')->isStartOfWeek(); // false
+     * ```
+     */
+    public function isStartOfWeek()
+    {
+        return $this->dayOfWeek === $this->firstWeekDay;
+    }
+
+    /**
      * Determines if the instance is in the future, ie. greater (after) than now.
      *
      * @example
