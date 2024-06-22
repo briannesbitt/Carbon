@@ -436,8 +436,10 @@ trait Comparison
      * Carbon::parse('2024-08-31')->startOfWeek()->isStartOfWeek(); // true
      * Carbon::parse('2024-08-31')->isStartOfWeek(); // false
      * ```
+     *
+     * @return bool
      */
-    public function isStartOfWeek()
+    public function isStartOfWeek(): bool
     {
         return $this->dayOfWeek === $this->firstWeekDay;
     }
