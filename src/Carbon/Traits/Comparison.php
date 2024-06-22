@@ -433,7 +433,7 @@ trait Comparison
      *
      * @example
      * ```
-     * Carbon::parse('2024-08-31')->isStartOfWeek(); // true
+     * Carbon::parse('2024-08-31')->startOfWeek()->isStartOfWeek(); // true
      * Carbon::parse('2024-08-31')->isStartOfWeek(); // false
      * ```
      */
