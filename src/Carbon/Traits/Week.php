@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Carbon\Traits;
 
-use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 
 /**
@@ -30,14 +29,14 @@ use Carbon\CarbonInterval;
  *
  * Depends on the following methods:
  *
- * @method CarbonInterface addWeeks(int $weeks = 1)
- * @method CarbonInterface copy()
- * @method CarbonInterface dayOfYear(int $dayOfYear)
+ * @method static addWeeks(int $weeks = 1)
+ * @method static copy()
+ * @method static dayOfYear(int $dayOfYear)
  * @method string getTranslationMessage(string $key, ?string $locale = null, ?string $default = null, $translator = null)
- * @method CarbonInterface next(int|string $modifier = null)
- * @method CarbonInterface startOfWeek(int $day = null)
- * @method CarbonInterface subWeeks(int $weeks = 1)
- * @method CarbonInterface year(int $year = null)
+ * @method static next(int|string $modifier = null)
+ * @method static startOfWeek(int $day = null)
+ * @method static subWeeks(int $weeks = 1)
+ * @method static year(int $year = null)
  */
 trait Week
 {
