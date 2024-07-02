@@ -1550,7 +1550,7 @@ Carbon::canBeCreatedFromFormat('13:12:45', 'h:i:s'); // false</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-is">
     <h2><span class="class-name">Carbon::</span>is</h2>
-    <code>string $tester</code>
+    <code>Carbon\WeekDay|Carbon\Month|string $tester</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Returns true if the current date matches the given string.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">\Carbon\Doc\Generate\var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019')); // true
 \Carbon\Doc\Generate\var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2018')); // false
@@ -1565,7 +1565,7 @@ Carbon::canBeCreatedFromFormat('13:12:45', 'h:i:s'); // false</code></pre></p>
 \Carbon\Doc\Generate\var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12h')); // true
 \Carbon\Doc\Generate\var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3pm')); // true
 \Carbon\Doc\Generate\var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false</code></pre></p>
-    <table class='info-table method-history'>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.6.0</td><td><code>Carbon\WeekDay|Carbon\Month|string $tester</code></td></tr>
         <tr><td>Method added</td><td>2.20.0</td><td><code>string $tester</code></td></tr>
     </table>
 </div>
@@ -2157,11 +2157,11 @@ will be thrown.</p>
 
 <div class="doc-method " id="doc-method-Carbon-make">
     <h2><span class="class-name">Carbon::</span>make</h2>
-    <code>$var</code>
+    <code>$var, DateTimeZone|string|null $timezone = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Make a Carbon instance from given variable if possible.<br><br>Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
 and recurrences). Throw an exception for invalid format, but otherwise return null.</p>
-    <table class='info-table method-history'>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.6.0</td><td><code>$var, DateTimeZone|string|null $timezone = null</code></td></tr>
         <tr><td>Method added</td><td>1.28.0</td><td><code>$var</code></td></tr>
     </table>
 </div>
