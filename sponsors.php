@@ -134,8 +134,18 @@ function getOpenCollectiveSponsors(): string
             ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated']);
     });
 
-    return implode('', array_map(static function (array $member) use ($customSponsorImages): string {
-        $href = htmlspecialchars($member['website'] ?? $member['profile']);
+    $membersByUrl = [];
+    $output = '';
+
+    foreach ($list as $member) {
+        $url = $member['website'] ?? $member['profile'];
+
+        if (isset($membersByUrl[$url])) {
+            continue;
+        }
+
+        $membersByUrl[$url] = $member;
+        $href = htmlspecialchars($url);
         $src = $customSponsorImages[$member['MemberId'] ?? ''] ?? $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
         [$x, $y] = @getimagesize($src) ?: [0, 0];
         $validImage = ($x && $y);
@@ -152,7 +162,7 @@ function getOpenCollectiveSponsors(): string
         };
 
         $width = min($height * 2, $validImage ? round($x * $height / $y) : $height);
-        $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+        $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
         $title = getHtmlAttribute(($member['description'] ?? null) ?: $member['name']);
         $alt = getHtmlAttribute($member['name']);
 
@@ -161,10 +171,12 @@ function getOpenCollectiveSponsors(): string
             $height *= 1.5;
         }
 
-        return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
+        $output .= "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
             '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
             '</a>';
-    }, $list))."\n";
+    }
+
+    return $output;
 }
 
 file_put_contents('readme.md', preg_replace_callback(
