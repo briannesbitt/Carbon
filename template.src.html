@@ -651,7 +651,6 @@
                             lastMonth.setDate(lastMonth.getDate() - 1);
                         }
 
-
                         if (lastTransactionAt.getTime() > lastMonth.getTime() &&
                             member.lastTransactionAmount > monthlyContribution
                         ) {
@@ -692,6 +691,17 @@
 
                         return b.monthlyContribution - a.monthlyContribution;
                     });
+
+                    var memberByUrl = {};
+                    members.forEach(function (member) {
+                        var url = member.website || member.profile;
+                        if (memberByUrl[url]) {
+                            return;
+                        }
+
+                        memberByUrl[url] = member;
+                    });
+                    members = Object.values(memberByUrl);
 
                     ['sponsor', 'backerPlus', 'backer', 'helper'].forEach(function (status) {
                         $('.open-collective-' + status + 's').html(

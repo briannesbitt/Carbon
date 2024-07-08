@@ -265,23 +265,6 @@ Carbon::macro('describeIsoFormat', static function (string $code): string {
     ][$code] ?? '';
 });
 
-function filterBackers(array $list, ?array $include, ?array $exclude): array
-{
-    return array_filter($list, static function ($item) use ($include, $exclude) {
-        if (($item['role'] ?? null) !== 'BACKER') {
-            return false;
-        }
-
-        $type = $item['type'] ?? null;
-
-        if ($include && !in_array($type, $include, true)) {
-            return false;
-        }
-
-        return !$exclude || !in_array($type, $exclude, true);
-    });
-}
-
 function getAllBackers(): array
 {
     $data = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
@@ -331,7 +314,10 @@ function getAllBackers(): array
         $status = null;
         $rank = 0;
 
-        if ($monthlyContribution > 29 || $yearlyContribution > 700) {
+        if ($member['role'] === 'HOST') {
+            $status = 'host';
+            $rank = -1;
+        } elseif ($monthlyContribution > 29 || $yearlyContribution > 700) {
             $status = 'sponsor';
             $rank = 4;
         } elseif ($monthlyContribution > 14.5 || $yearlyContribution > 500) {

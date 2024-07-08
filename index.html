@@ -310,7 +310,6 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
         <a style="position: relative; margin: 3px; display: inline-block; border: 3px solid transparent; border-radius: 50%; overflow: hidden;" title="Guest" href="https://opencollective.com/guest-f0a49745?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Guest" src="https://images.opencollective.com/guest-f0a49745/avatar/256.png" width="24" height="24"></a>
         <a style="position: relative; margin: 3px; display: inline-block; border: 3px solid transparent; border-radius: 50%; overflow: hidden;" title="Евгения" href="https://opencollective.com/guest-60046d79?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Евгения" src="https://images.opencollective.com/guest-60046d79/avatar/256.png" width="24" height="24"></a>
         <a style="position: relative; margin: 3px; display: inline-block; border: 3px solid transparent; border-radius: 50%; overflow: hidden;" title="AzuraCast" href="https://azuracast.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="AzuraCast" src="https://logo.clearbit.com/azuracast.com" width="24" height="24"></a>
-        <a style="position: relative; margin: 3px; display: inline-block; border: 3px solid transparent; border-radius: 50%; overflow: hidden;" title="Non-profit fiscal host promoting a healthy and sustainable open source ecosystem." href="https://oscollective.org/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Open Source Collective" src="https://opencollective-production.s3.us-west-1.amazonaws.com/97017710-a90f-11e9-b6fb-2bbe7128f780.png" width="24" height="24"></a>
     </span>
 </div>
 
@@ -893,7 +892,6 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
                             lastMonth.setDate(lastMonth.getDate() - 1);
                         }
 
-
                         if (lastTransactionAt.getTime() > lastMonth.getTime() &&
                             member.lastTransactionAmount > monthlyContribution
                         ) {
@@ -934,6 +932,17 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
 
                         return b.monthlyContribution - a.monthlyContribution;
                     });
+
+                    var memberByUrl = {};
+                    members.forEach(function (member) {
+                        var url = member.website || member.profile;
+                        if (memberByUrl[url]) {
+                            return;
+                        }
+
+                        memberByUrl[url] = member;
+                    });
+                    members = Object.values(memberByUrl);
 
                     ['sponsor', 'backerPlus', 'backer', 'helper'].forEach(function (status) {
                         $('.open-collective-' + status + 's').html(
