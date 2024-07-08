@@ -135,7 +135,7 @@ function getOpenCollectiveSponsors(): string
     foreach ($list as $member) {
         $url = $member['website'] ?? $member['profile'];
 
-        if (isset($membersByUrl[$url]) || !in_array($member['status'], ['sponsor', 'backerPlus'], true)) {
+        if (isset($membersByUrl[$url]) || !\in_array($member['status'], ['sponsor', 'backerPlus'], true)) {
             continue;
         }
 
@@ -159,7 +159,7 @@ function getOpenCollectiveSponsors(): string
         $width = min($height * 2, $validImage ? round($x * $height / $y) : $height);
 
         if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/onlinekasyno-polis\.pl(\/.*)?$/', $href)) {
-            $href .= (!str_contains($href, '?') ? '?' : '&amp;') . 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
         }
 
         $title = getHtmlAttribute(($member['description'] ?? null) ?: $member['name']);
