@@ -717,7 +717,11 @@
                                         backerPlus: 6,
                                         backer: 5,
                                     })[member.status] || 3;
-                                    href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+
+                                    if (['onlinekasyno-polis.pl'].indexOf((new URL(href)).host) === -1) {
+                                        href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+                                    }
+
                                     var title = $('<div>').text(member.description || member.name).html();
                                     var alt = $('<div>').text(member.name).html();
                                     var sponsor = (status === 'sponsor');

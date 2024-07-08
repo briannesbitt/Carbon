@@ -392,7 +392,7 @@ function getOpenCollective(string $status): string
             };
             $width = $validImage ? round($x * $height / $y) : $height;
 
-            if (!str_contains($href, 'utm_source')) {
+            if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/onlinekasyno-polis\.pl(\/.*)?$/', $href)) {
                 $href .= (!str_contains($href, '?') ? '?' : '&amp;') . 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
             }
 
