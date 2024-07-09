@@ -100,13 +100,6 @@ printf("Now: %s", Carbon::now());
 
 [https://carbon.nesbot.com/docs](https://carbon.nesbot.com/docs)
 
-⚠️ Documentation is being updated to reflect behavior on the version 3
-[See the migration section listing the main differences between Carbon 2 and Carbon 3](https://carbon.nesbot.com/docs/#api-carbon-3)
-
-If you see a section referring to Carbon 2 behavior outside this section
-or have any doubt about other documentation part, do not hesitate to open
-an issue to raise it.
-
 ## Security contact information
 
 To report a security vulnerability, please use the
@@ -136,6 +129,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="Non GamStop Bookies UK" href="https://nongamstopbookiesuk.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Non GamStop Bookies UK" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/43c5561c-8907-4ef7-a4ee-c6da054788b8/logo-site%20(3).jpg" width="96" height="96"></a>
 <a title="#1 Guide To Online Gambling In Canada" href="https://casinohex.org/canada/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="CasinoHex Canada" src="https://opencollective-production.s3.us-west-1.amazonaws.com/79fdbcc0-a997-11eb-abbc-25e48b63c6dc.jpg" width="127.5" height="96"></a>
 <a title="Znajdź najlepsze zakłady bukmacherskie w Polsce w 2023 roku. Probukmacher.pl to Twoje kompendium wiedzy na temat bukmacherów!" href="https://www.probukmacher.pl?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Probukmacher" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/caf50271-4560-4ffe-a434-ea15239168db/Screenshot_1.png" width="133.5" height="96"></a>
+<a title="Сasinorevisor.com" href="https://casinorevisor.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Сasinorevisor.com" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/a69e1789-9f2f-4b24-8b85-c1d4fcecde2f/200x200_white_bg%201.png" width="96" height="96"></a>
 <a title="Casino-portugal.pt" href="https://casino-portugal.pt/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Casino-portugal.pt" src="https://logo.clearbit.com/casino-portugal.pt" width="96" height="96"></a>
 <a title="inkedin" href="https://inkedin.com?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="inkedin" src="https://logo.clearbit.com/inkedin.com" width="64" height="64"></a>
 <a title="Актуальний та повносправний рейтинг онлайн казино України, ґрунтований на відгуках реальних гравців." href="https://uk.onlinecasino.in.ua/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Онлайн казино України" src="https://opencollective-production.s3.us-west-1.amazonaws.com/c0b4b090-eef8-11ec-9cb7-0527a205b226.png" width="64" height="64"></a>
@@ -150,6 +144,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="Get professional support for Carbon" href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&amp;utm_medium=referral&amp;utm_campaign=docs" target="_blank"><img alt="Tidelift" src="https://carbon.nesbot.com/tidelift-brand.png" width="84" height="42"></a>
 <a title="Fortune Tiger" href="https://fortune-tiger-br.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Fortune Tiger" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/88904f4a-f997-49e8-8fd4-5068acc85a98/fortune-tiger-slot-281-img-2.webp" width="42" height="42"></a><!-- </open-collective-sponsors> -->
 
+[[See all](https://carbon.nesbot.com/#sponsors)]
 [[Become a sponsor via OpenCollective](https://opencollective.com/Carbon#sponsor)]
 
 <a href="https://github.com/getsentry" target="_blank"><img src="https://avatars.githubusercontent.com/u/1396951?s=128&v=4" width="42" height="42"></a>
