@@ -78,6 +78,24 @@ return [
     'diff_before_yesterday' => 'Vorgestern',
     'diff_after_tomorrow' => 'Übermorgen',
 
+    'period_recurrences' => 'einmal|:count mal',
+    'period_interval' => static function (string $interval = '') {
+        /** @var string $output */
+        $output = preg_replace('/^(ein|eine|1)\s+/u', '', $interval);
+
+        if (preg_match('/^(ein|1)( Monat| Mon.| Tag| Tg.)/u', $interval)) {
+            return "jeden $output";
+        }
+
+        if (preg_match('/^(ein|1)( Jahr| J.)/u', $interval)) {
+            return "jedes $output";
+        }
+
+        return "jede $output";
+    },
+    'period_start_date' => 'von :date',
+    'period_end_date' => 'bis :date',
+
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
