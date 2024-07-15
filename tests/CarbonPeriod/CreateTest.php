@@ -20,6 +20,7 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonPeriodImmutable;
+use Carbon\Exceptions\InvalidPeriodParameterException;
 use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Month;
 use Carbon\Unit;
@@ -944,5 +945,15 @@ class CreateTest extends AbstractTestCase
             $period->start->format('Y-m-d'),
             $period->end->format('Y-m-d'),
         ]);
+    }
+
+    public function testInvalidTimezone()
+    {
+        self::expectExceptionObject(new InvalidPeriodParameterException(
+            'Invalid constructor parameters.',
+        ));
+
+        $periodClass = static::$periodClass;
+        new $periodClass('2024-09-01', '3 days', '2024-09-30', 'America/Tokyo');
     }
 }
