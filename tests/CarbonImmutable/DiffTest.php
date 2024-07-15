@@ -1864,6 +1864,23 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(1, Carbon::parse('2018-07-01')->diffAsDateInterval(Carbon::parse('2018-07-02')->utc())->days);
     }
 
+    public function testThreeMonthMinusOneDay()
+    {
+        $start = new Carbon('2022-11-11 22:29:50.000000');
+        $end = $start->addMonths(3);
+        $now = $start->addDay();
+
+        $this->assertSame(3.0, $start->diffInMonths($end));
+        $this->assertSame(3 - 1 / 31, $now->diffInMonths($end));
+
+        $start = new Carbon('2022-04-11 22:29:50.000000');
+        $end = $start->addMonths(3);
+        $now = $start->addDay();
+
+        $this->assertSame(3.0, $start->diffInMonths($end));
+        $this->assertSame(3 - 1 / 30, $now->diffInMonths($end));
+    }
+
     public function testDiffWithZeroAndNonZeroMicroseconds()
     {
         $requestTime = new Carbon('2018-11-14 18:23:12.0 +00:00');
