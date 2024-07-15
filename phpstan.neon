@@ -58,7 +58,7 @@ parameters:
             paths:
                 - tests/CarbonImmutable/GettersTest.php
         -
-            message: '#^Access to an undefined property Carbon\\CarbonInterval::tz_?name\.$#'
+            message: '#^Access to an undefined property Carbon\\CarbonInterval::\$tz_?name\.$#'
             paths:
                 - tests/CarbonInterval/SettersTest.php
         -
