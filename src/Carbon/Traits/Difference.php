@@ -143,20 +143,19 @@ trait Difference
 
         $yearsDiff = (int) $start->diff($end, $absolute)->format('%r%y');
         /** @var Carbon|CarbonImmutable $floorEnd */
-        $floorEnd = $start->copy()->addYears($yearsDiff);
+        $floorEnd = $start->avoidMutation()->addYears($yearsDiff);
 
         if ($floorEnd >= $end) {
             return $sign * $yearsDiff;
         }
 
-        /** @var Carbon|CarbonImmutable $startOfYearAfterFloorEnd */
-        $startOfYearAfterFloorEnd = $floorEnd->copy()->addYear()->startOfYear();
+        /** @var Carbon|CarbonImmutable $ceilEnd */
+        $ceilEnd = $start->avoidMutation()->addYears($yearsDiff + 1);
 
-        if ($startOfYearAfterFloorEnd > $end) {
-            return $sign * ($yearsDiff + $floorEnd->diffInDays($end) / $floorEnd->daysInYear);
-        }
+        $daysToFloor = $floorEnd->diffInDays($end);
+        $daysToCeil = $end->diffInDays($ceilEnd);
 
-        return $sign * ($yearsDiff + $floorEnd->diffInDays($startOfYearAfterFloorEnd) / $floorEnd->daysInYear + $startOfYearAfterFloorEnd->diffInDays($end) / $end->daysInYear);
+        return $sign * ($yearsDiff + $daysToFloor / ($daysToCeil + $daysToFloor));
     }
 
     /**
@@ -220,14 +219,13 @@ trait Difference
             return $sign * $monthsDiff;
         }
 
-        /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
-        $startOfMonthAfterFloorEnd = $floorEnd->avoidMutation()->addMonthNoOverflow()->startOfMonth();
+        /** @var Carbon|CarbonImmutable $ceilEnd */
+        $ceilEnd = $start->avoidMutation()->addMonths($monthsDiff + 1);
 
-        if ($startOfMonthAfterFloorEnd > $end) {
-            return $sign * ($monthsDiff + $floorEnd->diffInDays($end) / $floorEnd->daysInMonth);
-        }
+        $daysToFloor = $floorEnd->diffInDays($end);
+        $daysToCeil = $end->diffInDays($ceilEnd);
 
-        return $sign * ($monthsDiff + $floorEnd->diffInDays($startOfMonthAfterFloorEnd) / $floorEnd->daysInMonth + $startOfMonthAfterFloorEnd->diffInDays($end) / $end->daysInMonth);
+        return $sign * ($monthsDiff + $daysToFloor / ($daysToCeil + $daysToFloor));
     }
 
     /**
