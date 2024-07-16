@@ -297,12 +297,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected ?array $initialValues = null;
 
     /**
-     * Total number of days the interval spans. If this is unknown, days will be FALSE.
-     * @var int|false
-     */
-    private $days = false;
-
-    /**
      * Set the instance's timezone from a string or object.
      */
     public function setTimezone(DateTimeZone|string|int $timezone): static
@@ -315,7 +309,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 ->avoidMutation()
                 ->setTimezone($timezone);
             $this->rawInterval = null;
-            $this->days = false;
         }
 
         if ($this->endDate) {
@@ -323,7 +316,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 ->avoidMutation()
                 ->setTimezone($timezone);
             $this->rawInterval = null;
-            $this->days = false;
         }
 
         return $this;
@@ -342,7 +334,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 ->avoidMutation()
                 ->shiftTimezone($timezone);
             $this->rawInterval = null;
-            $this->days = false;
         }
 
         if ($this->endDate) {
@@ -350,7 +341,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 ->avoidMutation()
                 ->shiftTimezone($timezone);
             $this->rawInterval = null;
-            $this->days = false;
         }
 
         return $this;
@@ -801,7 +791,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $this->startDate = null;
         $this->endDate = null;
         $this->rawInterval = null;
-        $this->days = false;
 
         return $this;
     }
@@ -1116,7 +1105,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $interval = static::instance($rawInterval, $skip);
 
         $interval->rawInterval = $rawInterval;
-        $interval->days = $rawInterval->days;
         $interval->startDate = $start;
         $interval->endDate = $end;
         $interval->initialValues = $interval->getInnerValues();
@@ -1356,7 +1344,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public function set($name, $value = null): static
     {
-        $this->days = false;
         $properties = \is_array($name) ? $name : [$name => $value];
 
         foreach ($properties as $key => $value) {
@@ -3353,7 +3340,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             $this->startDate = null;
             $this->endDate = null;
             $this->rawInterval = null;
-            $this->days = false;
         }
     }
 

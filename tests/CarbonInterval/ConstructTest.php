@@ -450,11 +450,29 @@ class ConstructTest extends AbstractTestCase
         // Ignore translator for the English comparison
         $copy->setLocalTranslator($interval->getLocalTranslator());
 
+        if (PHP_VERSION < 8.2) {
+            (function () {
+                $this->days ??= false;
+            })->call($copy);
+            (function () {
+                $this->days ??= false;
+            })->call($interval);
+        }
+
         $this->assertEquals($interval, $copy);
 
         $interval = $today->locale('ja')->diffAsCarbonInterval($past);
         /** @var CarbonInterval $copy */
         $copy =  unserialize(serialize($interval));
+
+        if (PHP_VERSION < 8.2) {
+            (function () {
+                $this->days ??= false;
+            })->call($copy);
+            (function () {
+                $this->days ??= false;
+            })->call($interval);
+        }
 
         $this->assertInstanceOf(CarbonInterval::class, $copy);
 
