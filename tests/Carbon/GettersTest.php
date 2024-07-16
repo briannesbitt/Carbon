@@ -238,6 +238,13 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($age, $d->age);
     }
 
+    public function testAgeWithBirthdayTomorrowAndLeapYear()
+    {
+        Carbon::setTestNow('2024-07-15 22:15');
+
+        $this->assertSame(3, Carbon::parse('2020-07-16')->age);
+    }
+
     public static function dataForTestQuarter(): array
     {
         return [

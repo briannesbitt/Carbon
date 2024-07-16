@@ -73,6 +73,13 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(1, $ci->dayz);
         $ci->day(3);
         $this->assertSame(3, $ci->dayz);
+
+        $diff = (new Carbon('2024-07-15 00:00'))->diff('2024-08-12 23:15');
+
+        $this->assertSame('4 weeks 23 hours 15 minutes', $diff->forHumans());
+        $diff->set('days', false);
+        $this->assertSame('4 weeks 23 hours 15 minutes', $diff->forHumans());
+        $this->assertFalse($diff->days);
     }
 
     public function testHoursSetter()
@@ -256,6 +263,8 @@ class SettersTest extends AbstractTestCase
         /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->setTimezone('America/Toronto');
 
+        $this->assertSame('America/Toronto', $interval->tzname);
+        $this->assertSame('America/Toronto', $interval->tz_name);
         $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
 
         /** @var CarbonInterval $interval */
@@ -267,5 +276,12 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
         $this->assertSame('2020-02-02 06:20 America/Toronto', $interval->start()->format('Y-m-d H:i e'));
         $this->assertSame('2020-02-03 16:22 America/Toronto', $interval->end()->format('Y-m-d H:i e'));
+
+        /** @var CarbonInterval $interval */
+        $interval = CarbonInterval::hour();
+        $next = $interval->set(' * foobar', 'biz');
+
+        $this->assertSame($next, $interval);
+        $this->assertSame('1 hour', $interval->forHumans());
     }
 }

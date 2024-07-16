@@ -281,6 +281,11 @@ class ModifyTest extends AbstractTestCase
         );
 
         $this->assertSame(
+            '2000-01-24 17:00:00.000000',
+            Carbon::parse('2000-01-25')->subRealUnit('hour', '7')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
             '2000-01-25 00:08:00.000000',
             Carbon::parse('2000-01-25')->addRealUnit('minute', '8')->format('Y-m-d H:i:s.u')
         );

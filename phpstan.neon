@@ -58,6 +58,10 @@ parameters:
             paths:
                 - tests/CarbonImmutable/GettersTest.php
         -
+            message: '#^Access to an undefined property Carbon\\CarbonInterval::\$tz_?name\.$#'
+            paths:
+                - tests/CarbonInterval/SettersTest.php
+        -
             message: '#^Cannot access property \$locale on Carbon\\CarbonPeriod\|string\.$#'
             paths:
                 - tests/CarbonPeriod/GettersTest.php
