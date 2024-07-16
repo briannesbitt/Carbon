@@ -450,29 +450,11 @@ class ConstructTest extends AbstractTestCase
         // Ignore translator for the English comparison
         $copy->setLocalTranslator($interval->getLocalTranslator());
 
-        if (PHP_VERSION < 8.2) {
-            (function () {
-                $this->days ??= false;
-            })->call($copy);
-            (function () {
-                $this->days ??= false;
-            })->call($interval);
-        }
-
-        $this->assertEquals($interval, $copy);
+        $this->assertSameIntervals($interval, $copy);
 
         $interval = $today->locale('ja')->diffAsCarbonInterval($past);
         /** @var CarbonInterval $copy */
         $copy =  unserialize(serialize($interval));
-
-        if (PHP_VERSION < 8.2) {
-            (function () {
-                $this->days ??= false;
-            })->call($copy);
-            (function () {
-                $this->days ??= false;
-            })->call($interval);
-        }
 
         $this->assertInstanceOf(CarbonInterval::class, $copy);
 
@@ -482,7 +464,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(['ja'], array_keys($interval->getLocalTranslator()->getMessages()));
         $this->assertSame(['ja'], array_keys($copy->getLocalTranslator()->getMessages()));
 
-        $this->assertEquals($interval, $copy);
+        $this->assertSameIntervals($interval, $copy);
     }
 
     public function testFromV2SerializedInterval()
@@ -493,5 +475,21 @@ class ConstructTest extends AbstractTestCase
         $this->assertInstanceOf(CarbonInterval::class, $interval);
         $this->assertSame(2, $interval->m);
         $this->assertSame(5.4e-5, $interval->f);
+    }
+
+    private function assertSameIntervals(CarbonInterval $expected, CarbonInterval $actual): void
+    {
+        if (PHP_VERSION >= 8.2) {
+            $this->assertEquals($expected, $actual);
+
+            return;
+        }
+
+        $expectedProperties = (array) $expected;
+        unset($expectedProperties['days']);
+        $actualProperties = (array) $actual;
+        unset($actualProperties['days']);
+
+        $this->assertEquals($expectedProperties, $actualProperties);
     }
 }
