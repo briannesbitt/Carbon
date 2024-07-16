@@ -1625,7 +1625,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                            ⦿ 'altNumbers' entry, use alternative numbers if available
      *                                                            ` (from the current language if true is passed, from the given language(s)
      *                                                            ` if array or string is passed)
-     *                                                            - 'join' entry determines how to join multiple parts of the string
+     *                                                            ⦿ 'join' entry determines how to join multiple parts of the string
      *                                                            `  - if $join is a string, it's used as a joiner glue
      *                                                            `  - if $join is a callable/closure, it get the list of string and should return a string
      *                                                            `  - if $join is an array, the first item will be the default glue, and the second item
@@ -1635,7 +1635,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                            ⦿ 'other' entry (see above)
      *                                                            ⦿ 'minimumUnit' entry determines the smallest unit of time to display can be long or
      *                                                            `  short form of the units, e.g. 'hour' or 'h' (default value: s)
-     *                                                            if int passed, it add modifiers:
+     *                                                            ⦿ 'locale' language in which the diff should be output (has no effect if 'translator' key is set)
+     *                                                            ⦿ 'translator' a custom translator to use to translator the output.
+     *                                                            if int passed, it adds modifiers:
      *                                                            Possible values:
      *                                                            - CarbonInterface::DIFF_ABSOLUTE          no modifiers
      *                                                            - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
@@ -3200,7 +3202,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function make($var);
+    public static function make($var, DateTimeZone|string|null $timezone = null);
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
