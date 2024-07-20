@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Unit;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
@@ -533,6 +534,9 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($dt->startOf('day'));
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
         $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOf(Unit::Day));
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
+        $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->startOf('Months'));
         $this->assertCarbon($dt, $dt->year, $dt->month, 1, 0, 0, 0, 0);
     }
@@ -541,6 +545,9 @@ class StartEndOfTest extends AbstractTestCase
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->endOf('day'));
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->endOf(Unit::Day));
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->endOf('Months'));
