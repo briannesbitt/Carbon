@@ -15,11 +15,15 @@ namespace Carbon\Traits;
 
 use BackedEnum;
 use BadMethodCallException;
+use Carbon\CarbonConverterInterface;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\BadComparisonUnitException;
 use Carbon\FactoryImmutable;
 use Carbon\Month;
+use Carbon\Unit;
 use Carbon\WeekDay;
+use Closure;
+use DateInterval;
 use DateTimeInterface;
 use InvalidArgumentException;
 
@@ -726,14 +730,66 @@ trait Comparison
      * Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false
      * ```
      *
-     * @param bool $checkMicroseconds check time at microseconds precision
+     * @param bool                                                           $checkMicroseconds check time at microseconds precision
+     * @param Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval          if an interval is specified it will be used as precision
+     *                                                                                          for instance with "15 minutes", it checks if current date-time
+     *                                                                                          is in the last 15 minutes of the day, with Unit::Hour, it
+     *                                                                                          checks if it's in the last hour of the day.
      */
-    public function isStartOfDay(bool $checkMicroseconds = false): bool
-    {
+    public function isStartOfDay(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false,
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        if ($interval === null && !\is_bool($checkMicroseconds)) {
+            $interval = $checkMicroseconds;
+        }
+
+        if ($interval !== null) {
+            $date = $this->rawFormat('Y-m-d');
+            $time = $this->rawFormat('H:i:s.u');
+            $maximum = $this->avoidMutation()->startOfDay()->add($interval);
+            $maximumDate = $maximum->rawFormat('Y-m-d');
+
+            if ($date === $maximumDate) {
+                return $time <= $maximum->rawFormat('H:i:s.u');
+            }
+
+            return $maximumDate > $date;
+        }
+
         /* @var CarbonInterface $this */
         return $checkMicroseconds
             ? $this->rawFormat('H:i:s.u') === '00:00:00.000000'
             : $this->rawFormat('H:i:s') === '00:00:00';
+    }
+
+    /**
+     * Check if the instance is start of a given unit (tolerating a given interval).
+     *
+     * @example
+     * ```
+     * // Check if a date-time is the first 15 minutes of the hour it's in
+     * Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true
+     * ```
+     */
+    public function isStartOfUnit(
+        Unit $unit,
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        $interval ??= match ($unit) {
+            Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
+            default => Unit::Day,
+        };
+
+        $startOfUnit = $this->avoidMutation()->startOf($unit);
+        $startOfUnitDateTime = $startOfUnit->rawFormat('Y-m-d H:i:s.u');
+        $maximumDateTime = $startOfUnit->add($interval)->rawFormat('Y-m-d H:i:s.u');
+
+        if ($maximumDateTime < $startOfUnitDateTime) {
+            return false;
+        }
+
+        return $this->rawFormat('Y-m-d H:i:s.u') <= $maximumDateTime;
     }
 
     /**
@@ -750,14 +806,66 @@ trait Comparison
      * Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false
      * ```
      *
-     * @param bool $checkMicroseconds check time at microseconds precision
+     * @param bool                                                           $checkMicroseconds check time at microseconds precision
+     * @param Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval          if an interval is specified it will be used as precision
+     *                                                                                          for instance with "15 minutes", it checks if current date-time
+     *                                                                                          is in the last 15 minutes of the day, with Unit::Hour, it
+     *                                                                                          checks if it's in the last hour of the day.
      */
-    public function isEndOfDay(bool $checkMicroseconds = false): bool
-    {
+    public function isEndOfDay(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false,
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        if ($interval === null && !\is_bool($checkMicroseconds)) {
+            $interval = $checkMicroseconds;
+        }
+
+        if ($interval !== null) {
+            $date = $this->rawFormat('Y-m-d');
+            $time = $this->rawFormat('H:i:s.u');
+            $minimum = $this->avoidMutation()->endOfDay()->sub($interval);
+            $minimumDate = $minimum->rawFormat('Y-m-d');
+
+            if ($date === $minimumDate) {
+                return $time > $minimum->rawFormat('H:i:s.u');
+            }
+
+            return $minimumDate < $date;
+        }
+
         /* @var CarbonInterface $this */
         return $checkMicroseconds
             ? $this->rawFormat('H:i:s.u') === '23:59:59.999999'
             : $this->rawFormat('H:i:s') === '23:59:59';
+    }
+
+    /**
+     * Check if the instance is end of a given unit (tolerating a given interval).
+     *
+     * @example
+     * ```
+     * // Check if a date-time is the last 15 minutes of the hour it's in
+     * Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false
+     * ```
+     */
+    public function isEndOfUnit(
+        Unit $unit,
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        $interval ??= match ($unit) {
+            Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
+            default => Unit::Day,
+        };
+
+        $endOfUnit = $this->avoidMutation()->endOf($unit);
+        $endOfUnitDateTime = $endOfUnit->rawFormat('Y-m-d H:i:s.u');
+        $minimumDateTime = $endOfUnit->sub($interval)->rawFormat('Y-m-d H:i:s.u');
+
+        if ($minimumDateTime > $endOfUnitDateTime) {
+            return false;
+        }
+
+        return $this->rawFormat('Y-m-d H:i:s.u') > $minimumDateTime;
     }
 
     /**
