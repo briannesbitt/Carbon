@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Carbon\Traits;
 
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Unit;
 use Carbon\WeekDay;
 
 /**
@@ -396,13 +397,13 @@ trait Boundaries
      * @example
      * ```
      * echo Carbon::parse('2018-07-25 12:45:16.334455')
-     *   ->startOf('month')
-     *   ->endOf('week', Carbon::FRIDAY);
+     *   ->startOf(Unit::Month)
+     *   ->endOf(Unit::Week, Carbon::FRIDAY);
      * ```
      */
-    public function startOf(string $unit, mixed ...$params): static
+    public function startOf(Unit|string $unit, mixed ...$params): static
     {
-        $ucfUnit = ucfirst(static::singularUnit($unit));
+        $ucfUnit = ucfirst($unit instanceof Unit ? $unit->value : static::singularUnit($unit));
         $method = "startOf$ucfUnit";
         if (!method_exists($this, $method)) {
             throw new UnknownUnitException($unit);
@@ -417,13 +418,13 @@ trait Boundaries
      * @example
      * ```
      * echo Carbon::parse('2018-07-25 12:45:16.334455')
-     *   ->startOf('month')
-     *   ->endOf('week', Carbon::FRIDAY);
+     *   ->startOf(Unit::Month)
+     *   ->endOf(Unit::Week, Carbon::FRIDAY);
      * ```
      */
-    public function endOf(string $unit, mixed ...$params): static
+    public function endOf(Unit|string $unit, mixed ...$params): static
     {
-        $ucfUnit = ucfirst(static::singularUnit($unit));
+        $ucfUnit = ucfirst($unit instanceof Unit ? $unit->value : static::singularUnit($unit));
         $method = "endOf$ucfUnit";
         if (!method_exists($this, $method)) {
             throw new UnknownUnitException($unit);
