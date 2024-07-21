@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: 8.1
+          - php: 8.3
 
     steps:
       - name: Checkout the code
