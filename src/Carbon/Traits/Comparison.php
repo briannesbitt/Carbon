@@ -789,13 +789,14 @@ trait Comparison
     public function isStartOfUnit(
         Unit $unit,
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        mixed ...$params,
     ): bool {
         $interval ??= match ($unit) {
             Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
             default => Unit::Day,
         };
 
-        $startOfUnit = $this->avoidMutation()->startOf($unit);
+        $startOfUnit = $this->avoidMutation()->startOf($unit, ...$params);
         $startOfUnitDateTime = $startOfUnit->rawFormat('Y-m-d H:i:s.u');
         $maximumDateTime = $startOfUnit
             ->add($interval instanceof Unit ? '1  '.$interval->value : $interval)
@@ -879,13 +880,14 @@ trait Comparison
     public function isEndOfUnit(
         Unit $unit,
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        mixed ...$params,
     ): bool {
         $interval ??= match ($unit) {
             Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
             default => Unit::Day,
         };
 
-        $endOfUnit = $this->avoidMutation()->endOf($unit);
+        $endOfUnit = $this->avoidMutation()->endOf($unit, ...$params);
         $endOfUnitDateTime = $endOfUnit->rawFormat('Y-m-d H:i:s.u');
         $minimumDateTime = $endOfUnit
             ->sub($interval instanceof Unit ? '1  '.$interval->value : $interval)
@@ -896,6 +898,38 @@ trait Comparison
         }
 
         return $this->rawFormat('Y-m-d H:i:s.u') > $minimumDateTime;
+    }
+
+    /**
+     * Determines if the instance is start of week (first day by default but interval can be customized).
+     *
+     * @example
+     * ```
+     * Carbon::parse('2024-08-31')->startOfWeek()->isStartOfWeek(); // true
+     * Carbon::parse('2024-08-31')->isStartOfWeek(); // false
+     * ```
+     */
+    public function isStartOfWeek(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        WeekDay|int|null $weekStartsAt = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Week, $interval, $weekStartsAt);
+    }
+
+    /**
+     * Determines if the instance is end of week (last day by default but interval can be customized).
+     *
+     * @example
+     * ```
+     * Carbon::parse('2024-08-31')->endOfWeek()->isEndOfWeek(); // true
+     * Carbon::parse('2024-08-31')->isEndOfWeek(); // false
+     * ```
+     */
+    public function isEndOfWeek(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        WeekDay|int|null $weekEndsAt = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Week, $interval, $weekEndsAt);
     }
 
     /**

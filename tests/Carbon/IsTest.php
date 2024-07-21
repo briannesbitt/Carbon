@@ -958,6 +958,40 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('Sunday 23:59:59.999999')->isEndOfUnit(Unit::Week, CarbonInterval::day(-1)));
     }
 
+    public function testIsStartOfWeek()
+    {
+        $this->assertTrue(Carbon::parse('Monday 01:06:12')->isStartOfWeek());
+        $this->assertFalse(Carbon::parse('Saturday 01:06:12')->isStartOfWeek());
+
+        Carbon::setLocale('ar');
+
+        $this->assertTrue(Carbon::parse('Saturday 01:06:12')->isStartOfWeek());
+        $this->assertFalse(Carbon::parse('Monday 01:06:12')->isStartOfWeek());
+
+        $this->assertTrue(Carbon::parse('Sunday 01:06:12')->isStartOfWeek(weekStartsAt: WeekDay::Sunday));
+        $this->assertFalse(Carbon::parse('Saturday 01:06:12')->isStartOfWeek(weekStartsAt: WeekDay::Sunday));
+
+        $this->assertTrue(Carbon::parse('Saturday 01:06:12')->isStartOfWeek('2 hours'));
+        $this->assertFalse(Carbon::parse('Saturday 01:06:12')->isStartOfWeek('1 hour'));
+    }
+
+    public function testIsEndOfWeek()
+    {
+        $this->assertTrue(Carbon::parse('Sunday 01:06:12')->isEndOfWeek());
+        $this->assertFalse(Carbon::parse('Friday 01:06:12')->isEndOfWeek());
+
+        Carbon::setLocale('ar');
+
+        $this->assertTrue(Carbon::parse('Friday 01:06:12')->isEndOfWeek());
+        $this->assertFalse(Carbon::parse('Sunday 01:06:12')->isEndOfWeek());
+
+        $this->assertTrue(Carbon::parse('Saturday 01:06:12')->isEndOfWeek(weekEndsAt: WeekDay::Saturday));
+        $this->assertFalse(Carbon::parse('Friday 01:06:12')->isEndOfWeek(weekEndsAt: WeekDay::Saturday));
+
+        $this->assertTrue(Carbon::parse('Friday 22:06:12')->isEndOfWeek('2 hours'));
+        $this->assertFalse(Carbon::parse('Saturday 22:06:12')->isEndOfWeek('1 hour'));
+    }
+
     public function testIsMidnight()
     {
         $this->assertTrue(Carbon::parse('00:00:00')->isMidnight());
