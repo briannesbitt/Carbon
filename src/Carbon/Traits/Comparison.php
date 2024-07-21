@@ -740,11 +740,25 @@ trait Comparison
         Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false,
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
     ): bool {
+        if ($checkMicroseconds === true) {
+            @trigger_error(
+                "Since 3.8.0, it's deprecated to use \$checkMicroseconds.\n".
+                "It will be removed in 4.0.0.\n".
+                "Instead, you should use either isStartOfDay(interval: Unit::Microsecond) or isStartOfDay(interval: Unit::Second)\n".
+                'And you can now use any custom interval as precision, such as isStartOfDay(interval: "15 minutes")',
+                \E_USER_DEPRECATED,
+            );
+        }
+
         if ($interval === null && !\is_bool($checkMicroseconds)) {
             $interval = $checkMicroseconds;
         }
 
         if ($interval !== null) {
+            if ($interval instanceof Unit) {
+                $interval = '1  '.$interval->value;
+            }
+
             $date = $this->rawFormat('Y-m-d');
             $time = $this->rawFormat('H:i:s.u');
             $maximum = $this->avoidMutation()->startOfDay()->add($interval);
@@ -816,11 +830,25 @@ trait Comparison
         Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false,
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
     ): bool {
+        if ($checkMicroseconds === true) {
+            @trigger_error(
+                "Since 3.8.0, it's deprecated to use \$checkMicroseconds.\n".
+                "It will be removed in 4.0.0.\n".
+                "Instead, you should use either isStartOfDay(interval: Unit::Microsecond) or isStartOfDay(interval: Unit::Second)\n".
+                'And you can now use any custom interval as precision, such as isStartOfDay(interval: "15 minutes")',
+                \E_USER_DEPRECATED,
+            );
+        }
+
         if ($interval === null && !\is_bool($checkMicroseconds)) {
             $interval = $checkMicroseconds;
         }
 
         if ($interval !== null) {
+            if ($interval instanceof Unit) {
+                $interval = '1  '.$interval->value;
+            }
+
             $date = $this->rawFormat('Y-m-d');
             $time = $this->rawFormat('H:i:s.u');
             $minimum = $this->avoidMutation()->endOfDay()->sub($interval);

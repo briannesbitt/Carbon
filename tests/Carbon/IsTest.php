@@ -15,8 +15,11 @@ namespace Tests\Carbon;
 
 use BadMethodCallException;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Carbon\Month;
+use Carbon\Unit;
 use Carbon\WeekDay;
+use DateInterval;
 use DateTime;
 use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
@@ -837,6 +840,34 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('00:00:00.000001')->isStartOfDay(true));
     }
 
+    public function testIsStartOfDayInterval()
+    {
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay('15 minutes'));
+        $this->assertTrue(Carbon::parse('00:15:00')->isStartOfDay('15 minutes'));
+        $this->assertFalse(Carbon::parse('00:15:00.000001')->isStartOfDay('15 minutes'));
+        $this->assertTrue(Carbon::parse('01:00:00')->isStartOfDay(Unit::Hour));
+        $this->assertFalse(Carbon::parse('01:00:00.000001')->isStartOfDay(Unit::Hour));
+        $this->assertTrue(Carbon::parse('00:01:00')->isStartOfDay(new DateInterval('PT1M')));
+        $this->assertFalse(Carbon::parse('00:01:00.000001')->isStartOfDay(new DateInterval('PT1M')));
+
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay(interval: '15 minutes'));
+        $this->assertTrue(Carbon::parse('00:15:00')->isStartOfDay(interval: '15 minutes'));
+        $this->assertFalse(Carbon::parse('00:15:00.000001')->isStartOfDay(interval: '15 minutes'));
+        $this->assertTrue(Carbon::parse('01:00:00')->isStartOfDay(interval: Unit::Hour));
+        $this->assertFalse(Carbon::parse('01:00:00.000001')->isStartOfDay(interval: Unit::Hour));
+        $this->assertTrue(Carbon::parse('00:01:00')->isStartOfDay(interval: new DateInterval('PT1M')));
+        $this->assertFalse(Carbon::parse('00:01:00.000001')->isStartOfDay(interval: new DateInterval('PT1M')));
+
+        $this->assertTrue(Carbon::parse('00:02:00')->isStartOfDay(interval: CarbonInterval::minutes(2)));
+        $this->assertFalse(Carbon::parse('00:02:00.000001')->isStartOfDay(interval: CarbonInterval::minutes(2)));
+
+        // Always false with negative interval
+        $this->assertFalse(Carbon::parse('00:00:00')->isStartOfDay(interval: CarbonInterval::minutes(-2)));
+
+        // Always true with  interval bigger than 1 day
+        $this->assertTrue(Carbon::parse('23:59:59.999999')->isStartOfDay(interval: CarbonInterval::hours(36)));
+    }
+
     public function testIsEndOfDay()
     {
         $this->assertTrue(Carbon::parse('23:59:59')->isEndOfDay(false));
@@ -861,6 +892,31 @@ class IsTest extends AbstractTestCase
 
         $this->assertFalse(Carbon::parse('23:59:59')->isEndOfDay(true));
         $this->assertFalse(Carbon::parse('23:59:59.999998')->isEndOfDay(true));
+    }
+
+    public function testIsEndOfDayInterval()
+    {
+        $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfDay('15 minutes'));
+        $this->assertTrue(Carbon::parse('23:45:00')->isEndOfDay('15 minutes'));
+        $this->assertFalse(Carbon::parse('23:44:59.999999')->isEndOfDay('15 minutes'));
+        $this->assertTrue(Carbon::parse('23:00:00')->isEndOfDay(Unit::Hour));
+        $this->assertFalse(Carbon::parse('22:59:59.999999')->isEndOfDay(Unit::Hour));
+        $this->assertTrue(Carbon::parse('23:59:00')->isEndOfDay(new DateInterval('PT1M')));
+        $this->assertFalse(Carbon::parse('23:58:59.999999')->isEndOfDay(new DateInterval('PT1M')));
+
+        $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfDay(interval: '15 minutes'));
+        $this->assertTrue(Carbon::parse('23:45:00')->isEndOfDay(interval: '15 minutes'));
+        $this->assertFalse(Carbon::parse('23:44:59.999999')->isEndOfDay(interval: '15 minutes'));
+        $this->assertTrue(Carbon::parse('23:00:00')->isEndOfDay(interval: Unit::Hour));
+        $this->assertFalse(Carbon::parse('22:59:59.999999')->isEndOfDay(interval: Unit::Hour));
+        $this->assertTrue(Carbon::parse('23:59:00')->isEndOfDay(interval: new DateInterval('PT1M')));
+        $this->assertFalse(Carbon::parse('23:58:59.999999')->isEndOfDay(interval: new DateInterval('PT1M')));
+
+        // Always false with negative interval
+        $this->assertFalse(Carbon::parse('00:00:00')->isEndOfDay(interval: CarbonInterval::minutes(-2)));
+
+        // Always true with  interval bigger than 1 day
+        $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfDay(interval: CarbonInterval::hours(36)));
     }
 
     public function testIsMidnight()
