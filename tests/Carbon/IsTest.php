@@ -843,29 +843,48 @@ class IsTest extends AbstractTestCase
     public function testIsStartOfDayInterval()
     {
         $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay('15 minutes'));
-        $this->assertTrue(Carbon::parse('00:15:00')->isStartOfDay('15 minutes'));
-        $this->assertFalse(Carbon::parse('00:15:00.000001')->isStartOfDay('15 minutes'));
-        $this->assertTrue(Carbon::parse('01:00:00')->isStartOfDay(Unit::Hour));
-        $this->assertFalse(Carbon::parse('01:00:00.000001')->isStartOfDay(Unit::Hour));
-        $this->assertTrue(Carbon::parse('00:01:00')->isStartOfDay(new DateInterval('PT1M')));
-        $this->assertFalse(Carbon::parse('00:01:00.000001')->isStartOfDay(new DateInterval('PT1M')));
+        $this->assertTrue(Carbon::parse('00:14:59.999999')->isStartOfDay('15 minutes'));
+        $this->assertFalse(Carbon::parse('00:15:00')->isStartOfDay('15 minutes'));
+        $this->assertTrue(Carbon::parse('00:59:59.999999')->isStartOfDay(Unit::Hour));
+        $this->assertFalse(Carbon::parse('01:00:00')->isStartOfDay(Unit::Hour));
+        $this->assertTrue(Carbon::parse('00:00:59.999999')->isStartOfDay(new DateInterval('PT1M')));
+        $this->assertFalse(Carbon::parse('00:01:00')->isStartOfDay(new DateInterval('PT1M')));
 
         $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay(interval: '15 minutes'));
-        $this->assertTrue(Carbon::parse('00:15:00')->isStartOfDay(interval: '15 minutes'));
-        $this->assertFalse(Carbon::parse('00:15:00.000001')->isStartOfDay(interval: '15 minutes'));
-        $this->assertTrue(Carbon::parse('01:00:00')->isStartOfDay(interval: Unit::Hour));
-        $this->assertFalse(Carbon::parse('01:00:00.000001')->isStartOfDay(interval: Unit::Hour));
-        $this->assertTrue(Carbon::parse('00:01:00')->isStartOfDay(interval: new DateInterval('PT1M')));
-        $this->assertFalse(Carbon::parse('00:01:00.000001')->isStartOfDay(interval: new DateInterval('PT1M')));
+        $this->assertTrue(Carbon::parse('00:14:59.999999')->isStartOfDay(interval: '15 minutes'));
+        $this->assertFalse(Carbon::parse('00:15:00')->isStartOfDay(interval: '15 minutes'));
+        $this->assertTrue(Carbon::parse('00:59:59.999999')->isStartOfDay(interval: Unit::Hour));
+        $this->assertFalse(Carbon::parse('01:00:00')->isStartOfDay(interval: Unit::Hour));
+        $this->assertTrue(Carbon::parse('00:00:59.999999')->isStartOfDay(interval: new DateInterval('PT1M')));
+        $this->assertFalse(Carbon::parse('00:01:00')->isStartOfDay(interval: new DateInterval('PT1M')));
 
-        $this->assertTrue(Carbon::parse('00:02:00')->isStartOfDay(interval: CarbonInterval::minutes(2)));
-        $this->assertFalse(Carbon::parse('00:02:00.000001')->isStartOfDay(interval: CarbonInterval::minutes(2)));
+        $this->assertTrue(Carbon::parse('00:01:59.999999')->isStartOfDay(interval: CarbonInterval::minutes(2)));
+        $this->assertFalse(Carbon::parse('00:02:00')->isStartOfDay(interval: CarbonInterval::minutes(2)));
 
         // Always false with negative interval
         $this->assertFalse(Carbon::parse('00:00:00')->isStartOfDay(interval: CarbonInterval::minutes(-2)));
 
         // Always true with  interval bigger than 1 day
         $this->assertTrue(Carbon::parse('23:59:59.999999')->isStartOfDay(interval: CarbonInterval::hours(36)));
+    }
+
+    public function testIsStartOfUnit()
+    {
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfUnit(Unit::Hour));
+
+        $this->assertFalse(Carbon::parse('00:00:00.000001')->isStartOfUnit(Unit::Hour));
+        $this->assertFalse(Carbon::parse('00:00:01')->isStartOfUnit(Unit::Hour));
+
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfUnit(Unit::Hour, '5 minutes'));
+        $this->assertTrue(Carbon::parse('00:04:59.999999')->isStartOfUnit(Unit::Hour, '5 minutes'));
+
+        $this->assertFalse(Carbon::parse('00:05:00')->isStartOfUnit(Unit::Hour, '5 minutes'));
+
+        $this->assertTrue(Carbon::parse('Monday')->isStartOfUnit(Unit::Week));
+        $this->assertTrue(Carbon::parse('Monday 23:59:59.999999')->isStartOfUnit(Unit::Week));
+
+        $this->assertFalse(Carbon::parse('Tuesday')->isStartOfUnit(Unit::Week));
+        $this->assertFalse(Carbon::parse('Monday')->isStartOfUnit(Unit::Week, CarbonInterval::day(-1)));
     }
 
     public function testIsEndOfDay()
@@ -917,6 +936,26 @@ class IsTest extends AbstractTestCase
 
         // Always true with  interval bigger than 1 day
         $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfDay(interval: CarbonInterval::hours(36)));
+    }
+
+    public function testIsEndOfUnit()
+    {
+        $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfUnit(Unit::Hour));
+
+        $this->assertFalse(Carbon::parse('23:59:59.999998')->isEndOfUnit(Unit::Hour));
+        $this->assertFalse(Carbon::parse('23:59:59')->isEndOfUnit(Unit::Hour));
+
+        $this->assertTrue(Carbon::parse('23:55:00.000001')->isEndOfUnit(Unit::Hour, '5 minutes'));
+        $this->assertTrue(Carbon::parse('23:55:00')->isEndOfUnit(Unit::Hour, '5 minutes'));
+
+        $this->assertFalse(Carbon::parse('23:54:59.999999')->isEndOfUnit(Unit::Hour, '5 minutes'));
+
+        $this->assertTrue(Carbon::parse('Sunday 23:59:59')->isEndOfUnit(Unit::Week, '2 days'));
+        $this->assertTrue(Carbon::parse('Saturday 00:00')->isEndOfUnit(Unit::Week, '2 days'));
+
+        $this->assertFalse(Carbon::parse('Saturday 00:00')->isEndOfUnit(Unit::Week));
+        $this->assertFalse(Carbon::parse('Friday 23:59:59.999999')->isEndOfUnit(Unit::Week, '2 days'));
+        $this->assertFalse(Carbon::parse('Sunday 23:59:59.999999')->isEndOfUnit(Unit::Week, CarbonInterval::day(-1)));
     }
 
     public function testIsMidnight()

@@ -765,7 +765,7 @@ trait Comparison
             $maximumDate = $maximum->rawFormat('Y-m-d');
 
             if ($date === $maximumDate) {
-                return $time <= $maximum->rawFormat('H:i:s.u');
+                return $time < $maximum->rawFormat('H:i:s.u');
             }
 
             return $maximumDate > $date;
@@ -797,13 +797,15 @@ trait Comparison
 
         $startOfUnit = $this->avoidMutation()->startOf($unit);
         $startOfUnitDateTime = $startOfUnit->rawFormat('Y-m-d H:i:s.u');
-        $maximumDateTime = $startOfUnit->add($interval)->rawFormat('Y-m-d H:i:s.u');
+        $maximumDateTime = $startOfUnit
+            ->add($interval instanceof Unit ? '1  '.$interval->value : $interval)
+            ->rawFormat('Y-m-d H:i:s.u');
 
         if ($maximumDateTime < $startOfUnitDateTime) {
             return false;
         }
 
-        return $this->rawFormat('Y-m-d H:i:s.u') <= $maximumDateTime;
+        return $this->rawFormat('Y-m-d H:i:s.u') < $maximumDateTime;
     }
 
     /**
@@ -845,13 +847,11 @@ trait Comparison
         }
 
         if ($interval !== null) {
-            if ($interval instanceof Unit) {
-                $interval = '1  '.$interval->value;
-            }
-
             $date = $this->rawFormat('Y-m-d');
             $time = $this->rawFormat('H:i:s.u');
-            $minimum = $this->avoidMutation()->endOfDay()->sub($interval);
+            $minimum = $this->avoidMutation()
+                ->endOfDay()
+                ->sub($interval instanceof Unit ? '1  '.$interval->value : $interval);
             $minimumDate = $minimum->rawFormat('Y-m-d');
 
             if ($date === $minimumDate) {
@@ -887,7 +887,9 @@ trait Comparison
 
         $endOfUnit = $this->avoidMutation()->endOf($unit);
         $endOfUnitDateTime = $endOfUnit->rawFormat('Y-m-d H:i:s.u');
-        $minimumDateTime = $endOfUnit->sub($interval)->rawFormat('Y-m-d H:i:s.u');
+        $minimumDateTime = $endOfUnit
+            ->sub($interval instanceof Unit ? '1  '.$interval->value : $interval)
+            ->rawFormat('Y-m-d H:i:s.u');
 
         if ($minimumDateTime > $endOfUnitDateTime) {
             return false;
