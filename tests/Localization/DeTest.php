@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
+use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('localization')]
@@ -228,4 +229,28 @@ class DeTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1 Tg. 3 Std.',
     ];
+
+    public function testPeriod()
+    {
+        $this->assertSame(
+            '4 mal jede Woche von 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')),
+        );
+        $this->assertSame(
+            '4 mal jede 2 Monate von 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P2M')),
+        );
+        $this->assertSame(
+            '4 mal jeden Monat von 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P1M')),
+        );
+        $this->assertSame(
+            '4 mal jede 2 Jahre von 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P2Y')),
+        );
+        $this->assertSame(
+            '4 mal jedes Jahr von 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y')),
+        );
+    }
 }
