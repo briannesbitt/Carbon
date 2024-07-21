@@ -2663,6 +2663,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isDayOfWeek($dayOfWeek): bool;
 
     /**
+     * Determines if the instance is end of century (first day by default but interval can be customized).
+     */
+    public function isEndOfCentury(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
      * Check if the instance is end of day.
      *
      * @example
@@ -2683,6 +2688,46 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                                                          checks if it's in the last hour of the day.
      */
     public function isEndOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of decade (first day by default but interval can be customized).
+     */
+    public function isEndOfDecade(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of hour (first microsecond by default but interval can be customized).
+     */
+    public function isEndOfHour(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of millennium (first day by default but interval can be customized).
+     */
+    public function isEndOfMillennium(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of millisecond (first microsecond by default but interval can be customized).
+     */
+    public function isEndOfMillisecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of minute (first microsecond by default but interval can be customized).
+     */
+    public function isEndOfMinute(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of month (first day by default but interval can be customized).
+     */
+    public function isEndOfMonth(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of quarter (first day by default but interval can be customized).
+     */
+    public function isEndOfQuarter(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is end of second (first microsecond by default but interval can be customized).
+     */
+    public function isEndOfSecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Returns true if the date was created using CarbonImmutable::endOfTime()
@@ -2712,6 +2757,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * ```
      */
     public function isEndOfWeek(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null, WeekDay|int|null $weekEndsAt = null): bool;
+
+    /**
+     * Determines if the instance is end of year (first day by default but interval can be customized).
+     */
+    public function isEndOfYear(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is in the future, ie. greater (after) than now.
@@ -2907,6 +2957,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isSameUnit(string $unit, DateTimeInterface|string $date): bool;
 
     /**
+     * Determines if the instance is start of century (first day by default but interval can be customized).
+     */
+    public function isStartOfCentury(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
      * Check if the instance is start of day / midnight.
      *
      * @example
@@ -2925,6 +2980,46 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                                                                          checks if it's in the last hour of the day.
      */
     public function isStartOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of decade (first day by default but interval can be customized).
+     */
+    public function isStartOfDecade(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of hour (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfHour(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of millennium (first day by default but interval can be customized).
+     */
+    public function isStartOfMillennium(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of millisecond (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfMillisecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of minute (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfMinute(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of month (first day by default but interval can be customized).
+     */
+    public function isStartOfMonth(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of quarter (first day by default but interval can be customized).
+     */
+    public function isStartOfQuarter(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+
+    /**
+     * Determines if the instance is start of second (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfSecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Returns true if the date was created using CarbonImmutable::startOfTime()
@@ -2954,6 +3049,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * ```
      */
     public function isStartOfWeek(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null, WeekDay|int|null $weekStartsAt = null): bool;
+
+    /**
+     * Determines if the instance is start of year (first day by default but interval can be customized).
+     */
+    public function isStartOfYear(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Returns true if the strict mode is globally in use, false else.
