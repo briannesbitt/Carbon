@@ -836,8 +836,8 @@ trait Comparison
             @trigger_error(
                 "Since 3.8.0, it's deprecated to use \$checkMicroseconds.\n".
                 "It will be removed in 4.0.0.\n".
-                "Instead, you should use either isStartOfDay(interval: Unit::Microsecond) or isStartOfDay(interval: Unit::Second)\n".
-                'And you can now use any custom interval as precision, such as isStartOfDay(interval: "15 minutes")',
+                "Instead, you should use either isEndOfDay(interval: Unit::Microsecond) or isEndOfDay(interval: Unit::Second)\n".
+                'And you can now use any custom interval as precision, such as isEndOfDay(interval: "15 minutes")',
                 \E_USER_DEPRECATED,
             );
         }
