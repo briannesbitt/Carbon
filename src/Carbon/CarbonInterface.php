@@ -1828,11 +1828,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example
      * ```
      * echo Carbon::parse('2018-07-25 12:45:16.334455')
-     *   ->startOf('month')
-     *   ->endOf('week', Carbon::FRIDAY);
+     *   ->startOf(Unit::Month)
+     *   ->endOf(Unit::Week, Carbon::FRIDAY);
      * ```
      */
-    public function endOf(string $unit, mixed ...$params): static;
+    public function endOf(Unit|string $unit, mixed ...$params): static;
 
     /**
      * Resets the date to end of the century and time to 23:59:59.999999
@@ -1948,7 +1948,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";
      * ```
      *
-     * @param WeekDay|int|null $weekEndsAt optional start allow you to specify the day of week to use to end the week
+     * @param WeekDay|int|null $weekEndsAt optional end allow you to specify the day of week to use to end the week
      *
      * @return static
      */
@@ -2676,9 +2676,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false
      * ```
      *
-     * @param bool $checkMicroseconds check time at microseconds precision
+     * @param bool                                                           $checkMicroseconds check time at microseconds precision
+     * @param Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval          if an interval is specified it will be used as precision
+     *                                                                                          for instance with "15 minutes", it checks if current date-time
+     *                                                                                          is in the last 15 minutes of the day, with Unit::Hour, it
+     *                                                                                          checks if it's in the last hour of the day.
      */
-    public function isEndOfDay(bool $checkMicroseconds = false): bool;
+    public function isEndOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Returns true if the date was created using CarbonImmutable::endOfTime()
@@ -2686,6 +2690,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return bool
      */
     public function isEndOfTime(): bool;
+
+    /**
+     * Check if the instance is end of a given unit (tolerating a given interval).
+     *
+     * @example
+     * ```
+     * // Check if a date-time is the last 15 minutes of the hour it's in
+     * Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false
+     * ```
+     */
+    public function isEndOfUnit(Unit $unit, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is in the future, ie. greater (after) than now.
@@ -2892,9 +2907,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false
      * ```
      *
-     * @param bool $checkMicroseconds check time at microseconds precision
+     * @param bool                                                           $checkMicroseconds check time at microseconds precision
+     * @param Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval          if an interval is specified it will be used as precision
+     *                                                                                          for instance with "15 minutes", it checks if current date-time
+     *                                                                                          is in the last 15 minutes of the day, with Unit::Hour, it
+     *                                                                                          checks if it's in the last hour of the day.
      */
-    public function isStartOfDay(bool $checkMicroseconds = false): bool;
+    public function isStartOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Returns true if the date was created using CarbonImmutable::startOfTime()
@@ -2902,6 +2921,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return bool
      */
     public function isStartOfTime(): bool;
+
+    /**
+     * Check if the instance is start of a given unit (tolerating a given interval).
+     *
+     * @example
+     * ```
+     * // Check if a date-time is the first 15 minutes of the hour it's in
+     * Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true
+     * ```
+     */
+    public function isStartOfUnit(Unit $unit, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
 
     /**
      * Returns true if the strict mode is globally in use, false else.
@@ -3885,11 +3915,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example
      * ```
      * echo Carbon::parse('2018-07-25 12:45:16.334455')
-     *   ->startOf('month')
-     *   ->endOf('week', Carbon::FRIDAY);
+     *   ->startOf(Unit::Month)
+     *   ->endOf(Unit::Week, Carbon::FRIDAY);
      * ```
      */
-    public function startOf(string $unit, mixed ...$params): static;
+    public function startOf(Unit|string $unit, mixed ...$params): static;
 
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
