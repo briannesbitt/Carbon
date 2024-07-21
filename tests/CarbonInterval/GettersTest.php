@@ -16,6 +16,7 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\Translator;
+use DateTimeZone;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -120,5 +121,24 @@ class GettersTest extends AbstractTestCase
             'i' => 9,
             's' => 10,
         ], $ci->__debugInfo());
+    }
+
+    public function testGetTimezone()
+    {
+        $this->assertNull(CarbonInterval::day()->tzName);
+        $this->assertSame(
+            'America/New_York',
+            CarbonInterval::day()->setTimezone('America/New_York')->tzName,
+        );
+        $this->assertSame(
+            'America/New_York',
+            CarbonInterval::day()->setTimezone(
+                new DateTimeZone('America/New_York'),
+            )->tzName,
+        );
+        $this->assertSame(
+            '+05:00',
+            CarbonInterval::day()->setTimezone(5)->tzName,
+        );
     }
 }
