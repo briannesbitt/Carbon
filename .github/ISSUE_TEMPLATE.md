@@ -4,7 +4,7 @@
     Before anything else, please search in previous issues (both open and close):
     https://github.com/briannesbitt/Carbon/issues?q=is%3Aissue
 
-    ⚠️ Please don't create an issue about a problem already disccussed or addressed.
+    ⚠️ Please don't create an issue about a problem already discussed or addressed.
 
     ⚠️ Please check if the documentation (https://carbon.nesbot.com/docs/) answer
     your question or talk about the behavior you're about to describe.
