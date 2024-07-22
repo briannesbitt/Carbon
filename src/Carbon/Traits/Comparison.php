@@ -792,7 +792,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of millisecond (first microsecond by default but interval can be customized).
+     * Determines if the instance is end of millisecond (last microsecond by default but interval can be customized).
      */
     public function isEndOfMillisecond(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -810,7 +810,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of second (first microsecond by default but interval can be customized).
+     * Determines if the instance is end of second (last microsecond by default but interval can be customized).
      */
     public function isEndOfSecond(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -828,7 +828,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of minute (first microsecond by default but interval can be customized).
+     * Determines if the instance is end of minute (last microsecond by default but interval can be customized).
      */
     public function isEndOfMinute(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -846,7 +846,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of hour (first microsecond by default but interval can be customized).
+     * Determines if the instance is end of hour (last microsecond by default but interval can be customized).
      */
     public function isEndOfHour(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -1014,7 +1014,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of month (first day by default but interval can be customized).
+     * Determines if the instance is end of month (last day by default but interval can be customized).
      */
     public function isEndOfMonth(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -1032,7 +1032,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of quarter (first day by default but interval can be customized).
+     * Determines if the instance is end of quarter (last day by default but interval can be customized).
      */
     public function isEndOfQuarter(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -1050,7 +1050,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of year (first day by default but interval can be customized).
+     * Determines if the instance is end of year (last day by default but interval can be customized).
      */
     public function isEndOfYear(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -1068,7 +1068,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of decade (first day by default but interval can be customized).
+     * Determines if the instance is end of decade (last day by default but interval can be customized).
      */
     public function isEndOfDecade(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -1086,7 +1086,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of century (first day by default but interval can be customized).
+     * Determines if the instance is end of century (last day by default but interval can be customized).
      */
     public function isEndOfCentury(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
@@ -1104,7 +1104,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is end of millennium (first day by default but interval can be customized).
+     * Determines if the instance is end of millennium (last day by default but interval can be customized).
      */
     public function isEndOfMillennium(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
