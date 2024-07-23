@@ -392,6 +392,40 @@ trait Boundaries
     }
 
     /**
+     * Modify to start of current millisecond, microseconds such as 12345 become 123000
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     */
+    public function startOfMillisecond(): static
+    {
+        $millisecond = (int) floor($this->micro / 1000);
+
+        return $this->setTime($this->hour, $this->minute, $this->second, $millisecond * 1000);
+    }
+
+    /**
+     * Modify to end of current millisecond, microseconds such as 12345 become 123999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->endOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     */
+    public function endOfMillisecond(): static
+    {
+        $millisecond = (int) floor($this->micro / 1000);
+
+        return $this->setTime($this->hour, $this->minute, $this->second, $millisecond * 1000 + 999);
+    }
+
+    /**
      * Modify to start of current given unit.
      *
      * @example
