@@ -719,6 +719,142 @@ trait Comparison
     }
 
     /**
+     * Check if the instance is start of a given unit (tolerating a given interval).
+     *
+     * @example
+     * ```
+     * // Check if a date-time is the first 15 minutes of the hour it's in
+     * Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true
+     * ```
+     */
+    public function isStartOfUnit(
+        Unit $unit,
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        mixed ...$params,
+    ): bool {
+        $interval ??= match ($unit) {
+            Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
+            default => Unit::Day,
+        };
+
+        $startOfUnit = $this->avoidMutation()->startOf($unit, ...$params);
+        $startOfUnitDateTime = $startOfUnit->rawFormat('Y-m-d H:i:s.u');
+        $maximumDateTime = $startOfUnit
+            ->add($interval instanceof Unit ? '1  '.$interval->value : $interval)
+            ->rawFormat('Y-m-d H:i:s.u');
+
+        if ($maximumDateTime < $startOfUnitDateTime) {
+            return false;
+        }
+
+        return $this->rawFormat('Y-m-d H:i:s.u') < $maximumDateTime;
+    }
+
+    /**
+     * Check if the instance is end of a given unit (tolerating a given interval).
+     *
+     * @example
+     * ```
+     * // Check if a date-time is the last 15 minutes of the hour it's in
+     * Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false
+     * ```
+     */
+    public function isEndOfUnit(
+        Unit $unit,
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        mixed ...$params,
+    ): bool {
+        $interval ??= match ($unit) {
+            Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
+            default => Unit::Day,
+        };
+
+        $endOfUnit = $this->avoidMutation()->endOf($unit, ...$params);
+        $endOfUnitDateTime = $endOfUnit->rawFormat('Y-m-d H:i:s.u');
+        $minimumDateTime = $endOfUnit
+            ->sub($interval instanceof Unit ? '1  '.$interval->value : $interval)
+            ->rawFormat('Y-m-d H:i:s.u');
+
+        if ($minimumDateTime > $endOfUnitDateTime) {
+            return false;
+        }
+
+        return $this->rawFormat('Y-m-d H:i:s.u') > $minimumDateTime;
+    }
+
+    /**
+     * Determines if the instance is start of millisecond (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfMillisecond(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Millisecond, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of millisecond (last microsecond by default but interval can be customized).
+     */
+    public function isEndOfMillisecond(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Millisecond, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of second (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfSecond(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Second, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of second (last microsecond by default but interval can be customized).
+     */
+    public function isEndOfSecond(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Second, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of minute (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfMinute(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Minute, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of minute (last microsecond by default but interval can be customized).
+     */
+    public function isEndOfMinute(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Minute, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of hour (first microsecond by default but interval can be customized).
+     */
+    public function isStartOfHour(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Hour, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of hour (last microsecond by default but interval can be customized).
+     */
+    public function isEndOfHour(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Hour, $interval);
+    }
+
+    /**
      * Check if the instance is start of day / midnight.
      *
      * @example
@@ -775,37 +911,6 @@ trait Comparison
         return $checkMicroseconds
             ? $this->rawFormat('H:i:s.u') === '00:00:00.000000'
             : $this->rawFormat('H:i:s') === '00:00:00';
-    }
-
-    /**
-     * Check if the instance is start of a given unit (tolerating a given interval).
-     *
-     * @example
-     * ```
-     * // Check if a date-time is the first 15 minutes of the hour it's in
-     * Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true
-     * ```
-     */
-    public function isStartOfUnit(
-        Unit $unit,
-        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
-    ): bool {
-        $interval ??= match ($unit) {
-            Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
-            default => Unit::Day,
-        };
-
-        $startOfUnit = $this->avoidMutation()->startOf($unit);
-        $startOfUnitDateTime = $startOfUnit->rawFormat('Y-m-d H:i:s.u');
-        $maximumDateTime = $startOfUnit
-            ->add($interval instanceof Unit ? '1  '.$interval->value : $interval)
-            ->rawFormat('Y-m-d H:i:s.u');
-
-        if ($maximumDateTime < $startOfUnitDateTime) {
-            return false;
-        }
-
-        return $this->rawFormat('Y-m-d H:i:s.u') < $maximumDateTime;
     }
 
     /**
@@ -868,34 +973,143 @@ trait Comparison
     }
 
     /**
-     * Check if the instance is end of a given unit (tolerating a given interval).
+     * Determines if the instance is start of week (first day by default but interval can be customized).
      *
      * @example
      * ```
-     * // Check if a date-time is the last 15 minutes of the hour it's in
-     * Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false
+     * Carbon::parse('2024-08-31')->startOfWeek()->isStartOfWeek(); // true
+     * Carbon::parse('2024-08-31')->isStartOfWeek(); // false
      * ```
      */
-    public function isEndOfUnit(
-        Unit $unit,
+    public function isStartOfWeek(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        WeekDay|int|null $weekStartsAt = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Week, $interval, $weekStartsAt);
+    }
+
+    /**
+     * Determines if the instance is end of week (last day by default but interval can be customized).
+     *
+     * @example
+     * ```
+     * Carbon::parse('2024-08-31')->endOfWeek()->isEndOfWeek(); // true
+     * Carbon::parse('2024-08-31')->isEndOfWeek(); // false
+     * ```
+     */
+    public function isEndOfWeek(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+        WeekDay|int|null $weekEndsAt = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Week, $interval, $weekEndsAt);
+    }
+
+    /**
+     * Determines if the instance is start of month (first day by default but interval can be customized).
+     */
+    public function isStartOfMonth(
         Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
     ): bool {
-        $interval ??= match ($unit) {
-            Unit::Day, Unit::Hour, Unit::Minute, Unit::Second, Unit::Millisecond, Unit::Microsecond => Unit::Microsecond,
-            default => Unit::Day,
-        };
+        return $this->isStartOfUnit(Unit::Month, $interval);
+    }
 
-        $endOfUnit = $this->avoidMutation()->endOf($unit);
-        $endOfUnitDateTime = $endOfUnit->rawFormat('Y-m-d H:i:s.u');
-        $minimumDateTime = $endOfUnit
-            ->sub($interval instanceof Unit ? '1  '.$interval->value : $interval)
-            ->rawFormat('Y-m-d H:i:s.u');
+    /**
+     * Determines if the instance is end of month (last day by default but interval can be customized).
+     */
+    public function isEndOfMonth(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Month, $interval);
+    }
 
-        if ($minimumDateTime > $endOfUnitDateTime) {
-            return false;
-        }
+    /**
+     * Determines if the instance is start of quarter (first day by default but interval can be customized).
+     */
+    public function isStartOfQuarter(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Quarter, $interval);
+    }
 
-        return $this->rawFormat('Y-m-d H:i:s.u') > $minimumDateTime;
+    /**
+     * Determines if the instance is end of quarter (last day by default but interval can be customized).
+     */
+    public function isEndOfQuarter(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Quarter, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of year (first day by default but interval can be customized).
+     */
+    public function isStartOfYear(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Year, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of year (last day by default but interval can be customized).
+     */
+    public function isEndOfYear(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Year, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of decade (first day by default but interval can be customized).
+     */
+    public function isStartOfDecade(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Decade, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of decade (last day by default but interval can be customized).
+     */
+    public function isEndOfDecade(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Decade, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of century (first day by default but interval can be customized).
+     */
+    public function isStartOfCentury(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Century, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of century (last day by default but interval can be customized).
+     */
+    public function isEndOfCentury(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Century, $interval);
+    }
+
+    /**
+     * Determines if the instance is start of millennium (first day by default but interval can be customized).
+     */
+    public function isStartOfMillennium(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isStartOfUnit(Unit::Millennium, $interval);
+    }
+
+    /**
+     * Determines if the instance is end of millennium (last day by default but interval can be customized).
+     */
+    public function isEndOfMillennium(
+        Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null,
+    ): bool {
+        return $this->isEndOfUnit(Unit::Millennium, $interval);
     }
 
     /**
