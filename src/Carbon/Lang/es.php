@@ -72,6 +72,10 @@ return [
     'diff_tomorrow_regexp' => 'mañana(?:\\s+a)?(?:\\s+las)?',
     'diff_before_yesterday' => 'anteayer',
     'diff_after_tomorrow' => 'pasado mañana',
+    'period_recurrences' => 'una vez|:count veces',
+    'period_interval' => 'cada :interval',
+    'period_start_date' => 'de :date',
+    'period_end_date' => 'a :date',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',
