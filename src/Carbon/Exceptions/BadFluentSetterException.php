@@ -36,7 +36,7 @@ class BadFluentSetterException extends BaseBadMethodCallException implements Bad
     {
         $this->setter = $setter;
 
-        parent::__construct(sprintf("Unknown fluent setter '%s'", $setter), $code, $previous);
+        parent::__construct(\sprintf("Unknown fluent setter '%s'", $setter), $code, $previous);
     }
 
     /**

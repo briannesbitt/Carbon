@@ -1398,7 +1398,7 @@ trait Date
     public function set(Unit|array|string $name, DateTimeZone|Month|string|int|float|null $value = null): static
     {
         if ($this->isImmutable()) {
-            throw new ImmutableException(sprintf('%s class', static::class));
+            throw new ImmutableException(\sprintf('%s class', static::class));
         }
 
         if (\is_array($name)) {
@@ -2503,7 +2503,7 @@ trait Date
             }
 
             if (static::isStrictModeEnabled()) {
-                throw new UnknownMethodException(sprintf('%s::%s', static::class, $method));
+                throw new UnknownMethodException(\sprintf('%s::%s', static::class, $method));
             }
 
             return null;

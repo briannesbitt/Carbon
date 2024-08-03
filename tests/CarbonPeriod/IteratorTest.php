@@ -199,7 +199,7 @@ class IteratorTest extends AbstractTestCase
         $results = [];
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             if ($current->toDateString() === '2012-07-16') {
                 $period = $period->setEndDate($current);
@@ -228,7 +228,7 @@ class IteratorTest extends AbstractTestCase
         $results = [];
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             if ($recurrences < 4) {
                 $period->setRecurrences(++$recurrences);
@@ -259,7 +259,7 @@ class IteratorTest extends AbstractTestCase
         $newStart = new Carbon('2012-07-03');
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             if ($current < $newStart) {
                 $period->setStartDate($newStart);
@@ -289,7 +289,7 @@ class IteratorTest extends AbstractTestCase
         $results = [];
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             $period->setDateInterval('P3D');
 
