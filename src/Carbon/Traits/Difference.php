@@ -856,9 +856,6 @@ trait Difference
 
     private function getIntervalDayDiff(DateInterval $interval): int
     {
-        $daysDiff = (int) $interval->format('%a');
-        $sign = $interval->format('%r') === '-' ? -1 : 1;
-
-        return $daysDiff * $sign;
+        return (int) $interval->format('%r%a');
     }
 }
