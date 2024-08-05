@@ -185,9 +185,9 @@ trait Difference
     {
         $start = $this;
         $end = $this->resolveCarbon($date);
-        $compareUsingUtc = $utc || ($end->timezoneName !== $start->timezoneName);
 
-        if ($compareUsingUtc) {
+        // Compare using UTC
+        if ($utc || ($end->timezoneName !== $start->timezoneName)) {
             $start = $start->avoidMutation()->utc();
             $end = $end->avoidMutation()->utc();
         }
@@ -255,32 +255,26 @@ trait Difference
     {
         $date = $this->resolveCarbon($date);
         $current = $this;
-        $compareUsingUtc = $utc || ($date->timezoneName !== $current->timezoneName);
 
-        if ($compareUsingUtc) {
+        // Compare using UTC
+        if ($utc || ($date->timezoneName !== $current->timezoneName)) {
             $date = $date->avoidMutation()->utc();
             $current = $current->avoidMutation()->utc();
         }
 
-        $interval = $current->diffAsDateInterval($date, $absolute);
+        $negative = ($date < $current);
+        [$start, $end] = $negative ? [$date, $current] : [$current, $date];
+        $interval = $start->diffAsDateInterval($end);
+        $daysA = $this->getIntervalDayDiff($interval);
+        $floorEnd = $start->avoidMutation()->addDays($daysA);
+        $daysB = $daysA + ($floorEnd <= $end ? 1 : -1);
+        $ceilEnd = $start->avoidMutation()->addDays($daysB);
+        $microsecondsBetween = $floorEnd->diffInMicroseconds($ceilEnd);
+        $microsecondsToEnd = $floorEnd->diffInMicroseconds($end);
 
-        if (!$compareUsingUtc) {
-            $minutes = $interval->i + ($interval->s + $interval->f) / static::SECONDS_PER_MINUTE;
-            // 24 hours means there is a DST bug
-            $hours = ($interval->h === 24 && $interval->days !== false ? 0 : $interval->h) + $minutes / static::MINUTES_PER_HOUR;
-
-            return $this->getIntervalDayDiff($interval)
-                + ($interval->invert ? -$hours : $hours) / static::HOURS_PER_DAY;
-        }
-
-        $hoursDiff = $current->diffInHours($date, $absolute);
-
-        if ($interval->y === 0 && $interval->m === 0 && $interval->d === 0) {
-            return $hoursDiff / static::HOURS_PER_DAY;
-        }
-
-        return $this->getIntervalDayDiff($interval)
-            + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+        return ($negative && !$absolute ? -1 : 1)
+            * ($daysA * ($microsecondsBetween - $microsecondsToEnd) + $daysB * $microsecondsToEnd)
+            / $microsecondsBetween;
     }
 
     /**

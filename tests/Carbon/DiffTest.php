@@ -2198,6 +2198,17 @@ class DiffTest extends AbstractTestCase
         $end = Carbon::parse('2027-05-02 01:24:22.848816', 'America/Toronto');
 
         $this->assertSame(-1281.0, $start->diffInDays($end));
+
+        $start = Carbon::parse('2030-11-03 01:24:22.848811', 'America/Toronto');
+        $end = Carbon::parse('2027-05-02 01:24:22.848816', 'America/Toronto');
+
+        $this->assertVeryClose(-1280.999999999942, $start->diffInDays($end));
+
+        $start = Carbon::parse('2024-11-03 00:24:22.848816', 'America/Toronto');
+        $end = Carbon::parse('2024-11-03 23:24:22.848816', 'America/Toronto');
+
+        // November 3rd is a 25-hours day in Toronto because of the DST
+        $this->assertVeryClose(24 / 25, $start->diffInDays($end));
     }
 
     public function testAFormat()
