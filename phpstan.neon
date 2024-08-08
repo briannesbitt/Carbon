@@ -1,7 +1,6 @@
 parameters:
     scanFiles:
         - lazy/Carbon/MessageFormatter/MessageFormatterMapperStrongType.php
-        - lazy/Carbon/PHPStan/MacroStrongType.php
         - lazy/Carbon/TranslatorStrongType.php
         - lazy/Carbon/UnprotectedDatePeriod.php
         - tests/Fixtures/DateMalformedIntervalStringException.php

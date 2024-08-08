@@ -14,75 +14,62 @@ declare(strict_types=1);
 namespace Tests\PHPStan;
 
 use Carbon\Carbon;
-use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
-use Carbon\PHPStan\MacroScanner;
-use PHPStan\Reflection\ClassReflection;
+use Carbon\PHPStan\MacroExtension;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Testing\PHPStanTestCase;
+use PHPStan\Type\ClosureTypeFactory;
+use PHPStan\Type\VerbosityLevel;
 use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
-use Tests\AbstractTestCase;
 
 #[RequiresPhpunit('<11')]
 #[RequiresPhp('<8.4')]
-class MacroExtensionTest extends AbstractTestCase
+class MacroExtensionTest extends PHPStanTestCase
 {
-    private function mockReflectionProvider()
+    /** @var ReflectionProvider */
+    private $reflectionProvider;
+
+    /** @var MacroExtension */
+    private $extension;
+
+    protected function setUp(): void
     {
-        $carbonReflection = $this->createMock(ClassReflection::class);
-        $carbonReflection->method('getName')->willReturn(Carbon::class);
-        $carbonReflection->method('isSubclassOf')->with(CarbonInterface::class)->willReturn(true);
-
-        $intervalReflection = $this->createMock(ClassReflection::class);
-        $intervalReflection->method('getName')->willReturn(CarbonInterval::class);
-        $intervalReflection->method('isSubclassOf')->with(CarbonInterface::class)->willReturn(false);
-
-        $interfaceReflection = $this->createMock(ClassReflection::class);
-        $interfaceReflection->method('getName')->willReturn(CarbonInterface::class);
-        $interfaceReflection->method('isSubclassOf')->with(CarbonInterface::class)->willReturn(false);
-
-        $reflectionProvider = $this->createMock(ReflectionProvider::class);
-        $reflectionProvider->method('getClass')->willReturnCallback(
-            function (string $className) use ($carbonReflection, $interfaceReflection, $intervalReflection) {
-                if ($className === Carbon::class) {
-                    return $carbonReflection;
-                }
-                if ($className === CarbonInterface::class) {
-                    return $interfaceReflection;
-                }
-                if ($className === CarbonInterval::class) {
-                    return $intervalReflection;
-                }
-                $this->fail("Reflection received unexpected class $className");
-            }
+        $this->reflectionProvider = $this->createReflectionProvider();
+        $this->extension = new MacroExtension(
+            $this->reflectionProvider,
+            self::getContainer()->getByType(ClosureTypeFactory::class)
         );
-
-        return $reflectionProvider;
     }
 
     public function testHasMacro()
     {
-        $scanner = new MacroScanner($this->mockReflectionProvider());
-
-        $this->assertFalse($scanner->hasMethod(Carbon::class, 'foo'));
+        $carbon = $this->reflectionProvider->getClass(Carbon::class);
+        $this->assertFalse($this->extension->hasMethod($carbon, 'foo'));
 
         Carbon::macro('foo', function ($someArg) {
         });
 
-        $this->assertTrue($scanner->hasMethod(Carbon::class, 'foo'));
-        $this->assertFalse($scanner->hasMethod(CarbonInterval::class, 'foo'));
-        $this->assertFalse($scanner->hasMethod(CarbonInterface::class, 'foo'));
+        $carbonInterval = $this->reflectionProvider->getClass(CarbonInterval::class);
+
+        $this->assertTrue($this->extension->hasMethod($carbon, 'foo'));
+        $this->assertFalse($this->extension->hasMethod($carbonInterval, 'foo'));
+        $this->assertFalse($this->extension->hasMethod($carbonInterval, 'foo'));
     }
 
     public function testGetMacro()
     {
-        $scanner = new MacroScanner($this->mockReflectionProvider());
         Carbon::macro('foo', function (): CarbonInterval {
         });
 
+        $carbon = $this->reflectionProvider->getClass(Carbon::class);
+        $method = $this->extension->getMethod($carbon, 'foo');
+        $variant = ParametersAcceptorSelector::selectSingle($method->getVariants());
+
         $this->assertSame(
             CarbonInterval::class,
-            $scanner->getMethod(Carbon::class, 'foo')->getReturnType()->getName(),
+            $variant->getReturnType()->describe(VerbosityLevel::typeOnly()),
         );
     }
 }
