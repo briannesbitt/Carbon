@@ -2056,15 +2056,15 @@ trait Date
             'DD' => ['rawFormat', ['d']],
             'Do' => ['ordinal', ['day', 'D']],
             'd' => 'dayOfWeek',
-            'dd' => function (CarbonInterface $date, $originalFormat = null) {
-                return $date->getTranslatedMinDayName($originalFormat);
-            },
-            'ddd' => function (CarbonInterface $date, $originalFormat = null) {
-                return $date->getTranslatedShortDayName($originalFormat);
-            },
-            'dddd' => function (CarbonInterface $date, $originalFormat = null) {
-                return $date->getTranslatedDayName($originalFormat);
-            },
+            'dd' => static fn (CarbonInterface $date, $originalFormat = null) => $date->getTranslatedMinDayName(
+                $originalFormat,
+            ),
+            'ddd' => static fn (CarbonInterface $date, $originalFormat = null) => $date->getTranslatedShortDayName(
+                $originalFormat,
+            ),
+            'dddd' => static fn (CarbonInterface $date, $originalFormat = null) => $date->getTranslatedDayName(
+                $originalFormat,
+            ),
             'DDD' => 'dayOfYear',
             'DDDD' => ['getPaddedUnit', ['dayOfYear', 3]],
             'DDDo' => ['ordinal', ['dayOfYear', 'DDD']],
@@ -2086,34 +2086,18 @@ trait Date
             'A' => 'upperMeridiem',
             's' => 'second',
             'ss' => ['getPaddedUnit', ['second']],
-            'S' => function (CarbonInterface $date) {
-                return (string) floor($date->micro / 100000);
-            },
-            'SS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
-            },
-            'SSS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro / 1000), 3, '0', STR_PAD_LEFT);
-            },
-            'SSSS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro / 100), 4, '0', STR_PAD_LEFT);
-            },
-            'SSSSS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro / 10), 5, '0', STR_PAD_LEFT);
-            },
+            'S' => static fn (CarbonInterface $date) => (string) floor($date->micro / 100000),
+            'SS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro / 10000, 2),
+            'SSS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro / 1000, 3),
+            'SSSS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro / 100, 4),
+            'SSSSS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro / 10, 5),
             'SSSSSS' => ['getPaddedUnit', ['micro', 6]],
-            'SSSSSSS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro * 10), 7, '0', STR_PAD_LEFT);
-            },
-            'SSSSSSSS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro * 100), 8, '0', STR_PAD_LEFT);
-            },
-            'SSSSSSSSS' => function (CarbonInterface $date) {
-                return str_pad((string) floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
-            },
+            'SSSSSSS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro * 10, 7),
+            'SSSSSSSS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro * 100, 8),
+            'SSSSSSSSS' => static fn (CarbonInterface $date) => self::floorZeroPad($date->micro * 1000, 9),
             'M' => 'month',
             'MM' => ['rawFormat', ['m']],
-            'MMM' => function (CarbonInterface $date, $originalFormat = null) {
+            'MMM' => static function (CarbonInterface $date, $originalFormat = null) {
                 $month = $date->getTranslatedShortMonthName($originalFormat);
                 $suffix = $date->getTranslationMessage('mmm_suffix');
                 if ($suffix && $month !== $date->monthName) {
@@ -2122,9 +2106,9 @@ trait Date
 
                 return $month;
             },
-            'MMMM' => function (CarbonInterface $date, $originalFormat = null) {
-                return $date->getTranslatedMonthName($originalFormat);
-            },
+            'MMMM' => static fn (CarbonInterface $date, $originalFormat = null) => $date->getTranslatedMonthName(
+                $originalFormat,
+            ),
             'Mo' => ['ordinal', ['month', 'M']],
             'Q' => 'quarter',
             'Qo' => ['ordinal', ['quarter', 'M']],
@@ -2150,9 +2134,8 @@ trait Date
             'YY' => ['rawFormat', ['y']],
             'YYYY' => ['getPaddedUnit', ['year', 4]],
             'YYYYY' => ['getPaddedUnit', ['year', 5]],
-            'YYYYYY' => function (CarbonInterface $date) {
-                return ($date->year < 0 ? '' : '+').$date->getPaddedUnit('year', 6);
-            },
+            'YYYYYY' => static fn (CarbonInterface $date) => ($date->year < 0 ? '' : '+').
+                $date->getPaddedUnit('year', 6),
             'z' => ['rawFormat', ['T']],
             'zz' => 'tzName',
             'Z' => ['getOffsetString', []],
@@ -2288,9 +2271,7 @@ trait Date
                 $code = $match[0];
                 $sequence = $formats[$code] ?? preg_replace_callback(
                     '/MMMM|MM|DD|dddd/',
-                    function ($code) {
-                        return mb_substr($code[0], 1);
-                    },
+                    static fn ($code) => mb_substr($code[0], 1),
                     $formats[strtoupper($code)] ?? '',
                 );
                 $rest = mb_substr($format, $i + mb_strlen($code));
@@ -2345,11 +2326,7 @@ trait Date
             'j' => true,
             'l' => 'dddd',
             'N' => true,
-            'S' => function ($date) {
-                $day = $date->rawFormat('j');
-
-                return str_replace((string) $day, '', $date->isoFormat('Do'));
-            },
+            'S' => static fn ($date) => str_replace((string) $date->rawFormat('j'), '', $date->isoFormat('Do')),
             'w' => true,
             'z' => true,
             'W' => true,
@@ -2477,8 +2454,8 @@ trait Date
         $second = $this->getOffset();
         $symbol = $second < 0 ? '-' : '+';
         $minute = abs($second) / static::SECONDS_PER_MINUTE;
-        $hour = str_pad((string) floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
-        $minute = str_pad((string) (((int) $minute) % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
+        $hour = self::floorZeroPad($minute / static::MINUTES_PER_HOUR, 2);
+        $minute = self::floorZeroPad(((int) $minute) % static::MINUTES_PER_HOUR, 2);
 
         return "$symbol$hour$separator$minute";
     }
@@ -2970,5 +2947,10 @@ trait Date
 
             return $this->executeCallable($macro, ...$parameters);
         });
+    }
+
+    private static function floorZeroPad(int|float $value, int $length): string
+    {
+        return str_pad((string) floor($value), $length, '0', STR_PAD_LEFT);
     }
 }
