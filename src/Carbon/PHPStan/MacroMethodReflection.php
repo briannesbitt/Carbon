@@ -21,20 +21,11 @@ use PHPStan\Type\Type;
 
 class MacroMethodReflection implements MethodReflection
 {
-    /** @var ClassReflection */
-    private $declaringClass;
-
-    /** @var string */
-    private $methodName;
-
-    /** @var ParametersAcceptor */
-    private $macroClosureType;
-
-    /** @var bool */
-    private $static;
-
-    /** @var string|null */
-    private $docComment;
+    private ClassReflection $declaringClass;
+    private string $methodName;
+    private ParametersAcceptor $macroClosureType;
+    private bool $static;
+    private ?string $docComment;
 
     public function __construct(
         ClassReflection $declaringClass,
