@@ -83,6 +83,10 @@ final class MacroExtension implements MethodsClassReflectionExtension
     {
         $macros = FactoryImmutable::getDefaultInstance()->getSettings()['macros'] ?? [];
         $macro = $macros[$methodName] ?? throw new InvalidArgumentException("Macro '$methodName' not found");
+        $static = false;
+        $final = false;
+        $deprecated = false;
+        $docComment = null;
 
         if (\is_array($macro) && \count($macro) === 2 && \is_string($macro[1])) {
             \assert($macro[1] !== '');
@@ -97,8 +101,6 @@ final class MacroExtension implements MethodsClassReflectionExtension
         } elseif (\is_string($macro)) {
             $reflection = new ReflectionFunction($macro);
             $closure = $reflection->getClosure();
-            $static = false;
-            $final = false;
             $deprecated = $reflection->isDeprecated();
             $docComment = $reflection->getDocComment() ?: null;
         } elseif ($macro instanceof Closure) {
@@ -110,7 +112,6 @@ final class MacroExtension implements MethodsClassReflectionExtension
             } catch (Throwable) {
                 $static = true;
             }
-            $final = false;
 
             $reflection = new ReflectionFunction($macro);
             $deprecated = $reflection->isDeprecated();
