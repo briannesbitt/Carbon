@@ -119,5 +119,4 @@ class MacroMethodReflection implements MethodReflection
     {
         return TrinaryLogic::createMaybe();
     }
-
 }
