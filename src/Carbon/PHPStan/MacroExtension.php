@@ -118,7 +118,7 @@ final class MacroExtension implements MethodsClassReflectionExtension
             $methodName,
             $closureType,
             $static,
-            $docComment
+            $docComment,
         );
     }
 }
