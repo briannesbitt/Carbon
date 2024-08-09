@@ -91,11 +91,15 @@ final class MacroExtension implements MethodsClassReflectionExtension
             $closure = \is_object($macro[0]) ? $reflection->getClosure($macro[0]) : $reflection->getClosure();
 
             $static = $reflection->isStatic();
+            $final = $reflection->isFinal();
+            $deprecated = $reflection->isDeprecated();
             $docComment = $reflection->getDocComment() ?: null;
         } elseif (\is_string($macro)) {
             $reflection = new ReflectionFunction($macro);
             $closure = $reflection->getClosure();
             $static = false;
+            $final = false;
+            $deprecated = $reflection->isDeprecated();
             $docComment = $reflection->getDocComment() ?: null;
         } elseif ($macro instanceof Closure) {
             $closure = $macro;
@@ -106,8 +110,14 @@ final class MacroExtension implements MethodsClassReflectionExtension
             } catch (Throwable) {
                 $static = true;
             }
-            $docComment = null;
-        } else {
+            $final = false;
+
+            $reflection = new ReflectionFunction($macro);
+            $deprecated = $reflection->isDeprecated();
+            $docComment = $reflection->getDocComment() ?: null;
+        }
+
+        if (!isset($closure)) {
             throw new InvalidArgumentException('Could not create reflection from the spec given'); // @codeCoverageIgnore
         }
 
@@ -118,6 +128,8 @@ final class MacroExtension implements MethodsClassReflectionExtension
             $methodName,
             $closureType,
             $static,
+            $final,
+            $deprecated,
             $docComment,
         );
     }

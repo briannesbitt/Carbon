@@ -19,12 +19,16 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
+use function preg_match;
+
 class MacroMethodReflection implements MethodReflection
 {
     private ClassReflection $declaringClass;
     private string $methodName;
     private ParametersAcceptor $macroClosureType;
     private bool $static;
+    private bool $final;
+    private bool $deprecated;
     private ?string $docComment;
 
     public function __construct(
@@ -32,12 +36,16 @@ class MacroMethodReflection implements MethodReflection
         string $methodName,
         ParametersAcceptor $macroClosureType,
         bool $static,
+        bool $final,
+        bool $deprecated,
         ?string $docComment
     ) {
         $this->declaringClass = $declaringClass;
         $this->methodName = $methodName;
         $this->macroClosureType = $macroClosureType;
         $this->static = $static;
+        $this->final = $final;
+        $this->deprecated = $deprecated;
         $this->docComment = $docComment;
     }
 
@@ -83,7 +91,10 @@ class MacroMethodReflection implements MethodReflection
 
     public function isDeprecated(): TrinaryLogic
     {
-        return TrinaryLogic::createNo();
+        return TrinaryLogic::createFromBoolean(
+            $this->deprecated ||
+            preg_match('/@deprecated/i', $this->getDocComment() ?: '')
+        );
     }
 
     public function getDeprecatedDescription(): ?string
@@ -93,7 +104,7 @@ class MacroMethodReflection implements MethodReflection
 
     public function isFinal(): TrinaryLogic
     {
-        return TrinaryLogic::createNo();
+        return TrinaryLogic::createFromBoolean($this->final);
     }
 
     public function isInternal(): TrinaryLogic
