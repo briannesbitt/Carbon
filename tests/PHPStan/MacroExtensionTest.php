@@ -303,4 +303,26 @@ class MacroExtensionTest extends PHPStanTestCase
 
         $this->assertSame($method, $method->getPrototype());
     }
+
+    public function testGetThrowType()
+    {
+        Carbon::macro('throwType', function () {
+        });
+
+        $carbon = $this->reflectionProvider->getClass(Carbon::class);
+        $method = $this->extension->getMethod($carbon, 'throwType');
+
+        $this->assertNull($method->getThrowType());
+    }
+
+    public function testHasSideEffects()
+    {
+        Carbon::macro('hasSideEffects', function () {
+        });
+
+        $carbon = $this->reflectionProvider->getClass(Carbon::class);
+        $method = $this->extension->getMethod($carbon, 'hasSideEffects');
+
+        $this->assertTrue($method->hasSideEffects()->maybe());
+    }
 }
