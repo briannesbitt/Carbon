@@ -1000,26 +1000,50 @@ echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";</
     </table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-startOfMillisecond">
+    <h2><span class="class-name">Carbon::</span>startOfMillisecond</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Modify to start of current millisecond, microseconds such as 12345 become 123000<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16.334455')
+  ->startOfSecond()
+  ->format('H:i:s.u');</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><em>no arguments</em></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-endOfMillisecond">
+    <h2><span class="class-name">Carbon::</span>endOfMillisecond</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Modify to end of current millisecond, microseconds such as 12345 become 123999<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16.334455')
+  ->endOfSecond()
+  ->format('H:i:s.u');</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><em>no arguments</em></td></tr>
+    </table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-startOf">
     <h2><span class="class-name">Carbon::</span>startOf</h2>
-    <code>string $unit, mixed $params</code>
+    <code>Carbon\Unit|string $unit, mixed $params</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to start of current given unit.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16.334455')
-  ->startOf('month')
-  ->endOf('week', Carbon::FRIDAY);</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, mixed $params</code></td></tr>
+  ->startOf(Unit::Month)
+  ->endOf(Unit::Week, Carbon::FRIDAY);</code></pre></p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.8.0</td><td><code>Carbon\Unit|string $unit, mixed $params</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, mixed $params</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $params</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-endOf">
     <h2><span class="class-name">Carbon::</span>endOf</h2>
-    <code>string $unit, mixed $params</code>
+    <code>Carbon\Unit|string $unit, mixed $params</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to end of current given unit.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16.334455')
-  ->startOf('month')
-  ->endOf('week', Carbon::FRIDAY);</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, mixed $params</code></td></tr>
+  ->startOf(Unit::Month)
+  ->endOf(Unit::Week, Carbon::FRIDAY);</code></pre></p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.8.0</td><td><code>Carbon\Unit|string $unit, mixed $params</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $unit, mixed $params</code></td></tr>
         <tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $params</code></td></tr>
     </table>
 </div>
@@ -1459,23 +1483,125 @@ Carbon::parse('2019-04-30')->isLastOfMonth(); // true</code></pre></p>
     </table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-isStartOfUnit">
+    <h2><span class="class-name">Carbon::</span>isStartOfUnit</h2>
+    <code>Carbon\Unit $unit, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, mixed $params</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Check if the instance is start of a given unit (tolerating a given interval).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">// Check if a date-time is the first 15 minutes of the hour it's in
+Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit $unit, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, mixed $params</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfUnit">
+    <h2><span class="class-name">Carbon::</span>isEndOfUnit</h2>
+    <code>Carbon\Unit $unit, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, mixed $params</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Check if the instance is end of a given unit (tolerating a given interval).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">// Check if a date-time is the last 15 minutes of the hour it's in
+Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit $unit, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, mixed $params</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfMillisecond">
+    <h2><span class="class-name">Carbon::</span>isStartOfMillisecond</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of millisecond (first microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfMillisecond">
+    <h2><span class="class-name">Carbon::</span>isEndOfMillisecond</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of millisecond (last microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfSecond">
+    <h2><span class="class-name">Carbon::</span>isStartOfSecond</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of second (first microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfSecond">
+    <h2><span class="class-name">Carbon::</span>isEndOfSecond</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of second (last microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfMinute">
+    <h2><span class="class-name">Carbon::</span>isStartOfMinute</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of minute (first microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfMinute">
+    <h2><span class="class-name">Carbon::</span>isEndOfMinute</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of minute (last microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfHour">
+    <h2><span class="class-name">Carbon::</span>isStartOfHour</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of hour (first microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfHour">
+    <h2><span class="class-name">Carbon::</span>isEndOfHour</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of hour (last microsecond by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-isStartOfDay">
     <h2><span class="class-name">Carbon::</span>isStartOfDay</h2>
-    <code>bool $checkMicroseconds = false</code>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|bool $checkMicroseconds = false, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Check if the instance is start of day / midnight.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28 00:00:00')->isStartOfDay(); // true
 Carbon::parse('2019-02-28 00:00:00.999999')->isStartOfDay(); // true
 Carbon::parse('2019-02-28 00:00:01')->isStartOfDay(); // false
 Carbon::parse('2019-02-28 00:00:00.000000')->isStartOfDay(true); // true
 Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>bool $checkMicroseconds = false</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|bool $checkMicroseconds = false, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>bool $checkMicroseconds = false</code></td></tr>
         <tr><td>Method added</td><td>1.28.0</td><td><code>$checkMicroseconds = false</code></td></tr>
     </table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isEndOfDay">
     <h2><span class="class-name">Carbon::</span>isEndOfDay</h2>
-    <code>bool $checkMicroseconds = false</code>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|bool $checkMicroseconds = false, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Check if the instance is end of day.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28 23:59:59.999999')->isEndOfDay(); // true
 Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(); // true
@@ -1484,8 +1610,150 @@ Carbon::parse('2019-02-28 23:59:58.999999')->isEndOfDay(); // false
 Carbon::parse('2019-02-28 23:59:59.999999')->isEndOfDay(true); // true
 Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(true); // false
 Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>bool $checkMicroseconds = false</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|bool $checkMicroseconds = false, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>bool $checkMicroseconds = false</code></td></tr>
         <tr><td>Method added</td><td>1.28.0</td><td><code>$checkMicroseconds = false</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfWeek">
+    <h2><span class="class-name">Carbon::</span>isStartOfWeek</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, Carbon\WeekDay|int|null $weekStartsAt = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of week (first day by default but interval can be customized).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2024-08-31')->startOfWeek()->isStartOfWeek(); // true
+Carbon::parse('2024-08-31')->isStartOfWeek(); // false</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, Carbon\WeekDay|int|null $weekStartsAt = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfWeek">
+    <h2><span class="class-name">Carbon::</span>isEndOfWeek</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, Carbon\WeekDay|int|null $weekEndsAt = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of week (last day by default but interval can be customized).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2024-08-31')->endOfWeek()->isEndOfWeek(); // true
+Carbon::parse('2024-08-31')->isEndOfWeek(); // false</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, Carbon\WeekDay|int|null $weekEndsAt = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfMonth">
+    <h2><span class="class-name">Carbon::</span>isStartOfMonth</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of month (first day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfMonth">
+    <h2><span class="class-name">Carbon::</span>isEndOfMonth</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of month (last day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfQuarter">
+    <h2><span class="class-name">Carbon::</span>isStartOfQuarter</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of quarter (first day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfQuarter">
+    <h2><span class="class-name">Carbon::</span>isEndOfQuarter</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of quarter (last day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfYear">
+    <h2><span class="class-name">Carbon::</span>isStartOfYear</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of year (first day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfYear">
+    <h2><span class="class-name">Carbon::</span>isEndOfYear</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of year (last day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfDecade">
+    <h2><span class="class-name">Carbon::</span>isStartOfDecade</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of decade (first day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfDecade">
+    <h2><span class="class-name">Carbon::</span>isEndOfDecade</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of decade (last day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfCentury">
+    <h2><span class="class-name">Carbon::</span>isStartOfCentury</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of century (first day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfCentury">
+    <h2><span class="class-name">Carbon::</span>isEndOfCentury</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of century (last day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isStartOfMillennium">
+    <h2><span class="class-name">Carbon::</span>isStartOfMillennium</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is start of millennium (first day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isEndOfMillennium">
+    <h2><span class="class-name">Carbon::</span>isEndOfMillennium</h2>
+    <code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is end of millennium (last day by default but interval can be customized).</p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.8.0</td><td><code>Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null</code></td></tr>
     </table>
 </div>
 

@@ -133,13 +133,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(12) "Wednesday 14"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(12) "Wednesday 14"
+var_dump($mutable->isoFormat('dddd D'));             // string(10) "Tuesday 20"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(10) "Tuesday 20"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(10) "Tuesday 13"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(12) "Wednesday 14"
+var_dump($immutable->isoFormat('dddd D'));           // string(9) "Monday 19"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Tuesday 20"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -281,16 +281,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2024-08-13 20:32:24
+echo $now;                               // 2024-08-19 07:35:05
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2024-08-13 00:00:00
+echo $today;                             // 2024-08-19 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2024-08-14 00:00:00
+echo $tomorrow;                          // 2024-08-20 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2024-08-12 00:00:00
+echo $yesterday;                         // 2024-08-18 00:00:00
 </code></pre>
     </p>
 
@@ -451,7 +451,7 @@ echo $dt->diffInYears($dt->avoidMutation()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 22:32 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 09:35 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -705,7 +705,7 @@ echo $date->diffForHumans();     // il y a 0 seconde
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // mardi 13 août 2024 20:32
+echo $date->isoFormat('LLLL');   // lundi 19 août 2024 07:35
 </code></pre>
     </p>
 
@@ -736,13 +736,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 22:32
+Aujourd’hui à 09:35
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 3:32 PM
+Today at 2:35 AM
 */
 </code></pre>
     </p>
@@ -769,9 +769,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 13/08 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 19/08 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 13/08 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 19/08 0h Asia/Tokyo
 
 // You can find back which factory created a given object:
 $a = $factory->now();
@@ -1654,21 +1654,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 8:32 PM
+echo $date->calendar();                                      // Today at 7:35 AM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 5:32 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:35 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 10:09 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Thursday at 9:12 PM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 08/05/2024
+echo $date->sub('8 days')->calendar();                       // 08/11/2024
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 11:32 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:35 AM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 6:55 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 5:58 PM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 08/21/2024
+echo $date->add('8 days')->calendar();                       // 08/27/2024
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 20:32
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 07:35
 </code></pre>
     </p>
 
@@ -1860,7 +1860,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
 
         <tr>
@@ -2471,7 +2471,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
 
         <tr>
@@ -4226,7 +4226,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
 
         <tr>
@@ -5588,7 +5588,7 @@ echo Carbon::now();                                    // 2001-05-21 12:00:03
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2024-08-13 20:32:25
+echo Carbon::now();                                    // 2024-08-19 07:35:06
 // Instead of mock and clear mock, you also can use withTestNow():
 
 Carbon::withTestNow('2010-09-15', static function () {
@@ -5786,7 +5786,7 @@ var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());    
 
 // Returns timezone as CarbonTimeZone
 var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());
-/* object(Carbon\CarbonTimeZone)#685 (3) {
+/* object(Carbon\CarbonTimeZone)#2700 (3) {
   ["clock":"Carbon\CarbonTimeZone":private]=>
   NULL
   ["timezone_type"]=>
@@ -5831,12 +5831,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(25)
+var_dump(Carbon::now()->get($unit));                         // int(6)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(25)
+var_dump(Carbon::now()->$unit);                              // int(6)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(25)
+var_dump(Carbon::now()->get($unit));                         // int(6)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5912,8 +5912,8 @@ $ar = CarbonImmutable::now()->locale('ar');
 
 var_dump($en->firstWeekDay);                           // int(0)
 var_dump($en->lastWeekDay);                            // int(6)
-var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-08-11 00:00"
-var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-08-17 23:59"
+var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-08-18 00:00"
+var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-08-24 23:59"
 
 echo "-----------\n";
 
@@ -5927,8 +5927,8 @@ echo "-----------\n";
 
 var_dump($ar->firstWeekDay);                           // int(6)
 var_dump($ar->lastWeekDay);                            // int(5)
-var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-08-10 00:00"
-var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-08-16 23:59"
+var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2024-08-17 00:00"
+var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2024-08-23 23:59"
 
 $en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
 
@@ -6176,7 +6176,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#683 (3) {
+  object(Carbon\CarbonTimeZone)#1092 (3) {
     ["clock":"Carbon\CarbonTimeZone":private]=>
     NULL
     ["timezone_type"]=>
@@ -6189,7 +6189,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#683 (12) {
+object(stdClass)#1092 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -6213,7 +6213,7 @@ object(stdClass)#683 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#633 (3) {
+  object(Carbon\CarbonTimeZone)#1377 (3) {
     ["clock":"Carbon\CarbonTimeZone":private]=>
     NULL
     ["timezone_type"]=>
@@ -6226,7 +6226,7 @@ object(stdClass)#683 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#683 (3) {
+object(DateTime)#1092 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -6240,7 +6240,7 @@ object(DateTime)#683 (3) {
 // to both DateTime and DateTimeImmutable
 var_dump($dt->toDateTimeImmutable());
 /*
-object(DateTimeImmutable)#683 (3) {
+object(DateTimeImmutable)#1092 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -6413,8 +6413,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2024-08-13 20:32:25
-echo $dt1->maximum();                              // 2024-08-13 20:32:25
+echo $dt1->max();                                  // 2024-08-19 07:35:06
+echo $dt1->maximum();                              // 2024-08-19 07:35:06
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -6518,8 +6518,42 @@ var_dump($born->isBirthday($noCake));              // bool(false)
 var_dump($born->isBirthday($yesCake));             // bool(true)
 var_dump($overTheHill->isBirthday());              // bool(true) -> default compare it to today!
 
-// isCurrentX, isSameX, isNextX and isLastX are available for each unit
+// isStartOfX, isEndOfX, isCurrentX, isSameX, isNextX and isLastX are available for each unit
 </code></pre>
+    </p>
+
+    <p>
+        The methods <code>isStartOfMillisecond</code>, <code>isEndOfMillisecond</code>, <code>isStartOfSecond</code>,
+        <code>isEndOfSecond</code>, <code>isStartOfMinute</code>, <code>isEndOfMinute</code>, <code>isStartOfHour</code>,
+        <code>isEndOfHour</code>, <code>isStartOfDay</code> and <code>isEndOfDay</code> will use 1 microsecond as
+        the default interval to be considered as the start/end, which means <code>isEndOfDay</code> returns
+        <code>true</code> only for 23:59:59.999999, <code>false</code> for 23:59:59.999998.
+    </p>
+
+    <p>
+        The methods <code>isStartOfWeek</code>, <code>isEndOfWeek</code>, <code>isStartOfMonth</code>,
+        <code>isEndOfMonth</code>, <code>isStartOfQuarter</code>, <code>isEndOfQuarter</code>, <code>isStartOfYear</code>,
+        <code>isEndOfYear</code>, <code>isStartOfDecade</code>, <code>isEndOfDecade</code>,
+        <code>isStartOfCentury</code>, <code>isEndOfCentury</code>,
+        <code>isStartOfMillennium</code> and <code>isEndOfMillennium</code> will use 1 day as
+        the default interval to be considered as the start/end.
+        isStartOfUnit
+    </p>
+
+    <p>
+        But you can customize this interval: <code>$date->isStartOfDay(interval: '4 hours')</code> (<code>true</code>
+        if the current time is >= <code>00:00:00.000000</code> and <= <code>03:59:59.999999</code>).
+    </p>
+
+    <p>
+        <code>$date->isEndOfCentury(interval: Unit::Year)</code> (<code>true</code>
+        if the current year is the last one of a century, i.e. ends with 00).
+    </p>
+
+    <p>
+        <code>isStartOfUnit</code> and <code>isEndOfUnit</code> allow this check with dynamic unit:
+        <code>$date->isStartOfUnit(Unit::Year, interval: '1 month')</code>,
+        <code>$date->isStartOfUnit(Unit::Week, Unit::Hour)</code>
     </p>
 
     <h1 id="api-addsub">Addition and Subtraction</h1>
@@ -6875,7 +6909,7 @@ echo json_encode($units, JSON_PRETTY_PRINT);
         greater than the other.</p>
 
     <p>
-    <pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 8.0E-6
+    <pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 2.0E-5
 
 $dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');
 $dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');
@@ -7014,10 +7048,10 @@ echo $littleHandRotations;     // 24
 
 $date = Carbon::now()->addSeconds(3666);
 
-echo $date->diffInSeconds();                       // -3665.9999
-echo $date->diffInMinutes();                       // -61.099996966667
-echo $date->diffInHours();                         // -1.0183332619444
-echo $date->diffInDays();                          // -0.042430551736111
+echo $date->diffInSeconds();                       // -3665.999811
+echo $date->diffInMinutes();                       // -61.099994083333
+echo $date->diffInHours();                         // -1.0183331869444
+echo $date->diffInDays();                          // -0.042430547696759
 
 $date = Carbon::create(2016, 1, 5, 22, 40, 32);
 
@@ -7672,7 +7706,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // samedi dernier à 22:32
+echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 09:35
 </code></pre>
     </p>
 
@@ -7935,9 +7969,9 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2024-08-12 00:00:00, 2024-08-13 00:00:00, 2024-08-14 00:00:00, 2024-08-15 00:00:00, 2024-08-16 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2024-08-19 00:00:00, 2024-08-20 00:00:00, 2024-08-21 00:00:00, 2024-08-22 00:00:00, 2024-08-23 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2024-08-01 00:00:00, 2024-08-02 00:00:00, 2024-08-03 00:00:00, 2024-08-04 00:00:00, 2024-08-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2024-07-08 00:00:00, 2024-07-09 00:00:00, 2024-07-10 00:00:00, 2024-07-11 00:00:00, 2024-07-12 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2024-07-15 00:00:00, 2024-07-16 00:00:00, 2024-07-17 00:00:00, 2024-07-18 00:00:00, 2024-07-19 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2024-07-01 00:00:00, 2024-07-02 00:00:00, 2024-07-03 00:00:00, 2024-07-04 00:00:00, 2024-07-05 00:00...
 </code></pre>
     </p>
@@ -8917,7 +8951,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2024-08-13, 2024-08-14, 2024-08-15
+echo implode(', ', $days);               // 2024-08-19, 2024-08-20, 2024-08-21
 </code></pre>
     </p>
 

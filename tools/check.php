@@ -94,6 +94,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         $argumentsCount === 4 && ($method === 'diffFiltered' || $method === 'diff') ||
         $argumentsCount === 2 && preg_match('/^((diff|floatDiff)(AsDateInterval|In[A-Z].*s)|.*Until)$/', $method) ||
         $argumentsCount > 0 && preg_match('/^(plus|minus|createStrict)$/', $method) ||
+        preg_match('/^(isStartOf|isEndOf)/', $method) ||
         $method === '__set'
     ) {
         $argumentsCount = 0;

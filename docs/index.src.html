@@ -2078,8 +2078,42 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{eval}} -> default compare it to today!
 
-// isCurrentX, isSameX, isNextX and isLastX are available for each unit
+// isStartOfX, isEndOfX, isCurrentX, isSameX, isNextX and isLastX are available for each unit
 </code></pre>
+    </p>
+
+    <p>
+        The methods <code>isStartOfMillisecond</code>, <code>isEndOfMillisecond</code>, <code>isStartOfSecond</code>,
+        <code>isEndOfSecond</code>, <code>isStartOfMinute</code>, <code>isEndOfMinute</code>, <code>isStartOfHour</code>,
+        <code>isEndOfHour</code>, <code>isStartOfDay</code> and <code>isEndOfDay</code> will use 1 microsecond as
+        the default interval to be considered as the start/end, which means <code>isEndOfDay</code> returns
+        <code>true</code> only for 23:59:59.999999, <code>false</code> for 23:59:59.999998.
+    </p>
+
+    <p>
+        The methods <code>isStartOfWeek</code>, <code>isEndOfWeek</code>, <code>isStartOfMonth</code>,
+        <code>isEndOfMonth</code>, <code>isStartOfQuarter</code>, <code>isEndOfQuarter</code>, <code>isStartOfYear</code>,
+        <code>isEndOfYear</code>, <code>isStartOfDecade</code>, <code>isEndOfDecade</code>,
+        <code>isStartOfCentury</code>, <code>isEndOfCentury</code>,
+        <code>isStartOfMillennium</code> and <code>isEndOfMillennium</code> will use 1 day as
+        the default interval to be considered as the start/end.
+        isStartOfUnit
+    </p>
+
+    <p>
+        But you can customize this interval: <code>$date->isStartOfDay(interval: '4 hours')</code> (<code>true</code>
+        if the current time is >= <code>00:00:00.000000</code> and <= <code>03:59:59.999999</code>).
+    </p>
+
+    <p>
+        <code>$date->isEndOfCentury(interval: Unit::Year)</code> (<code>true</code>
+        if the current year is the last one of a century, i.e. ends with 00).
+    </p>
+
+    <p>
+        <code>isStartOfUnit</code> and <code>isEndOfUnit</code> allow this check with dynamic unit:
+        <code>$date->isStartOfUnit(Unit::Year, interval: '1 month')</code>,
+        <code>$date->isStartOfUnit(Unit::Week, Unit::Hour)</code>
     </p>
 
     <h1 id="api-addsub">Addition and Subtraction</h1>
