@@ -650,7 +650,7 @@ trait Creator
 
         if (!\is_string($time)) {
             @trigger_error(
-                'createFromFormat() will only accept string or integer for 1-letter format representing a numeric unit in the next version',
+                'createFromFormat() $time parameter will only accept string or integer for 1-letter format representing a numeric unit in the next version',
                 \E_USER_DEPRECATED,
             );
             $time = (string) $time;
