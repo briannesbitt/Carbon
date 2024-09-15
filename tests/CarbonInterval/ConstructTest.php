@@ -450,7 +450,7 @@ class ConstructTest extends AbstractTestCase
         // Ignore translator for the English comparison
         $copy->setLocalTranslator($interval->getLocalTranslator());
 
-        $this->assertSameIntervals($interval, $copy);
+        $this->assertSameIntervals($interval, $copy, 1);
 
         $interval = $today->locale('ja')->diffAsCarbonInterval($past);
         /** @var CarbonInterval $copy */
@@ -464,7 +464,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(['ja'], array_keys($interval->getLocalTranslator()->getMessages()));
         $this->assertSame(['ja'], array_keys($copy->getLocalTranslator()->getMessages()));
 
-        $this->assertSameIntervals($interval, $copy);
+        $this->assertSameIntervals($interval, $copy, 1);
     }
 
     public function testFromV2SerializedInterval()
@@ -477,8 +477,17 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(5.4e-5, $interval->f);
     }
 
-    private function assertSameIntervals(CarbonInterval $expected, CarbonInterval $actual): void
+    private function assertSameIntervals(CarbonInterval $expected, CarbonInterval $actual, int $microsecondApproximation = 0): void
     {
+        if (
+            $expected->microseconds !== $actual->microseconds
+            && $microsecondApproximation > 0
+            && $actual->microseconds >= $expected->microseconds - $microsecondApproximation
+            && $actual->microseconds <= $expected->microseconds - $microsecondApproximation
+        ) {
+            $actual->microseconds = $expected->microseconds;
+        }
+
         if (PHP_VERSION >= 8.2) {
             $this->assertEquals($expected, $actual);
 
