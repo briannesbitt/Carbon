@@ -26,7 +26,7 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 2_000;
+    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 20_000;
 
     public function testMonthEnum()
     {
@@ -825,9 +825,9 @@ class SettersTest extends AbstractTestCase
                     'valueUnit' => $valueUnit,
                     'value' => $value,
                     'overflowUnit' => $overflowUnit,
-                    'date' => $date->format('Y-m-d H:i:s.u e'),
-                    'start' => $start->format('Y-m-d H:i:s.u e'),
-                    'end' => $end->format('Y-m-d H:i:s.u e'),
+                    'date' => $date->format('Y-m-d H:i:s.u e O'),
+                    'start' => $start->format('Y-m-d H:i:s.u e O'),
+                    'end' => $end->format('Y-m-d H:i:s.u e O'),
                 ];
 
                 continue;
@@ -934,9 +934,9 @@ class SettersTest extends AbstractTestCase
                     'valueUnit' => $valueUnit,
                     'value' => $value,
                     'overflowUnit' => $overflowUnit,
-                    'date' => $date->format('Y-m-d H:i:s.u e'),
-                    'start' => $start->format('Y-m-d H:i:s.u e'),
-                    'end' => $end->format('Y-m-d H:i:s.u e'),
+                    'date' => $date->format('Y-m-d H:i:s.u e O'),
+                    'start' => $start->format('Y-m-d H:i:s.u e O'),
+                    'end' => $end->format('Y-m-d H:i:s.u e O'),
                 ];
 
                 continue;
@@ -1009,6 +1009,17 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 
+    public function testOverflowInDst()
+    {
+        $date = Carbon::create(2335, 11, 3, 1, 30, 50.138159);
+        $date->subUnitNoOverflow('year', 5668, 'second');
+
+        $this->assertSame(
+            '2335-11-03 01:30:50.000000 America/Toronto -0400',
+            $date->format('Y-m-d H:i:s.u e O'),
+        );
+    }
+
     /**
      * @SuppressWarnings(PHPMD.TooManyFields)
      */
@@ -1032,7 +1043,7 @@ class SettersTest extends AbstractTestCase
             ")->$method(".implode(', ', array_map(function ($value) {
                 return var_export($value, true);
             }, [$valueUnit, $value, $overflowUnit])).');',
-            'Getting: '.$date->format('Y-m-d H:i:s.u e'),
+            'Getting: '.$date->format('Y-m-d H:i:s.u e O'),
             "Current $valueUnit: ".$date->$valueUnit,
             'Is neither '.$start->$valueUnit." (from $start)",
             'Nor '.$end->$valueUnit." (from $end)",
