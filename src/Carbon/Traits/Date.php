@@ -1702,11 +1702,10 @@ trait Date
     public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static
     {
         try {
-            $original = $this->avoidMutation();
+            $start = $this->avoidMutation()->startOf($overflowUnit);
+            $end = $this->avoidMutation()->endOf($overflowUnit);
             /** @var static $date */
             $date = $this->$valueUnit($value);
-            $start = $original->avoidMutation()->startOf($overflowUnit);
-            $end = $original->avoidMutation()->endOf($overflowUnit);
 
             if ($date < $start) {
                 $date = $date->setDateTimeFrom($start);
