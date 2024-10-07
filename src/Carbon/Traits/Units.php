@@ -266,7 +266,7 @@ trait Units
             $result = $this->resolveCarbon($unit($this, false));
 
             if ($this !== $result && $this->isMutable()) {
-                return $this->setDateTimeFrom($result);
+                return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
             }
 
             return $result;
@@ -415,7 +415,7 @@ trait Units
             $result = $this->resolveCarbon($unit($this, true));
 
             if ($this !== $result && $this->isMutable()) {
-                return $this->setDateTimeFrom($result);
+                return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
             }
 
             return $result;

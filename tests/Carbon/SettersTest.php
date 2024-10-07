@@ -26,7 +26,7 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 200;
+    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 2_000;
 
     public function testMonthEnum()
     {
@@ -635,7 +635,7 @@ class SettersTest extends AbstractTestCase
             'current' => 0,
             'start' => 0,
             'end' => 0,
-            'failure' => 0,
+            'failure' => [],
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
@@ -668,8 +668,22 @@ class SettersTest extends AbstractTestCase
             $start = $original->copy()->startOf($overflowUnit);
             $end = $original->copy()->endOf($overflowUnit);
 
-            if ($date < $start || $date > $end) {
-                $results['failure']++;
+            if ($date->lessThan($start) || $date->greaterThan($end)) {
+                $results['failure'][] = [
+                    'year' => $year,
+                    'month' => $month,
+                    'day' => $day,
+                    'hour' => $hour,
+                    'minute' => $minute,
+                    'second' => $second,
+                    'microsecond' => $microsecond,
+                    'valueUnit' => $valueUnit,
+                    'value' => $value,
+                    'overflowUnit' => $overflowUnit,
+                    'date' => $date->format('Y-m-d H:i:s'),
+                    'start' => $start->format('Y-m-d H:i:s'),
+                    'end' => $end->format('Y-m-d H:i:s'),
+                ];
 
                 continue;
             }
@@ -722,7 +736,7 @@ class SettersTest extends AbstractTestCase
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
-        $this->assertSame(0, $results['failure']);
+        $this->assertSame([], $results['failure']);
         $this->assertGreaterThan($minimum, $results['start']);
         $this->assertGreaterThan($minimum, $results['end']);
         $this->assertGreaterThan($minimum, $results['current']);
@@ -766,7 +780,7 @@ class SettersTest extends AbstractTestCase
             'current' => 0,
             'start' => 0,
             'end' => 0,
-            'failure' => 0,
+            'failure' => [],
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
@@ -799,8 +813,22 @@ class SettersTest extends AbstractTestCase
             $start = $original->copy()->startOf($overflowUnit);
             $end = $original->copy()->endOf($overflowUnit);
 
-            if ($date < $start || $date > $end) {
-                $results['failure']++;
+            if ($date->lessThan($start) || $date->greaterThan($end)) {
+                $results['failure'][] = [
+                    'year' => $year,
+                    'month' => $month,
+                    'day' => $day,
+                    'hour' => $hour,
+                    'minute' => $minute,
+                    'second' => $second,
+                    'microsecond' => $microsecond,
+                    'valueUnit' => $valueUnit,
+                    'value' => $value,
+                    'overflowUnit' => $overflowUnit,
+                    'date' => $date->format('Y-m-d H:i:s.u e'),
+                    'start' => $start->format('Y-m-d H:i:s.u e'),
+                    'end' => $end->format('Y-m-d H:i:s.u e'),
+                ];
 
                 continue;
             }
@@ -848,7 +876,7 @@ class SettersTest extends AbstractTestCase
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
-        $this->assertSame(0, $results['failure']);
+        $this->assertSame([], $results['failure']);
         $this->assertGreaterThan($minimum, $results['start']);
         $this->assertGreaterThan($minimum, $results['end']);
         $this->assertGreaterThan($minimum, $results['current']);
@@ -861,7 +889,7 @@ class SettersTest extends AbstractTestCase
             'current' => 0,
             'start' => 0,
             'end' => 0,
-            'failure' => 0,
+            'failure' => [],
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
@@ -894,8 +922,22 @@ class SettersTest extends AbstractTestCase
             $start = $original->copy()->startOf($overflowUnit);
             $end = $original->copy()->endOf($overflowUnit);
 
-            if ($date < $start || $date > $end) {
-                $results['failure']++;
+            if ($date->lessThan($start) || $date->greaterThan($end)) {
+                $results['failure'][] = [
+                    'year' => $year,
+                    'month' => $month,
+                    'day' => $day,
+                    'hour' => $hour,
+                    'minute' => $minute,
+                    'second' => $second,
+                    'microsecond' => $microsecond,
+                    'valueUnit' => $valueUnit,
+                    'value' => $value,
+                    'overflowUnit' => $overflowUnit,
+                    'date' => $date->format('Y-m-d H:i:s.u e'),
+                    'start' => $start->format('Y-m-d H:i:s.u e'),
+                    'end' => $end->format('Y-m-d H:i:s.u e'),
+                ];
 
                 continue;
             }
@@ -960,7 +1002,7 @@ class SettersTest extends AbstractTestCase
         }
 
         $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
-        $this->assertSame(0, $results['failure']);
+        $this->assertSame([], $results['failure']);
         $this->assertGreaterThan($minimum, $results['start']);
         $this->assertGreaterThan($minimum, $results['end']);
         $this->assertGreaterThan($minimum, $results['current']);

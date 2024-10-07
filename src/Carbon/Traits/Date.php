@@ -1709,9 +1709,9 @@ trait Date
             $end = $original->avoidMutation()->endOf($overflowUnit);
 
             if ($date < $start) {
-                $date = $date->setDateTimeFrom($start);
+                $date = $date->modify($start->rawFormat('Y-m-d H:i:s.u e O'));
             } elseif ($date > $end) {
-                $date = $date->setDateTimeFrom($end);
+                $date = $date->modify($end->rawFormat('Y-m-d H:i:s.u e O'));
             }
 
             return $date;
