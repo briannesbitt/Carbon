@@ -2967,6 +2967,6 @@ trait Date
     {
         return $this instanceof DateTimeImmutable
             ? $this
-            : $this->modify('@' . $date->rawFormat('U.u'))->setTimezone($date->getTimezone());
+            : $this->modify('@'.$date->rawFormat('U.u'))->setTimezone($date->getTimezone());
     }
 }
