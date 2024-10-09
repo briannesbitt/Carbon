@@ -84,6 +84,17 @@ class ObjectsTest extends AbstractTestCase
         $this->assertNotInstanceOf(CarbonInterface::class, $date);
 
         $this->assertSame('2000-03-26', $date->format('Y-m-d'));
+
+        // Check it keeps timezone offset during DST
+        $date = Carbon::create(2290, 11, 2, 1, 10, 10 + 888480 / 1000000, 'America/Toronto');
+        $this->assertSame(
+            '2290-11-02 01:10:10.888480 America/Toronto -0400',
+            $date->toDateTime()->format('Y-m-d H:i:s.u e O'),
+        );
+        $this->assertSame(
+            '2290-11-02 01:10:10.888480 America/Toronto -0500',
+            $date->copy()->addHour()->toDateTime()->format('Y-m-d H:i:s.u e O'),
+        );
     }
 
     public function testToDateTimeImmutable()
