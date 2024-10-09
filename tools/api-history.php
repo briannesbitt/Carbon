@@ -130,7 +130,7 @@ loadDependencies();
 $versions = array_filter(array_map(function ($version) {
     return $version === MASTER_BRANCH ? MASTER_VERSION : $version;
 }, array_keys(json_decode(file_get_contents('https://packagist.org/p/nesbot/carbon.json'), true)['packages']['nesbot/carbon'])), function ($version) {
-    return !preg_match('/(dev-|-beta|-alpha|-dev)/', $version) && !in_array($version, BLACKLIST);
+    return !preg_match('/(dev-|-beta|-alpha|-dev)/', $version) && !\in_array($version, BLACKLIST, true);
 });
 
 usort($versions, 'version_compare');
@@ -240,10 +240,16 @@ foreach (methods() as [$carbonObject, $className, $method]) {
 
 ksort($methods);
 
-$count = count($versions);
+$count = \count($versions);
 
 function getMethodsOfVersion($version, bool $forceRebuild = false)
 {
+    $cache = __DIR__.'/static-cache/methods_of_version_'.$version.'.json';
+
+    if (file_exists($cache)) {
+        return file_get_contents($cache);
+    }
+
     $cache = __DIR__.'/cache/methods_of_version_'.$version.'.json';
 
     if (!$forceRebuild && file_exists($cache)) {
@@ -284,8 +290,8 @@ foreach (array_reverse($versions) as $index => $version) {
 
     foreach ([false, true] as $forceRebuild) {
         $output = getMethodsOfVersion($version, $forceRebuild);
-        $data = is_string($output) ? @json_decode($output, true) : null;
-        $decodable = is_array($data);
+        $data = \is_string($output) ? @json_decode($output, true) : null;
+        $decodable = \is_array($data);
         $error = $decodable ? ($data['error'] ?? null) : ($output ?? 'Missing output');
 
         if ($error === null) {
