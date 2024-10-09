@@ -24,7 +24,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">Returns the values to dump on serialize() called on.<br><br>Only used by PHP >= 7.4.</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>1.37.1</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>1.21.0</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -33,7 +33,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>array $data</code>
     <p class="doc-description">Set locale if specified on unserialize() called.<br><br>Only used by PHP >= 7.4.</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>1.37.1</td><td><code>array $data</code></td></tr>
+        <tr><td>Method added</td><td>1.21.0</td><td><code>array $data</code></td></tr>
     </table>
 </div>
 
@@ -94,7 +94,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>string $format</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns the formatted date string on success or FALSE on failure.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $format</code></td></tr><tr><td>Prototype changed</td><td>2.16.0</td><td><code>$format</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>string $format</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $format</code></td></tr><tr><td>Prototype changed</td><td>2.16.0</td><td><code>$format</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>string $format</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$format</code></td></tr>
     </table>
 </div>
@@ -104,7 +104,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$modify</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$modify</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>string $modifier</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$modify</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>string $modifier</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$modify</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>string $modifier</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$modify</code></td></tr>
     </table>
 </div>
@@ -114,7 +114,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$unit, $value = 1, ?bool $overflow = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Add given units or interval to the current instance.<p><strong>Examples:</strong></p><p><code>$date->add('hour',&nbsp;3)</code></p><p><code>$date->add(15,&nbsp;'days')</code></p><p><code>$date->add(CarbonInterval::days(4))</code></p></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$unit, $value = 1, ?bool $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>DateInterval $interval</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$unit, $value = 1, ?bool $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>DateInterval $interval</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr>
     </table>
 </div>
@@ -124,7 +124,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$unit, $value = 1, ?bool $overflow = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract given units or interval to the current instance.<p><strong>Examples:</strong></p><p><code>$date->sub('hour',&nbsp;3)</code></p><p><code>$date->sub(15,&nbsp;'days')</code></p><p><code>$date->sub(CarbonInterval::days(4))</code></p></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$unit, $value = 1, ?bool $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>DateInterval $interval</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$unit, $value = 1, ?bool $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>DateInterval $interval</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr>
     </table>
 </div>
@@ -160,7 +160,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>int $hour, int $minute, int $second = 0, int $microseconds = 0</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Resets the current time of the DateTime object to a different time.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int $hour, int $minute, int $second = 0, int $microseconds = 0</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$hour, $minute, $second = 0, $microseconds = 0</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>int $hour, int $minute, int $second = 0, int $microsecond = 0</code></td></tr><tr><td>Prototype changed</td><td>1.15.0</td><td><code>$hour, $minute, $second, $microseconds</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int $hour, int $minute, int $second = 0, int $microseconds = 0</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$hour, $minute, $second = 0, $microseconds = 0</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>int $hour, int $minute, int $second = 0, int $microsecond = 0</code></td></tr><tr><td>Prototype changed</td><td>1.15.0</td><td><code>$hour, $minute, $second, $microseconds</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$hour, $minute, $second = 0</code></td></tr>
     </table>
 </div>
@@ -170,7 +170,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>int $year, int $month, int $day</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set the date with gregorian year, month and day numbers.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int $year, int $month, int $day</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$year, $month, $day</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $year, int $month, int $day</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int $year, int $month, int $day</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$year, $month, $day</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>int $year, int $month, int $day</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$year, $month, $day</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>int $year, int $month, int $day</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$year, $month, $day</code></td></tr>
     </table>
 </div>
@@ -180,7 +180,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>int $year, int $week, int $day = 1</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int $year, int $week, int $day = 1</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$year, $week, $day = 1</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>int $year, int $week, int $dayOfWeek = 1</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>int $year, int $week, int $day = 1</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$year, $week, $day = 1</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>int $year, int $week, int $dayOfWeek = 1</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$year, $week, $day</code></td></tr>
     </table>
 </div>
@@ -190,7 +190,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>string|int|float $timestamp</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set the instance's timestamp.<br><br>Timestamp input can be given as int, float or a string containing one or more numbers.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string|int|float $timestamp</code></td></tr><tr><td>Prototype changed</td><td>2.41.0</td><td><code>$unixTimestamp</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$unixtimestamp</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>int $timestamp</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string|int|float $timestamp</code></td></tr><tr><td>Prototype changed</td><td>2.41.0</td><td><code>$unixTimestamp</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$unixtimestamp</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>int $timestamp</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$unixtimestamp</code></td></tr>
     </table>
 </div>
@@ -208,7 +208,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <p class="doc-description">@alias diffAsCarbonInterval<br><br>Get the difference as a DateInterval instance.
 Return relative interval (negative if $absolute flag is not set to true and the given date is before
 current one).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false, array $skip = []</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$date = null, $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>DateTimeInterface $targetObject, bool $absolute = false</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false, array $skip = []</code></td></tr><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$date = null, $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>DateTimeInterface $targetObject, bool $absolute = false</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>$object, $absolute</code></td></tr>
     </table>
 </div>
@@ -1391,7 +1391,7 @@ Carbon::parse('2019-12-30')->isLongIsoYear(); // true</code></pre></p>
     <p class="doc-description">Compares the formatted values of the two dates.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-12-13')); // true
 Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $format, DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$format, $date = null</code></td></tr>
-        <tr><td>Method added</td><td>1.22.0</td><td><code>$format, Carbon\Carbon $date = null</code></td></tr>
+        <tr><td>Method added</td><td>1.22.0</td><td><code>$format, ?Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
 
@@ -1439,7 +1439,7 @@ Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-02-01')); // false
 Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01')); // false
 Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>DateTimeInterface|string $date, bool $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = null, $ofSameYear = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null, $ofSameYear = false</code></td></tr>
-        <tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null, $ofSameYear = false</code></td></tr>
+        <tr><td>Method added</td><td>1.22.0</td><td><code>?Carbon\Carbon $date = null, $ofSameYear = false</code></td></tr>
     </table>
 </div>
 
@@ -1464,7 +1464,7 @@ Carbon::parse('2019-07-17')->isDayOfWeek('Friday'); // false</code></pre></p>
 Carbon::now()->subYears(5)->subDay()->isBirthday(); // false
 Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
 Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.14.0</td><td><code>Carbon\Carbon $date</code></td></tr>
     </table>
 </div>
@@ -2485,7 +2485,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in years</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2505,7 +2505,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in months.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2515,7 +2515,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in weeks.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2525,7 +2525,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false, bool $utc = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in days.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>$date = null, bool $absolute = false, bool $utc = false</code></td></tr><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2535,7 +2535,7 @@ century, millennium</p>
     <code>Closure $callback, $date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in days using a filter closure.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, ?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Closure $callback, ?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.12.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2545,7 +2545,7 @@ century, millennium</p>
     <code>Closure $callback, $date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in hours using a filter closure.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, ?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Closure $callback, ?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.18.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2555,7 +2555,7 @@ century, millennium</p>
     <code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference by the given interval using a filter closure.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, ?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, ?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.18.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2565,7 +2565,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in weekdays.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2575,7 +2575,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in weekend days using a filter.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2585,7 +2585,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in hours.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2595,7 +2595,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in minutes.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2605,7 +2605,7 @@ century, millennium</p>
     <code>$date = null, bool $absolute = false</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in seconds.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>$date = null, bool $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null, $absolute = true</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr>
     </table>
 </div>
@@ -2660,7 +2660,7 @@ echo Carbon::tomorrow()->diffForHumans(['parts' => 2]) . "\n";
 echo Carbon::tomorrow()->diffForHumans(['parts' => 3, 'join' => true]) . "\n";
 echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday()) . "\n";
 echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday(), ['short' => true]) . "\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Prototype changed</td><td>1.25.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $other = null, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>Carbon\Carbon $other = null, $absolute = false, $short = false</code></td></tr><tr><td>Prototype changed</td><td>1.14.0</td><td><code>Carbon\Carbon $other = null, $absolute = false</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Prototype changed</td><td>1.25.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $other = null, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>?Carbon\Carbon $other = null, $absolute = false, $short = false</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $other = null, $absolute = false</code></td></tr><tr><td>Prototype changed</td><td>1.14.0</td><td><code>Carbon\Carbon $other = null, $absolute = false</code></td></tr>
         <tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $other = null</code></td></tr>
     </table>
 </div>
@@ -3093,7 +3093,7 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify the current instance to the average of a given instance (default now) and the current instance
 (second-precision).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.7.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
@@ -3123,7 +3123,7 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the minimum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.8.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
@@ -3133,8 +3133,8 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the minimum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr>
-        <tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null</code></td></tr>
+        <tr><td>Method added</td><td>1.22.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
 
@@ -3143,7 +3143,7 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the maximum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
         <tr><td>Method added</td><td>1.8.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
@@ -3153,8 +3153,8 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the maximum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr>
-        <tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>?self $date = null</code></td></tr>
+        <tr><td>Method added</td><td>1.22.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
 
@@ -3791,7 +3791,7 @@ specifically under the following conditions:
 has no affect as the mock value will be returned regardless of its value.<br><br>Only the moment is mocked with setTestNow(), the timezone will still be the one passed
 as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).<br><br>To clear the test instance call this method using the default
 parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>mixed $testNow = null</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$testNow = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>mixed $testNow = null</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$testNow = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>?Carbon\Carbon $testNow = null</code></td></tr>
         <tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $testNow = null</code></td></tr>
     </table>
 </div>
@@ -5757,7 +5757,7 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
     <code>string $datetime</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Sets up a DateInterval from the relative parts of the string.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $datetime</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$time</code></td></tr><tr><td>Prototype changed</td><td>1.37.1</td><td><code>string $datetime</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.0.0</td><td><code>string $datetime</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$time</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>string $datetime</code></td></tr>
         <tr><td>Method added</td><td>1.18.0</td><td><code>$time</code></td></tr>
     </table>
 </div>
@@ -5918,7 +5918,7 @@ echo CarbonInterval::fromString('1d 24h')->forHumans(['minimumUnit' => 'hour']) 
     <code>string $format</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns the formatted date string on success or FALSE on failure.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.37.1</td><td><code>string $format</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.21.0</td><td><code>string $format</code></td></tr>
         <tr><td>Method added</td><td>1.18.0</td><td><code>$format</code></td></tr>
     </table>
 </div>
@@ -6384,7 +6384,7 @@ CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days
     <code>array $data</code>
     <p class="doc-description">Set locale if specified on unserialize() called.<br><br>Only used by PHP >= 7.4.</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>1.37.1</td><td><code>array $data</code></td></tr>
+        <tr><td>Method added</td><td>1.21.0</td><td><code>array $data</code></td></tr>
     </table>
 </div>
 
@@ -8712,8 +8712,8 @@ Type 3: A timezone identifier, such as Europe/London</p>
     <code>$locale, ?Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false</code>
     <p class="doc-description">Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.37.1</td><td><code>$locale, ?Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false</code></td></tr>
-        <tr><td>Method added</td><td>1.25.0</td><td><code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false</code></td></tr>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>1.25.0</td><td><code>$locale, ?Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false</code></td></tr>
     </table>
 </div>
 
@@ -9249,7 +9249,7 @@ be used for any purpose to show official state names.</p>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.2.0</td><td><code>DateTimeInterface|string $date</code></td></tr><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr>
-        <tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr>
+        <tr><td>Method added</td><td>1.22.0</td><td><code>?Carbon\Carbon $date = null</code></td></tr>
     </table>
 </div>
 
