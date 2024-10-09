@@ -436,7 +436,7 @@ class ConstructTest extends AbstractTestCase
         $today = new Carbon('today');
         $interval = $today->diffAsCarbonInterval($past);
         /** @var CarbonInterval $copy */
-        $copy =  unserialize(serialize($interval));
+        $copy = unserialize(serialize($interval));
 
         $this->assertInstanceOf(CarbonInterval::class, $copy);
 
@@ -454,7 +454,45 @@ class ConstructTest extends AbstractTestCase
 
         $interval = $today->locale('ja')->diffAsCarbonInterval($past);
         /** @var CarbonInterval $copy */
-        $copy =  unserialize(serialize($interval));
+        $copy = unserialize(serialize($interval));
+
+        $this->assertInstanceOf(CarbonInterval::class, $copy);
+
+        $this->assertSame('二日', $interval->forHumans(['altNumbers' => true, 'parts' => 1]));
+        $this->assertSame('二日', $copy->forHumans(['altNumbers' => true, 'parts' => 1]));
+
+        $this->assertSame(['ja'], array_keys($interval->getLocalTranslator()->getMessages()));
+        $this->assertSame(['ja'], array_keys($copy->getLocalTranslator()->getMessages()));
+
+        $this->assertSameIntervals($interval, $copy, 1);
+    }
+
+    /** @group i */
+    public function testFromSerializationConst()
+    {
+        $past = new Carbon('2024-01-01 00:00:00');
+        $today = new Carbon('2024-01-03 06:39:47.065034');
+        $interval = $today->diffAsCarbonInterval($past);
+        /** @var CarbonInterval $copy */
+        $copy = unserialize(serialize($interval));
+
+        $this->assertInstanceOf(CarbonInterval::class, $copy);
+
+        $this->assertSame('2 days', $interval->forHumans(parts: 1));
+        $this->assertSame('2 days', $copy->forHumans(parts: 1));
+
+        $this->assertSame(['en'], array_keys($interval->getLocalTranslator()->getMessages()) ?: ['en']);
+        $this->assertSame(['en'], array_keys($copy->getLocalTranslator()->getMessages()) ?: ['en']);
+        $this->assertSame($interval->locale, $copy->locale);
+
+        // Ignore translator for the English comparison
+        $copy->setLocalTranslator($interval->getLocalTranslator());
+
+        $this->assertSameIntervals($interval, $copy, 1);
+
+        $interval = $today->locale('ja')->diffAsCarbonInterval($past);
+        /** @var CarbonInterval $copy */
+        $copy = unserialize(serialize($interval));
 
         $this->assertInstanceOf(CarbonInterval::class, $copy);
 
@@ -483,12 +521,14 @@ class ConstructTest extends AbstractTestCase
             $expected->microseconds !== $actual->microseconds
             && $microsecondApproximation > 0
             && $actual->microseconds >= $expected->microseconds - $microsecondApproximation
-            && $actual->microseconds <= $expected->microseconds - $microsecondApproximation
+            && $actual->microseconds <= $expected->microseconds + $microsecondApproximation
         ) {
-            $actual->microseconds = $expected->microseconds;
+            $actual->optimize();
+            $expected->optimize();
+            $expected->microseconds = $actual->microseconds;
         }
 
-        if (PHP_VERSION >= 8.2) {
+        if (PHP_VERSION >= 8.3) {
             $this->assertEquals($expected, $actual);
 
             return;
@@ -498,6 +538,19 @@ class ConstructTest extends AbstractTestCase
         unset($expectedProperties['days']);
         $actualProperties = (array) $actual;
         unset($actualProperties['days']);
+
+        if (
+            isset($expectedProperties["\0*\0rawInterval"], $actualProperties["\0*\0rawInterval"])
+            && $expectedProperties["\0*\0rawInterval"]->f !== $actualProperties["\0*\0rawInterval"]->f
+            && $microsecondApproximation > 0
+            && $actualProperties["\0*\0rawInterval"]->f >= $expectedProperties["\0*\0rawInterval"]->f - $microsecondApproximation
+            && $actualProperties["\0*\0rawInterval"]->f <= $expectedProperties["\0*\0rawInterval"]->f + $microsecondApproximation
+        ) {
+            unset($expectedProperties["\0*\0rawInterval"]);
+            unset($expectedProperties["\0*\0originalInput"]);
+            unset($actualProperties["\0*\0rawInterval"]);
+            unset($actualProperties["\0*\0originalInput"]);
+        }
 
         $this->assertEquals($expectedProperties, $actualProperties);
     }

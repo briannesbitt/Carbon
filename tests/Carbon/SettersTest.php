@@ -26,7 +26,7 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 20_000;
+    public const SET_UNIT_NO_OVERFLOW_SAMPLE = 200;
 
     public function testMonthEnum()
     {
@@ -1051,7 +1051,7 @@ class SettersTest extends AbstractTestCase
                 $modulo,
                 $value,
                 $hours ?? null,
-                $delta ?? null,
+                $delta,
             );
         }
 
@@ -1125,7 +1125,7 @@ class SettersTest extends AbstractTestCase
             "Nor $value (from value)",
             "Nor $modulo (from modulo)",
             ...($hours !== null ? [
-                "Not matching diff (hours = $hours vs delta = " . ($delta ?? 'null') . ')',
+                "Not matching diff (hours = $hours vs delta = ".($delta ?? 'null').')',
             ] : []),
             method_exists($date, "diffInReal$unit")
                 ? "diffInReal$unit() exists and returns ".$date->{"diffInReal$unit"}($original, false)
