@@ -1,0 +1,57 @@
+name: Documentation
+
+on:
+  schedule:
+    - cron: '0 0 15 * *'
+
+jobs:
+  sponsors:
+    name: Update documentation
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        shell: bash
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "documentation-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "documentation-${{ hashFiles('**/composer.json') }}"
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: composer update --prefer-dist --no-progress --prefer-stable
+
+      - name: Update sponsors on readme.md
+        run: composer release
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: job/update-documentation
+          commit-message: Update documentation
+          title: Update documentation
+          body: Monthly automated documentation update
+          assignees: kylekatarnls
+          reviewers: kylekatarnls
+          add-paths: :!history.json
