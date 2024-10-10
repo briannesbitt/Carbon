@@ -1,15 +1,11 @@
 name: Sponsors
 
 on:
-  push:
-    branches: [ '**' ]
-  pull_request:
-    branches: [ '**' ]
   schedule:
-    - '0 0 15 * *'
+    - cron: '0 0 15 * *'
 
 jobs:
-  tests:
+  sponsors:
     name: Update readme
 
     runs-on: ubuntu-latest
@@ -17,6 +13,8 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+        with:
+          ref: master
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -44,11 +42,17 @@ jobs:
           max_attempts: 3
           command: composer update --prefer-dist --no-progress --prefer-stable
 
-      - name: Run test suite
+      - name: Update sponsors on readme.md
         run: composer sponsors
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          branch: job/update-sponsors
+          commit-message: Update sponsors
+          title: Update sponsors
+          body: Monthly automated sponsors update
+          assignees: kylekatarnls
+          reviewers: kylekatarnls
           add-paths: |
             readme.md
