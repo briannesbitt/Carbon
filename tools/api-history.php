@@ -258,7 +258,7 @@ function getMethodsOfVersion($version, bool $forceRebuild = false)
 
     $branch = $version === MASTER_VERSION ? MASTER_BRANCH : $version;
     $baseDir = dirname(__DIR__);
-    $sandboxDir = $baseDir . DIRECTORY_SEPARATOR . 'sandbox';
+    $sandboxDir = $baseDir.DIRECTORY_SEPARATOR.'sandbox';
     removeDirectory($sandboxDir);
     mkdir($sandboxDir);
     chdir($sandboxDir);
