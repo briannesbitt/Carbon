@@ -724,7 +724,10 @@
                                         backer: 5,
                                     })[member.status] || 3;
 
-                                    if (['onlinekasyno-polis.pl'].indexOf((new URL(href)).host) === -1) {
+                                    if ([
+                                        'onlinekasyno-polis.pl',
+                                        'zonaminecraft.net',
+                                    ].indexOf((new URL(href)).host) === -1) {
                                         href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
                                     }
 
