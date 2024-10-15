@@ -501,7 +501,7 @@ $date = Carbon::now()->locale('xx', 'xy', 'es')->sub('3 days 6 hours 40 minutes'
     </p>
 
     <p>In the example above, it will try to find translations in "xx" in priority, then in "xy" if missing, then in "es",
-        so here, you get "Xday" from "xx", "Yday" from "xy", and "hace" and "minutos" from "es".</p>
+        so here, you get "Xday" from "xx", "Yhour" from "xy", and "hace" and "minutos" from "es".</p>
 
     <p>Note that you can also use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
         given translator implements <a
