@@ -267,8 +267,8 @@ Carbon::macro('describeIsoFormat', static function (string $code): string {
 
 function getAllBackers(): array
 {
-    $data = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
-    $data[] = [
+    $members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
+    $members[] = [
         'MemberId' => 1,
         'createdAt' => '2019-01-01 02:00',
         'type' => 'ORGANIZATION',
@@ -282,8 +282,25 @@ function getAllBackers(): array
         'profile' => 'https://tidelift.com/',
         'name' => 'Tidelift',
         'description' => 'Get professional support for Carbon',
-        'image' => '/tidelift-brand.png',
+        'image' => '/docs/sponsors/tidelift-brand.png',
         'website' => 'https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs',
+    ];
+    $members[] = [
+        'MemberId' => 2,
+        'createdAt' => '2024-11-07 02:00',
+        'type' => 'ORGANIZATION',
+        'role' => 'BACKER',
+        'tier' => 'backer+ yearly',
+        'isActive' => true,
+        'totalAmountDonated' => 170,
+        'currency' => 'USD',
+        'lastTransactionAt' => '2024-11-07 02:00',
+        'lastTransactionAmount' => 170,
+        'profile' => 'https://www.slotozilla.com/nz/free-spins',
+        'name' => 'Slotozilla',
+        'description' => 'Slotozilla website',
+        'image' => '/docs/sponsors/slotozilla.png',
+        'website' => 'https://www.slotozilla.com/nz/free-spins',
     ];
 
     return array_map(static function (array $member) {
@@ -296,21 +313,30 @@ function getAllBackers(): array
                 ->modify($lastTransactionAt->format('H:i:s.u'));
         }
 
-        $monthlyContribution = (float) ($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()));
+        $isYearly = str_contains(strtolower($member['tier'] ?? ''), 'yearly');
+        $monthlyContribution = (float) ($isYearly && $lastTransactionAt > CarbonImmutable::parse('-1 year')
+            ? ($member['lastTransactionAmount'] / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
+            : ($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()))
+        );
 
-        if (
-            $lastTransactionAt->isAfter('last month') &&
-            $member['lastTransactionAmount'] > $monthlyContribution
-        ) {
-            $monthlyContribution = (float) $member['lastTransactionAmount'];
+        if (!$isYearly) {
+            if (
+                $lastTransactionAt->isAfter('last month') &&
+                $member['lastTransactionAmount'] > $monthlyContribution
+            ) {
+                $monthlyContribution = (float) $member['lastTransactionAmount'];
+            }
+
+            if ($lastTransactionAt->isBefore('-75 days')) {
+                $days = min(120, $lastTransactionAt->diffInDays('now') - 70);
+                $monthlyContribution *= 1 - $days / 240;
+            }
         }
 
-        if ($lastTransactionAt->isBefore('-75 days')) {
-            $days = min(120, $lastTransactionAt->diffInDays('now') - 70);
-            $monthlyContribution *= 1 - $days / 240;
-        }
-
-        $yearlyContribution = (float) ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()));
+        $yearlyContribution = (float) ($isYearly
+            ? (12 * $monthlyContribution)
+            : ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()))
+        );
         $status = null;
         $rank = 0;
 
@@ -338,7 +364,7 @@ function getAllBackers(): array
             'monthlyContribution' => $monthlyContribution,
             'yearlyContribution' => $yearlyContribution,
         ]);
-    }, $data);
+    }, $members);
 }
 
 function getOpenCollective(string $status): string
@@ -431,7 +457,7 @@ function genHtml(string $page, string $out, string $jumbotron = ''): void
     $html = str_replace('#{menu}', $menu, $html);
     $html = str_replace('#{scripts}', $scripts, $html);
     $html = str_replace('#{openCollectiveSponsors}', getOpenCollective('sponsor'), $html);
-    $html = str_replace('#{openCollectiveBackers}', getOpenCollective('backer'), $html);
+    $html = str_replace('#{openCollectiveBackers}', getOpenCollective('backerPlus').getOpenCollective('backer'), $html);
     $html = str_replace('#{openCollectiveHelpers}', getOpenCollective('helper'), $html);
 
     writeFileAtPath($out, cleanupHtml($html));
