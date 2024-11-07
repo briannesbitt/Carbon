@@ -705,6 +705,48 @@ echo 6;              // 6
 
             if ($('.open-collective-list').length) {
                 $.getJSON('https://opencollective.com/carbon/members/all.json', function (members) {
+                    var date = new Date();
+                    var lastYear = new Date();
+
+                    if (lastYear.getMonth() === 1 && lastYear.getDate() === 29) {
+                        lastYear.setDate(28);
+                    }
+                    lastYear.setFullYear(lastYear.getFullYear() - 1);
+
+                    members.push({
+                        'MemberId': 1,
+                        'createdAt': '2019-01-01 02:00',
+                        'type': 'ORGANIZATION',
+                        'role': 'BACKER',
+                        'tier': 'backer+',
+                        'isActive': true,
+                        'totalAmountDonated': 1000,
+                        'currency': 'USD',
+                        'lastTransactionAt': date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' 02:00',
+                        'lastTransactionAmount': 25,
+                        'profile': 'https://tidelift.com/',
+                        'name': 'Tidelift',
+                        'description': 'Get professional support for Carbon',
+                        'image': '/docs/sponsors/tidelift-brand.png',
+                        'website': 'https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs',
+                    });
+                    members.push({
+                        'MemberId': 2,
+                        'createdAt': '2024-11-07 02:00',
+                        'type': 'ORGANIZATION',
+                        'role': 'BACKER',
+                        'tier': 'backer+ yearly',
+                        'isActive': true,
+                        'totalAmountDonated': 170,
+                        'currency': 'USD',
+                        'lastTransactionAt': '2024-11-07 02:00',
+                        'lastTransactionAmount': 170,
+                        'profile': 'https://www.slotozilla.com/nz/free-spins',
+                        'name': 'Slotozilla',
+                        'description': 'Slotozilla website',
+                        'image': '/docs/sponsors/slotozilla.png',
+                        'website': 'https://www.slotozilla.com/nz/free-spins',
+                    });
                     members.forEach(function (member) {
                         var createdAt = new Date(member.createdAt);
                         var lastTransactionAt = new Date(member.lastTransactionAt);
@@ -725,28 +767,37 @@ echo 6;              // 6
                             monthDiff--;
                         }
 
-                        var monthlyContribution = member.totalAmountDonated / (1 + monthDiff);
-                        var lastMonth = new Date(now.getTime());
-                        lastMonth.setMonth(currentMonth);
+                        var isYearly = ((member.tier || '').toLowerCase().indexOf('yearly') !== -1);
 
-                        // Overflow
-                        while (lastMonth.getMonth() === currentMonth) {
-                            lastMonth.setDate(lastMonth.getDate() - 1);
+                        var monthlyContribution = (isYearly && lastTransactionAt.getTime() > lastYear.getTime())
+                            ? (member.lastTransactionAmount / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
+                            : (member.totalAmountDonated / (1 + monthDiff));
+
+                        if (!isYearly) {
+                            var lastMonth = new Date(now.getTime());
+                            lastMonth.setMonth(currentMonth);
+
+                            // Overflow
+                            while (lastMonth.getMonth() === currentMonth) {
+                                lastMonth.setDate(lastMonth.getDate() - 1);
+                            }
+
+                            if (lastTransactionAt.getTime() > lastMonth.getTime() &&
+                                member.lastTransactionAmount > monthlyContribution
+                            ) {
+                                monthlyContribution = member.lastTransactionAmount;
+                            }
+
+                            var yearDiff = now.getFullYear() - createdAt.getFullYear();
+
+                            if (currentMonth * 31 + now.getDate() < createdAt.getMonth() * 31 + createdAt.getDate()) {
+                                yearDiff--;
+                            }
                         }
 
-                        if (lastTransactionAt.getTime() > lastMonth.getTime() &&
-                            member.lastTransactionAmount > monthlyContribution
-                        ) {
-                            monthlyContribution = member.lastTransactionAmount;
-                        }
-
-                        var yearDiff = now.getFullYear() - createdAt.getFullYear();
-
-                        if (currentMonth * 31 + now.getDate() < createdAt.getMonth() * 31 + createdAt.getDate()) {
-                            yearDiff--;
-                        }
-
-                        var yearlyContribution = member.totalAmountDonated / Math.max(1, yearDiff);
+                        var yearlyContribution = isYearly
+                            ? (12 * monthlyContribution)
+                            : (member.totalAmountDonated / Math.max(1, yearDiff));
                         var status = null;
 
                         if (monthlyContribution > 29) {
