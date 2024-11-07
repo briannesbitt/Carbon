@@ -423,4 +423,12 @@ class SettersTest extends AbstractTestCase
         $d->setMidDayAt(12);
         $this->assertSame(12, $d->getMidDayAt());
     }
+
+    public function testSetUnitNoOverflowFebruary()
+    {
+        $d = Carbon::parse('2024-02-29')->setUnitNoOverFlow('day', 31, 'month');
+
+        $this->assertInstanceOf(Carbon::class, $d);
+        $this->assertSame('2024-02-29 23:59:59.999999', $d->format('Y-m-d H:i:s.u'));
+    }
 }
