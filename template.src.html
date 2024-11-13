@@ -777,7 +777,8 @@
                                     if ([
                                         'onlinekasyno-polis.pl',
                                         'zonaminecraft.net',
-                                    ].indexOf((new URL(href)).host) === -1) {
+                                        'slotozilla.com',
+                                    ].indexOf((new URL(href)).host.replace(/^www\./, '')) === -1) {
                                         href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
                                     }
 
