@@ -65,14 +65,14 @@ function getOpenCollectiveSponsors(): string
     ];
     $members[] = [
         'MemberId' => 2,
-        'createdAt' => '2024-11-07 02:00',
+        'createdAt' => '2024-11-14 02:00',
         'type' => 'ORGANIZATION',
         'role' => 'BACKER',
         'tier' => 'backer+ yearly',
         'isActive' => true,
         'totalAmountDonated' => 170,
         'currency' => 'USD',
-        'lastTransactionAt' => '2024-11-07 02:00',
+        'lastTransactionAt' => '2024-11-14 02:00',
         'lastTransactionAmount' => 170,
         'profile' => 'https://www.slotozilla.com/nz/free-spins',
         'name' => 'Slotozilla',
@@ -187,7 +187,7 @@ function getOpenCollectiveSponsors(): string
 
         $width = min($height * 2, $validImage ? round($x * $height / $y) : $height);
 
-        if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/onlinekasyno-polis\.pl(\/.*)?$/', $href)) {
+        if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/(?:www\.)?(?:onlinekasyno-polis\.pl|zonaminecraft\.net|slotozilla\.com)(\/.*)?/', $href)) {
             $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
         }
 
