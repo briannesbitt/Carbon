@@ -314,7 +314,8 @@ function getAllBackers(): array
         }
 
         $isYearly = str_contains(strtolower($member['tier'] ?? ''), 'yearly');
-        $monthlyContribution = (float) ($isYearly && $lastTransactionAt > CarbonImmutable::parse('-1 year')
+        $monthlyContribution = (float) (
+            $isYearly && $lastTransactionAt > CarbonImmutable::parse('-1 year')
             ? ($member['lastTransactionAmount'] / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
             : ($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()))
         );
@@ -333,7 +334,8 @@ function getAllBackers(): array
             }
         }
 
-        $yearlyContribution = (float) ($isYearly
+        $yearlyContribution = (float) (
+            $isYearly
             ? (12 * $monthlyContribution)
             : ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()))
         );
