@@ -13,6 +13,4 @@
  * Authors:
  * - RAP    bug-glibc-locales@gnu.org
  */
-return array_replace_recursive(require __DIR__.'/fr.php', [
-    'months_short' => ['jan', 'fév', 'mar', 'avr', 'mai', 'jun', 'jui', 'aoû', 'sep', 'oct', 'nov', 'déc'],
-]);
+return require __DIR__.'/fr.php';
