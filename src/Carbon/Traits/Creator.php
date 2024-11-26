@@ -205,9 +205,13 @@ trait Creator
      * @throws InvalidFormatException
      */
     public static function parse(
-        DateTimeInterface|WeekDay|Month|string|int|float|null $time,
+        DateTimeInterface|WeekDay|Month|string|int|float|bool|null $time,
         DateTimeZone|string|int|null $timezone = null,
     ): static {
+        if (\is_bool($time)) {
+            $time = (string) $time;
+        }
+
         $function = static::$parseFunction;
 
         if (!$function) {
