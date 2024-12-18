@@ -104,6 +104,7 @@ return [
     'months' => ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince'],
     'months_standalone' => ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'],
     'months_short' => ['led', 'úno', 'bře', 'dub', 'kvě', 'čvn', 'čvc', 'srp', 'zář', 'říj', 'lis', 'pro'],
+    'months_regexp' => '/(DD?o?\.?(\[[^\[\]]*\]|\s)+MMMM?|L{2,4}|l{2,4})/',
     'weekdays' => ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'],
     'weekdays_short' => ['ned', 'pon', 'úte', 'stř', 'čtv', 'pát', 'sob'],
     'weekdays_min' => ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'],
