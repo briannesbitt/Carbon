@@ -157,6 +157,8 @@ abstract class AbstractTranslator extends Translation\Translator
             return true;
         }
 
+        $this->assertValidLocale($locale);
+
         foreach ($this->getDirectories() as $directory) {
             $data = @include \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
 
