@@ -21,8 +21,8 @@
     ],
     "homepage": "https://carbon.nesbot.com",
     "support": {
-        "issues": "https://github.com/briannesbitt/Carbon/issues",
-        "source": "https://github.com/briannesbitt/Carbon",
+        "issues": "https://github.com/CarbonPHP/carbon/issues",
+        "source": "https://github.com/CarbonPHP/carbon",
         "docs": "https://carbon.nesbot.com/docs"
     },
     "funding": [
