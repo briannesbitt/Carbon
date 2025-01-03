@@ -901,6 +901,8 @@ class CreateTest extends AbstractTestCase
 
     public function testStartAndEndFallback()
     {
+        Carbon::setTestNow('2024-06-15');
+
         $this->assertSame([
             '2024-09-01',
             '2024-09-30',
