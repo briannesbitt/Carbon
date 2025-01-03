@@ -49,28 +49,28 @@ use Throwable;
  * The implementation provides helpers to handle weeks but only days are saved.
  * Weeks are calculated based on the total days of the current instance.
  *
- * @property int $years Total years of the current interval.
- * @property int $months Total months of the current interval.
- * @property int $weeks Total weeks of the current interval calculated from the days.
- * @property int $dayz Total days of the current interval (weeks * 7 + days).
- * @property int $hours Total hours of the current interval.
- * @property int $minutes Total minutes of the current interval.
- * @property int $seconds Total seconds of the current interval.
- * @property int $microseconds Total microseconds of the current interval.
- * @property int $milliseconds Total milliseconds of the current interval.
+ * @property int $years Year component of the current interval. (For P2Y6M, the value will be 2)
+ * @property int $months Month component of the current interval. (For P1Y6M10D, the value will be 6)
+ * @property int $weeks Week component of the current interval calculated from the days. (For P1Y6M17D, the value will be 2)
+ * @property int $dayz Day component of the current interval (weeks * 7 + days). (For P6M17DT20H, the value will be 17)
+ * @property int $hours Hour component of the current interval. (For P7DT20H5M, the value will be 20)
+ * @property int $minutes Minute component of the current interval. (For PT20H5M30S, the value will be 5)
+ * @property int $seconds Second component of the current interval. (CarbonInterval::minutes(2)->seconds(34)->microseconds(567_890)->seconds = 34)
+ * @property int $milliseconds Milliseconds component of the current interval. (CarbonInterval::seconds(34)->microseconds(567_890)->milliseconds = 567)
+ * @property int $microseconds Microseconds component of the current interval. (CarbonInterval::seconds(34)->microseconds(567_890)->microseconds = 567_890)
  * @property int $microExcludeMilli Remaining microseconds without the milliseconds.
  * @property int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property int $daysExcludeWeeks alias of dayzExcludeWeeks
- * @property-read float $totalYears Number of years equivalent to the interval.
- * @property-read float $totalMonths Number of months equivalent to the interval.
- * @property-read float $totalWeeks Number of weeks equivalent to the interval.
- * @property-read float $totalDays Number of days equivalent to the interval.
+ * @property-read float $totalYears Number of years equivalent to the interval. (For P1Y6M, the value will be 1.5)
+ * @property-read float $totalMonths Number of months equivalent to the interval. (For P1Y6M10D, the value will be ~12.357)
+ * @property-read float $totalWeeks Number of weeks equivalent to the interval. (For P6M17DT20H, the value will be ~26.548)
+ * @property-read float $totalDays Number of days equivalent to the interval. (For P17DT20H, the value will be ~17.833)
  * @property-read float $totalDayz Alias for totalDays.
- * @property-read float $totalHours Number of hours equivalent to the interval.
- * @property-read float $totalMinutes Number of minutes equivalent to the interval.
- * @property-read float $totalSeconds Number of seconds equivalent to the interval.
- * @property-read float $totalMilliseconds Number of milliseconds equivalent to the interval.
- * @property-read float $totalMicroseconds Number of microseconds equivalent to the interval.
+ * @property-read float $totalHours Number of hours equivalent to the interval. (For P1DT20H5M, the value will be ~44.083)
+ * @property-read float $totalMinutes Number of minutes equivalent to the interval. (For PT20H5M30S, the value will be 1205.5)
+ * @property-read float $totalSeconds Number of seconds equivalent to the interval. (CarbonInterval::minutes(2)->seconds(34)->microseconds(567_890)->totalSeconds = 154.567_890)
+ * @property-read float $totalMilliseconds Number of milliseconds equivalent to the interval. (CarbonInterval::seconds(34)->microseconds(567_890)->totalMilliseconds = 34567.890)
+ * @property-read float $totalMicroseconds Number of microseconds equivalent to the interval. (CarbonInterval::seconds(34)->microseconds(567_890)->totalMicroseconds = 34567890)
  * @property-read string $locale locale of the current instance
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years or modify the number of years if called on an instance.
