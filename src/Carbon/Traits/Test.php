@@ -200,7 +200,7 @@ trait Test
             : $testInstance->format(static::MOCK_DATETIME_FORMAT);
     }
 
-    private static function setDefaultTimezone($timezone, DateTimeInterface $date = null)
+    private static function setDefaultTimezone($timezone, ?DateTimeInterface $date = null)
     {
         $previous = null;
         $success = false;
