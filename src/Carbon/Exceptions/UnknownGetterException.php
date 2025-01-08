@@ -30,7 +30,7 @@ class UnknownGetterException extends BaseInvalidArgumentException implements Inv
      * @param int            $code
      * @param Throwable|null $previous
      */
-    public function __construct($getter, $code = 0, Throwable $previous = null)
+    public function __construct($getter, $code = 0, ?Throwable $previous = null)
     {
         $this->getter = $getter;
 

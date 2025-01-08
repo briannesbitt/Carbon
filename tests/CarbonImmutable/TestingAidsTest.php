@@ -23,7 +23,7 @@ use Tests\AbstractTestCase;
 
 class TestingAidsTest extends AbstractTestCase
 {
-    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
+    public function wrapWithTestNow(Closure $func, ?CarbonInterface $dt = null)
     {
         Carbon::setTestNow($dt ?: Carbon::now());
         $func();

@@ -20,7 +20,7 @@ class TranslatorImmutable extends Translator
     /** @var bool */
     private $constructed = false;
 
-    public function __construct($locale, MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
+    public function __construct($locale, ?MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
         parent::__construct($locale, $formatter, $cacheDir, $debug);
         $this->constructed = true;

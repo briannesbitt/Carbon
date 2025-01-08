@@ -74,6 +74,8 @@ jobs:
           - php: 8.3
             setup: lowest
 
+          - php: 8.4
+
           - php: 8.1
             laravel: true
             reference: 10.x
@@ -84,6 +86,14 @@ jobs:
             classmap-authoritative: true
 
           - php: 8.2
+            laravel: true
+            reference: master
+
+          - php: 8.3
+            laravel: true
+            reference: master
+
+          - php: 8.4
             laravel: true
             reference: master
 
@@ -148,7 +158,7 @@ jobs:
             if [[ "${{ matrix.laravel }}" != 'true' ]]; then
               composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev;
             fi;
-            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction --dev;' || '' }}
+            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.6.21 --no-interaction --dev;' || '' }}
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
 
       - name: Run test suite
@@ -230,6 +240,8 @@ jobs:
           - php: 8.3
             setup: lowest
 
+          - php: 8.4
+
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 
     steps:
@@ -263,7 +275,7 @@ jobs:
           max_attempts: 3
           command: |
             composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev;
-            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.5.20 --no-interaction --dev;' || '' }}
+            ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^9.6.21 --no-interaction --dev;' || '' }}
             composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }}${{ matrix.php >= 8.2 && ' --ignore-platform-reqs' || '' }};
 
       - name: Run test suite

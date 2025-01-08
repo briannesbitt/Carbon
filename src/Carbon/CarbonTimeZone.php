@@ -155,7 +155,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return string
      */
-    public function toOffsetName(DateTimeInterface $date = null)
+    public function toOffsetName(?DateTimeInterface $date = null)
     {
         return static::getOffsetNameFromMinuteOffset(
             $this->getOffset($date ?: Carbon::now($this)) / 60
@@ -169,7 +169,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return CarbonTimeZone
      */
-    public function toOffsetTimeZone(DateTimeInterface $date = null)
+    public function toOffsetTimeZone(?DateTimeInterface $date = null)
     {
         return new static($this->toOffsetName($date));
     }
@@ -185,7 +185,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return string|false
      */
-    public function toRegionName(DateTimeInterface $date = null, $isDst = 1)
+    public function toRegionName(?DateTimeInterface $date = null, $isDst = 1)
     {
         $name = $this->getName();
         $firstChar = substr($name, 0, 1);
@@ -227,7 +227,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @return CarbonTimeZone|false
      */
-    public function toRegionTimeZone(DateTimeInterface $date = null)
+    public function toRegionTimeZone(?DateTimeInterface $date = null)
     {
         $tz = $this->toRegionName($date);
 

@@ -24,7 +24,7 @@ use Tests\AbstractTestCase;
 
 class DiffTest extends AbstractTestCase
 {
-    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
+    public function wrapWithTestNow(Closure $func, ?CarbonInterface $dt = null)
     {
         parent::wrapWithTestNow($func, $dt ?: Carbon::createFromDate(2012, 1, 1));
     }

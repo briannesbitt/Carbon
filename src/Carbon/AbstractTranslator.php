@@ -78,7 +78,7 @@ abstract class AbstractTranslator extends Translation\Translator
         return static::$singletons[$key];
     }
 
-    public function __construct($locale, MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
+    public function __construct($locale, ?MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
         parent::setLocale($locale);
         $this->initializing = true;
@@ -162,7 +162,7 @@ abstract class AbstractTranslator extends Translation\Translator
         $this->assertValidLocale($locale);
 
         foreach ($this->getDirectories() as $directory) {
-            $data = @include sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+            $data = @include \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
 
             if ($data !== false) {
                 $this->messages[$locale] = $data;

@@ -444,7 +444,7 @@ trait Localization
      *
      * @return $this|string
      */
-    public function locale(string $locale = null, ...$fallbackLocales)
+    public function locale(?string $locale = null, ...$fallbackLocales)
     {
         if ($locale === null) {
             return $this->getTranslatorLocale();

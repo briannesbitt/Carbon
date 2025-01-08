@@ -939,7 +939,7 @@ trait Date
                 return $this->hour ?: 24;
             // @property int
             case $name === 'milliseconds':
-                // @property int
+            // @property int
             case $name === 'millisecond':
             // @property int
             case $name === 'milli':
@@ -1132,7 +1132,7 @@ trait Date
     public function set($name, $value = null)
     {
         if ($this->isImmutable()) {
-            throw new ImmutableException(sprintf('%s class', static::class));
+            throw new ImmutableException(\sprintf('%s class', static::class));
         }
 
         if (\is_array($name)) {
@@ -1391,7 +1391,7 @@ trait Date
      *
      * @return int
      */
-    public function getDaysFromStartOfWeek(int $weekStartsAt = null): int
+    public function getDaysFromStartOfWeek(?int $weekStartsAt = null): int
     {
         $firstDay = (int) ($weekStartsAt ?? $this->getTranslationMessage('first_day_of_week') ?? 0);
 
@@ -1409,7 +1409,7 @@ trait Date
      *
      * @return static
      */
-    public function setDaysFromStartOfWeek(int $numberOfDays, int $weekStartsAt = null)
+    public function setDaysFromStartOfWeek(int $numberOfDays, ?int $weekStartsAt = null)
     {
         return $this->addDays($numberOfDays - $this->getDaysFromStartOfWeek($weekStartsAt));
     }
@@ -1478,7 +1478,7 @@ trait Date
      *
      * @return int|static
      */
-    public function utcOffset(int $minuteOffset = null)
+    public function utcOffset(?int $minuteOffset = null)
     {
         if (\func_num_args() < 1) {
             return $this->offsetMinutes;
@@ -2453,7 +2453,7 @@ trait Date
                 }
             }
             if (static::isStrictModeEnabled()) {
-                throw new UnknownMethodException(sprintf('%s::%s', static::class, $method));
+                throw new UnknownMethodException(\sprintf('%s::%s', static::class, $method));
             }
 
             return null;
