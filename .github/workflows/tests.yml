@@ -75,8 +75,6 @@ jobs:
             setup: lowest
 
           - php: 8.4
-          - php: 8.4
-            setup: lowest
 
           - php: 8.1
             laravel: true
@@ -88,6 +86,14 @@ jobs:
             classmap-authoritative: true
 
           - php: 8.2
+            laravel: true
+            reference: master
+
+          - php: 8.3
+            laravel: true
+            reference: master
+
+          - php: 8.4
             laravel: true
             reference: master
 
@@ -235,8 +241,6 @@ jobs:
             setup: lowest
 
           - php: 8.4
-          - php: 8.4
-            setup: lowest
 
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 
