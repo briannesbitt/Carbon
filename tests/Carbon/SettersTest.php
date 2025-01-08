@@ -241,7 +241,7 @@ class SettersTest extends AbstractTestCase
         $d->timestamp = 1600887164.88952298;
         $this->assertSame('2020-09-23 14:52:44.889523', $d->format('Y-m-d H:i:s.u'));
 
-        $d->setTimestamp(1599828571.23561248);
+        $d->setTimestamp(1599828571.235612);
         $this->assertSame('2020-09-11 08:49:31.235612', $d->format('Y-m-d H:i:s.u'));
 
         $d->timestamp = '0.88951247 1600887164';

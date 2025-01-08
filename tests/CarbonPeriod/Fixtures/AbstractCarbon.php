@@ -82,4 +82,10 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     {
         return parent::createFromFormat($format, $time, $tz);
     }
+
+    #[ReturnTypeWillChange]
+    public static function createFromTimestamp($timestamp, $tz = null)
+    {
+        return parent::createFromTimestamp($timestamp, $tz);
+    }
 }
