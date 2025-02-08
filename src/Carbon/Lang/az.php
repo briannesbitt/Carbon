@@ -35,7 +35,7 @@ return [
     'd' => ':count g.',
     'hour' => ':count saat',
     'a_hour' => '{1}bir saat|]1,Inf[:count saat',
-    'h' => ':count saat',
+    'h' => ':count s.',
     'minute' => ':count dəqiqə',
     'a_minute' => '{1}bir dəqiqə|]1,Inf[:count dəqiqə',
     'min' => ':count d.',
