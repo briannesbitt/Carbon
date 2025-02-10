@@ -227,35 +227,35 @@ class AzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago'
-        '1 san. əvvəl',
+        '1 saniyə əvvəl',
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        '1 saniyə əvvəl',
+        '1 san. əvvəl',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
-        '2 san. əvvəl',
+        '2 saniyə əvvəl',
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
-        '2 saniyə əvvəl',
+        '2 san. əvvəl',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
-        '1 d. əvvəl',
+        '1 dəqiqə əvvəl',
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        '1 dəqiqə əvvəl',
+        '1 d. əvvəl',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
-        '2 d. əvvəl',
+        '2 dəqiqə əvvəl',
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
-        '2 dəqiqə əvvəl',
+        '2 d. əvvəl',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
@@ -263,7 +263,7 @@ class AzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        '1 saat əvvəl',
+        '1 s. əvvəl',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
@@ -271,7 +271,7 @@ class AzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
-        '2 saat əvvəl',
+        '2 s. əvvəl',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
@@ -339,55 +339,55 @@ class AzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
-        '1 san. sonra',
+        '1 saniyə sonra',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        '1 saniyə sonra',
+        '1 san. sonra',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
-        '1 san. sonra',
+        '1 saniyə sonra',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        '1 saniyə sonra',
+        '1 san. sonra',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
-        '1 san. əvvəl',
+        '1 saniyə əvvəl',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 saniyə əvvəl',
+        '1 san. əvvəl',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
-        '1 san.',
+        '1 saniyə',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1 saniyə',
+        '1 san.',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
-        '2 san.',
+        '2 saniyə',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2 saniyə',
+        '2 san.',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        '1 saniyə sonra',
+        '1 san. sonra',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
-        '1 d. 1 san.',
+        '1 dəqiqə 1 saniyə',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 il 3 ay 1 g. 1 saniyə',
+        '2 il 3 ay 1 g. 1 san.',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -399,7 +399,7 @@ class AzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        '2 il 3 ay 1 g. 1 saniyə əvvəl',
+        '2 il 3 ay 1 g. 1 san. əvvəl',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -431,6 +431,6 @@ class AzCyrlTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1 g. 3 saat',
+        '1 g. 3 s.',
     ];
 }
