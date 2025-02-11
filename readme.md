@@ -165,11 +165,13 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="Türkiye&#039;nin en iyi kompozisyon örnekleri sitesi." href="https://www.kompozisyontv.com.tr/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="KompozisyonTV" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/417bc2c4-6397-4ec4-ad47-f500665562cc/sociale.jpg" width="42" height="42"></a><!-- </open-collective-sponsors> -->
 
 [[See all](https://carbon.nesbot.com/#sponsors)]
-[[Become a sponsor via OpenCollective](https://opencollective.com/Carbon#sponsor)]
+[[Become a sponsor via OpenCollective*](https://opencollective.com/Carbon#sponsor)]
 
 <a href="https://github.com/ssddanbrown" target="_blank"><img src="https://avatars.githubusercontent.com/u/8343178?s=128&v=4" width="42" height="42"></a>
 
-[[Become a sponsor via GitHub](https://github.com/sponsors/kylekatarnls)]
+[[Become a sponsor via GitHub*](https://github.com/sponsors/kylekatarnls)]
+
+<small>* This is a donation. No goods or services are expected in return. Any requests for refunds for those purposes will be rejected.</small>
 
 ### Backers
 
