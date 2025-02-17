@@ -26,9 +26,9 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     ],
     'months' => ['Ýanwar', 'Fewral', 'Mart', 'Aprel', 'Maý', 'Iýun', 'Iýul', 'Awgust', 'Sentýabr', 'Oktýabr', 'Noýabr', 'Dekabr'],
     'months_short' => ['Ýan', 'Few', 'Mar', 'Apr', 'Maý', 'Iýn', 'Iýl', 'Awg', 'Sen', 'Okt', 'Noý', 'Dek'],
-    'weekdays' => ['Duşenbe', 'Sişenbe', 'Çarşenbe', 'Penşenbe', 'Anna', 'Şenbe', 'Ýekşenbe'],
-    'weekdays_short' => ['Duş', 'Siş', 'Çar', 'Pen', 'Ann', 'Şen', 'Ýek'],
-    'weekdays_min' => ['Du', 'Si', 'Ça', 'Pe', 'An', 'Şe', 'Ýe'],
+    'weekdays' => ['Ýekşenbe', 'Duşenbe', 'Sişenbe', 'Çarşenbe', 'Penşenbe', 'Anna', 'Şenbe'],
+    'weekdays_short' => ['Ýek', 'Duş', 'Siş', 'Çar', 'Pen', 'Ann', 'Şen'],
+    'weekdays_min' => ['Ýe', 'Du', 'Si', 'Ça', 'Pe', 'An', 'Şe'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
 
