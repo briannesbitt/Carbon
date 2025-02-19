@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/nesbot/carbon.svg?style=flat-square)](https://packagist.org/packages/nesbot/carbon)
 [![Total Downloads](https://img.shields.io/packagist/dt/nesbot/carbon.svg?style=flat-square)](https://packagist.org/packages/nesbot/carbon)
 [![GitHub Actions](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fbriannesbitt%2FCarbon%2Fbadge&style=flat-square&label=Build&logo=none)](https://github.com/CarbonPHP/carbon/actions)
-[![codecov.io](https://img.shields.io/codecov/c/github/briannesbitt/Carbon.svg?style=flat-square)](https://codecov.io/github/CarbonPHP/carbon/actions?branch=master)
+[![codecov.io](https://img.shields.io/codecov/c/github/CarbonPHP/carbon.svg?style=flat-square)](https://codecov.io/github/CarbonPHP/carbon/actions?branch=master)
 
 An international PHP extension for DateTime. [https://carbon.nesbot.com](https://carbon.nesbot.com)
 
@@ -89,7 +89,7 @@ printf("Now: %s", Carbon::now());
 
 ### Without Composer
 
-Why are you not using [composer](https://getcomposer.org/)? Download the Carbon [latest release](https://github.com/briannesbitt/Carbon/releases) and put the contents of the ZIP archive into a directory in your project. Then require the file `autoload.php` to get all classes and dependencies loaded on need.
+Why are you not using [composer](https://getcomposer.org/)? Download the Carbon [latest release](https://github.com/CarbonPHP/carbon/releases) and put the contents of the ZIP archive into a directory in your project. Then require the file `autoload.php` to get all classes and dependencies loaded on need.
 
 ```php
 <?php
@@ -116,7 +116,7 @@ Tidelift will coordinate the fix and disclosure.
 
 This project exists thanks to all the people who contribute. 
 
-<a href="https://github.com/briannesbitt/Carbon/graphs/contributors" target="_blank"><img src="https://opencollective.com/Carbon/contributors.svg?width=890&button=false" /></a>
+<a href="https://github.com/CarbonPHP/carbon/graphs/contributors" target="_blank"><img src="https://opencollective.com/Carbon/contributors.svg?width=890&button=false" /></a>
 
 ### Translators
 
