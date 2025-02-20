@@ -1,0 +1,15 @@
+config:
+  directory: ../..
+
+projects:
+  laravel/framework:
+    source:
+      type: git
+      url: https://github.com/laravel/framework.git
+      reference: 12.x
+      success_only: true
+    install:
+      - composer require "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^6.3|^7.0" "symfony/polyfill-mbstring:^1.0" "symfony/translation:^6.0|^7.0" --prefer-dist --no-interaction --prefer-stable
+      - composer update --prefer-dist --no-interaction --prefer-stable
+    script:
+      - vendor/bin/phpunit --no-coverage --stop-on-error
