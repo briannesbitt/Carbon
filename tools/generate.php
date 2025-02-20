@@ -281,6 +281,10 @@ function getAllBackers(): array
             // href attribute
             'website' => 'https://lgcnews.com/',
         ],
+        663069 => [
+            // href attribute
+            'website' => 'https://www.favbet.ua/uk/',
+        ],
     ];
 
     $members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
