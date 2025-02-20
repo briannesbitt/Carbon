@@ -25,6 +25,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
+    #[\ReturnTypeWillChange]
     public static function createFromTimestamp(
         float|int|string $timestamp,
         DateTimeZone|string|int|null $timezone = null,
