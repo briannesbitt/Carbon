@@ -631,6 +631,12 @@
                     }
                     lastYear.setFullYear(lastYear.getFullYear() - 1);
 
+                    var customSponsorOverride = {"662698":{"name":"Non Gamstop Casinos","description":"Casinos not on Gamstop","image":"https:\/\/lgcnews.com\/wp-content\/uploads\/2018\/01\/LGC-logo-v8-temp.png","website":"https:\/\/lgcnews.com\/"},"663069":{"website":"https:\/\/www.favbet.ua\/uk\/"}};
+
+                    members.forEach(function (member) {
+                        Object.assign(member, customSponsorOverride[member.MemberId] || {});
+                    });
+
                     members.push({
                         'MemberId': 1,
                         'createdAt': '2019-01-01 02:00',

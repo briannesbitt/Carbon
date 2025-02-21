@@ -265,9 +265,9 @@ Carbon::macro('describeIsoFormat', static function (string $code): string {
     ][$code] ?? '';
 });
 
-function getAllBackers(): array
+function getCustomSponsorOverride(): array
 {
-    $customSponsorOverride = [
+    return [
         // For consistency and equity among sponsors, as of now, we kindly ask our sponsors
         // to provide an image having a width/height ratio between 1/1 and 2/1.
         // By default, we'll show the member picture from OpenCollective, and will resize it if bigger
@@ -286,6 +286,11 @@ function getAllBackers(): array
             'website' => 'https://www.favbet.ua/uk/',
         ],
     ];
+}
+
+function getAllBackers(): array
+{
+    $customSponsorOverride = getCustomSponsorOverride();
 
     $members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
 
@@ -479,6 +484,7 @@ function genHtml(string $page, string $out, string $jumbotron = ''): void
     }, $page);
     $html = $template;
     $html = str_replace('#{page}', $page, $html);
+    $html = str_replace('#{customSponsorOverride}', json_encode(getCustomSponsorOverride()), $html);
     $html = str_replace('#{pageWidth}', (string) $pageWidth, $html);
     $html = str_replace('#{jumbotron}', $jumbotron, $html);
     $html = str_replace('#{menu}', $menu, $html);

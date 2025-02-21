@@ -630,6 +630,12 @@
                     }
                     lastYear.setFullYear(lastYear.getFullYear() - 1);
 
+                    var customSponsorOverride = #{customSponsorOverride};
+
+                    members.forEach(function (member) {
+                        Object.assign(member, customSponsorOverride[member.MemberId] || {});
+                    });
+
                     members.push({
                         'MemberId': 1,
                         'createdAt': '2019-01-01 02:00',
