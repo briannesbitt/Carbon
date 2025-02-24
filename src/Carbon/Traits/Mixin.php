@@ -101,8 +101,8 @@ trait Mixin
             $closureBase = Closure::fromCallable([$context, $name]);
 
             static::macro($name, function (...$parameters) use ($closureBase, $className, $baseClass) {
-                $downContext = isset($this) ? ($this) : new $baseClass();
-                $context = isset($this) ? $this->cast($className) : new $className();
+                $downContext = isset(${'this'}) ? $this : new $baseClass();
+                $context = isset(${'this'}) ? $this->cast($className) : new $className();
 
                 try {
                     // @ is required to handle error if not converted into exceptions
