@@ -88,9 +88,9 @@ function getAllBackers(): array
 
         $isYearly = str_contains(strtolower($member['tier'] ?? ''), 'yearly');
         $monthlyContribution = (float) (
-        $isYearly && $lastTransactionAt > CarbonImmutable::parse('-1 year')
-            ? ($member['lastTransactionAmount'] / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
-            : ($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()))
+            $isYearly && $lastTransactionAt > CarbonImmutable::parse('-1 year')
+                ? ($member['lastTransactionAmount'] / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
+                : ($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()))
         );
 
         if (!$isYearly) {
@@ -108,9 +108,9 @@ function getAllBackers(): array
         }
 
         $yearlyContribution = (float) (
-        $isYearly
-            ? (12 * $monthlyContribution)
-            : ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()))
+            $isYearly
+                ? (12 * $monthlyContribution)
+                : ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()))
         );
         $status = null;
         $rank = 0;
@@ -153,44 +153,44 @@ function getOpenCollective(string $status): string
         $list = array_filter($members, static fn ($item) => ($item['status'] ?? null) === $status);
 
         usort($list, static fn (array $a, array $b) => (
-        ($b['star'] <=> $a['star'])
-            ?: ($b['rank'] <=> $a['rank'])
-            ?: ($b['monthlyContribution'] <=> $a['monthlyContribution'])
-                ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated'])
+            ($b['star'] <=> $a['star'])
+                ?: ($b['rank'] <=> $a['rank'])
+                ?: ($b['monthlyContribution'] <=> $a['monthlyContribution'])
+                    ?: ($b['totalAmountDonated'] <=> $a['totalAmountDonated'])
         ));
 
         $content[$status] = implode('', array_map(static function (array $member) use ($status) {
-                $href = htmlspecialchars($member['website'] ?? $member['profile']);
-                $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
-                [$x, $y] = @getimagesize($src) ?: [0, 0];
-                $validImage = ($x && $y);
-                $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
-                $height = match ($status) {
-                    'sponsor' => 64,
-                    'backerPlus' => 42,
-                    'backer' => 32,
-                    default => 24,
-                };
-                $margin = match ($status) {
-                    'sponsor' => 10,
-                    'backerPlus' => 6,
-                    'backer' => 5,
-                    default => 3,
-                };
-                $width = $validImage ? round($x * $height / $y) : $height;
+            $href = htmlspecialchars($member['website'] ?? $member['profile']);
+            $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
+            [$x, $y] = @getimagesize($src) ?: [0, 0];
+            $validImage = ($x && $y);
+            $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
+            $height = match ($status) {
+                'sponsor' => 64,
+                'backerPlus' => 42,
+                'backer' => 32,
+                default => 24,
+            };
+            $margin = match ($status) {
+                'sponsor' => 10,
+                'backerPlus' => 6,
+                'backer' => 5,
+                default => 3,
+            };
+            $width = $validImage ? round($x * $height / $y) : $height;
 
-                if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/(?:www\.)?(?:onlinekasyno-polis\.pl|zonaminecraft\.net|slotozilla\.com)(\/.*)?$/', $href)) {
-                    $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
-                }
+            if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/(?:www\.)?(?:onlinekasyno-polis\.pl|zonaminecraft\.net|slotozilla\.com)(\/.*)?$/', $href)) {
+                $href .= (!str_contains($href, '?') ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            }
 
-                $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
-                $alt = htmlspecialchars($member['name']);
+            $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
+            $alt = htmlspecialchars($member['name']);
 
-                return "\n".'        <a style="position: relative; margin: '.$margin.'px; display: inline-block; border: '.($height / 8).'px solid '.($member['star'] ? '#7ac35f' : 'transparent').';'.($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;').'" title="'.$title.'" href="'.$href.'" target="_blank">'.
-                    '<img alt="'.$alt.'" src="'.$src.'" width="'.min($width, 2 * $height).'" height="'.$height.'">'.
-                    ($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '').
-                    '</a>';
-            }, $list))."\n    ";
+            return "\n".'        <a style="position: relative; margin: '.$margin.'px; display: inline-block; border: '.($height / 8).'px solid '.($member['star'] ? '#7ac35f' : 'transparent').';'.($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;').'" title="'.$title.'" href="'.$href.'" target="_blank">'.
+                '<img alt="'.$alt.'" src="'.$src.'" width="'.min($width, 2 * $height).'" height="'.$height.'">'.
+                ($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '').
+                '</a>';
+        }, $list))."\n    ";
     }
 
     return $content[$status];
