@@ -5176,6 +5176,15 @@ var_dump($date->gt(null)); // true</code></pre></p>
         "now" as default value, now you should tell it explictly if you mean it: <code>$a->isSameHour('now')</code>
         or you can use <code>->isCurrent*</code> methods instead: <code>$a->isCurrentHour()</code></p>
 
+    <h2 id="api-carbon-3-remove-min-max">Dropped maxValue() and minValue()</h2>
+
+    <p>Since Carbon 3, <code>Carbon::minValue()</code> and <code>Carbon::maxValue()</code> have been removed,
+        use <code>CarbonImmutable::startOfTime()</code> and <code>CarbonImmutable::endOfTime()</code> instead.
+        While the old methods depended on the system and were available on mutable objects, the new
+        ones are arbitrary dates <code>0001-01-01 00:00:00</code> and <code>9999-12-31 23:59:59.999999</code>
+        only available on <code>CarbonImmutable</code>, and you can check a date is at such end using
+        <code>->isStartOfTime()</code> and <code>->isEndOfTime()</code>.</p>
+
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 
     <p>If you plan to migrate from Carbon 1 to Carbon 2, please note the following breaking changes you should
