@@ -22,6 +22,11 @@ code {color: #38932c;font-size:90%}
 .tidelift:hover, .tidelift:active, .tidelift:focus{text-decoration:none;color:#cff0ff;}
 .tidelift img{width:32px;height:32px;margin-right:10px;}
 
+.nav {
+    max-height: calc(100vh - 200px);
+    overflow: auto;
+}
+
 .news {
     margin-top: 26px;
     padding: 3px 10px;
