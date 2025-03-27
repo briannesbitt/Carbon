@@ -461,6 +461,36 @@ trait Comparison
     }
 
     /**
+     * Determines if the instance is now or in the future, ie. greater (after) than or equal to now.
+     *
+     * @example
+     * ```
+     * Carbon::now()->isNowOrFuture(); // true
+     * Carbon::now()->addHours(5)->isNowOrFuture(); // true
+     * Carbon::now()->subHours(5)->isNowOrFuture(); // false
+     * ```
+     */
+    public function isNowOrFuture(): bool
+    {
+        return $this->greaterThanOrEqualTo($this->nowWithSameTz());
+    }
+
+    /**
+     * Determines if the instance is now or in the past, ie. less (before) than or equal to now.
+     *
+     * @example
+     * ```
+     * Carbon::now()->isNowOrPast(); // true
+     * Carbon::now()->subHours(5)->isNowOrPast(); // true
+     * Carbon::now()->addHours(5)->isNowOrPast(); // false
+     * ```
+     */
+    public function isNowOrPast(): bool
+    {
+        return $this->lessThanOrEqualTo($this->nowWithSameTz());
+    }
+
+    /**
      * Determines if the instance is a leap year.
      *
      * @example
