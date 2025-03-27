@@ -237,6 +237,36 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isPast());
     }
 
+    public function testIsNowOrFutureTrue()
+    {
+        $this->assertTrue(Carbon::now()->addSecond()->isNowOrFuture());
+    }
+
+    public function testIsNowOrFutureFalse()
+    {
+        $this->assertFalse(Carbon::now()->subSecond()->isNowOrFuture());
+    }
+
+    public function testNowIsNowOrFutureTrue()
+    {
+        $this->assertTrue(Carbon::now()->isNowOrFuture());
+    }
+
+    public function testIsNowOrPastTrue()
+    {
+        $this->assertTrue(Carbon::now()->subSecond()->isNowOrPast());
+    }
+
+    public function testIsNowOrPastFalse()
+    {
+        $this->assertFalse(Carbon::now()->addSecond()->isNowOrPast());
+    }
+
+    public function testNowIsNowOrPastTrue()
+    {
+        $this->assertTrue(Carbon::now()->isNowOrPast());
+    }
+
     public function testIsLeapYearTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2016, 1, 1)->isLeapYear());
