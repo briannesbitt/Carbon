@@ -31,14 +31,6 @@ parameters:
         - '#^Property Carbon\\Carbon::\$timezone \(Carbon\\CarbonTimeZone\) does not accept string\.$#'
         - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(?DateTimeImmutable#'
         -
-            message: '#^Undefined variable: \$this$#'
-            paths:
-                - src/Carbon/Traits/Mixin.php
-        -
-            message: '#^Variable \$this in isset\(\) is never defined\.$#'
-            paths:
-                - src/Carbon/Traits/Mixin.php
-        -
             message: '#^Call to an undefined method Carbon\\Carbon::[a-zA-Z]+Of[a-zA-Z]+\(\)\.$#'
             paths:
                 - tests/Carbon/SettersTest.php
@@ -83,11 +75,6 @@ parameters:
             message: '#^Parameter \$foo of anonymous function has invalid type Tests\\Factory\\FooBar\.#'
             paths:
                 - tests/Factory/CallbackTest.php
-        -
-            message: '#^Call to an undefined method Tests\\Carbon(Immutable)?\\MacroTest::diffInYears\(\)\.#'
-            paths:
-                - tests/Carbon/MacroTest.php
-                - tests/CarbonImmutable/MacroTest.php
         -
             message: '#^Call to an undefined method SubCarbon(Immutable)?::diffInDecades\(\)\.#'
             paths:
