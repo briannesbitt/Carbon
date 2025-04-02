@@ -2008,7 +2008,9 @@ $dt->isSameAs('w', $dt2); // w is the date of the week, so this will return true
                           // the same day of week (both monday or both sunday, etc.)
                           // you can use any format and combine as much as you want.
 $dt->isFuture();
+$dt->isNowOrFuture();
 $dt->isPast();
+$dt->isNowOrPast();
 
 $dt->isSameYear($dt2);
 $dt->isCurrentYear();

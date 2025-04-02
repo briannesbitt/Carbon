@@ -18,7 +18,7 @@ function getCustomSponsorOverride(): array
             // title attribute
             'description' => 'Casinos not on Gamstop',
             // src attribute
-            'image' => 'https://lgcnews.com/wp-content/uploads/2018/01/LGC-logo-v8-temp.png',
+            'image' => 'https://camo.githubusercontent.com/bdb8b8112771c6c3c6a86f5dfd789749542488474d767e5296f75d0c91d6d8e3/68747470733a2f2f6c67636e6577732e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031382f30312f4c47432d6c6f676f2d76382d74656d702e706e67',
             // href attribute
             'website' => 'https://lgcnews.com/',
         ],
@@ -27,6 +27,14 @@ function getCustomSponsorOverride(): array
             'name' => 'Ставки на спорт Favbet',
             // href attribute
             'website' => 'https://www.favbet.ua/uk/',
+        ],
+        676798 => [
+            // alt attribute
+            'name' => 'Top Casinos Canada',
+            // title attribute
+            'description' => 'Top Casinos Canada',
+            // href attribute
+            'website' => 'https://topcasino.net/',
         ],
     ];
 }
