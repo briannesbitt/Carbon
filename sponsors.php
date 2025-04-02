@@ -57,6 +57,16 @@ function getOpenCollectiveSponsors(): string
             // href attribute
             'website' => 'https://www.favbet.ua/uk/',
         ],
+        676798 => [
+            // alt attribute
+            'name' => 'Top Casinos Canada',
+            // title attribute
+            'description' => 'Top Casinos Canada',
+            // src attribute
+            'image' => 'https://topcasino.net/img/topcasino-logo-cover.png',
+            // href attribute
+            'website' => 'https://topcasino.net/',
+        ],
     ];
 
     $members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
