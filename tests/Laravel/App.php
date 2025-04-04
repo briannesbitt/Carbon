@@ -26,6 +26,11 @@ class App implements ArrayAccess
     /**
      * @var string
      */
+    protected $fallbackLocale = 'en';
+
+    /**
+     * @var string
+     */
     protected static $version;
 
     /**
@@ -42,6 +47,7 @@ class App implements ArrayAccess
     {
         include_once __DIR__.'/EventDispatcher.php';
         $this->locale = 'de';
+        $this->fallbackLocale = 'fr';
         $this->translator = new Translator($this->locale);
     }
 
@@ -78,9 +84,19 @@ class App implements ArrayAccess
         $this->events->dispatch(static::getLocaleChangeEventName());
     }
 
+    public function setFallbackLocale(string $fallbackLocale)
+    {
+        $this->fallbackLocale = $fallbackLocale;
+    }
+
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    public function getFallbackLocale()
+    {
+        return $this->fallbackLocale;
     }
 
     public function bound($service)
