@@ -34,6 +34,7 @@
  * - AlexWalkerson
  * - Vladislav UnsealedOne
  * - dima-bzz
+ * - Sergey Danilchenko
  */
 
 use Carbon\CarbonInterface;
@@ -66,6 +67,11 @@ return [
     'second' => ':count секунда|:count секунды|:count секунд',
     's' => ':count сек.',
     'a_second' => '{1}несколько секунд|:count секунду|:count секунды|:count секунд',
+    'millisecond' => '{1}:count миллисекунда|:count миллисекунды|:count миллисекунд',
+    'a_millisecond' => '{1}миллисекунда|:count миллисекунда|:count миллисекунды|:count миллисекунд',
+    'ms' => ':count мс',
+    'microsecond' => '{1}:count микросекунда|:count микросекунды|:count микросекунд',
+    'a_microsecond' => '{1}микросекунда|:count микросекунда|:count микросекунды|:count микросекунд',
     'ago' => static fn (string $time) => $transformDiff($time).' назад',
     'from_now' => static fn (string $time) => 'через '.$transformDiff($time),
     'after' => static fn (string $time) => $transformDiff($time).' после',
