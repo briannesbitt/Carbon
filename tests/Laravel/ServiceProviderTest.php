@@ -207,10 +207,16 @@ class ServiceProviderTest extends TestCase
             class Carbon
             {
                 public static $locale;
+                public static $fallbackLocale;
 
                 public static function setLocale($locale)
                 {
                     static::$locale = $locale;
+                }
+
+                public static function setFallbackLocale($locale)
+                {
+                    static::$fallbackLocale = $locale;
                 }
             }
         ');
@@ -221,6 +227,7 @@ class ServiceProviderTest extends TestCase
             class Date
             {
                 public static $locale;
+                public static $fallbackLocale;
 
                 public static function getFacadeRoot()
                 {
@@ -235,6 +242,15 @@ class ServiceProviderTest extends TestCase
                         throw new Exception("stop");
                     }
                 }
+
+                public function setFallbackLocale($locale)
+                {
+                    static::$fallbackLocale = $locale;
+
+                    if ($locale === "es") {
+                        throw new Exception("stop");
+                    }
+                }
             }
         ');
 
@@ -242,16 +258,39 @@ class ServiceProviderTest extends TestCase
         $service = new ServiceProvider($dispatcher);
         $service->boot();
         $service->app->register();
+
+        $this->assertSame('en', SupportCarbon::$locale);
+        $this->assertSame('en', Date::$locale);
+        $this->assertSame('en', SupportCarbon::$fallbackLocale);
+        $this->assertSame('en', Date::$fallbackLocale);
+
         $service->updateLocale();
 
         $this->assertSame('de', SupportCarbon::$locale);
         $this->assertSame('de', Date::$locale);
+        $this->assertSame('en', SupportCarbon::$fallbackLocale);
+        $this->assertSame('en', Date::$fallbackLocale);
+
+        $service->updateFallbackLocale();
+
+        $this->assertSame('de', SupportCarbon::$locale);
+        $this->assertSame('de', Date::$locale);
+        $this->assertSame('fr', SupportCarbon::$fallbackLocale);
+        $this->assertSame('fr', Date::$fallbackLocale);
 
         $service->app->setLocale('fr');
+        $service->app->setFallbackLocale('gl');
         $service->updateLocale();
 
         $this->assertSame('fr', SupportCarbon::$locale);
         $this->assertSame('fr', Date::$locale);
+        $this->assertSame('fr', SupportCarbon::$fallbackLocale);
+        $this->assertSame('fr', Date::$fallbackLocale);
+
+        $service->updateFallbackLocale();
+
+        $this->assertSame('gl', SupportCarbon::$fallbackLocale);
+        $this->assertSame('gl', Date::$fallbackLocale);
 
         eval('
             use Illuminate\Events\Dispatcher;
