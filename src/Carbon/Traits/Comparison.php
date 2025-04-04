@@ -1272,7 +1272,7 @@ trait Comparison
 
         if (preg_match('/^(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|September|Oct|October|Nov|November|Dec|December)$/i', $tester)) {
             return $this->isSameMonth(
-                $this->transmitFactory(static fn () => static::parse($tester)),
+                $this->transmitFactory(static fn () => static::parse("$tester 1st")),
                 false,
             );
         }
