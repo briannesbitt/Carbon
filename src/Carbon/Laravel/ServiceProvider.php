@@ -32,6 +32,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     /** @var callable|null */
     protected $localeGetter = null;
 
+    /** @var callable|null */
+    protected $fallbackLocaleGetter = null;
+
     public function setAppGetter(?callable $appGetter): void
     {
         $this->appGetter = $appGetter;
@@ -40,6 +43,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function setLocaleGetter(?callable $localeGetter): void
     {
         $this->localeGetter = $localeGetter;
+    }
+
+    public function setFallbackLocaleGetter(?callable $fallbackLocaleGetter): void
+    {
+        $this->fallbackLocaleGetter = $fallbackLocaleGetter;
     }
 
     public function boot()
@@ -136,8 +144,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     protected function getFallbackLocale()
     {
-        if ($this->localeGetter) {
-            return ($this->localeGetter)(true);
+        if ($this->fallbackLocaleGetter) {
+            return ($this->fallbackLocaleGetter)();
         }
 
         $app = $this->getApp();

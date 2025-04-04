@@ -113,15 +113,24 @@ class ServiceProviderTest extends TestCase
         CarbonImmutable::setLocale('en');
         CarbonPeriod::setLocale('en');
         CarbonInterval::setLocale('en');
+        Carbon::setFallbackLocale('en');
+        CarbonImmutable::setFallbackLocale('en');
+        CarbonPeriod::setFallbackLocale('en');
+        CarbonInterval::setFallbackLocale('en');
 
         $service->boot();
         $service->app->register();
         $service->app->setLocaleWithoutEvent('fr');
+        $service->app->setFallbackLocale('it');
         $dispatcher->dispatch('locale.changed');
         $this->assertSame('fr', Carbon::getLocale());
         $this->assertSame('fr', CarbonImmutable::getLocale());
         $this->assertSame('fr', CarbonPeriod::getLocale());
         $this->assertSame('fr', CarbonInterval::getLocale());
+        $this->assertSame('en', Carbon::getFallbackLocale());
+        $this->assertSame('en', CarbonImmutable::getFallbackLocale());
+        $this->assertSame('en', CarbonPeriod::getFallbackLocale());
+        $this->assertSame('en', CarbonInterval::getFallbackLocale());
     }
 
     public function testListenerWithLocaleUpdatedClass()
@@ -137,18 +146,28 @@ class ServiceProviderTest extends TestCase
         CarbonImmutable::setLocale('en');
         CarbonPeriod::setLocale('en');
         CarbonInterval::setLocale('en');
+        Carbon::setFallbackLocale('en');
+        CarbonImmutable::setFallbackLocale('en');
+        CarbonPeriod::setFallbackLocale('en');
+        CarbonInterval::setFallbackLocale('en');
 
         $service->boot();
         $service->app->register();
         $service->app->setLocaleWithoutEvent('fr');
+        $service->app->setFallbackLocale('it');
         $app = new App();
         $app->register();
         $app->setLocaleWithoutEvent('de_DE');
+        $app->setFallbackLocale('es_ES');
         $dispatcher->dispatch('Illuminate\Foundation\Events\LocaleUpdated');
         $this->assertSame('fr', Carbon::getLocale());
         $this->assertSame('fr', CarbonImmutable::getLocale());
         $this->assertSame('fr', CarbonPeriod::getLocale());
         $this->assertSame('fr', CarbonInterval::getLocale());
+        $this->assertSame('en', Carbon::getFallbackLocale());
+        $this->assertSame('en', CarbonImmutable::getFallbackLocale());
+        $this->assertSame('en', CarbonPeriod::getFallbackLocale());
+        $this->assertSame('en', CarbonInterval::getFallbackLocale());
 
         $service->setAppGetter(static fn () => $app);
         $this->assertSame('fr', Carbon::getLocale());
@@ -162,6 +181,19 @@ class ServiceProviderTest extends TestCase
         $service->setAppGetter(static fn () => null);
         $service->updateLocale();
         $this->assertSame('ckb', Carbon::getLocale());
+
+        $service->setAppGetter(static fn () => $app);
+        $this->assertSame('en', Carbon::getFallbackLocale());
+        $service->updateFallbackLocale();
+        $this->assertSame('es_ES', Carbon::getFallbackLocale());
+        $service->setFallbackLocaleGetter(static fn () => 'ckb');
+        $this->assertSame('es_ES', Carbon::getFallbackLocale());
+        $service->updateFallbackLocale();
+        $this->assertSame('ckb', Carbon::getFallbackLocale());
+        $service->setFallbackLocaleGetter(null);
+        $service->setAppGetter(static fn () => null);
+        $service->updateFallbackLocale();
+        $this->assertSame('ckb', Carbon::getFallbackLocale());
     }
 
     public function testUpdateLocale()
