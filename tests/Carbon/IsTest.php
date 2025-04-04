@@ -22,6 +22,7 @@ use Carbon\WeekDay;
 use DateInterval;
 use DateTime;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 use stdClass;
 use Tests\AbstractTestCase;
 use TypeError;
@@ -1399,8 +1400,12 @@ class IsTest extends AbstractTestCase
         $date->isCurrentFoobar();
     }
 
-    public function testIs()
+    #[TestWith([null])]
+    #[TestWith(['2025-03-31 12:00'])]
+    public function testIs(?string $testNow)
     {
+        Carbon::setTestNow($testNow);
+
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2018'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019-06'));
@@ -1434,6 +1439,8 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::parse('2019-06-02 15:23:45')->is('3pm'));
         $this->assertFalse(Carbon::parse('2019-06-02 15:23:45')->is('4pm'));
         $this->assertFalse(Carbon::parse('2019-06-02 15:23:45')->is('3am'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019-06'));
+        $this->assertTrue(Carbon::parse('2019-05-31 12:23:45')->is('2019-05'));
         $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02 12:23'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-03 12:23'));
         $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02 15:23'));
