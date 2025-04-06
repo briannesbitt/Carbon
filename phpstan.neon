@@ -31,15 +31,7 @@ parameters:
         - '#^Property Carbon\\Carbon::\$timezone \(Carbon\\CarbonTimeZone\) does not accept string\.$#'
         - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(?DateTimeImmutable#'
         -
-            message: '#^Undefined variable: \$this$#'
-            paths:
-                - src/Carbon/Traits/Mixin.php
-        -
             message: '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
-            paths:
-                - src/Carbon/Traits/Mixin.php
-        -
-            message: '#^Variable \$this in isset\(\) is never defined\.$#'
             paths:
                 - src/Carbon/Traits/Mixin.php
         -
