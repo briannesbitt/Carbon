@@ -80,11 +80,6 @@ parameters:
             paths:
                 - tests/Factory/CallbackTest.php
         -
-            message: '#^Call to an undefined method Tests\\Carbon(Immutable)?\\MacroTest::diffInYears\(\)\.#'
-            paths:
-                - tests/Carbon/MacroTest.php
-                - tests/CarbonImmutable/MacroTest.php
-        -
             message: '#^Call to an undefined method SubCarbon(Immutable)?::diffInDecades\(\)\.#'
             paths:
                 - tests/Carbon/MacroTest.php
