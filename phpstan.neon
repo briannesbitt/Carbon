@@ -35,6 +35,10 @@ parameters:
             paths:
                 - src/Carbon/Traits/Mixin.php
         -
+            message: '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
+            paths:
+                - src/Carbon/Traits/Mixin.php
+        -
             message: '#^Variable \$this in isset\(\) is never defined\.$#'
             paths:
                 - src/Carbon/Traits/Mixin.php
