@@ -318,6 +318,8 @@ class Factory
      * });
      * echo $factory->yesterday()->hours(11)->userFormat();
      * ```
+     *
+     * @param-closure-this  static  $macro
      */
     public function macro(string $name, ?callable $macro): void
     {
