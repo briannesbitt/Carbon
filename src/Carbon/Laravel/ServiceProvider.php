@@ -117,7 +117,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             try {
                 $root = Date::getFacadeRoot();
                 $root->setFallbackLocale($locale);
-            } catch (Throwable) {
+            } catch (Throwable) { // @codeCoverageIgnore
                 // Non Carbon class in use in Date facade
             }
         }
