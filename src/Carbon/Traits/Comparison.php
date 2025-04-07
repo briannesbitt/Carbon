@@ -995,7 +995,7 @@ trait Comparison
         }
 
         if (preg_match('/^(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|September|Oct|October|Nov|November|Dec|December)$/i', $tester)) {
-            return $this->isSameMonth(static::parse($tester), false);
+            return $this->isSameMonth(static::parse("$tester 1st"), false);
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
