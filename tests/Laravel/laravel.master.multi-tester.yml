@@ -10,7 +10,7 @@ projects:
       success_only: true
     install:
       - composer config version "12.x-dev"
-      - composer require "orchestra/testbench-core:^10" "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^6.3|^7.0" "symfony/polyfill-mbstring:^1.0" "symfony/translation:^6.0|^7.0" --prefer-dist --no-interaction --prefer-stable
+      - composer require "phpunit/phpunit:~12.0.1" "orchestra/testbench-core:^10" "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^6.3|^7.0" "symfony/polyfill-mbstring:^1.0" "symfony/translation:^6.0|^7.0" --prefer-dist --no-interaction --prefer-stable
       - composer update --prefer-dist --no-interaction --prefer-stable
     script:
       - vendor/bin/phpunit --no-coverage --stop-on-error
