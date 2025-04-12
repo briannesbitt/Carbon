@@ -864,8 +864,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Change the period date interval.
      *
-     * @param DateInterval|string|int $interval
-     * @param Unit|string             $unit     the unit of $interval if it's a number
+     * @param DateInterval|Unit|string|int $interval
+     * @param Unit|string                  $unit     the unit of $interval if it's a number
      *
      * @throws InvalidIntervalException
      *
