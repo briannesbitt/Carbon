@@ -1,12 +1,12 @@
 name: Documentation
 
-on:
-  schedule:
-    - cron: '0 0 15 * *'
+on: [ pull_request, push ]
 
 jobs:
   sponsors:
     name: Update documentation
+
+    if: github.repository == 'briannesbitt/Carbon'
 
     runs-on: ubuntu-latest
 
@@ -42,8 +42,47 @@ jobs:
           max_attempts: 3
           command: composer update --prefer-dist --no-progress --prefer-stable
 
-      - name: Update sponsors on readme.md
-        run: composer release
+      - name: Releases
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          command: composer releases
+
+      - name: php tools/release.php
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          command: php tools/release.php
+
+      - name: Update
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          command: composer update
+
+      - name: History
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          command: composer history
+
+      - name: Generate
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          command: composer generate
+
+      - name: Check
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          command: composer check
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
