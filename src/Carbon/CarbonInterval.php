@@ -735,7 +735,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 }
 
                 $interval = mb_substr($interval, mb_strlen($match[0]));
-                $instance->$unit += (int) ($match[0]);
+                $value = (int) ($match[0]);
+
+                if ($value !== 0) {
+                    $instance->$unit += $value;
+                }
 
                 continue;
             }
