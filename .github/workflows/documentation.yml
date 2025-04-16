@@ -19,7 +19,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3.19
+          php-version: 8.3.18
           tools: composer:v2
 
       - name: Get composer cache directory
@@ -69,6 +69,14 @@ jobs:
           timeout_minutes: 10
           max_attempts: 2
           command: composer history
+
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r version-cache.zip tools/cache
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: version-cache.zip
 
       - name: Generate
         uses: nick-fields/retry@v3
