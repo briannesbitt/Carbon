@@ -26,7 +26,7 @@ class TryParseTest extends AbstractTestCase
 
         $this->assertEquals('2025-01-22 00:00:00', Carbon::tryParse('2025-01-22 00:00:00')->format('Y-m-d H:i:s'));
 
-        $this->assertNull(Carbon::tryParse('2025-99-99'));       
+        $this->assertNull(Carbon::tryParse('2025-99-99'));
 
         Carbon::setTestNow();
     }
