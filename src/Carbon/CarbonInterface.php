@@ -3607,6 +3607,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function parse(DateTimeInterface|WeekDay|Month|string|int|float|null $time, DateTimeZone|string|int|null $timezone = null): static;
 
     /**
+     * Try create a carbon instance from a string.
+     *
+     * This wraps the regular parse method in a try catch statement and returns null if an exception is caught.
+     *
+     * @return static|null
+     */
+    public static function tryParse(DateTimeInterface|WeekDay|Month|string|int|float|null $time, DateTimeZone|string|int|null $timezone = null): static|null;
+
+    /**
      * Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
      *
      * @param string                       $time     date/time string in the given language (may also contain English).

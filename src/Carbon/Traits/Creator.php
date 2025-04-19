@@ -222,6 +222,26 @@ trait Creator
     }
 
     /**
+     * Create a carbon instance from a string.
+     *
+     * This is an alias for the constructor that allows better fluent syntax
+     * as it allows you to do Carbon::parse('Monday next week')->fn() rather
+     * than (new Carbon('Monday next week'))->fn().
+     *
+     * @return static|null
+     */
+    public static function tryParse(
+        DateTimeInterface|WeekDay|Month|string|int|float|null $time,
+        DateTimeZone|string|int|null $timezone = null,
+    ): static|null {
+        try{ 
+            return static::parse($time, $timezone);
+        } catch (InvalidFormatException) {
+            return null;
+        }
+    }
+
+    /**
      * Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
      *
      * @param string                       $time     date/time string in the given language (may also contain English).
