@@ -73,15 +73,24 @@ trait Serialization
     /**
      * Create an instance from a serialized string.
      *
-     * @param string $value
+     * If $value is not from a trusted source, consider using the allowed_classes option to limit
+     * the types of objects that can be built, for instance:
+     *
+     * @example
+     * ```php
+     * $object = Carbon::fromSerialized($value, ['allowed_classes' => [Carbon::class, CarbonImmutable::class]]);
+     * ```
+     *
+     * @param \Stringable|string $value
+     * @param array              $options example: ['allowed_classes' => [CarbonImmutable::class]]
      *
      * @throws InvalidFormatException
      *
      * @return static
      */
-    public static function fromSerialized($value): static
+    public static function fromSerialized($value, array $options = []): static
     {
-        $instance = @unserialize((string) $value);
+        $instance = @unserialize((string) $value, $options);
 
         if (!$instance instanceof static) {
             throw new InvalidFormatException("Invalid serialized value: $value");
