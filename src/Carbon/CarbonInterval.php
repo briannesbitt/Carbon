@@ -735,7 +735,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 }
 
                 $interval = mb_substr($interval, mb_strlen($match[0]));
-                $instance->$unit += (int) ($match[0]);
+                $value = (int) ($match[0]);
+
+                if ($value !== 0) {
+                    // Cannot use += as it segfault in PHP 8.3.20
+                    $instance->$unit = ($instance->$unit ?? 0) + $value;
+                }
 
                 continue;
             }
@@ -1629,6 +1634,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         $value = $this->getMagicParameter($parameters, 0, Carbon::pluralUnit($method), 1);
+
+        // Prevent segfault in PHP 8.3.20 when doing CarbonInterval::days(-3)
+        if (PHP_VERSION_ID === 80320 && $value < 0 && $this->isEmpty()) {
+            $this->invert();
+            $value = -$value;
+        }
 
         try {
             $this->set($method, $value);
