@@ -268,7 +268,12 @@ class ToArrayTest extends AbstractTestCase
             ...($this->initialOptions ? ['options' => $this->initialOptions] : []),
         ];
         $actual = $period->__debugInfo();
-        $actual['dateInterval']->optimize();
+        $actual = array_combine(array_map(
+            static fn (string $key): string => preg_replace('/^\000\*\000/', '', $key),
+            array_keys($actual),
+        ), $actual);
+        $interval = $actual['dateInterval'] ?? null;
+        $interval?->optimize();
 
         $this->assertEquals($expected, $actual);
     }
