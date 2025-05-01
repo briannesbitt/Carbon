@@ -735,7 +735,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 }
 
                 $interval = mb_substr($interval, mb_strlen($match[0]));
-                self::doSetUnit($instance, $unit, (int) ($match[0]));
+                self::incrementUnit($instance, $unit, (int) ($match[0]));
 
                 continue;
             }
@@ -1629,12 +1629,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         $value = $this->getMagicParameter($parameters, 0, Carbon::pluralUnit($method), 1);
-
-//        // Prevent segfault in PHP 8.3.20 when doing CarbonInterval::days(-3)
-//        if (PHP_VERSION_ID === 80320 && $value < 0 && $this->isEmpty()) {
-//            $this->invert();
-//            $value = -$value;
-//        }
 
         try {
             $this->set($method, $value);
@@ -3192,7 +3186,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
             if ($from->$unit < 0) {
-                $to->$unit *= self::NEGATIVE;
+                self::setIntervalUnit($to, $unit, $to->$unit * self::NEGATIVE);
             }
         }
     }
@@ -3408,7 +3402,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
     }
 
-    private static function doSetUnit(DateInterval $instance, string $unit, int $value): void
+    private static function incrementUnit(DateInterval $instance, string $unit, int $value): void
     {
         if ($value === 0) {
             return;
@@ -3421,11 +3415,32 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         // Cannot use +=, nor set to a negative value directly as it segfaults in PHP 8.3.20
-        $newValue = ($instance->$unit ?? 0) + $value;
-        $instance->$unit = abs($newValue);
+        self::setIntervalUnit($instance, $unit, ($instance->$unit ?? 0) + $value);
+    }
 
-        if ($newValue < 0) {
-            $instance->$unit *= -1;
+    private static function setIntervalUnit(DateInterval $instance, string $unit, mixed $value): void
+    {
+        switch ($unit) {
+            case 'y':
+                $instance->y = $value;
+                break;
+            case 'm':
+                $instance->m = $value;
+                break;
+            case 'd':
+                $instance->d = $value;
+                break;
+            case 'h':
+                $instance->h = $value;
+                break;
+            case 'i':
+                $instance->i = $value;
+                break;
+            case 's':
+                $instance->s = $value;
+                break;
+            default:
+                $instance->$unit = $value;
         }
     }
 }
