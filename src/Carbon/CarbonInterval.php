@@ -735,12 +735,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 }
 
                 $interval = mb_substr($interval, mb_strlen($match[0]));
-                $value = (int) ($match[0]);
-
-                if ($value !== 0) {
-                    // Cannot use += as it segfault in PHP 8.3.20
-                    $instance->$unit = ($instance->$unit ?? 0) + $value;
-                }
+                self::doSetUnit($instance, $unit, (int) ($match[0]));
 
                 continue;
             }
@@ -1635,11 +1630,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $value = $this->getMagicParameter($parameters, 0, Carbon::pluralUnit($method), 1);
 
-        // Prevent segfault in PHP 8.3.20 when doing CarbonInterval::days(-3)
-        if (PHP_VERSION_ID === 80320 && $value < 0 && $this->isEmpty()) {
-            $this->invert();
-            $value = -$value;
-        }
+//        // Prevent segfault in PHP 8.3.20 when doing CarbonInterval::days(-3)
+//        if (PHP_VERSION_ID === 80320 && $value < 0 && $this->isEmpty()) {
+//            $this->invert();
+//            $value = -$value;
+//        }
 
         try {
             $this->set($method, $value);
@@ -3410,6 +3405,27 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             default:
                 // Drop unknown settings
                 return $this;
+        }
+    }
+
+    private static function doSetUnit(DateInterval $instance, string $unit, int $value): void
+    {
+        if ($value === 0) {
+            return;
+        }
+
+        if (PHP_VERSION_ID !== 80320) {
+            $instance->$unit += $value;
+
+            return;
+        }
+
+        // Cannot use +=, nor set to a negative value directly as it segfaults in PHP 8.3.20
+        $newValue = ($instance->$unit ?? 0) + $value;
+        $instance->$unit = abs($newValue);
+
+        if ($newValue < 0) {
+            $instance->$unit *= -1;
         }
     }
 }
