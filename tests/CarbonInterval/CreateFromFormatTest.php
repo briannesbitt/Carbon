@@ -185,6 +185,13 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 200000);
     }
 
+    public function testTime()
+    {
+        $ci = CarbonInterval::createFromFormat('H:i:s', '00:05:00');
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 5, 0, 0);
+    }
+
     public function testAll()
     {
         $ci = CarbonInterval::createFromFormat('Y-m-d H:i:s.u', '2000-01-02 3:04:05.500000');

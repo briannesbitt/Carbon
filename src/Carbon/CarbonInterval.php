@@ -735,7 +735,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
                 }
 
                 $interval = mb_substr($interval, mb_strlen($match[0]));
-                $instance->$unit += (int) ($match[0]);
+                self::incrementUnit($instance, $unit, (int) ($match[0]));
 
                 continue;
             }
@@ -3186,7 +3186,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
             if ($from->$unit < 0) {
-                $to->$unit *= self::NEGATIVE;
+                self::setIntervalUnit($to, $unit, $to->$unit * self::NEGATIVE);
             }
         }
     }
@@ -3399,6 +3399,60 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             default:
                 // Drop unknown settings
                 return $this;
+        }
+    }
+
+    private static function incrementUnit(DateInterval $instance, string $unit, int $value): void
+    {
+        if ($value === 0) {
+            return;
+        }
+
+        if (PHP_VERSION_ID !== 80320) {
+            $instance->$unit += $value;
+
+            return;
+        }
+
+        // Cannot use +=, nor set to a negative value directly as it segfaults in PHP 8.3.20
+        self::setIntervalUnit($instance, $unit, ($instance->$unit ?? 0) + $value);
+    }
+
+    private static function setIntervalUnit(DateInterval $instance, string $unit, mixed $value): void
+    {
+        switch ($unit) {
+            case 'y':
+                $instance->y = $value;
+
+                break;
+
+            case 'm':
+                $instance->m = $value;
+
+                break;
+
+            case 'd':
+                $instance->d = $value;
+
+                break;
+
+            case 'h':
+                $instance->h = $value;
+
+                break;
+
+            case 'i':
+                $instance->i = $value;
+
+                break;
+
+            case 's':
+                $instance->s = $value;
+
+                break;
+
+            default:
+                $instance->$unit = $value;
         }
     }
 }

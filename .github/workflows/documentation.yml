@@ -19,7 +19,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3.19
+          php-version: 8.3
           tools: composer:v2
 
       - name: Get composer cache directory
