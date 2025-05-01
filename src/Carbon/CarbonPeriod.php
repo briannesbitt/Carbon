@@ -725,9 +725,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         parent::__construct(
             $this->startDate,
             $this->dateInterval,
-            $this->endDate ?? $this->recurrences ?? 1,
+            $this->endDate ?? max(1, min(2147483639, $this->recurrences ?? 1)),
             $this->options,
         );
+
         $this->constructed = true;
     }
 
