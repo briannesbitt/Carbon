@@ -52,14 +52,15 @@ class ConstructTest extends AbstractTestCase
 
     public function testConstructWithDateInterval()
     {
+        $month = (PHP_VERSION_ID === 80320) ? 6 : -6; // PHP 8.3.20 triggers segfault with negative or zero values
         $ci = new CarbonInterval(new DateInterval('P1Y2M3D'));
         $this->assertSame('P1Y2M3D', $ci->spec());
         $interval = new DateInterval('P1Y2M3D');
-        $interval->m = -6;
+        $interval->m = $month;
         $interval->invert = 1;
         $ci = new CarbonInterval($interval);
         $this->assertSame(1, $ci->y);
-        $this->assertSame(-6, $ci->m);
+        $this->assertSame($month, $ci->m);
         $this->assertSame(3, $ci->d);
         $this->assertSame(1, $ci->invert);
     }
@@ -470,7 +471,6 @@ class ConstructTest extends AbstractTestCase
         $this->assertSameIntervals($interval, $copy, 1);
     }
 
-    /** @group i */
     public function testFromSerializationConst()
     {
         $past = new Carbon('2024-01-01 00:00:00');
