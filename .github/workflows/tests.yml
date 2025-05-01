@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, windows]
-        php: [8.1, 8.2, 8.3.19, 8.4]
+        php: [8.1, 8.2, '8.3.19', 8.4]
         setup: [lowest, stable]
         include:
           - php: 8.1
@@ -21,7 +21,7 @@ jobs:
             setup: stable
             coverage: true
 
-          - php: 8.3.19
+          - php: '8.3.19'
             os: ubuntu
             setup: stable
             phpunit: 11
