@@ -3423,22 +3423,34 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         switch ($unit) {
             case 'y':
                 $instance->y = $value;
+
                 break;
+
             case 'm':
                 $instance->m = $value;
+
                 break;
+
             case 'd':
                 $instance->d = $value;
+
                 break;
+
             case 'h':
                 $instance->h = $value;
+
                 break;
+
             case 'i':
                 $instance->i = $value;
+
                 break;
+
             case 's':
                 $instance->s = $value;
+
                 break;
+
             default:
                 $instance->$unit = $value;
         }
