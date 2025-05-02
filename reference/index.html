@@ -1345,6 +1345,30 @@ Carbon::now()->addHours(5)->isPast(); // false</code></pre></p>
     </table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-isNowOrFuture">
+    <h2><span class="class-name">Carbon::</span>isNowOrFuture</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is now or in the future, ie. greater (after) than or equal to now.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->isNowOrFuture(); // true
+Carbon::now()->addHours(5)->isNowOrFuture(); // true
+Carbon::now()->subHours(5)->isNowOrFuture(); // false</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.9.1</td><td><em>no arguments</em></td></tr>
+    </table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-isNowOrPast">
+    <h2><span class="class-name">Carbon::</span>isNowOrPast</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is now or in the past, ie. less (before) than or equal to now.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->isNowOrPast(); // true
+Carbon::now()->subHours(5)->isNowOrPast(); // true
+Carbon::now()->addHours(5)->isNowOrPast(); // false</code></pre></p>
+    <table class='info-table method-history'>
+        <tr><td>Method added</td><td>3.9.1</td><td><em>no arguments</em></td></tr>
+    </table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-isLeapYear">
     <h2><span class="class-name">Carbon::</span>isLeapYear</h2>
     <em>no arguments</em>
