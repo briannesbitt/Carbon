@@ -3,6 +3,7 @@
 
     Before anything else, please search in previous issues (both open and close):
     https://github.com/briannesbitt/Carbon/issues?q=is%3Aissue
+    https://github.com/CarbonPHP/carbon/issues?q=is%3Aissue
 
     ⚠️ Please don't create an issue about a problem already discussed or addressed.
 

@@ -47,6 +47,7 @@ jobs:
         run: composer sponsors
 
       - name: Create Pull Request
+        if: github.repository_owner == 'briannesbitt'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: job/update-sponsors

@@ -7,7 +7,7 @@ Tidelift will coordinate the fix and disclosure.
 Please don't disclose security bugs publicly until they have been handled by us.
 
 For any other bug or issue, please click this link and follow the template:
-[Create new issue](https://github.com/briannesbitt/Carbon/issues/new)
+[Create new issue](https://github.com/CarbonPHP/carbon/issues/new)
 
 You may think this template does not apply to your case but please think again. A long description will never be as
 clear as a code chunk with the output you expect from it (for either bug report or new features).
@@ -18,7 +18,7 @@ clear as a code chunk with the output you expect from it (for either bug report 
 
 We use the label **good first issue** to tag issues that could be a good fit for new contributors, see if there are such issues now following this link:
 
-https://github.com/briannesbitt/Carbon/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+https://github.com/CarbonPHP/carbon/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
 
 Else, check the roadmap to see what we plan to do in next releases:
 
@@ -26,12 +26,12 @@ https://github.com/briannesbitt/Carbon/issues/1681
 
 ### Develop locally, then submit changes
 
-Fork the [GitHub project](https://github.com/briannesbitt/Carbon) and download it locally:
+Fork the [GitHub project](https://github.com/CarbonPHP/carbon) and download it locally:
 
 ```shell
-git clone https://github.com/<username>/Carbon.git
+git clone https://github.com/<username>/carbon.git
 cd Carbon
-git remote add upstream https://github.com/briannesbitt/Carbon.git
+git remote add upstream https://github.com/CarbonPHP/carbon.git
 ```
 Replace `<username>` with your GitHub username.
 
@@ -151,4 +151,4 @@ requiring `>=2`, as it allows any newer version, will probably leads to errors o
 Open milestones can be patched if a minor bug is detected while if you're on a closed milestone, we'll more likely
 ask you to update first to an open one. See currently open milestones: 
 
-https://github.com/briannesbitt/Carbon/milestones
+https://github.com/CarbonPHP/carbon/milestones
