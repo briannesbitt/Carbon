@@ -573,14 +573,13 @@ trait Difference
             return $sign * $monthsDiff;
         }
 
-        /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
-        $startOfMonthAfterFloorEnd = $floorEnd->avoidMutation()->addMonth()->startOfMonth();
+        /** @var Carbon|CarbonImmutable $ceilEnd */
+        $ceilEnd = $start->avoidMutation()->addMonths($monthsDiff + 1);
 
-        if ($startOfMonthAfterFloorEnd > $end) {
-            return $sign * ($monthsDiff + $floorEnd->floatDiffInDays($end) / $floorEnd->daysInMonth);
-        }
+        $daysToFloor = $floorEnd->diffInDays($end);
+        $daysToCeil = $end->diffInDays($ceilEnd);
 
-        return $sign * ($monthsDiff + $floorEnd->floatDiffInDays($startOfMonthAfterFloorEnd) / $floorEnd->daysInMonth + $startOfMonthAfterFloorEnd->floatDiffInDays($end) / $end->daysInMonth);
+        return $sign * ($monthsDiff + $daysToFloor / ($daysToCeil + $daysToFloor));
     }
 
     /**
@@ -712,14 +711,13 @@ trait Difference
             return $sign * $monthsDiff;
         }
 
-        /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
-        $startOfMonthAfterFloorEnd = $floorEnd->avoidMutation()->addMonth()->startOfMonth();
+        /** @var Carbon|CarbonImmutable $ceilEnd */
+        $ceilEnd = $start->avoidMutation()->addMonths($monthsDiff + 1);
 
-        if ($startOfMonthAfterFloorEnd > $end) {
-            return $sign * ($monthsDiff + $floorEnd->floatDiffInRealDays($end) / $floorEnd->daysInMonth);
-        }
+        $daysToFloor = $floorEnd->diffInDays($end);
+        $daysToCeil = $end->diffInDays($ceilEnd);
 
-        return $sign * ($monthsDiff + $floorEnd->floatDiffInRealDays($startOfMonthAfterFloorEnd) / $floorEnd->daysInMonth + $startOfMonthAfterFloorEnd->floatDiffInRealDays($end) / $end->daysInMonth);
+        return $sign * ($monthsDiff + $daysToFloor / ($daysToCeil + $daysToFloor));
     }
 
     /**
