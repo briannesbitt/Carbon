@@ -422,8 +422,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return $instance;
     }
 
+    public static function createFromISO8601String(string $iso, ?int $options = null): static
+    {
+        return self::createFromIso($iso, $options);
+    }
+
     /**
-     * Return whether given interval contains non zero value of any time unit.
+     * Return whether the given interval contains non-zero value of any time unit.
      */
     protected static function intervalHasTime(DateInterval $interval): bool
     {
@@ -2267,6 +2272,113 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         return $info;
+    }
+
+    public function __unserialize(array $data): void
+    {
+        try {
+            $values = array_combine(
+                array_map(
+                    static fn (string $key): string => preg_replace('/^\0\*\0/', '', $key),
+                    array_keys($data),
+                ),
+                $data,
+            );
+
+            if (method_exists(parent::class, '__unserialize')) {
+                $serializationBase = [
+                    'start' => $values['start'] ?? $values['startDate'] ?? null,
+                    'current' => $values['current'] ?? $values['carbonCurrent'] ?? null,
+                    'end' => $values['end'] ?? $values['endDate'] ?? null,
+                    'interval' => $values['interval'] ?? $values['dateInterval'] ?? null,
+                    'recurrences' => max(1, (int) ($values['recurrences'] ?? $values['carbonRecurrences'] ?? 1)),
+                    'include_start_date' => $values['include_start_date'] ?? true,
+                    'include_end_date' => $values['include_end_date'] ?? false,
+                ];
+
+                foreach (['start', 'current', 'end'] as $dateProperty) {
+                    if ($serializationBase[$dateProperty] instanceof Carbon) {
+                        $serializationBase[$dateProperty] = $serializationBase[$dateProperty]->toDateTime();
+                    } elseif ($serializationBase[$dateProperty] instanceof CarbonInterface) {
+                        $serializationBase[$dateProperty] = $serializationBase[$dateProperty]->toDateTimeImmutable();
+                    }
+                }
+
+                if ($serializationBase['interval'] instanceof CarbonInterval) {
+                    $serializationBase['interval'] = $serializationBase['interval']->toDateInterval();
+                }
+
+                parent::__unserialize($serializationBase);
+            }
+
+            foreach ($values as $key => $value) {
+                if ($value === null) {
+                    continue;
+                }
+
+                $property = match ($key) {
+                    'tzName' => $this->setTimezone(...),
+                    'options' => $this->setOptions(...),
+                    'recurrences' => $this->setRecurrences(...),
+                    'current' => function (mixed $current): void {
+                        if ($current === null) {
+                            return;
+                        }
+
+                        if (!($current instanceof CarbonInterface)) {
+                            $current = $this->resolveCarbon($current);
+                        }
+
+                        $this->carbonCurrent = $current;
+                    },
+                    'start' => 'startDate',
+                    'interval' => $this->setDateInterval(...),
+                    'end' => 'endDate',
+                    'key' => null,
+                    'include_start_date' => function (bool $included): void {
+                        $this->excludeStartDate(!$included);
+                    },
+                    'include_end_date' => function (bool $included): void {
+                        $this->excludeEndDate(!$included);
+                    },
+                    default => $key,
+                };
+
+                if ($property === null) {
+                    continue;
+                }
+
+                if (\is_callable($property)) {
+                    $property($value);
+
+                    continue;
+                }
+
+                if ($value instanceof DateTimeInterface && !($value instanceof CarbonInterface)) {
+                    $value = ($value instanceof DateTime)
+                        ? Carbon::instance($value)
+                        : CarbonImmutable::instance($value);
+                }
+
+                try {
+                    $this->$property = $value;
+                } catch (Throwable) {
+                    // Must be ignored for backward-compatibility
+                }
+            }
+
+            if (\array_key_exists('carbonRecurrences', $values)) {
+                $this->carbonRecurrences = $values['carbonRecurrences'];
+            } elseif (((int) ($values['recurrences'] ?? 0)) <= 1 && $this->endDate !== null) {
+                $this->carbonRecurrences = null;
+            }
+        } catch (Throwable $e) {
+            if (!method_exists(parent::class, '__unserialize')) {
+                throw $e;
+            }
+
+            parent::__unserialize($data);
+        }
     }
 
     /**
