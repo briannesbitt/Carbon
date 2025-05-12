@@ -16,6 +16,9 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
+/**
+ * @group i
+ */
 class SerializationTest extends AbstractTestCase
 {
     public function testSerializationFromV2(): void
@@ -41,8 +44,7 @@ class SerializationTest extends AbstractTestCase
 
         $periodCopy = unserialize(serialize($period));
 
-        $this->assertInstanceOf(CarbonPeriod::class, $period);
-        $this->assertEquals($period, $periodCopy);
+        $this->assertEquivalentPeriods($period, $periodCopy);
     }
 
     public function testSerializationWithRecurrences(): void
@@ -57,8 +59,7 @@ class SerializationTest extends AbstractTestCase
 
         $periodCopy = unserialize(serialize($period));
 
-        $this->assertInstanceOf(CarbonPeriod::class, $periodCopy);
-        $this->assertEquals($period, $periodCopy);
+        $this->assertEquivalentPeriods($period, $periodCopy);
         $this->assertDate('2023-07-01', $periodCopy->getStartDate());
         $this->assertNull($periodCopy->getEndDate());
         $this->assertSame(4, $periodCopy->getRecurrences());
@@ -83,5 +84,23 @@ class SerializationTest extends AbstractTestCase
 
         $this->assertInstanceOf($class, $value);
         $this->assertSame($date, $value->toIso8601String());
+    }
+
+    private function assertEquivalentPeriods(mixed $a, mixed $b): void
+    {
+        $this->assertInstanceOf(CarbonPeriod::class, $b);
+        $this->assertSame($a::class, $b::class);
+
+        if (PHP_VERSION_ID > 80200) {
+            $this->assertEquals($a, $b);
+
+            return;
+        }
+
+        $this->assertEquals($a->getStartDate(), $b->getStartDate());
+        $this->assertEquals($a->getDateInterval(), $b->getDateInterval());
+        $this->assertEquals($a->getEndDate(), $b->getEndDate());
+        $this->assertEquals($a->getRecurrences(), $b->getRecurrences());
+        $this->assertEquals($a->getOptions(), $b->getOptions());
     }
 }

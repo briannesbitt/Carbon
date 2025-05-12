@@ -142,7 +142,6 @@ class GettersTest extends AbstractTestCase
         }
     }
 
-    /** @group i */
     public function testOverlaps()
     {
         $periodClass = static::$periodClass;

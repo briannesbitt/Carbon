@@ -2285,31 +2285,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $data,
             );
 
-            if (method_exists(parent::class, '__unserialize')) {
-                $serializationBase = [
-                    'start' => $values['start'] ?? $values['startDate'] ?? null,
-                    'current' => $values['current'] ?? $values['carbonCurrent'] ?? null,
-                    'end' => $values['end'] ?? $values['endDate'] ?? null,
-                    'interval' => $values['interval'] ?? $values['dateInterval'] ?? null,
-                    'recurrences' => max(1, (int) ($values['recurrences'] ?? $values['carbonRecurrences'] ?? 1)),
-                    'include_start_date' => $values['include_start_date'] ?? true,
-                    'include_end_date' => $values['include_end_date'] ?? false,
-                ];
-
-                foreach (['start', 'current', 'end'] as $dateProperty) {
-                    if ($serializationBase[$dateProperty] instanceof Carbon) {
-                        $serializationBase[$dateProperty] = $serializationBase[$dateProperty]->toDateTime();
-                    } elseif ($serializationBase[$dateProperty] instanceof CarbonInterface) {
-                        $serializationBase[$dateProperty] = $serializationBase[$dateProperty]->toDateTimeImmutable();
-                    }
-                }
-
-                if ($serializationBase['interval'] instanceof CarbonInterval) {
-                    $serializationBase['interval'] = $serializationBase['interval']->toDateInterval();
-                }
-
-                parent::__unserialize($serializationBase);
-            }
+            $this->initializeSerialization($values);
 
             foreach ($values as $key => $value) {
                 if ($value === null) {
@@ -2708,5 +2684,46 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         return $sortedArguments;
+    }
+
+    private function initializeSerialization(array $values): void
+    {
+        $serializationBase = [
+            'start' => $values['start'] ?? $values['startDate'] ?? null,
+            'current' => $values['current'] ?? $values['carbonCurrent'] ?? null,
+            'end' => $values['end'] ?? $values['endDate'] ?? null,
+            'interval' => $values['interval'] ?? $values['dateInterval'] ?? null,
+            'recurrences' => max(1, (int) ($values['recurrences'] ?? $values['carbonRecurrences'] ?? 1)),
+            'include_start_date' => $values['include_start_date'] ?? true,
+            'include_end_date' => $values['include_end_date'] ?? false,
+        ];
+
+        foreach (['start', 'current', 'end'] as $dateProperty) {
+            if ($serializationBase[$dateProperty] instanceof Carbon) {
+                $serializationBase[$dateProperty] = $serializationBase[$dateProperty]->toDateTime();
+            } elseif ($serializationBase[$dateProperty] instanceof CarbonInterface) {
+                $serializationBase[$dateProperty] = $serializationBase[$dateProperty]->toDateTimeImmutable();
+            }
+        }
+
+        if ($serializationBase['interval'] instanceof CarbonInterval) {
+            $serializationBase['interval'] = $serializationBase['interval']->toDateInterval();
+        }
+
+        if (method_exists(parent::class, '__unserialize')) {
+            parent::__unserialize($serializationBase);
+
+            return;
+        }
+
+        $excludeStart = !($values['include_start_date'] ?? true);
+        $includeEnd = $values['include_end_date'] ?? true;
+
+        parent::__construct(
+            $serializationBase['start'],
+            $serializationBase['interval'],
+            $serializationBase['end'] ?? $serializationBase['recurrences'],
+            ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
+        );
     }
 }
