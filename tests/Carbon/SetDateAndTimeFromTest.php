@@ -69,12 +69,12 @@ class SetDateAndTimeFromTest extends AbstractTestCase
 
         $this->assertCarbon(
             $target->copy()->setDateTimeFrom($source),
-            $target->year,
-            $target->month,
-            $target->day,
-            $target->hour,
-            $target->minute,
-            $target->second,
+            $source->year,
+            $source->month,
+            $source->day,
+            $source->hour,
+            $source->minute,
+            $source->second,
         );
     }
 }
