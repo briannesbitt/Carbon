@@ -276,5 +276,11 @@ class ToArrayTest extends AbstractTestCase
         $interval?->optimize();
 
         $this->assertEquals($expected, $actual);
+
+        $period = $period->setRecurrences(5);
+
+        $actual = $period->__debugInfo();
+
+        $this->assertSame(5, $actual['recurrences']);
     }
 }

@@ -2261,16 +2261,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $info["\0*\0constructed"],
         );
 
-        if (isset($info['carbonRecurrences'])) {
-            $info['recurrences'] = $info['carbonRecurrences'];
-            unset($info['carbonRecurrences']);
-        }
-
-        if (isset($info["\0*\0carbonRecurrences"])) {
-            $info["\0*\0recurrences"] = $info["\0*\0carbonRecurrences"];
-            unset($info["\0*\0carbonRecurrences"]);
-        }
-
         return $info;
     }
 
@@ -2297,10 +2287,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     'options' => $this->setOptions(...),
                     'recurrences' => $this->setRecurrences(...),
                     'current' => function (mixed $current): void {
-                        if ($current === null) {
-                            return;
-                        }
-
                         if (!($current instanceof CarbonInterface)) {
                             $current = $this->resolveCarbon($current);
                         }
