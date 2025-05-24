@@ -2335,11 +2335,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $this->carbonRecurrences = null;
             }
         } catch (Throwable $e) {
+            /** @codingStandardsIgnoreStart */
             if (!method_exists(parent::class, '__unserialize')) {
                 throw $e;
             }
 
             parent::__unserialize($data);
+            /** @codingStandardsIgnoreEnd */
         }
     }
 
@@ -2696,6 +2698,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $serializationBase['interval'] = $serializationBase['interval']->toDateInterval();
         }
 
+        /** @codingStandardsIgnoreStart */
         if (method_exists(parent::class, '__unserialize')) {
             parent::__unserialize($serializationBase);
 
@@ -2711,5 +2714,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $serializationBase['end'] ?? $serializationBase['recurrences'],
             ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
         );
+        /** @codingStandardsIgnoreEnd */
     }
 }
