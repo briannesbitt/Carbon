@@ -951,7 +951,7 @@ class CreateTest extends AbstractTestCase
 
     public function testInvalidTimezone()
     {
-        self::expectExceptionObject(new InvalidPeriodParameterException(
+        $this->expectExceptionObject(new InvalidPeriodParameterException(
             'Invalid constructor parameters.',
         ));
 

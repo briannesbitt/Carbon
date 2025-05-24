@@ -185,9 +185,13 @@ trait Options
 
         $this->addExtraDebugInfos($infos);
 
-        if (\array_key_exists('carbonRecurrences', $infos)) {
-            $infos['recurrences'] = $infos['carbonRecurrences'];
-            unset($infos['carbonRecurrences']);
+        foreach (["\0*\0", ''] as $prefix) {
+            $key = $prefix.'carbonRecurrences';
+
+            if (\array_key_exists($key, $infos)) {
+                $infos['recurrences'] = $infos[$key];
+                unset($infos[$key]);
+            }
         }
 
         return $infos;

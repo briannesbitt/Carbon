@@ -2261,16 +2261,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $info["\0*\0constructed"],
         );
 
-        if (isset($info['carbonRecurrences'])) {
-            $info['recurrences'] = $info['carbonRecurrences'];
-            unset($info['carbonRecurrences']);
-        }
-
-        if (isset($info["\0*\0carbonRecurrences"])) {
-            $info["\0*\0recurrences"] = $info["\0*\0carbonRecurrences"];
-            unset($info["\0*\0carbonRecurrences"]);
-        }
-
         return $info;
     }
 
@@ -2297,10 +2287,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     'options' => $this->setOptions(...),
                     'recurrences' => $this->setRecurrences(...),
                     'current' => function (mixed $current): void {
-                        if ($current === null) {
-                            return;
-                        }
-
                         if (!($current instanceof CarbonInterface)) {
                             $current = $this->resolveCarbon($current);
                         }
@@ -2349,11 +2335,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $this->carbonRecurrences = null;
             }
         } catch (Throwable $e) {
+            /* @codeCoverageIgnoreStart */
             if (!method_exists(parent::class, '__unserialize')) {
                 throw $e;
             }
 
             parent::__unserialize($data);
+            /* @codeCoverageIgnoreEnd */
         }
     }
 
@@ -2710,6 +2698,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $serializationBase['interval'] = $serializationBase['interval']->toDateInterval();
         }
 
+        /* @codeCoverageIgnoreStart */
         if (method_exists(parent::class, '__unserialize')) {
             parent::__unserialize($serializationBase);
 
@@ -2725,5 +2714,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $serializationBase['end'] ?? $serializationBase['recurrences'],
             ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
         );
+        /* @codeCoverageIgnoreEnd */
     }
 }

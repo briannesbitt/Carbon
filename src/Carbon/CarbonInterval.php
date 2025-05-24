@@ -3408,7 +3408,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return;
         }
 
-        if (PHP_VERSION_ID !== 80320) {
+        /* @codeCoverageIgnoreStart */
+        if (PHP_VERSION_ID !== 8_03_20) {
             $instance->$unit += $value;
 
             return;
@@ -3416,8 +3417,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         // Cannot use +=, nor set to a negative value directly as it segfaults in PHP 8.3.20
         self::setIntervalUnit($instance, $unit, ($instance->$unit ?? 0) + $value);
+        /* @codeCoverageIgnoreEnd */
     }
 
+    /** @codeCoverageIgnore */
     private static function setIntervalUnit(DateInterval $instance, string $unit, mixed $value): void
     {
         switch ($unit) {
