@@ -3409,7 +3409,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         /* @codeCoverageIgnoreStart */
-        if (PHP_VERSION_ID !== 80320) {
+        if (PHP_VERSION_ID !== 8_03_20) {
             $instance->$unit += $value;
 
             return;

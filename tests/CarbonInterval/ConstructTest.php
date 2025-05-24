@@ -52,7 +52,7 @@ class ConstructTest extends AbstractTestCase
 
     public function testConstructWithDateInterval()
     {
-        $month = (PHP_VERSION_ID === 80320) ? 6 : -6; // PHP 8.3.20 triggers segfault with negative or zero values
+        $month = (PHP_VERSION_ID === 8_03_20) ? 6 : -6; // PHP 8.3.20 triggers segfault with negative or zero values
         $ci = new CarbonInterval(new DateInterval('P1Y2M3D'));
         $this->assertSame('P1Y2M3D', $ci->spec());
         $interval = new DateInterval('P1Y2M3D');
