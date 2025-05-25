@@ -3088,16 +3088,50 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         // PHP <= 8.1
         // @codeCoverageIgnoreStart
-        foreach ($properties as $property => $value) {
-            $name = preg_replace('/^\0.+\0/', '', $property);
-            $localStrictMode = $this->localStrictModeEnabled;
-            $this->localStrictModeEnabled = false;
-            $this->$name = $value;
+        $properties = array_combine(
+            array_map(
+                static fn (string $property) => preg_replace('/^\0.+\0/', '', $property),
+                array_keys($data),
+            ),
+            $data,
+        );
+        $localStrictMode = $this->localStrictModeEnabled;
+        $this->localStrictModeEnabled = false;
+        $days = $properties['days'] ?? false;
+        $this->days = $days === false ? false : (int) $days;
+        $this->y = (int) ($properties['y'] ?? 0);
+        $this->m = (int) ($properties['m'] ?? 0);
+        $this->d = (int) ($properties['d'] ?? 0);
+        $this->h = (int) ($properties['h'] ?? 0);
+        $this->i = (int) ($properties['i'] ?? 0);
+        $this->s = (int) ($properties['s'] ?? 0);
+        $this->f = (float) ($properties['f'] ?? 0.0);
+        // @phpstan-ignore-next-line
+        $this->weekday = (int) ($properties['weekday'] ?? 0);
+        // @phpstan-ignore-next-line
+        $this->weekday_behavior = (int) ($properties['weekday_behavior'] ?? 0);
+        // @phpstan-ignore-next-line
+        $this->first_last_day_of = (int) ($properties['first_last_day_of'] ?? 0);
+        $this->invert = (int) ($properties['invert'] ?? 0);
+        // @phpstan-ignore-next-line
+        $this->special_type = (int) ($properties['special_type'] ?? 0);
+        // @phpstan-ignore-next-line
+        $this->special_amount = (int) ($properties['special_amount'] ?? 0);
+        // @phpstan-ignore-next-line
+        $this->have_weekday_relative = (int) ($properties['have_weekday_relative'] ?? 0);
+        // @phpstan-ignore-next-line
+        $this->have_special_relative = (int) ($properties['have_special_relative'] ?? 0);
+        parent::__construct(self::getDateIntervalSpec($this));
 
-            if ($name !== 'localStrictModeEnabled') {
-                $this->localStrictModeEnabled = $localStrictMode;
+        foreach ($properties as $property => $value) {
+            if ($property === 'localStrictModeEnabled') {
+                continue;
             }
+
+            $this->$property = $value;
         }
+
+        $this->localStrictModeEnabled = $properties['localStrictModeEnabled'] ?? $localStrictMode;
         // @codeCoverageIgnoreEnd
     }
 
@@ -3156,7 +3190,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         $microseconds = $interval->f;
-        $instance = new $className(static::getDateIntervalSpec($interval, false, $skip));
+        $instance = self::buildInstance($interval, $className, $skip);
 
         if ($instance instanceof self) {
             $instance->originalInput = $interval;
@@ -3173,6 +3207,83 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         self::copyNegativeUnits($interval, $instance);
 
         return self::withOriginal($instance, $interval);
+    }
+
+    /**
+     * @template T of DateInterval
+     *
+     * @param DateInterval $interval
+     *
+     * @psalm-param class-string<T> $className
+     *
+     * @return T
+     */
+    private static function buildInstance(
+        DateInterval $interval,
+        string $className,
+        array $skip = [],
+    ): object {
+        $serialization = self::buildSerializationString($interval, $className, $skip);
+
+        return match ($serialization) {
+            null => new $className(static::getDateIntervalSpec($interval, false, $skip)),
+            default => unserialize($serialization),
+        };
+    }
+
+    /**
+     * As demonstrated by rlanvin (https://github.com/rlanvin) in
+     * https://github.com/briannesbitt/Carbon/issues/3018#issuecomment-2888538438
+     *
+     * Modifying the output of serialize() to change the class name and unserializing
+     * the tweaked string allows creating new interval instances where the ->days
+     * property can be set. It's not possible neither with `new` nto with `__set_state`.
+     *
+     * It has a non-negligible performance cost, so we'll use this method only if
+     * $interval->days !== false.
+     */
+    private static function buildSerializationString(
+        DateInterval $interval,
+        string $className,
+        array $skip = [],
+    ): ?string {
+        if ($interval->days === false || PHP_VERSION_ID < 8_02_00 || $skip !== []) {
+            return null;
+        }
+
+        // De-enhance CarbonInterval objects to be serializable back to DateInterval
+        if ($interval instanceof self && !is_a($className, self::class, true)) {
+            $interval = clone $interval;
+            unset($interval->timezoneSetting);
+            unset($interval->originalInput);
+            unset($interval->startDate);
+            unset($interval->endDate);
+            unset($interval->rawInterval);
+            unset($interval->absolute);
+            unset($interval->initialValues);
+            unset($interval->clock);
+            unset($interval->step);
+            unset($interval->localMonthsOverflow);
+            unset($interval->localYearsOverflow);
+            unset($interval->localStrictModeEnabled);
+            unset($interval->localHumanDiffOptions);
+            unset($interval->localToStringFormat);
+            unset($interval->localSerializer);
+            unset($interval->localMacros);
+            unset($interval->localGenericMacros);
+            unset($interval->localFormatFunction);
+            unset($interval->localTranslator);
+        }
+
+        $serialization = serialize($interval);
+        $inputClass = $interval::class;
+        $expectedStart = 'O:'.\strlen($inputClass).':"'.$inputClass.'":';
+
+        if (!str_starts_with($serialization, $expectedStart)) {
+            return null; // @codeCoverageIgnore
+        }
+
+        return 'O:'.\strlen($className).':"'.$className.'":'.substr($serialization, \strlen($expectedStart));
     }
 
     private static function copyStep(self $from, self $to): void
@@ -3408,7 +3519,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return;
         }
 
-        /* @codeCoverageIgnoreStart */
+        // @codeCoverageIgnoreStart
         if (PHP_VERSION_ID !== 8_03_20) {
             $instance->$unit += $value;
 
@@ -3417,7 +3528,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         // Cannot use +=, nor set to a negative value directly as it segfaults in PHP 8.3.20
         self::setIntervalUnit($instance, $unit, ($instance->$unit ?? 0) + $value);
-        /* @codeCoverageIgnoreEnd */
+        // @codeCoverageIgnoreEnd
     }
 
     /** @codeCoverageIgnore */

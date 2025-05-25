@@ -22,18 +22,11 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPStan\Type\ClosureTypeFactory;
 use PHPStan\Type\VerbosityLevel;
-use PHPUnit\Framework\Attributes\RequiresPhp;
-use PHPUnit\Framework\Attributes\RequiresPhpunit;
 
-#[RequiresPhpunit('<11')]
-#[RequiresPhp('<8.4')]
 class MacroExtensionTest extends PHPStanTestCase
 {
-    /** @var ReflectionProvider */
-    private $reflectionProvider;
-
-    /** @var MacroExtension */
-    private $extension;
+    private ReflectionProvider $reflectionProvider;
+    private MacroExtension $extension;
 
     protected function setUp(): void
     {

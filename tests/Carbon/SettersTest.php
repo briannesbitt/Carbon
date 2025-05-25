@@ -15,9 +15,13 @@ namespace Tests\Carbon;
 
 use BadMethodCallException;
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\UnitException;
+use Carbon\Exceptions\UnsupportedUnitException;
 use Carbon\Month;
 use Carbon\Unit;
+use DateInterval;
 use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
@@ -780,6 +784,45 @@ class SettersTest extends AbstractTestCase
 
         $date = Carbon::parse('2021-09-13');
         @$date->addUnit('foobar', 1);
+    }
+
+    public function testUnsupportedUnitException()
+    {
+        $date = new class ('2021-09-13') extends Carbon {
+            public function rawAdd(DateInterval $interval): static
+            {
+                throw new InvalidIntervalException('InvalidIntervalException');
+            }
+
+            public function modify($modifier): static
+            {
+                throw new InvalidFormatException('InvalidFormatException');
+            }
+        };
+
+        $exception = null;
+
+        try {
+            $date->addUnit('year', 999);
+        } catch (UnitException $error) {
+            $exception = $error;
+        }
+
+        $this->assertSame(
+            'Unable to add unit '.var_export(['year', 999], true),
+            $exception?->getMessage(),
+        );
+
+        $previous = $exception->getPrevious();
+
+        $this->assertInstanceOf(UnsupportedUnitException::class, $previous);
+        $this->assertSame("Unsupported unit 'year'", $previous->getMessage());
+
+        $previous = $previous->getPrevious();
+
+        $this->assertInstanceOf(InvalidIntervalException::class, $previous);
+        $this->assertSame('InvalidIntervalException', $previous->getMessage());
+        $this->assertNull($previous->getPrevious());
     }
 
     public function testAddUnitNoOverflow()

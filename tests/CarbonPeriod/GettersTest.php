@@ -119,7 +119,7 @@ class GettersTest extends AbstractTestCase
 
         $period = new $periodClass();
 
-        $this->assertSame(0, $period->getOptions());
+        $this->assertPeriodOptions(0, $period);
 
         $this->assertTrue($period->isStartIncluded());
         $this->assertTrue($period->isEndIncluded());
@@ -131,7 +131,7 @@ class GettersTest extends AbstractTestCase
 
         $period = new $periodClass(new DateTime(), new DateTime(), $options = $periodClass::EXCLUDE_START_DATE | $periodClass::EXCLUDE_END_DATE);
 
-        $this->assertSame($options, $period->getOptions());
+        $this->assertPeriodOptions($options, $period);
 
         $this->assertFalse($period->isStartIncluded());
         $this->assertFalse($period->isEndIncluded());
@@ -302,7 +302,7 @@ class GettersTest extends AbstractTestCase
         ));
 
         $period = $periodClass::create('2019-01-26 10:30:12', CarbonInterval::minute(), 98282828);
-        $period->addFilter(function ($date) {
+        $period = $period->addFilter(function ($date) {
             return $date->minute % 2;
         });
         $period->overlaps('R2/2019-01-31T10:30:45Z/P2D');

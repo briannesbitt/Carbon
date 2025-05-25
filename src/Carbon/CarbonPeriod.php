@@ -414,10 +414,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         $instance = static::createFromArray($params);
 
-        if ($options !== null) {
-            $instance->options = $options;
-            $instance->handleChangedParameters();
-        }
+        $instance->options = ($instance instanceof CarbonPeriodImmutable ? static::IMMUTABLE : 0) | $options;
+        $instance->handleChangedParameters();
 
         return $instance;
     }
@@ -2335,13 +2333,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $this->carbonRecurrences = null;
             }
         } catch (Throwable $e) {
-            /* @codeCoverageIgnoreStart */
+            // @codeCoverageIgnoreStart
             if (!method_exists(parent::class, '__unserialize')) {
                 throw $e;
             }
 
             parent::__unserialize($data);
-            /* @codeCoverageIgnoreEnd */
+            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -2698,7 +2696,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $serializationBase['interval'] = $serializationBase['interval']->toDateInterval();
         }
 
-        /* @codeCoverageIgnoreStart */
+        // @codeCoverageIgnoreStart
         if (method_exists(parent::class, '__unserialize')) {
             parent::__unserialize($serializationBase);
 
@@ -2714,6 +2712,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $serializationBase['end'] ?? $serializationBase['recurrences'],
             ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
         );
-        /* @codeCoverageIgnoreEnd */
+        // @codeCoverageIgnoreEnd
     }
 }

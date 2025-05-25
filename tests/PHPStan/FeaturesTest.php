@@ -13,17 +13,17 @@ declare(strict_types=1);
 
 namespace Tests\PHPStan;
 
-use PHPUnit\Framework\Attributes\RequiresPhp;
+use PHPUnit\Framework\Attributes\Large;
 use RuntimeException;
 use Tests\AbstractTestCase;
 
-#[RequiresPhp('<8.4')]
+#[Large]
 class FeaturesTest extends AbstractTestCase
 {
     /**
      * @SuppressWarnings(PHPMD.LongVariable)
      */
-    protected $phpStanPreviousDirectory = '.';
+    protected string $phpStanPreviousDirectory = '.';
 
     protected function setUp(): void
     {

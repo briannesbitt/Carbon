@@ -320,6 +320,7 @@ trait Serialization
         // @codeCoverageIgnoreEnd
     }
 
+    /** @codeCoverageIgnore */
     private function dumpTimezone(mixed $timezone): mixed
     {
         return $timezone instanceof DateTimeZone ? $timezone->getName() : $timezone;

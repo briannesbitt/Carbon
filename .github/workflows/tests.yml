@@ -93,26 +93,25 @@ jobs:
 
       - name: Run test suite
         if: matrix.coverage != true
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --exclude-testsuite=localization --default-time-limit=${{ matrix.php >= 8.2 && '2' || '4' }} ${{ matrix.os == 'ubuntu' && '--enforce-time-limit' || '' }} --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
         env:
           PHP_VERSION: ${{ matrix.php }}
 
       - name: Run test suite with coverage
         if: matrix.coverage
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=clover.xml --coverage-text
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --default-time-limit=3 ${{ matrix.os == 'ubuntu' && '--enforce-time-limit' || '' }} --coverage-clover=clover.xml --coverage-text
         env:
           PHP_VERSION: ${{ matrix.php }}
 
       - name: Code Climate Test Reporter
+        uses: qltysh/qlty-action/coverage@v1
         if: matrix.coverage
-        uses: aktions/codeclimate-test-reporter@v1
         with:
-          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
-          command: after-build -t clover
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        continue-on-error: true
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: clover.xml
 
       - name: Coverage
         if: matrix.coverage
         uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

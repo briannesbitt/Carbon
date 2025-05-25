@@ -77,9 +77,23 @@ class SettersTest extends AbstractTestCase
         $diff = (new Carbon('2024-07-15 00:00'))->diff('2024-08-12 23:15');
 
         $this->assertSame('4 weeks 23 hours 15 minutes', $diff->forHumans());
-        $diff->set('days', false);
-        $this->assertSame('4 weeks 23 hours 15 minutes', $diff->forHumans());
-        $this->assertFalse($diff->days);
+        $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
+        $this->assertSame(28, $diff->dayz);
+        $this->assertSame(28, $diff->d);
+
+        // Setting days to false has no effect
+        $diff->days(false);
+
+        $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
+        $this->assertSame(28, $diff->dayz);
+        $this->assertSame(28, $diff->d);
+
+        // Setting days to integer affects days and d, but not "days" (bolt-on by parent DateInterval class)
+        $diff->days(14);
+
+        $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
+        $this->assertSame(14, $diff->dayz);
+        $this->assertSame(14, $diff->d);
     }
 
     public function testHoursSetter()
@@ -216,21 +230,21 @@ class SettersTest extends AbstractTestCase
     public function testInvalidFluentSetter()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Unknown fluent setter \'doesNotExit\'',
+            'Unknown fluent setter \'doesNotExist\'',
         ));
 
         /** @var mixed $ci */
         $ci = new CarbonInterval();
-        $ci->doesNotExit(123);
+        $ci->doesNotExist(123);
     }
 
     public function testInvalidStaticFluentSetter()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Unknown fluent constructor \'doesNotExit\'',
+            'Unknown fluent constructor \'doesNotExist\'',
         ));
 
-        CarbonInterval::doesNotExit(123);
+        CarbonInterval::doesNotExist(123);
     }
 
     public function testLocale()

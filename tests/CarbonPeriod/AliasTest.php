@@ -193,7 +193,7 @@ class AliasTest extends AbstractTestCase
         $this->assertSame($start, $period->options());
 
         $period = $period->options(null);
-        $this->assertPeriodOptions(0, $period);
+        $this->assertSame(0, $period->getOptions());
     }
 
     public function testSetDates()
