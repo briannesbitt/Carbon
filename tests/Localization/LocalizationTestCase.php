@@ -21,7 +21,7 @@ use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
 
 /**
- * @SuppressWarnings(PHPMD.NumberOfChildren)
+ * @SuppressWarnings(NumberOfChildren)
  */
 abstract class LocalizationTestCase extends AbstractTestCase
 {
