@@ -14,6 +14,9 @@ parameters:
         processTimeout: 300.0
     ignoreErrors:
         - identifier: varTag.nativeType
+        - identifier: return.type
+          paths:
+              - tests/Carbon/TestingAidsTest.php
         - '#^Call to static method get\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.$#'
         - '#^Call to an undefined static method#'
         - '#^Call to an undefined method Carbon\\Carbon(Immutable)?::floatDiffIn([A-Za-z]+)\(\)\.$#'
@@ -30,7 +33,6 @@ parameters:
         - '#should return (\S*)static\(Carbon\\CarbonInterval\)(\|null)? but returns Carbon\\CarbonInterval(\|null)?\.$#'
         - '#^Call to an undefined method DateInterval::(spec|optimize)\(\)\.$#'
         - '#^Property Carbon\\Carbon::\$timezone \(Carbon\\CarbonTimeZone\) does not accept string\.$#'
-        - '#^Method class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+::modify\(\) should return class@anonymous/tests/Carbon/TestingAidsTest\.php:\d+ but returns \(?DateTimeImmutable#'
         -
             message: '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
             paths:
