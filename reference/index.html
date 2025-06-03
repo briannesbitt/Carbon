@@ -3751,10 +3751,11 @@ name, region and variant of the locale.</p>
 
 <div class="doc-method " id="doc-method-Carbon-fromSerialized">
     <h2><span class="class-name">Carbon::</span>fromSerialized</h2>
-    <code>$value</code>
+    <code>$value, array $options = []</code>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Create an instance from a serialized string.</p>
-    <table class='info-table method-history'>
+    <p class="doc-description">Create an instance from a serialized string.<br><br>If $value is not from a trusted source, consider using the allowed_classes option to limit
+the types of objects that can be built, for instance:<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">$object = Carbon::fromSerialized($value, ['allowed_classes' => [Carbon::class, CarbonImmutable::class]]);</code></pre></p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.9.1</td><td><code>$value, array $options = []</code></td></tr>
         <tr><td>Method added</td><td>1.22.0</td><td><code>$value</code></td></tr>
     </table>
 </div>
@@ -6987,6 +6988,16 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
     </table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonPeriod-createFromISO8601String">
+    <h2><span class="class-name">CarbonPeriod::</span>createFromISO8601String</h2>
+    <code>string $iso, ?int $options = null</code>
+    <div class="doc-return">returns <code>CarbonPeriod</code></div>
+    <p class="doc-description"></p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.9.1</td><td><code>string $iso, ?int $options = null</code></td></tr>
+        <tr><td>Method added</td><td>3.0.0</td><td><code>string $specification, int $options = 0</code></td></tr>
+    </table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonPeriod-macro">
     <h2><span class="class-name">CarbonPeriod::</span>macro</h2>
     <code>string $name, ?callable $macro</code>
@@ -7955,13 +7966,12 @@ Note than in this example, isFollowedBy() would be false if 2019-08-01 or 2019-0
     </table>
 </div>
 
-<div class="doc-method " id="doc-method-CarbonPeriod-createFromISO8601String">
-    <h2><span class="class-name">CarbonPeriod::</span>createFromISO8601String</h2>
-    <code>string $specification, int $options = 0</code>
-    <div class="doc-return">returns <code>CarbonPeriod</code></div>
-    <p class="doc-description"></p>
+<div class="doc-method " id="doc-method-CarbonPeriod-__unserialize">
+    <h2><span class="class-name">CarbonPeriod::</span>__unserialize</h2>
+    <code>array $data</code>
+    <p class="doc-description">Set locale if specified on unserialize() called.<br><br>Only used by PHP >= 7.4.</p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>3.0.0</td><td><code>string $specification, int $options = 0</code></td></tr>
+        <tr><td>Method added</td><td>3.0.0</td><td><code>array $data</code></td></tr>
     </table>
 </div>
 
@@ -7972,15 +7982,6 @@ Note than in this example, isFollowedBy() would be false if 2019-08-01 or 2019-0
     <p class="doc-description">Returns the values to dump on serialize() called on.<br><br>Only used by PHP >= 7.4.</p>
     <table class='info-table method-history'>
         <tr><td>Method added</td><td>3.0.0</td><td><em>no arguments</em></td></tr>
-    </table>
-</div>
-
-<div class="doc-method " id="doc-method-CarbonPeriod-__unserialize">
-    <h2><span class="class-name">CarbonPeriod::</span>__unserialize</h2>
-    <code>array $data</code>
-    <p class="doc-description">Set locale if specified on unserialize() called.<br><br>Only used by PHP >= 7.4.</p>
-    <table class='info-table method-history'>
-        <tr><td>Method added</td><td>3.0.0</td><td><code>array $data</code></td></tr>
     </table>
 </div>
 
@@ -8919,6 +8920,19 @@ languages.</p>
     <em>Method from Symfony interhited class</em>
     <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">See Symfony\Component\Translation\Translator::getFallbackLocales</p>
+</div>
+
+<div class="doc-method " id="doc-method-Translator-addGlobalParameter">
+    <h2><span class="class-name">Translator::</span>addGlobalParameter</h2>
+    <em>Method from Symfony interhited class</em>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::addGlobalParameter</p>
+</div>
+
+<div class="doc-method " id="doc-method-Translator-getGlobalParameters">
+    <h2><span class="class-name">Translator::</span>getGlobalParameters</h2>
+    <em>Method from Symfony interhited class</em>
+    <div class="doc-return">returns <code>array</code></div>
+    <p class="doc-description">See Symfony\Component\Translation\Translator::getGlobalParameters</p>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getCatalogue">
