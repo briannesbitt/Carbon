@@ -685,7 +685,7 @@ trait Creator
         string $format,
         string $time,
         $timezone = null,
-        ?string $locale = self::DEFAULT_LOCALE,
+        ?string $locale = CarbonInterface::DEFAULT_LOCALE,
         ?TranslatorInterface $translator = null
     ): ?self {
         $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
