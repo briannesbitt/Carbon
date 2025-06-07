@@ -30,7 +30,7 @@ use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
 
 /**
- * @SuppressWarnings(PHPMD.NumberOfChildren)
+ * @SuppressWarnings(NumberOfChildren)
  */
 abstract class AbstractTestCase extends TestCase
 {

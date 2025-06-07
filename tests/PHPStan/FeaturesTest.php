@@ -21,7 +21,7 @@ use Tests\AbstractTestCase;
 class FeaturesTest extends AbstractTestCase
 {
     /**
-     * @SuppressWarnings(PHPMD.LongVariable)
+     * @SuppressWarnings(LongVariable)
      */
     protected string $phpStanPreviousDirectory = '.';
 
