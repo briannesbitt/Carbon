@@ -16,15 +16,20 @@ jobs:
             setup: stable
             classmap-authoritative: true
 
-          - php: 8.2
+          - php: 8.3
             os: ubuntu
             setup: stable
             coverage: true
 
-          - php: 8.3
+          - php: 8.4
             os: ubuntu
             setup: stable
             phpunit: 11
+
+          - php: 8.4
+            os: ubuntu
+            setup: stable
+            phpunit: 12
 
     name: ${{ matrix.phpunit && format('PHPUnit {0} - ', matrix.phpunit) || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ${{ matrix.os }}
 
