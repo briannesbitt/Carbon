@@ -19,6 +19,7 @@ jobs:
           - php: 8.3
             os: ubuntu
             setup: stable
+            phpunit: 11
             coverage: true
 
           - php: 8.4
