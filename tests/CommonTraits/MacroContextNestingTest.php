@@ -35,7 +35,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
     public static function dataForMacroableClasses(): array
     {
         return array_map(
-            static fn (array $arguments) => array_slice($arguments, 0, 2),
+            static fn (array $arguments) => \array_slice($arguments, 0, 2),
             self::dataForMacroableClassesWithReference(),
         );
     }

@@ -22,6 +22,7 @@ use Carbon\Doctrine\DateTimeDefaultPrecision;
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
 use DateTimeImmutable;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
@@ -210,7 +211,7 @@ class CarbonTypesTest extends AbstractTestCase
         return version_compare(self::getDbalVersion(), '3.7.0', '>=');
     }
 
-    private function getMySQLPlatform(): MySQLPlatform|MySQL57Platform
+    private function getMySQLPlatform(): AbstractMySQLPlatform
     {
         return class_exists(MySQLPlatform::class) ? new MySQLPlatform() : new MySQL57Platform();
     }

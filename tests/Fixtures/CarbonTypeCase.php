@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Tests\Fixtures;
-
-use Doctrine\DBAL\Types\Type;
-
 /**
  * This file is part of the Carbon package.
  *
@@ -14,6 +10,10 @@ use Doctrine\DBAL\Types\Type;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+namespace Tests\Fixtures;
+
+use Doctrine\DBAL\Types\Type;
 
 final class CarbonTypeCase
 {
