@@ -124,65 +124,65 @@ class SdInDevanagariTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'چند سيڪنڊ اڳ',
+        '1 سيڪنڊ اڳ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'چند سيڪنڊ اڳ',
+        '1 سيڪنڊ اڳ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 سيڪنڊ اڳ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 سيڪنڊ اڳ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'هڪ منٽ اڳ',
+        '1 منٽ اڳ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'هڪ منٽ اڳ',
+        '1 منٽ اڳ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 منٽ اڳ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 منٽ اڳ',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'هڪ ڪلاڪ اڳ',
+        '1 ڪلاڪ اڳ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'هڪ ڪلاڪ اڳ',
+        '1 ڪلاڪ اڳ',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 ڪلاڪ اڳ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ڪلاڪ اڳ',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'هڪ ڏينهن اڳ',
+        '1 ڏينهن اڳ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'هڪ ڏينهن اڳ',
+        '1 ڏينهن اڳ',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 ڏينهن اڳ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 ڏينهن اڳ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ھڪ ھفتو اڳ',
+        '1 هفتا اڳ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ھڪ ھفتو اڳ',
+        '1 هفتا اڳ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 هفتا اڳ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 هفتا اڳ',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'هڪ مهينو اڳ',
+        '1 مهينا اڳ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'هڪ مهينو اڳ',
+        '1 مهينا اڳ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 مهينا اڳ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 مهينا اڳ',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'هڪ سال اڳ',
+        '1 سال اڳ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'هڪ سال اڳ',
+        '1 سال اڳ',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 سال اڳ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 سال اڳ',
         // Carbon::now()->addSecond()->diffForHumans()
-        'چند سيڪنڊ پوء',
+        '1 سيڪنڊ پوء',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'چند سيڪنڊ پوء',
+        '1 سيڪنڊ پوء',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -192,40 +192,40 @@ class SdInDevanagariTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'چند سيڪنڊ',
+        '1 سيڪنڊ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'چند سيڪنڊ',
+        '1 سيڪنڊ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 سيڪنڊ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 سيڪنڊ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'چند سيڪنڊ پوء',
+        '1 سيڪنڊ پوء',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'هڪ منٽ چند سيڪنڊ',
+        '1 منٽ 1 سيڪنڊ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 سال 3 مهينا هڪ ڏينهن چند سيڪنڊ',
+        '2 سال 3 مهينا 1 ڏينهن 1 سيڪنڊ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 سال پوء',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 مهينا اڳ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 سال 3 مهينا هڪ ڏينهن چند سيڪنڊ اڳ',
+        '2 سال 3 مهينا 1 ڏينهن 1 سيڪنڊ اڳ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'ھڪ ھفتو 10 ڪلاڪ',
+        '1 هفتا 10 ڪلاڪ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ھڪ ھفتو 6 ڏينهن',
+        '1 هفتا 6 ڏينهن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ھڪ ھفتو 6 ڏينهن',
+        '1 هفتا 6 ڏينهن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'ھڪ ھفتو ۽ 6 ڏينهن پوء',
+        '1 هفتا ۽ 6 ڏينهن پوء',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 هفتا هڪ ڪلاڪ',
+        '2 هفتا 1 ڪلاڪ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'هڪ ڪلاڪ پوء',
         // CarbonInterval::days(2)->forHumans()
         '2 ڏينهن',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'هڪ ڏينهن 3 ڪلاڪ',
+        '1 ڏينهن 3 ڪلاڪ',
     ];
 }
