@@ -23,7 +23,7 @@ final class DumpCarbon extends Carbon
     private $formatBroken = false;
 
     /**
-     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
+     * @SuppressWarnings(DevelopmentCodeFragment)
      */
     public function __construct($time = null, $timezone = null)
     {

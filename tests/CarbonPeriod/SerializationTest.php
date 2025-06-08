@@ -149,7 +149,7 @@ class SerializationTest extends AbstractTestCase
     }
 
     /**
-     * @SuppressWarnings(PHPMD.MissingImport)
+     * @SuppressWarnings(MissingImport)
      */
     public function testUnserializeError(): void
     {

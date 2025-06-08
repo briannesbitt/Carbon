@@ -176,9 +176,9 @@ require PHP_VERSION < 8.2
  *
  * @mixin DeprecatedPeriodProperties
  *
- * @SuppressWarnings(PHPMD.TooManyFields)
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(TooManyFields)
+ * @SuppressWarnings(CamelCasePropertyName)
+ * @SuppressWarnings(CouplingBetweenObjects)
  */
 class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 {
@@ -456,7 +456,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Parse given ISO 8601 string into an array of arguments.
      *
-     * @SuppressWarnings(PHPMD.ElseExpression)
+     * @SuppressWarnings(ElseExpression)
      */
     protected static function parseIso8601(string $iso): array
     {
@@ -600,7 +600,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * CarbonPeriod constructor.
      *
-     * @SuppressWarnings(PHPMD.ElseExpression)
+     * @SuppressWarnings(ElseExpression)
      *
      * @throws InvalidArgumentException
      */
@@ -1119,7 +1119,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Add a filter to the stack.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(UnusedFormalParameter)
      */
     public function addFilter(callable|string $callback, ?string $name = null): static
     {
@@ -1136,7 +1136,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Prepend a filter to the stack.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(UnusedFormalParameter)
      */
     public function prependFilter(callable|string $callback, ?string $name = null): static
     {
@@ -2386,7 +2386,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Recurrences filter callback (limits number of recurrences).
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(UnusedFormalParameter)
      */
     protected function filterRecurrences(CarbonInterface $current, int $key): bool|callable
     {

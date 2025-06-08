@@ -564,7 +564,7 @@ class ConstructTest extends AbstractTestCase
             $expected->microseconds = $actual->microseconds;
         }
 
-        if (PHP_VERSION >= 8.4) {
+        if (PHP_VERSION >= 8.5) {
             $this->assertEquals($expected, $actual);
 
             return;
