@@ -26,41 +26,32 @@ use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Tests\AbstractTestCase;
+use Tests\Fixtures\CarbonTypeCase;
 
 class CarbonTypesTest extends AbstractTestCase
 {
+    private static ?array $types = null;
+
     public static function setUpBeforeClass(): void
     {
-        foreach (static::dataForTypes() as [$name, , $typeClass]) {
-            Type::hasType($name)
-                ? Type::overrideType($name, $typeClass)
-                : Type::addType($name, $typeClass);
+        foreach (static::dataForTypes() as [$case]) {
+            $case->initialize();
         }
     }
 
     public static function dataForTypes(): array
     {
-        $supportZeroPrecision = self::supportsZeroPrecision();
-
-        $types = [
-            [$supportZeroPrecision ? 'date_time' : 'datetime', Carbon::class, DateTimeType::class, false],
-            [$supportZeroPrecision ? 'date_time_immutable' : 'datetime_immutable', CarbonImmutable::class, DateTimeImmutableType::class, true],
-            ['carbon', Carbon::class, CarbonType::class, !$supportZeroPrecision],
-            ['carbon_immutable', CarbonImmutable::class, CarbonImmutableType::class, true],
-        ];
-
-        return array_combine(array_column($types, 0), $types);
+        return self::$types ??= self::generateDataForTypes();
     }
 
     #[Group('doctrine')]
     #[DataProvider('dataForTypes')]
-    public function testGetSQLDeclaration(string $name): void
+    public function testGetSQLDeclaration(CarbonTypeCase $case): void
     {
-        $type = Type::getType($name);
+        $type = $case->getType();
 
         $adaptPrecisionToPlatform = method_exists(CarbonTypeConverter::class, 'getMaximumPrecision');
         $precision = DateTimeDefaultPrecision::get();
@@ -125,45 +116,45 @@ class CarbonTypesTest extends AbstractTestCase
 
     #[Group('doctrine')]
     #[DataProvider('dataForTypes')]
-    public function testConvertToPHPValue(string $name, string $class)
+    public function testConvertToPHPValue(CarbonTypeCase $case): void
     {
-        $type = Type::getType($name);
+        $type = $case->getType();
 
         $this->assertNull($type->convertToPHPValue(null, $this->getMySQLPlatform()));
 
         $date = $type->convertToPHPValue(Carbon::parse('2020-06-23 18:47'), $this->getMySQLPlatform());
-        $this->assertInstanceOf($class, $date);
+        $this->assertInstanceOf($case->class, $date);
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
 
         $date = $type->convertToPHPValue(new DateTimeImmutable('2020-06-23 18:47'), $this->getMySQLPlatform());
-        $this->assertInstanceOf($class, $date);
+        $this->assertInstanceOf($case->class, $date);
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
 
         $date = $type->convertToPHPValue('2020-06-23 18:47', $this->getMySQLPlatform());
-        $this->assertInstanceOf($class, $date);
+        $this->assertInstanceOf($case->class, $date);
         $this->assertSame('2020-06-23 18:47:00.000000', $date->format('Y-m-d H:i:s.u'));
     }
 
     #[Group('doctrine')]
     #[DataProvider('dataForTypes')]
-    public function testConvertToPHPValueFailure(string $name, string $class, string $typeClass)
+    public function testConvertToPHPValueFailure(CarbonTypeCase $case): void
     {
         $conversion = version_compare(self::getDbalVersion(), '4.0.0', '>=')
-            ? "to \"$typeClass\" as an error was triggered by the unserialization: "
-            : "\"2020-0776-23 18:47\" to Doctrine Type $name. Expected format: ";
+            ? "to \"$case->typeClass\" as an error was triggered by the unserialization: "
+            : "\"2020-0776-23 18:47\" to Doctrine Type $case->name. Expected format: ";
         $this->expectExceptionObject(new ConversionException(
             'Could not convert database value '.$conversion.
-            "Y-m-d H:i:s.u or any format supported by $class::parse()",
+            "Y-m-d H:i:s.u or any format supported by $case->class::parse()",
         ));
 
-        Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', $this->getMySQLPlatform());
+        $case->getType()->convertToPHPValue('2020-0776-23 18:47', $this->getMySQLPlatform());
     }
 
     #[Group('doctrine')]
     #[DataProvider('dataForTypes')]
-    public function testConvertToDatabaseValue(string $name)
+    public function testConvertToDatabaseValue(CarbonTypeCase $case): void
     {
-        $type = Type::getType($name);
+        $type = $case->getType();
 
         $this->assertNull($type->convertToDatabaseValue(null, $this->getMySQLPlatform()));
         $this->assertSame(
@@ -174,31 +165,32 @@ class CarbonTypesTest extends AbstractTestCase
 
     #[Group('doctrine')]
     #[DataProvider('dataForTypes')]
-    public function testConvertToDatabaseValueFailure(string $name, string $class, string $typeClass)
+    public function testConvertToDatabaseValueFailure(CarbonTypeCase $case): void
     {
         $quote = class_exists('Doctrine\\DBAL\\Version') ? "'" : '';
         $conversion = version_compare(self::getDbalVersion(), '4.0.0', '>=')
-            ? "array to type $typeClass. "
-            : "{$quote}array{$quote} to type {$quote}$name{$quote}. ";
+            ? "array to type $case->typeClass. "
+            : "{$quote}array{$quote} to type {$quote}$case->name{$quote}. ";
         $this->expectExceptionObject(new ConversionException(
             'Could not convert PHP value of type '.$conversion.
             'Expected one of the following types: null, DateTime, Carbon',
         ));
 
-        Type::getType($name)->convertToDatabaseValue([2020, 06, 23], $this->getMySQLPlatform());
+        $case->getType()->convertToDatabaseValue([2020, 06, 23], $this->getMySQLPlatform());
     }
 
     #[Group('doctrine')]
     #[DataProvider('dataForTypes')]
-    public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
+    public function testRequiresSQLCommentHint(CarbonTypeCase $case): void
     {
         if (version_compare(self::getDbalVersion(), '4.0.0', '>=')) {
             $this->markTestSkipped('requiresSQLCommentHint dropped since DBAL 4');
         }
 
-        $type = Type::getType($name);
-
-        $this->assertSame($hintRequired, $type->requiresSQLCommentHint($this->getMySQLPlatform()));
+        $this->assertSame(
+            $case->hintRequired,
+            $case->getType()->requiresSQLCommentHint($this->getMySQLPlatform()),
+        );
     }
 
     private static function getDbalVersion(): string
@@ -218,8 +210,22 @@ class CarbonTypesTest extends AbstractTestCase
         return version_compare(self::getDbalVersion(), '3.7.0', '>=');
     }
 
-    private function getMySQLPlatform()
+    private function getMySQLPlatform(): MySQLPlatform|MySQL57Platform
     {
         return class_exists(MySQLPlatform::class) ? new MySQLPlatform() : new MySQL57Platform();
+    }
+
+    private static function generateDataForTypes(): array
+    {
+        $supportZeroPrecision = self::supportsZeroPrecision();
+
+        $types = [
+            [new CarbonTypeCase($supportZeroPrecision ? 'date_time' : 'datetime', Carbon::class, DateTimeType::class, false)],
+            [new CarbonTypeCase($supportZeroPrecision ? 'date_time_immutable' : 'datetime_immutable', CarbonImmutable::class, DateTimeImmutableType::class, true)],
+            [new CarbonTypeCase('carbon', Carbon::class, CarbonType::class, !$supportZeroPrecision)],
+            [new CarbonTypeCase('carbon_immutable', CarbonImmutable::class, CarbonImmutableType::class, true)],
+        ];
+
+        return array_combine(array_column($types, 0), $types);
     }
 }

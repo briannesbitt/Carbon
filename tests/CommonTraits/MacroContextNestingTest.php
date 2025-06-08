@@ -17,21 +17,30 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
-use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
 {
-    public static function dataForMacroableClasses(): Generator
+    public static function dataForMacroableClassesWithReference(): array
     {
-        yield [Carbon::class, Carbon::parse('2010-05-23'), null];
-        yield [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null];
-        yield [CarbonInterval::class, CarbonInterval::make('P1M6D'), (string) (CarbonInterval::seconds(0))];
-        yield [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null];
+        return [
+            [Carbon::class, Carbon::parse('2010-05-23'), null],
+            [CarbonImmutable::class, CarbonImmutable::parse('2010-05-23'), null],
+            [CarbonInterval::class, CarbonInterval::make('P1M6D'), (string) (CarbonInterval::seconds(0))],
+            [CarbonPeriod::class, CarbonPeriod::create('2010-08-23', '2010-10-02'), null],
+        ];
     }
 
-    #[DataProvider('dataForMacroableClasses')]
+    public static function dataForMacroableClasses(): array
+    {
+        return array_map(
+            static fn (array $arguments) => array_slice($arguments, 0, 2),
+            self::dataForMacroableClassesWithReference(),
+        );
+    }
+
+    #[DataProvider('dataForMacroableClassesWithReference')]
     public function testMacroContextNesting(string $class, mixed $sample, ?string $reference): void
     {
         $macro1 = 'macro'.(mt_rand(100, 999999) * 2);
