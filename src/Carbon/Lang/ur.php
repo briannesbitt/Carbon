@@ -46,15 +46,22 @@ $weekdays = [
  * - hafezdivandari
  * - Hossein Jabbari
  * - nimamo
+ * - Usman Zahid
  */
 return [
-    'year' => 'ایک سال|:count سال',
-    'month' => 'ایک ماہ|:count ماہ',
-    'week' => ':count ہفتے',
-    'day' => 'ایک دن|:count دن',
-    'hour' => 'ایک گھنٹہ|:count گھنٹے',
-    'minute' => 'ایک منٹ|:count منٹ',
-    'second' => 'چند سیکنڈ|:count سیکنڈ',
+    'year' => ':count '.'سال',
+    'a_year' => 'ایک سال|:count سال',
+    'month' => ':count '.'ماہ',
+    'a_month' => 'ایک ماہ|:count ماہ',
+    'week' => ':count '.'ہفتے',
+    'day' => ':count '.'دن',
+    'a_day' => 'ایک دن|:count دن',
+    'hour' => ':count '.'گھنٹے',
+    'a_hour' => 'ایک گھنٹہ|:count گھنٹے',
+    'minute' => ':count '.'منٹ',
+    'a_minute' => 'ایک منٹ|:count منٹ',
+    'second' => ':count '.'سیکنڈ',
+    'a_second' => 'چند سیکنڈ|:count سیکنڈ',
     'ago' => ':time قبل',
     'from_now' => ':time بعد',
     'after' => ':time بعد',

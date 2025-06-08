@@ -227,11 +227,11 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago'
-        'چند سیکنڈ قبل',
+        '1 سیکنڈ قبل',
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        'چند سیکنڈ قبل',
+        '1 سیکنڈ قبل',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
@@ -243,11 +243,11 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
-        'ایک منٹ قبل',
+        '1 منٹ قبل',
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        'ایک منٹ قبل',
+        '1 منٹ قبل',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
@@ -259,11 +259,11 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
-        'ایک گھنٹہ قبل',
+        '1 گھنٹے قبل',
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        'ایک گھنٹہ قبل',
+        '1 گھنٹے قبل',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
@@ -275,11 +275,11 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
-        'ایک دن قبل',
+        '1 دن قبل',
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago'
-        'ایک دن قبل',
+        '1 دن قبل',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
@@ -307,11 +307,11 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago'
-        'ایک ماہ قبل',
+        '1 ماہ قبل',
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        'ایک ماہ قبل',
+        '1 ماہ قبل',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
@@ -323,11 +323,11 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
-        'ایک سال قبل',
+        '1 سال قبل',
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago'
-        'ایک سال قبل',
+        '1 سال قبل',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago'
@@ -339,35 +339,35 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
-        'چند سیکنڈ بعد',
+        '1 سیکنڈ بعد',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        'چند سیکنڈ بعد',
+        '1 سیکنڈ بعد',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
-        'چند سیکنڈ بعد',
+        '1 سیکنڈ بعد',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        'چند سیکنڈ بعد',
+        '1 سیکنڈ بعد',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
-        'چند سیکنڈ پہلے',
+        '1 سیکنڈ پہلے',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        'چند سیکنڈ پہلے',
+        '1 سیکنڈ پہلے',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
-        'چند سیکنڈ',
+        '1 سیکنڈ',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        'چند سیکنڈ',
+        '1 سیکنڈ',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
@@ -379,15 +379,15 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        'چند سیکنڈ بعد',
+        '1 سیکنڈ بعد',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
-        'ایک منٹ چند سیکنڈ',
+        '1 منٹ 1 سیکنڈ',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 سال 3 ماہ ایک دن چند سیکنڈ',
+        '2 سال 3 ماہ 1 دن 1 سیکنڈ',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -399,7 +399,7 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        '2 سال 3 ماہ ایک دن چند سیکنڈ قبل',
+        '2 سال 3 ماہ 1 دن 1 سیکنڈ قبل',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -419,7 +419,7 @@ class PaArabTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
-        '2 ہفتے ایک گھنٹہ',
+        '2 ہفتے 1 گھنٹے',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
@@ -431,6 +431,6 @@ class PaArabTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        'ایک دن 3 گھنٹے',
+        '1 دن 3 گھنٹے',
     ];
 }

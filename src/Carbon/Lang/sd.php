@@ -38,16 +38,22 @@ $weekdays = [
  * Authors:
  * - Narain Sagar
  * - Sawood Alam
- * - Narain Sagar
  */
 return [
-    'year' => '{1}'.'هڪ سال'.'|:count '.'سال',
-    'month' => '{1}'.'هڪ مهينو'.'|:count '.'مهينا',
-    'week' => '{1}'.'ھڪ ھفتو'.'|:count '.'هفتا',
-    'day' => '{1}'.'هڪ ڏينهن'.'|:count '.'ڏينهن',
-    'hour' => '{1}'.'هڪ ڪلاڪ'.'|:count '.'ڪلاڪ',
-    'minute' => '{1}'.'هڪ منٽ'.'|:count '.'منٽ',
-    'second' => '{1}'.'چند سيڪنڊ'.'|:count '.'سيڪنڊ',
+    'year' => ':count '.'سال',
+    'a_year' => '{1}'.'هڪ سال'.'|:count '.'سال',
+    'month' => ':count '.'مهينا',
+    'a_month' => '{1}'.'هڪ مهينو'.'|:count '.'مهينا',
+    'week' => ':count '.'هفتا',
+    'a_week' => '{1}'.'ھڪ ھفتو'.'|:count '.'هفتا',
+    'day' => ':count '.'ڏينهن',
+    'a_day' => '{1}'.'هڪ ڏينهن'.'|:count '.'ڏينهن',
+    'hour' => ':count '.'ڪلاڪ',
+    'a_hour' => '{1}'.'هڪ ڪلاڪ'.'|:count '.'ڪلاڪ',
+    'minute' => ':count '.'منٽ',
+    'a_minute' => '{1}'.'هڪ منٽ'.'|:count '.'منٽ',
+    'second' => ':count '.'سيڪنڊ',
+    'a_second' => '{1}'.'چند سيڪنڊ'.'|:count '.'سيڪنڊ',
     'ago' => ':time اڳ',
     'from_now' => ':time پوء',
     'diff_yesterday' => 'ڪالهه',
