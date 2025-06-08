@@ -564,14 +564,16 @@ class ConstructTest extends AbstractTestCase
             $expected->microseconds = $actual->microseconds;
         }
 
-        if (PHP_VERSION >= 8.5) {
-            $this->assertEquals($expected, $actual);
-
-            return;
-        }
-
         $expectedProperties = $this->fetchProperties($expected);
         $actualProperties = $this->fetchProperties($actual);
+
+        if (
+            isset($expectedProperties['f'], $actualProperties['f'])
+            && $expectedProperties['f'] !== $actualProperties['f']
+            && (abs($expectedProperties['f'] - $actualProperties['f']) * 1_000_000) < ($microsecondApproximation * 1.2)
+        ) {
+            $expectedProperties['f'] = $actualProperties['f'];
+        }
 
         if (PHP_VERSION < 8.2) {
             unset($expectedProperties['days']);

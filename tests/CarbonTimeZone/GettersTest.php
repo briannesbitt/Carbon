@@ -24,16 +24,56 @@ class GettersTest extends AbstractTestCase
     {
         $tz = new CarbonTimeZone('Europe/London');
 
-        $this->assertSame('bdst', $tz->getAbbr(true));
-        $this->assertSame('bst', $tz->getAbbr(false));
+        $this->assertSame('BST', $tz->getAbbr(true));
+        $this->assertSame('GMT', $tz->getAbbr(false));
     }
 
     public function testGetAbbreviatedName(): void
     {
         $tz = new CarbonTimeZone('Europe/London');
 
-        $this->assertSame('bdst', $tz->getAbbreviatedName(true));
-        $this->assertSame('bst', $tz->getAbbreviatedName(false));
+        $this->assertSame('BST', $tz->getAbbreviatedName(true));
+        $this->assertSame('GMT', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Europe/Athens');
+
+        $this->assertSame('EEST', $tz->getAbbreviatedName(true));
+        $this->assertSame('EET', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Pacific/Auckland');
+
+        $this->assertSame('NZST', $tz->getAbbreviatedName(true));
+        $this->assertSame('NZMT', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('America/Toronto');
+
+        $this->assertSame('EDT', $tz->getAbbreviatedName(true));
+        $this->assertSame('EST', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Arctic/Longyearbyen');
+
+        $this->assertSame('CEST', $tz->getAbbreviatedName(true));
+        $this->assertSame('CET', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Atlantic/Faroe');
+
+        $this->assertSame('WEST', $tz->getAbbreviatedName(true));
+        $this->assertSame('WET', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Africa/Ceuta');
+
+        $this->assertSame('CEST', $tz->getAbbreviatedName(true));
+        $this->assertSame('CET', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Canada/Yukon');
+
+        $this->assertSame('PDT', $tz->getAbbreviatedName(true));
+        $this->assertSame('PST', $tz->getAbbreviatedName(false));
+
+        $tz = CarbonTimeZone::create('Asia/Pontianak');
+
+        $this->assertSame('unknown', $tz->getAbbreviatedName(true));
+        $this->assertSame('WIB', $tz->getAbbreviatedName(false));
     }
 
     public function testToRegionName(): void

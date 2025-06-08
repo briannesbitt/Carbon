@@ -16,6 +16,7 @@ namespace Carbon;
 use Carbon\Exceptions\InvalidCastException;
 use Carbon\Exceptions\InvalidTimeZoneException;
 use Carbon\Traits\LocalFactory;
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
@@ -129,10 +130,23 @@ class CarbonTimeZone extends DateTimeZone
     {
         $name = $this->getName();
 
-        foreach ($this->listAbbreviations() as $abbreviation => $zones) {
+        $date = new DateTimeImmutable($dst ? 'July 1' : 'January 1', $this);
+        $timezone = $date->format('T');
+        $abbreviations = $this->listAbbreviations();
+        $matchingZones = array_merge($abbreviations[$timezone] ?? [], $abbreviations[strtolower($timezone)] ?? []);
+
+        if ($matchingZones !== []) {
+            foreach ($matchingZones as $zone) {
+                if ($zone['timezone_id'] === $name && $zone['dst'] == $dst) {
+                    return $timezone;
+                }
+            }
+        }
+
+        foreach ($abbreviations as $abbreviation => $zones) {
             foreach ($zones as $zone) {
                 if ($zone['timezone_id'] === $name && $zone['dst'] == $dst) {
-                    return $abbreviation;
+                    return strtoupper($abbreviation);
                 }
             }
         }
