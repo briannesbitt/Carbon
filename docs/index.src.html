@@ -3153,6 +3153,11 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
 // same as:
 {{::exec(echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{eval}}
 
+// you can pass options to Carbon::fromSerialized the same way as you can with unserialize
+{{::exec(echo Carbon::fromSerialized(
+    $dt,
+    ['allowed_classes' => [Carbon::class]],
+)->format('Y-m-d\TH:i:s.uP T');)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -3624,6 +3629,43 @@ Carbon::macro('datePeriod', static function ($startDate, $endDate) {
 
     <p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a
             href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
+
+    <p>
+    <pre><code class="php">{{::lint(
+Carbon::macro('formatBuddhist', static function (string $format): string {
+    $self = self::this();
+
+    $format = strtr($format, [
+        'o' => '[{1}]',
+        'Y' => '[{2}]',
+        'y' => '[{3}]',
+    ]);
+
+    $function = $self->localFormatFunction ?: static::$formatFunction;
+
+    if (!$function) {
+        $format = $self->rawFormat($format);
+    } else if (\is_string($function) && method_exists($self, $function)) {
+        $format = [$self, $function];
+        $format = $function(...\func_get_args());
+    }
+
+    $buddhistYear = $self->year + 543;
+
+    return strtr($format, [
+        '[{1}]' => $self->format('o') + 543,
+        '[{2}]' => $buddhistYear,
+        '[{3}]' => str_pad($buddhistYear % 100, 2, '0', STR_PAD_LEFT),
+    ]);
+});
+)}}
+{{::exec(echo Carbon::parse('2024-02-29 10.55.32')->formatBuddhist('Y-m-d H:i:s');)}} // {{eval}}
+{{::exec(echo Carbon::parse('2024-02-29 10.55.32')->formatBuddhist('d/m/y');)}}       // {{eval}}
+</code></pre>
+    </p>
+
+    <p><em>From on original idea of: <a href="https://github.com/mean-cj">mean-cj</a> (<a
+            href="https://github.com/briannesbitt/Carbon/issues/2954">#2954</a>).</em></p>
 
     <p>
     <pre><code class="php">{{::lint(
