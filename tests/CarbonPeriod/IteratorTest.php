@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Generator;
@@ -559,5 +560,59 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame('00 America/Toronto', $str);
+    }
+
+    public function testDynamicStep()
+    {
+        $startDate = Carbon::create('2024-09-5')->startOfDay();
+        $endDate = Carbon::create('2024-09-12')->startOfDay();
+
+        $twoWeekdaysInterval = new CarbonInterval(
+            fn (CarbonInterface $date, bool $negated): CarbonInterface => $negated
+                ? $date->subWeekdays(2)
+                : $date->addWeekdays(2),
+        );
+        $twoWeekdaysPeriod = $twoWeekdaysInterval->toPeriod($startDate, $endDate);
+
+        $this->assertSame(3, $twoWeekdaysPeriod->count());
+
+        $dates = [];
+
+        foreach($twoWeekdaysPeriod as $date) {
+            $dates[] = $date->toDateString();
+        }
+
+        $this->assertSame([
+            '2024-09-05',
+            '2024-09-09',
+            '2024-09-11',
+        ], $dates);
+    }
+
+    public function testReverseOrderWithDynamicStep()
+    {
+        $startDate = Carbon::create('2024-09-12')->startOfDay();
+        $endDate = Carbon::create('2024-09-5')->startOfDay();
+
+        $twoWeekdaysInterval = new CarbonInterval(
+            fn (CarbonInterface $date, bool $negated): CarbonInterface => $negated
+                ? $date->subWeekdays(2)
+                : $date->addWeekdays(2),
+        );
+        $twoWeekdaysPeriod = $twoWeekdaysInterval->toPeriod($startDate, $endDate);
+
+        $this->assertSame(3, $twoWeekdaysPeriod->count());
+
+        $dates = [];
+
+        foreach($twoWeekdaysPeriod as $date) {
+            $dates[] = $date->toDateString();
+        }
+
+        $this->assertSame([
+            '2024-09-12',
+            '2024-09-10',
+            '2024-09-06',
+        ], $dates);
     }
 }

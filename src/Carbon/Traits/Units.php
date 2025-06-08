@@ -261,12 +261,18 @@ trait Units
             $unit = CarbonInterval::make($unit, [], true);
         }
 
+        $negated = false;
+
         if ($unit instanceof CarbonConverterInterface) {
+            if ($unit instanceof DateInterval) {
+                $negated = (bool) $unit->invert;
+            }
+
             $unit = Closure::fromCallable([$unit, 'convertDate']);
         }
 
         if ($unit instanceof Closure) {
-            $result = $this->resolveCarbon($unit($this, false));
+            $result = $this->resolveCarbon($unit($this, $negated));
 
             if ($this !== $result && $this->isMutable()) {
                 return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));

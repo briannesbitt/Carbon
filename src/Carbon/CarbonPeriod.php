@@ -2448,7 +2448,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return true;
         }
 
-        if ($this->dateInterval->invert ? $current > $this->endDate : $current < $this->endDate) {
+        if ($this->dateInterval->invert ? ($current > $this->endDate) : ($current < $this->endDate)) {
             return true;
         }
 
