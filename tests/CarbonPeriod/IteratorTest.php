@@ -578,7 +578,7 @@ class IteratorTest extends AbstractTestCase
 
         $dates = [];
 
-        foreach($twoWeekdaysPeriod as $date) {
+        foreach ($twoWeekdaysPeriod as $date) {
             $dates[] = $date->toDateString();
         }
 
@@ -605,7 +605,7 @@ class IteratorTest extends AbstractTestCase
 
         $dates = [];
 
-        foreach($twoWeekdaysPeriod as $date) {
+        foreach ($twoWeekdaysPeriod as $date) {
             $dates[] = $date->toDateString();
         }
 

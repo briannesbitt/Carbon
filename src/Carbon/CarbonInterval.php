@@ -2197,7 +2197,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         $class = ($params[0] ?? null) instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
 
         if ($this->step) {
-            $dates = array_filter($params, static fn(mixed $param) => $param instanceof DateTimeInterface);
+            $dates = array_filter($params, static fn (mixed $param) => $param instanceof DateTimeInterface);
 
             if (\count($dates) >= 2 && $dates[0] > $dates[1]) {
                 $this->invert();
