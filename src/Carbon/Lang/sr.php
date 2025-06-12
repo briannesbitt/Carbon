@@ -26,7 +26,7 @@ return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count g.',
     'month' => ':count mesec|:count meseca|:count meseci',
-    'm' => ':count mj.',
+    'm' => ':count mes.',
     'week' => ':count nedelja|:count nedelje|:count nedelja',
     'w' => ':count ned.',
     'day' => ':count dan|:count dana|:count dana',

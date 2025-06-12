@@ -311,7 +311,7 @@ class SrMeTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        'prije 1 mj.',
+        'prije 1 mes.',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
@@ -319,7 +319,7 @@ class SrMeTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
-        'prije 2 mj.',
+        'prije 2 mes.',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
@@ -387,7 +387,7 @@ class SrMeTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 g. 3 mj. 1 d. 1 sek.',
+        '2 g. 3 mes. 1 d. 1 sek.',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -395,11 +395,11 @@ class SrMeTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        'prije 5 mj.',
+        'prije 5 mes.',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'prije 2 g. 3 mj. 1 d. 1 sek.',
+        'prije 2 g. 3 mes. 1 d. 1 sek.',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
