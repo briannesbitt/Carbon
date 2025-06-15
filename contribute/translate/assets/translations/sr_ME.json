@@ -4,7 +4,7 @@
     "CarbonInterval::year()->forHumans()": "1 godina",
     "CarbonInterval::year()->forHumans([\"aUnit\" => true])": "1 godina",
     "CarbonInterval::months(2)->forHumans()": "2 mjeseca",
-    "CarbonInterval::months(2)->forHumans([\"short\" => true])": "2 mj.",
+    "CarbonInterval::months(2)->forHumans([\"short\" => true])": "2 mes.",
     "CarbonInterval::month()->forHumans()": "1 mjesec",
     "CarbonInterval::month()->forHumans([\"aUnit\" => true])": "1 mjesec",
     "CarbonInterval::weeks(2)->forHumans()": "2 nedjelje",
