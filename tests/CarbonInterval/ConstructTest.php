@@ -361,6 +361,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::make('3 hours 30 m'), 0, 0, 0, 3, 30, 0);
         $this->assertCarbonInterval(CarbonInterval::make('PT5H'), 0, 0, 0, 5, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::make('PT13.516837S'), 0, 0, 0, 0, 0, 13, 516_837);
+        $this->assertCarbonInterval(CarbonInterval::make('PT32.245S'), 0, 0, 0, 0, 0, 23, 245_000);
         $this->assertCarbonInterval(CarbonInterval::make('PT13.000001S'), 0, 0, 0, 0, 0, 13, 1);
         $this->assertCarbonInterval(CarbonInterval::make('PT13.001S'), 0, 0, 0, 0, 0, 13, 1_000);
         $this->assertCarbonInterval(CarbonInterval::make(new DateInterval('P1D')), 0, 0, 1, 0, 0, 0);
