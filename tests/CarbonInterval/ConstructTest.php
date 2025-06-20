@@ -21,6 +21,7 @@ use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Unit;
 use DateInterval;
 use Exception;
+use PHPUnit\Runner\Version;
 use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
@@ -592,6 +593,12 @@ class ConstructTest extends AbstractTestCase
             unset($expectedProperties['originalInput']);
             unset($actualProperties['rawInterval']);
             unset($actualProperties['originalInput']);
+        }
+
+        if (Version::id() >= 12) {
+            $this->assertSame($expectedProperties, $actualProperties);
+
+            return;
         }
 
         $this->assertEquals($expectedProperties, $actualProperties);
