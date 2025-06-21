@@ -21,7 +21,6 @@ use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Unit;
 use DateInterval;
 use Exception;
-use PHPUnit\Runner\Version;
 use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
@@ -551,69 +550,5 @@ class ConstructTest extends AbstractTestCase
         $this->assertInstanceOf(CarbonInterval::class, $interval);
         $this->assertSame(2, $interval->m);
         $this->assertSame(5.4e-5, $interval->f);
-    }
-
-    private function assertSameIntervals(CarbonInterval $expected, CarbonInterval $actual, int $microsecondApproximation = 0): void
-    {
-        if (
-            $expected->microseconds !== $actual->microseconds
-            && $microsecondApproximation > 0
-            && $actual->microseconds >= $expected->microseconds - $microsecondApproximation
-            && $actual->microseconds <= $expected->microseconds + $microsecondApproximation
-        ) {
-            $actual->optimize();
-            $expected->optimize();
-            $expected->microseconds = $actual->microseconds;
-        }
-
-        $expectedProperties = $this->fetchProperties($expected);
-        $actualProperties = $this->fetchProperties($actual);
-
-        if (
-            isset($expectedProperties['f'], $actualProperties['f'])
-            && $expectedProperties['f'] !== $actualProperties['f']
-            && (abs($expectedProperties['f'] - $actualProperties['f']) * 1_000_000) < ($microsecondApproximation * 1.2)
-        ) {
-            $expectedProperties['f'] = $actualProperties['f'];
-        }
-
-        if (PHP_VERSION < 8.2) {
-            unset($expectedProperties['days']);
-            unset($actualProperties['days']);
-        }
-
-        if (
-            isset($expectedProperties['rawInterval'], $actualProperties['rawInterval'])
-            && $expectedProperties['rawInterval']->f !== $actualProperties['rawInterval']->f
-            && $microsecondApproximation > 0
-            && $actualProperties['rawInterval']->f >= $expectedProperties['rawInterval']->f - $microsecondApproximation
-            && $actualProperties['rawInterval']->f <= $expectedProperties['rawInterval']->f + $microsecondApproximation
-        ) {
-            unset($expectedProperties['rawInterval']);
-            unset($expectedProperties['originalInput']);
-            unset($actualProperties['rawInterval']);
-            unset($actualProperties['originalInput']);
-        }
-
-        if (Version::id() >= 12) {
-            $this->assertSame($expectedProperties, $actualProperties);
-
-            return;
-        }
-
-        $this->assertEquals($expectedProperties, $actualProperties);
-    }
-
-    private function fetchProperties(object $object): array
-    {
-        $properties = (array) $object;
-
-        return array_combine(
-            array_map(
-                static fn (string $property): string => preg_replace('/^\0\*\0/', '', $property),
-                array_keys($properties),
-            ),
-            $properties,
-        );
     }
 }

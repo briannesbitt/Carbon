@@ -25,6 +25,7 @@ use Closure;
 use DateTime;
 use ErrorException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\Version;
 use ReflectionProperty;
 use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
@@ -350,6 +351,112 @@ abstract class AbstractTestCase extends TestCase
             $actual,
             0.000000000000001,
             $message,
+        );
+    }
+
+    protected function assertSameIntervals(CarbonInterval $expected, CarbonInterval $actual, int $microsecondApproximation = 0): void
+    {
+        if (
+            $expected->microseconds !== $actual->microseconds
+            && $microsecondApproximation > 0
+            && $actual->microseconds >= $expected->microseconds - $microsecondApproximation
+            && $actual->microseconds <= $expected->microseconds + $microsecondApproximation
+        ) {
+            $actual->optimize();
+            $expected->optimize();
+            $expected->microseconds = $actual->microseconds;
+        }
+
+        $expectedProperties = $this->fetchProperties($expected);
+        $actualProperties = $this->fetchProperties($actual);
+
+        if (
+            isset($expectedProperties['f'], $actualProperties['f'])
+            && $expectedProperties['f'] !== $actualProperties['f']
+            && (abs($expectedProperties['f'] - $actualProperties['f']) * 1_000_000) < ($microsecondApproximation * 1.2)
+        ) {
+            $expectedProperties['f'] = $actualProperties['f'];
+        }
+
+        if (PHP_VERSION < 8.2) {
+            unset($expectedProperties['days']);
+            unset($actualProperties['days']);
+        }
+
+        if (
+            isset($expectedProperties['rawInterval'], $actualProperties['rawInterval'])
+            && $expectedProperties['rawInterval']->f !== $actualProperties['rawInterval']->f
+            && $microsecondApproximation > 0
+            && $actualProperties['rawInterval']->f >= $expectedProperties['rawInterval']->f - $microsecondApproximation
+            && $actualProperties['rawInterval']->f <= $expectedProperties['rawInterval']->f + $microsecondApproximation
+        ) {
+            unset($expectedProperties['rawInterval']);
+            unset($expectedProperties['originalInput']);
+            unset($actualProperties['rawInterval']);
+            unset($actualProperties['originalInput']);
+        }
+
+        if (Version::id() >= 12 && isset($expectedProperties['localTranslator'])) {
+            /** @var Translator $expectedTranslator */
+            $expectedTranslator = $expectedProperties['localTranslator'];
+            /** @var Translator $actualTranslator */
+            $actualTranslator = $actualProperties['localTranslator'] ?? null;
+            $this->assertInstanceOf(Translator::class, $actualTranslator);
+            $this->assertSame($expectedTranslator->getLocale(), $actualTranslator->getLocale());
+            $this->assertSameWithClosures($expectedTranslator->getMessages(), $actualTranslator->getMessages());
+            unset($expectedProperties['localTranslator'], $actualProperties['localTranslator']);
+        }
+
+        $this->assertEquals($expectedProperties, $actualProperties);
+    }
+
+    protected function assertSameWithClosures(array $expected, array $actual): void
+    {
+        $expected = $this->acceptClosuresFrom($expected, $actual);
+
+        $this->assertSame($expected, $actual);
+    }
+
+    private function acceptClosuresFrom(array $destination, array $source): array
+    {
+        foreach ($source as $key => $value) {
+            if (\is_array($value) && \is_array($destination[$key])) {
+                $destination[$key] = $this->acceptClosuresFrom($destination[$key], $value);
+
+                continue;
+            }
+
+            if (($value instanceof Closure) && ($destination[$key] instanceof Closure)) {
+                if ($destination[$key] !== $value && $this->captureVarDump($value) === $this->captureVarDump($destination[$key])) {
+                    $destination[$key] = $value;
+                }
+            }
+        }
+
+        return $destination;
+    }
+
+    /** @SuppressWarnings(DevelopmentCodeFragment) */
+    private function captureVarDump(mixed $value): string
+    {
+        ob_start();
+        var_dump($value);
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        return preg_replace('/(Closure.*)#\d+(\s)/', '$1$2', "$content");
+    }
+
+    private function fetchProperties(object $object): array
+    {
+        $properties = (array) $object;
+
+        return array_combine(
+            array_map(
+                static fn (string $property): string => preg_replace('/^\0\*\0/', '', $property),
+                array_keys($properties),
+            ),
+            $properties,
         );
     }
 }
