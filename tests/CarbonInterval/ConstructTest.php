@@ -361,6 +361,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::make('3 hours 30 m'), 0, 0, 0, 3, 30, 0);
         $this->assertCarbonInterval(CarbonInterval::make('PT5H'), 0, 0, 0, 5, 0, 0);
         $this->assertCarbonInterval(CarbonInterval::make('PT13.516837S'), 0, 0, 0, 0, 0, 13, 516_837);
+        $this->assertCarbonInterval(CarbonInterval::make('PT32.245S'), 0, 0, 0, 0, 0, 32, 245_000);
         $this->assertCarbonInterval(CarbonInterval::make('PT13.000001S'), 0, 0, 0, 0, 0, 13, 1);
         $this->assertCarbonInterval(CarbonInterval::make('PT13.001S'), 0, 0, 0, 0, 0, 13, 1_000);
         $this->assertCarbonInterval(CarbonInterval::make(new DateInterval('P1D')), 0, 0, 1, 0, 0, 0);
@@ -549,63 +550,5 @@ class ConstructTest extends AbstractTestCase
         $this->assertInstanceOf(CarbonInterval::class, $interval);
         $this->assertSame(2, $interval->m);
         $this->assertSame(5.4e-5, $interval->f);
-    }
-
-    private function assertSameIntervals(CarbonInterval $expected, CarbonInterval $actual, int $microsecondApproximation = 0): void
-    {
-        if (
-            $expected->microseconds !== $actual->microseconds
-            && $microsecondApproximation > 0
-            && $actual->microseconds >= $expected->microseconds - $microsecondApproximation
-            && $actual->microseconds <= $expected->microseconds + $microsecondApproximation
-        ) {
-            $actual->optimize();
-            $expected->optimize();
-            $expected->microseconds = $actual->microseconds;
-        }
-
-        $expectedProperties = $this->fetchProperties($expected);
-        $actualProperties = $this->fetchProperties($actual);
-
-        if (
-            isset($expectedProperties['f'], $actualProperties['f'])
-            && $expectedProperties['f'] !== $actualProperties['f']
-            && (abs($expectedProperties['f'] - $actualProperties['f']) * 1_000_000) < ($microsecondApproximation * 1.2)
-        ) {
-            $expectedProperties['f'] = $actualProperties['f'];
-        }
-
-        if (PHP_VERSION < 8.2) {
-            unset($expectedProperties['days']);
-            unset($actualProperties['days']);
-        }
-
-        if (
-            isset($expectedProperties['rawInterval'], $actualProperties['rawInterval'])
-            && $expectedProperties['rawInterval']->f !== $actualProperties['rawInterval']->f
-            && $microsecondApproximation > 0
-            && $actualProperties['rawInterval']->f >= $expectedProperties['rawInterval']->f - $microsecondApproximation
-            && $actualProperties['rawInterval']->f <= $expectedProperties['rawInterval']->f + $microsecondApproximation
-        ) {
-            unset($expectedProperties['rawInterval']);
-            unset($expectedProperties['originalInput']);
-            unset($actualProperties['rawInterval']);
-            unset($actualProperties['originalInput']);
-        }
-
-        $this->assertEquals($expectedProperties, $actualProperties);
-    }
-
-    private function fetchProperties(object $object): array
-    {
-        $properties = (array) $object;
-
-        return array_combine(
-            array_map(
-                static fn (string $property): string => preg_replace('/^\0\*\0/', '', $property),
-                array_keys($properties),
-            ),
-            $properties,
-        );
     }
 }
