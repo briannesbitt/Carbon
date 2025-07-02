@@ -1353,7 +1353,7 @@ Carbon::now()->addHours(5)->isPast(); // false</code></pre></p>
 Carbon::now()->addHours(5)->isNowOrFuture(); // true
 Carbon::now()->subHours(5)->isNowOrFuture(); // false</code></pre></p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>3.10.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.10.1</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -1365,7 +1365,7 @@ Carbon::now()->subHours(5)->isNowOrFuture(); // false</code></pre></p>
 Carbon::now()->subHours(5)->isNowOrPast(); // true
 Carbon::now()->addHours(5)->isNowOrPast(); // false</code></pre></p>
     <table class='info-table method-history'>
-        <tr><td>Method added</td><td>3.10.0</td><td><em>no arguments</em></td></tr>
+        <tr><td>Method added</td><td>3.10.1</td><td><em>no arguments</em></td></tr>
     </table>
 </div>
 
@@ -3755,7 +3755,7 @@ name, region and variant of the locale.</p>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create an instance from a serialized string.<br><br>If $value is not from a trusted source, consider using the allowed_classes option to limit
 the types of objects that can be built, for instance:<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">$object = Carbon::fromSerialized($value, ['allowed_classes' => [Carbon::class, CarbonImmutable::class]]);</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.10.0</td><td><code>$value, array $options = []</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.10.1</td><td><code>$value, array $options = []</code></td></tr>
         <tr><td>Method added</td><td>1.22.0</td><td><code>$value</code></td></tr>
     </table>
 </div>
@@ -6993,7 +6993,7 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
     <code>string $iso, ?int $options = null</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
     <p class="doc-description"></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.10.0</td><td><code>string $iso, ?int $options = null</code></td></tr>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>3.10.1</td><td><code>string $iso, ?int $options = null</code></td></tr>
         <tr><td>Method added</td><td>3.0.0</td><td><code>string $specification, int $options = 0</code></td></tr>
     </table>
 </div>
