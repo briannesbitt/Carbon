@@ -158,7 +158,10 @@ function getOpenCollectiveSponsors(): string
         $status = null;
         $rank = 0;
 
-        if ($monthlyContribution > 29 || $yearlyContribution > 700) {
+        if ($monthlyContribution > 50 || $yearlyContribution > 900) {
+            $status = 'sponsor';
+            $rank = 5;
+        } elseif ($monthlyContribution > 29 || $yearlyContribution > 700) {
             $status = 'sponsor';
             $rank = 4;
         } elseif ($monthlyContribution > 14.5 || $yearlyContribution > 500) {
@@ -190,6 +193,7 @@ function getOpenCollectiveSponsors(): string
 
     $membersByUrl = [];
     $output = '';
+    $extra = '';
 
     foreach ($list as $member) {
         $url = $member['website'] ?? $member['profile'];
@@ -229,12 +233,30 @@ function getOpenCollectiveSponsors(): string
             $height *= 1.5;
         }
 
-        $output .= "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
+        $link = "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
             '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
+            '</a>';
+
+        if ($member['rank'] >= 5) {
+            $output .= $link;
+
+            continue;
+        }
+
+        $extra .= $link;
+    }
+
+    $github = [
+        8343178 => 'ssddanbrown',
+    ];
+
+    foreach ($github as $avatar => $user) {
+        $extra .= "\n".'<a title="'.$user.'" href="https://github.com/'.$user.'" target="_blank">'.
+            '<img alt="'.$user.'" src="https://avatars.githubusercontent.com/u/'.$avatar.'?s=128&v=4" width="42" height="42">'.
             '</a>';
     }
 
-    return $output;
+    return $output . '<details><summary>See more</summary>' . $extra . '</details>';
 }
 
 file_put_contents('readme.md', preg_replace_callback(
