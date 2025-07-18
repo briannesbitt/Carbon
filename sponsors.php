@@ -256,7 +256,7 @@ function getOpenCollectiveSponsors(): string
             '</a>';
     }
 
-    return $output . '<details><summary>See more</summary>' . $extra . '</details>';
+    return $output.'<details><summary>See more</summary>'.$extra.'</details>';
 }
 
 file_put_contents('readme.md', preg_replace_callback(
