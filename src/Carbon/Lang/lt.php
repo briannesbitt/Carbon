@@ -66,7 +66,6 @@ return [
     'hour_from_now' => ':count valanda|:count valandos|:count valandų',
     'minute_from_now' => ':count minutė|:count minutės|:count minučių',
     'second_from_now' => ':count sekundė|:count sekundės|:count sekundžių',
- 
     'year_after' => ':count metai|:count metai|:count metų',
     'month_after' => ':count mėnuo|:count mėnesiai|:count mėnesių',
     'week_after' => ':count savaitė|:count savaitės|:count savaičių',
