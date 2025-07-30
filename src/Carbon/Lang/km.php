@@ -29,7 +29,7 @@ return [
     'h' => ':count ម៉ោង',
     'minute' => '{1}មួយនាទី|]1,Inf[:count នាទី',
     'min' => ':count នាទី',
-    'second' => '{1}ប៉ុន្មានវិនាទី|]1,Inf[:count វិនាទី',
+    'second' => '{0,1}ប៉ុន្មានវិនាទី|]1,Inf[:count វិនាទី',
     's' => ':count វិនាទី',
     'ago' => ':timeមុន',
     'from_now' => ':timeទៀត',

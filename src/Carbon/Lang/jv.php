@@ -22,7 +22,7 @@ return [
     'day' => '{1}sedinten|]1,Inf[:count dinten',
     'hour' => '{1}setunggal jam|]1,Inf[:count jam',
     'minute' => '{1}setunggal menit|]1,Inf[:count menit',
-    'second' => '{1}sawetawis detik|]1,Inf[:count detik',
+    'second' => '{0,1}sawetawis detik|]1,Inf[:count detik',
     'ago' => ':time ingkang kepengker',
     'from_now' => 'wonten ing :time',
     'diff_today' => 'Dinten',

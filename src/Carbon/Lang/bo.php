@@ -21,7 +21,7 @@ return [
     'day' => '{1}ཉིན་གཅིག|]1,Inf[:count ཉིན་',
     'hour' => '{1}ཆུ་ཚོད་གཅིག|]1,Inf[:count ཆུ་ཚོད',
     'minute' => '{1}སྐར་མ་གཅིག|]1,Inf[:count སྐར་མ',
-    'second' => '{1}ལམ་སང|]1,Inf[:count སྐར་ཆ།',
+    'second' => '{0,1}ལམ་སང|]1,Inf[:count སྐར་ཆ།',
     'ago' => ':time སྔན་ལ',
     'from_now' => ':time ལ་',
     'diff_yesterday' => 'ཁ་སང',

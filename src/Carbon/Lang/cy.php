@@ -28,7 +28,7 @@ return [
     'h' => ':counth',
     'minute' => '{1}munud|]1,Inf[:count munud',
     'min' => ':countm',
-    'second' => '{1}ychydig eiliadau|]1,Inf[:count eiliad',
+    'second' => '{0,1}ychydig eiliadau|]1,Inf[:count eiliad',
     's' => ':counts',
     'ago' => ':time yn ôl',
     'from_now' => 'mewn :time',

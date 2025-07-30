@@ -23,7 +23,7 @@ return [
     'day' => '{1}ಒಂದು ದಿನ|]1,Inf[:count ದಿನ',
     'hour' => '{1}ಒಂದು ಗಂಟೆ|]1,Inf[:count ಗಂಟೆ',
     'minute' => '{1}ಒಂದು ನಿಮಿಷ|]1,Inf[:count ನಿಮಿಷ',
-    'second' => '{1}ಕೆಲವು ಕ್ಷಣಗಳು|]1,Inf[:count ಸೆಕೆಂಡುಗಳು',
+    'second' => '{0,1}ಕೆಲವು ಕ್ಷಣಗಳು|]1,Inf[:count ಸೆಕೆಂಡುಗಳು',
     'ago' => ':time ಹಿಂದೆ',
     'from_now' => ':time ನಂತರ',
     'diff_now' => 'ಈಗ',
