@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 #[Group('localization')]
 class KmKhTest extends LocalizationTestCase
 {
-    public const LOCALE = 'km_KH'; // Khmer
+    public const LOCALE = 'km_KH'; // Central Khmer
 
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -124,7 +124,7 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         'ទី0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ប៉ុន្មានវិនាទីមុន',
+        '1 វិនាទីមុន',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 វិនាទីមុន',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -132,7 +132,7 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 វិនាទីមុន',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'មួយនាទីមុន',
+        '1 នាទីមុន',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 នាទីមុន',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -140,7 +140,7 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 នាទីមុន',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'មួយម៉ោងមុន',
+        '1 ម៉ោងមុន',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1 ម៉ោងមុន',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -148,7 +148,7 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ម៉ោងមុន',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'មួយថ្ងៃមុន',
+        '1 ថ្ងៃមុន',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1 ថ្ងៃមុន',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -156,15 +156,15 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 ថ្ងៃមុន',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 សប្ដាហ៍មុន',
+        '1 សប្តាហ៍មុន',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 សប្ដាហ៍មុន',
+        '1 សប្តាហ៍មុន',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 សប្ដាហ៍មុន',
+        '2 សប្តាហ៍មុន',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 សប្ដាហ៍មុន',
+        '2 សប្តាហ៍មុន',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'មួយខែមុន',
+        '1 ខែមុន',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1 ខែមុន',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -172,7 +172,7 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 ខែមុន',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'មួយឆ្នាំមុន',
+        '1 ឆ្នាំមុន',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1 ឆ្នាំមុន',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -180,19 +180,19 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 ឆ្នាំមុន',
         // Carbon::now()->addSecond()->diffForHumans()
-        'ប៉ុន្មានវិនាទីទៀត',
+        '1 វិនាទីទៀត',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 វិនាទីទៀត',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'នៅ​ក្រោយ ប៉ុន្មានវិនាទី',
+        'នៅ​ក្រោយ 1 វិនាទី',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         'នៅ​ក្រោយ 1 វិនាទី',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'នៅ​មុន ប៉ុន្មានវិនាទី',
+        'នៅ​មុន 1 វិនាទី',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'នៅ​មុន 1 វិនាទី',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'ប៉ុន្មានវិនាទី',
+        '1 វិនាទី',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 វិនាទី',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -202,7 +202,7 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1 វិនាទីទៀត',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'មួយនាទី ប៉ុន្មានវិនាទី',
+        '1 នាទី 1 វិនាទី',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 ឆ្នាំ 3 ខែ 1 ថ្ងៃ 1 វិនាទី',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -212,15 +212,15 @@ class KmKhTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 ឆ្នាំ 3 ខែ 1 ថ្ងៃ 1 វិនាទីមុន',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 សប្ដាហ៍ 10 ម៉ោង',
+        '1 សប្តាហ៍ 10 ម៉ោង',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 សប្ដាហ៍ 6 ថ្ងៃ',
+        '1 សប្តាហ៍ 6 ថ្ងៃ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 សប្ដាហ៍ 6 ថ្ងៃ',
+        '1 សប្តាហ៍ 6 ថ្ងៃ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 សប្ដាហ៍និង 6 ថ្ងៃទៀត',
+        '1 សប្តាហ៍និង 6 ថ្ងៃទៀត',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 សប្ដាហ៍ មួយម៉ោង',
+        '2 សប្តាហ៍ 1 ម៉ោង',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'មួយម៉ោងទៀត',
         // CarbonInterval::days(2)->forHumans()

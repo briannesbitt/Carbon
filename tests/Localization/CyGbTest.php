@@ -124,7 +124,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ychydig eiliadau yn ôl',
+        '1 eiliad yn ôl',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1s yn ôl',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -132,7 +132,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s yn ôl',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'munud yn ôl',
+        '1 munud yn ôl',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1m yn ôl',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -140,7 +140,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2m yn ôl',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'awr yn ôl',
+        '1 awr yn ôl',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1h yn ôl',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -148,7 +148,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2h yn ôl',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'diwrnod yn ôl',
+        '1 diwrnod yn ôl',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1d yn ôl',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -164,7 +164,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2w yn ôl',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'mis yn ôl',
+        '1 mis yn ôl',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1mi yn ôl',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -172,7 +172,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2mi yn ôl',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'blwyddyn yn ôl',
+        '1 flwyddyn yn ôl',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1bl yn ôl',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -180,19 +180,19 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2bl yn ôl',
         // Carbon::now()->addSecond()->diffForHumans()
-        'mewn ychydig eiliadau',
+        'mewn 1 eiliad',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'mewn 1s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'ychydig eiliadau ar ôl',
+        '1 eiliad ar ôl',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1s ar ôl',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'ychydig eiliadau o\'r blaen',
+        '1 eiliad o\'r blaen',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1s o\'r blaen',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'ychydig eiliadau',
+        '1 eiliad',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -202,7 +202,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'mewn 1s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'munud ychydig eiliadau',
+        '1 munud 1 eiliad',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2bl 3mi 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -220,7 +220,7 @@ class CyGbTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         'mewn 1 wythnos a 6 diwrnod',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 wythnos awr',
+        '2 wythnos 1 awr',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'mewn awr',
         // CarbonInterval::days(2)->forHumans()

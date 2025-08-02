@@ -124,65 +124,65 @@ class JvTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'sawetawis detik ingkang kepengker',
+        '1 detik ingkang kepengker',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'sawetawis detik ingkang kepengker',
+        '1 detik ingkang kepengker',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 detik ingkang kepengker',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 detik ingkang kepengker',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'setunggal menit ingkang kepengker',
+        '1 menit ingkang kepengker',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'setunggal menit ingkang kepengker',
+        '1 menit ingkang kepengker',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 menit ingkang kepengker',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 menit ingkang kepengker',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'setunggal jam ingkang kepengker',
+        '1 jam ingkang kepengker',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'setunggal jam ingkang kepengker',
+        '1 jam ingkang kepengker',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 jam ingkang kepengker',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 jam ingkang kepengker',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'sedinten ingkang kepengker',
+        '1 dina ingkang kepengker',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'sedinten ingkang kepengker',
+        '1 dina ingkang kepengker',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 dinten ingkang kepengker',
+        '2 dina ingkang kepengker',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 dinten ingkang kepengker',
+        '2 dina ingkang kepengker',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'sakminggu ingkang kepengker',
+        '1 minggu ingkang kepengker',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'sakminggu ingkang kepengker',
+        '1 minggu ingkang kepengker',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 minggu ingkang kepengker',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 minggu ingkang kepengker',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'sewulan ingkang kepengker',
+        '1 wulan ingkang kepengker',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'sewulan ingkang kepengker',
+        '1 wulan ingkang kepengker',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 wulan ingkang kepengker',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 wulan ingkang kepengker',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'setaun ingkang kepengker',
+        '1 taun ingkang kepengker',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'setaun ingkang kepengker',
+        '1 taun ingkang kepengker',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 taun ingkang kepengker',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 taun ingkang kepengker',
         // Carbon::now()->addSecond()->diffForHumans()
-        'wonten ing sawetawis detik',
+        'wonten ing 1 detik',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'wonten ing sawetawis detik',
+        'wonten ing 1 detik',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -192,40 +192,40 @@ class JvTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'sawetawis detik',
+        '1 detik',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'sawetawis detik',
+        '1 detik',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 detik',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 detik',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'wonten ing sawetawis detik',
+        'wonten ing 1 detik',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'setunggal menit sawetawis detik',
+        '1 menit 1 detik',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 taun 3 wulan sedinten sawetawis detik',
+        '2 taun 3 wulan 1 dina 1 detik',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'wonten ing 3 taun',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 wulan ingkang kepengker',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 taun 3 wulan sedinten sawetawis detik ingkang kepengker',
+        '2 taun 3 wulan 1 dina 1 detik ingkang kepengker',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'sakminggu 10 jam',
+        '1 minggu 10 jam',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'sakminggu 6 dinten',
+        '1 minggu 6 dina',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'sakminggu 6 dinten',
+        '1 minggu 6 dina',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'wonten ing sakminggu lan 6 dinten',
+        'wonten ing 1 minggu lan 6 dina',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 minggu setunggal jam',
+        '2 minggu 1 jam',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'wonten ing setunggal jam',
         // CarbonInterval::days(2)->forHumans()
-        '2 dinten',
+        '2 dina',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'sedinten 3 jam',
+        '1 dina 3 jam',
     ];
 }

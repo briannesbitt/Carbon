@@ -178,8 +178,12 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame('1 an, 1 mois, 1 jour et 1 heure', $interval->forHumans([
             'join' => true,
         ]));
+        $this->assertSame('1 နှစ် 1 လ 1 ရက် 1 နာရီ', $interval->copy()->locale('my')->forHumans([
+            'join' => true,
+        ]));
         $this->assertSame('တစ်နှစ် တစ်လ တစ်ရက် တစ်နာရီ', $interval->copy()->locale('my')->forHumans([
             'join' => true,
+            'aUnit' => true,
         ]));
         $this->assertSame('un an, un mois, un jour, une heure', $interval->forHumans([
             'join' => ', ',

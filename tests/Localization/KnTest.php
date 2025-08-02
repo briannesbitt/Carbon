@@ -124,65 +124,65 @@ class KnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0ನೇ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
+        '1 ಸೆಕೆಂಡ್ ಹಿಂದೆ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
+        '1 ಸೆಕೆಂಡ್ ಹಿಂದೆ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 ಸೆಕೆಂಡುಗಳು ಹಿಂದೆ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 ಸೆಕೆಂಡುಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ಒಂದು ನಿಮಿಷ ಹಿಂದೆ',
+        '1 ನಿಮಿಷ ಹಿಂದೆ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ಒಂದು ನಿಮಿಷ ಹಿಂದೆ',
+        '1 ನಿಮಿಷ ಹಿಂದೆ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 ನಿಮಿಷ ಹಿಂದೆ',
+        '2 ನಿಮಿಷಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 ನಿಮಿಷ ಹಿಂದೆ',
+        '2 ನಿಮಿಷಗಳು ಹಿಂದೆ',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ಒಂದು ಗಂಟೆ ಹಿಂದೆ',
+        '1 ಗಂಟೆ ಹಿಂದೆ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ಒಂದು ಗಂಟೆ ಹಿಂದೆ',
+        '1 ಗಂಟೆ ಹಿಂದೆ',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ಗಂಟೆ ಹಿಂದೆ',
+        '2 ಗಂಟೆಗಳು ಹಿಂದೆ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ಗಂಟೆ ಹಿಂದೆ',
+        '2 ಗಂಟೆಗಳು ಹಿಂದೆ',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ಒಂದು ದಿನ ಹಿಂದೆ',
+        '1 ದಿನ ಹಿಂದೆ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ಒಂದು ದಿನ ಹಿಂದೆ',
+        '1 ದಿನ ಹಿಂದೆ',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 ದಿನ ಹಿಂದೆ',
+        '2 ದಿನಗಳು ಹಿಂದೆ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ದಿನ ಹಿಂದೆ',
+        '2 ದಿನಗಳು ಹಿಂದೆ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ಒಂದು ವಾರ ಹಿಂದೆ',
+        '1 ವಾರ ಹಿಂದೆ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ಒಂದು ವಾರ ಹಿಂದೆ',
+        '1 ವಾರ ಹಿಂದೆ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ವಾರಗಳು ಹಿಂದೆ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 ವಾರಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ಒಂದು ತಿಂಗಳು ಹಿಂದೆ',
+        '1 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ಒಂದು ತಿಂಗಳು ಹಿಂದೆ',
+        '1 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ಒಂದು ವರ್ಷ ಹಿಂದೆ',
+        '1 ವರ್ಷ ಹಿಂದೆ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ಒಂದು ವರ್ಷ ಹಿಂದೆ',
+        '1 ವರ್ಷ ಹಿಂದೆ',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 ವರ್ಷ ಹಿಂದೆ',
+        '2 ವರ್ಷಗಳು ಹಿಂದೆ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ವರ್ಷ ಹಿಂದೆ',
+        '2 ವರ್ಷಗಳು ಹಿಂದೆ',
         // Carbon::now()->addSecond()->diffForHumans()
-        'ಕೆಲವು ಕ್ಷಣಗಳು ನಂತರ',
+        '1 ಸೆಕೆಂಡ್ ನಂತರ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'ಕೆಲವು ಕ್ಷಣಗಳು ನಂತರ',
+        '1 ಸೆಕೆಂಡ್ ನಂತರ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -192,40 +192,40 @@ class KnTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'ಕೆಲವು ಕ್ಷಣಗಳು',
+        '1 ಸೆಕೆಂಡ್',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'ಕೆಲವು ಕ್ಷಣಗಳು',
+        '1 ಸೆಕೆಂಡ್',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 ಸೆಕೆಂಡುಗಳು',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 ಸೆಕೆಂಡುಗಳು',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'ಕೆಲವು ಕ್ಷಣಗಳು ನಂತರ',
+        '1 ಸೆಕೆಂಡ್ ನಂತರ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'ಒಂದು ನಿಮಿಷ ಕೆಲವು ಕ್ಷಣಗಳು',
+        '1 ನಿಮಿಷ 1 ಸೆಕೆಂಡ್',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ವರ್ಷ 3 ತಿಂಗಳು ಒಂದು ದಿನ ಕೆಲವು ಕ್ಷಣಗಳು',
+        '2 ವರ್ಷಗಳು 3 ತಿಂಗಳು 1 ದಿನ 1 ಸೆಕೆಂಡ್',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 ವರ್ಷ ನಂತರ',
+        '3 ವರ್ಷಗಳು ನಂತರ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ವರ್ಷ 3 ತಿಂಗಳು ಒಂದು ದಿನ ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
+        '2 ವರ್ಷಗಳು 3 ತಿಂಗಳು 1 ದಿನ 1 ಸೆಕೆಂಡ್ ಹಿಂದೆ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'ಒಂದು ವಾರ 10 ಗಂಟೆ',
+        '1 ವಾರ 10 ಗಂಟೆಗಳು',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ಒಂದು ವಾರ 6 ದಿನ',
+        '1 ವಾರ 6 ದಿನಗಳು',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ಒಂದು ವಾರ 6 ದಿನ',
+        '1 ವಾರ 6 ದಿನಗಳು',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'ಒಂದು ವಾರ, 6 ದಿನ ನಂತರ',
+        '1 ವಾರ, 6 ದಿನಗಳು ನಂತರ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 ವಾರಗಳು ಒಂದು ಗಂಟೆ',
+        '2 ವಾರಗಳು 1 ಗಂಟೆ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'ಒಂದು ಗಂಟೆ ನಂತರ',
         // CarbonInterval::days(2)->forHumans()
-        '2 ದಿನ',
+        '2 ದಿನಗಳು',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ಒಂದು ದಿನ 3 ಗಂಟೆ',
+        '1 ದಿನ 3 ಗಂಟೆಗಳು',
     ];
 }
