@@ -28,7 +28,7 @@ return [
     'minute' => ':count ນາທີ',
     'min' => ':count ນທ. ',
     'second' => ':count ວິນາທີ',
-    'a_second' => '{0,1}ບໍ່ເທົ່າໃດວິນາທີ|]1,Inf[:count ວິນາທີ',
+    'a_second' => '{0,1}ບໍ່ເທົ່າໃດວິນາທີ|[-Inf,Inf]:count ວິນາທີ',
     's' => ':count ວິ. ',
     'ago' => ':timeຜ່ານມາ',
     'from_now' => 'ອີກ :time',

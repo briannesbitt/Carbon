@@ -16,7 +16,7 @@
 return array_replace_recursive(require __DIR__.'/en.php', [
     'year' => ':count sanad|:count sanadood',
     'a_year' => 'sanad|:count sanadood',
-    'y' => '{1}:countsn|{0}:countsns|]1,Inf[:countsn',
+    'y' => '{1}:countsn|{0}:countsns|[-Inf,Inf]:countsn',
     'month' => ':count bil|:count bilood',
     'a_month' => 'bil|:count bilood',
     'm' => ':countbil',

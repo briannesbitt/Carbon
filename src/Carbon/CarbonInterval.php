@@ -1082,7 +1082,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
                 default:
                     throw new InvalidIntervalException(
-                        \sprintf('Invalid part %s in definition %s', $part, $intervalDefinition),
+                        "Invalid part $part in definition $intervalDefinition",
                     );
             }
         }

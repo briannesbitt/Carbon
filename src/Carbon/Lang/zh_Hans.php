@@ -37,7 +37,7 @@ return [
     'minute' => ':count:optional-space分钟',
     'min' => ':count:optional-space分钟',
     'second' => ':count:optional-space秒',
-    'a_second' => '{1}几秒|]1,Inf[:count:optional-space秒',
+    'a_second' => '{1}几秒|[-Inf,Inf]:count:optional-space秒',
     's' => ':count:optional-space秒',
     'ago' => ':time前',
     'from_now' => ':time后',

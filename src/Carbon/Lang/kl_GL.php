@@ -31,32 +31,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
 
-    'year' => '{1}ukioq :count|{0}:count ukiut|]1,Inf[ukiut :count',
-    'a_year' => '{1}ukioq|{0}:count ukiut|]1,Inf[ukiut :count',
-    'y' => '{1}:countyr|{0}:countyrs|]1,Inf[:countyrs',
+    'year' => '{1}ukioq :count|{0}:count ukiut|[-Inf,Inf]ukiut :count',
+    'a_year' => '{1}ukioq|{0}:count ukiut|[-Inf,Inf]ukiut :count',
+    'y' => '{1}:countyr|{0}:countyrs|[-Inf,Inf]:countyrs',
 
-    'month' => '{1}qaammat :count|{0}:count qaammatit|]1,Inf[qaammatit :count',
-    'a_month' => '{1}qaammat|{0}:count qaammatit|]1,Inf[qaammatit :count',
-    'm' => '{1}:countmo|{0}:countmos|]1,Inf[:countmos',
+    'month' => '{1}qaammat :count|{0}:count qaammatit|[-Inf,Inf]qaammatit :count',
+    'a_month' => '{1}qaammat|{0}:count qaammatit|[-Inf,Inf]qaammatit :count',
+    'm' => '{1}:countmo|{0}:countmos|[-Inf,Inf]:countmos',
 
-    'week' => '{1}:count sap. ak.|{0}:count sap. ak.|]1,Inf[:count sap. ak.',
-    'a_week' => '{1}a sap. ak.|{0}:count sap. ak.|]1,Inf[:count sap. ak.',
+    'week' => '{1}:count sap. ak.|{0}:count sap. ak.|[-Inf,Inf]:count sap. ak.',
+    'a_week' => '{1}a sap. ak.|{0}:count sap. ak.|[-Inf,Inf]:count sap. ak.',
     'w' => ':countw',
 
-    'day' => '{1}:count ulloq|{0}:count ullut|]1,Inf[:count ullut',
-    'a_day' => '{1}a ulloq|{0}:count ullut|]1,Inf[:count ullut',
+    'day' => '{1}:count ulloq|{0}:count ullut|[-Inf,Inf]:count ullut',
+    'a_day' => '{1}a ulloq|{0}:count ullut|[-Inf,Inf]:count ullut',
     'd' => ':countd',
 
-    'hour' => '{1}:count tiimi|{0}:count tiimit|]1,Inf[:count tiimit',
-    'a_hour' => '{1}tiimi|{0}:count tiimit|]1,Inf[:count tiimit',
+    'hour' => '{1}:count tiimi|{0}:count tiimit|[-Inf,Inf]:count tiimit',
+    'a_hour' => '{1}tiimi|{0}:count tiimit|[-Inf,Inf]:count tiimit',
     'h' => ':counth',
 
-    'minute' => '{1}:count minutsi|{0}:count minutsit|]1,Inf[:count minutsit',
-    'a_minute' => '{1}a minutsi|{0}:count minutsit|]1,Inf[:count minutsit',
+    'minute' => '{1}:count minutsi|{0}:count minutsit|[-Inf,Inf]:count minutsit',
+    'a_minute' => '{1}a minutsi|{0}:count minutsit|[-Inf,Inf]:count minutsit',
     'min' => ':countm',
 
-    'second' => '{1}:count sikunti|{0}:count sikuntit|]1,Inf[:count sikuntit',
-    'a_second' => '{1}sikunti|{0}:count sikuntit|]1,Inf[:count sikuntit',
+    'second' => '{1}:count sikunti|{0}:count sikuntit|[-Inf,Inf]:count sikuntit',
+    'a_second' => '{1}sikunti|{0}:count sikuntit|[-Inf,Inf]:count sikuntit',
     's' => ':counts',
 
     'ago' => ':time matuma siorna',

@@ -38,7 +38,7 @@ return [
     'minute' => ':count分',
     'min' => ':count分',
     'second' => ':count秒',
-    'a_second' => '{1}数秒|]1,Inf[:count秒',
+    'a_second' => '{1}数秒|[-Inf,Inf]:count秒',
     's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time後',
