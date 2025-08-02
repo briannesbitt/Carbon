@@ -162,7 +162,7 @@ class MyMmTest extends LocalizationTestCase
         '6 1',
 
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        // '7th 2nd',
+        // '7th 1st',
         '7 1',
 
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
@@ -227,7 +227,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago',
-        'လွန်ခဲ့သော စက္ကန်.အနည်းငယ် က',
+        'လွန်ခဲ့သော 1 စက္ကန့် က',
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago',
@@ -243,7 +243,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago',
-        'လွန်ခဲ့သော တစ်မိနစ် က',
+        'လွန်ခဲ့သော 1 မိနစ် က',
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago',
@@ -259,7 +259,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago',
-        'လွန်ခဲ့သော တစ်နာရီ က',
+        'လွန်ခဲ့သော 1 နာရီ က',
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago',
@@ -275,7 +275,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago',
-        'လွန်ခဲ့သော တစ်ရက် က',
+        'လွန်ခဲ့သော 1 ရက် က',
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago',
@@ -307,7 +307,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago',
-        'လွန်ခဲ့သော တစ်လ က',
+        'လွန်ခဲ့သော 1 လ က',
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago',
@@ -323,7 +323,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago',
-        'လွန်ခဲ့သော တစ်နှစ် က',
+        'လွန်ခဲ့သော 1 နှစ် က',
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago',
@@ -339,7 +339,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
-        'လာမည့် စက္ကန်.အနည်းငယ် မှာ',
+        'လာမည့် 1 စက္ကန့် မှာ',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now',
@@ -347,7 +347,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after',
-        'စက္ကန်.အနည်းငယ် ကြာပြီးနောက်',
+        '1 စက္ကန့် ကြာပြီးနောက်',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after',
@@ -355,7 +355,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before',
-        'စက္ကန်.အနည်းငယ် မတိုင်ခင်',
+        '1 စက္ကန့် မတိုင်ခင်',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before',
@@ -363,7 +363,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',
-        'စက္ကန်.အနည်းငယ်',
+        '1 စက္ကန့်',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s',
@@ -383,7 +383,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second',
-        'တစ်မိနစ် စက္ကန်.အနည်းငယ်',
+        '1 မိနစ် 1 စက္ကန့်',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s',
@@ -419,7 +419,7 @@ class MyMmTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour',
-        '2 ပတ် တစ်နာရီ',
+        '2 ပတ် 1 နာရီ',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',

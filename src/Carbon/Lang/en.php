@@ -41,7 +41,7 @@ return [
     'a_minute' => '{1}a minute|{0}:count minutes|]1,Inf[:count minutes',
     'min' => ':countm',
     'second' => '{1}:count second|{0}:count seconds|]1,Inf[:count seconds',
-    'a_second' => '{1}a few seconds|{0}:count seconds|]1,Inf[:count seconds',
+    'a_second' => '{0,1}a few seconds|]1,Inf[:count seconds',
     's' => ':counts',
     'millisecond' => '{1}:count millisecond|{0}:count milliseconds|]1,Inf[:count milliseconds',
     'a_millisecond' => '{1}a millisecond|{0}:count milliseconds|]1,Inf[:count milliseconds',

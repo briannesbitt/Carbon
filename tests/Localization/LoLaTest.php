@@ -124,7 +124,7 @@ class LoLaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         'ທີ່0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ບໍ່ເທົ່າໃດວິນາທີຜ່ານມາ',
+        '1 ວິນາທີຜ່ານມາ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 ວິ.ຜ່ານມາ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -180,7 +180,7 @@ class LoLaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 ປີຜ່ານມາ',
         // Carbon::now()->addSecond()->diffForHumans()
-        'ອີກ ບໍ່ເທົ່າໃດວິນາທີ',
+        'ອີກ 1 ວິນາທີ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'ອີກ 1 ວິ.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
@@ -192,7 +192,7 @@ class LoLaTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'ບໍ່ເທົ່າໃດວິນາທີ',
+        '1 ວິນາທີ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 ວິ.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -202,7 +202,7 @@ class LoLaTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'ອີກ 1 ວິ.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 ນາທີ ບໍ່ເທົ່າໃດວິນາທີ',
+        '1 ນາທີ 1 ວິນາທີ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 ປີ 3 ດ. 1 ມື້ 1 ວິ.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
