@@ -327,7 +327,7 @@ trait Localization
     }
 
     /**
-     * Translate a time string from the current locale (`$date->locale()`) to an other.
+     * Translate a time string from the current locale (`$date->locale()`) to another one.
      *
      * @param string      $timeString time string to translate
      * @param string|null $to         output locale of the result returned ("en" by default)
@@ -659,7 +659,11 @@ trait Localization
     {
         $word = str_replace([':count', '%count', ':time'], '', $word);
         $word = strtr($word, ['’' => "'"]);
-        $word = preg_replace('/({\d+(,(\d+|Inf))?}|[\[\]]\d+(,(\d+|Inf))?[\[\]])/', '', $word);
+        $word = preg_replace(
+            '/\{(?:-?\d+(?:\.\d+)?|-?Inf)(?:,(?:-?\d+|-?Inf))?}|[\[\]](?:-?\d+(?:\.\d+)?|-?Inf)(?:,(?:-?\d+|-?Inf))?[\[\]]/',
+            '',
+            $word,
+        );
 
         return trim($word);
     }
@@ -688,7 +692,7 @@ trait Localization
 
             return $key === 'to'
                 ? self::cleanWordFromTranslationString(end($parts))
-                : '(?:'.implode('|', array_map([static::class, 'cleanWordFromTranslationString'], $parts)).')';
+                : '(?:'.implode('|', array_map(static::cleanWordFromTranslationString(...), $parts)).')';
         }, $keys);
     }
 
