@@ -125,7 +125,7 @@ class Carbon extends \DateTime
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
 
-{{::lint($carbon = new Carbon(new DateTime('first day of January 2008'), new DateTimeZone('America/Vancouver'));)}} // equivalent to previous instance
+{{::lint($carbon = new Carbon(new \DateTime('first day of January 2008'), new \DateTimeZone('America/Vancouver'));)}} // equivalent to previous instance
 // You can create Carbon or CarbonImmutable instance from:
 //   - string representation
 //   - integer timestamp
@@ -146,7 +146,7 @@ $now = Carbon::now(); // will use timezone as set with date_default_timezone_set
 // PS: we recommend you to work with UTC as default timezone and only use
 // other timezones (such as the user timezone) on display
 
-$nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
+$nowInLondonTz = Carbon::now(new \DateTimeZone('Europe/London'));
 
 // or just pass the timezone as a string
 $nowInLondonTz = Carbon::now('Europe/London');
@@ -254,7 +254,7 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 )}}
 
-{{::exec(try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $x) { echo $x->getMessage(); })}}
+{{::exec(try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(\InvalidArgumentException $x) { echo $x->getMessage(); })}}
 // {{eval}}
 
 // Be careful, as Carbon::createFromDate() default values to current date, it can trigger overflow:
@@ -406,12 +406,12 @@ echo "\n";
             afterward, this means:</p>
 
         <p>
-        <pre><code class="php">$date = new DateTime('now');
+        <pre><code class="php">$date = new \DateTime('now');
 echo $date->format('u');
 // display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
 // display 000000 before PHP 7.1
 
-$date = new DateTime('2001-01-01T00:00:00.123456Z');
+$date = new \DateTime('2001-01-01T00:00:00.123456Z');
 echo $date->format('u');
 // display 123456 in all PHP versions
 
@@ -1485,7 +1485,7 @@ $dt->setTimestamp(169957925);
 $dt->timestamp(169957925);
 
 // Set the timezone via DateTimeZone instance or string
-$dt->tz = new DateTimeZone('Europe/London');
+$dt->tz = new \DateTimeZone('Europe/London');
 $dt->tz = 'Europe/London';
 
 // The ->timezone is also available for backward compatibility but
@@ -1677,7 +1677,7 @@ $dt->setTimeFrom($source1);
 {{::exec(echo $dt;)}} // {{eval}}
 
 {{::lint(
-$source2 = new DateTime('2013-09-01 09:22:56.2');
+$source2 = new \DateTime('2013-09-01 09:22:56.2');
 
 $dt->setDateFrom($source2);
 )}}
@@ -1764,18 +1764,18 @@ Carbon::resetToStringFormat();
     <p>
     <pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
 
-// $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
+// $dt->toAtomString() is the same as $dt->format(\DateTime::ATOM);
 {{::exec(echo $dt->toAtomString();/*pad(35)*/)}} // {{eval}}
 {{::exec(echo $dt->toCookieString();/*pad(35)*/)}} // {{eval}}
 
 {{::exec(echo $dt->toIso8601String();/*pad(35)*/)}} // {{eval}}
 // Be aware we chose to use the full-extended format of the ISO 8601 norm
-// Natively, DateTime::ISO8601 format is not compatible with ISO-8601 as it
+// Natively, \DateTime::ISO8601 format is not compatible with ISO-8601 as it
 // is explained here in the PHP documentation:
 // https://php.net/manual/class.datetime.php#datetime.constants.iso8601
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
-{{::exec(echo $dt->format(DateTime::ISO8601);/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->format(\DateTime::ISO8601);/*pad(35)*/)}} // {{eval}}
 
 {{::exec(echo $dt->toISOString();/*pad(35)*/)}} // {{eval}}
 {{::exec(echo $dt->toJSON();/*pad(35)*/)}} // {{eval}}
@@ -2201,7 +2201,7 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(echo $dt->add(61, 'seconds');/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->sub('1 day');/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->add(CarbonInterval::months(2));/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt->subtract(new DateInterval('PT1H'));/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->subtract(new \DateInterval('PT1H'));/*pad(50)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -2529,7 +2529,7 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
         <a href="https://github.com/briannesbitt/Carbon/issues/2264">See issue #2264 for alternative calculations</a>.
 
     <p>
-    <pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
+    <pre><code class="php">{{::lint($date = new \DateTime('2014-03-30 00:00:00', new \DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
 {{::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{eval}} (DST on, 24 hours only have been actually added)
 </code></pre>
     </p>
@@ -3616,7 +3616,7 @@ Carbon::macro('easterDate', static function ($year) {
     <p>
     <pre><code class="php">{{::lint(
 Carbon::macro('datePeriod', static function ($startDate, $endDate) {
-    return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
+    return new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate);
 });
 )}}
 {{::exec(foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
@@ -3782,7 +3782,7 @@ echo "\n";
     static $cities = null;
 
     if ($cities === null) {
-        foreach (DateTimeZone::listIdentifiers() as $identifier) {
+        foreach (\DateTimeZone::listIdentifiers() as $identifier) {
             $chunks = explode('/', $identifier);
 
             if (isset($chunks[1])) {
@@ -3795,7 +3795,7 @@ echo "\n";
     $city = str_replace(' ', '_', strtolower($city));
 
     if (!isset($cities[$city])) {
-        throw new InvalidArgumentException("$city not found.");
+        throw new \InvalidArgumentException("$city not found.");
     }
 
     return $this->tz($cities[$city]);
@@ -3937,7 +3937,7 @@ echo $interval;/*pad(40)*/)}} // {{eval}}
 // Your custom class can also extends CarbonInterval
 {{::lint(class CustomDateInterval extends \DateInterval {})}}
 
-{{::lint($di = $ci->cast(\CustomDateInterval::class);)}}
+{{::lint($di = $ci->cast(CustomDateInterval::class);)}}
 {{::exec(echo get_class($di);/*pad(22)*/)}} // '{{eval}}'
 {{::exec(echo $di->d;/*pad(22)*/)}} // {{eval}}
 </code></pre>
@@ -3985,7 +3985,7 @@ CarbonInterval::fromString('2m 15s'); // or abbreviated)}}
     <p>Or create it from an other <code>DateInterval</code> / <code>CarbonInterval</code> object.</p>
 
     <p>
-    <pre><code class="php">{{::lint($ci = new CarbonInterval(new DateInterval('P1Y2M3D'));)}}
+    <pre><code class="php">{{::lint($ci = new CarbonInterval(new \DateInterval('P1Y2M3D'));)}}
 {{::exec(var_dump($ci->isEmpty());)}} // {{eval}}
 </code></pre>
     </p>
@@ -4016,7 +4016,7 @@ CarbonInterval::setLocale('fr');)}}
 
     <p>
     <pre><code class="php">{{::lint(
-$dateInterval = new DateInterval('P2D');
+$dateInterval = new \DateInterval('P2D');
 $carbonInterval = CarbonInterval::month();
 )}}
 {{::exec(echo CarbonInterval::make($dateInterval)->forHumans();/*pad(60)*/)}} // {{eval}}
@@ -4199,7 +4199,7 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
     <p>It's also possible to get it from a DateInterval object since to the static helper:</p>
 
     <p>
-    <pre><code class="php">{{::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo CarbonInterval::getDateIntervalSpec(new \DateInterval('P3DT6M10S'));)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -4234,7 +4234,7 @@ usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-$weekDayInterval = new CarbonInterval(function (CarbonInterface $date, bool $negated): DateTime {
+$weekDayInterval = new CarbonInterval(function (CarbonInterface $date, bool $negated): \DateTime {
     // $negated is true when a subtraction is requested, false when an addition is requested
     return $negated
         ? $date->subWeekday()
@@ -4264,8 +4264,8 @@ echo "\n";
     <code>true</code> as a second argument):</p>
 
     <p>
-    <pre><code class="php">{{::exec(echo $weekDayInterval->convertDate(new DateTime('Wednesday'), true)->dayName;)}} // {{eval}}
-{{::exec(echo $weekDayInterval->convertDate(new DateTime('Friday'))->dayName;)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo $weekDayInterval->convertDate(new \DateTime('Wednesday'), true)->dayName;)}} // {{eval}}
+{{::exec(echo $weekDayInterval->convertDate(new \DateTime('Friday'))->dayName;)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -4359,7 +4359,7 @@ CarbonPeriod::create('now', CarbonInterval::days(-2), INF)->calculateEnd()->isSt
         <li>start date, end date and optional interval (by default 1 day),</li>
         <li>start date, number of recurrences and optional interval,</li>
         <li>an ISO 8601 interval specification,</li>
-        <li>from an other <code>DatePeriod</code> or <code>CarbonPeriod</code> using
+        <li>from another <code>DatePeriod</code> or <code>CarbonPeriod</code> using
             <code>CarbonPeriod::instance($period)</code> or simply using <code>new CarbonPeriod($period)</code>.</li>
     </ul>
 
@@ -5053,7 +5053,7 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-$tz = CarbonTimeZone::instance(new DateTimeZone('Europe/Paris'));
+$tz = CarbonTimeZone::instance(new \DateTimeZone('Europe/Paris'));
 )}}
 
 {{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
@@ -5063,7 +5063,7 @@ echo "\n";
 {{::lint(
 try {
     CarbonTimeZone::instance('Europe/Chicago');
-} catch (InvalidArgumentException $exception) {
+} catch (\InvalidArgumentException $exception) {
     $error = $exception->getMessage();
 }
 )}}
@@ -5078,7 +5078,7 @@ try {
     $city = 'Chicago';
     $mixedValue = ['continent' => $continent, 'city' => $city];
     CarbonTimeZone::instance("$continent/$city", json_encode($mixedValue));
-} catch (InvalidArgumentException $exception) {
+} catch (\InvalidArgumentException $exception) {
     $error = $exception->getMessage();
 }
 )}}

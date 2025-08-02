@@ -25,7 +25,7 @@
     "CarbonInterval::minute()->forHumans([\"aUnit\" => true])": "1 \u0e99\u0eb2\u0e97\u0eb5",
     "CarbonInterval::seconds(2)->forHumans()": "2 \u0ea7\u0eb4\u0e99\u0eb2\u0e97\u0eb5",
     "CarbonInterval::seconds(2)->forHumans([\"short\" => true])": "2 \u0ea7\u0eb4.",
-    "CarbonInterval::second()->forHumans()": "\u0e9a\u0ecd\u0ec8\u0ec0\u0e97\u0ebb\u0ec8\u0eb2\u0ec3\u0e94\u0ea7\u0eb4\u0e99\u0eb2\u0e97\u0eb5",
+    "CarbonInterval::second()->forHumans()": "1 \u0ea7\u0eb4\u0e99\u0eb2\u0e97\u0eb5",
     "CarbonInterval::second()->forHumans([\"aUnit\" => true])": "\u0e9a\u0ecd\u0ec8\u0ec0\u0e97\u0ebb\u0ec8\u0eb2\u0ec3\u0e94\u0ea7\u0eb4\u0e99\u0eb2\u0e97\u0eb5",
     "Carbon::parse(\"monday\")->dayName": "\u0e88\u0eb1\u0e99",
     "Carbon::parse(\"monday\")->shortDayName": "\u0e88\u0eb1\u0e99",

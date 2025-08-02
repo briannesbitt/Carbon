@@ -5,18 +5,9 @@ declare(strict_types=1);
 namespace Carbon\Doc\Generate;
 
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
-use Carbon\Carbonite;
-use Carbon\CarbonPeriod;
-use Carbon\CarbonTimeZone;
-use Carbon\Factory;
-use Carbon\FactoryImmutable;
 use Carbon\Language;
-use Carbon\Translator;
 use ReflectionMethod;
-
 use Throwable;
 use function Carbon\Doc\Functions\writeFileAtPath;
 use function Carbon\Doc\Functions\writeJson;
@@ -372,17 +363,8 @@ function compile($src, $dest = null)
     $code = file_get_contents($src);
 
     if (is_null($imports)) {
-        $imports = implode('', array_map(static fn ($import) => "use $import; ", [
-            Carbon::class,
-            CarbonImmutable::class,
-            CarbonInterface::class,
-            CarbonInterval::class,
-            CarbonTimeZone::class,
-            CarbonPeriod::class,
-            Factory::class,
-            FactoryImmutable::class,
-            Translator::class,
-            Carbonite::class,
+        $imports = 'namespace Carbon; ' . implode('', array_map(static fn ($import) => "use $import; ", [
+            // we can add more classes here
         ]));
     }
 
