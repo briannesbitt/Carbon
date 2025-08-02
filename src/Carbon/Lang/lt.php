@@ -33,6 +33,7 @@
  * - Kirill Chalkin
  * - Rolandas
  * - Justinas (Gamesh)
+ * - Sam Axe
  */
 return [
     'year' => ':count metai|:count metai|:count metų',
@@ -58,21 +59,28 @@ return [
     'minute_ago' => ':count minutę|:count minutes|:count minučių',
     'second_ago' => ':count sekundę|:count sekundes|:count sekundžių',
 
-    'year_from_now' => ':count metų',
-    'month_from_now' => ':count mėnesio|:count mėnesių|:count mėnesių',
-    'week_from_now' => ':count savaitės|:count savaičių|:count savaičių',
-    'day_from_now' => ':count dienos|:count dienų|:count dienų',
-    'hour_from_now' => ':count valandos|:count valandų|:count valandų',
-    'minute_from_now' => ':count minutės|:count minučių|:count minučių',
-    'second_from_now' => ':count sekundės|:count sekundžių|:count sekundžių',
+    'year_from_now' => ':count metai|:count metai|:count metų',
+    'month_from_now' => ':count mėnuo|:count mėnesiai|:count mėnesių',
+    'week_from_now' => ':count savaitė|:count savaitės|:count savaičių',
+    'day_from_now' => ':count diena|:count dienos|:count dienų',
+    'hour_from_now' => ':count valanda|:count valandos|:count valandų',
+    'minute_from_now' => ':count minutė|:count minutės|:count minučių',
+    'second_from_now' => ':count sekundė|:count sekundės|:count sekundžių',
+    'year_after' => ':count metai|:count metai|:count metų',
+    'month_after' => ':count mėnuo|:count mėnesiai|:count mėnesių',
+    'week_after' => ':count savaitė|:count savaitės|:count savaičių',
+    'day_after' => ':count diena|:count dienos|:count dienų',
+    'hour_after' => ':count valanda|:count valandos|:count valandų',
+    'minute_after' => ':count minutė|:count minutės|:count minučių',
+    'second_after' => ':count sekundė|:count sekundės|:count sekundžių',
 
-    'year_after' => ':count metų',
-    'month_after' => ':count mėnesio|:count mėnesių|:count mėnesių',
-    'week_after' => ':count savaitės|:count savaičių|:count savaičių',
-    'day_after' => ':count dienos|:count dienų|:count dienų',
-    'hour_after' => ':count valandos|:count valandų|:count valandų',
-    'minute_after' => ':count minutės|:count minučių|:count minučių',
-    'second_after' => ':count sekundės|:count sekundžių|:count sekundžių',
+    'year_before' => ':count metų',
+    'month_before' => ':count mėnesio|:count mėnesių|:count mėnesių',
+    'week_before' => ':count savaitės|:count savaičių|:count savaičių',
+    'day_before' => ':count dienos|:count dienų|:count dienų',
+    'hour_before' => ':count valandos|:count valandų|:count valandų',
+    'minute_before' => ':count minutės|:count minučių|:count minučių',
+    'second_before' => ':count sekundės|:count sekundžių|:count sekundžių',
 
     'ago' => 'prieš :time',
     'from_now' => ':time nuo dabar',
