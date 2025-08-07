@@ -363,7 +363,7 @@ function compile($src, $dest = null)
     $code = file_get_contents($src);
 
     if (is_null($imports)) {
-        $imports = 'namespace Carbon; ' . implode('', array_map(static fn ($import) => "use $import; ", [
+        $imports = 'namespace Carbon; '.implode('', array_map(static fn ($import) => "use $import; ", [
             // we can add more classes here
         ]));
     }
