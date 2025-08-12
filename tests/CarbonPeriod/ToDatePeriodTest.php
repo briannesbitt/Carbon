@@ -110,7 +110,6 @@ class ToDatePeriodTest extends AbstractTestCase
         $periodClass = static::$periodClass;
         $period = new $periodClass();
         $method = new ReflectionMethod($periodClass, 'rawDate');
-        $method->setAccessible(true);
 
         $this->assertNull($method->invoke($period, false));
         $this->assertNull($method->invoke($period, null));

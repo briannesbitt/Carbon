@@ -63,7 +63,6 @@ class TranslatorTest extends AbstractTestCase
     public function testCompareChunkLists()
     {
         $method = new ReflectionMethod(AbstractTranslator::class, 'compareChunkLists');
-        $method->setAccessible(true);
         $this->assertSame(20, $method->invoke(null, ['a', 'b'], ['a', 'b']));
         $this->assertSame(10, $method->invoke(null, ['a', 'b'], ['a', 'c']));
         $this->assertSame(10, $method->invoke(null, ['a'], ['a', 'c']));

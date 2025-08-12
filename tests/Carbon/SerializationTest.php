@@ -123,7 +123,6 @@ class SerializationTest extends AbstractTestCase
         $properties = [];
 
         foreach ($reflection->getProperties() as $property) {
-            $property->setAccessible(true);
             $properties[$property->getName()] = $property;
         }
 
