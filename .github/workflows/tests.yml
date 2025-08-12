@@ -110,7 +110,7 @@ jobs:
           PHP_VERSION: ${{ matrix.php }}
 
       - name: Code Climate Test Reporter
-        uses: qltysh/qlty-action/coverage@v1
+        uses: qltysh/qlty-action/coverage@v2
         if: matrix.coverage
         with:
           token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
