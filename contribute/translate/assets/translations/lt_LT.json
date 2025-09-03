@@ -73,7 +73,7 @@
     "Carbon::parse(\"december 2023\")->monthName": "gruodis",
     "Carbon::parse(\"december 2023\")->shortMonthName": "gru",
     "Carbon::now()->subHours(2)->diffForHumans()": "prie\u0161 2 valandas",
-    "Carbon::now()->addHours(2)->addMinute()->diffForHumans([\"part\" => 1])": "2 valand\u0173 nuo dabar",
-    "($d = Carbon::now())->copy()->subHours(2)->diffForHumans($d)": "u\u017e 2 valandos",
-    "($d = Carbon::now())->copy()->addHours(2)->addMinute()->diffForHumans($d)": "po 2 valand\u0173"
+    "Carbon::now()->addHours(2)->addMinute()->diffForHumans([\"part\" => 1])": "2 valandos nuo dabar",
+    "($d = Carbon::now())->copy()->subHours(2)->diffForHumans($d)": "u\u017e 2 valand\u0173",
+    "($d = Carbon::now())->copy()->addHours(2)->addMinute()->diffForHumans($d)": "po 2 valandos"
 }
