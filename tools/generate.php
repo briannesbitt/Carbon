@@ -57,7 +57,7 @@ function isHistoryUpToDate(): bool
         return false;
     }
 
-    $versions = json_decode(file_get_contents('https://packagist.org/p/nesbot/carbon.json'), true)['packages']['nesbot/carbon'];
+    $versions = json_decode(file_get_contents('https://packagist.org/packages/nesbot/carbon.json'), true)['packages']['nesbot/carbon'];
     $maxVersion = '1.0.0';
 
     foreach ($versions as $version => $data) {

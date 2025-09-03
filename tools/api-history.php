@@ -129,7 +129,7 @@ loadDependencies();
 
 $versions = array_filter(array_map(function ($version) {
     return $version === MASTER_BRANCH ? MASTER_VERSION : $version;
-}, array_keys(json_decode(file_get_contents('https://packagist.org/p/nesbot/carbon.json'), true)['packages']['nesbot/carbon'])), function ($version) {
+}, array_keys(json_decode(file_get_contents('https://packagist.org/packages/nesbot/carbon.json'), true)['packages']['nesbot/carbon'])), function ($version) {
     return !preg_match('/(dev-|-beta|-alpha|-dev)/', $version) && !\in_array($version, BLACKLIST, true);
 });
 
