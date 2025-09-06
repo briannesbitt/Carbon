@@ -21,7 +21,15 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPStan\Type\ClosureTypeFactory;
 use PHPStan\Type\VerbosityLevel;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 
+/**
+ * PHPStan is calling deprecated ->setAccessible() method, they already fixed it,
+ * but did not release a new version with the fix.
+ *
+ * Disabling this test for PHP 8.5 until the patch is out.
+ */
+#[RequiresPhp('< 8.5')]
 class MacroExtensionTest extends PHPStanTestCase
 {
     private ReflectionProvider $reflectionProvider;
@@ -29,6 +37,8 @@ class MacroExtensionTest extends PHPStanTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->reflectionProvider = $this->createReflectionProvider();
         $this->extension = new MacroExtension(
             $this->reflectionProvider,

@@ -476,6 +476,15 @@ class LocalizationTest extends AbstractTestCase
 
         $translator->resetMessages();
 
+        $diff = Carbon::parse('2018-01-01')
+            ->diffForHumans('2018-01-04 04:00', [
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+                'parts' => 2,
+                'locale' => 'de',
+            ]);
+
+        $this->assertSame('3 Tage 4 Stunden', $diff);
+
         $this->assertSame([], $translator->getMessages());
 
         $this->assertSame('en', Carbon::getLocale());
@@ -943,5 +952,21 @@ class LocalizationTest extends AbstractTestCase
                 ->locale('mn')
                 ->diffForHumans(null, null, false, 4)
         );
+    }
+
+    /** @see https://github.com/CarbonPHP/carbon/issues/57 */
+    public function testResetMessagesMemoryConsumption()
+    {
+        Carbon::getTranslator()->resetMessages('en');
+
+        $start = memory_get_usage();
+
+        for ($i = 0; $i < 100; $i++) {
+            Carbon::getTranslator()->resetMessages('en');
+        }
+
+        $consumedMemory = memory_get_usage() - $start;
+
+        $this->assertLessThan(100_000, $consumedMemory);
     }
 }
