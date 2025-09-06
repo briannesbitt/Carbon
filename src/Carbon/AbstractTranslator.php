@@ -17,11 +17,13 @@ use Carbon\MessageFormatter\MessageFormatterMapper;
 use Closure;
 use ReflectionException;
 use ReflectionFunction;
-use Symfony\Component\Translation;
+use ReflectionProperty;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
+use Throwable;
 
-abstract class AbstractTranslator extends Translation\Translator
+abstract class AbstractTranslator extends SymfonyTranslator
 {
     public const REGION_CODE_LENGTH = 2;
 
@@ -153,6 +155,14 @@ abstract class AbstractTranslator extends Translation\Translator
     {
         if ($locale === null) {
             $this->messages = [];
+            $this->catalogues = [];
+            $this->modifyResources(static function (array $resources): array {
+                foreach ($resources as &$list) {
+                    array_splice($list, 1);
+                }
+
+                return $resources;
+            });
 
             return true;
         }
@@ -160,10 +170,17 @@ abstract class AbstractTranslator extends Translation\Translator
         $this->assertValidLocale($locale);
 
         foreach ($this->getDirectories() as $directory) {
-            $data = @include \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+            $file = \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+            $data = @include $file;
 
             if ($data !== false) {
                 $this->messages[$locale] = $data;
+                unset($this->catalogues[$locale]);
+                $this->modifyResources(static function (array $resources) use ($locale): array {
+                    unset($resources[$locale]);
+
+                    return $resources;
+                });
                 $this->addResource('array', $this->messages[$locale], $locale);
 
                 return true;
@@ -407,5 +424,17 @@ abstract class AbstractTranslator extends Translation\Translator
         }
 
         return $score;
+    }
+
+    /** @codeCoverageIgnore */
+    private function modifyResources(callable $callback): void
+    {
+        try {
+            $resourcesProperty = new ReflectionProperty(SymfonyTranslator::class, 'resources');
+            $resources = $resourcesProperty->getValue($this);
+            $resourcesProperty->setValue($this, $callback($resources));
+        } catch (Throwable) {
+            // Clear resources if available, if not, then nothing to clean
+        }
     }
 }
