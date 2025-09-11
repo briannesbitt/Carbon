@@ -372,7 +372,7 @@ use Throwable;
  * @method        CarbonInterface  microseconds(int $value)                                                           Set current instance microsecond to the given value.
  * @method        CarbonInterface  microsecond(int $value)                                                            Set current instance microsecond to the given value.
  * @method        CarbonInterface  setMicroseconds(int $value)                                                        Set current instance microsecond to the given value.
- * @method        CarbonInterface  setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
+ * @method        self             setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
  * @method        CarbonInterface  addYears(int|float $value = 1)                                                     Add years (the $value count passed in) to the instance (using date interval).
  * @method        CarbonInterface  addYear()                                                                          Add one year to the instance (using date interval).
  * @method        CarbonInterface  subYears(int|float $value = 1)                                                     Sub years (the $value count passed in) to the instance (using date interval).

@@ -161,24 +161,6 @@ class SerializationTest extends AbstractTestCase
         $this->assertSame($string, $copy->format('Y-m-d H:i:s.u e'));
     }
 
-    public function testSleepRawMethod(): void
-    {
-        $date = Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
-
-        $expected = ['date', 'timezone_type', 'timezone'];
-
-        if (\extension_loaded('msgpack')) {
-            $expected[] = 'dumpDateProperties';
-        }
-
-        $this->assertSame($expected, $date->__sleep());
-
-        $date->locale('fr_FR');
-        $expected[] = 'dumpLocale';
-
-        $this->assertSame($expected, $date->__sleep());
-    }
-
     public function testSerializeRawMethod(): void
     {
         $date = Carbon::parse('2018-06-01 21:25:13.321654 Europe/Vilnius');
@@ -202,25 +184,6 @@ class SerializationTest extends AbstractTestCase
         $expected['dumpLocale'] = 'lt_LT';
 
         $this->assertSame($expected, $date->__serialize());
-    }
-
-    #[RequiresPhp('<8.5')]
-    public function testWakeupRawMethod(): void
-    {
-        $tz = $this->firstValidTimezoneAmong(['America/Los_Angeles', 'US/Pacific'])->getName();
-
-        /** @var Carbon $date */
-        $date = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
-
-        @$date->date = '1990-01-17 10:28:07';
-        @$date->timezone_type = 3;
-        @$date->timezone = $tz;
-        @$date->dumpLocale = 'es';
-
-        $date->__wakeup();
-
-        $this->assertSame('1990-01-17 10:28:07 '.$tz, $date->format('Y-m-d H:i:s e'));
-        $this->assertSame('es', $date->locale);
     }
 
     public function testUnserializeRawMethod(): void

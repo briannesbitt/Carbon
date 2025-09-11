@@ -34,6 +34,9 @@ $nativeMethods = [
     'getOffset' => 'int',
     'getTimestamp' => 'int',
 ];
+$noInterface = [
+    'setMicrosecond',
+];
 $modes = [];
 $autoDocLines = [];
 $carbon = __DIR__.'/src/Carbon/Carbon.php';
@@ -651,6 +654,8 @@ $propertyTemplate = preg_replace('/(%line1%[\s\S]*%line2%)/', '%deprecation%', $
 
 function compileDoc($autoDocLines, $file)
 {
+    global $noInterface;
+
     $class = 'CarbonInterface';
 
     if (preg_match('`[\\\\/](Carbon\w*)\.php$`', $file, $match)) {
@@ -662,6 +667,12 @@ function compileDoc($autoDocLines, $file)
 
     foreach ($autoDocLines as &$editableLine) {
         if (\is_array($editableLine)) {
+            [$method] = explode('(', $editableLine[2] ?? '');
+
+            if (\in_array($method, $noInterface)) {
+                continue;
+            }
+
             if (($editableLine[1] ?? '') === 'self') {
                 $editableLine[1] = $class === 'Carbon' ? '$this' : $class;
             }
@@ -814,7 +825,9 @@ foreach ($carbonMethods as $method) {
         }
     }
 
-    $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
+    if (!\in_array($method, $noInterface)) {
+        $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
+    }
 }
 
 $files->$interface = strtr(preg_replace_callback(

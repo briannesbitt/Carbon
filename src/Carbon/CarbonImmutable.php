@@ -345,7 +345,7 @@ use DateTimeInterface;
  * @method        CarbonImmutable  microseconds(int $value)                                                           Set current instance microsecond to the given value.
  * @method        CarbonImmutable  microsecond(int $value)                                                            Set current instance microsecond to the given value.
  * @method        CarbonImmutable  setMicroseconds(int $value)                                                        Set current instance microsecond to the given value.
- * @method        CarbonImmutable  setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
+ * @method        self             setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
  * @method        CarbonImmutable  addYears(int|float $value = 1)                                                     Add years (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  addYear()                                                                          Add one year to the instance (using date interval).
  * @method        CarbonImmutable  subYears(int|float $value = 1)                                                     Sub years (the $value count passed in) to the instance (using date interval).
