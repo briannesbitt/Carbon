@@ -221,6 +221,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public const EXCLUDE_END_DATE = 8;
 
     /**
+     * Applying a monthly interval to a date at the end of a month will snap to the end of the next month.
+     *
+     * @var int
+     */
+    public const NO_MONTH_OVERFLOW = 16;
+
+    /**
      * Yield CarbonImmutable instances.
      *
      * @var int
@@ -2509,7 +2516,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $attempts = 0;
 
         do {
-            $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
+            $current = $this->carbonCurrent;
+            $interval = $this->dateInterval;
+
+            if ($this->shouldApplyNoOverflowLogic()) {
+                $this->carbonCurrent = $current
+                    ->addMonthsNoOverflow($interval->m + ($interval->y * 12))
+                    ->endOfMonth()
+                    ->startOfDay();
+            } else {
+                // Default behavior
+                $this->carbonCurrent = $current->add($interval);
+            }
 
             $this->validationResult = null;
 
@@ -2713,5 +2731,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
         );
         // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * Checks if the special "no overflow" logic should be applied for the current iteration step.
+     */
+    private function shouldApplyNoOverflowLogic(): bool
+    {
+        $interval = $this->dateInterval;
+
+        return ($this->getOptions() & static::NO_MONTH_OVERFLOW) &&
+            ($interval->y || $interval->m) &&
+            $this->startDate->isLastOfMonth() &&
+            !$interval->d && !$interval->h && !$interval->i && !$interval->s && !$interval->f;
     }
 }
