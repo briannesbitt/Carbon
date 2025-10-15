@@ -1081,7 +1081,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example $date->add(CarbonInterval::days(4))
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param int|float|string                                              $value
+     * @param Unit|int|float|string                                         $value
      * @param bool|null                                                     $overflow
      *
      * @return static
@@ -4233,7 +4233,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example $date->sub(CarbonInterval::days(4))
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param int|float|string                                              $value
+     * @param Unit|int|float|string                                         $value
      * @param bool|null                                                     $overflow
      *
      * @return static
@@ -4284,9 +4284,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @see sub()
      *
-     * @param int|string|DateInterval $unit
-     * @param int|float|string        $value
-     * @param bool|null               $overflow
+     * @param Unit|int|string|DateInterval $unit
+     * @param Unit|int|float|string        $value
+     * @param bool|null                    $overflow
      *
      * @return static
      */

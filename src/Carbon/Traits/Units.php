@@ -243,7 +243,7 @@ trait Units
      * @example $date->add(CarbonInterval::days(4))
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param int|float|string                                              $value
+     * @param Unit|int|float|string                                         $value
      * @param bool|null                                                     $overflow
      *
      * @return static
@@ -395,7 +395,7 @@ trait Units
      * @example $date->sub(CarbonInterval::days(4))
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param int|float|string                                              $value
+     * @param Unit|int|float|string                                         $value
      * @param bool|null                                                     $overflow
      *
      * @return static
@@ -403,6 +403,9 @@ trait Units
     #[ReturnTypeWillChange]
     public function sub($unit, $value = 1, ?bool $overflow = null): static
     {
+        $unit = Unit::toNameIfUnit($unit);
+        $value = Unit::toNameIfUnit($value);
+
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit, [], true);
         }
@@ -437,9 +440,9 @@ trait Units
      *
      * @see sub()
      *
-     * @param int|string|DateInterval $unit
-     * @param int|float|string        $value
-     * @param bool|null               $overflow
+     * @param Unit|int|string|DateInterval $unit
+     * @param Unit|int|float|string        $value
+     * @param bool|null                    $overflow
      *
      * @return static
      */
