@@ -15,6 +15,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Carbon\Unit;
 use DateTime;
 use Tests\AbstractTestCase;
 
@@ -24,6 +25,8 @@ class SubTest extends AbstractTestCase
     {
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub('year', 2)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, Unit::Year)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(Unit::Year, 2)->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub('2 years')->year);
         $lastNegated = null;
         $date = Carbon::createFromDate(1975)->sub(
@@ -37,6 +40,8 @@ class SubTest extends AbstractTestCase
         $this->assertSame(1973, $date->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'year')->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('year', 2)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, Unit::Year)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(Unit::Year, 2)->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('2 years')->year);
         $lastNegated = null;
         $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(
