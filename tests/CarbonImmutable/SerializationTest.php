@@ -18,6 +18,7 @@ use Carbon\CarbonTimeZone;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use ReflectionClass;
 use ReflectionObject;
@@ -203,6 +204,7 @@ class SerializationTest extends AbstractTestCase
         $this->assertSame($expected, $date->__serialize());
     }
 
+    #[RequiresPhp('<8.5')]
     public function testWakeupRawMethod(): void
     {
         $tz = $this->firstValidTimezoneAmong(['America/Los_Angeles', 'US/Pacific'])->getName();
