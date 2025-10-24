@@ -23,6 +23,7 @@ use PHPUnit\Framework\Attributes\Medium;
 use stdClass;
 use Tests\AbstractTestCaseWithOldNow;
 
+#[Medium]
 class ConversionsTest extends AbstractTestCaseWithOldNow
 {
     public function testToString()
@@ -31,7 +32,6 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('Europe/Paris', (string) (new CarbonTimeZone('Europe/Paris')));
     }
 
-    #[Medium]
     public function testToRegionName()
     {
         $this->assertSame('America/Chicago', (new CarbonTimeZone(-5))->toRegionName());
