@@ -19,6 +19,7 @@ use DateTimeZone;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Medium;
 use stdClass;
 use Tests\AbstractTestCaseWithOldNow;
 
@@ -30,6 +31,7 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('Europe/Paris', (string) (new CarbonTimeZone('Europe/Paris')));
     }
 
+    #[Medium]
     public function testToRegionName()
     {
         $this->assertSame('America/Chicago', (new CarbonTimeZone(-5))->toRegionName());
