@@ -76,11 +76,23 @@ class ConstructTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($c);
         $this->assertSame($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+
+        $c = new Carbon('');
+        $now = Carbon::now();
+        $this->assertInstanceOfCarbon($c);
+        $this->assertSame($now->tzName, $c->tzName);
+        $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
     public function testParseZeroCreatesAnInstanceDefaultToUnixAreaStartUtc()
     {
         $c = Carbon::parse(0);
+        $now = Carbon::createFromTimestamp(0, '+00:00');
+        $this->assertInstanceOfCarbon($c);
+        $this->assertSame($now->tzName, $c->tzName);
+        $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+
+        $c = new Carbon(0);
         $now = Carbon::createFromTimestamp(0, '+00:00');
         $this->assertInstanceOfCarbon($c);
         $this->assertSame($now->tzName, $c->tzName);
