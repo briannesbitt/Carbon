@@ -15,6 +15,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterval;
+use Carbon\Unit;
 use DateTimeImmutable;
 use Tests\AbstractTestCase;
 
@@ -24,6 +25,8 @@ class AddTest extends AbstractTestCase
     {
         $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add('year', 2)->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, Unit::Year)->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(Unit::Year, 2)->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add('2 years')->year);
         $lastNegated = null;
         $date = Carbon::createFromDate(1975)->add(
