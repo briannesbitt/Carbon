@@ -1849,7 +1849,7 @@ trait Date
     }
 
     /**
-     * Set the instance's timezone from a string or object.
+     * Set the instance's timezone from a string, int or object.
      */
     public function setTimezone(DateTimeZone|string|int $timeZone): static
     {
@@ -1857,9 +1857,9 @@ trait Date
     }
 
     /**
-     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     * Set the instance's timezone from a string, int or object and add/subtract the offset difference.
      */
-    public function shiftTimezone(DateTimeZone|string $value): static
+    public function shiftTimezone(DateTimeZone|string|int $value): static
     {
         $dateTimeString = $this->format('Y-m-d H:i:s.u');
 
