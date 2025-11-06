@@ -1,5 +1,6 @@
 /.editorconfig           export-ignore
 /.gitattributes          export-ignore
+/.github                 export-ignore
 /.gitignore              export-ignore
 /.multi-tester.yml       export-ignore
 /.php-cs-fixer.dist.php  export-ignore
@@ -13,7 +14,7 @@
 /phpstan.neon            export-ignore
 /phpunit.xml.dist        export-ignore
 /psalm.xml               export-ignore
-/.github                 export-ignore
+/sponsors.php            export-ignore
 /tests                   export-ignore
 
 * text=auto eol=lf
