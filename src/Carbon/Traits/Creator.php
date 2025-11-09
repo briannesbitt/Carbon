@@ -375,6 +375,40 @@ trait Creator
             $instance = $instance->addYears($fixYear);
         }
 
+        // Validate DST transition: Check if created instance matches requested TIME components
+        // This detects when DST silently adjusted the time (e.g., 2:30 AM -> 3:30 AM during spring forward)
+        // Only check time components (hour, minute) when timezone is provided, not date components
+        // Date component mismatches are handled separately (e.g., month overflow)
+        if ($instance !== null && $timezone !== null && $hour !== null && $minute !== null) {
+            // Only check time components for DST detection, not date components
+            // Date mismatches (like Jan 31 -> Feb 29) are valid and not DST issues
+            $requestedTime = [
+                'hour' => $hour,
+                'minute' => $minute,
+            ];
+
+            $actualTime = [
+                'hour' => $instance->hour,
+                'minute' => $instance->minute,
+            ];
+
+            // If time components don't match but date components do, it's likely a DST transition
+            // Store this information in lastErrors for createSafe() to detect
+            if ($requestedTime !== $actualTime &&
+                $year === $instance->year &&
+                $month === $instance->month &&
+                $day === $instance->day) {
+                self::setLastErrors([
+                    'warning_count' => 1,
+                    'warnings' => [
+                        6 => 'DST transition detected: requested time does not exist in timezone',
+                    ],
+                    'error_count' => 0,
+                    'errors' => [],
+                ]);
+            }
+        }
+
         return $instance ?? null;
     }
 
@@ -420,10 +454,47 @@ trait Creator
             }
         }
 
+        // Clear any previous errors before calling create()
+        self::setLastErrors(false);
+
         $instance = static::create($year, $month, $day, $hour, $minute, $second, $timezone);
 
+        if ($instance === null) {
+            return null;
+        }
+
+        // Check for DST transition by comparing requested vs actual time components
+        // This catches DST issues that create() may have silently adjusted
+        // First check if this is a DST transition (time mismatch but date matches)
+        $lastErrors = self::getLastErrors();
+        $isDstTransition = false;
+
+        if ($lastErrors && isset($lastErrors['warnings']) && \is_array($lastErrors['warnings'])) {
+            $isDstTransition = \in_array('DST transition detected: requested time does not exist in timezone', $lastErrors['warnings'], true);
+        }
+
+        // If DST transition detected, return null or throw exception
+        if ($isDstTransition) {
+            // Check which time component doesn't match
+            $mismatchedField = null;
+            if ($hour !== null && $hour !== $instance->hour) {
+                $mismatchedField = 'hour';
+            } elseif ($minute !== null && $minute !== $instance->minute) {
+                $mismatchedField = 'minute';
+            }
+
+            if ($mismatchedField !== null) {
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidDateException($mismatchedField, $$mismatchedField);
+                }
+                return null;
+            }
+        }
+
+        // Check all components for other invalid date issues
         foreach (array_reverse($fields) as $field => $range) {
-            if ($$field !== null && (!\is_int($$field) || $$field !== $instance->$field)) {
+            if ($$field !== null && $$field !== $instance->$field) {
+                // Not a DST issue, but still invalid
                 if (static::isStrictModeEnabled()) {
                     throw new InvalidDateException($field, $$field);
                 }

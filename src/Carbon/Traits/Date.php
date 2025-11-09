@@ -1850,10 +1850,43 @@ trait Date
 
     /**
      * Set the instance's timezone from a string or object.
+     *
+     * Preserves microseconds and exact moment in time during DST transitions.
      */
     public function setTimezone(DateTimeZone|string|int $timeZone): static
     {
-        return parent::setTimezone(static::safeCreateDateTimeZone($timeZone));
+        // Preserve microseconds and exact timestamp to avoid precision loss during DST
+        $microseconds = (int) $this->rawFormat('u');
+        $timestamp = $this->getTimestamp();
+
+        $newTimezone = static::safeCreateDateTimeZone($timeZone);
+        $result = parent::setTimezone($newTimezone);
+
+        // Convert result back to Carbon instance if needed
+        if (!$result instanceof static) {
+            $result = static::instance($result);
+        }
+
+        // Restore microseconds if they were lost during timezone conversion
+        // This is especially important during DST transitions
+        $resultMicroseconds = (int) $result->rawFormat('u');
+        if ($resultMicroseconds !== $microseconds) {
+            $result = $result->microsecond($microseconds);
+        }
+
+        // Verify the timestamp is preserved (exact moment in time)
+        // If timestamp changed, recreate from exact timestamp to preserve moment
+        if ($result->getTimestamp() !== $timestamp) {
+            // Recreate from timestamp to ensure exact moment is preserved during DST
+            // Use createFromTimestamp which handles timezone conversion properly
+            $recreated = static::createFromTimestamp($timestamp, $newTimezone);
+            if ($microseconds > 0) {
+                $recreated = $recreated->microsecond($microseconds);
+            }
+            $result = $recreated;
+        }
+
+        return $result;
     }
 
     /**
