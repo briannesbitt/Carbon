@@ -100,7 +100,46 @@ return [
     'weekdays_short' => ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি'],
     'weekdays_min' => ['রবি', 'সোম', 'মঙ্গ', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'],
     'ordinal' => static function ($number) {
-        return $number;
+        // Convert to Bengali numerals
+        $bengaliNumber = str_replace(
+            ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+            ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'],
+            (string) $number
+        );
+
+        // Apply Bengali ordinal rules
+        $lastDigit = $number % 10;
+        $lastTwoDigits = $number % 100;
+
+        // Special cases for teens (11-19) always use তম
+        if ($lastTwoDigits >= 11 && $lastTwoDigits <= 19) {
+            return $bengaliNumber . 'তম';
+        }
+
+        // For numbers 1-10, use specific rules
+        if ($number <= 10) {
+            switch ($number) {
+                case 1:
+                case 5:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    return $bengaliNumber . 'ম';
+                case 2:
+                case 3:
+                    return $bengaliNumber . 'য়';
+                case 4:
+                    return $bengaliNumber . 'র্থ';
+                case 6:
+                    return $bengaliNumber . 'ষ্ঠ';
+                default:
+                    return $bengaliNumber . 'তম';
+            }
+        }
+
+        // For numbers > 20, all use তম
+        return $bengaliNumber . 'তম';
     },
     'list' => [', ', ' এবং '],
     'first_day_of_week' => 0,

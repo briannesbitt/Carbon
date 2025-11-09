@@ -139,47 +139,47 @@ class BnTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         // '1st 1st 1st 1st 1st',
-        '1 1 1 1 1',
+        '১ম ১ম ১ম ১ম ১ম',
 
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         // '2nd 1st',
-        '2 1',
+        '২য় ১ম',
 
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
         // '3rd 1st',
-        '3 1',
+        '৩য় ১ম',
 
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
         // '4th 1st',
-        '4 1',
+        '৪র্থ ১ম',
 
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
         // '5th 1st',
-        '5 1',
+        '৫ম ১ম',
 
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         // '6th 1st',
-        '6 1',
+        '৬ষ্ঠ ১ম',
 
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
         // '7th 2nd',
-        '7 2',
+        '৭ম ২য়',
 
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         // '11th 2nd',
-        '11 2',
+        '১১তম ২য়',
 
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
         // '40th',
-        '40',
+        '৪০তম',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         // '41st',
-        '41',
+        '৪১তম',
 
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         // '100th',
-        '100',
+        '১০০তম',
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         // '12:00 am CET',
@@ -223,7 +223,7 @@ class BnTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         // '0th',
-        '0',
+        '০তম',
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago',
