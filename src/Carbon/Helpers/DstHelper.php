@@ -15,7 +15,6 @@ namespace Carbon\Helpers;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
-use Carbon\Exceptions\InvalidTimeZoneException;
 use DateTimeZone;
 use Exception;
 
@@ -27,14 +26,14 @@ class DstHelper
     /**
      * Safely create a Carbon instance handling DST transitions.
      *
-     * @param int                              $year
-     * @param int                              $month
-     * @param int                              $day
-     * @param int                              $hour
-     * @param int                              $minute
-     * @param int                              $second
-     * @param DateTimeZone|string|int|null     $timezone
-     * @param string                           $strategy 'safe', 'forward', 'backward', 'utc'
+     * @param int                          $year
+     * @param int                          $month
+     * @param int                          $day
+     * @param int                          $hour
+     * @param int                          $minute
+     * @param int                          $second
+     * @param DateTimeZone|string|int|null $timezone
+     * @param string                       $strategy 'safe', 'forward', 'backward', 'utc'
      *
      * @return CarbonInterface|null
      */
@@ -123,7 +122,7 @@ class DstHelper
                 $testHour = $hour;
 
                 if ($testMinute >= 60) {
-                    $testHour += intval($testMinute / 60);
+                    $testHour += (int) ($testMinute / 60);
                     $testMinute = $testMinute % 60;
                 }
 
@@ -174,7 +173,7 @@ class DstHelper
                 $testHour = $hour;
 
                 if ($testMinute < 0) {
-                    $testHour -= intval(abs($testMinute) / 60) + 1;
+                    $testHour -= (int) (abs($testMinute) / 60) + 1;
                     $testMinute = 60 + ($testMinute % 60);
                 }
 

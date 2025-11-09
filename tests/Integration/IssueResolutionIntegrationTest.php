@@ -175,7 +175,16 @@ class IssueResolutionIntegrationTest extends AbstractTestCase
         $this->assertEquals(30, $backwardResult->minute);
 
         // Strategy 4: utc - should create in UTC
-        $utcResult = DstHelper::createSafeDst($year, $month, $day, $hour, $minute, 0, $timezone, 'utc');
+        $utcResult = DstHelper::createSafeDst(
+            $year,
+            $month,
+            $day,
+            $hour,
+            $minute,
+            0,
+            $timezone,
+            'utc'
+        );
         $this->assertNotNull($utcResult);
         $this->assertEquals('UTC', $utcResult->getTimezone()->getName());
         $this->assertEquals(2, $utcResult->hour);
@@ -195,11 +204,29 @@ class IssueResolutionIntegrationTest extends AbstractTestCase
     public function testDstErrorHandling()
     {
         // Test invalid timezone
-        $invalidTimezone = DstHelper::createSafeDst(2024, 3, 10, 2, 30, 0, 'Invalid/Timezone', 'safe');
+        $invalidTimezone = DstHelper::createSafeDst(
+            2024,
+            3,
+            10,
+            2,
+            30,
+            0,
+            'Invalid/Timezone',
+            'safe'
+        );
         $this->assertNull($invalidTimezone);
 
         // Test invalid date
-        $invalidDate = DstHelper::createSafeDst(2024, 2, 30, 12, 0, 0, 'UTC', 'safe');
+        $invalidDate = DstHelper::createSafeDst(
+            2024,
+            2,
+            30,
+            12,
+            0,
+            0,
+            'UTC',
+            'safe'
+        );
         $this->assertNull($invalidDate);
 
         // Test DST transition detection with invalid time
@@ -207,7 +234,16 @@ class IssueResolutionIntegrationTest extends AbstractTestCase
         $this->assertTrue($isDstTransition);
 
         // Test fall back transition (November 3, 2024)
-        $fallBackTime = DstHelper::createSafeDst(2024, 11, 3, 1, 30, 0, 'America/New_York', 'safe');
+        $fallBackTime = DstHelper::createSafeDst(
+            2024,
+            11,
+            3,
+            1,
+            30,
+            0,
+            'America/New_York',
+            'safe'
+        );
         $this->assertNotNull($fallBackTime); // This time exists (occurs twice)
     }
 
@@ -221,7 +257,16 @@ class IssueResolutionIntegrationTest extends AbstractTestCase
         // Simulate realistic DST workload
         for ($i = 0; $i < 100; $i++) {
             // Test DST creation
-            $date = DstHelper::createSafeDst(2024, 3, 10, 14, 0, 0, 'America/New_York', 'forward');
+            $date = DstHelper::createSafeDst(
+                2024,
+                3,
+                10,
+                14,
+                0,
+                0,
+                'America/New_York',
+                'forward'
+            );
 
             // Test timezone conversion
             $utcDate = DstHelper::safeTimezoneConversion($date, 'UTC');

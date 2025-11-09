@@ -48,16 +48,17 @@ class DstHelperTest extends AbstractTestCase
         
         if ($expectedResult === null) {
             $this->assertNull($result);
-        } else {
-            $this->assertNotNull($result);
-            $this->assertInstanceOf(Carbon::class, $result);
-            
-            if (isset($expectedResult['hour'])) {
-                $this->assertEquals($expectedResult['hour'], $result->hour);
-            }
-            if (isset($expectedResult['minute'])) {
-                $this->assertEquals($expectedResult['minute'], $result->minute);
-            }
+            return;
+        }
+        
+        $this->assertNotNull($result);
+        $this->assertInstanceOf(Carbon::class, $result);
+        
+        if (isset($expectedResult['hour'])) {
+            $this->assertEquals($expectedResult['hour'], $result->hour);
+        }
+        if (isset($expectedResult['minute'])) {
+            $this->assertEquals($expectedResult['minute'], $result->minute);
         }
     }
 
@@ -240,15 +241,15 @@ class DstHelperTest extends AbstractTestCase
     public function testPerformance()
     {
         $start = microtime(true);
-        
+
         // Perform many DST checks
         for ($i = 0; $i < 1000; $i++) {
             DstHelper::isDstTransition(2024, 3, 10, 2, 30, 0, 'America/New_York');
         }
-        
+
         $end = microtime(true);
         $duration = $end - $start;
-        
+
         // Should complete within reasonable time (adjust threshold as needed)
         $this->assertLessThan(1.0, $duration, 'DST checks should be performant');
     }
