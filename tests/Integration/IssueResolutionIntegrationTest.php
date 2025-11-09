@@ -87,7 +87,9 @@ class IssueResolutionIntegrationTest extends AbstractTestCase
                 $currentDate->year,
                 $currentDate->month,
                 $currentDate->day,
-                2, 30, 0,
+                2,
+                30,
+                0,
                 'America/New_York',
                 'forward' // Move to next valid time if 2:30 doesn't exist
             );
