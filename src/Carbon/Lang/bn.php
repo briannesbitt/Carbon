@@ -115,7 +115,7 @@ return [
 
         // Special cases for teens (11-19) always use তম
         if ($lastTwoDigits >= 11 && $lastTwoDigits <= 19) {
-            return $bengaliNumber . 'তম';
+            return $bengaliNumber.'তম';
         }
 
         // For numbers 1-10, use specific rules
@@ -127,21 +127,21 @@ return [
                 case 8:
                 case 9:
                 case 10:
-                    return $bengaliNumber . 'ম';
+                    return $bengaliNumber.'ম';
                 case 2:
                 case 3:
-                    return $bengaliNumber . 'য়';
+                    return $bengaliNumber.'য়';
                 case 4:
-                    return $bengaliNumber . 'র্থ';
+                    return $bengaliNumber.'র্থ';
                 case 6:
-                    return $bengaliNumber . 'ষ্ঠ';
+                    return $bengaliNumber.'ষ্ঠ';
                 default:
-                    return $bengaliNumber . 'তম';
+                    return $bengaliNumber.'তম';
             }
         }
 
         // For numbers > 20, all use তম
-        return $bengaliNumber . 'তম';
+        return $bengaliNumber.'তম';
     },
     'list' => [', ', ' এবং '],
     'first_day_of_week' => 0,
