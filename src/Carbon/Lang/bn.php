@@ -100,7 +100,7 @@ return [
     'weekdays_short' => ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি'],
     'weekdays_min' => ['রবি', 'সোম', 'মঙ্গ', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'],
     'ordinal' => static function ($number) {
-        return $number.'তম';
+        return $number;
     },
     'list' => [', ', ' এবং '],
     'first_day_of_week' => 0,
