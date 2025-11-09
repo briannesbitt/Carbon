@@ -799,6 +799,39 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(
             '29 февраля 2020 г., 12:24',
             Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL'),
+            'Use "months" for date formatting',
+        );
+    }
+
+    public function testStandAloneMonthName()
+    {
+        $this->assertSame(
+            'февраль',
+            Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->monthName,
+            'Use "months_standalone" the month alone',
+        );
+    }
+
+    public function testShortMonthNameInFormat()
+    {
+        $this->assertSame(
+            '29. мая',
+            Carbon::parse('2020-05-29 12:24:00')->locale('ru_RU')->isoFormat('D. MMM'),
+            'Use "months_short" for date formatting',
+        );
+        $this->assertSame(
+            'май',
+            Carbon::parse('2020-05-29 12:24:00')->locale('ru_RU')->isoFormat('MMM'),
+            'Use "months_short" for date formatting',
+        );
+    }
+
+    public function testStandAloneShortMonthName()
+    {
+        $this->assertSame(
+            'май',
+            Carbon::parse('2020-05-29 12:24:00')->locale('ru_RU')->shortMonthName,
+            'Use "months_short_standalone" the month alone',
         );
     }
 
@@ -851,5 +884,14 @@ class LocalizationTest extends AbstractTestCase
                 ->locale('mn')
                 ->diffForHumans(null, null, false, 4)
         );
+    }
+
+    #[TestWith(['мая', 'May'])]
+    #[TestWith(['май', 'May'])]
+    #[TestWith(['февраль', 'February'])]
+    #[TestWith(['февраля', 'February'])]
+    public function testTranslateMonthsEitherStandaloneOrNot(string $ru, string $en)
+    {
+        $this->assertSame($en, \Carbon\Carbon::translateTimeString($ru, 'ru', 'en'));
     }
 }
