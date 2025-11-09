@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+$bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
 /*
  * Authors:
  * - Josh Soref
@@ -99,11 +101,11 @@ return [
     'weekdays' => ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'],
     'weekdays_short' => ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি'],
     'weekdays_min' => ['রবি', 'সোম', 'মঙ্গ', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'],
-    'ordinal' => static function ($number) {
+    'ordinal' => static function ($number) use ($bengaliNumbers) {
         // Convert to Bengali numerals
         $bengaliNumber = str_replace(
             ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-            ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'],
+            $bengaliNumbers,
             (string) $number
         );
 
@@ -147,5 +149,5 @@ return [
     'weekdays_standalone' => ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহষ্পতিবার', 'শুক্রবার', 'শনিবার'],
     'weekdays_min_standalone' => ['রঃ', 'সোঃ', 'মঃ', 'বুঃ', 'বৃঃ', 'শুঃ', 'শনি'],
     'months_short_standalone' => ['জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'],
-    'alt_numbers' => ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'],
+    'alt_numbers' => $bengaliNumbers,
 ];
