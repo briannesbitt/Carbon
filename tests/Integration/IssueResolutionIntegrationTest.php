@@ -121,7 +121,7 @@ class IssueResolutionIntegrationTest extends AbstractTestCase
             'UTC',
             'Europe/London',
             'Asia/Tokyo',
-            'Australia/Sydney'
+            'Australia/Sydney',
         ];
 
         $globalTimes = [];

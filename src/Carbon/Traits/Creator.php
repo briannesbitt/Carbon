@@ -487,6 +487,7 @@ trait Creator
                 if (static::isStrictModeEnabled()) {
                     throw new InvalidDateException($mismatchedField, $$mismatchedField);
                 }
+
                 return null;
             }
         }

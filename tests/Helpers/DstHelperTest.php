@@ -48,6 +48,7 @@ class DstHelperTest extends AbstractTestCase
 
         if ($expectedResult === null) {
             $this->assertNull($result);
+
             return;
         }
 
@@ -92,7 +93,7 @@ class DstHelperTest extends AbstractTestCase
         $this->assertNotEmpty($transitions);
 
         // Should have at least 2 transitions (spring forward and fall back)
-        $this->assertGreaterThanOrEqual(2, count($transitions));
+        $this->assertGreaterThanOrEqual(2, \count($transitions));
 
         foreach ($transitions as $transition) {
             $this->assertArrayHasKey('time', $transition);
@@ -218,12 +219,12 @@ class DstHelperTest extends AbstractTestCase
             $timeParts = explode(':', $parts[1]);
 
             $isDst = DstHelper::isDstTransition(
-                (int)$dateParts[0],
-                (int)$dateParts[1],
-                (int)$dateParts[2],
-                (int)$timeParts[0],
-                (int)$timeParts[1],
-                (int)$timeParts[2],
+                (int) $dateParts[0],
+                (int) $dateParts[1],
+                (int) $dateParts[2],
+                (int) $timeParts[0],
+                (int) $timeParts[1],
+                (int) $timeParts[2],
                 $timezone
             );
 
