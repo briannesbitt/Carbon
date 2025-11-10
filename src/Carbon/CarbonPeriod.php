@@ -327,6 +327,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     public function getIterator(): Generator
     {
+        // Safety check: if interval is empty AND has no step function, yield only start date and stop
+        // Note: Empty intervals with step functions (callables) are valid and should continue
+        if ($this->dateInterval->isEmpty() && $this->dateInterval->getStep() === null) {
+            $this->rewind();
+            yield 0 => $this->current();
+            return;
+        }
+
         $this->rewind();
 
         while ($this->valid()) {
@@ -1357,6 +1365,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     {
         if ($this->carbonCurrent === null) {
             $this->rewind();
+        }
+
+        // Safety check: if interval is empty AND has no step function, stop iteration immediately
+        // Note: Empty intervals with step functions (callables) are valid and should continue
+        $step = $this->dateInterval->getStep();
+        if ($this->dateInterval->isEmpty() && $step === null) {
+            $this->validationResult = static::END_ITERATION;
+            return;
         }
 
         if ($this->validationResult !== static::END_ITERATION) {
@@ -2506,10 +2522,23 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected function incrementCurrentDateUntilValid(): void
     {
+        // Safety check: if interval is empty AND has no step function, stop immediately
+        // Note: Empty intervals with step functions (callables) are valid and should continue
+        $step = $this->dateInterval->getStep();
+        if ($this->dateInterval->isEmpty() && $step === null) {
+            $this->validationResult = static::END_ITERATION;
+            return;
+        }
+
         $attempts = 0;
 
         do {
-            $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
+            // Use convertDate() if step function exists, otherwise use add()
+            if ($this->dateInterval->getStep() !== null) {
+                $this->carbonCurrent = $this->dateInterval->convertDate($this->carbonCurrent);
+            } else {
+                $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
+            }
 
             $this->validationResult = null;
 
