@@ -36,7 +36,10 @@ class EmptyIntervalTest extends AbstractTestCase
         // Bypass validation using reflection (edge case scenario)
         $reflection = new ReflectionClass($period);
         $property = $reflection->getProperty('dateInterval');
-        $property->setAccessible(true);
+        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
+        if (PHP_VERSION_ID < 8_05_00) {
+            $property->setAccessible(true);
+        }
         $property->setValue($period, CarbonInterval::days(0));
 
         // Iteration should stop after first date
@@ -70,7 +73,10 @@ class EmptyIntervalTest extends AbstractTestCase
         // Set empty interval via reflection
         $reflection = new ReflectionClass($period);
         $property = $reflection->getProperty('dateInterval');
-        $property->setAccessible(true);
+        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
+        if (PHP_VERSION_ID < 8_05_00) {
+            $property->setAccessible(true);
+        }
         $property->setValue($period, CarbonInterval::hours(0));
 
         $period->rewind();
@@ -95,7 +101,10 @@ class EmptyIntervalTest extends AbstractTestCase
         // Set empty interval
         $reflection = new ReflectionClass($period);
         $property = $reflection->getProperty('dateInterval');
-        $property->setAccessible(true);
+        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
+        if (PHP_VERSION_ID < 8_05_00) {
+            $property->setAccessible(true);
+        }
         $property->setValue($period, CarbonInterval::minutes(0));
 
         $iterator = $period->getIterator();
@@ -120,7 +129,10 @@ class EmptyIntervalTest extends AbstractTestCase
         // Set empty interval
         $reflection = new ReflectionClass($period);
         $property = $reflection->getProperty('dateInterval');
-        $property->setAccessible(true);
+        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
+        if (PHP_VERSION_ID < 8_05_00) {
+            $property->setAccessible(true);
+        }
         $property->setValue($period, CarbonInterval::seconds(0));
 
         // calculateEnd() returns start date when interval is empty and no end date is set
