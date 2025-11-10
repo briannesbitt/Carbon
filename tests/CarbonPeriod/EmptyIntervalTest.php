@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use ReflectionClass;
 use Tests\AbstractTestCase;
 

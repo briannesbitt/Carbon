@@ -332,6 +332,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         if ($this->dateInterval->isEmpty() && $this->dateInterval->getStep() === null) {
             $this->rewind();
             yield 0 => $this->current();
+
             return;
         }
 
@@ -1372,6 +1373,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $step = $this->dateInterval->getStep();
         if ($this->dateInterval->isEmpty() && $step === null) {
             $this->validationResult = static::END_ITERATION;
+
             return;
         }
 
@@ -2527,6 +2529,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $step = $this->dateInterval->getStep();
         if ($this->dateInterval->isEmpty() && $step === null) {
             $this->validationResult = static::END_ITERATION;
+
             return;
         }
 

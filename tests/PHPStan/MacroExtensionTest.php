@@ -39,6 +39,7 @@ class MacroExtensionTest extends PHPStanTestCase
         // PHPStan has a fatal error with #[\Override] attribute on PHP 8.5
         if (PHP_VERSION_ID >= 8_05_00) {
             $this->markTestSkipped('PHPStan is incompatible with PHP 8.5+ due to #[\Override] attribute issue. Waiting for PHPStan update.');
+
             return; // Return early to prevent PHPStan initialization
         }
 
@@ -54,9 +55,11 @@ class MacroExtensionTest extends PHPStanTestCase
             // If PHPStan fails to initialize (e.g., on PHP 8.5), skip the test
             if (PHP_VERSION_ID >= 8_05_00 || strpos($e->getMessage(), '#[\Override]') !== false) {
                 $this->markTestSkipped('PHPStan is incompatible with PHP 8.5+ due to #[\Override] attribute issue. Waiting for PHPStan update.');
-            } else {
-                throw $e;
+
+                return;
             }
+
+            throw $e;
         }
     }
 
