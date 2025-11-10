@@ -269,4 +269,56 @@ class EmptyIntervalTest extends AbstractTestCase
         // Should find a valid date using add() path
         $this->assertTrue($period->valid(), 'Should find valid date using add() path');
     }
+
+    /**
+     * Test that rewind() calls incrementCurrentDateUntilValid() with step function when start is excluded.
+     * This ensures the rewind() -> incrementCurrentDateUntilValid() path is covered with convertDate().
+     */
+    public function testRewindCallsIncrementCurrentDateUntilValidWithStepFunction()
+    {
+        // Create interval with step function
+        $stepFunction = function ($date) {
+            return $date->addDay();
+        };
+
+        $intervalWithStep = CarbonInterval::days(1);
+        $intervalWithStep->setStep($stepFunction);
+
+        $period = CarbonPeriod::create(
+            Carbon::parse('2024-01-01'),
+            $intervalWithStep,
+            Carbon::parse('2024-01-05')
+        )->excludeStartDate(true); // Exclude start to trigger incrementCurrentDateUntilValid() in rewind()
+
+        // Add filter to ensure do-while loop executes
+        $period->filter(function ($date) {
+            return (int) $date->format('d') % 2 === 0;
+        });
+
+        // rewind() should call incrementCurrentDateUntilValid() which uses convertDate()
+        $period->rewind();
+        $this->assertTrue($period->valid(), 'Should find valid date after rewind() using convertDate() path');
+    }
+
+    /**
+     * Test that rewind() calls incrementCurrentDateUntilValid() without step function when start is excluded.
+     * This ensures the rewind() -> incrementCurrentDateUntilValid() path is covered with add().
+     */
+    public function testRewindCallsIncrementCurrentDateUntilValidWithoutStepFunction()
+    {
+        $period = CarbonPeriod::create(
+            Carbon::parse('2024-01-01'),
+            CarbonInterval::days(1),
+            Carbon::parse('2024-01-05')
+        )->excludeStartDate(true); // Exclude start to trigger incrementCurrentDateUntilValid() in rewind()
+
+        // Add filter to ensure do-while loop executes
+        $period->filter(function ($date) {
+            return (int) $date->format('d') % 2 === 0;
+        });
+
+        // rewind() should call incrementCurrentDateUntilValid() which uses add()
+        $period->rewind();
+        $this->assertTrue($period->valid(), 'Should find valid date after rewind() using add() path');
+    }
 }
