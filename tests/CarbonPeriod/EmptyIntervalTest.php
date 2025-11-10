@@ -128,4 +128,3 @@ class EmptyIntervalTest extends AbstractTestCase
         $this->assertEquals('2024-01-01', $end->format('Y-m-d'), 'calculateEnd should return start date for empty interval when no end date');
     }
 }
-
