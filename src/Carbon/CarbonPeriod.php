@@ -2534,11 +2534,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         do {
             // Use convertDate() if step function exists, otherwise use add()
-            if ($this->dateInterval->getStep() !== null) {
-                $this->carbonCurrent = $this->dateInterval->convertDate($this->carbonCurrent);
-            } else {
-                $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
-            }
+            $this->carbonCurrent = $this->dateInterval->getStep() !== null
+                ? $this->dateInterval->convertDate($this->carbonCurrent)
+                : $this->carbonCurrent->add($this->dateInterval);
 
             $this->validationResult = null;
 
