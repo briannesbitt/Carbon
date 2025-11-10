@@ -21,29 +21,56 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPStan\Type\ClosureTypeFactory;
 use PHPStan\Type\VerbosityLevel;
-use PHPUnit\Framework\Attributes\RequiresPhp;
 
 /**
  * PHPStan is calling deprecated ->setAccessible() method, they already fixed it,
  * but did not release a new version with the fix.
- *
- * Disabling this test for PHP 8.5 until the patch is out.
+ * Suppressing deprecation warnings to allow tests to pass on PHP 8.5+.
  */
-#[RequiresPhp('< 8.5')]
 class MacroExtensionTest extends PHPStanTestCase
 {
     private ReflectionProvider $reflectionProvider;
     private MacroExtension $extension;
+    private $previousErrorHandler = null;
 
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Suppress deprecation warnings from PHPStan's internal use of ->setAccessible()
+        // which is deprecated in PHP 8.5 but PHPStan hasn't released a fix yet
+        if (PHP_VERSION_ID >= 8_05_00) {
+            error_reporting(error_reporting() & ~E_DEPRECATED);
+            // Also set a custom error handler to catch any deprecations that slip through
+            $previousHandler = set_error_handler(function ($errno, $errstr, $errfile, $errline) use (&$previousHandler) {
+                if ($errno === E_DEPRECATED && strpos($errstr, 'setAccessible') !== false) {
+                    return true; // Suppress this specific deprecation
+                }
+                // Call previous error handler for other errors
+                if ($previousHandler !== null) {
+                    return call_user_func($previousHandler, $errno, $errstr, $errfile, $errline);
+                }
+                return false;
+            });
+            $this->previousErrorHandler = $previousHandler;
+        }
 
         $this->reflectionProvider = $this->createReflectionProvider();
         $this->extension = new MacroExtension(
             $this->reflectionProvider,
             self::getContainer()->getByType(ClosureTypeFactory::class)
         );
+    }
+
+    protected function tearDown(): void
+    {
+        // Restore previous error handler if we set one
+        if ($this->previousErrorHandler !== null && PHP_VERSION_ID >= 8_05_00) {
+            restore_error_handler();
+            $this->previousErrorHandler = null;
+        }
+
+        parent::tearDown();
     }
 
     public function testHasMacro()
