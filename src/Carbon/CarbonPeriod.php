@@ -327,13 +327,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
     public function getIterator(): Generator
     {
-        // Safety check: if interval is empty AND has no step function, yield only start date and stop
+        // Safety check: if interval is empty AND has no step function, throw exception
         // Note: Empty intervals with step functions (callables) are valid and should continue
         if ($this->dateInterval->isEmpty() && $this->dateInterval->getStep() === null) {
-            $this->rewind();
-            yield 0 => $this->current();
-
-            return;
+            throw new InvalidIntervalException('Cannot iterate over a period with an empty interval. Empty intervals without step functions would cause infinite loops.');
         }
 
         $this->rewind();
@@ -1368,13 +1365,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $this->rewind();
         }
 
-        // Safety check: if interval is empty AND has no step function, stop iteration immediately
+        // Safety check: if interval is empty AND has no step function, throw exception
         // Note: Empty intervals with step functions (callables) are valid and should continue
         $step = $this->dateInterval->getStep();
         if ($this->dateInterval->isEmpty() && $step === null) {
-            $this->validationResult = static::END_ITERATION;
-
-            return;
+            throw new InvalidIntervalException('Cannot iterate over a period with an empty interval. Empty intervals without step functions would cause infinite loops.');
         }
 
         if ($this->validationResult !== static::END_ITERATION) {
@@ -2524,13 +2519,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     protected function incrementCurrentDateUntilValid(): void
     {
-        // Safety check: if interval is empty AND has no step function, stop immediately
+        // Safety check: if interval is empty AND has no step function, throw exception
         // Note: Empty intervals with step functions (callables) are valid and should continue
         $step = $this->dateInterval->getStep();
         if ($this->dateInterval->isEmpty() && $step === null) {
-            $this->validationResult = static::END_ITERATION;
-
-            return;
+            throw new InvalidIntervalException('Cannot iterate over a period with an empty interval. Empty intervals without step functions would cause infinite loops.');
         }
 
         $attempts = 0;

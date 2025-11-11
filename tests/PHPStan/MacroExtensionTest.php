@@ -21,13 +21,15 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPStan\Type\ClosureTypeFactory;
 use PHPStan\Type\VerbosityLevel;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 
 /**
- * PHPStan has a fatal error on PHP 8.5 due to #[\Override] attribute incompatibility.
- * Skip these tests on PHP 8.5+ until PHPStan releases a compatible version.
+ * PHPStan is calling deprecated ->setAccessible() method, they already fixed it,
+ * but did not release a new version with the fix.
  *
- * @requires PHP < 8.5
+ * Disabling this test for PHP 8.5 until the patch is out.
  */
+#[RequiresPhp('< 8.5')]
 class MacroExtensionTest extends PHPStanTestCase
 {
     private ReflectionProvider $reflectionProvider;
@@ -35,32 +37,13 @@ class MacroExtensionTest extends PHPStanTestCase
 
     protected function setUp(): void
     {
-        // Skip entire test class on PHP 8.5+ due to PHPStan incompatibility
-        // PHPStan has a fatal error with #[\Override] attribute on PHP 8.5
-        if (PHP_VERSION_ID >= 8_05_00) {
-            $this->markTestSkipped('PHPStan is incompatible with PHP 8.5+ due to #[\Override] attribute issue. Waiting for PHPStan update.');
+        parent::setUp();
 
-            return; // Return early to prevent PHPStan initialization
-        }
-
-        try {
-            parent::setUp();
-
-            $this->reflectionProvider = $this->createReflectionProvider();
-            $this->extension = new MacroExtension(
-                $this->reflectionProvider,
-                self::getContainer()->getByType(ClosureTypeFactory::class)
-            );
-        } catch (\Throwable $e) {
-            // If PHPStan fails to initialize (e.g., on PHP 8.5), skip the test
-            if (PHP_VERSION_ID >= 8_05_00 || strpos($e->getMessage(), '#[\Override]') !== false) {
-                $this->markTestSkipped('PHPStan is incompatible with PHP 8.5+ due to #[\Override] attribute issue. Waiting for PHPStan update.');
-
-                return;
-            }
-
-            throw $e;
-        }
+        $this->reflectionProvider = $this->createReflectionProvider();
+        $this->extension = new MacroExtension(
+            $this->reflectionProvider,
+            self::getContainer()->getByType(ClosureTypeFactory::class)
+        );
     }
 
     public function testHasMacro()

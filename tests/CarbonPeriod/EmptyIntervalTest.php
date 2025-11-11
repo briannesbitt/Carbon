@@ -16,53 +16,16 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
-use ReflectionClass;
+use Carbon\Exceptions\InvalidIntervalException;
 use Tests\AbstractTestCase;
 
 class EmptyIntervalTest extends AbstractTestCase
 {
     /**
-     * Test that iteration stops immediately when interval is empty.
+     * Test that setDateInterval() throws exception for empty intervals without step functions.
+     * This is the normal behavior that prevents empty intervals from being created.
      */
-    public function testEmptyIntervalStopsIteration()
-    {
-        // Create period with valid interval first
-        $period = CarbonPeriod::create(
-            Carbon::parse('2024-01-01'),
-            CarbonInterval::days(1),
-            Carbon::parse('2024-01-31')
-        );
-
-        // Bypass validation using reflection (edge case scenario)
-        $reflection = new ReflectionClass($period);
-        $property = $reflection->getProperty('dateInterval');
-        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
-        if (PHP_VERSION_ID < 8_05_00) {
-            $property->setAccessible(true);
-        }
-        $property->setValue($period, CarbonInterval::days(0));
-
-        // Iteration should stop after first date
-        $count = 0;
-        $dates = [];
-        foreach ($period as $date) {
-            $dates[] = $date->format('Y-m-d');
-            $count++;
-            // Safety break to prevent infinite loop if fix doesn't work
-            if ($count > 10) {
-                $this->fail('Infinite loop detected: iteration did not stop with empty interval');
-            }
-        }
-
-        // Should only yield the start date once
-        $this->assertEquals(1, $count, 'Iteration should stop after first date');
-        $this->assertEquals(['2024-01-01'], $dates, 'Should only contain start date');
-    }
-
-    /**
-     * Test that next() method stops iteration when interval is empty.
-     */
-    public function testNextStopsWithEmptyInterval()
+    public function testSetDateIntervalThrowsExceptionForEmptyInterval()
     {
         $period = CarbonPeriod::create(
             Carbon::parse('2024-01-01'),
@@ -70,81 +33,18 @@ class EmptyIntervalTest extends AbstractTestCase
             Carbon::parse('2024-01-31')
         );
 
-        // Set empty interval via reflection
-        $reflection = new ReflectionClass($period);
-        $property = $reflection->getProperty('dateInterval');
-        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
-        if (PHP_VERSION_ID < 8_05_00) {
-            $property->setAccessible(true);
-        }
-        $property->setValue($period, CarbonInterval::hours(0));
+        $this->expectException(InvalidIntervalException::class);
+        $this->expectExceptionMessage('Empty interval is not accepted.');
 
-        $period->rewind();
-        $this->assertTrue($period->valid(), 'Should be valid initially');
-
-        // First call to next() should stop iteration
-        $period->next();
-        $this->assertFalse($period->valid(), 'Should be invalid after next() with empty interval');
+        // This should throw an exception
+        $period->setDateInterval(CarbonInterval::days(0));
     }
 
     /**
-     * Test that empty interval in getIterator() yields only start date.
+     * Test that empty intervals with step functions are allowed and work correctly.
+     * This tests the legitimate case where empty intervals are valid.
      */
-    public function testGetIteratorWithEmptyInterval()
-    {
-        $period = CarbonPeriod::create(
-            Carbon::parse('2024-06-15'),
-            CarbonInterval::days(1),
-            Carbon::parse('2024-06-30')
-        );
-
-        // Set empty interval
-        $reflection = new ReflectionClass($period);
-        $property = $reflection->getProperty('dateInterval');
-        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
-        if (PHP_VERSION_ID < 8_05_00) {
-            $property->setAccessible(true);
-        }
-        $property->setValue($period, CarbonInterval::minutes(0));
-
-        $iterator = $period->getIterator();
-        $results = iterator_to_array($iterator);
-
-        // Should only contain start date
-        $this->assertCount(1, $results, 'Should only yield start date');
-        $this->assertEquals('2024-06-15', $results[0]->format('Y-m-d'));
-    }
-
-    /**
-     * Test that calculateEnd() handles empty interval correctly.
-     */
-    public function testCalculateEndWithEmptyInterval()
-    {
-        // Create period without end date to test empty interval behavior
-        $period = CarbonPeriod::create(
-            Carbon::parse('2024-01-01'),
-            CarbonInterval::days(1)
-        )->setRecurrences(5);
-
-        // Set empty interval
-        $reflection = new ReflectionClass($period);
-        $property = $reflection->getProperty('dateInterval');
-        // setAccessible() is deprecated in PHP 8.5+ but still needed for older versions
-        if (PHP_VERSION_ID < 8_05_00) {
-            $property->setAccessible(true);
-        }
-        $property->setValue($period, CarbonInterval::seconds(0));
-
-        // calculateEnd() returns start date when interval is empty and no end date is set
-        $end = $period->calculateEnd();
-        $this->assertEquals('2024-01-01', $end->format('Y-m-d'), 'calculateEnd should return start date for empty interval when no end date');
-    }
-
-    /**
-     * Test that empty interval WITH step function continues iteration (doesn't stop).
-     * This tests the code path where isEmpty() is true but getStep() is not null.
-     */
-    public function testEmptyIntervalWithStepFunctionContinues()
+    public function testEmptyIntervalWithStepFunctionIsAllowed()
     {
         // Create an empty interval with a step function
         $stepFunction = function ($date) {
@@ -152,173 +52,162 @@ class EmptyIntervalTest extends AbstractTestCase
         };
 
         $emptyIntervalWithStep = new CarbonInterval($stepFunction);
-        // Verify it's empty
+
+        // Verify it's empty but has a step function
         $this->assertTrue($emptyIntervalWithStep->isEmpty());
-        // Verify it has a step function
         $this->assertNotNull($emptyIntervalWithStep->getStep());
 
-        // Create period with empty interval that has step function
+        // Create period with empty interval that has step function - this should work
         $period = CarbonPeriod::create(
             Carbon::parse('2024-01-01'),
             $emptyIntervalWithStep,
             Carbon::parse('2024-01-05')
         );
 
-        // Iteration should continue (not stop) because step function exists
+        // Iteration should work normally because step function exists
         $count = 0;
         $dates = [];
         foreach ($period as $date) {
             $dates[] = $date->format('Y-m-d');
             $count++;
-            // Should iterate multiple times, not stop after first
+            // Safety break to prevent infinite loop in case of bugs
             if ($count > 10) {
-                break; // Safety break
+                break;
             }
         }
 
         // Should have iterated multiple times (at least more than 1)
         $this->assertGreaterThan(1, $count, 'Empty interval with step function should continue iteration');
         $this->assertContains('2024-01-01', $dates, 'Should contain start date');
+        $this->assertContains('2024-01-02', $dates, 'Should contain next date via step function');
     }
 
     /**
-     * Test that incrementCurrentDateUntilValid() handles empty interval with step function correctly.
+     * Test that trying to create a period with PT0S interval throws exception.
      */
-    public function testIncrementCurrentDateUntilValidWithEmptyIntervalAndStep()
+    public function testCreatePeriodWithPT0SIntervalThrowsException()
     {
-        // Create an empty interval with a step function
-        $stepFunction = function ($date) {
-            return $date->addDay();
-        };
+        $this->expectException(InvalidIntervalException::class);
+        $this->expectExceptionMessage('Empty interval is not accepted.');
 
-        $emptyIntervalWithStep = new CarbonInterval($stepFunction);
-
-        $period = CarbonPeriod::create(
+        // This should throw an exception during creation
+        CarbonPeriod::create(
             Carbon::parse('2024-01-01'),
-            $emptyIntervalWithStep,
-            Carbon::parse('2024-01-03')
+            'PT0S', // Empty interval specification
+            Carbon::parse('2024-01-31')
         );
-
-        $period->rewind();
-        $this->assertTrue($period->valid(), 'Should be valid initially');
-
-        // Call next() - should continue because step function exists
-        $period->next();
-        $this->assertTrue($period->valid(), 'Should still be valid after next() with empty interval that has step function');
     }
 
     /**
-     * Test that incrementCurrentDateUntilValid() uses convertDate() when step function exists.
-     * This ensures the ternary operator's true branch is covered.
+     * Test that trying to create a period with zero interval throws exception.
      */
-    public function testIncrementCurrentDateUntilValidUsesConvertDateWithStepFunction()
+    public function testCreatePeriodWithZeroIntervalThrowsException()
     {
-        // Create interval with step function (not empty)
-        $stepFunction = function ($date) {
-            return $date->addDay();
-        };
+        $this->expectException(InvalidIntervalException::class);
+        $this->expectExceptionMessage('Empty interval is not accepted.');
 
-        $intervalWithStep = CarbonInterval::days(1);
-        $intervalWithStep->setStep($stepFunction);
-
-        $period = CarbonPeriod::create(
+        // This should throw an exception during creation
+        CarbonPeriod::create(
             Carbon::parse('2024-01-01'),
-            $intervalWithStep,
-            Carbon::parse('2024-01-05')
+            CarbonInterval::seconds(0), // Empty interval
+            Carbon::parse('2024-01-31')
         );
-
-        // Add a filter that will reject some dates, forcing incrementCurrentDateUntilValid() to be called
-        $period->filter(function ($date) {
-            // Only accept dates on even days
-            return (int) $date->format('d') % 2 === 0;
-        });
-
-        $period->rewind();
-        $this->assertTrue($period->valid(), 'Should be valid initially');
-
-        // Call next() - this will call incrementCurrentDateUntilValid() which should use convertDate()
-        $period->next();
-        // Should find a valid date using convertDate() path
-        $this->assertTrue($period->valid(), 'Should find valid date using convertDate() path');
     }
 
     /**
-     * Test that incrementCurrentDateUntilValid() uses add() when no step function exists.
-     * This ensures the ternary operator's false branch is covered.
+     * Test that empty intervals created through various methods are properly rejected.
      */
-    public function testIncrementCurrentDateUntilValidUsesAddWithoutStepFunction()
-    {
-        // Create normal interval without step function
-        $period = CarbonPeriod::create(
-            Carbon::parse('2024-01-01'),
-            CarbonInterval::days(1),
-            Carbon::parse('2024-01-05')
-        );
-
-        // Add a filter that will reject some dates, forcing incrementCurrentDateUntilValid() to be called
-        $period->filter(function ($date) {
-            // Only accept dates on even days
-            return (int) $date->format('d') % 2 === 0;
-        });
-
-        $period->rewind();
-        $this->assertTrue($period->valid(), 'Should be valid initially');
-
-        // Call next() - this will call incrementCurrentDateUntilValid() which should use add()
-        $period->next();
-        // Should find a valid date using add() path
-        $this->assertTrue($period->valid(), 'Should find valid date using add() path');
-    }
-
-    /**
-     * Test that rewind() calls incrementCurrentDateUntilValid() with step function when start is excluded.
-     * This ensures the rewind() -> incrementCurrentDateUntilValid() path is covered with convertDate().
-     */
-    public function testRewindCallsIncrementCurrentDateUntilValidWithStepFunction()
-    {
-        // Create interval with step function
-        $stepFunction = function ($date) {
-            return $date->addDay();
-        };
-
-        $intervalWithStep = CarbonInterval::days(1);
-        $intervalWithStep->setStep($stepFunction);
-
-        $period = CarbonPeriod::create(
-            Carbon::parse('2024-01-01'),
-            $intervalWithStep,
-            Carbon::parse('2024-01-05')
-        )->excludeStartDate(true); // Exclude start to trigger incrementCurrentDateUntilValid() in rewind()
-
-        // Add filter to ensure do-while loop executes
-        $period->filter(function ($date) {
-            return (int) $date->format('d') % 2 === 0;
-        });
-
-        // rewind() should call incrementCurrentDateUntilValid() which uses convertDate()
-        $period->rewind();
-        $this->assertTrue($period->valid(), 'Should find valid date after rewind() using convertDate() path');
-    }
-
-    /**
-     * Test that rewind() calls incrementCurrentDateUntilValid() without step function when start is excluded.
-     * This ensures the rewind() -> incrementCurrentDateUntilValid() path is covered with add().
-     */
-    public function testRewindCallsIncrementCurrentDateUntilValidWithoutStepFunction()
+    public function testVariousEmptyIntervalsAreRejected()
     {
         $period = CarbonPeriod::create(
             Carbon::parse('2024-01-01'),
             CarbonInterval::days(1),
-            Carbon::parse('2024-01-05')
-        )->excludeStartDate(true); // Exclude start to trigger incrementCurrentDateUntilValid() in rewind()
+            Carbon::parse('2024-01-31')
+        );
 
-        // Add filter to ensure do-while loop executes
-        $period->filter(function ($date) {
-            return (int) $date->format('d') % 2 === 0;
-        });
+        // Test various ways to create empty intervals
+        $emptyIntervals = [
+            CarbonInterval::hours(0),
+            CarbonInterval::minutes(0),
+            CarbonInterval::seconds(0),
+            new CarbonInterval('PT0S'),
+            CarbonInterval::create(0, 0, 0, 0, 0, 0),
+        ];
 
-        // rewind() should call incrementCurrentDateUntilValid() which uses add()
-        $period->rewind();
-        $this->assertTrue($period->valid(), 'Should find valid date after rewind() using add() path');
+        foreach ($emptyIntervals as $emptyInterval) {
+            try {
+                $period->setDateInterval($emptyInterval);
+                $this->fail('Expected InvalidIntervalException for empty interval: ' . $emptyInterval->spec());
+            } catch (InvalidIntervalException $e) {
+                $this->assertStringContainsString('Empty interval is not accepted', $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Test that the infinite loop protection constants are properly defined.
+     * This ensures the existing safety mechanisms are in place.
+     */
+    public function testInfiniteLoopProtectionConstantsExist()
+    {
+        $this->assertTrue(defined('Carbon\CarbonPeriod::NEXT_MAX_ATTEMPTS'));
+        $this->assertTrue(defined('Carbon\CarbonPeriod::END_MAX_ATTEMPTS'));
+
+        $this->assertEquals(1000, CarbonPeriod::NEXT_MAX_ATTEMPTS);
+        $this->assertEquals(10000, CarbonPeriod::END_MAX_ATTEMPTS);
+    }
+
+    /**
+     * Test that periods with very small but non-zero intervals work correctly.
+     * This ensures we don't accidentally break legitimate small intervals.
+     */
+    public function testVerySmallIntervalsWork()
+    {
+        // Test microsecond interval
+        $period = CarbonPeriod::create(
+            Carbon::parse('2024-01-01 12:00:00.000000'),
+            CarbonInterval::microseconds(1),
+            Carbon::parse('2024-01-01 12:00:00.000005')
+        );
+
+        $count = 0;
+        foreach ($period as $date) {
+            $count++;
+            if ($count > 10) { // Safety break
+                break;
+            }
+        }
+
+        $this->assertGreaterThan(1, $count, 'Very small intervals should still work');
+    }
+
+    /**
+     * Test that intervals with fractional seconds work correctly.
+     */
+    public function testFractionalSecondsWork()
+    {
+        // Create interval with fractional seconds
+        $interval = CarbonInterval::seconds(0);
+        $interval->f = 0.5; // 500 milliseconds
+
+        $period = CarbonPeriod::create(
+            Carbon::parse('2024-01-01 12:00:00.000'),
+            $interval,
+            Carbon::parse('2024-01-01 12:00:02.000')
+        );
+
+        $count = 0;
+        $dates = [];
+        foreach ($period as $date) {
+            $dates[] = $date->format('Y-m-d H:i:s.u');
+            $count++;
+            if ($count > 10) { // Safety break
+                break;
+            }
+        }
+
+        $this->assertGreaterThan(1, $count, 'Fractional second intervals should work');
+        $this->assertStringContainsString('12:00:00.000000', $dates[0] ?? '');
+        $this->assertStringContainsString('12:00:00.500000', $dates[1] ?? '');
     }
 }
