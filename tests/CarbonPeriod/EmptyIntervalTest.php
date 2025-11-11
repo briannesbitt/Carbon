@@ -137,7 +137,7 @@ class EmptyIntervalTest extends AbstractTestCase
         foreach ($emptyIntervals as $emptyInterval) {
             try {
                 $period->setDateInterval($emptyInterval);
-                $this->fail('Expected InvalidIntervalException for empty interval: ' . $emptyInterval->spec());
+                $this->fail('Expected InvalidIntervalException for empty interval: '.$emptyInterval->spec());
             } catch (InvalidIntervalException $e) {
                 $this->assertStringContainsString('Empty interval is not accepted', $e->getMessage());
             }
@@ -150,8 +150,8 @@ class EmptyIntervalTest extends AbstractTestCase
      */
     public function testInfiniteLoopProtectionConstantsExist()
     {
-        $this->assertTrue(defined('Carbon\CarbonPeriod::NEXT_MAX_ATTEMPTS'));
-        $this->assertTrue(defined('Carbon\CarbonPeriod::END_MAX_ATTEMPTS'));
+        $this->assertTrue(\defined('Carbon\CarbonPeriod::NEXT_MAX_ATTEMPTS'));
+        $this->assertTrue(\defined('Carbon\CarbonPeriod::END_MAX_ATTEMPTS'));
 
         $this->assertEquals(1000, CarbonPeriod::NEXT_MAX_ATTEMPTS);
         $this->assertEquals(10000, CarbonPeriod::END_MAX_ATTEMPTS);
