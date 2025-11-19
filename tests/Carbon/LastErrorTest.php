@@ -34,12 +34,7 @@ class LastErrorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = [
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ];
+        $this->noErrors = false;
 
         $this->lastErrors = [
             'warning_count' => 1,
@@ -74,16 +69,16 @@ class LastErrorTest extends AbstractTestCase
 
             public function triggerError()
             {
-                self::setLastErrors(false);
+                self::setLastErrors([
+                    'warning_count' => 1,
+                    'warnings' => ['11' => 'The parsed date was invalid'],
+                    'error_count' => 0,
+                    'errors' => [],
+                ]);
             }
         };
         $this->assertFalse($obj::getLastErrors());
         $obj->triggerError();
-        $this->assertSame([
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ], $obj::getLastErrors());
+        $this->assertSame($this->lastErrors, $obj::getLastErrors());
     }
 }
