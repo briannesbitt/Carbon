@@ -34,8 +34,6 @@ class LastErrorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = false;
-
         $this->lastErrors = [
             'warning_count' => 1,
             'warnings' => ['11' => 'The parsed date was invalid'],
@@ -54,7 +52,7 @@ class LastErrorTest extends AbstractTestCase
 
         $carbon = new Carbon('2017-02-15');
 
-        $this->assertSame($this->noErrors, $carbon->getLastErrors());
+        $this->assertFalse($carbon->getLastErrors());
     }
 
     public function testLastErrorsInitialization()

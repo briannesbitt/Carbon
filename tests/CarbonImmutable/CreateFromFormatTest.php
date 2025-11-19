@@ -35,8 +35,6 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = false;
-
         $this->lastErrors = [
             'warning_count' => 1,
             'warnings' => ['10' => 'The parsed date was invalid'],
@@ -102,7 +100,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($this->lastErrors, $carbon->getLastErrors());
 
         $carbon = Carbon::createFromFormat('d/m/Y', '11/03/2016');
-        $this->assertSame($this->noErrors, $carbon->getLastErrors());
+        $this->assertFalse($carbon->getLastErrors());
     }
 
     public function testCreateFromFormatWithDollar()
