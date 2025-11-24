@@ -7,10 +7,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, windows]
+        os: [ubuntu]
         php: [8.1, 8.2, 8.3, 8.4, 8.5]
         setup: [lowest, stable]
         include:
+          - php: 8.1
+            os: windows
+            setup: lowest
+
+          - php: 8.1
+            os: windows
+            setup: stable
+
+          - php: 8.5
+            os: windows
+            setup: stable
+
           - php: 8.1
             os: ubuntu
             setup: stable
