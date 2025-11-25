@@ -560,4 +560,51 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame('00 America/Toronto', $str);
     }
+
+    public function testMonthlyIntervalFromEndOfMonthDoesNotOverflowInLeapYear()
+    {
+        $periodClass = static::$periodClass;
+        $period = $periodClass::create('2020-01-31', 'P1M', 5, $periodClass::NO_MONTH_OVERFLOW);
+
+        $expected = [
+            '2020-01-31 00:00:00',
+            '2020-02-29 00:00:00',
+            '2020-03-31 00:00:00',
+            '2020-04-30 00:00:00',
+            '2020-05-31 00:00:00',
+        ];
+
+        $this->assertSame($expected, array_map('strval', $period->toArray()));
+    }
+
+    public function testMonthlyIntervalFromEndOfMonthDoesNotOverflowInCommonYear()
+    {
+        $periodClass = static::$periodClass;
+        $period = $periodClass::create('2021-01-31', 'P1M', 5, $periodClass::NO_MONTH_OVERFLOW);
+
+        $expected = [
+            '2021-01-31 00:00:00',
+            '2021-02-28 00:00:00',
+            '2021-03-31 00:00:00',
+            '2021-04-30 00:00:00',
+            '2021-05-31 00:00:00',
+        ];
+
+        $this->assertSame($expected, array_map('strval', $period->toArray()));
+    }
+
+    public function testMonthlyIntervalFromEndOfMonthStartingInFebruary()
+    {
+        $periodClass = static::$periodClass;
+        $period = $periodClass::create('2024-02-29', 'P1M', 4, $periodClass::NO_MONTH_OVERFLOW);
+
+        $expected = [
+            '2024-02-29 00:00:00',
+            '2024-03-31 00:00:00',
+            '2024-04-30 00:00:00',
+            '2024-05-31 00:00:00',
+        ];
+
+        $this->assertSame($expected, array_map('strval', $period->toArray()));
+    }
 }
