@@ -62,8 +62,8 @@
     "provide": {
         "psr/clock-implementation": "1.0"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "minimum-stability": "RC",
+    "prefer-stable": false,
     "autoload": {
         "psr-4": {
             "Carbon\\": "src/Carbon/"
