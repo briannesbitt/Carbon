@@ -13,7 +13,7 @@
  * Authors:
  * - http://www.uyip.org/ Pablo Saratxaga pablo@mandrakesoft.com
  */
-return array_replace_recursive(require __DIR__ . '/en.php', [
+return array_replace_recursive(require __DIR__.'/en.php', [
     'year' => '{1}:count יאר|{0}:count יאר|[-Inf,Inf]:count יאר',
     'a_year' => '{1}א יאר|{0}:count יאר|[-Inf,Inf]:count יאר',
     'y' => ':count יאר',
@@ -61,7 +61,7 @@ return array_replace_recursive(require __DIR__ . '/en.php', [
     'weekdays_short' => ['זונ\'', 'מאנ\'', 'דינ\'', 'מיט\'', 'דאנ\'', 'פריי\'', 'שבת'],
     'weekdays_min' => ['ז\'', 'מ\'', 'ד\'', 'מ\'', 'ד\'', 'ו\'', 'ש\''],
     'ordinal' => static function ($number) {
-        return $number . 'טע';
+        return $number.'טע';
     },
     'list' => [', ', ' און '],
     'formats' => [
