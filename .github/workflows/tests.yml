@@ -103,10 +103,10 @@ jobs:
         shell: bash
         run: composer require --no-update --no-interaction --dev "nikic/php-parser:^4"
 
-      - name: Updgrade symfony/translation
-        if: matrix.php >= 8.4
-        shell: bash
-        run: composer require --no-update --no-interaction "symfony/translation:^5.4.35||^6.3.12||^7.0.3||^8.0.0@dev" "symfony/contracts:^2.5.3||>=3.4.2" "sebastian/exporter:>5.1.2"
+      #- name: Updgrade symfony/translation
+        #if: matrix.php >= 8.4
+        #shell: bash
+        #run: composer require --no-update --no-interaction "symfony/translation:^5.4.35||^6.3.12||^7.0.3||^8.0.0@dev" "symfony/contracts:^2.5.3||>=3.4.2" "sebastian/exporter:>5.1.2"
         # https://github.com/symfony/symfony/commit/f4118e110a46de3ffb799e7d79bf15128d1646ea
 
       - name: Install dependencies
