@@ -10,8 +10,6 @@ jobs:
         os: [ubuntu]
         php: [8.1, 8.2, 8.3, 8.4, 8.5]
         setup: [lowest, stable]
-        min_stability: [ '' ]
-        experimental: [false]
         include:
           - php: 8.1
             os: windows
@@ -46,15 +44,7 @@ jobs:
             setup: stable
             phpunit: 12
 
-          - php: 8.5
-            os: ubuntu
-            min_stability: 'dev'
-            name_suffix: ' (dev deps)'
-            continue-on-error: true
-
-    continue-on-error: ${{ matrix.experimental }}
-
-    name: ${{ matrix.phpunit && format('PHPUnit {0} - ', matrix.phpunit) || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ${{ matrix.os }} - ${{ matrix.name_suffix }}
+    name: ${{ matrix.phpunit && format('PHPUnit {0} - ', matrix.phpunit) || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}-latest
 
@@ -70,10 +60,6 @@ jobs:
           ini-values: error_reporting=${{ (matrix.setup != 'lowest') && '32767' || '8191' }}
           tools: composer:v2
           coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
-
-      - name: Configure stability
-        if: "matrix.min_stability != ''"
-        run: composer config minimum-stability "${{ matrix.min_stability }}"
 
       - name: Install locales
         if: matrix.os == 'ubuntu'
@@ -110,7 +96,7 @@ jobs:
       - name: Updgrade symfony/translation
         if: matrix.php >= 8.4
         shell: bash
-        run: composer require --no-update --no-interaction "symfony/translation:^5.4.35||^6.3.12||^7.0.3||^8.0@dev" "symfony/contracts:^2.5.3||>=3.4.2" "sebastian/exporter:>5.1.2"
+        run: composer require --no-update --no-interaction "symfony/translation:^5.4.35||^6.3.12||^7.0.3||^8.0.0" "symfony/contracts:^2.5.3||>=3.4.2" "sebastian/exporter:>5.1.2"
         # https://github.com/symfony/symfony/commit/f4118e110a46de3ffb799e7d79bf15128d1646ea
 
       - name: Install dependencies
