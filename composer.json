@@ -44,9 +44,9 @@
         "ext-json": "*",
         "carbonphp/carbon-doctrine-types": "<100.0",
         "psr/clock": "^1.0",
-        "symfony/clock": "^6.3.12 || ^7.0",
+        "symfony/clock": "^6.3.12 || ^7.0 || ^8.0",
         "symfony/polyfill-mbstring": "^1.0",
-        "symfony/translation": "^4.4.18 || ^5.2.1 || ^6.0 || ^7.0"
+        "symfony/translation": "^4.4.18 || ^5.2.1 || ^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "doctrine/dbal": "^3.6.3 || ^4.0",
