@@ -186,7 +186,7 @@ function requireCarbon($branch): string
     $path = $path ? 'php '.$path : 'composer';
     $suffix = $verbose ? '' : ' 2>&1';
 
-    $result = executeCommand("$path require --no-plugins --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
+    $result = executeCommand("$path require --no-security-blocking --no-plugins --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch$suffix");
 
     $files = [
         'vendor/nesbot/carbon/src/Carbon/Carbon.php' => [
