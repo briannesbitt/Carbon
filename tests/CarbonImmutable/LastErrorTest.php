@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\Traits\Creator;
 use DateTime;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use Tests\AbstractTestCase;
 
 class LastErrorTest extends AbstractTestCase
@@ -42,6 +43,7 @@ class LastErrorTest extends AbstractTestCase
         ];
     }
 
+    #[RequiresPhp('>=8.2')]
     public function testCreateHandlesLastErrors()
     {
         $carbon = new Carbon('2017-02-30');
