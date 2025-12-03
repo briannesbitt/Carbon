@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use DateTime;
 use DateTimeZone;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -34,13 +35,6 @@ class CreateFromFormatTest extends AbstractTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->noErrors = [
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ];
 
         $this->lastErrors = [
             'warning_count' => 1,
@@ -87,14 +81,10 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($mockedDate->micro === 0, $nativeDate->micro === 0);
     }
 
+    #[RequiresPhp('>=8.2')]
     public function testCreateLastErrorsCanBeAccessedByExtendingClass()
     {
-        $this->assertSame([
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ], MyCarbon::getLastErrors());
+        $this->assertFalse(MyCarbon::getLastErrors());
     }
 
     public function testCreateFromFormatHandlesLastErrors()
@@ -106,13 +96,14 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
     }
 
+    #[RequiresPhp('>=8.2')]
     public function testCreateFromFormatResetLastErrors()
     {
         $carbon = Carbon::createFromFormat('d/m/Y', '41/02/1900');
         $this->assertSame($this->lastErrors, $carbon->getLastErrors());
 
         $carbon = Carbon::createFromFormat('d/m/Y', '11/03/2016');
-        $this->assertSame($this->noErrors, $carbon->getLastErrors());
+        $this->assertFalse($carbon->getLastErrors());
     }
 
     public function testCreateFromFormatWithDollar()

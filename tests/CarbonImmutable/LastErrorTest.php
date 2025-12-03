@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\Traits\Creator;
 use DateTime;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use Tests\AbstractTestCase;
 
 class LastErrorTest extends AbstractTestCase
@@ -34,13 +35,6 @@ class LastErrorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = [
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ];
-
         $this->lastErrors = [
             'warning_count' => 1,
             'warnings' => ['11' => 'The parsed date was invalid'],
@@ -49,6 +43,7 @@ class LastErrorTest extends AbstractTestCase
         ];
     }
 
+    #[RequiresPhp('>=8.2')]
     public function testCreateHandlesLastErrors()
     {
         $carbon = new Carbon('2017-02-30');
@@ -59,7 +54,7 @@ class LastErrorTest extends AbstractTestCase
 
         $carbon = new Carbon('2017-02-15');
 
-        $this->assertSame($this->noErrors, $carbon->getLastErrors());
+        $this->assertFalse($carbon->getLastErrors());
     }
 
     public function testLastErrorsInitialization()
@@ -74,16 +69,16 @@ class LastErrorTest extends AbstractTestCase
 
             public function triggerError()
             {
-                self::setLastErrors(false);
+                self::setLastErrors([
+                    'warning_count' => 1,
+                    'warnings' => ['11' => 'The parsed date was invalid'],
+                    'error_count' => 0,
+                    'errors' => [],
+                ]);
             }
         };
         $this->assertFalse($obj::getLastErrors());
         $obj->triggerError();
-        $this->assertSame([
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ], $obj::getLastErrors());
+        $this->assertSame($this->lastErrors, $obj::getLastErrors());
     }
 }
