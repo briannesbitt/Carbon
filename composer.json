@@ -6,7 +6,7 @@
         "cmixin/business-time": "dev-master",
         "cmixin/season": "dev-main",
         "kylekatarnls/carbonite": "dev-master",
-        "nesbot/carbon": "dev-master as 3.10.3"
+        "nesbot/carbon": "dev-master as 3.11.0"
     },
     "scripts": {
         "check": "@php tools/check.php",
