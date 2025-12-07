@@ -241,29 +241,6 @@ trait Serialization
         return $this;
     }
 
-    private function getSleepProperties(): array
-    {
-        $properties = $this->dumpProperties;
-
-        // @codeCoverageIgnoreStart
-        if (!\extension_loaded('msgpack')) {
-            return $properties;
-        }
-
-        if (isset($this->constructedObjectId)) {
-            $timezone = $this->timezone ?? null;
-            $this->dumpDateProperties = [
-                'date' => $this->format('Y-m-d H:i:s.u'),
-                'timezone' => $this->dumpTimezone($timezone),
-            ];
-
-            $properties[] = 'dumpDateProperties';
-        }
-
-        return $properties;
-        // @codeCoverageIgnoreEnd
-    }
-
     /** @codeCoverageIgnore */
     private function dumpTimezone(mixed $timezone): mixed
     {
