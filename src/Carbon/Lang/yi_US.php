@@ -41,7 +41,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'microsecond' => '{1}:count מיקרא-סעקונדע|{0}:count מיקרא-סעקונדעס|[-Inf,Inf]:count מיקרא-סעקונדעס',
     'a_microsecond' => '{1}א מיקרא-סעקונדע|{0}:count מיקרא-סעקונדעס|[-Inf,Inf]:count מיקרא-סעקונדעס',
     'µs' => ':count מיקרא',
-    'ago' => ':time צוריק',
+    'ago' => ':time פון יעצט',
     'from_now' => ':time ארום',
     'after' => ':time נאך',
     'before' => ':time פאר',
