@@ -164,7 +164,7 @@ class ElGrTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         'πριν 2 εβδ.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'πριν 1 μήνας',
+        'πριν 1 μήνα',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'πριν 1 μήν.',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -172,7 +172,7 @@ class ElGrTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'πριν 2 μήν.',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'πριν 1 χρόνος',
+        'πριν 1 χρόνο',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         'πριν 1 χρ.',
         // Carbon::now()->subYears(2)->diffForHumans()

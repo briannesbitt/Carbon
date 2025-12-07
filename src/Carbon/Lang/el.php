@@ -44,10 +44,17 @@ return [
     'second' => ':count δευτερόλεπτο|:count δευτερόλεπτα',
     'a_second' => 'λίγα δευτερόλεπτα|:count δευτερόλεπτα',
     's' => ':count δευ.',
+
     'ago' => 'πριν :time',
     'from_now' => 'σε :time',
     'after' => ':time μετά',
     'before' => ':time πριν',
+
+    'year_ago' => ':count χρόνο|:count χρόνια',
+    'year_from_now' => ':count χρόνο|:count χρόνια',
+    'month_ago' => ':count μήνα|:count μήνες',
+    'month_from_now' => ':count μήνα|:count μήνες',
+
     'diff_now' => 'τώρα',
     'diff_today' => 'Σήμερα',
     'diff_today_regexp' => 'Σήμερα(?:\\s+{})?',
@@ -55,6 +62,7 @@ return [
     'diff_yesterday_regexp' => 'Χθες(?:\\s+{})?',
     'diff_tomorrow' => 'αύριο',
     'diff_tomorrow_regexp' => 'Αύριο(?:\\s+{})?',
+
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',
