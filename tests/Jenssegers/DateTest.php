@@ -195,11 +195,46 @@ class DateTest extends TestCaseBase
         $date = Carbon::translateTimeString('понедельник 21 март 2015');
         $this->assertSame('monday 21 march 2015', mb_strtolower($date));
 
+        $date = Carbon::translateTimeString('ПОНЕДЕЛЬНИК 21 МАРТ 2015');
+        $this->assertSame('monday 21 march 2015', mb_strtolower($date));
+
         Carbon::setLocale('de');
         $date = Carbon::translateTimeString('Montag 21 März 2015');
         $this->assertSame('monday 21 march 2015', mb_strtolower($date));
 
+        Carbon::setLocale('el');
+        $date = Carbon::translateTimeString('3 Ιανουαρίου 2026');
+        $this->assertSame('3 january 2026', mb_strtolower($date));
+
+        $date = Carbon::translateTimeString('3 ιανουάριος 2026');
+        $this->assertSame('3 january 2026', mb_strtolower($date));
+
         $this->assertSame('Foobar', Carbon::translateTimeString('Foobar', 'xx'));
+    }
+
+    public function testSlovenianMonthTranslation()
+    {
+        Carbon::setLocale('sl');
+
+        $this->assertSame('marec', Carbon::parse('2025-03-15')->getTranslatedMonthName());
+        $this->assertSame('marec', Carbon::parse('2025-03-15')->monthName);
+        $this->assertSame('marec', Carbon::parse('2025-03-15')->isoFormat('MMMM'));
+        $this->assertSame('marec 2025', Carbon::parse('2025-03-15')->isoFormat('MMMM YYYY'));
+        $this->assertSame('15. marca', Carbon::parse('2025-03-15')->isoFormat('D. MMMM'));
+        $this->assertSame('15. marca 2025', Carbon::parse('2025-03-15')->isoFormat('LL'));
+    }
+
+    public function testFallbackLocaleMonthTranslation()
+    {
+        Carbon::setLocale('fr');
+        Carbon::setFallbackLocale('pl');
+
+        $this->assertSame('mars', Carbon::parse('2025-03-15')->getTranslatedMonthName());
+        $this->assertSame('mars', Carbon::parse('2025-03-15')->monthName);
+        $this->assertSame('mars', Carbon::parse('2025-03-15')->isoFormat('MMMM'));
+        $this->assertSame('mars 2025', Carbon::parse('2025-03-15')->isoFormat('MMMM YYYY'));
+        $this->assertSame('15 mars', Carbon::parse('2025-03-15')->isoFormat('D MMMM'));
+        $this->assertSame('15 mars 2025', Carbon::parse('2025-03-15')->isoFormat('LL'));
     }
 
     public function testTranslateTimeStringWithOrdinalWords()
