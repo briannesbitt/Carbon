@@ -120,6 +120,7 @@ return [
         'sameElse' => 'L',
     ],
     'months' => ['januar', 'februar', 'marec', 'april', 'maj', 'junij', 'julij', 'avgust', 'september', 'oktober', 'november', 'december'],
+    'months_standalone' => ['januarja', 'februarja', 'marca', 'aprila', 'maja', 'junija', 'julija', 'avgusta', 'septembra', 'oktobra', 'novembra', 'decembra'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'avg', 'sep', 'okt', 'nov', 'dec'],
     'weekdays' => ['nedelja', 'ponedeljek', 'torek', 'sreda', 'četrtek', 'petek', 'sobota'],
     'weekdays_short' => ['ned', 'pon', 'tor', 'sre', 'čet', 'pet', 'sob'],
