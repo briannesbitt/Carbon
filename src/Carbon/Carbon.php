@@ -345,7 +345,7 @@ use DateTimeInterface;
  * @method        $this            microseconds(int $value)                                                           Set current instance microsecond to the given value.
  * @method        $this            microsecond(int $value)                                                            Set current instance microsecond to the given value.
  * @method        $this            setMicroseconds(int $value)                                                        Set current instance microsecond to the given value.
- * @method        $this            setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
+ * @method        self             setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
  * @method        $this            addYears(int|float $value = 1)                                                     Add years (the $value count passed in) to the instance (using date interval).
  * @method        $this            addYear()                                                                          Add one year to the instance (using date interval).
  * @method        $this            subYears(int|float $value = 1)                                                     Sub years (the $value count passed in) to the instance (using date interval).

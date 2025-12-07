@@ -122,28 +122,7 @@ trait Serialization
     }
 
     /**
-     * Returns the list of properties to dump on serialize() called on.
-     *
-     * Only used by PHP < 7.4.
-     *
-     * @return array
-     */
-    public function __sleep()
-    {
-        $properties = $this->getSleepProperties();
-
-        if ($this->localTranslator ?? null) {
-            $properties[] = 'dumpLocale';
-            $this->dumpLocale = $this->locale ?? null;
-        }
-
-        return $properties;
-    }
-
-    /**
      * Returns the values to dump on serialize() called on.
-     *
-     * Only used by PHP >= 7.4.
      *
      * @return array
      */
@@ -185,41 +164,6 @@ trait Serialization
 
     /**
      * Set locale if specified on unserialize() called.
-     *
-     * Only used by PHP < 7.4.
-     */
-    public function __wakeup(): void
-    {
-        if (parent::class && method_exists(parent::class, '__wakeup')) {
-            // @codeCoverageIgnoreStart
-            try {
-                parent::__wakeup();
-            } catch (Throwable $exception) {
-                try {
-                    // FatalError occurs when calling msgpack_unpack() in PHP 7.4 or later.
-                    ['date' => $date, 'timezone' => $timezone] = $this->dumpDateProperties;
-                    parent::__construct($date, $timezone);
-                } catch (Throwable) {
-                    throw $exception;
-                }
-            }
-            // @codeCoverageIgnoreEnd
-        }
-
-        $this->constructedObjectId = spl_object_hash($this);
-
-        if (isset($this->dumpLocale)) {
-            $this->locale($this->dumpLocale);
-            $this->dumpLocale = null;
-        }
-
-        $this->cleanupDumpProperties();
-    }
-
-    /**
-     * Set locale if specified on unserialize() called.
-     *
-     * Only used by PHP >= 7.4.
      */
     public function __unserialize(array $data): void
     {
@@ -295,29 +239,6 @@ trait Serialization
         // @codeCoverageIgnoreEnd
 
         return $this;
-    }
-
-    private function getSleepProperties(): array
-    {
-        $properties = $this->dumpProperties;
-
-        // @codeCoverageIgnoreStart
-        if (!\extension_loaded('msgpack')) {
-            return $properties;
-        }
-
-        if (isset($this->constructedObjectId)) {
-            $timezone = $this->timezone ?? null;
-            $this->dumpDateProperties = [
-                'date' => $this->format('Y-m-d H:i:s.u'),
-                'timezone' => $this->dumpTimezone($timezone),
-            ];
-
-            $properties[] = 'dumpDateProperties';
-        }
-
-        return $properties;
-        // @codeCoverageIgnoreEnd
     }
 
     /** @codeCoverageIgnore */
