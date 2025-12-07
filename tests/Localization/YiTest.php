@@ -124,61 +124,61 @@ class YiTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0טע',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 סעקונדע צוריק',
+        '1 סעקונדע פון יעצט',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 סעק צוריק',
+        '1 סעק פון יעצט',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 סעקונדעס צוריק',
+        '2 סעקונדעס פון יעצט',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 סעק צוריק',
+        '2 סעק פון יעצט',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 מינוט צוריק',
+        '1 מינוט פון יעצט',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 מינוט צוריק',
+        '1 מינוט פון יעצט',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 מינוט צוריק',
+        '2 מינוט פון יעצט',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 מינוט צוריק',
+        '2 מינוט פון יעצט',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 שעה צוריק',
+        '1 שעה פון יעצט',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 שעה צוריק',
+        '1 שעה פון יעצט',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 שעה צוריק',
+        '2 שעה פון יעצט',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 שעה צוריק',
+        '2 שעה פון יעצט',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 טאג צוריק',
+        '1 טאג פון יעצט',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 טאג צוריק',
+        '1 טאג פון יעצט',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 טעג צוריק',
+        '2 טעג פון יעצט',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 טאג צוריק',
+        '2 טאג פון יעצט',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 וואך צוריק',
+        '1 וואך פון יעצט',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 וואך צוריק',
+        '1 וואך פון יעצט',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 וואכן צוריק',
+        '2 וואכן פון יעצט',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 וואך צוריק',
+        '2 וואך פון יעצט',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 חודש צוריק',
+        '1 חודש פון יעצט',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 חודש צוריק',
+        '1 חודש פון יעצט',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 חדשים צוריק',
+        '2 חדשים פון יעצט',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 חדשים צוריק',
+        '2 חדשים פון יעצט',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 יאר צוריק',
+        '1 יאר פון יעצט',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 יאר צוריק',
+        '1 יאר פון יעצט',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 יאר צוריק',
+        '2 יאר פון יעצט',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 יאר צוריק',
+        '2 יאר פון יעצט',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 סעקונדע ארום',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -208,9 +208,9 @@ class YiTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 יאר ארום',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 חדשים צוריק',
+        '5 חדשים פון יעצט',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 יאר 3 חדשים 1 טאג 1 סעק צוריק',
+        '2 יאר 3 חדשים 1 טאג 1 סעק פון יעצט',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 וואך 10 שעה',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
