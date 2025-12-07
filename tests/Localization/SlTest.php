@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 #[Group('localization')]
 class SlTest extends LocalizationTestCase
 {
-    public const LOCALE = 'sl'; // Slovenian
+    public const LOCALE = 'sl'; // Slovene
 
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -162,7 +162,7 @@ class SlTest extends LocalizationTestCase
         '6 1',
 
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        // '7th 2nd'
+        // '7th 1st'
         '7 1',
 
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
