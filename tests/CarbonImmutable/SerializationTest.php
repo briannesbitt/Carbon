@@ -18,7 +18,6 @@ use Carbon\CarbonTimeZone;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use ReflectionClass;
 use ReflectionObject;
@@ -184,6 +183,26 @@ class SerializationTest extends AbstractTestCase
         $expected['dumpLocale'] = 'lt_LT';
 
         $this->assertSame($expected, $date->__serialize());
+    }
+
+    public function testNewInstanceWithoutConstructor(): void
+    {
+        $tz = $this->firstValidTimezoneAmong(['America/Los_Angeles', 'US/Pacific'])->getName();
+
+        /** @var Carbon $date */
+        $date = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
+
+        @$date->date = '1990-01-17 10:28:07';
+        @$date->timezone_type = 3;
+        @$date->timezone = $tz;
+        @$date->dumpLocale = 'es';
+
+        @$date->constructedObjectId = spl_object_hash($this);
+        $date->__construct('1990-01-17 10:28:07', $tz);
+        $date->locale('es');
+
+        $this->assertSame('1990-01-17 10:28:07 '.$tz, $date->format('Y-m-d H:i:s e'));
+        $this->assertSame('es', $date->locale);
     }
 
     public function testUnserializeRawMethod(): void
