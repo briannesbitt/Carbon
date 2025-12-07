@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Carbon;
 
+use Carbon\Constants\UnitValue;
 use Carbon\Exceptions\EndLessPeriodException;
 use Carbon\Exceptions\InvalidCastException;
 use Carbon\Exceptions\InvalidIntervalException;
@@ -180,7 +181,7 @@ require PHP_VERSION < 8.2
  * @SuppressWarnings(CamelCasePropertyName)
  * @SuppressWarnings(CouplingBetweenObjects)
  */
-class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
+class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable, UnitValue
 {
     use LocalFactory;
     use IntervalRounding;
