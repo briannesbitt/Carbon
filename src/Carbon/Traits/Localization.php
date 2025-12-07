@@ -282,11 +282,11 @@ trait Localization
             }
 
             $$translationKey = array_merge(
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($months, static::MONTHS_PER_YEAR, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'] ?? [], static::MONTHS_PER_YEAR, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, static::DAYS_PER_WEEK, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'] ?? [], static::DAYS_PER_WEEK, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DIFF ? static::translateWordsByKeys([
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? self::getTranslationArray($months, static::MONTHS_PER_YEAR, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? self::getTranslationArray($messages['months_short'] ?? [], static::MONTHS_PER_YEAR, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? self::getTranslationArray($weekdays, static::DAYS_PER_WEEK, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? self::getTranslationArray($messages['weekdays_short'] ?? [], static::DAYS_PER_WEEK, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DIFF ? self::translateWordsByKeys([
                     'diff_now',
                     'diff_today',
                     'diff_yesterday',
@@ -294,7 +294,7 @@ trait Localization
                     'diff_before_yesterday',
                     'diff_after_tomorrow',
                 ], $messages, $key) : [],
-                $mode & CarbonInterface::TRANSLATE_UNITS ? static::translateWordsByKeys([
+                $mode & CarbonInterface::TRANSLATE_UNITS ? self::translateWordsByKeys([
                     'year',
                     'month',
                     'week',

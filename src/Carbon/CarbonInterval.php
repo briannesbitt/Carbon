@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Carbon;
 
+use Carbon\Constants\UnitValue;
 use Carbon\Exceptions\BadFluentConstructorException;
 use Carbon\Exceptions\BadFluentSetterException;
 use Carbon\Exceptions\InvalidCastException;
@@ -191,7 +192,7 @@ use Throwable;
  * @method $this ceilMicrosecond(int|float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(int|float $precision = 1) Ceil the current instance microsecond with given precision.
  */
-class CarbonInterval extends DateInterval implements CarbonConverterInterface
+class CarbonInterval extends DateInterval implements CarbonConverterInterface, UnitValue
 {
     use LocalFactory;
     use IntervalRounding;
