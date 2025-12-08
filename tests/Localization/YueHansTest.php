@@ -183,23 +183,23 @@ class YueHansTest extends LocalizationTestCase
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         // '12:00 am CET'
-        '12:00 上午 CET',
+        '12:00 凌晨 CET',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 AM, 12:00 am'
-        '12:00 上午, 12:00 上午',
+        '12:00 凌晨, 12:00 凌晨',
 
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
         // '1:30 AM, 1:30 am'
-        '1:30 上午, 1:30 上午',
+        '1:30 凌晨, 1:30 凌晨',
 
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
         // '2:00 AM, 2:00 am'
-        '2:00 上午, 2:00 上午',
+        '2:00 凌晨, 2:00 凌晨',
 
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
         // '6:00 AM, 6:00 am'
-        '6:00 上午, 6:00 上午',
+        '6:00 早上, 6:00 早上',
 
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         // '10:00 AM, 10:00 am'
@@ -207,7 +207,7 @@ class YueHansTest extends LocalizationTestCase
 
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 PM, 12:00 pm'
-        '12:00 下午, 12:00 下午',
+        '12:00 中午, 12:00 中午',
 
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         // '5:00 PM, 5:00 pm'
@@ -215,11 +215,11 @@ class YueHansTest extends LocalizationTestCase
 
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
         // '9:30 PM, 9:30 pm'
-        '9:30 下午, 9:30 下午',
+        '9:30 晚上, 9:30 晚上',
 
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         // '11:00 PM, 11:00 pm'
-        '11:00 下午, 11:00 下午',
+        '11:00 晚上, 11:00 晚上',
 
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         // '0th'

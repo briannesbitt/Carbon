@@ -23,119 +23,119 @@ class AzIrTest extends LocalizationTestCase
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tomorrow at 12:00 AM'
-        'sabah saat 12:00 gecə',
+        'Tomorrow at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Saturday at 12:00 AM'
-        'gələn həftə شنبه saat 12:00 gecə',
+        'شنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Sunday at 12:00 AM'
-        'gələn həftə یکشنبه saat 12:00 gecə',
+        'یکشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Monday at 12:00 AM'
-        'gələn həftə دوشنبه saat 12:00 gecə',
+        'دوشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tuesday at 12:00 AM'
-        'gələn həftə سه‌شنبه saat 12:00 gecə',
+        'سه‌شنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Wednesday at 12:00 AM'
-        'gələn həftə چارشنبه saat 12:00 gecə',
+        'چارشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
         // 'Thursday at 12:00 AM'
-        'gələn həftə جۆمعه آخشامی saat 12:00 gecə',
+        'جۆمعه آخشامی at 12:00 AM',
 
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
         // 'Friday at 12:00 AM'
-        'gələn həftə جۆمعه saat 12:00 gecə',
+        'جۆمعه at 12:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM'
-        'gələn həftə سه‌شنبه saat 12:00 gecə',
+        'سه‌شنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Wednesday at 12:00 AM'
-        'gələn həftə چارشنبه saat 12:00 gecə',
+        'چارشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Thursday at 12:00 AM'
-        'gələn həftə جۆمعه آخشامی saat 12:00 gecə',
+        'جۆمعه آخشامی at 12:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Friday at 12:00 AM'
-        'gələn həftə جۆمعه saat 12:00 gecə',
+        'جۆمعه at 12:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Saturday at 12:00 AM'
-        'gələn həftə شنبه saat 12:00 gecə',
+        'شنبه at 12:00 AM',
 
         // Carbon::now()->subDays(2)->calendar()
         // 'Last Sunday at 8:49 PM'
-        'keçən həftə یکشنبه saat 8:49 axşam',
+        'Last یکشنبه at 8:49 PM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Yesterday at 10:00 PM'
-        'dünən 10:00 axşam',
+        'Yesterday at 10:00 PM',
 
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         // 'Today at 10:00 AM'
-        'bugün saat 10:00 səhər',
+        'Today at 10:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Today at 2:00 AM'
-        'bugün saat 2:00 gecə',
+        'Today at 2:00 AM',
 
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
         // 'Tomorrow at 1:00 AM'
-        'sabah saat 1:00 gecə',
+        'Tomorrow at 1:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM'
-        'gələn həftə سه‌شنبه saat 12:00 gecə',
+        'سه‌شنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
         // 'Yesterday at 12:00 AM'
-        'dünən 12:00 gecə',
+        'Yesterday at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Yesterday at 12:00 AM'
-        'dünən 12:00 gecə',
+        'Yesterday at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Tuesday at 12:00 AM'
-        'keçən həftə سه‌شنبه saat 12:00 gecə',
+        'Last سه‌شنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Monday at 12:00 AM'
-        'keçən həftə دوشنبه saat 12:00 gecə',
+        'Last دوشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Sunday at 12:00 AM'
-        'keçən həftə یکشنبه saat 12:00 gecə',
+        'Last یکشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Saturday at 12:00 AM'
-        'keçən həftə شنبه saat 12:00 gecə',
+        'Last شنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Last Friday at 12:00 AM'
-        'keçən həftə جۆمعه saat 12:00 gecə',
+        'Last جۆمعه at 12:00 AM',
 
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
         // 'Last Thursday at 12:00 AM'
-        'keçən həftə جۆمعه آخشامی saat 12:00 gecə',
+        'Last جۆمعه آخشامی at 12:00 AM',
 
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
         // 'Last Wednesday at 12:00 AM'
-        'keçən həftə چارشنبه saat 12:00 gecə',
+        'Last چارشنبه at 12:00 AM',
 
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Last Friday at 12:00 AM'
-        'keçən həftə جۆمعه saat 12:00 gecə',
+        'Last جۆمعه at 12:00 AM',
 
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         // '1st 1st 1st 1st 1st'
@@ -183,43 +183,43 @@ class AzIrTest extends LocalizationTestCase
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         // '12:00 am CET'
-        '12:00 gecə CET',
+        '12:00 am CET',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 AM, 12:00 am'
-        '12:00 gecə, 12:00 gecə',
+        '12:00 AM, 12:00 am',
 
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
         // '1:30 AM, 1:30 am'
-        '1:30 gecə, 1:30 gecə',
+        '1:30 AM, 1:30 am',
 
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
         // '2:00 AM, 2:00 am'
-        '2:00 gecə, 2:00 gecə',
+        '2:00 AM, 2:00 am',
 
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
         // '6:00 AM, 6:00 am'
-        '6:00 səhər, 6:00 səhər',
+        '6:00 AM, 6:00 am',
 
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         // '10:00 AM, 10:00 am'
-        '10:00 səhər, 10:00 səhər',
+        '10:00 AM, 10:00 am',
 
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 PM, 12:00 pm'
-        '12:00 gündüz, 12:00 gündüz',
+        '12:00 PM, 12:00 pm',
 
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         // '5:00 PM, 5:00 pm'
-        '5:00 axşam, 5:00 axşam',
+        '5:00 PM, 5:00 pm',
 
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
         // '9:30 PM, 9:30 pm'
-        '9:30 axşam, 9:30 axşam',
+        '9:30 PM, 9:30 pm',
 
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         // '11:00 PM, 11:00 pm'
-        '11:00 axşam, 11:00 axşam',
+        '11:00 PM, 11:00 pm',
 
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         // '0th'

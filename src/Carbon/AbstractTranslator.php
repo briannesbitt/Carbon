@@ -359,13 +359,6 @@ abstract class AbstractTranslator extends SymfonyTranslator
             $locale = $this->aliases[$locale];
         }
 
-        // If subtag (ex: en_CA) first load the macro (ex: en) to have a fallback
-        if (str_contains($locale, '_') &&
-            $this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))
-        ) {
-            parent::setLocale($macroLocale);
-        }
-
         if (!$this->loadMessagesFromFile($locale) && !$this->initializing) {
             return;
         }

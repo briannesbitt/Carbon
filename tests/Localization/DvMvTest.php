@@ -222,7 +222,7 @@ class DvMvTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ހަފްތާ 1 ގަޑި',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'ގަޑިއިރެއް ފަހުން',
+        '1 ގަޑި ފަހުން',
         // CarbonInterval::days(2)->forHumans()
         '2 ދުވަސް',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
