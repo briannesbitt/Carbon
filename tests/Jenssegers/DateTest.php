@@ -237,6 +237,17 @@ class DateTest extends TestCaseBase
         $this->assertSame('15 mars 2025', Carbon::parse('2025-03-15')->isoFormat('LL'));
     }
 
+    public function testFallbackLocaleMeridiemTranslation()
+    {
+        Carbon::setFallbackLocale('sv');
+        Carbon::setLocale('en');
+
+        $now = Carbon::parse('2025-10-02 08:00:00');
+
+        $this->assertSame('AM', $now->isoFormat('A'));
+        $this->assertSame('am', $now->isoFormat('a'));
+    }
+
     public function testTranslateTimeStringWithOrdinalWords()
     {
         $date = Carbon::translateTimeString('Premier lundi de mai', 'fr', 'en');
