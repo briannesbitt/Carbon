@@ -222,20 +222,18 @@ abstract class AbstractTranslator extends SymfonyTranslator
      */
     public function getAvailableLocales(string $prefix = ''): array
     {
-        $locales = [];
-        foreach ($this->getLocalesFiles($prefix) as $file) {
-            $locales[] = substr($file, strrpos($file, '/') + 1, -4);
-        }
-
-        return array_unique(array_merge($locales, array_keys($this->messages)));
+        return array_unique(array_merge(
+            array_map(
+                static fn (string $file) => substr($file, strrpos($file, '/') + 1, -4),
+                $this->getLocalesFiles($prefix),
+            ),
+            array_keys($this->messages),
+        ));
     }
 
     protected function translate(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
-        if ($domain === null) {
-            $domain = 'messages';
-        }
-
+        $domain ??= 'messages';
         $catalogue = $this->getCatalogue($locale);
         $format = $this instanceof TranslatorStrongTypeInterface
             ? $this->getFromCatalogue($catalogue, (string) $id, $domain)
