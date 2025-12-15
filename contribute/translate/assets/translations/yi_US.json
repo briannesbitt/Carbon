@@ -72,7 +72,7 @@
     "Carbon::parse(\"november 2023\")->shortMonthName": "\u05e0\u05d0\u05d5'",
     "Carbon::parse(\"december 2023\")->monthName": "\u05d3\u05e2\u05e6\u05e2\u05de\u05d1\u05e2\u05e8",
     "Carbon::parse(\"december 2023\")->shortMonthName": "\u05d3\u05e2\u05e6'",
-    "Carbon::now()->subHours(2)->diffForHumans()": "2 \u05e9\u05e2\u05d4 \u05e6\u05d5\u05e8\u05d9\u05e7",
+    "Carbon::now()->subHours(2)->diffForHumans()": "2 \u05e9\u05e2\u05d4 \u05e4\u05d5\u05df \u05d9\u05e2\u05e6\u05d8",
     "Carbon::now()->addHours(2)->addMinute()->diffForHumans([\"part\" => 1])": "2 \u05e9\u05e2\u05d4 \u05d0\u05e8\u05d5\u05dd",
     "($d = Carbon::now())->copy()->subHours(2)->diffForHumans($d)": "2 \u05e9\u05e2\u05d4 \u05e4\u05d0\u05e8",
     "($d = Carbon::now())->copy()->addHours(2)->addMinute()->diffForHumans($d)": "2 \u05e9\u05e2\u05d4 \u05e0\u05d0\u05da"
