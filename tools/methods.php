@@ -265,12 +265,12 @@ function methods(bool $excludeNatives = false, bool $excludeMixins = true): Gene
             }
 
             $docComment = (
-                $rc->getDocComment()
+            $rc->getDocComment()
                 ?: (
-                    method_exists(CarbonImmutable::class, $method)
-                        ? (new ReflectionMethod(CarbonImmutable::class, $method))->getDocComment()
-                        : null
-                )
+            method_exists(CarbonImmutable::class, $method)
+                ? (new ReflectionMethod(CarbonImmutable::class, $method))->getDocComment()
+                : null
+            )
             ) ?: null;
 
             $docReturn = preg_match('/@return (\S+)/', $docComment ?? '', $returnMatch)

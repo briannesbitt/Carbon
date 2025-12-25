@@ -16,7 +16,13 @@ define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/../tools/methods.php';
 
-$documentation = file_get_contents(__DIR__.'/../docs/index.src.html');
+$documentation = implode("\n", array_map(
+    file_get_contents(...),
+    [
+        ...glob(__DIR__ . '/../docs/guide/**/*.md'),
+        ...glob(__DIR__ . '/../docs/parts/**/*.md'),
+    ],
+));
 
 $methodsCount = 0;
 $missingMethodsCount = 0;
@@ -59,7 +65,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
     $exclusion = $exclusion || in_array($methodFQCN, [
             Translator::class.'::getFromCatalogue',
         ], true);
-    $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
+    $documented = $exclusion || preg_match("/(?:[[>`]|::)$pattern(?!\w)| $pattern\(/", $documentation);
 
     if (!$documented) {
         $missingMethodsCount++;

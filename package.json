@@ -1,0 +1,35 @@
+{
+	"name": "carbon",
+	"description": "",
+	"author": "",
+	"version": "0.0.1",
+	"packageManager": "pnpm@10.12.4",
+	"license": "ISC",
+	"scripts": {
+		"docs:build": "vitepress build docs",
+		"docs:dev": "vitepress dev docs",
+		"docs:preview": "vitepress preview docs",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"turndown-plugin-gfm": "^1.0.2"
+	},
+	"devDependencies": {
+		"@kalimahapps/eslint-config": "^1.2.93",
+		"@kalimahapps/eslint-plugin-tailwind": "^1.1.0",
+		"@tailwindcss/vite": "^4.1.18",
+		"@types/node": "^24.10.2",
+		"eslint": "^9.39.2",
+		"markdown-it-async": "^2.2.0",
+		"tailwindcss": "^4.1.18",
+		"turndown": "^7.2.2",
+		"vitepress": "2.0.0-alpha.15",
+		"vitepress-sidebar": "^1.33.1",
+		"vue": "^3.5.25"
+	},
+	"keywords": [],
+	"main": "index.js",
+	"engines": {
+		"node": ">=21.2.0"
+	}
+}

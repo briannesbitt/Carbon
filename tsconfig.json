@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"jsx": "preserve",
+		"lib": ["esnext", "dom", "dom.iterable"],
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"noUnusedLocals": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "esnext",
+		"verbatimModuleSyntax": true,
+		"paths": {
+			"@/*": ["./docs/*"]
+		}
+	},
+	"include": [
+		"docs/**/*.ts",
+		"docs/**/*.vue",
+		"docs/.vitepress/**/*",
+		"docs/**/*.md",
+	],
+	 "vueCompilerOptions": {
+		"vitePressExtensions": [".md"],
+	},
+}

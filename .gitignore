@@ -5,3 +5,10 @@ vendor
 sandbox
 composer.phar
 composer.lock
+node_modules
+docs/.vitepress/dist
+docs/.vitepress/cache
+docs/.vitepress/temp.php
+
+# Auto-generated files
+docs/public/data/**/*.json

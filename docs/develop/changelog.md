@@ -1,0 +1,574 @@
+<!-- This file is auto generated using tools/generate-changelog.php -->
+
+# Changelog
+
+## Version 3.x
+
+#### 3.11.0 (6 September 2025)
+- Update sponsors (kylekatarnls) [acfd1caf]
+- feat: allow symfony 8 (Christopher Georg) [e1aa7208]
+- Make getMockedTestNowClone static (kylekatarnls) [89264df6]
+- Concatenation spacing (Kyle) [53c6d301]
+- Bump actions/checkout from 5 to 6 (dependabot[bot]) [924284ae]
+- Cache PHPStan job dependencies (kylekatarnls) [99340b33]
+- feat(lang): comprehensive Yiddish (yi_US) locale update (Benyomin Mandel) [e67d15ca]
+- Test only 12.x branch (as last master commit is also broken on Laravel CI) (kylekatarnls) [672ce921]
+- PHP-CS-Fixer (kylekatarnls) [8ca27a8c]
+- Use a common variable for Bengali ordinal numbers (kylekatarnls) [343f9d72]
+- feat: Enhance Bengali ordinal number formatting in Carbon localization (Hayatunnabi Nabil) [cb783db9]
+- fix(bn.php): Update ordinal number formatting in Bengali language support (Hayatunnabi Nabil) [066d5115]
+- Micro-optimization for standalone months translation (kylekatarnls) [d747a7b9]
+- trans: Add Bengali language support for time units and ordinal numbers (Hayatunnabi Nabil) [e42a9c89]
+- Exclude sponsors.php from distributed package (kylekatarnls) [59b8c5cc]
+- Give more time to ConversionsTest (kylekatarnls) [60356b18]
+- Give more time to testToRegionName (kylekatarnls) [7e598539]
+- Disable __wakeup test for PHP >= 8.5 (kylekatarnls) [4a076696]
+- Support passing Unit enums to sub method (Ryan Hayle) [04dc4db5]
+- Add typehints for ($value, $unit) usage of add, sub, subtract (Ryan Hayle) [179cb33e]
+#### 3.10.3 (2 August 2025)
+- Fix resetMessages memory consumption (kylekatarnls) [4d3a1087]
+- Update sponsors (kylekatarnls) [2686546d]
+- Update issue templates (Kyle) [5e0de638]
+- Update test packages (kylekatarnls) [9b031c7d]
+- Remove setAccessible calls (kylekatarnls) [6a68c9dd]
+- Bump qltysh/qlty-action from 1 to 2 (dependabot[bot]) [fbe3e46e]
+- Bump actions/checkout from 4 to 5 (dependabot[bot]) [d50dcc5e]
+- Update Lithuanian tests (kylekatarnls) [401a14dd]
+- Cleanup whitespace (Kyle) [71700d85]
+- Update lt.php (Sam Axe) [08f4669e]
+#### 3.10.2 (21 June 2025)
+- Replace `]1,Inf[` with `[-Inf,Inf]` generic catch-all (fallback) (kylekatarnls) [8be82a29]
+- Update tests (kylekatarnls) [968c3318]
+- Fix aUnit for some languages (kylekatarnls) [7392b740]
+- Update sponsors (kylekatarnls) [2b074869]
+- Add support for 0 seconds in translations (Joe Barker) [8a5119e5]
+- Fix code style (Kyle) [05e6220c]
+- Change ?self return type to ?static in Creator Trait (disservin) [9b19ed33]
+- Compact sponsor section on the readme (kylekatarnls) [04517662]
+#### 3.10.1 (12 June 2025)
+- Accept clone of closure as equal (kylekatarnls) [7027c0bf]
+- Fix PHPUnit 12 compatibility (kylekatarnls) [ea28af3c]
+- Fix rounding issue in CarbonInterval::make() (kylekatarnls) [14f3c9df]
+- Add test to reproduce https://github.com/briannesbitt/Carbon/issues/3204 (kylekatarnls) [c643a66e]
+#### 3.10.0 (1 May 2025)
+- Update month abbreviation for me test files (kylekatarnls) [080429ff]
+- Update month abbreviation for Latin Serbian test files (kylekatarnls) [d6b8298f]
+- Update month abbreviation for Latin Serbian (kylekatarnls) [32b809c5]
+- Prioritize timezones matching ->format('T') for getAbbreviatedName() (kylekatarnls) [8f6b8163]
+- Fix plural for Urdu, Sindhi and Arab Panjabi (kylekatarnls) [22b827a3]
+- Update Divehi months (kylekatarnls) [f78c07ae]
+- Use PHPUnit 12.1 for Laravel 12.x test (kylekatarnls) [96130166]
+- Fix code style (kylekatarnls) [b856742a]
+- Run coverage with PHPUnit 11 (kylekatarnls) [86f82b72]
+- Refactor some test case generators (kylekatarnls) [58f46b17]
+- Run coverage tests with PHP 8.3 (kylekatarnls) [48b6fbdf]
+- Drop PHPStan 1 (kylekatarnls) [97b838b4]
+- Fix PHPStan config (kylekatarnls) [3f393f4c]
+- Update linter error (kylekatarnls) [2a9f76ab]
+- Update PHPStan tests (kylekatarnls) [ed229c31]
+- Update phpstan/phpstan requirement from ^1.12.27 to ^1.12.27 || ^2.0.0 (dependabot[bot]) [8f9fcbf7]
+- Fix undefined constant self::DEFAULT_LOCALE error (Andrey Avtuchovich) [b28b45ee]
+- Update sponsors (kylekatarnls) [53bd2940]
+- Use serialization to set days property on intervals (#43) (Kyle) [411ab822]
+- Skip 1 test for PHP 8.1 (kylekatarnls) [f95a25ff]
+- Ignore coverage of parent::__unserialize (for old versions) (kylekatarnls) [bf8e5c51]
+- Simplify period unserialization process (kylekatarnls) [7a56960a]
+- Add tests for setDateTimeFrom (kylekatarnls) [6a4c61fd]
+- fix: add dynamic return type for `tz()` (Alexander Kim) [1427cdeb]
+- Support serialization (with lower expectation) on PHP 8.1 (kylekatarnls) [50164458]
+- Make CarbonPeriod serialization compatible with v2 (kylekatarnls) [e7519610]
+- Create documentation updates PRs on a single remote (kylekatarnls) [3aadb2a7]
+- Make PHP 8.5 CarbonPeriod::__debugInfo consistent with previous versions (kylekatarnls) [049fa7ba]
+- Fix ToArrayTest for PHP 8.5 (kylekatarnls) [917811fd]
+- Limit the number of recurrences (kylekatarnls) [814cf2dc]
+- Allow passing `$options` to `fromSerialized()` (#33) (Kyle) [00f7152f]
+#### 3.9.1 (27 March 2025)
+- Fix code style (kylekatarnls) [e709e744]
+- Make createFromFormat compatible with PHP 8.3.20 (kylekatarnls) [751d8db7]
+- Fix cascade() (kylekatarnls) [6798e419]
+- Add test covering #3178 (kylekatarnls) [72e34352]
+- Reduce segfault risk in PHP 8.3.20 (kylekatarnls) [ad8c4379]
+- Skip negative-value test for PHP 8.3.20 (kylekatarnls) [113df014]
+- Skip PHP 8.3.20 (broken), use 8.3.19 until 8.3.21 (fixed) is out (kylekatarnls) [520d70a1]
+- Update sponsors (kylekatarnls) [80de8f2f]
+- Fix 2-letter day abbr. + 3-letter abbr. of ‘May’ (kokoshneta) [41c4bfdd]
+- Add missing type for method parameter (Richard van Baarsen) [3a4803c5]
+- Temporarily prevents PHPUnit 12.1 (kylekatarnls) [8d895a77]
+- Add missing @param-closure-this (kylekatarnls) [3adf465c]
+- Ignore uncovered catch-all (Kyle) [b743c413]
+- stop ignoring Call to an undefined method Tests\Carbon(Immutable)?\MacroTest::diffInYears() (Liam Duckett) [280211b0]
+- add param-closure-this to CarbonInterval macro method (Liam Duckett) [44583f34]
+- phpstan ignore Variable  in isset() always exists and is not nullable in Mixin trait (Liam Duckett) [09f45437]
+- #3173 Fix Incorrect Type Inference when Declaring Macros (Liam Duckett) [e1cd654a]
+- Add more tests for fallbackLocale (kylekatarnls) [5204e786]
+- Fix ->is('02-29') (kylekatarnls) [c435ca03]
+- Update test (Sergey Danilchenko) [a6e0f4e0]
+- Fix overflow issue for is-month (kylekatarnls) [1887f86e]
+- localization: added milliseconds and microseconds to Russian locale (Sergey Danilchenko) [6a23a75d]
+- feat: Apply Laravel fallback locale (Sergey Danilchenko) [da88914c]
+#### 3.9.0 (20 February 2025)
+- feat: add `isNowOrFuture()` and `isNowOrPast()` methods (Andrew Mast) [924e42e5]
+- Update sponsors (kylekatarnls) [eeba459f]
+- Update readme.md (kylekatarnls) [19f0255b]
+- Update Timestamp.php (Chuck Burgess) [338c7b06]
+#### 3.8.6 (11 February 2025)
+- Test Laravel ongoing v13 (kylekatarnls) [c60bfa84]
+- Update custom sponsors data (kylekatarnls) [f5f85e9a]
+- Make all data from sponsors overridable on demand (kylekatarnls) [d3796661]
+- Fix a link (Aleksei Gagarin) [82d243e0]
+- Update links in readme (Aleksei Gagarin) [4beb5871]
+- Fix Turkmen week day name order (kylekatarnls) [489cfd8f]
+- Update sponsors (kylekatarnls) [c6a356ad]
+- Add mention required by OpenCollective to clarify the purpose of their platform (kylekatarnls) [d6b2e54c]
+#### 3.8.5 (27 December 2024)
+- fix tests (Novruz Rahimov) [2ac02b5a]
+- fix: update hour abbreviation translation (Novruz Rahimov) [d4ad3cdc]
+- fix: correct time unit abbreviations and format mismatches for Azerbaijani translation (Novruz Rahimov) [964001c7]
+- Update sponsors (kylekatarnls) [6b1ed0a6]
+- Mock time for test without year (kylekatarnls) [cf851eb4]
+- Fix CarbonInterval PHPDoc (kylekatarnls) [58097479]
+- Migrate to organization repo (kylekatarnls) [17203a94]
+#### 3.8.4 (21 December 2024)
+- Validate locale earlier (kylekatarnls) [129700ed]
+#### 3.8.3 (7 November 2024)
+- Add Psalm config (kylekatarnls) [b81878c8]
+- add months_standalone and regexp to sk.php (Kopřivová Nikola) [ef303740]
+- add missing regexp to cs.php (Kopřivová Nikola) [593d8f99]
+- Update sponsors (kylekatarnls) [66b1be93]
+- Update oc.php (Mejans) [56897199]
+- Fix month abbreviations for fr_BE/fr_LU (Rolland Csatari) [dcc568c1]
+- Bump codecov/codecov-action from 4 to 5 (dependabot[bot]) [173baee9]
+- Update UTM link whitelist (kylekatarnls) [2a215f48]
+- Fix code style (kylekatarnls) [635d3df4]
+#### 3.8.2 (3 November 2024)
+- Fix immutable return for setUnitNoOverflow (kylekatarnls) [9d1cc387]
+- Update sponsors (kylekatarnls) [8d7a00d0]
+#### 3.8.1 (19 August 2024)
+- Parse microseconds as integer when making from specs (kylekatarnls) [a8fefff4]
+- Add unit test for CarbonInterval::make() with float second (kylekatarnls) [a6d8bf2a]
+- Test total using UTC (kylekatarnls) [cb0fd285]
+- Update sponsors (kylekatarnls) [792449d2]
+- Bound carbon-doctrine-types version (kylekatarnls) [5040f291]
+- Fix Sponsors GitHub Action (kylekatarnls) [170731ca]
+- Add GitHub Action to update the documentation (kylekatarnls) [ec5eddf5]
+- Trigger sponsor job a first time (kylekatarnls) [ec62debf]
+- Create a job to update sponsors every month (kylekatarnls) [c51339e4]
+- Fix micro-second approximation test (kylekatarnls) [523d0636]
+- Allow 1-hour shift if offset changed during the day (kylekatarnls) [37a7dd44]
+- Skip mutation if immutable in setUnitNoOverflow (kylekatarnls) [599606d2]
+- Copy timezome offset with date and time (kylekatarnls) [29bbe89d]
+- Consider absolute flag when comparing intervals (kylekatarnls) [669ee8d7]
+- Optimize `setUnitNoOverflow()` (Takuya Aramaki) [335aa70c]
+- Allow 1 microsecond imprecision for testFromSerialization (kylekatarnls) [4c21a970]
+- Improve error message for $time format (kylekatarnls) [4a4b502d]
+- Fix typo in deprecation method (kylekatarnls) [9fe157cc]
+#### 3.8.0 (16 July 2024)
+- Update sponsors (kylekatarnls) [bbd3eef8]
+- Code coverage (Ondrej Mirtes) [2194ae6c]
+- PHPMD (Ondrej Mirtes) [15695535]
+- Bring over deleted MacroTest cases (Ondrej Mirtes) [361bc3c1]
+- Update src/Carbon/PHPStan/MacroExtension.php (Ondřej Mirtes) [abcd758c]
+- Update src/Carbon/PHPStan/MacroMethodReflection.php (Ondřej Mirtes) [fb5c51ba]
+- Simplify PHPStan extension (Ondrej Mirtes) [30cc8f22]
+- Use arrow functions to getIsoUnits (kylekatarnls) [83c1d49a]
+- Optimize diffInDays (kylekatarnls) [0e42f933]
+- Optimize getIntervalDayDiff (kylekatarnls) [42455710]
+- Use FQCN for sprintf (kylekatarnls) [139130a9]
+- Update es.php (Danny Kirkham) [414ee3e0]
+- Fix PHPStan exception (kylekatarnls) [8559755f]
+- Update documentation (kylekatarnls) [213f08e5]
+- Add startOfMillisecond and endOfMillisecond (kylekatarnls) [fc61820c]
+- Add tests for isStartOf/isEndOf for units from month to millennium (kylekatarnls) [bc41878f]
+- Fix documentation for isEndOf methods (kylekatarnls) [d47a0783]
+- Fix typo in issue template (kylekatarnls) [3c4d70fc]
+- Implement isStartOf/isEndOf for every unit (KyleKatarn) [f4c06df2]
+- Implement isStartOfWeek and isEndOfWeek (faissaloux) [6200a5fc]
+- Fix doc (faissaloux) [2f1eb49a]
+- Update PHPDoc (KyleKatarn) [0e5cfe3d]
+- Add unit tests for start/end of unit method (KyleKatarn) [6b8e0a45]
+- Add tests for isStartOfDay and isEndOfDay (KyleKatarn) [f14f4a5a]
+- Add generic methods isStartOfUnit and isEndOfUnit (KyleKatarn) [484f8f71]
+- Add tests for CarbonPeriod getters (KyleKatarn) [397d7323]
+- Update PHPStan exceptions (KyleKatarn) [900147d0]
+- Add test for CarbonInterval timezone getter (KyleKatarn) [726f64bd]
+- Add test for German period translation (KyleKatarn) [6f043599]
+- Add tests for Unit enum in startOf and endOf (KyleKatarn) [f4c4978b]
+- Accept Unit enum in startOf and endOf (KyleKatarn) [b36d2563]
+#### 3.7.0 (20 June 2024)
+- Update PHPDoc (kylekatarnls) [cb437478]
+- Ignore missing $days property when comparing intervals in PHP 8.1 (kylekatarnls) [f0780ff6]
+- Ignore missing $days property when comparing copies (kylekatarnls) [e3b9eac1]
+- Keep interval days property in sync (kylekatarnls) [b38436e7]
+- Modify days only if available on interval (KyleKatarn) [a2dc4d30]
+- Add tests for some uncovered cases (KyleKatarn) [b4f1eb10]
+- Add tests specifically for #2604 and #3050 (KyleKatarn) [37b3bd5f]
+- Adjust tests to algorithm update (KyleKatarn) [4d3f401d]
+- Use pro rata to calculate decimal part of month/year diffs (KyleKatarn) [0e2a6073]
+- Remove warning about v3 documentation in progress (kylekatarnls) [cc2ff0d3]
+- Fix code style (kylekatarnls) [184ccd71]
+- Update sponsors (kylekatarnls) [a8afcf2c]
+- Use static instead of CarbonInterface return type in doclocks (Phil Bates) [6e1cfa7c]
+- Added period DE translations (Marc Heffels) [348f0c6b]
+- gitignore cache files (faissaloux) [239d8bb9]
+- add more between()/isBetween() tests (faissaloux) [85aaca6f]
+#### 3.6.0 (3 June 2024)
+- Unserialize carbon interval created by v2 (kylekatarnls) [44a47cd1]
+- Build period with given timezone (kylekatarnls) [a1d68bcb]
+- Add support for Month and WeekDay enums in is() method (kylekatarnls) [2ae23c9e]
+#### 3.5.0 (24 May 2024)
+- Fix code style (kylekatarnls) [415782b7]
+- Sort sponsors by tier (kylekatarnls) [b9cc24aa]
+- Fix issue with is month check (kylekatarnls) [280ad6d4]
+- Update sponsors (KyleKatarn) [e956efa3]
+- Fix New Zealand daylight saving time format to pass hasFormat. (Jani Luoti) [058ba856]
+- Update ISSUE_TEMPLATE.md (Kyle) [091c4879]
+- Fix diffInDays DST bug (KyleKatarn) [d3c5f132]
+- Update dev dependencies (KyleKatarn) [e531be1b]
+- Update symfony/translation to versions compatible for PHP 8.4 tests (KyleKatarn) [10259e7d]
+- Work around PHP 8.4 breaking change to be investigated (KyleKatarn) [9a66d668]
+- Construct DatePeriod using split parameters (KyleKatarn) [ce223917]
+- Skip DatePeriod ISO-string construction for PHP >= 8.2 (KyleKatarn) [2dd79b89]
+- Skip PHPStand tests for PHP 8.4 tests (KyleKatarn) [a2eb1d21]
+- Skip AbstractCarbon for PHP 8.4 tests (KyleKatarn) [3acf29d0]
+- Test PHP 8.4 on GitHub Actions (Kyle) [ae30427b]
+- Remove dead code (KyleKatarn) [5f04ee08]
+- Split CarbonPeriod construction into multiple steps (KyleKatarn) [c8526745]
+#### 3.4.0 (1 May 2024)
+- Remove overridden EXCLUDE_START_DATE constant (Ilija Tovilo) [dae1e9ce]
+- Update sponsors (kylekatarnls) [e6f622cf]
+- Remove resolveUTC() (kylekatarnls) [7138e711]
+- Unserialize CarbonInterval from v2 for PHP 8.1 (kylekatarnls) [d8e0ba47]
+- Unserialize CarbonInterval from v2 (kylekatarnls) [6332ec48]
+#### 3.3.1 (18 April 2024)
+- Fallback to default timezone for mocked now (kylekatarnls) [e89692af]
+- Test translation after serialization (kylekatarnls) [aa68a82c]
+- Fix translator and interval serialization (kylekatarnls) [40a728d2]
+- Support %a format (kylekatarnls) [35f5a11f]
+- fix days for diffForHumans for slovak (edvordo) [c0c53634]
+#### 3.3.0 (5 April 2024)
+- Reduce the number of follow links on the README (kylekatarnls) [93a0bacf]
+- Add locale and translator options to forHumans and diffForHumans (kylekatarnls) [c6ac6dfe]
+- Fix day declension in Slovak (kylekatarnls) [d4c315eb]
+- Update Slovak translations Fix #2993 (kylekatarnls) [28cb7011]
+- Update readme links (kylekatarnls) [c5f7a095]
+- Add coverage for SkipCopy parameter (Dominik Kohler) [7c529664]
+- Fix: allow Carbon instance to be rounded by Carbon Interval in non-default language (Dominik Kohler) [ee2680ba]
+- Added failing test: round Carbon instance by carbon interval (Dominik Kohler) [edc1d8cb]
+- Handle null in canBeCreatedFromFormat (kylekatarnls) [aa0a5acf]
+- Update Bosnian translations Fix #2990 (kylekatarnls) [011456e9]
+- Create a dedicated method for each step of the magic __call process (#2992) (Kyle) [f507bd72]
+#### 3.2.4 (30 March 2024)
+- Pass GITHUB_TOKEN to laravel action (kylekatarnls) [dcecf751]
+- Re-allow macro with names starting with diff (kylekatarnls) [859daa42]
+- Update documentation showing v3 behavior of diff methods (kylekatarnls) [02a95025]
+#### 3.2.3 (28 March 2024)
+- Fix documentation (kylekatarnls) [4d599a6e]
+- Fix deprecation notice (kylekatarnls) [57ac23a1]
+- Update Docs for diffIn methods that return float (Nathan James) [20719e36]
+#### 3.2.2 (27 March 2024)
+- Fallback to default parameters if period construction fails (kylekatarnls) [6aacfe09]
+#### 3.2.1 (27 March 2024)
+- Make start and end period properties correct at CarbonPeriod creation (kylekatarnls) [aa0ed85e]
+- Make start and end period properties correct when created from Carbon object (kylekatarnls) [3eaeec4c]
+#### 3.2.0 (13 March 2024)
+- Allow integer in createFromFormat() (kylekatarnls) [9f64d559]
+- Implement UTC variants for add/sub methods (kylekatarnls) [41b550c6]
+- Downgrade nikic/php-parser in CI (kylekatarnls) [d504c085]
+- Update dependencies (kylekatarnls) [d735797a]
+- Add utc parameters only for methods needing it (units bigger than hour) (kylekatarnls) [78155574]
+- Deprecate Real diff in favor of UTC diff (kylekatarnls) [d58d2210]
+- Stop using start/end on interval if they are changed after creation (kylekatarnls) [2bd2d626]
+- Add Carbon 3 mention in the readme (kylekatarnls) [1d762cbd]
+- Use bash to get cache-files-dir in all platform (kylekatarnls) [b38a9c6d]
+- Update GitHub workflow (kylekatarnls) [f061d53f]
+- Fix code style (kylekatarnls) [92d5e823]
+- Update ckb.php (kawan pshtiwan) [54f48989]
+- Update src/Carbon/Lang/ckb.php (kawan pshtiwan) [1e93381e]
+- change months name (kawan97) [bb6a9523]
+- Test both Laravel 11 and 12 (kylekatarnls) [6f731be0]
+- Standardize float diff comparison in tests (kylekatarnls) [027ba8d6]
+- Use current timezone if identical to compared value for diff (kylekatarnls) [a22a2b0f]
+- [PHP 8.4] Fixes for implicit nullability deprecation (Ayesh Karunaratne) [126fa20c]
+- Fix PHP doc (kylekatarnls) [db81c4ae]
+- Update sponsors (kylekatarnls) [3b386dd5]
+- Update PHPDoc (kylekatarnls) [e7c9d379]
+#### 3.1.1 (6 March 2024)
+- Cleanup and warranty notice (kylekatarnls) [7684141f]
+- Revert "Fix Persian translation for before and after" (Kyle) [61ef0365]
+- Code style alignment (Kyle) [df4a628a]
+- fix incomplete type for create method PHPDoc (Shane) [a4305ee4]
+#### 3.1.0 (6 February 2024)
+- Remove unnecessary suffix to Taiwan name (Kyle) [defdd537]
+- Update sponsors (kylekatarnls) [2cb4131b]
+- Simplify FactoryImmutable::getInstance (kylekatarnls) [d7972ac5]
+- Update PHPDoc (kylekatarnls) [eaee5adc]
+- Allow to pass Unit enum for unit name (KyleKatarn) [f1b5a39e]
+- Fix related tests (MojtabaKordpour) [5167f499]
+- Make a better translation in fa.php (MojtabaKordpour) [f33e7b48]
+#### 3.0.2 (5 February 2024)
+- Use static values for enums until dropping PHP 8.1 (kylekatarnls) [e5a98c2f]
+- Fix code style (KyleKatarn) [4d65ef2b]
+- Update PHP level of the build script (KyleKatarn) [ac1112e2]
+#### 3.0.1 (31 January 2024)
+- Allow only callable or null for macro value (KyleKatarn) [8a67f563]
+- Record mixin object methods only if they return callable (KyleKatarn) [be9d749c]
+- Allow to remove macro by passing null value (KyleKatarn) [9316398d]
+- Mute expected PHPStan issue in tests (KyleKatarn) [57fbbf88]
+- Update actions version (KyleKatarn) [f0bc0d18]
+- Update dev branches (create 2.x) (KyleKatarn) [f15f98e6]
+- Update sponsors (KyleKatarn) [60d6d033]
+#### 3.0.0 (31 January 2024)
+#### 3.0.0-rc.3 (26 January 2024)
+- Ignore static analysis error regarding Carbon month setter (Jesper Noordsij) [6754af9d]
+- Remove null from parse and rawParse return types (Jesper Noordsij) [96e82042]
+- Use PHPUnit Require* attributes (kylekatarnls) [f7a63db9]
+- Use PHPUnit Group attributes (kylekatarnls) [6e3635df]
+- Use PHPUnit attributes (kylekatarnls) [e5cb8864]
+- Merge Windows and Ubuntu tests into a single matrix (kylekatarnls) [bcbb5b60]
+#### 3.0.0-rc.1 (24 January 2024)
+- Enable Laravel 11 check (kylekatarnls) [4f7b5c5c]
+- Replace some annotations with attributes (kylekatarnls) [526c3a2e]
+- Update sponsors (kylekatarnls) [0c6fd108]
+- Update tests for рр (kylekatarnls) [4be89962]
+- Add test for named argument (kylekatarnls) [86cd4091]
+- Replace $tz with $timezone (kylekatarnls) [aa671e1f]
+- Fix short year Ukrainian plural (kylekatarnls) [6b5e80a8]
+#### 3.0.0-beta.3 (23 January 2024)
+- Restore test assertion (kylekatarnls) [4f83b0d7]
+- Fix fallback from setter to macro (kylekatarnls) [4fab0bcf]
+#### 3.0.0-beta.2 (22 January 2024)
+- Allow to compare different sub-classes of Carbon (kylekatarnls) [e61a85b2]
+
+## Version 2.x
+
+::: tip Info
+Only release dates are listed here.
+:::
+
+- 2.73.0 (8 January 2025)
+- 2.72.6 (27 December 2024)
+- 2.72.5 (3 June 2024)
+- 2.72.4 (3 June 2024)
+- 2.72.3 (25 January 2024)
+- 2.72.2 (19 January 2024)
+- 2.72.1 (8 December 2023)
+- 2.72.0 (28 November 2023)
+- 2.71.0 (25 September 2023)
+- 2.70.0 (7 September 2023)
+- 2.69.0 (3 August 2023)
+- 2.68.1 (20 June 2023)
+- 2.68.0 (15 June 2023)
+- 2.67.0 (25 May 2023)
+- 2.66.0 (29 January 2023)
+- 2.65.0 (6 January 2023)
+- 2.64.1 (1 January 2023)
+- 2.64.0 (26 November 2022)
+- 2.63.0 (30 October 2022)
+- 2.62.1 (2 September 2022)
+- 2.62.0 (28 August 2022)
+- 2.61.0 (6 August 2022)
+- 2.60.0 (27 July 2022)
+- 2.59.1 (29 June 2022)
+- 2.59.0 (26 June 2022)
+- 2.58.0 (25 April 2022)
+- 2.57.0 (13 February 2022)
+- 2.56.0 (21 January 2022)
+- 2.55.2 (3 December 2021)
+- 2.55.1 (3 December 2021)
+- 2.55.0 (2 December 2021)
+- 2.54.0 (1 November 2021)
+- 2.53.1 (6 September 2021)
+- 2.53.0 (6 September 2021)
+- 2.52.0 (14 August 2021)
+- 2.51.1 (28 July 2021)
+- 2.51.0 (28 July 2021)
+- 2.50.0 (28 June 2021)
+- 2.49.0 (2 June 2021)
+- 2.48.1 (26 May 2021)
+- 2.48.0 (7 May 2021)
+- 2.47.1 (26 May 2021)
+- 2.47.0 (13 April 2021)
+- 2.46.0 (24 February 2021)
+- 2.45.1 (11 February 2021)
+- 2.45.0 (7 February 2021)
+- 2.44.0 (26 January 2021)
+- 2.43.0 (17 December 2020)
+- 2.42.0 (28 November 2020)
+- 2.41.5 (23 October 2020)
+- 2.41.4 (22 October 2020)
+- 2.41.3 (12 October 2020)
+- 2.41.2 (10 October 2020)
+- 2.41.1 (10 October 2020)
+- 2.41.0 (4 October 2020)
+- 2.40.1 (23 September 2020)
+- 2.40.0 (11 September 2020)
+- 2.39.2 (10 September 2020)
+- 2.39.1 (4 September 2020)
+- 2.39.0 (24 August 2020)
+- 2.38.0 (4 August 2020)
+- 2.37.0 (28 July 2020)
+- 2.36.1 (4 July 2020)
+- 2.36.0 (25 June 2020)
+- 2.35.0 (24 May 2020)
+- 2.34.2 (19 May 2020)
+- 2.34.1 (19 May 2020)
+- 2.34.0 (12 May 2020)
+- 2.33.0 (20 April 2020)
+- 2.32.2 (31 March 2020)
+- 2.32.1 (26 March 2020)
+- 2.32.0 (24 March 2020)
+- 2.31.0 (1 March 2020)
+- 2.30.0 (7 February 2020)
+- 2.29.1 (21 January 2020)
+- 2.29.0 (21 January 2020)
+- 2.28.0 (16 December 2019)
+- 2.28.0-beta.1 (12 December 2019)
+- 2.27.0 (20 November 2019)
+- 2.26.0 (21 October 2019)
+- 2.25.3 (20 October 2019)
+- 2.25.2 (14 October 2019)
+- 2.25.1 (5 October 2019)
+- 2.25.0 (30 September 2019)
+- 2.25.0-beta.3 (30 September 2019)
+- 2.25.0-beta.2 (13 September 2019)
+- 2.25.0-beta.1 (9 September 2019)
+- 2.24.0 (31 August 2019)
+- 2.24.0-beta.4 (31 August 2019)
+- 2.24.0-beta.3 (28 August 2019)
+- 2.24.0-beta.2 (27 August 2019)
+- 2.24.0-beta.1 (23 August 2019)
+- 2.23.1 (17 August 2019)
+- 2.23.0 (12 August 2019)
+- 2.23.0-beta.4 (12 August 2019)
+- 2.23.0-beta.3 (7 August 2019)
+- 2.23.0-beta.2 (4 August 2019)
+- 2.23.0-beta.1 (3 August 2019)
+- 2.22.3 (7 August 2019)
+- 2.22.1 (6 August 2019)
+- 2.22.0 (28 July 2019)
+- 2.22.0-beta.3 (28 July 2019)
+- 2.22.0-beta.2 (25 July 2019)
+- 2.22.0-beta.1 (19 July 2019)
+- 2.21.3 (18 July 2019)
+- 2.21.2 (17 July 2019)
+- 2.21.0 (14 July 2019)
+- 2.20.0 (25 June 2019)
+- 2.19.2 (7 June 2019)
+- 2.19.1 (4 June 2019)
+- 2.19.0 (30 May 2019)
+- 2.18.0 (16 May 2019)
+- 2.17.1 (27 April 2019)
+- 2.17.0 (17 April 2019)
+- 2.16.3 (6 April 2019)
+- 2.16.2 (29 March 2019)
+- 2.16.1 (20 March 2019)
+- 2.16.0 (12 March 2019)
+- 2.15.0 (7 March 2019)
+- 2.14.2 (28 February 2019)
+- 2.14.1 (27 February 2019)
+- 2.14.0 (25 February 2019)
+- 2.13.0 (20 February 2019)
+- 2.12.0 (6 February 2019)
+- 2.11.0 (29 January 2019)
+- 2.10.1 (14 January 2019)
+- 2.10.0 (2 January 2019)
+- 2.9.1 (25 December 2018)
+- 2.9.0 (25 December 2018)
+- 2.8.0 (18 December 2018)
+- 2.7.0 (2 December 2018)
+- 2.6.1 (22 November 2018)
+- 2.6.0 (19 November 2018)
+- 2.5.4 (15 November 2018)
+- 2.5.3 (13 November 2018)
+- 2.5.2 (12 November 2018)
+- 2.5.1 (8 November 2018)
+- 2.5.0 (26 October 2018)
+- 2.4.1 (17 October 2018)
+- 2.4.0 (16 October 2018)
+- 2.3.1 (17 October 2018)
+- 2.3.0 (27 September 2018)
+- 2.2.1 (17 October 2018)
+- 2.2.0 (20 September 2018)
+- 2.1.1 (17 October 2018)
+- 2.1.0 (3 September 2018)
+- 2.0.1 (17 October 2018)
+- 2.0.0 (23 August 2018)
+- 2.0.0-beta.6 (23 August 2018)
+- 2.0.0-beta.5 (23 August 2018)
+- 2.0.0-beta.4 (23 August 2018)
+- 2.0.0-beta.3 (20 August 2018)
+- 2.0.0-beta.2 (13 August 2018)
+- 2.0.0-beta.1 (8 August 2018)
+
+## Version 1.x
+
+::: tip Info
+Only release dates are listed here.
+:::
+
+- 1.39.1 (14 October 2019)
+- 1.39.0 (11 June 2019)
+- 1.38.4 (3 June 2019)
+- 1.38.2 (30 May 2019)
+- 1.38.1 (30 May 2019)
+- 1.38.0 (30 May 2019)
+- 1.37.1 (19 April 2019)
+- 1.36.2 (28 December 2018)
+- 1.36.1 (22 November 2018)
+- 1.36.0 (16 November 2018)
+- 1.35.1 (14 November 2018)
+- 1.35.0 (14 November 2018)
+- 1.34.4 (13 November 2018)
+- 1.34.3 (13 November 2018)
+- 1.34.2 (12 November 2018)
+- 1.34.1 (8 November 2018)
+- 1.34.0 (20 September 2018)
+- 1.33.0 (7 August 2018)
+- 1.32.0 (5 July 2018)
+- 1.31.1 (25 June 2018)
+- 1.31.0 (24 June 2018)
+- 1.30.0 (15 June 2018)
+- 1.29.2 (29 May 2018)
+- 1.29.1 (24 May 2018)
+- 1.29.0 (24 May 2018)
+- 1.28.0 (18 May 2018)
+- 1.27.0 (23 April 2018)
+- 1.26.6 (3 June 2019)
+- 1.26.5 (30 May 2019)
+- 1.26.4 (17 April 2018)
+- 1.26.3 (16 April 2018)
+- 1.26.2 (16 April 2018)
+- 1.26.1 (16 April 2018)
+- 1.26.0 (16 April 2018)
+- 1.25.3 (3 June 2019)
+- 1.25.1 (31 May 2019)
+- 1.25.0 (19 March 2018)
+- 1.24.2 (10 March 2018)
+- 1.24.1 (9 March 2018)
+- 1.24.0 (9 March 2018)
+- 1.23.0 (28 February 2018)
+- 1.22.1 (16 January 2017)
+- 1.22.0 (15 January 2017)
+- 1.21.0 (4 November 2015)
+- 1.20.0 (25 June 2015)
+- 1.19.0 (9 May 2015)
+- 1.18.0 (26 March 2015)
+- 1.17.0 (8 March 2015)
+- 1.16.0 (4 March 2015)
+- 1.15.0 (3 March 2015)
+- 1.14.0 (6 February 2015)
+- 1.13.0 (26 September 2014)
+- 1.12.0 (10 September 2014)
+- 1.11.0 (26 August 2014)
+- 1.10.0 (18 July 2014)
+- 1.9.0 (13 May 2014)
+- 1.8.0 (7 January 2014)
+- 1.7.0 (5 December 2013)
+- 1.6.0 (23 November 2013)
+- 1.5.0 (21 November 2013)
+- 1.4.0 (9 September 2013)
+- 1.3.0 (21 August 2013)
+- 1.2.0 (15 October 2012)
+- 1.1.0 (17 September 2012)
+- 1.0.1 (11 September 2012)
+- 1.0.0 (11 September 2012)

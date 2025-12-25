@@ -11,18 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 8.2
-        extensions: json
-        tools: composer:v2
-        coverage: none
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.5
+          extensions: json
+          tools: composer:v2
+          coverage: none
 
-    - name: Install dependencies
-      run: composer update --prefer-dist --no-interaction --no-suggest
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-suggest
 
-    - name: Run test suite
-      run: php tools/check.php
+      - name: Run test suite
+        run: php tools/check.php
