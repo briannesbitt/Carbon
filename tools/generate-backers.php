@@ -10,12 +10,12 @@ $destination_file = __DIR__ . '/../docs/public/data/backers.json';
 
 function get_custom_sponsor_override(): array
 {
-	return array(
+	return [
 
 		// For consistency and equity among sponsors, as of now, we kindly ask our sponsors
 		// to provide an image having a width/height ratio between 1/1 and 2/1.
 		// By default, we'll show the member picture from OpenCollective, and will resize it if bigger
-		662698 => array(
+		662698 => [
 
 			// alt attribute
 			'name' => 'Non Gamstop Casinos',
@@ -28,16 +28,16 @@ function get_custom_sponsor_override(): array
 
 			// href attribute
 			'website' => 'https://lgcnews.com/',
-		),
-		663069 => array(
+        ],
+		663069 => [
 
 			// alt attribute
 			'name' => 'Ставки на спорт Favbet',
 
 			// href attribute
 			'website' => 'https://www.favbet.ua/uk/',
-		),
-		676798 => array(
+        ],
+		676798 => [
 
 			// alt attribute
 			'name' => 'Top Casinos Canada',
@@ -47,8 +47,8 @@ function get_custom_sponsor_override(): array
 
 			// href attribute
 			'website' => 'https://topcasino.net/',
-		),
-	);
+        ],
+    ];
 }
 
 function get_all_backers(): array
@@ -58,10 +58,10 @@ function get_all_backers(): array
 	$members = json_decode(file_get_contents('https://opencollective.com/carbon/members/all.json'), true);
 
 	foreach ($members as &$member) {
-		$member = array_merge($member, $custom_sponsor_override[$member['MemberId']] ?? array());
+		$member = array_merge($member, $custom_sponsor_override[$member['MemberId']] ?? []);
 	}
 
-	$members[] = array(
+	$members[] = [
 		'MemberId' => 1,
 		'createdAt' => '2019-01-01 02:00',
 		'type' => 'ORGANIZATION',
@@ -77,8 +77,8 @@ function get_all_backers(): array
 		'description' => 'Get professional support for Carbon',
 		'image' => '/sponsors/tidelift-brand.png',
 		'website' => 'https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs',
-	);
-	$members[] = array(
+    ];
+	$members[] = [
 		'MemberId' => 2,
 		'createdAt' => '2024-11-14 02:00',
 		'type' => 'ORGANIZATION',
@@ -94,7 +94,7 @@ function get_all_backers(): array
 		'description' => 'Slotozilla website',
 		'image' => '/sponsors/slotozilla.png',
 		'website' => 'https://www.slotozilla.com/nz/free-spins',
-	);
+    ];
 
 	return array_map(static function(array $member) {
         $created_at = CarbonImmutable::parse($member['createdAt']);
@@ -153,13 +153,13 @@ function get_all_backers(): array
             $rank = 1;
         }
 
-        return array_merge($member, array(
-                'star' => ($monthly_contribution > 98 || $yearly_contribution > 800),
-                'status' => $status,
-                'rank' => $rank,
-                'monthlyContribution' => $monthly_contribution,
-                'yearlyContribution' => $yearly_contribution,
-            ));
+        return array_merge($member, [
+            'star' => ($monthly_contribution > 98 || $yearly_contribution > 800),
+            'status' => $status,
+            'rank' => $rank,
+            'monthlyContribution' => $monthly_contribution,
+            'yearlyContribution' => $yearly_contribution,
+        ]);
     }, $members);
 }
 
@@ -183,8 +183,8 @@ function get_open_collective(string $status): string
 
 		$content[$status] = implode('', array_map(static function(array $member) use ($status) {
             $href = htmlspecialchars($member['website'] ?? $member['profile']);
-            $src = $member['image'] ?? (strtr($member['profile'], array('https://opencollective.com/' => 'https://images.opencollective.com/')) . '/avatar/256.png');
-            [$x, $y] = @getimagesize($src) ?: array(0, 0);
+            $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']) . '/avatar/256.png');
+            [$x, $y] = @getimagesize($src) ?: [0, 0];
             $valid_image = ($x && $y);
             $src = $valid_image ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
             $height = match ($status) {

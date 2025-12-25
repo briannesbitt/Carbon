@@ -12,14 +12,18 @@
 		"phpdocumentor/reflection-docblock": "^5.6",
 		"symfony/console": "^8.0"
 	},
-	"require-dev": {
-		"sebastianfeldmann/git": "^3.15"
-	},
 	"scripts": {
-		"changelog": "conventional-changelog  --history",
+		"check": "@php tools/check.php",
+		"history": "@php tools/api-history.php",
+		"releases": "@php tools/cache-releases.php",
 		"backers": "@php tools/generate-backers.php",
+		"changelog": "@php tools/generate-changelog.php",
 		"translations": "@php tools/generate-translations.php",
 		"build": [
+			"@realeases",
+			"@changelog",
+			"@php tools/release.php",
+			"@history",
 			"@translations",
 			"@backers"
 		]

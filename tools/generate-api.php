@@ -32,25 +32,25 @@ class BusinessTimeCarbon extends Carbon
 function get_classes(): Generator
 {
 	if (class_exists(Carbon::class)) {
-		yield array(
+		yield [
 			new Carbon(),
 			new DateTime(),
-		);
+        ];
 
 		if (class_exists(BusinessTime::class)) {
-			yield array(
+			yield [
 				BusinessTime::enable(BusinessTimeCarbon::class),
 				new Carbon(),
 				Carbon::class,
 				'Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>',
 				new BusinessTimeCarbon(),
-			);
+            ];
 		}
 
 		if (trait_exists(SeasonMixin::class)) {
 			BusinessTimeCarbon::mixin(SeasonMixin::class);
 
-			yield array(
+			yield [
 				new BusinessTimeCarbon(),
 				new Carbon(),
 				Carbon::class,
@@ -60,47 +60,47 @@ function get_classes(): Generator
 					use SeasonMixin;
 				},
 				SeasonMixin::class,
-			);
+            ];
 		}
 	}
 
 	if (class_exists(CarbonInterval::class)) {
-		yield array(
+		yield [
 			new CarbonInterval(0, 0, 0, 1),
 			new DateInterval('P1D'),
-		);
+        ];
 	}
 
 	if (class_exists(CarbonPeriod::class)) {
-		yield array(
+		yield [
 			new CarbonPeriod(),
 			new stdClass(),
-		);
+        ];
 	}
 
 	if (class_exists(CarbonTimeZone::class)) {
-		yield array(
+		yield [
 			new CarbonTimeZone('Europe/Paris'),
 			new DateTimeZone('Europe/Paris'),
-		);
+        ];
 	}
 
 	if (class_exists(Translator::class)) {
-		yield array(
+		yield [
 			new Translator('en'),
 			new SymfonyTranslator('en'),
-		);
+        ];
 	}
 
 	if (class_exists(Language::class)) {
-		yield array(
+		yield [
 			new Language('en'),
 			new stdClass(),
-		);
+        ];
 	}
 }
 
-$docblocks = array();
+$docblocks = [];
 $factory = DocBlockFactory::createInstance();
 
 foreach (get_classes() as $data) {
@@ -126,54 +126,51 @@ ksort($docblocks);
 
 $markdown = "# Reference\n";
 foreach ($docblocks as $name => $docblock) {
-	$markdown .= "#### {$name}\n\n";
+	$markdown .= "#### $name\n\n";
 	$markdown .= $docblock->getSummary() . "\n\n";
 	$markdown .= $docblock->getDescription() . "\n";
 
 	$deprecated = $docblock->getTagsByName('deprecated');
-	if (!empty($deprecated)) {
-		foreach ($deprecated as $tag) {
-			$markdown .= "::: warning Deprectated \n";
-			$markdown .= $tag->__toString() . "\n";
-			$markdown .= ":::\n";
-		}
-	}
+
+    foreach ($deprecated as $tag) {
+        $markdown .= "::: warning Deprectated \n$tag\n:::\n";
+    }
 
 	$params = $docblock->getTagsByName('param');
-	if (!empty($params)) {
+
+	if ($params !== []) {
 		$markdown .= "##### Parameters\n";
 		foreach ($params as $tag) {
 			$markdown .= "- \${$tag->getVariableName()} `{$tag->getType()}`";
 			$description = trim($tag->getDescription());
 
 			// if description is multiline, indent lines
-			if (strpos($description, "\n") !== false) {
-				$description = "\n\n" . str_replace("\n", "\n  ", $description);
-			} else {
-				$description = " {$description}";
-			}
-			$markdown .= "{$description}\n";
+            $description = str_contains($description, "\n")
+				? "\n\n" . str_replace("\n", "\n  ", $description)
+                : " $description";
+			$markdown .= "$description\n";
 		}
 	}
 
 	$return = $docblock->getTagsByName('return');
-	if (!empty($return)) {
-		foreach ($return as $tag) {
-			$markdown .= "returns `{$tag->__toString()}`\n";
-		}
-	}
+
+    foreach ($return as $tag) {
+        $markdown .= "returns `$tag`\n";
+    }
 
 	$examples = $docblock->getTagsByName('example');
-	if (!empty($examples)) {
+
+	if ($examples !== []) {
 		$markdown .= "##### Examples\n";
 		foreach ($examples as $tag) {
 			$value = trim($tag->__toString());
 
 			// add ```php` if not specified
-			$value = preg_replace('/^```(\w*)/m', '```php', $value, 1);
-			$markdown .= "{$value}\n";
+			$markdown .= preg_replace('/^```(\w*)/m', '```php', $value, 1) . "\n";
 		}
 	}
+
+    $markdown .= "\n----------\n";
 }
 
 file_put_contents($destination_file, $markdown);

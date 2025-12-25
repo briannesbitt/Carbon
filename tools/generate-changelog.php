@@ -2,11 +2,47 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;
-use SebastianFeldmann\Git\Log\Commit;
-use SebastianFeldmann\Git\Repository;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\ProgressIndicator;
 use Symfony\Component\Console\Output\ConsoleOutput;
+
+function format_links(string $content): string
+{
+    return preg_replace('#https://github\.com/(.+)/pull/(\d+)#', '[$1#$2]($0)', $content);
+}
+
+function format_release_notes(string $body): string
+{
+    $summary = null;
+    $commitList = null;
+    $newContributors = null;
+
+    foreach (explode("\n\n", str_replace("\r", '', $body)) as $section) {
+        if (str_starts_with($section, 'Summary:')) {
+            $summary = format_links(trim(substr($section, 8)));
+
+            continue;
+        }
+
+        if (str_starts_with($section, 'Complete commits list:')) {
+            $commitList = trim(substr($section, 22));
+
+            continue;
+        }
+
+        if (str_starts_with($section, '## New Contributors')) {
+            $newContributors = format_links(trim(substr($section, 19)));
+        }
+    }
+
+    if ($summary === null) {
+        return $body;
+    }
+
+    return $summary . "\n"
+        . ($commitList !== null ? "\n[Complete commits list]($commitList)\n" : '')
+        . ($newContributors !== null ? "\nNew contributors:\n$newContributors\n" : '');
+}
 
 function get_data(string $url)
 {
@@ -42,19 +78,21 @@ function get_releases_from_api()
 	$progress_indicator = new ProgressIndicator($output);
 	$progress_indicator->start('Fetching releases from GitHub API...');
 
-	$releases = array();
+	$releases = [];
 	$page = 0;
+
 	do {
 		$page++;
 		$data = get_data("https://api.github.com/repos/briannesbitt/Carbon/releases?page=$page");
 
 		foreach ($data as $release) {
-			$properties = array(
+			$properties = [
 				'tag_name' => $release['tag_name'],
 				'created_at' => $release['created_at'],
-			);
+                'body' => format_release_notes($release['body']),
+            ];
 
-			if (isset($release['assets'], $release['assets'][0], $release['assets'][0]['asset_url'])) {
+			if (isset($release['assets'][0]['asset_url'])) {
 				$properties['asset_url'] = $release['assets'][0]['asset_url'];
 			}
 
@@ -63,25 +101,28 @@ function get_releases_from_api()
 	} while (count($data) > 0);
 
 	$progress_indicator->finish('Fetched releases from GitHub API.');
+
 	return $releases;
+}
+
+function init_releases()
+{
+    $releases = get_releases_from_api();
+    file_put_contents(__DIR__ . '/../releases.json', json_encode($releases, JSON_PRETTY_PRINT));
+
+    return $releases;
 }
 
 function get_releases()
 {
-	if (!file_exists(__DIR__ . '/../releases.json')) {
-		$releases = get_releases_from_api();
-		file_put_contents(__DIR__ . '/../releases.json', json_encode($releases, JSON_PRETTY_PRINT));
-	} else {
-		$releases = json_decode(file_get_contents(__DIR__ . '/../releases.json'), true);
-	}
+	$releases = init_releases();
 
 	// sort releases by version descending
-	usort($releases, function($a, $b) {
-			return version_compare($b['tag_name'], $a['tag_name']);
-		});
+	usort($releases, static fn (array $a, array $b) => version_compare($b['tag_name'], $a['tag_name']));
 
 	// group by major version
-	$grouped_releases = array();
+	$grouped_releases = [];
+
 	foreach ($releases as $release) {
 		$version = preg_replace('/^v/', '', $release['tag_name']);
 		$major_version = explode('.', $version) [0];
@@ -91,35 +132,9 @@ function get_releases()
 	return $grouped_releases;
 }
 
-function get_commites_markdown($commits)
-{
-	$markdown = '';
-
-	// ensure commits subjects are unique
-	$unique_commits = array();
-	foreach ($commits as $commit) {
-		$subject = $commit->getSubject();
-		if (!isset($unique_commits[$subject])) {
-			$unique_commits[$subject] = $commit;
-		}
-	}
-
-	// sort by date
-	usort($unique_commits, function(Commit $a, Commit $b) {
-			return $b->getDate() <=> $a->getDate();
-		});
-
-	foreach ($unique_commits as $commit) {
-		$markdown .= "- {$commit->getSubject()} ({$commit->getAuthor()}) [{$commit->getHash()}]\n";
-	}
-
-	return $markdown;
-}
-
 function write_markdown()
 {
 	$destination_file = __DIR__ . '/../docs/develop/changelog.md';
-	$git_repository = new Repository(__DIR__ . '/../');
 
 	$releases = get_releases();
 	$releases_count = array_sum(array_map('count', $releases));
@@ -142,7 +157,7 @@ function write_markdown()
 			// display a list of releases without commits
 			foreach ($release_group as $release) {
 				$tag = $release['tag_name'];
-				$markdown .= "- {$tag} (" . Carbon::parse($release['created_at'])->format('j F Y') . ")\n";
+				$markdown .= "- $tag (" . Carbon::parse($release['created_at'])->format('j F Y') . ")\n";
 				$progress_bar->advance();
 			}
 			continue;
@@ -156,12 +171,9 @@ function write_markdown()
 				continue;
 			}
 
-			$start = $tag;
 			$end = $previous_tag;
-			$markdown .= "#### {$end} (" . Carbon::parse($release['created_at'])->format('j F Y') . ")\n";
-
-			$commits = $git_repository->getLogOperator()->getCommitsBetween($start, $end);
-			$markdown .= get_commites_markdown($commits);
+            $date = Carbon::parse($release['created_at'])->format('j F Y');
+			$markdown .= "#### $end ($date)\n{$release['body']}\n\n";
 			$progress_bar->advance();
 			$previous_tag = $tag;
 		}

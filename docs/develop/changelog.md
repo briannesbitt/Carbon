@@ -5,339 +5,357 @@
 ## Version 3.x
 
 #### 3.11.0 (6 September 2025)
-- Update sponsors (kylekatarnls) [acfd1caf]
-- feat: allow symfony 8 (Christopher Georg) [e1aa7208]
-- Make getMockedTestNowClone static (kylekatarnls) [89264df6]
-- Concatenation spacing (Kyle) [53c6d301]
-- Bump actions/checkout from 5 to 6 (dependabot[bot]) [924284ae]
-- Cache PHPStan job dependencies (kylekatarnls) [99340b33]
-- feat(lang): comprehensive Yiddish (yi_US) locale update (Benyomin Mandel) [e67d15ca]
-- Test only 12.x branch (as last master commit is also broken on Laravel CI) (kylekatarnls) [672ce921]
-- PHP-CS-Fixer (kylekatarnls) [8ca27a8c]
-- Use a common variable for Bengali ordinal numbers (kylekatarnls) [343f9d72]
-- feat: Enhance Bengali ordinal number formatting in Carbon localization (Hayatunnabi Nabil) [cb783db9]
-- fix(bn.php): Update ordinal number formatting in Bengali language support (Hayatunnabi Nabil) [066d5115]
-- Micro-optimization for standalone months translation (kylekatarnls) [d747a7b9]
-- trans: Add Bengali language support for time units and ordinal numbers (Hayatunnabi Nabil) [e42a9c89]
-- Exclude sponsors.php from distributed package (kylekatarnls) [59b8c5cc]
-- Give more time to ConversionsTest (kylekatarnls) [60356b18]
-- Give more time to testToRegionName (kylekatarnls) [7e598539]
-- Disable __wakeup test for PHP >= 8.5 (kylekatarnls) [4a076696]
-- Support passing Unit enums to sub method (Ryan Hayle) [04dc4db5]
-- Add typehints for ($value, $unit) usage of add, sub, subtract (Ryan Hayle) [179cb33e]
+* Fix grammar mistakes in lt.php localization by @sammyaxe in [briannesbitt/Carbon#3215](https://github.com/briannesbitt/Carbon/pull/3215)
+* Fix resetMessages memory consumption by @kylekatarnls in [CarbonPHP/carbon#58](https://github.com/CarbonPHP/carbon/pull/58)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.10.2...3.10.3)
+
+New contributors:
+* @sammyaxe made their first contribution in https://github.com/briannesbitt/Carbon/pull/3215
+
+
 #### 3.10.3 (2 August 2025)
-- Fix resetMessages memory consumption (kylekatarnls) [4d3a1087]
-- Update sponsors (kylekatarnls) [2686546d]
-- Update issue templates (Kyle) [5e0de638]
-- Update test packages (kylekatarnls) [9b031c7d]
-- Remove setAccessible calls (kylekatarnls) [6a68c9dd]
-- Bump qltysh/qlty-action from 1 to 2 (dependabot[bot]) [fbe3e46e]
-- Bump actions/checkout from 4 to 5 (dependabot[bot]) [d50dcc5e]
-- Update Lithuanian tests (kylekatarnls) [401a14dd]
-- Cleanup whitespace (Kyle) [71700d85]
-- Update lt.php (Sam Axe) [08f4669e]
+* Replace `]1,Inf[` with `[-Inf,Inf]` generic catch-all (fallback) by @kylekatarnls in [CarbonPHP/carbon#54](https://github.com/CarbonPHP/carbon/pull/54)
+* Change `?self` return type to `?static` in Creator Trait by @Disservin in [briannesbitt/Carbon#3213](https://github.com/briannesbitt/Carbon/pull/3213)
+* Fix 0 second diff edge case in translations by @Joeb454 in [briannesbitt/Carbon#3218](https://github.com/briannesbitt/Carbon/pull/3218)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.10.1...3.10.2)
+
+New contributors:
+* @Disservin made their first contribution in https://github.com/briannesbitt/Carbon/pull/3213
+* @Joeb454 made their first contribution in https://github.com/briannesbitt/Carbon/pull/3218
+
+
 #### 3.10.2 (21 June 2025)
-- Replace `]1,Inf[` with `[-Inf,Inf]` generic catch-all (fallback) (kylekatarnls) [8be82a29]
-- Update tests (kylekatarnls) [968c3318]
-- Fix aUnit for some languages (kylekatarnls) [7392b740]
-- Update sponsors (kylekatarnls) [2b074869]
-- Add support for 0 seconds in translations (Joe Barker) [8a5119e5]
-- Fix code style (Kyle) [05e6220c]
-- Change ?self return type to ?static in Creator Trait (disservin) [9b19ed33]
-- Compact sponsor section on the readme (kylekatarnls) [04517662]
+* Fix rounding issue in `CarbonInterval::make()` by @kylekatarnls in [CarbonPHP/carbon#51](https://github.com/CarbonPHP/carbon/pull/51)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.10.0...3.10.1)
+
+
 #### 3.10.1 (12 June 2025)
-- Accept clone of closure as equal (kylekatarnls) [7027c0bf]
-- Fix PHPUnit 12 compatibility (kylekatarnls) [ea28af3c]
-- Fix rounding issue in CarbonInterval::make() (kylekatarnls) [14f3c9df]
-- Add test to reproduce https://github.com/briannesbitt/Carbon/issues/3204 (kylekatarnls) [c643a66e]
+* Allow passing `$options` to `fromSerialized()` by @kylekatarnls in [CarbonPHP/carbon#33](https://github.com/CarbonPHP/carbon/pull/33)
+* Limit the number of recurrences by @kylekatarnls in [CarbonPHP/carbon#34](https://github.com/CarbonPHP/carbon/pull/34)
+* Make CarbonPeriod serialization compatible with v2 by @kylekatarnls in [CarbonPHP/carbon#37](https://github.com/CarbonPHP/carbon/pull/37)
+* fix: add dynamic return type for `tz()` by @nesl247 in [CarbonPHP/carbon#42](https://github.com/CarbonPHP/carbon/pull/42)
+* Simplify period unserialization process by @kylekatarnls in [CarbonPHP/carbon#44](https://github.com/CarbonPHP/carbon/pull/44)
+* Use serialization to set days property on intervals by @kylekatarnls in [CarbonPHP/carbon#43](https://github.com/CarbonPHP/carbon/pull/43)
+* Fix undefined constant self::DEFAULT_LOCALE error by @aavtukhovich in [CarbonPHP/carbon#45](https://github.com/CarbonPHP/carbon/pull/45)
+* Update Divehi months by @kylekatarnls in [CarbonPHP/carbon#46](https://github.com/CarbonPHP/carbon/pull/46)
+* Prioritize timezones matching ->format('T') for getAbbreviatedName() by @kylekatarnls in [CarbonPHP/carbon#47](https://github.com/CarbonPHP/carbon/pull/47)
+* Update month abbreviation for Latin Serbian by @kylekatarnls in [CarbonPHP/carbon#49](https://github.com/CarbonPHP/carbon/pull/49)
+* Fix plural for Urdu, Sindhi and Arab Panjabi by @kylekatarnls in [briannesbitt/Carbon#3201](https://github.com/briannesbitt/Carbon/pull/3201)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.9.1...3.10.0)
+
+New contributors:
+* @nesl247 made their first contribution in https://github.com/CarbonPHP/carbon/pull/42
+* @aavtukhovich made their first contribution in https://github.com/CarbonPHP/carbon/pull/45
+
+
 #### 3.10.0 (1 May 2025)
-- Update month abbreviation for me test files (kylekatarnls) [080429ff]
-- Update month abbreviation for Latin Serbian test files (kylekatarnls) [d6b8298f]
-- Update month abbreviation for Latin Serbian (kylekatarnls) [32b809c5]
-- Prioritize timezones matching ->format('T') for getAbbreviatedName() (kylekatarnls) [8f6b8163]
-- Fix plural for Urdu, Sindhi and Arab Panjabi (kylekatarnls) [22b827a3]
-- Update Divehi months (kylekatarnls) [f78c07ae]
-- Use PHPUnit 12.1 for Laravel 12.x test (kylekatarnls) [96130166]
-- Fix code style (kylekatarnls) [b856742a]
-- Run coverage with PHPUnit 11 (kylekatarnls) [86f82b72]
-- Refactor some test case generators (kylekatarnls) [58f46b17]
-- Run coverage tests with PHP 8.3 (kylekatarnls) [48b6fbdf]
-- Drop PHPStan 1 (kylekatarnls) [97b838b4]
-- Fix PHPStan config (kylekatarnls) [3f393f4c]
-- Update linter error (kylekatarnls) [2a9f76ab]
-- Update PHPStan tests (kylekatarnls) [ed229c31]
-- Update phpstan/phpstan requirement from ^1.12.27 to ^1.12.27 || ^2.0.0 (dependabot[bot]) [8f9fcbf7]
-- Fix undefined constant self::DEFAULT_LOCALE error (Andrey Avtuchovich) [b28b45ee]
-- Update sponsors (kylekatarnls) [53bd2940]
-- Use serialization to set days property on intervals (#43) (Kyle) [411ab822]
-- Skip 1 test for PHP 8.1 (kylekatarnls) [f95a25ff]
-- Ignore coverage of parent::__unserialize (for old versions) (kylekatarnls) [bf8e5c51]
-- Simplify period unserialization process (kylekatarnls) [7a56960a]
-- Add tests for setDateTimeFrom (kylekatarnls) [6a4c61fd]
-- fix: add dynamic return type for `tz()` (Alexander Kim) [1427cdeb]
-- Support serialization (with lower expectation) on PHP 8.1 (kylekatarnls) [50164458]
-- Make CarbonPeriod serialization compatible with v2 (kylekatarnls) [e7519610]
-- Create documentation updates PRs on a single remote (kylekatarnls) [3aadb2a7]
-- Make PHP 8.5 CarbonPeriod::__debugInfo consistent with previous versions (kylekatarnls) [049fa7ba]
-- Fix ToArrayTest for PHP 8.5 (kylekatarnls) [917811fd]
-- Limit the number of recurrences (kylekatarnls) [814cf2dc]
-- Allow passing `$options` to `fromSerialized()` (#33) (Kyle) [00f7152f]
+* Localization: added milliseconds and microseconds to Russian locale by @daniser in [briannesbitt/Carbon#3169](https://github.com/briannesbitt/Carbon/pull/3169)
+* Fix overflow issue for is-month by @kylekatarnls in [briannesbitt/Carbon#3170](https://github.com/briannesbitt/Carbon/pull/3170)
+* Fix ->is('02-29') by @kylekatarnls in [briannesbitt/Carbon#3171](https://github.com/briannesbitt/Carbon/pull/3171)
+* Fix Incorrect Type Inference when Declaring Macros by @liamduckett in [briannesbitt/Carbon#3174](https://github.com/briannesbitt/Carbon/pull/3174)
+* feat: Apply Laravel fallback locale by @daniser in [briannesbitt/Carbon#3168](https://github.com/briannesbitt/Carbon/pull/3168)
+* Add missing @param-closure-this by @kylekatarnls in [briannesbitt/Carbon#3175](https://github.com/briannesbitt/Carbon/pull/3175)
+* Add missing type for method parameter by @riesjart in [briannesbitt/Carbon#3176](https://github.com/briannesbitt/Carbon/pull/3176)
+* Update sponsors by @github-actions in [briannesbitt/Carbon#3177](https://github.com/briannesbitt/Carbon/pull/3177)
+* [Danish] 2-letter day abbreviations + 3-letter abbreviation of ‘May’ by @kokoshneta in [briannesbitt/Carbon#3183](https://github.com/briannesbitt/Carbon/pull/3183)
+* Update sponsors by @github-actions in [briannesbitt/Carbon#3186](https://github.com/briannesbitt/Carbon/pull/3186)
+* Reduce segfault risk in PHP 8.3.20 by @kylekatarnls in [briannesbitt/Carbon#3187](https://github.com/briannesbitt/Carbon/pull/3187)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.9.0...3.9.1)
+
+New contributors:
+* @daniser made their first contribution in https://github.com/briannesbitt/Carbon/pull/3169
+* @liamduckett made their first contribution in https://github.com/briannesbitt/Carbon/pull/3174
+* @riesjart made their first contribution in https://github.com/briannesbitt/Carbon/pull/3176
+
+
 #### 3.9.1 (27 March 2025)
-- Fix code style (kylekatarnls) [e709e744]
-- Make createFromFormat compatible with PHP 8.3.20 (kylekatarnls) [751d8db7]
-- Fix cascade() (kylekatarnls) [6798e419]
-- Add test covering #3178 (kylekatarnls) [72e34352]
-- Reduce segfault risk in PHP 8.3.20 (kylekatarnls) [ad8c4379]
-- Skip negative-value test for PHP 8.3.20 (kylekatarnls) [113df014]
-- Skip PHP 8.3.20 (broken), use 8.3.19 until 8.3.21 (fixed) is out (kylekatarnls) [520d70a1]
-- Update sponsors (kylekatarnls) [80de8f2f]
-- Fix 2-letter day abbr. + 3-letter abbr. of ‘May’ (kokoshneta) [41c4bfdd]
-- Add missing type for method parameter (Richard van Baarsen) [3a4803c5]
-- Temporarily prevents PHPUnit 12.1 (kylekatarnls) [8d895a77]
-- Add missing @param-closure-this (kylekatarnls) [3adf465c]
-- Ignore uncovered catch-all (Kyle) [b743c413]
-- stop ignoring Call to an undefined method Tests\Carbon(Immutable)?\MacroTest::diffInYears() (Liam Duckett) [280211b0]
-- add param-closure-this to CarbonInterval macro method (Liam Duckett) [44583f34]
-- phpstan ignore Variable  in isset() always exists and is not nullable in Mixin trait (Liam Duckett) [09f45437]
-- #3173 Fix Incorrect Type Inference when Declaring Macros (Liam Duckett) [e1cd654a]
-- Add more tests for fallbackLocale (kylekatarnls) [5204e786]
-- Fix ->is('02-29') (kylekatarnls) [c435ca03]
-- Update test (Sergey Danilchenko) [a6e0f4e0]
-- Fix overflow issue for is-month (kylekatarnls) [1887f86e]
-- localization: added milliseconds and microseconds to Russian locale (Sergey Danilchenko) [6a23a75d]
-- feat: Apply Laravel fallback locale (Sergey Danilchenko) [da88914c]
+* Add `isNowOrFuture()` and `isNowOrPast()` methods by @AndrewMast in [CarbonPHP/carbon#27](https://github.com/CarbonPHP/carbon/pull/27)
+* Add ReturnTypeWillChange to createFromTimestamp by @cdburgess in [CarbonPHP/carbon#22](https://github.com/CarbonPHP/carbon/pull/22)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.8.6...3.9.0)
+
+New contributors:
+* @cdburgess made their first contribution in https://github.com/CarbonPHP/carbon/pull/22
+* @AndrewMast made their first contribution in https://github.com/CarbonPHP/carbon/pull/27
+
+
 #### 3.9.0 (20 February 2025)
-- feat: add `isNowOrFuture()` and `isNowOrPast()` methods (Andrew Mast) [924e42e5]
-- Update sponsors (kylekatarnls) [eeba459f]
-- Update readme.md (kylekatarnls) [19f0255b]
-- Update Timestamp.php (Chuck Burgess) [338c7b06]
+* Fix Turkmen week day name order by @kylekatarnls in [briannesbitt/Carbon#3152](https://github.com/briannesbitt/Carbon/pull/3152)
+* Test Laravel ongoing v13 by @kylekatarnls in [briannesbitt/Carbon#3155](https://github.com/briannesbitt/Carbon/pull/3155)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.5...3.8.6)
+
+
 #### 3.8.6 (11 February 2025)
-- Test Laravel ongoing v13 (kylekatarnls) [c60bfa84]
-- Update custom sponsors data (kylekatarnls) [f5f85e9a]
-- Make all data from sponsors overridable on demand (kylekatarnls) [d3796661]
-- Fix a link (Aleksei Gagarin) [82d243e0]
-- Update links in readme (Aleksei Gagarin) [4beb5871]
-- Fix Turkmen week day name order (kylekatarnls) [489cfd8f]
-- Update sponsors (kylekatarnls) [c6a356ad]
-- Add mention required by OpenCollective to clarify the purpose of their platform (kylekatarnls) [d6b2e54c]
+* Fix CarbonInterval PHPDoc by @kylekatarnls in [briannesbitt/Carbon#3130](https://github.com/briannesbitt/Carbon/pull/3130)
+* Fix time unit abbreviations and format mismatches for Azerbaijani translation by @novruzrhmv in [briannesbitt/Carbon#3144](https://github.com/briannesbitt/Carbon/pull/3144)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.4...3.8.5)
+
+New contributors:
+* @novruzrhmv made their first contribution in https://github.com/briannesbitt/Carbon/pull/3144
+
+
 #### 3.8.5 (27 December 2024)
-- fix tests (Novruz Rahimov) [2ac02b5a]
-- fix: update hour abbreviation translation (Novruz Rahimov) [d4ad3cdc]
-- fix: correct time unit abbreviations and format mismatches for Azerbaijani translation (Novruz Rahimov) [964001c7]
-- Update sponsors (kylekatarnls) [6b1ed0a6]
-- Mock time for test without year (kylekatarnls) [cf851eb4]
-- Fix CarbonInterval PHPDoc (kylekatarnls) [58097479]
-- Migrate to organization repo (kylekatarnls) [17203a94]
+- Validate locale earlier
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.3...3.8.4)
+
+
 #### 3.8.4 (21 December 2024)
-- Validate locale earlier (kylekatarnls) [129700ed]
+* Fix month abbreviations for fr_BE/fr_LU by @c-Rolland in [briannesbitt/Carbon#3110](https://github.com/briannesbitt/Carbon/pull/3110)
+* Update Occitan locale: small correction by @Mejans in [briannesbitt/Carbon#3115](https://github.com/briannesbitt/Carbon/pull/3115)
+* Fix month names by @koprivan in [briannesbitt/Carbon#3122](https://github.com/briannesbitt/Carbon/pull/3122)
+* Add Psalm config by @kylekatarnls in [briannesbitt/Carbon#3125](https://github.com/briannesbitt/Carbon/pull/3125)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.2...3.8.3)
+
+New contributors:
+* @c-Rolland made their first contribution in https://github.com/briannesbitt/Carbon/pull/3110
+* @Mejans made their first contribution in https://github.com/briannesbitt/Carbon/pull/3115
+* @koprivan made their first contribution in https://github.com/briannesbitt/Carbon/pull/3122
+
+
 #### 3.8.3 (7 November 2024)
-- Add Psalm config (kylekatarnls) [b81878c8]
-- add months_standalone and regexp to sk.php (Kopřivová Nikola) [ef303740]
-- add missing regexp to cs.php (Kopřivová Nikola) [593d8f99]
-- Update sponsors (kylekatarnls) [66b1be93]
-- Update oc.php (Mejans) [56897199]
-- Fix month abbreviations for fr_BE/fr_LU (Rolland Csatari) [dcc568c1]
-- Bump codecov/codecov-action from 4 to 5 (dependabot[bot]) [173baee9]
-- Update UTM link whitelist (kylekatarnls) [2a215f48]
-- Fix code style (kylekatarnls) [635d3df4]
+* Fix immutable return for `setUnitNoOverflow` by @kylekatarnls in [briannesbitt/Carbon#3103](https://github.com/briannesbitt/Carbon/pull/3103)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.1...3.8.2)
+
+
 #### 3.8.2 (3 November 2024)
-- Fix immutable return for setUnitNoOverflow (kylekatarnls) [9d1cc387]
-- Update sponsors (kylekatarnls) [8d7a00d0]
+* Consider absolute flag when comparing intervals by @kylekatarnls in [briannesbitt/Carbon#3073](https://github.com/briannesbitt/Carbon/pull/3073)
+* Optimize `setUnitNoOverflow()` by @takaram in [briannesbitt/Carbon#3071](https://github.com/briannesbitt/Carbon/pull/3071)
+* Fix timezone issue when add/sub with overflow by @kylekatarnls in [briannesbitt/Carbon#3074](https://github.com/briannesbitt/Carbon/pull/3074)
+* Automate documentation update by @kylekatarnls in [briannesbitt/Carbon#3079](https://github.com/briannesbitt/Carbon/pull/3079)
+* Parse microseconds as integer when making from specs by @kylekatarnls in [briannesbitt/Carbon#3098](https://github.com/briannesbitt/Carbon/pull/3098)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.0...3.8.1)
+
+
 #### 3.8.1 (19 August 2024)
-- Parse microseconds as integer when making from specs (kylekatarnls) [a8fefff4]
-- Add unit test for CarbonInterval::make() with float second (kylekatarnls) [a6d8bf2a]
-- Test total using UTC (kylekatarnls) [cb0fd285]
-- Update sponsors (kylekatarnls) [792449d2]
-- Bound carbon-doctrine-types version (kylekatarnls) [5040f291]
-- Fix Sponsors GitHub Action (kylekatarnls) [170731ca]
-- Add GitHub Action to update the documentation (kylekatarnls) [ec5eddf5]
-- Trigger sponsor job a first time (kylekatarnls) [ec62debf]
-- Create a job to update sponsors every month (kylekatarnls) [c51339e4]
-- Fix micro-second approximation test (kylekatarnls) [523d0636]
-- Allow 1-hour shift if offset changed during the day (kylekatarnls) [37a7dd44]
-- Skip mutation if immutable in setUnitNoOverflow (kylekatarnls) [599606d2]
-- Copy timezome offset with date and time (kylekatarnls) [29bbe89d]
-- Consider absolute flag when comparing intervals (kylekatarnls) [669ee8d7]
-- Optimize `setUnitNoOverflow()` (Takuya Aramaki) [335aa70c]
-- Allow 1 microsecond imprecision for testFromSerialization (kylekatarnls) [4c21a970]
-- Improve error message for $time format (kylekatarnls) [4a4b502d]
-- Fix typo in deprecation method (kylekatarnls) [9fe157cc]
+* Accept Unit enum in `startOf` and `endOf` by @kylekatarnls in [briannesbitt/Carbon#3052](https://github.com/briannesbitt/Carbon/pull/3052)
+* Add test for German period translation by @kylekatarnls in [briannesbitt/Carbon#3054](https://github.com/briannesbitt/Carbon/pull/3054)
+* Add tests for `CarbonInterval` and `CarbonPeriod` by @kylekatarnls in [briannesbitt/Carbon#3055](https://github.com/briannesbitt/Carbon/pull/3055)
+* Add generic methods `isStartOfUnit` and `isEndOfUnit` by @kylekatarnls in [briannesbitt/Carbon#3053](https://github.com/briannesbitt/Carbon/pull/3053)
+* Implement `isStartOf*` and `isEndOf*` for all units by @kylekatarnls in [briannesbitt/Carbon#3056](https://github.com/briannesbitt/Carbon/pull/3056)
+* Update Spanish translations by @DannyJJK in [briannesbitt/Carbon#3060](https://github.com/briannesbitt/Carbon/pull/3060)
+* Optimize `getIntervalDayDiff` by @kylekatarnls in [briannesbitt/Carbon#3061](https://github.com/briannesbitt/Carbon/pull/3061)
+* Optimize `diffInDays` by @kylekatarnls in [briannesbitt/Carbon#3062](https://github.com/briannesbitt/Carbon/pull/3062)
+* Use arrow functions to `getIsoUnits` by @kylekatarnls in [briannesbitt/Carbon#3064](https://github.com/briannesbitt/Carbon/pull/3064)
+* Simplify PHPStan extension by @ondrejmirtes in [briannesbitt/Carbon#3065](https://github.com/briannesbitt/Carbon/pull/3065)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.7.0...3.8.0)
+
+New contributors:
+* @DannyJJK made their first contribution in https://github.com/briannesbitt/Carbon/pull/3060
+
+
 #### 3.8.0 (16 July 2024)
-- Update sponsors (kylekatarnls) [bbd3eef8]
-- Code coverage (Ondrej Mirtes) [2194ae6c]
-- PHPMD (Ondrej Mirtes) [15695535]
-- Bring over deleted MacroTest cases (Ondrej Mirtes) [361bc3c1]
-- Update src/Carbon/PHPStan/MacroExtension.php (Ondřej Mirtes) [abcd758c]
-- Update src/Carbon/PHPStan/MacroMethodReflection.php (Ondřej Mirtes) [fb5c51ba]
-- Simplify PHPStan extension (Ondrej Mirtes) [30cc8f22]
-- Use arrow functions to getIsoUnits (kylekatarnls) [83c1d49a]
-- Optimize diffInDays (kylekatarnls) [0e42f933]
-- Optimize getIntervalDayDiff (kylekatarnls) [42455710]
-- Use FQCN for sprintf (kylekatarnls) [139130a9]
-- Update es.php (Danny Kirkham) [414ee3e0]
-- Fix PHPStan exception (kylekatarnls) [8559755f]
-- Update documentation (kylekatarnls) [213f08e5]
-- Add startOfMillisecond and endOfMillisecond (kylekatarnls) [fc61820c]
-- Add tests for isStartOf/isEndOf for units from month to millennium (kylekatarnls) [bc41878f]
-- Fix documentation for isEndOf methods (kylekatarnls) [d47a0783]
-- Fix typo in issue template (kylekatarnls) [3c4d70fc]
-- Implement isStartOf/isEndOf for every unit (KyleKatarn) [f4c06df2]
-- Implement isStartOfWeek and isEndOfWeek (faissaloux) [6200a5fc]
-- Fix doc (faissaloux) [2f1eb49a]
-- Update PHPDoc (KyleKatarn) [0e5cfe3d]
-- Add unit tests for start/end of unit method (KyleKatarn) [6b8e0a45]
-- Add tests for isStartOfDay and isEndOfDay (KyleKatarn) [f14f4a5a]
-- Add generic methods isStartOfUnit and isEndOfUnit (KyleKatarn) [484f8f71]
-- Add tests for CarbonPeriod getters (KyleKatarn) [397d7323]
-- Update PHPStan exceptions (KyleKatarn) [900147d0]
-- Add test for CarbonInterval timezone getter (KyleKatarn) [726f64bd]
-- Add test for German period translation (KyleKatarn) [6f043599]
-- Add tests for Unit enum in startOf and endOf (KyleKatarn) [f4c4978b]
-- Accept Unit enum in startOf and endOf (KyleKatarn) [b36d2563]
+* Use static instead of `CarbonInterface` return type in doclocks by @philbates35 in [briannesbitt/Carbon#3047](https://github.com/briannesbitt/Carbon/pull/3047)
+* Added period German translations by @marcheffels in [briannesbitt/Carbon#3045](https://github.com/briannesbitt/Carbon/pull/3045)
+* Use pro rata to calculate decimal part of month/year diffs by @kylekatarnls in [briannesbitt/Carbon#3051](https://github.com/briannesbitt/Carbon/pull/3051)
+* Add more `between()` / `isBetween()` tests by @faissaloux in [briannesbitt/Carbon#3043](https://github.com/briannesbitt/Carbon/pull/3043)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.6.0...3.7.0)
+
+New contributors:
+* @faissaloux made their first contribution in https://github.com/briannesbitt/Carbon/pull/3043
+* @philbates35 made their first contribution in https://github.com/briannesbitt/Carbon/pull/3047
+* @marcheffels made their first contribution in https://github.com/briannesbitt/Carbon/pull/3045
+
+
 #### 3.7.0 (20 June 2024)
-- Update PHPDoc (kylekatarnls) [cb437478]
-- Ignore missing $days property when comparing intervals in PHP 8.1 (kylekatarnls) [f0780ff6]
-- Ignore missing $days property when comparing copies (kylekatarnls) [e3b9eac1]
-- Keep interval days property in sync (kylekatarnls) [b38436e7]
-- Modify days only if available on interval (KyleKatarn) [a2dc4d30]
-- Add tests for some uncovered cases (KyleKatarn) [b4f1eb10]
-- Add tests specifically for #2604 and #3050 (KyleKatarn) [37b3bd5f]
-- Adjust tests to algorithm update (KyleKatarn) [4d3f401d]
-- Use pro rata to calculate decimal part of month/year diffs (KyleKatarn) [0e2a6073]
-- Remove warning about v3 documentation in progress (kylekatarnls) [cc2ff0d3]
-- Fix code style (kylekatarnls) [184ccd71]
-- Update sponsors (kylekatarnls) [a8afcf2c]
-- Use static instead of CarbonInterface return type in doclocks (Phil Bates) [6e1cfa7c]
-- Added period DE translations (Marc Heffels) [348f0c6b]
-- gitignore cache files (faissaloux) [239d8bb9]
-- add more between()/isBetween() tests (faissaloux) [85aaca6f]
+* Add support for `Month` and `WeekDay` enums in `is()` method @kylekatarnls #3036
+* Build period with given timezone @kylekatarnls #3041
+* Unserialize carbon interval created by v2 @kylekatarnls #3042
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.5.0...3.6.0)
+
+
 #### 3.6.0 (3 June 2024)
-- Unserialize carbon interval created by v2 (kylekatarnls) [44a47cd1]
-- Build period with given timezone (kylekatarnls) [a1d68bcb]
-- Add support for Month and WeekDay enums in is() method (kylekatarnls) [2ae23c9e]
+* Fix New Zealand daylight saving time format to pass hasFormat v3 @Luoti #3031
+* Split CarbonPeriod construction into multiple steps @kylekatarnls #3024
+* Make CarbonPeriod compatible with PHP 8.4 @kylekatarnls #3023
+* Fix diffInDays DST bug @kylekatarnls #3026
+* Fix issue with is month check @kylekatarnls #3033
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.4.0...3.5.0)
+
+New contributors:
+* @Luoti made their first contribution in #3031
+
+
 #### 3.5.0 (24 May 2024)
-- Fix code style (kylekatarnls) [415782b7]
-- Sort sponsors by tier (kylekatarnls) [b9cc24aa]
-- Fix issue with is month check (kylekatarnls) [280ad6d4]
-- Update sponsors (KyleKatarn) [e956efa3]
-- Fix New Zealand daylight saving time format to pass hasFormat. (Jani Luoti) [058ba856]
-- Update ISSUE_TEMPLATE.md (Kyle) [091c4879]
-- Fix diffInDays DST bug (KyleKatarn) [d3c5f132]
-- Update dev dependencies (KyleKatarn) [e531be1b]
-- Update symfony/translation to versions compatible for PHP 8.4 tests (KyleKatarn) [10259e7d]
-- Work around PHP 8.4 breaking change to be investigated (KyleKatarn) [9a66d668]
-- Construct DatePeriod using split parameters (KyleKatarn) [ce223917]
-- Skip DatePeriod ISO-string construction for PHP >= 8.2 (KyleKatarn) [2dd79b89]
-- Skip PHPStand tests for PHP 8.4 tests (KyleKatarn) [a2eb1d21]
-- Skip AbstractCarbon for PHP 8.4 tests (KyleKatarn) [3acf29d0]
-- Test PHP 8.4 on GitHub Actions (Kyle) [ae30427b]
-- Remove dead code (KyleKatarn) [5f04ee08]
-- Split CarbonPeriod construction into multiple steps (KyleKatarn) [c8526745]
+* Unserialize `CarbonInterval` from v2 @kylekatarnls #3016
+* Remove overridden `EXCLUDE_START_DATE` constant @iluuu1994 #3022
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.3.1...3.4.0)
+
+New contributors:
+* @iluuu1994 made their first contribution in #3022
+
+
 #### 3.4.0 (1 May 2024)
-- Remove overridden EXCLUDE_START_DATE constant (Ilija Tovilo) [dae1e9ce]
-- Update sponsors (kylekatarnls) [e6f622cf]
-- Remove resolveUTC() (kylekatarnls) [7138e711]
-- Unserialize CarbonInterval from v2 for PHP 8.1 (kylekatarnls) [d8e0ba47]
-- Unserialize CarbonInterval from v2 (kylekatarnls) [6332ec48]
+* Fix days for `diffForHumans` for slovak @edvordo #3007
+* Support `%a` format #3013
+* Fix translator and interval serialization #3005
+* Fallback to default timezone for mocked now #3014
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.3.0...3.3.1)
+
+New contributors:
+* @edvordo made their first contribution in #3007
+
+
 #### 3.3.1 (18 April 2024)
-- Fallback to default timezone for mocked now (kylekatarnls) [e89692af]
-- Test translation after serialization (kylekatarnls) [aa68a82c]
-- Fix translator and interval serialization (kylekatarnls) [40a728d2]
-- Support %a format (kylekatarnls) [35f5a11f]
-- fix days for diffForHumans for slovak (edvordo) [c0c53634]
+* Create a dedicated method for each step of the magic `__call` process #2992
+* Update Bosnian translations #2994
+* Handle `null` in `canBeCreatedFromFormat` #2997
+* Allow carbon instance to be rounded by a `CarbonInterval`, which is not in default language @kohlerdominik #2999
+* Update Slovak translations @pkundis #2995
+* Add `locale` and `translator` options to `forHumans` and `diffForHumans` #3001
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.2.4...3.3.0)
+
+New contributors:
+* @kohlerdominik made their first contribution in #2999
+* @pkundis made their first contribution in #2995
+
+
 #### 3.3.0 (5 April 2024)
-- Reduce the number of follow links on the README (kylekatarnls) [93a0bacf]
-- Add locale and translator options to forHumans and diffForHumans (kylekatarnls) [c6ac6dfe]
-- Fix day declension in Slovak (kylekatarnls) [d4c315eb]
-- Update Slovak translations Fix #2993 (kylekatarnls) [28cb7011]
-- Update readme links (kylekatarnls) [c5f7a095]
-- Add coverage for SkipCopy parameter (Dominik Kohler) [7c529664]
-- Fix: allow Carbon instance to be rounded by Carbon Interval in non-default language (Dominik Kohler) [ee2680ba]
-- Added failing test: round Carbon instance by carbon interval (Dominik Kohler) [edc1d8cb]
-- Handle null in canBeCreatedFromFormat (kylekatarnls) [aa0a5acf]
-- Update Bosnian translations Fix #2990 (kylekatarnls) [011456e9]
-- Create a dedicated method for each step of the magic __call process (#2992) (Kyle) [f507bd72]
+* Re-allow macro with names starting with diff #2991
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.2.3...3.2.4)
+
+
 #### 3.2.4 (30 March 2024)
-- Pass GITHUB_TOKEN to laravel action (kylekatarnls) [dcecf751]
-- Re-allow macro with names starting with diff (kylekatarnls) [859daa42]
-- Update documentation showing v3 behavior of diff methods (kylekatarnls) [02a95025]
+* Update Docs for `diffIn` methods that return float @Nathanjms #2988
+* Fix deprecation notice for diffInReal* (prefer diffInUTC*, or for any unit smaller than day, simply diffIn*)
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.2.2...3.2.3)
+
+
 #### 3.2.3 (28 March 2024)
-- Fix documentation (kylekatarnls) [4d599a6e]
-- Fix deprecation notice (kylekatarnls) [57ac23a1]
-- Update Docs for diffIn methods that return float (Nathan James) [20719e36]
+* Fallback to default parameters if period construction fails #2987
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.2.1...3.2.2)
+
+
 #### 3.2.2 (27 March 2024)
-- Fallback to default parameters if period construction fails (kylekatarnls) [6aacfe09]
+* Make start and end period properties correct at creation #2984
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.2.0...3.2.1)
+
+
 #### 3.2.1 (27 March 2024)
-- Make start and end period properties correct at CarbonPeriod creation (kylekatarnls) [aa0ed85e]
-- Make start and end period properties correct when created from Carbon object (kylekatarnls) [3eaeec4c]
+* Fix PHP 8.4 implicit nullability deprecation @Ayesh #2969
+* Use current timezone if identical to compared value for diff #2972
+* Correction of Months' Names In CKB language #2973
+* Stop using start/end on interval if they are changed after creation #2981
+* Deprecate Real diff in favor of UTC diff #2975
+* Allow integer in createFromFormat() #2983
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.1.1...3.2.0)
+
+New contributors:
+* @kawan97 made their first contribution in #2973
+
+
 #### 3.2.0 (13 March 2024)
-- Allow integer in createFromFormat() (kylekatarnls) [9f64d559]
-- Implement UTC variants for add/sub methods (kylekatarnls) [41b550c6]
-- Downgrade nikic/php-parser in CI (kylekatarnls) [d504c085]
-- Update dependencies (kylekatarnls) [d735797a]
-- Add utc parameters only for methods needing it (units bigger than hour) (kylekatarnls) [78155574]
-- Deprecate Real diff in favor of UTC diff (kylekatarnls) [d58d2210]
-- Stop using start/end on interval if they are changed after creation (kylekatarnls) [2bd2d626]
-- Add Carbon 3 mention in the readme (kylekatarnls) [1d762cbd]
-- Use bash to get cache-files-dir in all platform (kylekatarnls) [b38a9c6d]
-- Update GitHub workflow (kylekatarnls) [f061d53f]
-- Fix code style (kylekatarnls) [92d5e823]
-- Update ckb.php (kawan pshtiwan) [54f48989]
-- Update src/Carbon/Lang/ckb.php (kawan pshtiwan) [1e93381e]
-- change months name (kawan97) [bb6a9523]
-- Test both Laravel 11 and 12 (kylekatarnls) [6f731be0]
-- Standardize float diff comparison in tests (kylekatarnls) [027ba8d6]
-- Use current timezone if identical to compared value for diff (kylekatarnls) [a22a2b0f]
-- [PHP 8.4] Fixes for implicit nullability deprecation (Ayesh Karunaratne) [126fa20c]
-- Fix PHP doc (kylekatarnls) [db81c4ae]
-- Update sponsors (kylekatarnls) [3b386dd5]
-- Update PHPDoc (kylekatarnls) [e7c9d379]
+* Fixed Persian translation for before and after #2963
+* Cleaned up region list and add warranty notice on methods relying on it #2964
+* Fixed incomplete type for create method PHPDoc #2962
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.1.0...3.1.1)
+
+New contributors:
+* @shane-zeng made their first contribution in #2962
+
+
 #### 3.1.1 (6 March 2024)
-- Cleanup and warranty notice (kylekatarnls) [7684141f]
-- Revert "Fix Persian translation for before and after" (Kyle) [61ef0365]
-- Code style alignment (Kyle) [df4a628a]
-- fix incomplete type for create method PHPDoc (Shane) [a4305ee4]
+* Fixed Persian translation for before and after #2941
+* Allowed to pass Unit enum for unit name #2944
+* Updated PHPDoc #2946
+* Removed suffix to Taiwan name  #2957
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.2...3.1.0)
+
+New contributors:
+* @azim-kordpour made their first contribution in #2941
+
+
 #### 3.1.0 (6 February 2024)
-- Remove unnecessary suffix to Taiwan name (Kyle) [defdd537]
-- Update sponsors (kylekatarnls) [2cb4131b]
-- Simplify FactoryImmutable::getInstance (kylekatarnls) [d7972ac5]
-- Update PHPDoc (kylekatarnls) [eaee5adc]
-- Allow to pass Unit enum for unit name (KyleKatarn) [f1b5a39e]
-- Fix related tests (MojtabaKordpour) [5167f499]
-- Make a better translation in fa.php (MojtabaKordpour) [f33e7b48]
+* Fixed PHP 8.1 issue "Enum case value must be compile-time evaluatable": Use static values for enums until dropping PHP 8.1 #2938
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.1...3.0.2)
+
+
 #### 3.0.2 (5 February 2024)
-- Use static values for enums until dropping PHP 8.1 (kylekatarnls) [e5a98c2f]
-- Fix code style (KyleKatarn) [4d65ef2b]
-- Update PHP level of the build script (KyleKatarn) [ac1112e2]
+* Allowed to remove macro by passing `null` value #2935 #2936 #2937
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.0...3.0.1)
+
+
 #### 3.0.1 (31 January 2024)
-- Allow only callable or null for macro value (KyleKatarn) [8a67f563]
-- Record mixin object methods only if they return callable (KyleKatarn) [be9d749c]
-- Allow to remove macro by passing null value (KyleKatarn) [9316398d]
-- Mute expected PHPStan issue in tests (KyleKatarn) [57fbbf88]
-- Update actions version (KyleKatarn) [f0bc0d18]
-- Update dev branches (create 2.x) (KyleKatarn) [f15f98e6]
-- Update sponsors (KyleKatarn) [60d6d033]
+- Dropped PHP < 8.1 #2810 #2385 #2346
+- Dropped Symfony < 4.4 #2070
+- Added enums for week days, months and units #2701
+- Added generic `unitOfUnit` and `unitsInUnit` getters #2885
+- ⚠ Changed `diffIn*` methods to return `float` and relative diff (`$absolute = false` by default) #2119
+  - diffIn* will use the floatDiffInReal* behavior, all other variants will be removed
+- Changed `CarbonPeriod` to extend `DatePeriod` #1752
+- Changed `create*` method to return `null` instead of `false` #2340
+- Changed `forHumans()` to show `0 seconds` y default for empty intervals #2035
+- Changed `CarbonInterval` to be empty by default #2079
+- Changed week methods to work with current global locale #1967
+- Allowed to add and subtract decimal numbers of any unit #2347 #2519
+- Changed factories to have isolated settings, locale, testNow, macros and default timezone #2345
+- Changed `$tz` with `$timezone` for named argument #2925
+- Changed `parse()` return type to non-nullable `static` #2931 — @jnoordsij
+- Fixed short year Ukrainian plural #2923 
+- Fixed `resolve*` method return type so to allow sub-classes to take other sub-classes as parameters
+- Fixed fallback from setter to macro #2922
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/2.72.2...3.0.0)
+
+
 #### 3.0.0 (31 January 2024)
+
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.0-rc.1...3.0.0-rc.3)
+
+
 #### 3.0.0-rc.3 (26 January 2024)
-- Ignore static analysis error regarding Carbon month setter (Jesper Noordsij) [6754af9d]
-- Remove null from parse and rawParse return types (Jesper Noordsij) [96e82042]
-- Use PHPUnit Require* attributes (kylekatarnls) [f7a63db9]
-- Use PHPUnit Group attributes (kylekatarnls) [6e3635df]
-- Use PHPUnit attributes (kylekatarnls) [e5cb8864]
-- Merge Windows and Ubuntu tests into a single matrix (kylekatarnls) [bcbb5b60]
+
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.0-beta.3...3.0.0-rc.1)
+
+
 #### 3.0.0-rc.1 (24 January 2024)
-- Enable Laravel 11 check (kylekatarnls) [4f7b5c5c]
-- Replace some annotations with attributes (kylekatarnls) [526c3a2e]
-- Update sponsors (kylekatarnls) [0c6fd108]
-- Update tests for рр (kylekatarnls) [4be89962]
-- Add test for named argument (kylekatarnls) [86cd4091]
-- Replace $tz with $timezone (kylekatarnls) [aa671e1f]
-- Fix short year Ukrainian plural (kylekatarnls) [6b5e80a8]
+- Fixed fallback from setter to macro #2922
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.0-beta.2...3.0.0-beta.3)
+
+
 #### 3.0.0-beta.3 (23 January 2024)
-- Restore test assertion (kylekatarnls) [4f83b0d7]
-- Fix fallback from setter to macro (kylekatarnls) [4fab0bcf]
+- Fixed `resolve*` method return type so to allow sub-classes to take other sub-classes as parameters
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.0.0-beta.1...3.0.0-beta.2)
+
+
 #### 3.0.0-beta.2 (22 January 2024)
-- Allow to compare different sub-classes of Carbon (kylekatarnls) [e61a85b2]
+- Dropped PHP < 8.1 #2810 #2385 #2346
+- Dropped Symfony < 4.4 #2070
+- Added enums for week days, months and units #2701
+
+[Complete commits list](https://github.com/briannesbitt/Carbon/compare/2.72.2...3.0.0-beta.1)
+
+
 
 ## Version 2.x
 

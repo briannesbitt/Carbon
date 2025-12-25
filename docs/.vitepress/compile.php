@@ -107,7 +107,7 @@ $is_blade = in_array('blade', $argv);
 
 $code = file_get_contents(__DIR__ . '/temp.php');
 
-$uses = array(
+$uses = [
 	'Carbon\Carbon',
 	'Carbon\CarbonImmutable',
 	'Carbon\CarbonInterval',
@@ -118,7 +118,7 @@ $uses = array(
 	'Carbon\Language',
 	'Carbon\Factory',
 	'Carbon\CarbonTimeZone',
-);
+];
 
 if ($is_inline) {
 	// execute and return output directly
@@ -130,7 +130,7 @@ if ($is_inline) {
 
 		echo ob_get_clean();
 	} catch (Throwable $error) {
-		echo "\n\nError during eval: " . $error->getMessage() . "\n";
+		echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$code";
 	}
 
 	return;
@@ -141,10 +141,10 @@ if ($is_blade) {
 	$uses_for_blade = array_map(static fn (string $use) => "@use($use)", $uses);
 
 	$uses_string = implode(' ', $uses_for_blade);
-	$string = "{$uses_string} $code";
+	$string = "$uses_string $code";
 
 	try {
-		$output = $blade->runString($string, array());
+		$output = $blade->runString($string);
 	} catch (Throwable $error) {
 		echo "\n\nError during Blade rendering: " . $error->getMessage() . "\n";
 
@@ -156,7 +156,7 @@ if ($is_blade) {
 	return;
 }
 
-$code = "<?php {$code}";
+$code = "<?php $code";
 
 $parser_factory = new ParserFactory();
 $parser = $parser_factory->createForNewestSupportedVersion();
@@ -224,6 +224,7 @@ $output = $code;
 $last_offset = 0;
 
 $uses_for_block = array_map(static fn (string $use) => "use $use;", $uses);
+$value = ''; // Some examples that we eval() uses $value
 
 foreach ($statements as $stmt) {
 	ob_start();
@@ -257,7 +258,7 @@ foreach ($statements as $stmt) {
 			$last_offset += strlen($comment);
 		}
 	} catch (Throwable $error) {
-		echo "\n\nError during eval: " . $error->getMessage() . "\n";
+		echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$statement";
 	}
 }
 
