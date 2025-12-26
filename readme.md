@@ -120,7 +120,7 @@ This project exists thanks to all the people who contribute.
 
 ### Translators
 
-[Thanks to people helping us to translate Carbon in so many languages](https://carbon.nesbot.com/contribute/translators/)
+[Thanks to people helping us to translate Carbon in so many languages](https://carbonphp.github.io/carbon/develop/translations/translators.html)
 
 ### Sponsors
 
