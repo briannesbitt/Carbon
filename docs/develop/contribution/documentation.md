@@ -10,7 +10,7 @@ The documentation resides in the [gh-pages branch of Carbon](https://github.com/
 *   `git clone`
 *   `git checkout gh-pages`
 *   `git checkout -b [speaking-new-branch-name]`
-*   Modify `.src.html` source files
+*   Modify `.md` source files
 *   `git commit`
 *   `git push`
 *   Create a pull request against the **gh-pages** branch

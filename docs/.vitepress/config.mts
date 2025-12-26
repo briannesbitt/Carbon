@@ -6,11 +6,13 @@ import { compileCode, addSandboxButton } from './plugins';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 
+const env = process?.env?.REPOSITORY;
+
 // https://vitepress.dev/reference/site-config
 const vitePressOptions: UserConfig = {
 	title: 'Carbon',
 	description: 'A simple PHP API extension for DateTime.',
-	base: '/',
+	base: env === 'briannesbitt/Carbon' ? '/' : '/carbon/',
 	head: [
 		[
 			'link', {
