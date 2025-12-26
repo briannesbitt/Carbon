@@ -245,7 +245,7 @@ echo $carbon->toDateTimeString();
 
 <details>
 <summary>
-Carbon 2 (requiring PHP >= 7.1) perfectly supports microseconds. But if you use Carbon 1 and PHP < 7.1, [click here to read our section about partial microseconds support](#partial-microseconds-support).
+Carbon 2 (requiring PHP >= 7.1) perfectly supports microseconds. But if you use Carbon 1 and PHP < 7.1, click here to read our section about partial microseconds support.
 </summary>
 
 ### Partial microseconds support
