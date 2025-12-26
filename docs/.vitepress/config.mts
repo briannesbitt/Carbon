@@ -10,7 +10,7 @@ import tailwindcss from '@tailwindcss/vite';
 const vitePressOptions: UserConfig = {
 	title: 'Carbon',
 	description: 'A simple PHP API extension for DateTime.',
-	base: '/carbon/',
+	base: '/',
 	head: [
 		[
 			'link', {
