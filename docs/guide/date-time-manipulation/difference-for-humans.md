@@ -64,6 +64,8 @@ echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::c
 
 You can also change the locale of the string using `$date->locale('fr')` before the diffForHumans() call. See the [localization](#api-localization) section for more detail.
 
+<div id="diff-for-humans-options"><!-- Link anchor --></div>
+
 Since 2.9.0 diffForHumans() parameters can be passed as an array:
 
 ```php
@@ -153,19 +155,209 @@ echo $now->copy()->subHour()->diffForHumans([
 
 If the argument is omitted or set to `null`, only `Carbon::NO_ZERO_DIFF` is enabled. Available options are:
 
-*   `Carbon::ROUND` / `Carbon::CEIL` / `Carbon::FLOOR` (none by default): only one of the 3 can be used at a time (other are ignored) and it requires `'parts'` to be set. By default, once the diff has as parts as `'parts'` setting requested and omit all remaining units.
-	*   If `Carbon::ROUND` is enabled, the remaining units are summed and if they are **\>= 0.5** of the last unit of the diff, this unit will be rounded to the upper value.
-	*   If `Carbon::CEIL` is enabled, the remaining units are summed and if they are **\> 0** of the last unit of the diff, this unit will be rounded to the upper value.
-	*   If `Carbon::FLOOR` is enabled, the last diff unit is rounded down. It makes no difference from the default behavior for `diffForHumans()` as the interval can't have overflow, but this option may be needed when used with `CarbonInterval::forHumans()` (and unchecked intervals that may have 60 minutes or more, 24 hours or more, etc.). For example: `CarbonInterval::make('1 hour and 67 minutes')->forHumans(['parts' => 1])` returns `"1 hour"` while `CarbonInterval::make('1 hour and 67 minutes')->forHumans(['parts' => 1, 'options' => Carbon::FLOOR])` returns `"2 hours"`.
-*   `Carbon::NO_ZERO_DIFF` (enabled by default): turns empty diff into 1 second
-*   `Carbon::JUST_NOW` disabled by default): turns diff from now to now into "just now"
-*   `Carbon::ONE_DAY_WORDS` (disabled by default): turns "1 day from now/ago" to "yesterday/tomorrow"
-*   `Carbon::TWO_DAY_WORDS` (disabled by default): turns "2 days from now/ago" to "before yesterday/after
-*   `Carbon::SEQUENTIAL_PARTS_ONLY` (disabled by default): will keep only the first sequence of units of the interval, for example if the diff would have been "2 weeks 1 day 34 minutes 12 seconds" as day and minute are not consecutive units, you will get: "2 weeks 1 day".
+<table class="table table-bordered">
+	<tbody>
+		<tr>
+			<td><code>'altNumbers'</code></td>
+			<td>
+				<p>
+					Use alternative numbers if available (from the current language if <code>true</code> is passed, from the given language(s) if array or string is passed)<br>
+					e.g.<br>
+				</p>
+				<ul>
+					<li>"100 days" in Japanese is "100日". With <code>altNumbers</code> it becomes "百日". <b>百</b> is the Japanese alternate symbol for 100.</li>
+					<li>"1 day" in Japanese is "1日". With <code>altNumbers</code> it becomes "一日". <b>一</b> is the Japanese alternate symbol for 100.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'aUnit'</code></td>
+			<td>
+				<p>
+					When <code>true</code> "1 year" becomes "a year", "1 month" becomes "a month", "1 hour" becomes "an hour" and so on.<br>
+					Note: "1 second" becomes "a few seconds"
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'join'</code></td>
+			<td>
+				<p>
+					Determines how to join multiple parts of the string
+				</p>
+				<ul>
+					<li>
+						if <code>join</code> is a string, it's used as a joiner glue<br>
+						e.g. <code>'join' => ', '</code> shows "23 hours, 56 minutes, 58 seconds"
+					</li>
+					<li>if <code>join</code> is a callable/closure, it get the list of string and should return a string</li>
+					<li>
+						if <code>join</code> is an array, the first item will be the default glue, and the second item will be used instead of the glue for the last item<br>
+						e.g. <code>'join' => [', ', ' and ']</code> shows "1 day, 23 hours, 52 minutes and 42 seconds"
+					</li>
+					<li>if <code>join</code> is true, it will be guessed from the locale ('list' translation file entry)</li>
+					<li>if <code>join</code> is missing, a space will be used as glue</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'locale'</code></td>
+			<td>
+				<p>
+					Language in which the diff should be output (has no effect if 'translator' key is set)
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'minimumUnit'</code></td>
+			<td>
+				<p>
+					Determines the smallest unit of time to display. Default value: 's'.<br>
+					Note: value can be in the short or long (singular) form of the units, for example both 'h' and 'hour' are valid values.<br>
+					e.g.
+				</p>
+				<ul>
+					<li><code>['minimumUnit' => 'microsecond'])</code> shows "2 months 1 week 2 days 21 hours 32 minutes 29 seconds 114 milliseconds 757 microseconds"</li>
+					<li><code>['minimumUnit' => 'second'])</code> shows "2 months 1 week 2 days 21 hours 32 minutes 29 seconds"</li>
+					<li><code>['minimumUnit' => 'hour'])</code> shows "2 months 1 week 2 days 21 hours"</li>
+					<li><code>['minimumUnit' => 'month'])</code> shows "2 months"</li>
+					<li><code>['minimumUnit' => 'year'])</code> shows "0 years"</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'options'</code></td>
+			<td>
+				<p>
+					If the <code>options</code> argument is omitted or set to <code>null</code>, only <code>Carbon::NO_ZERO_DIFF</code> is enabled.<br>
+				</p>
+				<p>
+					Note: use the pipe operator to enable/disable multiple option at once:<br>
+					e.g. <code>Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS</code>
+				</p>
+				<p>Available options are:</p>
+				<ul id="diff-for-humans-flag-options">
+					<li><code>Carbon::ROUND</code> / <code>Carbon::CEIL</code> / <code>Carbon::FLOOR</code> (none by default):
+						only one of the 3 can be used at a time (other are ignored) and it requires <code>'parts'</code> to be set.
+						By default, once the diff has as parts as <code>'parts'</code> setting requested and omit all remaining
+						units.
+						<ul>
+							<li>If <code>Carbon::ROUND</code> is enabled, the remaining units are summed and if they are
+								<strong>&gt;= 0.5</strong> of the last unit of the diff, this unit will be rounded to the
+								upper value.</li>
+							<li>If <code>Carbon::CEIL</code> is enabled, the remaining units are summed and if they are
+								<strong>&gt; 0</strong> of the last unit of the diff, this unit will be rounded to the
+								upper value.</li>
+							<li>If <code>Carbon::FLOOR</code> is enabled, the last diff unit is rounded down. It makes no
+								difference from the default behavior for <code>diffForHumans()</code> as the interval
+								can't have overflow, but this option may be needed when used with
+								<code>CarbonInterval::forHumans()</code> (and unchecked intervals that may have 60 minutes or more,
+								24 hours or more, etc.). For example:
+								<code>CarbonInterval::make('1 hour and 67 minutes')->forHumans(['parts' => 1])</code> returns
+								<code>"1 hour"</code> while
+								<code>CarbonInterval::make('1 hour and 67 minutes')->forHumans(['parts' => 1, 'options' => Carbon::FLOOR])</code>
+								returns <code>"2 hours"</code>.</li>
+						</ul>
+					</li>
+					<li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
+					<li><code>Carbon::JUST_NOW</code> disabled by default): turns diff from now to now into "just now"</li>
+					<li><code>Carbon::ONE_DAY_WORDS</code> (disabled by default): turns "1 day from now/ago" to "yesterday/tomorrow"
+					</li>
+					<li><code>Carbon::TWO_DAY_WORDS</code> (disabled by default): turns "2 days from now/ago" to "before
+						yesterday/after
+					</li>
+					<li><code>Carbon::SEQUENTIAL_PARTS_ONLY</code> (disabled by default): will keep only the first sequence of
+						units of the interval, for example if the diff would have been "2 weeks 1 day 34 minutes 12 seconds"
+						as day and minute are not consecutive units, you will get: "2 weeks 1 day".
+					</li>
+				</ul>
 
-Use the pipe operator to enable/disable multiple option at once, example: `Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS`
+				<p>You also can use <code>Carbon::enableHumanDiffOption($option)</code>,
+					<code>Carbon::disableHumanDiffOption($option)</code>, <code>Carbon::setHumanDiffOptions($options)</code> to
+					change the default options and <code>Carbon::getHumanDiffOptions()</code>
+					to get default options but you should avoid using it as being static it may conflict with calls
+					from other code parts/third-party libraries.</p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'other'</code></td>
+			<td>
+				<p>
+					Date and Time Comparison reference:
+				</p>
+				<ul>
+					<li>if null passed, <b>now</b> time will be used as comparison reference</li>
+					<li>if any other type, it will be converted to date and used as reference</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'parts'</code></td>
+			<td>
+				<p>
+					Maximum number of parts to display (default value: <code>1</code>, no limit: <code>-1</code>).<br>
+					e.g.
+				</p>
+				<ul>
+					<li><code>1</code> shows "2 months"</li>
+					<li><code>2</code> shows "2 months 1 week"</li>
+					<li><code>3</code> shows "2 months 1 week 2 days"</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'short'</code></td>
+			<td>
+				<p>
+					If <code>true</code>, displays short format of time units.<br>
+					e.g. "2 months 1 week 2 days 23 hours 52 minutes 4 seconds" becomes "2mos 1w 2d 23h 52m 4s"
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'skip'</code></td>
+			<td>
+				<p>
+					List of units to skip (array of strings or a single string). It can be the unit name (singular or plural) or its shortcut (y, m, w, d, h, min, s, ms, µs).<br>
+					e.g. with <code>['skip' => ['weeks']]</code>, "2 months 1 week 2 days 23 hours 52 minutes 4 seconds" becomes "2 months 9 days 23 hours 52 minutes 4 seconds"
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'syntax'</code></td>
+			<td>
+				<p>
+					Text modifiers appended to the period representation like "from now", "ago", "before" etc. Possible values:
+				</p>
+				<ul>
+					<li>
+					<code>CarbonInterface::DIFF_ABSOLUTE</code> adds no modifiers<br>
+					e.g. "5 days"
+					</li>
+					<li>
+					<code>CarbonInterface::DIFF_RELATIVE_TO_NOW</code> adds ago/from now modifier<br>
+					e.g. "5 days from now"
+					</li>
+					<li>
+					<code>CarbonInterface::DIFF_RELATIVE_TO_OTHER</code> adds before/after modifier<br>
+					e.g. "5 days after"
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td><code>'translator'</code></td>
+			<td>
+				<p>
+					A custom translator to use to translate the output.<br>
+					Note: translator must implement <code>\Symfony\Contracts\Translation\TranslatorInterface</code>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
-You also can use `Carbon::enableHumanDiffOption($option)`, `Carbon::disableHumanDiffOption($option)`, `Carbon::setHumanDiffOptions($options)` to change the default options and `Carbon::getHumanDiffOptions()` to get default options but you should avoid using it as being static it may conflict with calls from other code parts/third-party libraries.
+<div id="api-humandiff-aliases"><!-- Link anchor --></div>
 
 Aliases and reverse methods are provided for semantic purpose:
 
