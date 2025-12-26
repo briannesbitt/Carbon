@@ -5,7 +5,7 @@
 [![GitHub Actions](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FCarbonPHP%2Fcarbon%2Fbadge&style=flat-square&label=Build&logo=none)](https://github.com/CarbonPHP/carbon/actions)
 [![codecov.io](https://img.shields.io/codecov/c/github/CarbonPHP/carbon.svg?style=flat-square)](https://codecov.io/github/CarbonPHP/carbon/actions?branch=master)
 
-An international PHP extension for DateTime. [https://carbon.nesbot.com](https://carbon.nesbot.com)
+An international PHP extension for DateTime. [Documentation](https://carbonphp.github.io/carbon/)
 
 > [!NOTE]  
 > We're migrating the repository from [briannesbitt/Carbon](https://github.com/briannesbitt/Carbon) to [CarbonPHP/carbon](https://github.com/CarbonPHP/carbon),
@@ -102,7 +102,7 @@ printf("Now: %s", Carbon::now());
 
 ## Documentation
 
-[https://carbon.nesbot.com/docs](https://carbon.nesbot.com/docs)
+[https://carbonphp.github.io/carbon/](https://carbonphp.github.io/carbon/)
 
 ## Security contact information
 
@@ -157,7 +157,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="Offshore bookmakers review site." href="https://www.sportsbookreviewsonline.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Sportsbook Reviews Online" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/6d499f24-d669-4fc6-bb5f-b87184aa7963/sportsbookreviewsonline_com.png" width="64" height="64"></a>
 <a title="Ставки на спорт Favbet" href="https://www.favbet.ua/uk/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Ставки на спорт Favbet" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/d86d313e-7b17-42fa-8b76-3f17fbf681a2/favbet-logo.jpg" width="64" height="64"></a>
 <a title="Uudet Nettikasinot" href="https://fi.parhaatuudetkasinot.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="parhaatuudetkasinot.com" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/09e109d6-8ad2-4ade-ab24-4427028c8e38/260bfa9d-6a5c-494d-9ec0-a624327429ae.png" width="64" height="64"></a>
-<a title="Get professional support for Carbon" href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&amp;utm_medium=referral&amp;utm_campaign=docs" target="_blank"><img alt="Tidelift" src="https://carbon.nesbot.com/docs/sponsors/tidelift-brand.png" width="84" height="42"></a>
+<a title="Get professional support for Carbon" href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&amp;utm_medium=referral&amp;utm_campaign=docs" target="_blank"><img alt="Tidelift" src="https://carbonphp.github.io/carbon/sponsors/tidelift-brand.png" width="84" height="42"></a>
 <a title="BetPokies NZ features top fast payout casinos where winnings are processed within hours. The speed depends on the casino and payment method, with the platform highlighting the best options for smooth, reliable play." href="https://betpokies.co.nz/casinos/fast-payout?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Fastest Payout Online Casino" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/37cba042-a941-4bfd-87c4-b4f4c1a98641/7912b3ee-3c62-4ebd-b435-6a9a88b2228b.png" width="42" height="42"></a>
 <a title="Casino-portugal.pt" href="https://casino-portugal.pt/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Casino-portugal.pt" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/870b4bd0-b6aa-4129-9827-e8ac02cfde56/167bdc1d-0a19-414d-a288-cfc3278b388f.png" width="42" height="42"></a>
 <a title="Онлайн казино та БК (ставки на спорт) в Україні" href="https://betking.com.ua/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="betking онлайн казино" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/08587758-582c-4136-aba5-2519230960d3/betking.jpg" width="42" height="42"></a>
@@ -172,7 +172,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a title="Run Weekly" href="https://www.runweekly.com/?utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon" target="_blank"><img alt="Run Weekly" src="https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/4d7e1fad-f160-4b64-ab41-d493023f9369/2de8e56c-e9fa-497c-8882-3736ec946664.png" width="42" height="42"></a>
 <a title="ssddanbrown" href="https://github.com/ssddanbrown" target="_blank"><img alt="ssddanbrown" src="https://avatars.githubusercontent.com/u/8343178?s=128&v=4" width="42" height="42"></a></details><!-- </open-collective-sponsors> -->
 
-[[See all](https://carbon.nesbot.com/#sponsors)]
+[[See all](https://carbonphp.github.io/carbon/#sponsors)]
 
 [[Become a sponsor via OpenCollective*](https://opencollective.com/Carbon#sponsor)]
 

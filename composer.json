@@ -19,11 +19,11 @@
             "homepage": "https://github.com/kylekatarnls"
         }
     ],
-    "homepage": "https://carbon.nesbot.com",
+    "homepage": "https://carbonphp.github.io/carbon/",
     "support": {
         "issues": "https://github.com/CarbonPHP/carbon/issues",
         "source": "https://github.com/CarbonPHP/carbon",
-        "docs": "https://carbon.nesbot.com/docs"
+        "docs": "https://carbonphp.github.io/carbon/guide/getting-started/introduction.html"
     },
     "funding": [
         {

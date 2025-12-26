@@ -44,7 +44,7 @@ jobs:
           command: composer update --prefer-dist --no-progress --prefer-stable
 
       - name: Update sponsors on readme.md
-        run: composer release
+        run: composer build
 
       - name: Create Pull Request
         if: github.repository_owner == 'briannesbitt'

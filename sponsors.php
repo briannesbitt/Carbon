@@ -90,7 +90,7 @@ function getOpenCollectiveSponsors(): string
         'profile' => 'https://tidelift.com/',
         'name' => 'Tidelift',
         'description' => 'Get professional support for Carbon',
-        'image' => 'https://carbon.nesbot.com/docs/sponsors/tidelift-brand.png',
+        'image' => 'https://carbonphp.github.io/carbon/sponsors/tidelift-brand.png',
         'website' => 'https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs',
     ];
     $members[] = [
@@ -107,7 +107,7 @@ function getOpenCollectiveSponsors(): string
         'profile' => 'https://www.slotozilla.com/nz/free-spins',
         'name' => 'Slotozilla',
         'description' => 'Slotozilla website',
-        'image' => 'https://carbon.nesbot.com/docs/sponsors/slotozilla.png',
+        'image' => 'https://carbonphp.github.io/carbon/sponsors/slotozilla.png',
         'website' => 'https://www.slotozilla.com/nz/free-spins',
     ];
 

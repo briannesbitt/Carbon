@@ -7,7 +7,7 @@
 
     ⚠️ Please don't create an issue about a problem already discussed or addressed.
 
-    ⚠️ Please check if the documentation (https://carbon.nesbot.com/docs/) answer
+    ⚠️ Please check if the documentation (https://carbonphp.github.io/carbon/) answer
     your question or talk about the behavior you're about to describe.
 
     Note that Carbon extends the PHP DateTime class
