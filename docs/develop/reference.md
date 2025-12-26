@@ -1,23 +1,4 @@
 # Reference
-#### Carbon::__call
-
-Dynamically handle calls to the class.
-
-##### Parameters
-- $method `string` magic method name called
-- $parameters `array` parameters list
-
-----------
-
-#### Carbon::__callStatic
-
-Dynamically handle calls to the class.
-
-##### Parameters
-- $method `string` magic method name called
-- $parameters `array` parameters list
-
-----------
 
 #### Carbon::__clone
 
@@ -154,6 +135,8 @@ Set locale if specified on unserialize() called.
 
 ----------
 
+#### Carbon::__wakeup
+
 #### Carbon::add
 
 Add given units or interval to the current instance.
@@ -179,6 +162,593 @@ $date->add(CarbonInterval::days(4))
 
 ----------
 
+#### Carbon::addBusinessDay
+
+Add a given number of business days to the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addBusinessDays
+
+Add a given number of business days to the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addBusinessInterval
+
+Add the given interval taking into account only open time
+(if `$open` is true) or only closed time (if `$open` is false).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addCenturies
+
+Add centuries (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addCenturiesNoOverflow
+
+Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addCenturiesWithNoOverflow
+
+Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addCenturiesWithOverflow
+
+Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addCenturiesWithoutOverflow
+
+Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addCentury
+
+Add one century to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addCenturyNoOverflow
+
+Add one century to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addCenturyWithNoOverflow
+
+Add one century to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addCenturyWithOverflow
+
+Add one century to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::addCenturyWithoutOverflow
+
+Add one century to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addClosedHours
+
+Add the given number of hours taking into account only closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addClosedMinutes
+
+Add the given number of minutes taking into account only closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addClosedTime
+
+Add the given interval taking into account only closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addDay
+
+Add one day to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addDays
+
+Add days (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addDecade
+
+Add one decade to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addDecadeNoOverflow
+
+Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addDecadeWithNoOverflow
+
+Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addDecadeWithOverflow
+
+Add one decade to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::addDecadeWithoutOverflow
+
+Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addDecades
+
+Add decades (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addDecadesNoOverflow
+
+Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addDecadesWithNoOverflow
+
+Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addDecadesWithOverflow
+
+Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addDecadesWithoutOverflow
+
+Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addExtraWorkday
+
+Add a workday to the workdays list of a region and optionally init its ID and name.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|null`
+
+#### Carbon::addHoliday
+
+Add a holiday to the holidays list of a region and optionally init its ID, name and observed state.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|null`
+
+#### Carbon::addHolidays
+
+Add a holiday to the holidays list of a region and optionally init their IDs, names and observed states (if provided as array-definitions).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+#### Carbon::addHour
+
+Add one hour to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addHours
+
+Add hours (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMicro
+
+Add one microsecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMicros
+
+Add microseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMicrosecond
+
+Add one microsecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMicroseconds
+
+Add microseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillennia
+
+Add millennia (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillenniaNoOverflow
+
+Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillenniaWithNoOverflow
+
+Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillenniaWithOverflow
+
+Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillenniaWithoutOverflow
+
+Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillennium
+
+Add one millennium to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMillenniumNoOverflow
+
+Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addMillenniumWithNoOverflow
+
+Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addMillenniumWithOverflow
+
+Add one millennium to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::addMillenniumWithoutOverflow
+
+Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addMilli
+
+Add one millisecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMillis
+
+Add milliseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMillisecond
+
+Add one millisecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMilliseconds
+
+Add milliseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMinute
+
+Add one minute to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMinutes
+
+Add minutes (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMonth
+
+Add one month to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addMonthNoOverflow
+
+Add one month to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addMonthWithNoOverflow
+
+Add one month to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addMonthWithOverflow
+
+Add one month to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::addMonthWithoutOverflow
+
+Add one month to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addMonths
+
+Add months (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMonthsNoOverflow
+
+Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMonthsWithNoOverflow
+
+Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMonthsWithOverflow
+
+Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addMonthsWithoutOverflow
+
+Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addOpenHours
+
+Add the given number of hours taking into account only open time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addOpenMinutes
+
+Add the given number of minutes taking into account only open time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addOpenTime
+
+Add the given interval taking into account only open time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::addQuarter
+
+Add one quarter to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addQuarterNoOverflow
+
+Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addQuarterWithNoOverflow
+
+Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addQuarterWithOverflow
+
+Add one quarter to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::addQuarterWithoutOverflow
+
+Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addQuarters
+
+Add quarters (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addQuartersNoOverflow
+
+Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addQuartersWithNoOverflow
+
+Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addQuartersWithOverflow
+
+Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addQuartersWithoutOverflow
+
+Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
 #### Carbon::addRealUnit
 
 ::: warning Deprectated 
@@ -200,6 +770,216 @@ returns `static`
 
 ----------
 
+#### Carbon::addSecond
+
+Add one second to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addSeconds
+
+Add seconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCCenturies
+
+Add centuries (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCCentury
+
+Add one century to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCDay
+
+Add one day to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCDays
+
+Add days (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCDecade
+
+Add one decade to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCDecades
+
+Add decades (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCHour
+
+Add one hour to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCHours
+
+Add hours (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMicro
+
+Add one microsecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMicros
+
+Add microseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMicrosecond
+
+Add one microsecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMicroseconds
+
+Add microseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMillennia
+
+Add millennia (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMillennium
+
+Add one millennium to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMilli
+
+Add one millisecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMillis
+
+Add milliseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMillisecond
+
+Add one millisecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMilliseconds
+
+Add milliseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMinute
+
+Add one minute to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMinutes
+
+Add minutes (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCMonth
+
+Add one month to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCMonths
+
+Add months (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCQuarter
+
+Add one quarter to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCQuarters
+
+Add quarters (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCSecond
+
+Add one second to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCSeconds
+
+Add seconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
 #### Carbon::addUTCUnit
 
 Add seconds to the instance using timestamp. Positive $value travels
@@ -216,6 +996,36 @@ returns `static`
 | Method added | 3.2.0   | `string $unit, $value = 1` |
 
 ----------
+
+#### Carbon::addUTCWeek
+
+Add one week to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCWeeks
+
+Add weeks (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addUTCYear
+
+Add one year to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::addUTCYears
+
+Add years (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
 
 #### Carbon::addUnit
 
@@ -244,6 +1054,111 @@ Add any unit to a new value without overflowing current other unit given.
 | Method added      | 2.0.0   | `$valueUnit, $value, $overflowUnit`                   |
 
 ----------
+
+#### Carbon::addWeek
+
+Add one week to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addWeekday
+
+Add one weekday to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addWeekdays
+
+Add weekdays (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addWeeks
+
+Add weeks (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addYear
+
+Add one year to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::addYearNoOverflow
+
+Add one year to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addYearWithNoOverflow
+
+Add one year to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addYearWithOverflow
+
+Add one year to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::addYearWithoutOverflow
+
+Add one year to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::addYears
+
+Add years (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addYearsNoOverflow
+
+Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addYearsWithNoOverflow
+
+Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addYearsWithOverflow
+
+Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::addYearsWithoutOverflow
+
+Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
 
 #### Carbon::ago
 
@@ -282,6 +1197,16 @@ returns `string`
 | Method added      | 1.39.0  | `$absolute = null, $short = false, $parts = 1`                |
 
 ----------
+
+#### Carbon::applyBusinessInterval
+
+Shift current time with a given interval taking into account only open time
+(if `$open` is true) or only closed time (if `$open` is false).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
 
 #### Carbon::average
 
@@ -461,6 +1386,204 @@ Ceil the current instance second with given precision if specified.
 
 ----------
 
+#### Carbon::ceilCenturies
+
+Ceil the current instance century with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilCentury
+
+Ceil the current instance century with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilDay
+
+Ceil the current instance day with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilDays
+
+Ceil the current instance day with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilDecade
+
+Ceil the current instance decade with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilDecades
+
+Ceil the current instance decade with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilHour
+
+Ceil the current instance hour with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilHours
+
+Ceil the current instance hour with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMicrosecond
+
+Ceil the current instance microsecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMicroseconds
+
+Ceil the current instance microsecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMillennia
+
+Ceil the current instance millennium with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMillennium
+
+Ceil the current instance millennium with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMillisecond
+
+Ceil the current instance millisecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMilliseconds
+
+Ceil the current instance millisecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMinute
+
+Ceil the current instance minute with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMinutes
+
+Ceil the current instance minute with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMonth
+
+Ceil the current instance month with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilMonths
+
+Ceil the current instance month with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilQuarter
+
+Ceil the current instance quarter with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilQuarters
+
+Ceil the current instance quarter with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilSecond
+
+Ceil the current instance second with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilSeconds
+
+Ceil the current instance second with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
 #### Carbon::ceilUnit
 
 Ceil the current instance at the given unit with given precision if specified.
@@ -486,6 +1609,49 @@ Ceil the current instance week.
 
 ----------
 
+#### Carbon::ceilYear
+
+Ceil the current instance year with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::ceilYears
+
+Ceil the current instance year with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::centuriesInMillennium
+
+Return the number of centuries contained in the current millennium
+
+returns `int`
+
+#### Carbon::centuriesUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each century or every X centuries if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
+#### Carbon::centuryOfMillennium
+
+Return the value of the century starting from the beginning of the current millennium when called with no parameters, change the current century when called with an integer value
+
+##### Parameters
+- `?int $century = null`
+
+returns `int|static`
+
 #### Carbon::change
 
 Similar to native modify() method of DateTime but can handle more grammars.
@@ -505,6 +1671,24 @@ echo Carbon::now()->change('next 2pm');
 | Method added | 2.20.0  | `$modifier` |
 
 ----------
+
+#### Carbon::checkHoliday
+
+Check a holiday definition and unpack it if it's an array.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::checkObservedHoliday
+
+Check if a given holiday ID is observed in the selected zone.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
 
 #### Carbon::cleanupDumpProperties
 
@@ -531,6 +1715,66 @@ returns `static`
 
 ----------
 
+#### Carbon::closedOrNextBusinessOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::closedOrNextOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::closedOrNextOpenExcludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::closedOrPreviousBusinessOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::closedOrPreviousOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::closedOrPreviousOpenExcludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
 #### Carbon::closest
 
 Get the closest date from the instance (second-precision).
@@ -548,6 +1792,16 @@ returns `static`
 | Method added      | 1.21.0  | `Carbon\Carbon $dt1, Carbon\Carbon $dt2` |
 
 ----------
+
+#### Carbon::convertOpeningHours
+
+Returns an OpeningHours instance (the one given if already an instance of OpeningHours, or else create
+a new one from array definition given).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Spatie\OpeningHours\OpeningHours`
 
 #### Carbon::copy
 
@@ -630,6 +1884,10 @@ returns `static|null`
 | Method added      | 1.0.0   | `$format, $time, $object = null`   |
 
 ----------
+
+#### Carbon::createFromImmutable
+
+#### Carbon::createFromInterface
 
 #### Carbon::createFromIsoFormat
 
@@ -851,6 +2109,207 @@ returns `static`
 
 ----------
 
+#### Carbon::currentOrNextBusinessClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrNextBusinessDay
+
+Sets the date to the current or next business day (neither a weekend day nor a holiday).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonInterface|Carbon|CarbonImmutable`
+
+#### Carbon::currentOrNextBusinessOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrNextClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrNextCloseIncludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrNextOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrNextOpenExcludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrPreviousBusinessClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrPreviousBusinessDay
+
+Sets the date to the current or next business day (neither a weekend day nor a holiday).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonInterface|Carbon|CarbonImmutable`
+
+#### Carbon::currentOrPreviousBusinessOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrPreviousClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrPreviousCloseIncludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrPreviousOpen
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::currentOrPreviousOpenExcludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::day
+
+Set current instance day to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::dayOfCentury
+
+Return the value of the day starting from the beginning of the current century when called with no parameters, change the current day when called with an integer value
+
+##### Parameters
+- `?int $day = null`
+
+returns `int|static`
+
+#### Carbon::dayOfDecade
+
+Return the value of the day starting from the beginning of the current decade when called with no parameters, change the current day when called with an integer value
+
+##### Parameters
+- `?int $day = null`
+
+returns `int|static`
+
+#### Carbon::dayOfMillennium
+
+Return the value of the day starting from the beginning of the current millennium when called with no parameters, change the current day when called with an integer value
+
+##### Parameters
+- `?int $day = null`
+
+returns `int|static`
+
+#### Carbon::dayOfMonth
+
+Return the value of the day starting from the beginning of the current month when called with no parameters, change the current day when called with an integer value
+
+##### Parameters
+- `?int $day = null`
+
+returns `int|static`
+
+#### Carbon::dayOfQuarter
+
+Return the value of the day starting from the beginning of the current quarter when called with no parameters, change the current day when called with an integer value
+
+##### Parameters
+- `?int $day = null`
+
+returns `int|static`
+
+#### Carbon::dayOfWeek
+
+Return the value of the day starting from the beginning of the current week when called with no parameters, change the current day when called with an integer value
+
+##### Parameters
+- `?int $day = null`
+
+returns `int|static`
+
 #### Carbon::dayOfYear
 
 Get/set the day of year.
@@ -866,6 +2325,107 @@ returns `static|int`
 | Method added      | 2.0.0   | `$value = null`      |
 
 ----------
+
+#### Carbon::days
+
+Set current instance day to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::daysInCentury
+
+Return the number of days contained in the current century
+
+returns `int`
+
+#### Carbon::daysInDecade
+
+Return the number of days contained in the current decade
+
+returns `int`
+
+#### Carbon::daysInMillennium
+
+Return the number of days contained in the current millennium
+
+returns `int`
+
+#### Carbon::daysInMonth
+
+Return the number of days contained in the current month
+
+returns `int`
+
+#### Carbon::daysInQuarter
+
+Return the number of days contained in the current quarter
+
+returns `int`
+
+#### Carbon::daysInWeek
+
+Return the number of days contained in the current week
+
+returns `int`
+
+#### Carbon::daysInYear
+
+Return the number of days contained in the current year
+
+returns `int`
+
+#### Carbon::daysUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each day or every X days if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
+#### Carbon::decadeOfCentury
+
+Return the value of the decade starting from the beginning of the current century when called with no parameters, change the current decade when called with an integer value
+
+##### Parameters
+- `?int $decade = null`
+
+returns `int|static`
+
+#### Carbon::decadeOfMillennium
+
+Return the value of the decade starting from the beginning of the current millennium when called with no parameters, change the current decade when called with an integer value
+
+##### Parameters
+- `?int $decade = null`
+
+returns `int|static`
+
+#### Carbon::decadesInCentury
+
+Return the number of decades contained in the current century
+
+returns `int`
+
+#### Carbon::decadesInMillennium
+
+Return the number of decades contained in the current millennium
+
+returns `int`
+
+#### Carbon::decadesUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each decade or every X decades if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
 
 #### Carbon::diff
 
@@ -883,6 +2443,16 @@ returns `\CarbonInterval`
 | Method added      | 1.0.0   | `$object, $absolute`                                      |
 
 ----------
+
+#### Carbon::diffAsBusinessInterval
+
+Return an interval with open/closed business time between the current date and another
+given date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonInterval`
 
 #### Carbon::diffAsCarbonInterval
 
@@ -1013,6 +2583,56 @@ echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday(), ['short' => true]) .
 | Method added      | 1.0.0   | `Carbon\Carbon $other = null`                                                |
 
 ----------
+
+#### Carbon::diffInBusinessDays
+
+Return a number of days with open/closed business time between the current date and another
+given date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `int`
+
+#### Carbon::diffInBusinessHours
+
+Return a number of hours with open/closed business time between the current date and another
+given date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `float`
+
+#### Carbon::diffInBusinessMinutes
+
+Return a number of minutes with open/closed business time between the current date and another
+given date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `float`
+
+#### Carbon::diffInBusinessSeconds
+
+Return a number of seconds with open/closed business time between the current date and another
+given date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `float`
+
+#### Carbon::diffInBusinessUnit
+
+Return an interval/count of given unit with open/closed business time between the current date and another
+given date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonInterval|float`
 
 #### Carbon::diffInDays
 
@@ -1213,6 +2833,156 @@ returns `float`
 
 ----------
 
+#### Carbon::diffInUTCCenturies
+
+Convert current and given date in UTC timezone and return a floating number of centuries.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCDays
+
+Convert current and given date in UTC timezone and return a floating number of days.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCDecades
+
+Convert current and given date in UTC timezone and return a floating number of decades.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCHours
+
+Convert current and given date in UTC timezone and return a floating number of hours.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMicros
+
+Convert current and given date in UTC timezone and return a floating number of microseconds.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMicroseconds
+
+Convert current and given date in UTC timezone and return a floating number of microseconds.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMillennia
+
+Convert current and given date in UTC timezone and return a floating number of millennia.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMillis
+
+Convert current and given date in UTC timezone and return a floating number of milliseconds.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMilliseconds
+
+Convert current and given date in UTC timezone and return a floating number of milliseconds.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMinutes
+
+Convert current and given date in UTC timezone and return a floating number of minutes.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCMonths
+
+Convert current and given date in UTC timezone and return a floating number of months.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCQuarters
+
+Convert current and given date in UTC timezone and return a floating number of quarters.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCSeconds
+
+Convert current and given date in UTC timezone and return a floating number of seconds.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCWeeks
+
+Convert current and given date in UTC timezone and return a floating number of weeks.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
+#### Carbon::diffInUTCYears
+
+Convert current and given date in UTC timezone and return a floating number of years.
+
+##### Parameters
+- `DateTimeInterface|string|null $date`
+- ` bool $absolute = false`
+
+returns `float`
+
 #### Carbon::diffInUnit
 
 ##### Parameters
@@ -1330,6 +3100,8 @@ You should rather use the ->settings() method.
 | Method added      | 1.26.0  | `$humanDiffOption`     |
 
 ----------
+
+#### Carbon::enable
 
 #### Carbon::enableHumanDiffOption
 
@@ -1511,6 +3283,8 @@ echo Carbon::parse('2018-07-25 12:45:16')->endOfQuarter();
 | Method added | 1.22.0  | *no arguments* |
 
 ----------
+
+#### Carbon::endOfSeason
 
 #### Carbon::endOfSecond
 
@@ -1711,6 +3485,204 @@ Round the current instance second with given precision if specified.
 
 ----------
 
+#### Carbon::floorCenturies
+
+Truncate the current instance century with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorCentury
+
+Truncate the current instance century with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorDay
+
+Truncate the current instance day with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorDays
+
+Truncate the current instance day with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorDecade
+
+Truncate the current instance decade with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorDecades
+
+Truncate the current instance decade with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorHour
+
+Truncate the current instance hour with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorHours
+
+Truncate the current instance hour with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMicrosecond
+
+Truncate the current instance microsecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMicroseconds
+
+Truncate the current instance microsecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMillennia
+
+Truncate the current instance millennium with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMillennium
+
+Truncate the current instance millennium with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMillisecond
+
+Truncate the current instance millisecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMilliseconds
+
+Truncate the current instance millisecond with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMinute
+
+Truncate the current instance minute with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMinutes
+
+Truncate the current instance minute with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMonth
+
+Truncate the current instance month with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorMonths
+
+Truncate the current instance month with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorQuarter
+
+Truncate the current instance quarter with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorQuarters
+
+Truncate the current instance quarter with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorSecond
+
+Truncate the current instance second with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorSeconds
+
+Truncate the current instance second with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
 #### Carbon::floorUnit
 
 Truncate the current instance at the given unit with given precision if specified.
@@ -1735,6 +3707,24 @@ Truncate the current instance week.
 | Method added      | 2.0.0   | `$weekStartsAt = null`                           |
 
 ----------
+
+#### Carbon::floorYear
+
+Truncate the current instance year with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
+
+#### Carbon::floorYears
+
+Truncate the current instance year with given precision.
+
+##### Parameters
+- `float $precision = 1`
+
+returns `$this`
 
 #### Carbon::format
 
@@ -1924,6 +3914,24 @@ returns `\Language[]`
 
 ----------
 
+#### Carbon::getBDDaysList
+
+Get the holidays for the current region selected.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getBusinessDaysInMonth
+
+Get the number of business days in the current month.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `int`
+
 #### Carbon::getCalendarFormats
 
 Returns list of calendar formats for ISO formatting.
@@ -1937,6 +3945,103 @@ Returns list of calendar formats for ISO formatting.
 | Method added      | 2.0.0   | `$locale = null`         |
 
 ----------
+
+#### Carbon::getCalleeAsMethod
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::getClock
+
+#### Carbon::getCurrentBusinessOpenTimeRangeEnd
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::getCurrentBusinessTimeRangeStart
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::getCurrentDayOpeningHours
+
+Get OpeningHoursForDay instance of the current instance or class.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Spatie\OpeningHours\OpeningHoursForDay`
+
+#### Carbon::getCurrentOpenTimePeriod
+
+Get current open time range as TimeRange instance or false if closed.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonPeriod|bool`
+
+#### Carbon::getCurrentOpenTimeRange
+
+Get current open time range as TimeRange instance or false if closed.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Spatie\OpeningHours\TimeRange|bool`
+
+#### Carbon::getCurrentOpenTimeRangeEnd
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::getCurrentOpenTimeRangeStart
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::getCurrentOpenTimeRanges
+
+Get open time ranges as array of TimeRange instances that matches the current date and time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Spatie\OpeningHours\TimeRange[]`
+
+#### Carbon::getDBDayId
+
+Get the identifier of the current holiday or false if it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string|false`
 
 #### Carbon::getDays
 
@@ -1966,6 +4071,24 @@ if explicitly given).
 
 ----------
 
+#### Carbon::getExtraWorkdayId
+
+Get the identifier of the current special workday or false if it's not a special workday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string|false`
+
+#### Carbon::getExtraWorkdays
+
+Get the holidays for the current region selected.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
 #### Carbon::getFallbackLocale
 
 Get the fallback locale.
@@ -1985,6 +4108,79 @@ List of replacements from date() format to isoFormat().
 | Method added | 2.16.0  | *no arguments* |
 
 ----------
+
+#### Carbon::getHolidayData
+
+Get stored data set for the current holiday or null if it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getHolidayDataById
+
+Get stored data set for the a given holiday ID.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getHolidayId
+
+Get the identifier of the current holiday or false if it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string|false`
+
+#### Carbon::getHolidayName
+
+Get the name of the current holiday (using the locale given in parameter or the current date locale)
+or false if it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string|false`
+
+#### Carbon::getHolidayNamesDictionary
+
+Get the holidays in the given language.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getHolidays
+
+Get the holidays for the current region selected.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getHolidaysAvailableRegions
+
+Get the current holidays region.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getHolidaysRegion
+
+Get the current holidays region.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `null|string`
 
 #### Carbon::getHumanDiffOptions
 
@@ -2074,6 +4270,27 @@ Get the raw callable macro registered globally for a given name.
 
 ----------
 
+#### Carbon::getMaxIteration
+
+Get the maximum of loop turns to run before throwing an exception where trying to add
+or subtract open/closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `int`
+
+#### Carbon::getMethodLoopOnHoliday
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::getMicrosecond
+
 #### Carbon::getMidDayAt
 
 get midday/noon hour
@@ -2085,6 +4302,35 @@ returns `int`
 | Method added | 1.24.0  | *no arguments* |
 
 ----------
+
+#### Carbon::getMonthBusinessDays
+
+Get list of date objects for each business day in the current month.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getObserveHolidayMethod
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::getObservedHolidaysZone
+
+Get the selected zone for observed holidays.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string|null`
+
+#### Carbon::getOffset
 
 #### Carbon::getOffsetString
 
@@ -2103,6 +4349,15 @@ like "-12:00".
 | Method added      | 2.0.0   | `$separator = ':'`        |
 
 ----------
+
+#### Carbon::getOpeningHours
+
+Get the opening hours of the class/instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Spatie\OpeningHours\OpeningHours`
 
 #### Carbon::getPaddedUnit
 
@@ -2147,6 +4402,15 @@ getPreciseTimestamp(-2) 15320875         (100 second precision)
 
 ----------
 
+#### Carbon::getSeason
+
+Return the season of the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>
+
+returns `Season\SeasonEnum`
+
 #### Carbon::getSettings
 
 Returns current local settings.
@@ -2156,6 +4420,16 @@ Returns current local settings.
 | Method added | 2.3.0   | *no arguments* |
 
 ----------
+
+#### Carbon::getTernaryMethod
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
 
 #### Carbon::getTestNow
 
@@ -2183,6 +4457,8 @@ Return a format from H:i to H:i:s.u according to given unit precision.
 | Method added      | 2.26.0  | `$unitPrecision`        |
 
 ----------
+
+#### Carbon::getTimestamp
 
 #### Carbon::getTimestampMs
 
@@ -2365,6 +4641,24 @@ Get weekend days
 | Method added | 1.20.0  | *no arguments* |
 
 ----------
+
+#### Carbon::getYearHolidays
+
+Get the holidays dates for a given year (current year if no parameter given).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
+#### Carbon::getYearHolidaysNextFunction
+
+Get a next() callback to call to iterate over holidays of a year.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `callable`
 
 #### Carbon::greaterThan
 
@@ -2550,6 +4844,156 @@ returns `bool true if there is a test instance, otherwise false`
 
 ----------
 
+#### Carbon::hour
+
+Set current instance hour to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::hourOfCentury
+
+Return the value of the hour starting from the beginning of the current century when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfDay
+
+Return the value of the hour starting from the beginning of the current day when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfDecade
+
+Return the value of the hour starting from the beginning of the current decade when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfMillennium
+
+Return the value of the hour starting from the beginning of the current millennium when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfMonth
+
+Return the value of the hour starting from the beginning of the current month when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfQuarter
+
+Return the value of the hour starting from the beginning of the current quarter when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfWeek
+
+Return the value of the hour starting from the beginning of the current week when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hourOfYear
+
+Return the value of the hour starting from the beginning of the current year when called with no parameters, change the current hour when called with an integer value
+
+##### Parameters
+- `?int $hour = null`
+
+returns `int|static`
+
+#### Carbon::hours
+
+Set current instance hour to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::hoursInCentury
+
+Return the number of hours contained in the current century
+
+returns `int`
+
+#### Carbon::hoursInDay
+
+Return the number of hours contained in the current day
+
+returns `int`
+
+#### Carbon::hoursInDecade
+
+Return the number of hours contained in the current decade
+
+returns `int`
+
+#### Carbon::hoursInMillennium
+
+Return the number of hours contained in the current millennium
+
+returns `int`
+
+#### Carbon::hoursInMonth
+
+Return the number of hours contained in the current month
+
+returns `int`
+
+#### Carbon::hoursInQuarter
+
+Return the number of hours contained in the current quarter
+
+returns `int`
+
+#### Carbon::hoursInWeek
+
+Return the number of hours contained in the current week
+
+returns `int`
+
+#### Carbon::hoursInYear
+
+Return the number of hours contained in the current year
+
+returns `int`
+
+#### Carbon::hoursUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each hour or every X hours if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
+#### Carbon::initializeHolidaysRegion
+
 #### Carbon::instance
 
 Create a Carbon instance from a DateTime one.
@@ -2677,6 +5121,143 @@ Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
 
 ----------
 
+#### Carbon::isBusinessClosed
+
+Returns true if the business is closed or a holiday now (or current date and time) according to current
+opening hours.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isBusinessDay
+
+Checks the date to see if it is a business day (extra workday or neither a weekend day nor a holiday).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isBusinessOpen
+
+Returns true if the business is open and not a holiday now (or current date and time) according to current
+opening hours.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isClosed
+
+Returns true if the business is open now (or current date and time) according to current opening hours.
+/!\ Important: it returns true if the current day is a holiday unless you set a closure handler for it in
+the exceptions setting.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isClosedIncludingHolidays
+
+Returns true if the business is closed or a holiday now (or current date and time) according to current
+opening hours.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isClosedOn
+
+Returns true if the business is open on a given day according to current opening hours.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isCurrentCentury
+
+Checks if the instance is in the same century as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentDay
+
+Checks if the instance is in the same day as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentDecade
+
+Checks if the instance is in the same decade as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentHour
+
+Checks if the instance is in the same hour as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMicro
+
+Checks if the instance is in the same microsecond as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMicrosecond
+
+Checks if the instance is in the same microsecond as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMillennium
+
+Checks if the instance is in the same millennium as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMilli
+
+Checks if the instance is in the same millisecond as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMillisecond
+
+Checks if the instance is in the same millisecond as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMinute
+
+Checks if the instance is in the same minute as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentMonth
+
+Checks if the instance is in the same month as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentQuarter
+
+Checks if the instance is in the same quarter as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentSecond
+
+Checks if the instance is in the same second as the current moment.
+
+returns `bool`
+
 #### Carbon::isCurrentUnit
 
 Determines if the instance is in the current unit given.
@@ -2696,6 +5277,33 @@ Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false
 | Method added      | 2.0.0   | `$unit`        |
 
 ----------
+
+#### Carbon::isCurrentWeek
+
+Checks if the instance is in the same week as the current moment.
+
+returns `bool`
+
+#### Carbon::isCurrentYear
+
+Checks if the instance is in the same year as the current moment.
+
+returns `bool`
+
+#### Carbon::isDST
+
+Check if the current instance is in a daylight saving time.
+
+returns `bool`
+
+#### Carbon::isDateTimeInstance
+
+Return true if the given value is a DateTime or DateTimeInterface.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
 
 #### Carbon::isDayOfWeek
 
@@ -2895,6 +5503,21 @@ Determines if the instance is end of year (last day by default but interval can 
 
 ----------
 
+#### Carbon::isExtraWorkday
+
+Checks the date to see if it is a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isFriday
+
+Checks if the instance day is friday.
+
+returns `bool`
+
 #### Carbon::isFuture
 
 Determines if the instance is in the future, ie. greater (after) than now.
@@ -2911,6 +5534,15 @@ Carbon::now()->subHours(5)->isFuture(); // false
 
 ----------
 
+#### Carbon::isHoliday
+
+Checks the date to see if it is a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
 #### Carbon::isImmutable
 
 Returns true if the current class/instance is immutable.
@@ -2920,6 +5552,108 @@ Returns true if the current class/instance is immutable.
 | Method added | 2.0.0   | *no arguments* |
 
 ----------
+
+#### Carbon::isInFall
+
+Return either current date is in fall.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>
+
+returns `bool`
+
+#### Carbon::isInSpring
+
+Return either current date is in spring.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>
+
+returns `bool`
+
+#### Carbon::isInSummer
+
+Return either current date is in summer.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>
+
+returns `bool`
+
+#### Carbon::isInWinter
+
+Return either current date is in winter.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/season">cmixin/season</a>
+
+returns `bool`
+
+#### Carbon::isLastCentury
+
+Checks if the instance is in the same century as the current moment last century.
+
+returns `bool`
+
+#### Carbon::isLastDay
+
+Checks if the instance is in the same day as the current moment last day.
+
+returns `bool`
+
+#### Carbon::isLastDecade
+
+Checks if the instance is in the same decade as the current moment last decade.
+
+returns `bool`
+
+#### Carbon::isLastHour
+
+Checks if the instance is in the same hour as the current moment last hour.
+
+returns `bool`
+
+#### Carbon::isLastMicro
+
+Checks if the instance is in the same microsecond as the current moment last microsecond.
+
+returns `bool`
+
+#### Carbon::isLastMicrosecond
+
+Checks if the instance is in the same microsecond as the current moment last microsecond.
+
+returns `bool`
+
+#### Carbon::isLastMillennium
+
+Checks if the instance is in the same millennium as the current moment last millennium.
+
+returns `bool`
+
+#### Carbon::isLastMilli
+
+Checks if the instance is in the same millisecond as the current moment last millisecond.
+
+returns `bool`
+
+#### Carbon::isLastMillisecond
+
+Checks if the instance is in the same millisecond as the current moment last millisecond.
+
+returns `bool`
+
+#### Carbon::isLastMinute
+
+Checks if the instance is in the same minute as the current moment last minute.
+
+returns `bool`
+
+#### Carbon::isLastMonth
+
+Checks if the instance is in the same month as the current moment last month.
+
+returns `bool`
 
 #### Carbon::isLastOfMonth
 
@@ -2940,6 +5674,30 @@ Carbon::parse('2019-04-30')->isLastOfMonth(); // true
 
 ----------
 
+#### Carbon::isLastQuarter
+
+Checks if the instance is in the same quarter as the current moment last quarter.
+
+returns `bool`
+
+#### Carbon::isLastSecond
+
+Checks if the instance is in the same second as the current moment last second.
+
+returns `bool`
+
+#### Carbon::isLastWeek
+
+Checks if the instance is in the same week as the current moment last week.
+
+returns `bool`
+
+#### Carbon::isLastYear
+
+Checks if the instance is in the same year as the current moment last year.
+
+returns `bool`
+
 #### Carbon::isLeapYear
 
 Determines if the instance is a leap year.
@@ -2955,6 +5713,12 @@ Carbon::parse('2019-01-01')->isLeapYear(); // false
 | Method added | 1.0.0   | *no arguments* |
 
 ----------
+
+#### Carbon::isLocal
+
+Check if the current instance has non-UTC timezone.
+
+returns `bool`
 
 #### Carbon::isLongIsoYear
 
@@ -3046,6 +5810,12 @@ returns `bool`
 
 ----------
 
+#### Carbon::isMonday
+
+Checks if the instance day is monday.
+
+returns `bool`
+
 #### Carbon::isMutable
 
 Returns true if the current class/instance is mutable.
@@ -3055,6 +5825,96 @@ Returns true if the current class/instance is mutable.
 | Method added | 2.0.0   | *no arguments* |
 
 ----------
+
+#### Carbon::isNextCentury
+
+Checks if the instance is in the same century as the current moment next century.
+
+returns `bool`
+
+#### Carbon::isNextDay
+
+Checks if the instance is in the same day as the current moment next day.
+
+returns `bool`
+
+#### Carbon::isNextDecade
+
+Checks if the instance is in the same decade as the current moment next decade.
+
+returns `bool`
+
+#### Carbon::isNextHour
+
+Checks if the instance is in the same hour as the current moment next hour.
+
+returns `bool`
+
+#### Carbon::isNextMicro
+
+Checks if the instance is in the same microsecond as the current moment next microsecond.
+
+returns `bool`
+
+#### Carbon::isNextMicrosecond
+
+Checks if the instance is in the same microsecond as the current moment next microsecond.
+
+returns `bool`
+
+#### Carbon::isNextMillennium
+
+Checks if the instance is in the same millennium as the current moment next millennium.
+
+returns `bool`
+
+#### Carbon::isNextMilli
+
+Checks if the instance is in the same millisecond as the current moment next millisecond.
+
+returns `bool`
+
+#### Carbon::isNextMillisecond
+
+Checks if the instance is in the same millisecond as the current moment next millisecond.
+
+returns `bool`
+
+#### Carbon::isNextMinute
+
+Checks if the instance is in the same minute as the current moment next minute.
+
+returns `bool`
+
+#### Carbon::isNextMonth
+
+Checks if the instance is in the same month as the current moment next month.
+
+returns `bool`
+
+#### Carbon::isNextQuarter
+
+Checks if the instance is in the same quarter as the current moment next quarter.
+
+returns `bool`
+
+#### Carbon::isNextSecond
+
+Checks if the instance is in the same second as the current moment next second.
+
+returns `bool`
+
+#### Carbon::isNextWeek
+
+Checks if the instance is in the same week as the current moment next week.
+
+returns `bool`
+
+#### Carbon::isNextYear
+
+Checks if the instance is in the same year as the current moment next year.
+
+returns `bool`
 
 #### Carbon::isNowOrFuture
 
@@ -3089,6 +5949,45 @@ Carbon::now()->addHours(5)->isNowOrPast(); // false
 | Method added | 3.9.0   | *no arguments* |
 
 ----------
+
+#### Carbon::isObservedHoliday
+
+Checks the date to see if it is a holiday observed in the selected zone.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isOpen
+
+Returns true if the business is open now (or current date and time) according to current opening hours.
+/!\ Important: it returns true if the current day is a holiday unless you set a closure handler for it in
+the exceptions setting.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isOpenExcludingHolidays
+
+Returns true if the business is open and not a holiday now (or current date and time) according to current
+opening hours.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
+
+#### Carbon::isOpenOn
+
+Returns true if the business is open on a given day according to current opening hours.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `bool`
 
 #### Carbon::isPast
 
@@ -3127,6 +6026,96 @@ Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // fa
 | Method added      | 1.22.0  | `$format, ?Carbon\Carbon $date = null`            |
 
 ----------
+
+#### Carbon::isSameCentury
+
+Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameDay
+
+Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameDecade
+
+Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameHour
+
+Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameMicro
+
+Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameMicrosecond
+
+Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameMillennium
+
+Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameMilli
+
+Checks if the given date is in the same millisecond as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameMillisecond
+
+Checks if the given date is in the same millisecond as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameMinute
+
+Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
 
 #### Carbon::isSameMonth
 
@@ -3183,6 +6172,15 @@ Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); 
 
 ----------
 
+#### Carbon::isSameSecond
+
+Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
 #### Carbon::isSameUnit
 
 Determines if the instance is in the current unit given.
@@ -3205,6 +6203,30 @@ Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); //
 | Method added      | 2.0.0   | `$unit, $date = null`                           |
 
 ----------
+
+#### Carbon::isSameWeek
+
+Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSameYear
+
+Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
+
+##### Parameters
+- `DateTimeInterface|string $date`
+
+returns `bool`
+
+#### Carbon::isSaturday
+
+Checks if the instance day is saturday.
+
+returns `bool`
 
 #### Carbon::isStartOfCentury
 
@@ -3393,6 +6415,18 @@ returns `bool`
 
 ----------
 
+#### Carbon::isSunday
+
+Checks if the instance day is sunday.
+
+returns `bool`
+
+#### Carbon::isThursday
+
+Checks if the instance day is thursday.
+
+returns `bool`
+
 #### Carbon::isToday
 
 Determines if the instance is today.
@@ -3424,6 +6458,30 @@ Carbon::yesterday()->isTomorrow(); // false
 | Method added | 1.0.0   | *no arguments* |
 
 ----------
+
+#### Carbon::isTuesday
+
+Checks if the instance day is tuesday.
+
+returns `bool`
+
+#### Carbon::isUtc
+
+Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
+
+returns `bool`
+
+#### Carbon::isValid
+
+Check if the current instance is a valid date.
+
+returns `bool`
+
+#### Carbon::isWednesday
+
+Checks if the instance day is wednesday.
+
+returns `bool`
 
 #### Carbon::isWeekday
 
@@ -3768,6 +6826,46 @@ returns `bool`
 
 ----------
 
+#### Carbon::longAbsoluteDiffForHumans
+
+Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
+#### Carbon::longRelativeDiffForHumans
+
+Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
+#### Carbon::longRelativeToNowDiffForHumans
+
+Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
+#### Carbon::longRelativeToOtherDiffForHumans
+
+Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
 #### Carbon::lt
 
 Determines if the instance is less (before) than another
@@ -3901,6 +6999,242 @@ Return the meridiem of the current time in the current locale.
 
 ----------
 
+#### Carbon::micro
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::micros
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::microsUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
+#### Carbon::microsecond
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::microsecondOfCentury
+
+Return the value of the microsecond starting from the beginning of the current century when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfDay
+
+Return the value of the microsecond starting from the beginning of the current day when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfDecade
+
+Return the value of the microsecond starting from the beginning of the current decade when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfHour
+
+Return the value of the microsecond starting from the beginning of the current hour when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfMillennium
+
+Return the value of the microsecond starting from the beginning of the current millennium when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfMillisecond
+
+Return the value of the microsecond starting from the beginning of the current millisecond when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfMinute
+
+Return the value of the microsecond starting from the beginning of the current minute when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfMonth
+
+Return the value of the microsecond starting from the beginning of the current month when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfQuarter
+
+Return the value of the microsecond starting from the beginning of the current quarter when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfSecond
+
+Return the value of the microsecond starting from the beginning of the current second when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfWeek
+
+Return the value of the microsecond starting from the beginning of the current week when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microsecondOfYear
+
+Return the value of the microsecond starting from the beginning of the current year when called with no parameters, change the current microsecond when called with an integer value
+
+##### Parameters
+- `?int $microsecond = null`
+
+returns `int|static`
+
+#### Carbon::microseconds
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::microsecondsInCentury
+
+Return the number of microseconds contained in the current century
+
+returns `int`
+
+#### Carbon::microsecondsInDay
+
+Return the number of microseconds contained in the current day
+
+returns `int`
+
+#### Carbon::microsecondsInDecade
+
+Return the number of microseconds contained in the current decade
+
+returns `int`
+
+#### Carbon::microsecondsInHour
+
+Return the number of microseconds contained in the current hour
+
+returns `int`
+
+#### Carbon::microsecondsInMillennium
+
+Return the number of microseconds contained in the current millennium
+
+returns `int`
+
+#### Carbon::microsecondsInMillisecond
+
+Return the number of microseconds contained in the current millisecond
+
+returns `int`
+
+#### Carbon::microsecondsInMinute
+
+Return the number of microseconds contained in the current minute
+
+returns `int`
+
+#### Carbon::microsecondsInMonth
+
+Return the number of microseconds contained in the current month
+
+returns `int`
+
+#### Carbon::microsecondsInQuarter
+
+Return the number of microseconds contained in the current quarter
+
+returns `int`
+
+#### Carbon::microsecondsInSecond
+
+Return the number of microseconds contained in the current second
+
+returns `int`
+
+#### Carbon::microsecondsInWeek
+
+Return the number of microseconds contained in the current week
+
+returns `int`
+
+#### Carbon::microsecondsInYear
+
+Return the number of microseconds contained in the current year
+
+returns `int`
+
+#### Carbon::microsecondsUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
 #### Carbon::midDay
 
 Modify to midday, default to self::$midDayAt
@@ -3912,6 +7246,237 @@ returns `static`
 | Method added | 1.24.0  | *no arguments* |
 
 ----------
+
+#### Carbon::millenniaUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
+#### Carbon::milli
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::millis
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::millisUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
+#### Carbon::millisecond
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::millisecondOfCentury
+
+Return the value of the millisecond starting from the beginning of the current century when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfDay
+
+Return the value of the millisecond starting from the beginning of the current day when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfDecade
+
+Return the value of the millisecond starting from the beginning of the current decade when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfHour
+
+Return the value of the millisecond starting from the beginning of the current hour when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfMillennium
+
+Return the value of the millisecond starting from the beginning of the current millennium when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfMinute
+
+Return the value of the millisecond starting from the beginning of the current minute when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfMonth
+
+Return the value of the millisecond starting from the beginning of the current month when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfQuarter
+
+Return the value of the millisecond starting from the beginning of the current quarter when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfSecond
+
+Return the value of the millisecond starting from the beginning of the current second when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfWeek
+
+Return the value of the millisecond starting from the beginning of the current week when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::millisecondOfYear
+
+Return the value of the millisecond starting from the beginning of the current year when called with no parameters, change the current millisecond when called with an integer value
+
+##### Parameters
+- `?int $millisecond = null`
+
+returns `int|static`
+
+#### Carbon::milliseconds
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::millisecondsInCentury
+
+Return the number of milliseconds contained in the current century
+
+returns `int`
+
+#### Carbon::millisecondsInDay
+
+Return the number of milliseconds contained in the current day
+
+returns `int`
+
+#### Carbon::millisecondsInDecade
+
+Return the number of milliseconds contained in the current decade
+
+returns `int`
+
+#### Carbon::millisecondsInHour
+
+Return the number of milliseconds contained in the current hour
+
+returns `int`
+
+#### Carbon::millisecondsInMillennium
+
+Return the number of milliseconds contained in the current millennium
+
+returns `int`
+
+#### Carbon::millisecondsInMinute
+
+Return the number of milliseconds contained in the current minute
+
+returns `int`
+
+#### Carbon::millisecondsInMonth
+
+Return the number of milliseconds contained in the current month
+
+returns `int`
+
+#### Carbon::millisecondsInQuarter
+
+Return the number of milliseconds contained in the current quarter
+
+returns `int`
+
+#### Carbon::millisecondsInSecond
+
+Return the number of milliseconds contained in the current second
+
+returns `int`
+
+#### Carbon::millisecondsInWeek
+
+Return the number of milliseconds contained in the current week
+
+returns `int`
+
+#### Carbon::millisecondsInYear
+
+Return the number of milliseconds contained in the current year
+
+returns `int`
+
+#### Carbon::millisecondsUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
 
 #### Carbon::min
 
@@ -3947,6 +7512,169 @@ returns `static`
 | Method added      | 1.22.0  | `?Carbon\Carbon $date = null` |
 
 ----------
+
+#### Carbon::minute
+
+Set current instance minute to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::minuteOfCentury
+
+Return the value of the minute starting from the beginning of the current century when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfDay
+
+Return the value of the minute starting from the beginning of the current day when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfDecade
+
+Return the value of the minute starting from the beginning of the current decade when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfHour
+
+Return the value of the minute starting from the beginning of the current hour when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfMillennium
+
+Return the value of the minute starting from the beginning of the current millennium when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfMonth
+
+Return the value of the minute starting from the beginning of the current month when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfQuarter
+
+Return the value of the minute starting from the beginning of the current quarter when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfWeek
+
+Return the value of the minute starting from the beginning of the current week when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minuteOfYear
+
+Return the value of the minute starting from the beginning of the current year when called with no parameters, change the current minute when called with an integer value
+
+##### Parameters
+- `?int $minute = null`
+
+returns `int|static`
+
+#### Carbon::minutes
+
+Set current instance minute to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::minutesInCentury
+
+Return the number of minutes contained in the current century
+
+returns `int`
+
+#### Carbon::minutesInDay
+
+Return the number of minutes contained in the current day
+
+returns `int`
+
+#### Carbon::minutesInDecade
+
+Return the number of minutes contained in the current decade
+
+returns `int`
+
+#### Carbon::minutesInHour
+
+Return the number of minutes contained in the current hour
+
+returns `int`
+
+#### Carbon::minutesInMillennium
+
+Return the number of minutes contained in the current millennium
+
+returns `int`
+
+#### Carbon::minutesInMonth
+
+Return the number of minutes contained in the current month
+
+returns `int`
+
+#### Carbon::minutesInQuarter
+
+Return the number of minutes contained in the current quarter
+
+returns `int`
+
+#### Carbon::minutesInWeek
+
+Return the number of minutes contained in the current week
+
+returns `int`
+
+#### Carbon::minutesInYear
+
+Return the number of minutes contained in the current year
+
+returns `int`
+
+#### Carbon::minutesUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each minute or every X minutes if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
 
 #### Carbon::mixin
 
@@ -3997,6 +7725,109 @@ returns `static`
 
 ----------
 
+#### Carbon::month
+
+Set current instance month to the given value.
+
+##### Parameters
+- `Month|int $value`
+
+returns `$this`
+
+#### Carbon::monthOfCentury
+
+Return the value of the month starting from the beginning of the current century when called with no parameters, change the current month when called with an integer value
+
+##### Parameters
+- `?int $month = null`
+
+returns `int|static`
+
+#### Carbon::monthOfDecade
+
+Return the value of the month starting from the beginning of the current decade when called with no parameters, change the current month when called with an integer value
+
+##### Parameters
+- `?int $month = null`
+
+returns `int|static`
+
+#### Carbon::monthOfMillennium
+
+Return the value of the month starting from the beginning of the current millennium when called with no parameters, change the current month when called with an integer value
+
+##### Parameters
+- `?int $month = null`
+
+returns `int|static`
+
+#### Carbon::monthOfQuarter
+
+Return the value of the month starting from the beginning of the current quarter when called with no parameters, change the current month when called with an integer value
+
+##### Parameters
+- `?int $month = null`
+
+returns `int|static`
+
+#### Carbon::monthOfYear
+
+Return the value of the month starting from the beginning of the current year when called with no parameters, change the current month when called with an integer value
+
+##### Parameters
+- `?int $month = null`
+
+returns `int|static`
+
+#### Carbon::months
+
+Set current instance month to the given value.
+
+##### Parameters
+- `Month|int $value`
+
+returns `$this`
+
+#### Carbon::monthsInCentury
+
+Return the number of months contained in the current century
+
+returns `int`
+
+#### Carbon::monthsInDecade
+
+Return the number of months contained in the current decade
+
+returns `int`
+
+#### Carbon::monthsInMillennium
+
+Return the number of months contained in the current millennium
+
+returns `int`
+
+#### Carbon::monthsInQuarter
+
+Return the number of months contained in the current quarter
+
+returns `int`
+
+#### Carbon::monthsInYear
+
+Return the number of months contained in the current year
+
+returns `int`
+
+#### Carbon::monthsUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each month or every X months if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
 #### Carbon::ne
 
 Determines if the instance is not equal to another
@@ -4036,6 +7867,71 @@ returns `static`
 
 ----------
 
+#### Carbon::nextBusinessClose
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::nextBusinessDay
+
+Sets the date to the next business day (neither a weekend day nor a holiday).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonInterface|Carbon|CarbonImmutable`
+
+#### Carbon::nextBusinessOpen
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::nextClose
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::nextCloseIncludingHolidays
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::nextOpen
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::nextOpenExcludingHolidays
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
 #### Carbon::nextWeekday
 
 Go forward to the next weekday.
@@ -4059,6 +7955,15 @@ returns `static`
 | Method added | 1.22.0  | *no arguments* |
 
 ----------
+
+#### Carbon::normalizeDay
+
+Returns day English name in lower case.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string`
 
 #### Carbon::notEqualTo
 
@@ -4163,6 +8068,93 @@ returns `mixed`
 
 ----------
 
+#### Carbon::observeAllHolidays
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::observeHoliday
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::observeHolidays
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::openOrNextBusinessClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::openOrNextClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::openOrNextCloseIncludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::openOrPreviousBusinessClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::openOrPreviousClose
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::openOrPreviousCloseIncludingHolidays
+
+Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
 #### Carbon::ordinal
 
 Return a property with its ordinal.
@@ -4236,6 +8228,71 @@ returns `static`
 
 ----------
 
+#### Carbon::previousBusinessClose
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::previousBusinessDay
+
+Sets the date to the next business day (neither a weekend day nor a holiday).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `CarbonInterface|Carbon|CarbonImmutable`
+
+#### Carbon::previousBusinessOpen
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::previousClose
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::previousCloseIncludingHolidays
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::previousOpen
+
+Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|bool`
+
+#### Carbon::previousOpenExcludingHolidays
+
+Loop on the current instance (or now if called statically) with a given method until it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
 #### Carbon::previousWeekday
 
 Go backward to the previous weekday.
@@ -4259,6 +8316,103 @@ returns `static`
 | Method added | 1.22.0  | *no arguments* |
 
 ----------
+
+#### Carbon::pushHoliday
+
+Push a holiday to the holidays list of a region.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|null`
+
+#### Carbon::pushToBDList
+
+Push a day into a given list list of a region.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|null`
+
+#### Carbon::pushWorkday
+
+Push a workday to the workdays list of a region.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|null`
+
+#### Carbon::quarterOfCentury
+
+Return the value of the quarter starting from the beginning of the current century when called with no parameters, change the current quarter when called with an integer value
+
+##### Parameters
+- `?int $quarter = null`
+
+returns `int|static`
+
+#### Carbon::quarterOfDecade
+
+Return the value of the quarter starting from the beginning of the current decade when called with no parameters, change the current quarter when called with an integer value
+
+##### Parameters
+- `?int $quarter = null`
+
+returns `int|static`
+
+#### Carbon::quarterOfMillennium
+
+Return the value of the quarter starting from the beginning of the current millennium when called with no parameters, change the current quarter when called with an integer value
+
+##### Parameters
+- `?int $quarter = null`
+
+returns `int|static`
+
+#### Carbon::quarterOfYear
+
+Return the value of the quarter starting from the beginning of the current year when called with no parameters, change the current quarter when called with an integer value
+
+##### Parameters
+- `?int $quarter = null`
+
+returns `int|static`
+
+#### Carbon::quartersInCentury
+
+Return the number of quarters contained in the current century
+
+returns `int`
+
+#### Carbon::quartersInDecade
+
+Return the number of quarters contained in the current decade
+
+returns `int`
+
+#### Carbon::quartersInMillennium
+
+Return the number of quarters contained in the current millennium
+
+returns `int`
+
+#### Carbon::quartersInYear
+
+Return the number of quarters contained in the current year
+
+returns `int`
+
+#### Carbon::quartersUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each quarter or every X quarters if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
 
 #### Carbon::range
 
@@ -4342,6 +8496,13 @@ Call native PHP DateTime/DateTimeImmutable sub() method.
 
 ----------
 
+#### Carbon::resetHolidays
+
+Reset the holidays list.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
 #### Carbon::resetMacros
 
 Remove all macros and generic macros.
@@ -4367,6 +8528,15 @@ returns `void`
 | Method added | 1.22.0  | *no arguments* |
 
 ----------
+
+#### Carbon::resetOpeningHours
+
+Reset the opening hours for the class/instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
 
 #### Carbon::resetToStringFormat
 
@@ -4407,6 +8577,226 @@ Round the current instance second with given precision if specified.
 
 ----------
 
+#### Carbon::roundCenturies
+
+Round the current instance century with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundCentury
+
+Round the current instance century with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundDay
+
+Round the current instance day with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundDays
+
+Round the current instance day with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundDecade
+
+Round the current instance decade with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundDecades
+
+Round the current instance decade with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundHour
+
+Round the current instance hour with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundHours
+
+Round the current instance hour with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMicrosecond
+
+Round the current instance microsecond with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMicroseconds
+
+Round the current instance microsecond with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMillennia
+
+Round the current instance millennium with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMillennium
+
+Round the current instance millennium with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMillisecond
+
+Round the current instance millisecond with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMilliseconds
+
+Round the current instance millisecond with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMinute
+
+Round the current instance minute with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMinutes
+
+Round the current instance minute with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMonth
+
+Round the current instance month with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundMonths
+
+Round the current instance month with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundQuarter
+
+Round the current instance quarter with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundQuarters
+
+Round the current instance quarter with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundSecond
+
+Round the current instance second with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundSeconds
+
+Round the current instance second with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
 #### Carbon::roundUnit
 
 Round the current instance at the given unit with given precision if specified and the given function.
@@ -4432,6 +8822,203 @@ Round the current instance week.
 
 ----------
 
+#### Carbon::roundYear
+
+Round the current instance year with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::roundYears
+
+Round the current instance year with given precision using the given function.
+
+##### Parameters
+- `float $precision = 1`
+- ` string $function = "round"`
+
+returns `$this`
+
+#### Carbon::safeCallOnOpeningHours
+
+Call a method on the OpeningHours of the current instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `mixed`
+
+#### Carbon::second
+
+Set current instance second to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::secondOfCentury
+
+Return the value of the second starting from the beginning of the current century when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfDay
+
+Return the value of the second starting from the beginning of the current day when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfDecade
+
+Return the value of the second starting from the beginning of the current decade when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfHour
+
+Return the value of the second starting from the beginning of the current hour when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfMillennium
+
+Return the value of the second starting from the beginning of the current millennium when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfMinute
+
+Return the value of the second starting from the beginning of the current minute when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfMonth
+
+Return the value of the second starting from the beginning of the current month when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfQuarter
+
+Return the value of the second starting from the beginning of the current quarter when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfWeek
+
+Return the value of the second starting from the beginning of the current week when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::secondOfYear
+
+Return the value of the second starting from the beginning of the current year when called with no parameters, change the current second when called with an integer value
+
+##### Parameters
+- `?int $second = null`
+
+returns `int|static`
+
+#### Carbon::seconds
+
+Set current instance second to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::secondsInCentury
+
+Return the number of seconds contained in the current century
+
+returns `int`
+
+#### Carbon::secondsInDay
+
+Return the number of seconds contained in the current day
+
+returns `int`
+
+#### Carbon::secondsInDecade
+
+Return the number of seconds contained in the current decade
+
+returns `int`
+
+#### Carbon::secondsInHour
+
+Return the number of seconds contained in the current hour
+
+returns `int`
+
+#### Carbon::secondsInMillennium
+
+Return the number of seconds contained in the current millennium
+
+returns `int`
+
+#### Carbon::secondsInMinute
+
+Return the number of seconds contained in the current minute
+
+returns `int`
+
+#### Carbon::secondsInMonth
+
+Return the number of seconds contained in the current month
+
+returns `int`
+
+#### Carbon::secondsInQuarter
+
+Return the number of seconds contained in the current quarter
+
+returns `int`
+
+#### Carbon::secondsInWeek
+
+Return the number of seconds contained in the current week
+
+returns `int`
+
+#### Carbon::secondsInYear
+
+Return the number of seconds contained in the current year
+
+returns `int`
+
 #### Carbon::secondsSinceMidnight
 
 The number of seconds since midnight.
@@ -4443,6 +9030,16 @@ returns `float`
 | Method added | 1.14.0  | *no arguments* |
 
 ----------
+
+#### Carbon::secondsUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each second or every X seconds if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
 
 #### Carbon::secondsUntilEndOfDay
 
@@ -4495,6 +9092,15 @@ returns `$this`
 
 ----------
 
+#### Carbon::setBusinessDayChecker
+
+Checks the date to see if it is a business day (neither a weekend day nor a holiday).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
 #### Carbon::setDate
 
 Set the date with gregorian year, month and day numbers.
@@ -4546,6 +9152,24 @@ Set the date and time for this instance to that of the passed instance.
 
 ----------
 
+#### Carbon::setDay
+
+Set current instance day to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setDays
+
+Set current instance day to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
 #### Carbon::setDaysFromStartOfWeek
 
 Set the day (keeping the current time) to the start of the week + the number of days passed as the first
@@ -4565,6 +9189,22 @@ parameter. First day of week is driven by the locale unless explicitly set with 
 
 ----------
 
+#### Carbon::setExtraWorkdayGetter
+
+Set the strategy to get the extra workday ID from a date object.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setExtraWorkdays
+
+Set the holidays list.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
 #### Carbon::setFallbackLocale
 
 Set the fallback locale.
@@ -4578,6 +9218,83 @@ Set the fallback locale.
 | Method added      | 2.16.0  | `$locale`        |
 
 ----------
+
+#### Carbon::setHolidayData
+
+Set stored data set for the current holiday, does nothing if it's not a holiday.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setHolidayDataById
+
+Set stored data set for the a given holiday ID.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setHolidayGetter
+
+Set the strategy to get the holiday ID from a date object.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setHolidayName
+
+Set/change the name of holiday by ID for a given language (or a list of languages).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface|null`
+
+#### Carbon::setHolidayObserveStatus
+
+Set a holiday as observed/unobserved in the selected zone.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setHolidays
+
+Set the holidays list.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+#### Carbon::setHolidaysRegion
+
+Set the holidays region (see src/Cmixin/Holidays for examples).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+#### Carbon::setHour
+
+Set current instance hour to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setHours
+
+Set current instance hour to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
 
 #### Carbon::setHumanDiffOptions
 
@@ -4632,6 +9349,43 @@ Pass 'auto' as locale to use the closest language to the current LC_TIME locale.
 
 ----------
 
+#### Carbon::setMaxIteration
+
+Set the maximum of loop turns to run before throwing an exception where trying to add
+or subtract open/closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+#### Carbon::setMicro
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMicros
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMicrosecond
+
+#### Carbon::setMicroseconds
+
+Set current instance microsecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
 #### Carbon::setMidDayAt
 
 ::: warning Deprectated 
@@ -4654,6 +9408,117 @@ returns `void`
 | Method added | 1.24.0  | `$hour`     |
 
 ----------
+
+#### Carbon::setMilli
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMillis
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMillisecond
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMilliseconds
+
+Set current instance millisecond to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMinute
+
+Set current instance minute to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMinutes
+
+Set current instance minute to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setMonth
+
+Set current instance month to the given value.
+
+##### Parameters
+- `Month|int $value`
+
+returns `$this`
+
+#### Carbon::setMonths
+
+Set current instance month to the given value.
+
+##### Parameters
+- `Month|int $value`
+
+returns `$this`
+
+#### Carbon::setObservedHolidaysZone
+
+Set the selected zone for observed holidays. So next observe methods will be saved and considered in this
+given custom zone.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setOpeningHours
+
+Set the opening hours for the class/instance.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::setSeasonConfig
+
+#### Carbon::setSecond
+
+Set current instance second to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setSeconds
+
+Set current instance second to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
 
 #### Carbon::setTestNow
 
@@ -4881,6 +9746,24 @@ Set weekend days
 
 ----------
 
+#### Carbon::setYear
+
+Set current instance year to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::setYears
+
+Set current instance year to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
 #### Carbon::settings
 
 Set specific options.
@@ -4918,6 +9801,46 @@ Set the instance's timezone from a string or object and add/subtract the offset 
 
 ----------
 
+#### Carbon::shortAbsoluteDiffForHumans
+
+Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
+#### Carbon::shortRelativeDiffForHumans
+
+Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
+#### Carbon::shortRelativeToNowDiffForHumans
+
+Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
+#### Carbon::shortRelativeToOtherDiffForHumans
+
+Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+
+##### Parameters
+- `DateTimeInterface $other = null`
+- ` int $parts = 1`
+
+returns `string`
+
 #### Carbon::shouldOverflowMonths
 
 Get the month overflow global behavior (can be overridden in specific instances).
@@ -4942,6 +9865,8 @@ returns `bool`
 
 ----------
 
+#### Carbon::shouldRaiseMissingCalendarExtensionException
+
 #### Carbon::since
 
 | History           | Version | Description                                                                  |
@@ -4960,6 +9885,26 @@ Returns standardized singular of a given singular/plural unit name (in English).
 | Method added | 2.0.0   | `string $unit` |
 
 ----------
+
+#### Carbon::skipMissingCalendarExtensionException
+
+@codeCoverageIgnore
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `void`
+
+#### Carbon::sleep
+
+#### Carbon::standardizeHolidaysRegion
+
+Return a standardized region name.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `string`
 
 #### Carbon::startOf
 
@@ -5129,6 +10074,8 @@ echo Carbon::parse('2018-07-25 12:45:16')->startOfQuarter();
 
 ----------
 
+#### Carbon::startOfSeason
+
 #### Carbon::startOfSecond
 
 Modify to start of current second, microseconds become 0
@@ -5212,6 +10159,568 @@ $date->sub(CarbonInterval::days(4))
 
 ----------
 
+#### Carbon::subBusinessDay
+
+Add a given number of business days to the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subBusinessDays
+
+Add a given number of business days to the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subBusinessInterval
+
+Add the given interval taking into account only open time
+(if `$open` is true) or only closed time (if `$open` is false).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subCenturies
+
+Sub centuries (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subCenturiesNoOverflow
+
+Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subCenturiesWithNoOverflow
+
+Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subCenturiesWithOverflow
+
+Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subCenturiesWithoutOverflow
+
+Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subCentury
+
+Sub one century to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subCenturyNoOverflow
+
+Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subCenturyWithNoOverflow
+
+Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subCenturyWithOverflow
+
+Sub one century to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::subCenturyWithoutOverflow
+
+Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subClosedHours
+
+Subtract the given number of hours taking into account only closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subClosedMinutes
+
+Subtract the given number of minutes taking into account only closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subClosedTime
+
+Subtract the given interval taking into account only closed time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subDay
+
+Sub one day to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subDays
+
+Sub days (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subDecade
+
+Sub one decade to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subDecadeNoOverflow
+
+Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subDecadeWithNoOverflow
+
+Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subDecadeWithOverflow
+
+Sub one decade to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::subDecadeWithoutOverflow
+
+Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subDecades
+
+Sub decades (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subDecadesNoOverflow
+
+Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subDecadesWithNoOverflow
+
+Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subDecadesWithOverflow
+
+Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subDecadesWithoutOverflow
+
+Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subHour
+
+Sub one hour to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subHours
+
+Sub hours (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMicro
+
+Sub one microsecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMicros
+
+Sub microseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMicrosecond
+
+Sub one microsecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMicroseconds
+
+Sub microseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillennia
+
+Sub millennia (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillenniaNoOverflow
+
+Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillenniaWithNoOverflow
+
+Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillenniaWithOverflow
+
+Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillenniaWithoutOverflow
+
+Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillennium
+
+Sub one millennium to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMillenniumNoOverflow
+
+Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subMillenniumWithNoOverflow
+
+Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subMillenniumWithOverflow
+
+Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::subMillenniumWithoutOverflow
+
+Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subMilli
+
+Sub one millisecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMillis
+
+Sub milliseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMillisecond
+
+Sub one millisecond to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMilliseconds
+
+Sub milliseconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMinute
+
+Sub one minute to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMinutes
+
+Sub minutes (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMonth
+
+Sub one month to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subMonthNoOverflow
+
+Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subMonthWithNoOverflow
+
+Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subMonthWithOverflow
+
+Sub one month to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::subMonthWithoutOverflow
+
+Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subMonths
+
+Sub months (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMonthsNoOverflow
+
+Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMonthsWithNoOverflow
+
+Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMonthsWithOverflow
+
+Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subMonthsWithoutOverflow
+
+Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subOpenHours
+
+Subtract the given number of hours taking into account only open time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subOpenMinutes
+
+Subtract the given number of minutes taking into account only open time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subOpenTime
+
+Subtract the given interval taking into account only open time.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subQuarter
+
+Sub one quarter to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subQuarterNoOverflow
+
+Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subQuarterWithNoOverflow
+
+Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subQuarterWithOverflow
+
+Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::subQuarterWithoutOverflow
+
+Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subQuarters
+
+Sub quarters (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subQuartersNoOverflow
+
+Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subQuartersWithNoOverflow
+
+Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subQuartersWithOverflow
+
+Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subQuartersWithoutOverflow
+
+Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
 #### Carbon::subRealUnit
 
 ::: warning Deprectated 
@@ -5232,6 +10741,216 @@ returns `static`
 
 ----------
 
+#### Carbon::subSecond
+
+Sub one second to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subSeconds
+
+Sub seconds (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCCenturies
+
+Sub centuries (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCCentury
+
+Sub one century to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCDay
+
+Sub one day to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCDays
+
+Sub days (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCDecade
+
+Sub one decade to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCDecades
+
+Sub decades (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCHour
+
+Sub one hour to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCHours
+
+Sub hours (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMicro
+
+Sub one microsecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMicros
+
+Sub microseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMicrosecond
+
+Sub one microsecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMicroseconds
+
+Sub microseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMillennia
+
+Sub millennia (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMillennium
+
+Sub one millennium to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMilli
+
+Sub one millisecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMillis
+
+Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMillisecond
+
+Sub one millisecond to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMilliseconds
+
+Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMinute
+
+Sub one minute to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMinutes
+
+Sub minutes (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCMonth
+
+Sub one month to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCMonths
+
+Sub months (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCQuarter
+
+Sub one quarter to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCQuarters
+
+Sub quarters (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCSecond
+
+Sub one second to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCSeconds
+
+Sub seconds (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
 #### Carbon::subUTCUnit
 
 Subtract seconds to the instance using timestamp. Positive $value travels
@@ -5248,6 +10967,36 @@ returns `static`
 | Method added | 3.2.0   | `$unit, $value = 1` |
 
 ----------
+
+#### Carbon::subUTCWeek
+
+Sub one week to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCWeeks
+
+Sub weeks (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subUTCYear
+
+Sub one year to the instance (using timestamp).
+
+returns `$this`
+
+#### Carbon::subUTCYears
+
+Sub years (the $value count passed in) to the instance (using timestamp).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
 
 #### Carbon::subUnit
 
@@ -5277,6 +11026,111 @@ Subtract any unit to a new value without overflowing current other unit given.
 
 ----------
 
+#### Carbon::subWeek
+
+Sub one week to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subWeekday
+
+Sub one weekday to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subWeekdays
+
+Sub weekdays (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subWeeks
+
+Sub weeks (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subYear
+
+Sub one year to the instance (using date interval).
+
+returns `$this`
+
+#### Carbon::subYearNoOverflow
+
+Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subYearWithNoOverflow
+
+Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subYearWithOverflow
+
+Sub one year to the instance (using date interval) with overflow explicitly allowed.
+
+returns `$this`
+
+#### Carbon::subYearWithoutOverflow
+
+Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+
+returns `$this`
+
+#### Carbon::subYears
+
+Sub years (the $value count passed in) to the instance (using date interval).
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subYearsNoOverflow
+
+Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subYearsWithNoOverflow
+
+Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subYearsWithOverflow
+
+Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
+#### Carbon::subYearsWithoutOverflow
+
+Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+
+##### Parameters
+- `int|float $value = 1`
+
+returns `$this`
+
 #### Carbon::subtract
 
 Subtract given units or interval to the current instance.
@@ -5294,6 +11148,33 @@ returns `static`
 | Method added      | 2.0.0   | `$unit, $value = 1, $overflow = null`       |
 
 ----------
+
+#### Carbon::subtractBusinessDay
+
+Add a given number of business days to the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::subtractBusinessDays
+
+Add a given number of business days to the current date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `Carbon|CarbonImmutable|CarbonInterface`
+
+#### Carbon::swapDateTimeParam
+
+Store a first variable as Carbon instance into the second variable if the first one is a date.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
 
 #### Carbon::timespan
 
@@ -6061,6 +11942,42 @@ returns `int`
 
 ----------
 
+#### Carbon::unobserveAllHolidays
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::unobserveHoliday
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::unobserveHolidays
+
+Set a holiday as observed/unobserved in the selected zone (can take array of holidays).
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `$this|null`
+
+#### Carbon::unpackHoliday
+
+Unpack a holiday array definition.
+
+> [!NOTE]
+> Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+
+returns `array`
+
 #### Carbon::until
 
 ##### Parameters
@@ -6209,6 +12126,60 @@ returns `int|static`
 
 ----------
 
+#### Carbon::weekOfCentury
+
+Return the value of the week starting from the beginning of the current century when called with no parameters, change the current week when called with an integer value
+
+##### Parameters
+- `?int $week = null`
+
+returns `int|static`
+
+#### Carbon::weekOfDecade
+
+Return the value of the week starting from the beginning of the current decade when called with no parameters, change the current week when called with an integer value
+
+##### Parameters
+- `?int $week = null`
+
+returns `int|static`
+
+#### Carbon::weekOfMillennium
+
+Return the value of the week starting from the beginning of the current millennium when called with no parameters, change the current week when called with an integer value
+
+##### Parameters
+- `?int $week = null`
+
+returns `int|static`
+
+#### Carbon::weekOfMonth
+
+Return the value of the week starting from the beginning of the current month when called with no parameters, change the current week when called with an integer value
+
+##### Parameters
+- `?int $week = null`
+
+returns `int|static`
+
+#### Carbon::weekOfQuarter
+
+Return the value of the week starting from the beginning of the current quarter when called with no parameters, change the current week when called with an integer value
+
+##### Parameters
+- `?int $week = null`
+
+returns `int|static`
+
+#### Carbon::weekOfYear
+
+Return the value of the week starting from the beginning of the current year when called with no parameters, change the current week when called with an integer value
+
+##### Parameters
+- `?int $week = null`
+
+returns `int|static`
+
 #### Carbon::weekYear
 
 Set/get the week number of year using given first day of week and first
@@ -6242,6 +12213,36 @@ Get/set the weekday from 0 (Sunday) to 6 (Saturday).
 
 ----------
 
+#### Carbon::weeksInCentury
+
+Return the number of weeks contained in the current century
+
+returns `int`
+
+#### Carbon::weeksInDecade
+
+Return the number of weeks contained in the current decade
+
+returns `int`
+
+#### Carbon::weeksInMillennium
+
+Return the number of weeks contained in the current millennium
+
+returns `int`
+
+#### Carbon::weeksInMonth
+
+Return the number of weeks contained in the current month
+
+returns `int`
+
+#### Carbon::weeksInQuarter
+
+Return the number of weeks contained in the current quarter
+
+returns `int`
+
 #### Carbon::weeksInYear
 
 Get the number of weeks of the current week-year using given first day of week and first
@@ -6259,6 +12260,16 @@ returns `int`
 | Method added | 2.0.0   | `$dayOfWeek = null, $dayOfYear = null` |
 
 ----------
+
+#### Carbon::weeksUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each week or every X weeks if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
 
 #### Carbon::withTestNow
 
@@ -6283,6 +12294,79 @@ returns `\T`
 
 ----------
 
+#### Carbon::year
+
+Set current instance year to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::yearOfCentury
+
+Return the value of the year starting from the beginning of the current century when called with no parameters, change the current year when called with an integer value
+
+##### Parameters
+- `?int $year = null`
+
+returns `int|static`
+
+#### Carbon::yearOfDecade
+
+Return the value of the year starting from the beginning of the current decade when called with no parameters, change the current year when called with an integer value
+
+##### Parameters
+- `?int $year = null`
+
+returns `int|static`
+
+#### Carbon::yearOfMillennium
+
+Return the value of the year starting from the beginning of the current millennium when called with no parameters, change the current year when called with an integer value
+
+##### Parameters
+- `?int $year = null`
+
+returns `int|static`
+
+#### Carbon::years
+
+Set current instance year to the given value.
+
+##### Parameters
+- `int $value`
+
+returns `$this`
+
+#### Carbon::yearsInCentury
+
+Return the number of years contained in the current century
+
+returns `int`
+
+#### Carbon::yearsInDecade
+
+Return the number of years contained in the current decade
+
+returns `int`
+
+#### Carbon::yearsInMillennium
+
+Return the number of years contained in the current millennium
+
+returns `int`
+
+#### Carbon::yearsUntil
+
+Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each year or every X years if a factor is given.
+
+##### Parameters
+- `$endDate = null`
+- ` int|float $factor = 1`
+
+returns `CarbonPeriod`
+
 #### Carbon::yesterday
 
 Create a Carbon instance for yesterday.
@@ -6291,36 +12375,6 @@ Create a Carbon instance for yesterday.
 |:----------------- | ------- | -------------------------------------------------- |
 | Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|null $timezone = null` |
 | Method added      | 1.1.0   | `$tz = null`                                       |
-
-----------
-
-#### CarbonInterval::__call
-
-Allow fluent calls on the setters... CarbonInterval::years(3)->months(5)->day().
-
-Note: This is done using the magic method to allow static and instance methods to
-have the same names.
-
-##### Parameters
-- $method `string` magic method name called
-- $parameters `array` parameters list
-
-returns `static|int|float|string`
-
-----------
-
-#### CarbonInterval::__callStatic
-
-Provide static helpers to create instances.  Allows CarbonInterval::years(3).
-
-Note: This is done using the magic method to allow static and instance methods to
-have the same names.
-
-##### Parameters
-- $method `string` magic method name called
-- $parameters `array` parameters list
-
-returns `static|mixed|null`
 
 ----------
 
@@ -6367,6 +12421,12 @@ Get a part of the CarbonInterval object.
 
 ----------
 
+#### CarbonInterval::__serialize
+
+Returns the values to dump on serialize() called on.
+
+returns `array`
+
 #### CarbonInterval::__set
 
 Set a part of the CarbonInterval object.
@@ -6410,6 +12470,14 @@ returns `string`
 | Method added | 1.18.0  | *no arguments* |
 
 ----------
+
+#### CarbonInterval::__unserialize
+
+Set locale if specified on unserialize() called.
+
+returns `void`
+
+#### CarbonInterval::__wakeup
 
 #### CarbonInterval::abs
 
@@ -6981,6 +13049,12 @@ echo CarbonInterval::fromString('1d 24h')->forHumans(['minimumUnit' => 'hour']) 
 
 ----------
 
+#### CarbonInterval::format
+
+Returns the formatted date string on success or FALSE on failure.
+
+returns `string`
+
 #### CarbonInterval::fromString
 
 Creates a CarbonInterval from string.
@@ -7066,6 +13140,8 @@ Should only be modified by changing the factors or referenced constants.
 | Method added | 1.28.0  | *no arguments* |
 
 ----------
+
+#### CarbonInterval::getClock
 
 #### CarbonInterval::getDateIntervalSpec
 
@@ -7409,6 +13485,10 @@ returns `bool`
 | Method added      | 1.28.0  | `$name`        |
 
 ----------
+
+#### CarbonInterval::hasNegativeValues
+
+#### CarbonInterval::hasPositiveValues
 
 #### CarbonInterval::instance
 
@@ -8518,25 +14598,6 @@ returns `static`
 
 ----------
 
-#### CarbonPeriod::__call
-
-Add aliases for setters.
-
-CarbonPeriod::days(3)->hours(5)->invert()
-    ->sinceNow()->until('2010-01-10')
-    ->filter(...)
-    ->count()
-
-Note: We use magic method to let static and instance aliases with the same names.
-
-----------
-
-#### CarbonPeriod::__callStatic
-
-Provide static proxy for instance aliases.
-
-----------
-
 #### CarbonPeriod::__construct
 
 CarbonPeriod constructor.
@@ -8547,6 +14608,12 @@ CarbonPeriod constructor.
 | Method added      | 1.29.0  | *no arguments* |
 
 ----------
+
+#### CarbonPeriod::__debugInfo
+
+Show truthy properties on var_dump().
+
+returns `array`
 
 #### CarbonPeriod::__get
 
@@ -8578,6 +14645,18 @@ returns `bool`
 
 ----------
 
+#### CarbonPeriod::__serialize
+
+Returns the values to dump on serialize() called on.
+
+returns `array`
+
+#### CarbonPeriod::__set_state
+
+The __set_state handler.
+
+returns `CarbonPeriod`
+
 #### CarbonPeriod::__toString
 
 Convert the date period into a string.
@@ -8587,6 +14666,14 @@ Convert the date period into a string.
 | Method added | 1.29.0  | *no arguments* |
 
 ----------
+
+#### CarbonPeriod::__unserialize
+
+Set locale if specified on unserialize() called.
+
+returns `void`
+
+#### CarbonPeriod::__wakeup
 
 #### CarbonPeriod::addFilter
 
@@ -8756,6 +14843,8 @@ Create a new instance from an array of parameters.
 | Method added | 1.29.0  | `array $params` |
 
 ----------
+
+#### CarbonPeriod::createFromISO8601String
 
 #### CarbonPeriod::createFromIso
 
@@ -9040,6 +15129,8 @@ returns `\Language[]`
 
 ----------
 
+#### CarbonPeriod::getClock
+
 #### CarbonPeriod::getDateClass
 
 Returns iteration item date class.
@@ -9127,6 +15218,8 @@ Return the start if it's included by option, else return the start + 1 period in
 | Method added | 2.23.0  | *no arguments* |
 
 ----------
+
+#### CarbonPeriod::getIterator
 
 #### CarbonPeriod::getLocalTranslator
 
@@ -10429,6 +16522,25 @@ Check if the current position is valid.
 
 ----------
 
+#### CarbonTimeZone::__construct
+
+Create a new Carbon instance.
+
+Please see the testing aids section (specifically static::setTestNow())
+for more on the possibility of this constructor returning a test instance.
+
+#### CarbonTimeZone::__serialize
+
+Returns the values to dump on serialize() called on.
+
+returns `array`
+
+#### CarbonTimeZone::__set_state
+
+The __set_state handler.
+
+returns `CarbonTimeZone`
+
 #### CarbonTimeZone::__toString
 
 Cast to string (get timezone name).
@@ -10440,6 +16552,14 @@ returns `string`
 | Method added | 2.10.0  | *no arguments* |
 
 ----------
+
+#### CarbonTimeZone::__unserialize
+
+Set locale if specified on unserialize() called.
+
+returns `void`
+
+#### CarbonTimeZone::__wakeup
 
 #### CarbonTimeZone::cast
 
@@ -10531,6 +16651,14 @@ returns `string`
 
 ----------
 
+#### CarbonTimeZone::getClock
+
+#### CarbonTimeZone::getLocation
+
+#### CarbonTimeZone::getName
+
+#### CarbonTimeZone::getOffset
+
 #### CarbonTimeZone::getOffsetNameFromMinuteOffset
 
 Convert a total minutes offset into a standardized timezone offset string.
@@ -10545,6 +16673,8 @@ returns `string`
 | Method added | 2.33.0  | `float $minutes` |
 
 ----------
+
+#### CarbonTimeZone::getTransitions
 
 #### CarbonTimeZone::getType
 
@@ -10577,6 +16707,10 @@ returns `static|null`
 | Method added      | 2.0.0   | `$object = null`                                                                                            |
 
 ----------
+
+#### CarbonTimeZone::listAbbreviations
+
+#### CarbonTimeZone::listIdentifiers
 
 #### CarbonTimeZone::toOffsetName
 
@@ -10619,6 +16753,13 @@ Returns a new CarbonTimeZone object using the region string instead of offset st
 | Method added | 2.10.0  | `?DateTimeInterface $date = null` |
 
 ----------
+
+#### Language::__construct
+
+Create a new Carbon instance.
+
+Please see the testing aids section (specifically static::setTestNow())
+for more on the possibility of this constructor returning a test instance.
 
 #### Language::__toString
 
@@ -10838,6 +16979,13 @@ Set the name of the language in this language.
 
 ----------
 
+#### Translator::__construct
+
+Create a new Carbon instance.
+
+Please see the testing aids section (specifically static::setTestNow())
+for more on the possibility of this constructor returning a test instance.
+
 #### Translator::__debugInfo
 
 Show locale on var_dump().
@@ -10849,6 +16997,18 @@ returns `array`
 | Method added | 2.17.0  | *no arguments* |
 
 ----------
+
+#### Translator::__serialize
+
+Returns the values to dump on serialize() called on.
+
+returns `array`
+
+#### Translator::__unserialize
+
+Set locale if specified on unserialize() called.
+
+returns `void`
 
 #### Translator::addDirectory
 
@@ -10864,6 +17024,8 @@ returns `$this`
 | Method added | 2.0.0   | `string $directory` |
 
 ----------
+
+#### Translator::addGlobalParameter
 
 #### Translator::addLoader
 
@@ -10929,6 +17091,10 @@ returns `array`
 
 ----------
 
+#### Translator::getCatalogue
+
+#### Translator::getCatalogues
+
 #### Translator::getDirectories
 
 Returns the list of directories translation files are searched in.
@@ -10948,6 +17114,20 @@ Gets the fallback locales.
 | Method added | 1.25.0  | *no arguments* |
 
 ----------
+
+#### Translator::getFromCatalogue
+
+@param mixed                                                    $translator
+
+returns `mixed`
+
+#### Translator::getGlobalParameters
+
+#### Translator::getLocale
+
+Get the current translator locale.
+
+returns `string`
 
 #### Translator::getLocalesFiles
 
@@ -11005,6 +17185,8 @@ file in Lang directory.
 | Method added      | 1.25.0  | `$locale = null`         |
 
 ----------
+
+#### Translator::setConfigCacheFactory
 
 #### Translator::setDirectories
 
@@ -11079,4 +17261,6 @@ returns `$this`
 | Method added      | 2.9.0   | `$messages`       |
 
 ----------
+
+#### Translator::trans
 

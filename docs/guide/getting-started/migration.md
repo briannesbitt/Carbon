@@ -12,7 +12,7 @@ Timezone for `createFromTimestamp` was previously `date_default_timezone_get()` 
 
 In Carbon 3, it's now `"UTC"` so to be consistent with `DateTime` behavior when doing `new DateTime('@123')`.
 
-Those who use UTC as default timezone will not be impacted. As a reminder we strongly recommend this setup. See [timezone section](#api-timezone)
+Those who use UTC as default timezone will not be impacted. As a reminder we strongly recommend this setup. See [timezone section](../specialized-use/carbon-time-zone.html)
 
 We also recommend to always call `createFromTimestamp` with 2 parameters (i.e. explicitly pass a timezone) or to use `createFromTimestampUTC()`.
 

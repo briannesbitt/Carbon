@@ -183,7 +183,7 @@ CarbonInterval::setLocale('en');
 
 ```
 
-`forHumans($syntax, $short, $parts, $options)` allow the same option arguments as `Carbon::diffForHumans()` except `$parts` is set to -1 (no limit) by default. [See `Carbon::diffForHumans()` options.](#diff-for-humans-options)
+`forHumans($syntax, $short, $parts, $options)` allow the same option arguments as `Carbon::diffForHumans()` except `$parts` is set to -1 (no limit) by default. [See `Carbon::diffForHumans()` options.](../date-time-manipulation/difference-for-humans.html#diff-for-humans-options)
 
 As you can see, you can change the locale of the string using `CarbonInterval::setLocale('fr')`.
 

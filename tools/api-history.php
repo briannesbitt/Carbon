@@ -94,6 +94,7 @@ if ($target === 'current') {
                     $parameters[] = $type.'$'.nameAlias($parameter->getName()).$defaultValue;
                 }
             }
+
             $methods["$className::$method"] = $parameters;
         }
     } catch (Throwable $exception) {

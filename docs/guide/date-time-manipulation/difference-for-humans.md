@@ -155,7 +155,7 @@ echo $now->copy()->subHour()->diffForHumans([
 
 If the argument is omitted or set to `null`, only `Carbon::NO_ZERO_DIFF` is enabled. Available options are:
 
-<table class="table table-bordered">
+<table>
 	<tbody>
 		<tr>
 			<td><code>'altNumbers'</code></td>
@@ -271,7 +271,6 @@ If the argument is omitted or set to `null`, only `Carbon::NO_ZERO_DIFF` is enab
 						as day and minute are not consecutive units, you will get: "2 weeks 1 day".
 					</li>
 				</ul>
-
 				<p>You also can use <code>Carbon::enableHumanDiffOption($option)</code>,
 					<code>Carbon::disableHumanDiffOption($option)</code>, <code>Carbon::setHumanDiffOptions($options)</code> to
 					change the default options and <code>Carbon::getHumanDiffOptions()</code>

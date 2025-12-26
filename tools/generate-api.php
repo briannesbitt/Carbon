@@ -1,5 +1,4 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -12,6 +11,11 @@ use Cmixin\BusinessTime;
 use Cmixin\SeasonMixin;
 use phpDocumentor\Reflection\DocBlockFactory;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
+
+use function Carbon\Doc\Methods\methods;
+
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/methods.php';
 
 $destination_file = __DIR__ . '/../docs/develop/reference.md';
 
@@ -141,24 +145,26 @@ function get_doc_blocks(): array
 {
     $docblocks = [];
     $factory = DocBlockFactory::createInstance();
+    $classes = [];
 
-    foreach (get_classes() as $data) {
-        [$carbon_object, , $class_name] = array_pad($data, 3, null);
-        $class_name = $class_name ?: get_class($carbon_object);
-        $reflection = new ReflectionClass($class_name);
-        $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+    /**
+     * @var string $class_name
+     * @var string $method
+     */
+    foreach (methods(false, false) as [$carbon_object, $class_name, $method, $parameters, $return, $description, $dateTimeObject, $info]) {
+        $classes[$class_name] ??= new ReflectionClass($class_name);
 
-        foreach ($methods as $method) {
-            $name = $reflection->getShortName() . '::' . $method->getName();
-            $doc_comment = $method->getDocComment();
+        $name = $classes[$class_name]->getShortName() . '::' . $method;
 
-            if (!$doc_comment) {
-                continue;
-            }
-
-            $docblock = $factory->create($doc_comment);
-            $docblocks[$name] = $docblock;
+        try {
+            $doc_comment = $classes[$class_name]->getMethod($method)->getDocComment();
+        } catch (ReflectionException) {
+            $doc_comment = null;
         }
+
+        $docblocks[$name] = $doc_comment
+            ? $factory->create($doc_comment)
+            : [$description, $parameters, $return, $info];
     }
 
     // sort
@@ -167,13 +173,43 @@ function get_doc_blocks(): array
     return $docblocks;
 }
 
-$docblocks = get_doc_blocks();
-
-$markdown = "# Reference\n";
+$markdown = "# Reference\n\n";
 $global_history = @json_decode(file_get_contents('history.json'), true);
 
-foreach ($docblocks as $name => $docblock) {
+foreach (get_doc_blocks() as $name => $docblock) {
 	$markdown .= "#### $name\n\n";
+
+    if (is_array($docblock)) {
+        [$description, $parameters, $return, $info] = $docblock;
+
+        if (!$description) {
+            continue;
+        }
+
+        $description = strtr($description, ['$open' => '`$open`']);
+        $markdown .= "$description\n\n";
+
+        if ($info) {
+            $info = strtr($info, ["\n" => "\n> "]);
+            $markdown .= "> [!NOTE]\n> $info\n\n";
+        }
+
+        if (($parameters ?? []) !== []) {
+            $markdown .= "##### Parameters\n";
+
+            foreach ($parameters as $parameter) {
+                $markdown .= "- `$parameter`\n";
+            }
+
+            $markdown .= "\n";
+        }
+
+        if ($return) {
+            $markdown .= "returns `$return`\n\n";
+        }
+
+        continue;
+    }
 
     foreach ([$docblock->getSummary(), (string) $docblock->getDescription()] as $block) {
         if ($block !== '') {

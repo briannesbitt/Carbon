@@ -4,9 +4,7 @@ order: 3
 
 # Localization
 
-With Carbon 2, localization changed a lot, `echo count(Carbon::getAvailableLocales()) - 73;`{render} new locales are supported, and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class and language packages for advanced translation, you now benefit of a wide internationalization support. You still use Carbon 1? I hope you would consider to upgrade, version 2 has really cool new features. Otherwise, you can find the [version 1 documentation of Localization by clicking here](#localization-v1).
-
-You can easily customize translations:
+You can customize translations:
 
 ```php
 

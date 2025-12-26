@@ -64,9 +64,9 @@ var_dump($immutable->isImmutable());
 ```
 
 The library also provides CarbonInterface interface extends [DateTimeInterface](https://www.php.net/manual/en/class.datetimeinterface.php) and [JsonSerializable](https://www.php.net/manual/en/class.jsonserializable.php),
-[CarbonInterval](#api-interval) class extends [DateInterval](https://www.php.net/manual/en/class.dateinterval.php),
-[CarbonTimeZone](#api-timezone) class extends [DateTimeZone](https://www.php.net/manual/en/class.datetimezone.php)
-and [CarbonPeriod](#api-period) class polyfills [DatePeriod](https://www.php.net/manual/en/class.dateperiod.php).
+[CarbonInterval](../specialized-use/carbon-interval.html) class extends [DateInterval](https://www.php.net/manual/en/class.dateinterval.php),
+[CarbonTimeZone](../specialized-use/carbon-time-zone.html) class extends [DateTimeZone](https://www.php.net/manual/en/class.datetimezone.php)
+and [CarbonPeriod](../specialized-use/carbon-period.html) class polyfills [DatePeriod](https://www.php.net/manual/en/class.dateperiod.php).
 
 Carbon has all the functions inherited from the base DateTime class. This approach allows you to access the
 base functionality such as

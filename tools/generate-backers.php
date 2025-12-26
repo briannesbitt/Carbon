@@ -1,10 +1,12 @@
 <?php
-/* taqwim-disable taqwim/max-lines,taqwim/method.complexity, taqwim/method.max-depth,taqwim/no-nested-ternary*/
+
 declare(strict_types=1);
+
 namespace Carbon\Doc\Sponsors;
-require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\CarbonImmutable;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 $destination_file = __DIR__ . '/../docs/public/data/backers.json';
 
