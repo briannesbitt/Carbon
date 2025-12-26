@@ -14,6 +14,7 @@ use phpDocumentor\Reflection\DocBlockFactory;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
 
 $destination_file = __DIR__ . '/../docs/develop/reference.md';
+
 trait MacroExposer
 {
 	public function getMacros()
@@ -27,6 +28,35 @@ trait MacroExposer
 class BusinessTimeCarbon extends Carbon
 {
 	use MacroExposer;
+}
+
+function history_line($event, $version, $ref): array
+{
+    $ref = empty($ref) ? '*no arguments*' : "`$ref`";
+
+    return [$event, $version, $ref];
+}
+
+function table_markdown(array $table, ?array $header = null): string
+{
+    $header ??= array_fill(0, count($table[0]), '');
+    $sizes = array_map(
+        static fn (int $index) => max(array_map(strlen(...), [$header[$index], ...array_column($table, $index)])),
+        array_keys($table[0]),
+    );
+
+    return implode("\n", array_map(
+        static fn (array $row) => '|' . (str_starts_with($row[0], '--') ? ':' : ' ') . implode(' | ', array_map(
+            static fn (string $cell, int $size) => str_pad($cell, $size),
+            $row,
+            $sizes,
+        )) . ' |',
+        [
+            $header,
+            array_map(static fn (int $size) => str_repeat('-', $size), $sizes),
+            ...$table,
+        ],
+    ));
 }
 
 function get_classes(): Generator
@@ -100,35 +130,49 @@ function get_classes(): Generator
 	}
 }
 
-$docblocks = [];
-$factory = DocBlockFactory::createInstance();
+function get_doc_blocks(): array
+{
+    $docblocks = [];
+    $factory = DocBlockFactory::createInstance();
 
-foreach (get_classes() as $data) {
-	[$carbon_object, $date_time_object, $class_name, $info, $invoke, $trait_name] = array_pad($data, 6, null);
-	$class_name = $class_name ?: get_class($carbon_object);
-	$date_time_methods = get_class_methods($date_time_object);
-	$reflection = new ReflectionClass($class_name);
-	$methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+    foreach (get_classes() as $data) {
+        [$carbon_object, , $class_name] = array_pad($data, 3, null);
+        $class_name = $class_name ?: get_class($carbon_object);
+        $reflection = new ReflectionClass($class_name);
+        $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
-	foreach ($methods as $method) {
-		$name = $reflection->getShortName() . '::' . $method->getName();
-		$doc_comment = $method->getDocComment();
-		if (!$doc_comment) {
-			continue;
-		}
-		$docblock = $factory->create($doc_comment);
-		$docblocks[$name] = $docblock;
-	}
+        foreach ($methods as $method) {
+            $name = $reflection->getShortName() . '::' . $method->getName();
+            $doc_comment = $method->getDocComment();
+
+            if (!$doc_comment) {
+                continue;
+            }
+
+            $docblock = $factory->create($doc_comment);
+            $docblocks[$name] = $docblock;
+        }
+    }
+
+    // sort
+    ksort($docblocks);
+
+    return $docblocks;
 }
 
-// sort
-ksort($docblocks);
+$docblocks = get_doc_blocks();
 
 $markdown = "# Reference\n";
+$global_history = @json_decode(file_get_contents('history.json'), true);
+
 foreach ($docblocks as $name => $docblock) {
 	$markdown .= "#### $name\n\n";
-	$markdown .= $docblock->getSummary() . "\n\n";
-	$markdown .= $docblock->getDescription() . "\n";
+
+    foreach ([$docblock->getSummary(), (string) $docblock->getDescription()] as $block) {
+        if ($block !== '') {
+            $markdown .= "$block\n\n";
+        }
+    }
 
 	$deprecated = $docblock->getTagsByName('deprecated');
 
@@ -136,41 +180,77 @@ foreach ($docblocks as $name => $docblock) {
         $markdown .= "::: warning Deprectated \n$tag\n:::\n";
     }
 
-	$params = $docblock->getTagsByName('param');
+	$parameters = $docblock->getTagsByName('param');
 
-	if ($params !== []) {
+	if ($parameters !== []) {
 		$markdown .= "##### Parameters\n";
-		foreach ($params as $tag) {
+
+		foreach ($parameters as $tag) {
 			$markdown .= "- \${$tag->getVariableName()} `{$tag->getType()}`";
 			$description = trim($tag->getDescription());
 
 			// if description is multiline, indent lines
             $description = str_contains($description, "\n")
-				? "\n\n" . str_replace("\n", "\n  ", $description)
+				? "\n  " . str_replace("\n", "\n  ", $description)
                 : " $description";
 			$markdown .= "$description\n";
 		}
+
+        $markdown .= "\n";
 	}
 
 	$return = $docblock->getTagsByName('return');
 
     foreach ($return as $tag) {
-        $markdown .= "returns `$tag`\n";
+        $markdown .= "returns `$tag`\n\n";
     }
 
 	$examples = $docblock->getTagsByName('example');
 
 	if ($examples !== []) {
 		$markdown .= "##### Examples\n";
+
 		foreach ($examples as $tag) {
 			$value = trim($tag->__toString());
 
 			// add ```php` if not specified
-			$markdown .= preg_replace('/^```(\w*)/m', '```php', $value, 1) . "\n";
+			$markdown .= preg_replace('/^```(?!\w)/m', '```php', $value, 1) . "\n";
 		}
+
+        $markdown .= "\n";
 	}
 
-    $markdown .= "\n----------\n";
+    $history = [];
+    [$class_name, $method] = explode('::', $name);
+    $fqcn = 'Carbon\\' . $class_name;
+
+    $key = class_exists($fqcn) ? "$fqcn::$method" : $name;
+    $parameters = implode(', ', $parameters ?: []);
+
+    if (is_array($global_history) && isset($global_history[$key])) {
+        $ref = implode(', ', reset($global_history[$key]) ?: ['']);
+        $parameters = $ref;
+        $version = key($global_history[$key]);
+
+        while (($prototype = next($global_history[$key])) !== false) {
+            $prototype = implode(', ', $prototype);
+
+            if ($prototype !== $ref) {
+                $history[] = history_line('Prototype changed', $version, $ref);
+                $ref = $prototype;
+            }
+
+            $version = key($global_history[$key]);
+        }
+
+        $history[] = history_line('Method added', $version, $ref);
+    }
+
+    if ($history !== []) {
+        $markdown .= table_markdown($history, ['History', 'Version', 'Description']) . "\n\n";
+    }
+
+    $markdown .= "----------\n\n";
 }
 
 file_put_contents($destination_file, $markdown);
