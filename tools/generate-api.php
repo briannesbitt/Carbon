@@ -39,6 +39,13 @@ function history_line($event, $version, $ref): array
 
 function table_markdown(array $table, ?array $header = null): string
 {
+    $table = array_map(
+        static fn (array $row) => array_map(
+            static fn (string $cell) => str_replace('|', '\\|', $cell),
+            $row,
+        ),
+        $table,
+    );
     $header ??= array_fill(0, count($table[0]), '');
     $sizes = array_map(
         static fn (int $index) => max(array_map(strlen(...), [$header[$index], ...array_column($table, $index)])),

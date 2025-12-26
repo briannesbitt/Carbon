@@ -36,10 +36,10 @@ Create a new Carbon instance.
 Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.
 
-| History           | Version | Description                                                                                                                       |
-|:----------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|Carbon\WeekDay|Carbon\Month|string|int|float|null $time = null, DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.0.0   | `$time = null, $tz = null`                                                                                                        |
+| History           | Version | Description                                                                                                                                |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|Carbon\WeekDay\|Carbon\Month\|string\|int\|float\|null $time = null, DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.0.0   | `$time = null, $tz = null`                                                                                                                 |
 
 ----------
 
@@ -221,11 +221,11 @@ returns `static`
 
 Add given units to the current instance.
 
-| History           | Version | Description                                                    |
-|:----------------- | ------- | -------------------------------------------------------------- |
-| Prototype changed | 3.1.0   | `Carbon\Unit|string $unit, $value = 1, ?bool $overflow = null` |
-| Prototype changed | 3.0.0   | `string $unit, $value = 1, ?bool $overflow = null`             |
-| Method added      | 2.0.0   | `$unit, $value = 1, $overflow = null`                          |
+| History           | Version | Description                                                     |
+|:----------------- | ------- | --------------------------------------------------------------- |
+| Prototype changed | 3.1.0   | `Carbon\Unit\|string $unit, $value = 1, ?bool $overflow = null` |
+| Prototype changed | 3.0.0   | `string $unit, $value = 1, ?bool $overflow = null`              |
+| Method added      | 2.0.0   | `$unit, $value = 1, $overflow = null`                           |
 
 ----------
 
@@ -336,12 +336,12 @@ Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // true
 Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', false); // false
 ```
 
-| History           | Version | Description                                                                            |
-|:----------------- | ------- | -------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date1, DateTimeInterface|string $date2, bool $equal = true` |
-| Prototype changed | 1.24.0  | `$date1, $date2, $equal = true`                                                        |
-| Prototype changed | 1.23.0  | `self $dt1, self $dt2, $equal = true`                                                  |
-| Method added      | 1.3.0   | `Carbon\Carbon $dt1, Carbon\Carbon $dt2, $equal = true`                                |
+| History           | Version | Description                                                                              |
+|:----------------- | ------- | ---------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date1, DateTimeInterface\|string $date2, bool $equal = true` |
+| Prototype changed | 1.24.0  | `$date1, $date2, $equal = true`                                                          |
+| Prototype changed | 1.23.0  | `self $dt1, self $dt2, $equal = true`                                                    |
+| Method added      | 1.3.0   | `Carbon\Carbon $dt1, Carbon\Carbon $dt2, $equal = true`                                  |
 
 ----------
 
@@ -356,10 +356,10 @@ Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // fal
 Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // false
 ```
 
-| History           | Version | Description                                                        |
-|:----------------- | ------- | ------------------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date1, DateTimeInterface|string $date2` |
-| Method added      | 2.22.0  | `$date1, $date2`                                                   |
+| History           | Version | Description                                                          |
+|:----------------- | ------- | -------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date1, DateTimeInterface\|string $date2` |
+| Method added      | 2.22.0  | `$date1, $date2`                                                     |
 
 ----------
 
@@ -374,10 +374,10 @@ Carbon::parse('2018-07-25')->betweenIncluded('2018-08-01', '2018-08-20'); // fal
 Carbon::parse('2018-07-25')->betweenIncluded('2018-07-25', '2018-08-01'); // true
 ```
 
-| History           | Version | Description                                                        |
-|:----------------- | ------- | ------------------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date1, DateTimeInterface|string $date2` |
-| Method added      | 2.31.0  | `$date1, $date2`                                                   |
+| History           | Version | Description                                                          |
+|:----------------- | ------- | -------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date1, DateTimeInterface\|string $date2` |
+| Method added      | 2.31.0  | `$date1, $date2`                                                     |
 
 ----------
 
@@ -454,10 +454,10 @@ returns `\T`
 
 Ceil the current instance second with given precision if specified.
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float $precision = 1` |
-| Method added      | 2.0.0   | `$precision = 1`                               |
+| History           | Version | Description                                       |
+|:----------------- | ------- | ------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float $precision = 1` |
+| Method added      | 2.0.0   | `$precision = 1`                                  |
 
 ----------
 
@@ -465,10 +465,10 @@ Ceil the current instance second with given precision if specified.
 
 Ceil the current instance at the given unit with given precision if specified.
 
-| History           | Version | Description                                                  |
-|:----------------- | ------- | ------------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float $precision = 1` |
-| Method added      | 2.0.0   | `$unit, $precision = 1`                                      |
+| History           | Version | Description                                                     |
+|:----------------- | ------- | --------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float $precision = 1` |
+| Method added      | 2.0.0   | `$unit, $precision = 1`                                         |
 
 ----------
 
@@ -479,10 +479,10 @@ Ceil the current instance week.
 ##### Parameters
 - $weekStartsAt `\WeekDay|int|null` optional start allow you to specify the day of week to use to start the week
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $weekStartsAt = null` |
-| Method added      | 2.0.0   | `$weekStartsAt = null`                         |
+| History           | Version | Description                                      |
+|:----------------- | ------- | ------------------------------------------------ |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $weekStartsAt = null` |
+| Method added      | 2.0.0   | `$weekStartsAt = null`                           |
 
 ----------
 
@@ -713,10 +713,10 @@ returns `static`
 
 Create a Carbon instance from a time string. The date portion is set to today.
 
-| History           | Version | Description                                                   |
-|:----------------- | ------- | ------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $time, DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.25.0  | `$time, $tz = null`                                           |
+| History           | Version | Description                                                      |
+|:----------------- | ------- | ---------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $time, DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.25.0  | `$time, $tz = null`                                              |
 
 ----------
 
@@ -726,10 +726,10 @@ Create a Carbon instance from a timestamp and set the timezone (UTC by default).
 
 Timestamp input can be given as int, float or a string containing one or more numbers.
 
-| History           | Version | Description                                                                  |
-|:----------------- | ------- | ---------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string|int|float $timestamp, DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.0.0   | `$timestamp, $tz = null`                                                     |
+| History           | Version | Description                                                                       |
+|:----------------- | ------- | --------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string\|int\|float $timestamp, DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.0.0   | `$timestamp, $tz = null`                                                          |
 
 ----------
 
@@ -739,10 +739,10 @@ Create a Carbon instance from a timestamp in milliseconds.
 
 Timestamp input can be given as int, float or a string containing one or more numbers.
 
-| History           | Version | Description                                                                  |
-|:----------------- | ------- | ---------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string|int|float $timestamp, DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.23.0  | `$timestamp, $tz = null`                                                     |
+| History           | Version | Description                                                                       |
+|:----------------- | ------- | --------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string\|int\|float $timestamp, DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.23.0  | `$timestamp, $tz = null`                                                          |
 
 ----------
 
@@ -769,10 +769,10 @@ Create a Carbon instance from a timestamp keeping the timezone to UTC.
 
 Timestamp input can be given as int, float or a string containing one or more numbers.
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `string|int|float $timestamp` |
-| Method added      | 1.0.0   | `$timestamp`                  |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `string\|int\|float $timestamp` |
+| Method added      | 1.0.0   | `$timestamp`                    |
 
 ----------
 
@@ -1226,11 +1226,11 @@ returns `float`
 
 returns `float`
 
-| History           | Version | Description                                                                         |
-|:----------------- | ------- | ----------------------------------------------------------------------------------- |
-| Prototype changed | 3.2.0   | `Carbon\Unit|string $unit, $date = null, bool $absolute = false, bool $utc = false` |
-| Prototype changed | 3.1.0   | `Carbon\Unit|string $unit, $date = null, bool $absolute = false`                    |
-| Method added      | 3.0.0   | `string $unit, $date = null, bool $absolute = false`                                |
+| History           | Version | Description                                                                          |
+|:----------------- | ------- | ------------------------------------------------------------------------------------ |
+| Prototype changed | 3.2.0   | `Carbon\Unit\|string $unit, $date = null, bool $absolute = false, bool $utc = false` |
+| Prototype changed | 3.1.0   | `Carbon\Unit\|string $unit, $date = null, bool $absolute = false`                    |
+| Method added      | 3.0.0   | `string $unit, $date = null, bool $absolute = false`                                 |
 
 ----------
 
@@ -1355,11 +1355,11 @@ echo Carbon::parse('2018-07-25 12:45:16.334455')
   ->endOf(Unit::Week, Carbon::FRIDAY);
 ```
 
-| History           | Version | Description                               |
-|:----------------- | ------- | ----------------------------------------- |
-| Prototype changed | 3.8.0   | `Carbon\Unit|string $unit, mixed $params` |
-| Prototype changed | 3.0.0   | `string $unit, mixed $params`             |
-| Method added      | 2.0.0   | `$unit, $params`                          |
+| History           | Version | Description                                |
+|:----------------- | ------- | ------------------------------------------ |
+| Prototype changed | 3.8.0   | `Carbon\Unit\|string $unit, mixed $params` |
+| Prototype changed | 3.0.0   | `string $unit, mixed $params`              |
+| Method added      | 2.0.0   | `$unit, $params`                           |
 
 ----------
 
@@ -1545,11 +1545,11 @@ echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->endOfWeek() . "\n";
 echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";
 ```
 
-| History           | Version | Description                                  |
-|:----------------- | ------- | -------------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $weekEndsAt = null` |
-| Prototype changed | 2.0.0   | `$weekEndsAt = null`                         |
-| Method added      | 1.3.0   | *no arguments*                               |
+| History           | Version | Description                                    |
+|:----------------- | ------- | ---------------------------------------------- |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $weekEndsAt = null` |
+| Prototype changed | 2.0.0   | `$weekEndsAt = null`                           |
+| Method added      | 1.3.0   | *no arguments*                                 |
 
 ----------
 
@@ -1581,12 +1581,12 @@ Carbon::parse('2018-07-25 12:45:16')->eq(Carbon::parse('2018-07-25 12:45:16')); 
 Carbon::parse('2018-07-25 12:45:16')->eq('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.0.0   | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.0.0   | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -1601,12 +1601,12 @@ Carbon::parse('2018-07-25 12:45:16')->equalTo(Carbon::parse('2018-07-25 12:45:16
 Carbon::parse('2018-07-25 12:45:16')->equalTo('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.22.0  | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.22.0  | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -1704,10 +1704,10 @@ returns `static`
 
 Round the current instance second with given precision if specified.
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float $precision = 1` |
-| Method added      | 2.0.0   | `$precision = 1`                               |
+| History           | Version | Description                                       |
+|:----------------- | ------- | ------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float $precision = 1` |
+| Method added      | 2.0.0   | `$precision = 1`                                  |
 
 ----------
 
@@ -1715,10 +1715,10 @@ Round the current instance second with given precision if specified.
 
 Truncate the current instance at the given unit with given precision if specified.
 
-| History           | Version | Description                                                  |
-|:----------------- | ------- | ------------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float $precision = 1` |
-| Method added      | 2.0.0   | `$unit, $precision = 1`                                      |
+| History           | Version | Description                                                     |
+|:----------------- | ------- | --------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float $precision = 1` |
+| Method added      | 2.0.0   | `$unit, $precision = 1`                                         |
 
 ----------
 
@@ -1729,10 +1729,10 @@ Truncate the current instance week.
 ##### Parameters
 - $weekStartsAt `\WeekDay|int|null` optional start allow you to specify the day of week to use to start the week
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $weekStartsAt = null` |
-| Method added      | 2.0.0   | `$weekStartsAt = null`                         |
+| History           | Version | Description                                      |
+|:----------------- | ------- | ------------------------------------------------ |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $weekStartsAt = null` |
+| Method added      | 2.0.0   | `$weekStartsAt = null`                           |
 
 ----------
 
@@ -1862,11 +1862,11 @@ Register a custom macro.
 
 returns `void`
 
-| History           | Version | Description                                 |
-|:----------------- | ------- | ------------------------------------------- |
-| Prototype changed | 3.0.1   | `callable $macro, int $priority = 0`        |
-| Prototype changed | 3.0.0   | `callable|object $macro, int $priority = 0` |
-| Method added      | 2.1.0   | `$macro, $priority = 0`                     |
+| History           | Version | Description                                  |
+|:----------------- | ------- | -------------------------------------------- |
+| Prototype changed | 3.0.1   | `callable $macro, int $priority = 0`         |
+| Prototype changed | 3.0.0   | `callable\|object $macro, int $priority = 0` |
+| Method added      | 2.1.0   | `$macro, $priority = 0`                      |
 
 ----------
 
@@ -1876,11 +1876,11 @@ Get a part of the Carbon object.
 
 returns `string|int|bool|\DateTimeZone`
 
-| History           | Version | Description                |
-|:----------------- | ------- | -------------------------- |
-| Prototype changed | 3.1.0   | `Carbon\Unit|string $name` |
-| Prototype changed | 3.0.0   | `string $name`             |
-| Method added      | 2.0.0   | `$name`                    |
+| History           | Version | Description                 |
+|:----------------- | ------- | --------------------------- |
+| Prototype changed | 3.1.0   | `Carbon\Unit\|string $name` |
+| Prototype changed | 3.0.0   | `string $name`              |
+| Method added      | 2.0.0   | `$name`                     |
 
 ----------
 
@@ -1959,10 +1959,10 @@ if explicitly given).
   if not provided, start of week is inferred from the locale
   (Sunday for en_US, Monday for de_DE, etc.)
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $weekStartsAt = null` |
-| Method added      | 2.64.0  | `?int $weekStartsAt = null`                    |
+| History           | Version | Description                                      |
+|:----------------- | ------- | ------------------------------------------------ |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $weekStartsAt = null` |
+| Method added      | 2.64.0  | `?int $weekStartsAt = null`                      |
 
 ----------
 
@@ -2377,12 +2377,12 @@ Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:16'); // fal
 Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.22.0  | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.22.0  | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -2397,12 +2397,12 @@ Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:16'
 Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.22.0  | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.22.0  | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -2417,12 +2417,12 @@ Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.0.0   | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.0.0   | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -2437,12 +2437,12 @@ Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:16'); // true
 Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.0.0   | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.0.0   | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -2586,10 +2586,10 @@ var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3pm')); // true
 var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false
 ```
 
-| History           | Version | Description                                  |
-|:----------------- | ------- | -------------------------------------------- |
-| Prototype changed | 3.6.0   | `Carbon\WeekDay|Carbon\Month|string $tester` |
-| Method added      | 2.20.0  | `string $tester`                             |
+| History           | Version | Description                                    |
+|:----------------- | ------- | ---------------------------------------------- |
+| Prototype changed | 3.6.0   | `Carbon\WeekDay\|Carbon\Month\|string $tester` |
+| Method added      | 2.20.0  | `string $tester`                               |
 
 ----------
 
@@ -2604,10 +2604,10 @@ Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:17'); // false
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Method added      | 1.39.0  | `$date`                          |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Method added      | 1.39.0  | `$date`                           |
 
 ----------
 
@@ -2622,10 +2622,10 @@ Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Method added      | 1.39.0  | `$date`                          |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Method added      | 1.39.0  | `$date`                           |
 
 ----------
 
@@ -2644,10 +2644,10 @@ Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01'); // true
 Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', false); // false
 ```
 
-| History           | Version | Description                                                                            |
-|:----------------- | ------- | -------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date1, DateTimeInterface|string $date2, bool $equal = true` |
-| Method added      | 1.39.0  | `$date1, $date2, $equal = true`                                                        |
+| History           | Version | Description                                                                              |
+|:----------------- | ------- | ---------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date1, DateTimeInterface\|string $date2, bool $equal = true` |
+| Method added      | 1.39.0  | `$date1, $date2, $equal = true`                                                          |
 
 ----------
 
@@ -2668,12 +2668,12 @@ Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
 Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
 ```
 
-| History           | Version | Description                                  |
-|:----------------- | ------- | -------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string|null $date = null` |
-| Prototype changed | 1.23.0  | `$date = null`                               |
-| Prototype changed | 1.21.0  | `?Carbon\Carbon $date = null`                |
-| Method added      | 1.14.0  | `Carbon\Carbon $date`                        |
+| History           | Version | Description                                    |
+|:----------------- | ------- | ---------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string\|null $date = null` |
+| Prototype changed | 1.23.0  | `$date = null`                                 |
+| Prototype changed | 1.21.0  | `?Carbon\Carbon $date = null`                  |
+| Method added      | 1.14.0  | `Carbon\Carbon $date`                          |
 
 ----------
 
@@ -2724,9 +2724,9 @@ Carbon::parse('2019-07-17')->isDayOfWeek('Friday'); // false
 
 Determines if the instance is end of century (last day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2753,11 +2753,11 @@ Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(true); // false
 Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false
 ```
 
-| History           | Version | Description                                                                                                                                                                                              |
-|:----------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|bool $checkMicroseconds = false, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
-| Prototype changed | 3.0.0   | `bool $checkMicroseconds = false`                                                                                                                                                                        |
-| Method added      | 1.28.0  | `$checkMicroseconds = false`                                                                                                                                                                             |
+| History           | Version | Description                                                                                                                                                                                                        |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Prototype changed | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|bool $checkMicroseconds = false, Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
+| Prototype changed | 3.0.0   | `bool $checkMicroseconds = false`                                                                                                                                                                                  |
+| Method added      | 1.28.0  | `$checkMicroseconds = false`                                                                                                                                                                                       |
 
 ----------
 
@@ -2765,9 +2765,9 @@ Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false
 
 Determines if the instance is end of decade (last day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2775,9 +2775,9 @@ Determines if the instance is end of decade (last day by default but interval ca
 
 Determines if the instance is end of hour (last microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2785,9 +2785,9 @@ Determines if the instance is end of hour (last microsecond by default but inter
 
 Determines if the instance is end of millennium (last day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2795,9 +2795,9 @@ Determines if the instance is end of millennium (last day by default but interva
 
 Determines if the instance is end of millisecond (last microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2805,9 +2805,9 @@ Determines if the instance is end of millisecond (last microsecond by default bu
 
 Determines if the instance is end of minute (last microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2815,9 +2815,9 @@ Determines if the instance is end of minute (last microsecond by default but int
 
 Determines if the instance is end of month (last day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2825,9 +2825,9 @@ Determines if the instance is end of month (last day by default but interval can
 
 Determines if the instance is end of quarter (last day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2835,9 +2835,9 @@ Determines if the instance is end of quarter (last day by default but interval c
 
 Determines if the instance is end of second (last microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -2863,9 +2863,9 @@ Check if the instance is end of a given unit (tolerating a given interval).
 Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false
 ```
 
-| History      | Version | Description                                                                                                                       |
-|:------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit $unit, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, mixed $params` |
+| History      | Version | Description                                                                                                                            |
+|:------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit $unit, Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null, mixed $params` |
 
 ----------
 
@@ -2879,9 +2879,9 @@ Carbon::parse('2024-08-31')->endOfWeek()->isEndOfWeek(); // true
 Carbon::parse('2024-08-31')->isEndOfWeek(); // false
 ```
 
-| History      | Version | Description                                                                                                                                 |
-|:------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, Carbon\WeekDay|int|null $weekEndsAt = null` |
+| History      | Version | Description                                                                                                                                        |
+|:------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null, Carbon\WeekDay\|int\|null $weekEndsAt = null` |
 
 ----------
 
@@ -2889,9 +2889,9 @@ Carbon::parse('2024-08-31')->isEndOfWeek(); // false
 
 Determines if the instance is end of year (last day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3120,11 +3120,11 @@ Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-12-13')); // tr
 Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // false
 ```
 
-| History           | Version | Description                                      |
-|:----------------- | ------- | ------------------------------------------------ |
-| Prototype changed | 3.0.0   | `string $format, DateTimeInterface|string $date` |
-| Prototype changed | 1.23.0  | `$format, $date = null`                          |
-| Method added      | 1.22.0  | `$format, ?Carbon\Carbon $date = null`           |
+| History           | Version | Description                                       |
+|:----------------- | ------- | ------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $format, DateTimeInterface\|string $date` |
+| Prototype changed | 1.23.0  | `$format, $date = null`                           |
+| Method added      | 1.22.0  | `$format, ?Carbon\Carbon $date = null`            |
 
 ----------
 
@@ -3146,13 +3146,13 @@ Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01')); // false
 Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true
 ```
 
-| History           | Version | Description                                               |
-|:----------------- | ------- | --------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date, bool $ofSameYear = true` |
-| Prototype changed | 2.0.0   | `$date = null, $ofSameYear = true`                        |
-| Prototype changed | 1.29.2  | `$date = null, $ofSameYear = null`                        |
-| Prototype changed | 1.23.0  | `$date = null, $ofSameYear = false`                       |
-| Method added      | 1.22.0  | `?Carbon\Carbon $date = null, $ofSameYear = false`        |
+| History           | Version | Description                                                |
+|:----------------- | ------- | ---------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date, bool $ofSameYear = true` |
+| Prototype changed | 2.0.0   | `$date = null, $ofSameYear = true`                         |
+| Prototype changed | 1.29.2  | `$date = null, $ofSameYear = null`                         |
+| Prototype changed | 1.23.0  | `$date = null, $ofSameYear = false`                        |
+| Method added      | 1.22.0  | `?Carbon\Carbon $date = null, $ofSameYear = false`         |
 
 ----------
 
@@ -3174,12 +3174,12 @@ Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01')); // fals
 Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); // true
 ```
 
-| History           | Version | Description                                               |
-|:----------------- | ------- | --------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date, bool $ofSameYear = true` |
-| Prototype changed | 2.0.0   | `$date = null, $ofSameYear = true`                        |
-| Prototype changed | 1.29.2  | `$date = null, $ofSameYear = null`                        |
-| Method added      | 1.26.4  | `$date = null, $ofSameYear = false`                       |
+| History           | Version | Description                                                |
+|:----------------- | ------- | ---------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date, bool $ofSameYear = true` |
+| Prototype changed | 2.0.0   | `$date = null, $ofSameYear = true`                         |
+| Prototype changed | 1.29.2  | `$date = null, $ofSameYear = null`                         |
+| Method added      | 1.26.4  | `$date = null, $ofSameYear = false`                        |
 
 ----------
 
@@ -3199,10 +3199,10 @@ Carbon::parse('2019-01-13')->isSameUnit('year', Carbon::parse('2019-12-25')); //
 Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // false
 ```
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $unit, DateTimeInterface|string $date` |
-| Method added      | 2.0.0   | `$unit, $date = null`                          |
+| History           | Version | Description                                     |
+|:----------------- | ------- | ----------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateTimeInterface\|string $date` |
+| Method added      | 2.0.0   | `$unit, $date = null`                           |
 
 ----------
 
@@ -3210,9 +3210,9 @@ Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); //
 
 Determines if the instance is start of century (first day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3237,11 +3237,11 @@ Carbon::parse('2019-02-28 00:00:00.000000')->isStartOfDay(true); // true
 Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false
 ```
 
-| History           | Version | Description                                                                                                                                                                                              |
-|:----------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|bool $checkMicroseconds = false, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
-| Prototype changed | 3.0.0   | `bool $checkMicroseconds = false`                                                                                                                                                                        |
-| Method added      | 1.28.0  | `$checkMicroseconds = false`                                                                                                                                                                             |
+| History           | Version | Description                                                                                                                                                                                                        |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Prototype changed | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|bool $checkMicroseconds = false, Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
+| Prototype changed | 3.0.0   | `bool $checkMicroseconds = false`                                                                                                                                                                                  |
+| Method added      | 1.28.0  | `$checkMicroseconds = false`                                                                                                                                                                                       |
 
 ----------
 
@@ -3249,9 +3249,9 @@ Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false
 
 Determines if the instance is start of decade (first day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3259,9 +3259,9 @@ Determines if the instance is start of decade (first day by default but interval
 
 Determines if the instance is start of hour (first microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3269,9 +3269,9 @@ Determines if the instance is start of hour (first microsecond by default but in
 
 Determines if the instance is start of millennium (first day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3279,9 +3279,9 @@ Determines if the instance is start of millennium (first day by default but inte
 
 Determines if the instance is start of millisecond (first microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3289,9 +3289,9 @@ Determines if the instance is start of millisecond (first microsecond by default
 
 Determines if the instance is start of minute (first microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3299,9 +3299,9 @@ Determines if the instance is start of minute (first microsecond by default but 
 
 Determines if the instance is start of month (first day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3309,9 +3309,9 @@ Determines if the instance is start of month (first day by default but interval 
 
 Determines if the instance is start of quarter (first day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3319,9 +3319,9 @@ Determines if the instance is start of quarter (first day by default but interva
 
 Determines if the instance is start of second (first microsecond by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3347,9 +3347,9 @@ Check if the instance is start of a given unit (tolerating a given interval).
 Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true
 ```
 
-| History      | Version | Description                                                                                                                       |
-|:------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit $unit, Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, mixed $params` |
+| History      | Version | Description                                                                                                                            |
+|:------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit $unit, Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null, mixed $params` |
 
 ----------
 
@@ -3363,9 +3363,9 @@ Carbon::parse('2024-08-31')->startOfWeek()->isStartOfWeek(); // true
 Carbon::parse('2024-08-31')->isStartOfWeek(); // false
 ```
 
-| History      | Version | Description                                                                                                                                   |
-|:------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null, Carbon\WeekDay|int|null $weekStartsAt = null` |
+| History      | Version | Description                                                                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null, Carbon\WeekDay\|int\|null $weekStartsAt = null` |
 
 ----------
 
@@ -3373,9 +3373,9 @@ Carbon::parse('2024-08-31')->isStartOfWeek(); // false
 
 Determines if the instance is start of year (first day by default but interval can be customized).
 
-| History      | Version | Description                                                                                     |
-|:------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| Method added | 3.8.0   | `Carbon\Unit|DateInterval|Closure|Carbon\CarbonConverterInterface|string|null $interval = null` |
+| History      | Version | Description                                                                                          |
+|:------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Method added | 3.8.0   | `Carbon\Unit\|DateInterval\|Closure\|Carbon\CarbonConverterInterface\|string\|null $interval = null` |
 
 ----------
 
@@ -3532,10 +3532,10 @@ Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
 ##### Parameters
 - $value `\WeekDay|int|null` new value for weekday if using as setter.
 
-| History           | Version | Description                             |
-|:----------------- | ------- | --------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $value = null` |
-| Method added      | 2.0.0   | `$value = null`                         |
+| History           | Version | Description                               |
+|:----------------- | ------- | ----------------------------------------- |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $value = null` |
+| Method added      | 2.0.0   | `$value = null`                           |
 
 ----------
 
@@ -3632,12 +3632,12 @@ Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.22.0  | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.22.0  | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -3652,12 +3652,12 @@ Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:16'); 
 Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.22.0  | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.22.0  | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -3779,12 +3779,12 @@ Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.0.0   | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.0.0   | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -3799,12 +3799,12 @@ Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:16'); // true
 Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.0.0   | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.0.0   | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -3826,11 +3826,11 @@ Carbon::macro('userFormat', function () use ($userSettings) {
 echo Carbon::yesterday()->hours(11)->userFormat();
 ```
 
-| History           | Version | Description                            |
-|:----------------- | ------- | -------------------------------------- |
-| Prototype changed | 3.0.1   | `string $name, ?callable $macro`       |
-| Prototype changed | 3.0.0   | `string $name, callable|object $macro` |
-| Method added      | 1.26.0  | `$name, $macro`                        |
+| History           | Version | Description                             |
+|:----------------- | ------- | --------------------------------------- |
+| Prototype changed | 3.0.1   | `string $name, ?callable $macro`        |
+| Prototype changed | 3.0.0   | `string $name, callable\|object $macro` |
+| Method added      | 1.26.0  | `$name, $macro`                         |
 
 ----------
 
@@ -3846,10 +3846,10 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 
 returns `static|null`
 
-| History           | Version | Description                                       |
-|:----------------- | ------- | ------------------------------------------------- |
-| Prototype changed | 3.6.0   | `$var, DateTimeZone|string|null $timezone = null` |
-| Method added      | 1.28.0  | `$var`                                            |
+| History           | Version | Description                                         |
+|:----------------- | ------- | --------------------------------------------------- |
+| Prototype changed | 3.6.0   | `$var, DateTimeZone\|string\|null $timezone = null` |
+| Method added      | 1.28.0  | `$var`                                              |
 
 ----------
 
@@ -3974,10 +3974,10 @@ echo "$nextFullMoon\n";
 echo "$previousBlackMoon\n";
 ```
 
-| History           | Version | Description            |
-|:----------------- | ------- | ---------------------- |
-| Prototype changed | 3.0.0   | `object|string $mixin` |
-| Method added      | 1.26.0  | `$mixin`               |
+| History           | Version | Description             |
+|:----------------- | ------- | ----------------------- |
+| Prototype changed | 3.0.0   | `object\|string $mixin` |
+| Method added      | 1.26.0  | `$mixin`                |
 
 ----------
 
@@ -4008,12 +4008,12 @@ Carbon::parse('2018-07-25 12:45:16')->ne(Carbon::parse('2018-07-25 12:45:16')); 
 Carbon::parse('2018-07-25 12:45:16')->ne('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.0.0   | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.0.0   | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -4071,12 +4071,12 @@ Carbon::parse('2018-07-25 12:45:16')->notEqualTo(Carbon::parse('2018-07-25 12:45
 Carbon::parse('2018-07-25 12:45:16')->notEqualTo('2018-07-25 12:45:17'); // true
 ```
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 1.24.0  | `$date`                          |
-| Prototype changed | 1.23.0  | `self $date`                     |
-| Method added      | 1.22.0  | `Carbon\Carbon $date`            |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 1.24.0  | `$date`                           |
+| Prototype changed | 1.23.0  | `self $date`                      |
+| Method added      | 1.22.0  | `Carbon\Carbon $date`             |
 
 ----------
 
@@ -4084,10 +4084,10 @@ Carbon::parse('2018-07-25 12:45:16')->notEqualTo('2018-07-25 12:45:17'); // true
 
 Get a Carbon instance for the current date and time.
 
-| History           | Version | Description                                     |
-|:----------------- | ------- | ----------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.0.0   | `$tz = null`                                    |
+| History           | Version | Description                                        |
+|:----------------- | ------- | -------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.0.0   | `$tz = null`                                       |
 
 ----------
 
@@ -4181,10 +4181,10 @@ This is an alias for the constructor that allows better fluent syntax
 as it allows you to do Carbon::parse('Monday next week')->fn() rather
 than (new Carbon('Monday next week'))->fn().
 
-| History           | Version | Description                                                                                                                |
-|:----------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|Carbon\WeekDay|Carbon\Month|string|int|float|null $time, DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.3.0   | `$time = null, $tz = null`                                                                                                 |
+| History           | Version | Description                                                                                                                         |
+|:----------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|Carbon\WeekDay\|Carbon\Month\|string\|int\|float\|null $time, DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.3.0   | `$time = null, $tz = null`                                                                                                          |
 
 ----------
 
@@ -4199,11 +4199,11 @@ Create a carbon instance from a localized string (in French, Japanese, Arabic, e
   used instead.
 - $timezone `\DateTimeZone|string|int|null` optional timezone for the new instance.
 
-| History           | Version | Description                                                                           |
-|:----------------- | ------- | ------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $time, ?string $locale = null, DateTimeZone|string|int|null $timezone = null` |
-| Prototype changed | 2.35.0  | `$time, $locale = null, $tz = null`                                                   |
-| Method added      | 2.16.0  | `$time, $locale, $tz = null`                                                          |
+| History           | Version | Description                                                                              |
+|:----------------- | ------- | ---------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $time, ?string $locale = null, DateTimeZone\|string\|int\|null $timezone = null` |
+| Prototype changed | 2.35.0  | `$time, $locale = null, $tz = null`                                                      |
+| Method added      | 2.16.0  | `$time, $locale, $tz = null`                                                             |
 
 ----------
 
@@ -4325,10 +4325,10 @@ This is an alias for the constructor that allows better fluent syntax
 as it allows you to do Carbon::parse('Monday next week')->fn() rather
 than (new Carbon('Monday next week'))->fn().
 
-| History           | Version | Description                                                                                                                |
-|:----------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|Carbon\WeekDay|Carbon\Month|string|int|float|null $time, DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 2.16.0  | `$time = null, $tz = null`                                                                                                 |
+| History           | Version | Description                                                                                                                         |
+|:----------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|Carbon\WeekDay\|Carbon\Month\|string\|int\|float\|null $time, DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 2.16.0  | `$time = null, $tz = null`                                                                                                          |
 
 ----------
 
@@ -4400,10 +4400,10 @@ returns `void`
 
 Round the current instance second with given precision if specified.
 
-| History           | Version | Description                                                                         |
-|:----------------- | ------- | ----------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float $precision = 1, callable|string $function = 'round'` |
-| Method added      | 2.0.0   | `$precision = 1, $function = 'round'`                                               |
+| History           | Version | Description                                                                             |
+|:----------------- | ------- | --------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float $precision = 1, callable\|string $function = 'round'` |
+| Method added      | 2.0.0   | `$precision = 1, $function = 'round'`                                                   |
 
 ----------
 
@@ -4411,10 +4411,10 @@ Round the current instance second with given precision if specified.
 
 Round the current instance at the given unit with given precision if specified and the given function.
 
-| History           | Version | Description                                                                                       |
-|:----------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float $precision = 1, callable|string $function = 'round'` |
-| Method added      | 2.0.0   | `$unit, $precision = 1, $function = 'round'`                                                      |
+| History           | Version | Description                                                                                           |
+|:----------------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float $precision = 1, callable\|string $function = 'round'` |
+| Method added      | 2.0.0   | `$unit, $precision = 1, $function = 'round'`                                                          |
 
 ----------
 
@@ -4425,10 +4425,10 @@ Round the current instance week.
 ##### Parameters
 - $weekStartsAt `\WeekDay|int|null` optional start allow you to specify the day of week to use to start the week
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $weekStartsAt = null` |
-| Method added      | 2.0.0   | `$weekStartsAt = null`                         |
+| History           | Version | Description                                      |
+|:----------------- | ------- | ------------------------------------------------ |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $weekStartsAt = null` |
+| Method added      | 2.0.0   | `$weekStartsAt = null`                           |
 
 ----------
 
@@ -4474,10 +4474,10 @@ To avoid conflict between different third-party libraries, static setters should
 
 JSON serialize all Carbon instances using the given callback.
 :::
-| History           | Version | Description                    |
-|:----------------- | ------- | ------------------------------ |
-| Prototype changed | 3.0.0   | `callable|string|null $format` |
-| Method added      | 1.26.0  | `$callback`                    |
+| History           | Version | Description                      |
+|:----------------- | ------- | -------------------------------- |
+| Prototype changed | 3.0.0   | `callable\|string\|null $format` |
+| Method added      | 1.26.0  | `$callback`                      |
 
 ----------
 
@@ -4487,11 +4487,11 @@ Set a part of the Carbon object.
 
 returns `$this`
 
-| History           | Version | Description                                                                                     |
-|:----------------- | ------- | ----------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.1.0   | `Carbon\Unit|array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null` |
-| Prototype changed | 3.0.0   | `array|string $name, DateTimeZone|Carbon\Month|string|int|float|null $value = null`             |
-| Method added      | 2.0.0   | `$name, $value = null`                                                                          |
+| History           | Version | Description                                                                                            |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------ |
+| Prototype changed | 3.1.0   | `Carbon\Unit\|array\|string $name, DateTimeZone\|Carbon\Month\|string\|int\|float\|null $value = null` |
+| Prototype changed | 3.0.0   | `array\|string $name, DateTimeZone\|Carbon\Month\|string\|int\|float\|null $value = null`              |
+| Method added      | 2.0.0   | `$name, $value = null`                                                                                 |
 
 ----------
 
@@ -4514,11 +4514,11 @@ Set the date with gregorian year, month and day numbers.
 
 Set the year, month, and date for this instance to that of the passed instance.
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 2.0.0   | `$date = null`                   |
-| Method added      | 1.26.0  | `$date`                          |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 2.0.0   | `$date = null`                    |
+| Method added      | 1.26.0  | `$date`                           |
 
 ----------
 
@@ -4539,10 +4539,10 @@ Set the date and time all together.
 
 Set the date and time for this instance to that of the passed instance.
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Method added      | 2.0.0   | `$date = null`                   |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Method added      | 2.0.0   | `$date = null`                    |
 
 ----------
 
@@ -4558,10 +4558,10 @@ parameter. First day of week is driven by the locale unless explicitly set with 
   if not provided, start of week is inferred from the locale
   (Sunday for en_US, Monday for de_DE, etc.)
 
-| History           | Version | Description                                                       |
-|:----------------- | ------- | ----------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `int $numberOfDays, Carbon\WeekDay|int|null $weekStartsAt = null` |
-| Method added      | 2.64.0  | `int $numberOfDays, ?int $weekStartsAt = null`                    |
+| History           | Version | Description                                                         |
+|:----------------- | ------- | ------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `int $numberOfDays, Carbon\WeekDay\|int\|null $weekStartsAt = null` |
+| Method added      | 2.64.0  | `int $numberOfDays, ?int $weekStartsAt = null`                      |
 
 ----------
 
@@ -4734,11 +4734,11 @@ Resets the current time of the DateTime object to a different time.
 
 Set the hour, minute, second and microseconds for this instance to that of the passed instance.
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeInterface|string $date` |
-| Prototype changed | 2.0.0   | `$date = null`                   |
-| Method added      | 1.26.0  | `$date`                          |
+| History           | Version | Description                       |
+|:----------------- | ------- | --------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeInterface\|string $date` |
+| Prototype changed | 2.0.0   | `$date = null`                    |
+| Method added      | 1.26.0  | `$date`                           |
 
 ----------
 
@@ -4759,13 +4759,13 @@ Set the instance's timestamp.
 
 Timestamp input can be given as int, float or a string containing one or more numbers.
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `string|int|float $timestamp` |
-| Prototype changed | 2.41.0  | `$unixTimestamp`              |
-| Prototype changed | 2.23.0  | `$unixtimestamp`              |
-| Prototype changed | 1.21.0  | `int $timestamp`              |
-| Method added      | 1.0.0   | `$unixtimestamp`              |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `string\|int\|float $timestamp` |
+| Prototype changed | 2.41.0  | `$unixTimestamp`                |
+| Prototype changed | 2.23.0  | `$unixtimestamp`                |
+| Prototype changed | 1.21.0  | `int $timestamp`                |
+| Method added      | 1.0.0   | `$unixtimestamp`                |
 
 ----------
 
@@ -4773,10 +4773,10 @@ Timestamp input can be given as int, float or a string containing one or more nu
 
 Set the instance's timezone from a string or object.
 
-| History           | Version | Description                         |
-|:----------------- | ------- | ----------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int $timeZone` |
-| Method added      | 1.0.0   | `$value`                            |
+| History           | Version | Description                           |
+|:----------------- | ------- | ------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int $timeZone` |
+| Method added      | 1.0.0   | `$value`                              |
 
 ----------
 
@@ -4795,10 +4795,10 @@ Set the default format used when type juggling a Carbon instance to a string.
 
 returns `void`
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `Closure|string|null $format` |
-| Method added      | 1.5.0   | `$format`                     |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `Closure\|string\|null $format` |
+| Method added      | 1.5.0   | `$format`                       |
 
 ----------
 
@@ -4826,10 +4826,10 @@ Set specified unit to new given value.
 - $unit `string` year, month, day, hour, minute, second or microsecond
 - $value `\Month|int` new value for given unit
 
-| History           | Version | Description                                               |
-|:----------------- | ------- | --------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $unit, Carbon\Month|int|float|null $value = null` |
-| Method added      | 2.0.0   | `$unit, $value = null`                                    |
+| History           | Version | Description                                                  |
+|:----------------- | ------- | ------------------------------------------------------------ |
+| Prototype changed | 3.0.0   | `string $unit, Carbon\Month\|int\|float\|null $value = null` |
+| Method added      | 2.0.0   | `$unit, $value = null`                                       |
 
 ----------
 
@@ -4911,10 +4911,10 @@ returns `$this|static`
 
 Set the instance's timezone from a string or object and add/subtract the offset difference.
 
-| History           | Version | Description                  |
-|:----------------- | ------- | ---------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string $value` |
-| Method added      | 2.0.0   | `$value`                     |
+| History           | Version | Description                   |
+|:----------------- | ------- | ----------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string $value` |
+| Method added      | 2.0.0   | `$value`                      |
 
 ----------
 
@@ -4972,11 +4972,11 @@ echo Carbon::parse('2018-07-25 12:45:16.334455')
   ->endOf(Unit::Week, Carbon::FRIDAY);
 ```
 
-| History           | Version | Description                               |
-|:----------------- | ------- | ----------------------------------------- |
-| Prototype changed | 3.8.0   | `Carbon\Unit|string $unit, mixed $params` |
-| Prototype changed | 3.0.0   | `string $unit, mixed $params`             |
-| Method added      | 2.0.0   | `$unit, $params`                          |
+| History           | Version | Description                                |
+|:----------------- | ------- | ------------------------------------------ |
+| Prototype changed | 3.8.0   | `Carbon\Unit\|string $unit, mixed $params` |
+| Prototype changed | 3.0.0   | `string $unit, mixed $params`              |
+| Method added      | 2.0.0   | `$unit, $params`                           |
 
 ----------
 
@@ -5162,11 +5162,11 @@ echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->startOfWeek() . "\n";
 echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek(Carbon::SUNDAY) . "\n";
 ```
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $weekStartsAt = null` |
-| Prototype changed | 2.0.0   | `$weekStartsAt = null`                         |
-| Method added      | 1.3.0   | *no arguments*                                 |
+| History           | Version | Description                                      |
+|:----------------- | ------- | ------------------------------------------------ |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $weekStartsAt = null` |
+| Prototype changed | 2.0.0   | `$weekStartsAt = null`                           |
+| Method added      | 1.3.0   | *no arguments*                                   |
 
 ----------
 
@@ -5253,11 +5253,11 @@ returns `static`
 
 Subtract given units to the current instance.
 
-| History           | Version | Description                                                    |
-|:----------------- | ------- | -------------------------------------------------------------- |
-| Prototype changed | 3.1.0   | `Carbon\Unit|string $unit, $value = 1, ?bool $overflow = null` |
-| Prototype changed | 3.0.0   | `string $unit, $value = 1, ?bool $overflow = null`             |
-| Method added      | 2.0.0   | `$unit, $value = 1, $overflow = null`                          |
+| History           | Version | Description                                                     |
+|:----------------- | ------- | --------------------------------------------------------------- |
+| Prototype changed | 3.1.0   | `Carbon\Unit\|string $unit, $value = 1, ?bool $overflow = null` |
+| Prototype changed | 3.0.0   | `string $unit, $value = 1, ?bool $overflow = null`              |
+| Method added      | 2.0.0   | `$unit, $value = 1, $overflow = null`                           |
 
 ----------
 
@@ -5314,20 +5314,20 @@ Set the instance's timestamp.
 
 Timestamp input can be given as int, float or a string containing one or more numbers.
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `string|int|float $timestamp` |
-| Prototype changed | 2.41.0  | `$unixTimestamp`              |
-| Method added      | 1.0.0   | `$value`                      |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `string\|int\|float $timestamp` |
+| Prototype changed | 2.41.0  | `$unixTimestamp`                |
+| Method added      | 1.0.0   | `$value`                        |
 
 ----------
 
 #### Carbon::timezone
 
-| History           | Version | Description                      |
-|:----------------- | ------- | -------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int $value` |
-| Method added      | 1.0.0   | `$value`                         |
+| History           | Version | Description                        |
+|:----------------- | ------- | ---------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int $value` |
+| Method added      | 1.0.0   | `$value`                           |
 
 ----------
 
@@ -5908,10 +5908,10 @@ echo Carbon::now()->toW3cString();
 
 Create a Carbon instance for today.
 
-| History           | Version | Description                                     |
-|:----------------- | ------- | ----------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.1.0   | `$tz = null`                                    |
+| History           | Version | Description                                        |
+|:----------------- | ------- | -------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.1.0   | `$tz = null`                                       |
 
 ----------
 
@@ -5919,10 +5919,10 @@ Create a Carbon instance for today.
 
 Create a Carbon instance for tomorrow.
 
-| History           | Version | Description                                     |
-|:----------------- | ------- | ----------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.1.0   | `$tz = null`                                    |
+| History           | Version | Description                                        |
+|:----------------- | ------- | -------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.1.0   | `$tz = null`                                       |
 
 ----------
 
@@ -5939,12 +5939,12 @@ Translate using translation string or callback available.
 
 returns `string`
 
-| History           | Version | Description                                                                                                                                                                  |
-|:----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $key, array $parameters = [], string|int|float|null $number = null, ?Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false` |
-| Prototype changed | 2.23.0  | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false`                       |
-| Prototype changed | 2.8.0   | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null`                                                 |
-| Method added      | 2.0.0   | `string $key, array $parameters = [], $number = null`                                                                                                                        |
+| History           | Version | Description                                                                                                                                                                     |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $key, array $parameters = [], string\|int\|float\|null $number = null, ?Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false` |
+| Prototype changed | 2.23.0  | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false`                          |
+| Prototype changed | 2.8.0   | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null`                                                    |
+| Method added      | 2.0.0   | `string $key, array $parameters = [], $number = null`                                                                                                                           |
 
 ----------
 
@@ -6043,11 +6043,11 @@ Set the timezone or returns the timezone name if no arguments passed.
 
 returns `($value is null ? string : static)`
 
-| History           | Version | Description                                  |
-|:----------------- | ------- | -------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int|null $value = null` |
-| Prototype changed | 2.0.0   | `$value = null`                              |
-| Method added      | 1.0.0   | `$value`                                     |
+| History           | Version | Description                                     |
+|:----------------- | ------- | ----------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|null $value = null` |
+| Prototype changed | 2.0.0   | `$value = null`                                 |
+| Method added      | 1.0.0   | `$value`                                        |
 
 ----------
 
@@ -6235,10 +6235,10 @@ Get/set the weekday from 0 (Sunday) to 6 (Saturday).
 ##### Parameters
 - $value `\WeekDay|int|null` new value for weekday if using as setter.
 
-| History           | Version | Description                             |
-|:----------------- | ------- | --------------------------------------- |
-| Prototype changed | 3.0.0   | `Carbon\WeekDay|int|null $value = null` |
-| Method added      | 2.0.0   | `$value = null`                         |
+| History           | Version | Description                               |
+|:----------------- | ------- | ----------------------------------------- |
+| Prototype changed | 3.0.0   | `Carbon\WeekDay\|int\|null $value = null` |
+| Method added      | 2.0.0   | `$value = null`                           |
 
 ----------
 
@@ -6287,10 +6287,10 @@ returns `\T`
 
 Create a Carbon instance for yesterday.
 
-| History           | Version | Description                                     |
-|:----------------- | ------- | ----------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int|null $timezone = null` |
-| Method added      | 1.1.0   | `$tz = null`                                    |
+| History           | Version | Description                                        |
+|:----------------- | ------- | -------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|null $timezone = null` |
+| Method added      | 1.1.0   | `$tz = null`                                       |
 
 ----------
 
@@ -6482,10 +6482,10 @@ echo "$nextFullMoon\n";
 echo "$previousBlackMoon\n";
 ```
 
-| History           | Version | Description            |
-|:----------------- | ------- | ---------------------- |
-| Prototype changed | 3.0.0   | `object|string $mixin` |
-| Method added      | 2.23.0  | `$mixin`               |
+| History           | Version | Description             |
+|:----------------- | ------- | ----------------------- |
+| Prototype changed | 3.0.0   | `object\|string $mixin` |
+| Method added      | 2.23.0  | `$mixin`                |
 
 ----------
 
@@ -6595,10 +6595,10 @@ Ceil the current instance second with given precision if specified.
 
 returns `$this`
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float $precision = 1` |
-| Method added      | 2.23.0  | `$precision = 1`                               |
+| History           | Version | Description                                       |
+|:----------------- | ------- | ------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float $precision = 1` |
+| Method added      | 2.23.0  | `$precision = 1`                                  |
 
 ----------
 
@@ -6898,10 +6898,10 @@ Round the current instance second with given precision if specified.
 
 returns `$this`
 
-| History           | Version | Description                                    |
-|:----------------- | ------- | ---------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float $precision = 1` |
-| Method added      | 2.23.0  | `$precision = 1`                               |
+| History           | Version | Description                                       |
+|:----------------- | ------- | ------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float $precision = 1` |
+| Method added      | 2.23.0  | `$precision = 1`                                  |
 
 ----------
 
@@ -7020,11 +7020,11 @@ returns `static`
 
 Get a part of the CarbonInterval object.
 
-| History           | Version | Description                |
-|:----------------- | ------- | -------------------------- |
-| Prototype changed | 3.1.0   | `Carbon\Unit|string $name` |
-| Prototype changed | 3.0.0   | `string $name`             |
-| Method added      | 2.37.0  | `$name`                    |
+| History           | Version | Description                 |
+|:----------------- | ------- | --------------------------- |
+| Prototype changed | 3.1.0   | `Carbon\Unit\|string $name` |
+| Prototype changed | 3.0.0   | `string $name`              |
+| Method added      | 2.37.0  | `$name`                     |
 
 ----------
 
@@ -7955,10 +7955,10 @@ returns `$this`
 
 Round the current instance at the given unit with given precision if specified and the given function.
 
-| History           | Version | Description                                                                              |
-|:----------------- | ------- | ---------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float $precision = 1, string $function = 'round'` |
-| Method added      | 2.23.0  | `$unit, $precision = 1, $function = 'round'`                                             |
+| History           | Version | Description                                                                                 |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float $precision = 1, string $function = 'round'` |
+| Method added      | 2.23.0  | `$unit, $precision = 1, $function = 'round'`                                                |
 
 ----------
 
@@ -8064,10 +8064,10 @@ Or pass null to switch to fixed interval.
 
 Set the instance's timezone from a string or object.
 
-| History           | Version | Description                         |
-|:----------------- | ------- | ----------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int $timezone` |
-| Method added      | 2.52.0  | `$tzName`                           |
+| History           | Version | Description                           |
+|:----------------- | ------- | ------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int $timezone` |
+| Method added      | 2.52.0  | `$tzName`                             |
 
 ----------
 
@@ -8086,10 +8086,10 @@ Set the default format used when type juggling a Carbon instance to a string.
 
 returns `void`
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `Closure|string|null $format` |
-| Method added      | 2.63.0  | `$format`                     |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `Closure\|string\|null $format` |
+| Method added      | 2.63.0  | `$format`                       |
 
 ----------
 
@@ -8160,10 +8160,10 @@ returns `$this`
 
 Set the instance's timezone from a string or object and add/subtract the offset difference.
 
-| History           | Version | Description                         |
-|:----------------- | ------- | ----------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int $timezone` |
-| Method added      | 2.3.0   | `$tzName`                           |
+| History           | Version | Description                           |
+|:----------------- | ------- | ------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int $timezone` |
+| Method added      | 2.3.0   | `$tzName`                             |
 
 ----------
 
@@ -8226,9 +8226,9 @@ Decompose the current interval into
 
 returns `\CarbonPeriod`
 
-| History      | Version | Description                                       |
-|:------------ | ------- | ------------------------------------------------- |
-| Method added | 3.0.0   | `$interval, Carbon\Unit|string|null $unit = null` |
+| History      | Version | Description                                         |
+|:------------ | ------- | --------------------------------------------------- |
+| Method added | 3.0.0   | `$interval, Carbon\Unit\|string\|null $unit = null` |
 
 ----------
 
@@ -8359,11 +8359,11 @@ Translate using translation string or callback available.
 
 returns `string`
 
-| History           | Version | Description                                                                                                                                                                  |
-|:----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $key, array $parameters = [], string|int|float|null $number = null, ?Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false` |
-| Prototype changed | 2.23.0  | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false`                       |
-| Method added      | 2.8.0   | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null`                                                 |
+| History           | Version | Description                                                                                                                                                                     |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $key, array $parameters = [], string\|int\|float\|null $number = null, ?Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false` |
+| Prototype changed | 2.23.0  | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false`                          |
+| Method added      | 2.8.0   | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null`                                                    |
 
 ----------
 
@@ -8592,10 +8592,10 @@ Convert the date period into a string.
 
 Add a filter to the stack.
 
-| History           | Version | Description                                       |
-|:----------------- | ------- | ------------------------------------------------- |
-| Prototype changed | 3.0.0   | `callable|string $callback, ?string $name = null` |
-| Method added      | 1.29.0  | `$callback, $name = null`                         |
+| History           | Version | Description                                        |
+|:----------------- | ------- | -------------------------------------------------- |
+| Prototype changed | 3.0.0   | `callable\|string $callback, ?string $name = null` |
+| Method added      | 1.29.0  | `$callback, $name = null`                          |
 
 ----------
 
@@ -8635,10 +8635,10 @@ echo "$nextFullMoon\n";
 echo "$previousBlackMoon\n";
 ```
 
-| History           | Version | Description            |
-|:----------------- | ------- | ---------------------- |
-| Prototype changed | 3.0.0   | `object|string $mixin` |
-| Method added      | 2.23.0  | `$mixin`               |
+| History           | Version | Description             |
+|:----------------- | ------- | ----------------------- |
+| Prototype changed | 3.0.0   | `object\|string $mixin` |
+| Method added      | 2.23.0  | `$mixin`                |
 
 ----------
 
@@ -8677,10 +8677,10 @@ returns `\DatePeriod|object`
 
 Ceil the current instance second with given precision if specified (else period interval is used).
 
-| History           | Version | Description                                            |
-|:----------------- | ------- | ------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float|null $precision = null` |
-| Method added      | 2.23.0  | `$precision = null`                                    |
+| History           | Version | Description                                                |
+|:----------------- | ------- | ---------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float\|null $precision = null` |
+| Method added      | 2.23.0  | `$precision = null`                                        |
 
 ----------
 
@@ -8688,10 +8688,10 @@ Ceil the current instance second with given precision if specified (else period 
 
 Ceil the current instance at the given unit with given precision if specified.
 
-| History           | Version | Description                                                       |
-|:----------------- | ------- | ----------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float|null $precision = 1` |
-| Method added      | 2.23.0  | `$unit, $precision = 1`                                           |
+| History           | Version | Description                                                           |
+|:----------------- | ------- | --------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float\|null $precision = 1` |
+| Method added      | 2.23.0  | `$unit, $precision = 1`                                               |
 
 ----------
 
@@ -8949,10 +8949,10 @@ Return the first date in the date period.
 
 Round the current instance second with given precision if specified (else period interval is used).
 
-| History           | Version | Description                                            |
-|:----------------- | ------- | ------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float|null $precision = null` |
-| Method added      | 2.23.0  | `$precision = null`                                    |
+| History           | Version | Description                                                |
+|:----------------- | ------- | ---------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float\|null $precision = null` |
+| Method added      | 2.23.0  | `$precision = null`                                        |
 
 ----------
 
@@ -8960,10 +8960,10 @@ Round the current instance second with given precision if specified (else period
 
 Truncate the current instance at the given unit with given precision if specified.
 
-| History           | Version | Description                                                       |
-|:----------------- | ------- | ----------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float|null $precision = 1` |
-| Method added      | 2.23.0  | `$unit, $precision = 1`                                           |
+| History           | Version | Description                                                           |
+|:----------------- | ------- | --------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float\|null $precision = 1` |
+| Method added      | 2.23.0  | `$unit, $precision = 1`                                               |
 
 ----------
 
@@ -9244,10 +9244,10 @@ Initialize the default translator instance if necessary.
 
 Return whether given instance or name is in the filter stack.
 
-| History           | Version | Description               |
-|:----------------- | ------- | ------------------------- |
-| Prototype changed | 3.0.0   | `callable|string $filter` |
-| Method added      | 1.29.0  | `$filter`                 |
+| History           | Version | Description                |
+|:----------------- | ------- | -------------------------- |
+| Prototype changed | 3.0.0   | `callable\|string $filter` |
+| Method added      | 1.29.0  | `$filter`                  |
 
 ----------
 
@@ -9641,10 +9641,10 @@ CarbonPeriod::mixin(new class {
 echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);
 ```
 
-| History           | Version | Description            |
-|:----------------- | ------- | ---------------------- |
-| Prototype changed | 3.0.0   | `object|string $mixin` |
-| Method added      | 1.29.0  | `$mixin`               |
+| History           | Version | Description             |
+|:----------------- | ------- | ----------------------- |
+| Prototype changed | 3.0.0   | `object\|string $mixin` |
+| Method added      | 1.29.0  | `$mixin`                |
 
 ----------
 
@@ -9706,10 +9706,10 @@ returns `bool`
 
 Prepend a filter to the stack.
 
-| History           | Version | Description                                       |
-|:----------------- | ------- | ------------------------------------------------- |
-| Prototype changed | 3.0.0   | `callable|string $callback, ?string $name = null` |
-| Method added      | 1.29.0  | `$callback, $name = null`                         |
+| History           | Version | Description                                        |
+|:----------------- | ------- | -------------------------------------------------- |
+| Prototype changed | 3.0.0   | `callable\|string $callback, ?string $name = null` |
+| Method added      | 1.29.0  | `$callback, $name = null`                          |
 
 ----------
 
@@ -9717,10 +9717,10 @@ Prepend a filter to the stack.
 
 Remove a filter by instance or name.
 
-| History           | Version | Description               |
-|:----------------- | ------- | ------------------------- |
-| Prototype changed | 3.0.0   | `callable|string $filter` |
-| Method added      | 1.29.0  | `$filter`                 |
+| History           | Version | Description                |
+|:----------------- | ------- | -------------------------- |
+| Prototype changed | 3.0.0   | `callable\|string $filter` |
+| Method added      | 1.29.0  | `$filter`                  |
 
 ----------
 
@@ -9807,10 +9807,10 @@ Iterating over a date in the UTC timezone avoids bug during backward DST change.
 
 Round the current instance second with given precision if specified (else period interval is used).
 
-| History           | Version | Description                                                                                 |
-|:----------------- | ------- | ------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateInterval|string|int|float|null $precision = null, callable|string $function = 'round'` |
-| Method added      | 2.23.0  | `$precision = null, $function = 'round'`                                                    |
+| History           | Version | Description                                                                                      |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| Prototype changed | 3.0.0   | `DateInterval\|string\|int\|float\|null $precision = null, callable\|string $function = 'round'` |
+| Method added      | 2.23.0  | `$precision = null, $function = 'round'`                                                         |
 
 ----------
 
@@ -9818,10 +9818,10 @@ Round the current instance second with given precision if specified (else period
 
 Round the current instance at the given unit with given precision if specified and the given function.
 
-| History           | Version | Description                                                                                            |
-|:----------------- | ------- | ------------------------------------------------------------------------------------------------------ |
-| Prototype changed | 3.0.0   | `string $unit, DateInterval|string|int|float|null $precision = 1, callable|string $function = 'round'` |
-| Method added      | 2.23.0  | `$unit, $precision = 1, $function = 'round'`                                                           |
+| History           | Version | Description                                                                                                 |
+|:----------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $unit, DateInterval\|string\|int\|float\|null $precision = 1, callable\|string $function = 'round'` |
+| Method added      | 2.23.0  | `$unit, $precision = 1, $function = 'round'`                                                                |
 
 ----------
 
@@ -9850,10 +9850,10 @@ Change the period date interval.
 
 returns `static`
 
-| History           | Version | Description                                             |
-|:----------------- | ------- | ------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `mixed $interval, Carbon\Unit|string|null $unit = null` |
-| Method added      | 1.29.0  | `$interval`                                             |
+| History           | Version | Description                                               |
+|:----------------- | ------- | --------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `mixed $interval, Carbon\Unit\|string\|null $unit = null` |
+| Method added      | 1.29.0  | `$interval`                                               |
 
 ----------
 
@@ -9975,10 +9975,10 @@ returns `static`
 
 Add a recurrences filter (set maximum number of recurrences).
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `int|float|null $recurrences` |
-| Method added      | 1.29.0  | `$recurrences`                |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `int\|float\|null $recurrences` |
+| Method added      | 1.29.0  | `$recurrences`                  |
 
 ----------
 
@@ -10003,10 +10003,10 @@ returns `static`
 
 Set the instance's timezone from a string or object and apply it to start/end.
 
-| History           | Version | Description                         |
-|:----------------- | ------- | ----------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int $timezone` |
-| Method added      | 2.52.0  | `$timezone`                         |
+| History           | Version | Description                           |
+|:----------------- | ------- | ------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int $timezone` |
+| Method added      | 2.52.0  | `$timezone`                           |
 
 ----------
 
@@ -10025,10 +10025,10 @@ Set the default format used when type juggling a Carbon instance to a string.
 
 returns `void`
 
-| History           | Version | Description                   |
-|:----------------- | ------- | ----------------------------- |
-| Prototype changed | 3.0.0   | `Closure|string|null $format` |
-| Method added      | 2.63.0  | `$format`                     |
+| History           | Version | Description                     |
+|:----------------- | ------- | ------------------------------- |
+| Prototype changed | 3.0.0   | `Closure\|string\|null $format` |
+| Method added      | 2.63.0  | `$format`                       |
 
 ----------
 
@@ -10078,10 +10078,10 @@ returns `$this|static`
 
 Set the instance's timezone from a string or object and add/subtract the offset difference to start/end.
 
-| History           | Version | Description                         |
-|:----------------- | ------- | ----------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int $timezone` |
-| Method added      | 2.3.0   | `$timezone`                         |
+| History           | Version | Description                           |
+|:----------------- | ------- | ------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int $timezone` |
+| Method added      | 2.3.0   | `$timezone`                           |
 
 ----------
 
@@ -10277,11 +10277,11 @@ Translate using translation string or callback available.
 
 returns `string`
 
-| History           | Version | Description                                                                                                                                                                  |
-|:----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `string $key, array $parameters = [], string|int|float|null $number = null, ?Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false` |
-| Prototype changed | 2.23.0  | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false`                       |
-| Method added      | 2.8.0   | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null`                                                 |
+| History           | Version | Description                                                                                                                                                                     |
+|:----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `string $key, array $parameters = [], string\|int\|float\|null $number = null, ?Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false` |
+| Prototype changed | 2.23.0  | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false`                          |
+| Method added      | 2.8.0   | `string $key, array $parameters = [], $number = null, ?Symfony\Component\Translation\TranslatorInterface $translator = null`                                                    |
 
 ----------
 
@@ -10570,11 +10570,11 @@ Create a CarbonTimeZone from mixed input.
 
 returns `static|null`
 
-| History           | Version | Description                                                                                         |
-|:----------------- | ------- | --------------------------------------------------------------------------------------------------- |
-| Prototype changed | 3.0.0   | `DateTimeZone|string|int|false|null $object, DateTimeZone|string|int|false|null $objectDump = null` |
-| Prototype changed | 2.10.0  | `$object = null, $objectDump = null`                                                                |
-| Method added      | 2.0.0   | `$object = null`                                                                                    |
+| History           | Version | Description                                                                                                 |
+|:----------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| Prototype changed | 3.0.0   | `DateTimeZone\|string\|int\|false\|null $object, DateTimeZone\|string\|int\|false\|null $objectDump = null` |
+| Prototype changed | 2.10.0  | `$object = null, $objectDump = null`                                                                        |
+| Method added      | 2.0.0   | `$object = null`                                                                                            |
 
 ----------
 
