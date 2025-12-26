@@ -1,0 +1,508 @@
+---
+outline: false
+aside: false
+prev: false
+next: false
+---
+# Translators
+
+Thanks to people helping us to translate Carbon in so many languages.
+
+- ANCHR
+- ANLoc Martin Benjamin locales@africanlocalization.net
+- Aaron Patterson
+- AbadonnaAbbys
+- Abdellah Chadidi
+- Abdullah-Alhariri
+- Adam
+- Adam Brunner
+- Ademir Šehić
+- Adolfo Jayme-Barrientos (fitojb)
+- Ahmed Ali
+- Akademe ya Luganda Kizito Birabwa kompyuta@kizito.uklinux.net
+- Akira Matsuda
+- Alan Agius
+- Alastair McKinstry    bug-glibc-locales@gnu.org
+- Alessandro Di Felice
+- Alessandro Maruccia
+- AlexWalkerson
+- Alexander Tømmerås
+- Alim Boyaq
+- Alisher Ulugbekov
+- AlterwebStudio
+- Amitakhya Phukan, Red Hat    bug-glibc@gnu.org
+- Anders Nygren (litemerafrukt)
+- Andre Havryliuk (Andrend)
+- Andre Polykanine A.K.A. Menelion Elensúlë
+- Andrea Martini
+- Andreas Möller
+- Andres Ivanov
+- Andrii Ponomarov
+- Andris Zāģeris
+- Andrius Janauskas
+- Andriy Tyurnikov
+- Aniruddha Adhikary
+- Ankur Group, Taneem Ahmed, Jamil Ahmed
+- Anže Časar
+- Arnas Udovičius bug-glibc-locales@gnu.org
+- Arne Goetje arne@canonical.com
+- Artem Ignatyev
+- Ash
+- Ashraf Kamarudin
+- Atef Ben Ali (atefBB)
+- Atolagbe Abisoye
+- Atsushi Tanaka
+- AucT
+- Avtandil Kikabidze (akalongman)
+- Azri Jamil
+- BAKTETE Miloud
+- Baran Şengül
+- Bari Badamshin
+- Batmandakh
+- Bernhard Baumrock (BernhardBaumrock)
+- Bobir Ismailov Bobir Ismailov, Pablo Saratxaga, Mashrab Kuvatov bobir_is@yahoo.com, pablo@mandrakesoft.com, kmashrab@uni-bremen.de
+- Bohuslav Blín
+- Borislav Mickov
+- Brett Johnson
+- Cassiano Montanari
+- Chanintorn Asavavichairoj
+- Cherokee Nation Joseph Erb josepherb7@gmail.com
+- Chiel Robben
+- Chitwanix OS Development    info@chitwanix.com
+- Chris Cartlidge
+- Chris Hemp
+- Chris Lam
+- Christopher Dell
+- Chyngyz
+- Chyngyz Arystan uulu
+- Claire Coloma
+- Claudson Martins (claudsonm)
+- CodeSkills
+- Craig Patik
+- Cătălin Georgescu
+- Daniel Cheung (danvim)
+- Daniel Cohen Gindi
+- Daniel Commesse Liévanos (danielcommesse)
+- Daniel Monaghan
+- Daniel S. Billing
+- Danish Standards Association    bug-glibc-locales@gnu.org
+- Danish Standards Association  bug-glibc-locales@gnu.org
+- DarkoDevelop
+- David Rodrigues
+- Davide Casiraghi (davide-casiraghi)
+- Denys Kurets
+- Diego
+- Diego Vilariño
+- Dieter Sting
+- Djan SACRE Pablo Saratxaga pablo@mandrakesoft.com
+- Dmitriy Shabanov
+- Dominika
+- Dominykas Tijūnaitis
+- Eddie
+- Edgars Beigarts
+- Eduardo Dalla Vecchia
+- Enrique Vidal
+- Ergashev Adizbek
+- Erhan Gundogan
+- Esko Lehtme
+- Estelle Comment
+- Fadion Dashi
+- Faisal Islam
+- Fastfuel
+- Fedora Project Nik Kalach nikka@fedoraproject.org
+- Fellzo
+- Fidel Pita
+- Florian Hanke
+- FourwingsY
+- Francesco Marasco
+- François B
+- Frederik Sauer (FrittenKeeZ)
+- Free Software Foundation, Inc.    bug-glibc-locales@gnu.org
+- Free Software Foundation, Inc.  bug-glibc-locales@gnu.org
+- GabMic
+- Gabriel Monteagudo
+- Gal Jakič (morpheus7CS)
+- Gary Lo
+- Gaspard Bucher
+- Gastaldi    alessio.gastaldi@libero.it
+- Gaute Hvoslef Kvalnes (gaute)
+- Ge'ez Frontier Foundation    locales@geez.org
+- Ge'ez Frontier Foundation & Sagalee Oromoo Publishing Co. Inc.    locales@geez.org
+- Ghorban M. Tavakoly Pablo Saratxaga & Ghorban M. Tavakoly pablo@walon.org & gmt314@yahoo.com
+- Glavić
+- Greek Debian Translation Team    bug-glibc@gnu.org
+- Guntars
+- Guo Xiang Tan
+- Hariadi Hinta
+- Hassan Pezeshk (hpez)
+- Hayatunnabi Nabil
+- Henning Kiel
+- Hossein Jabbari
+- IBM AP Linux Technology Center, Yamato Software Laboratory    bug-glibc@gnu.org
+- IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org
+- IBM Globalization Center of Competency, Yamato Software Laboratory  bug-glibc-locales@gnu.org
+- Ian De La Cruz
+- Ibrahim AshShohail
+- Igor Kasyanchuk
+- Ilias Kasmeridis (iliaskasm)
+- Illimar Tambek
+- Ilya Shaplyko
+- Ilyosjon Kamoldinov (ilyosjon09)
+- IndLinux.org, Samsung Electronics Co., Ltd.    alexey.merzlyakov@samsung.com
+- Information from Michael Wolf    bug-glibc-locales@gnu.org
+- Information from Michael Wolf Andrzej Krzysztofowicz ankry@mif.pg.gda.pl
+- Information from native speakers Hannah Sarvasy nungon.localization@gmail.com
+- Ingmar
+- Inoyatulloh
+- International Components for Unicode    akhilesh.k@samsung.com
+- Itai Nathaniel
+- Ivan Stana
+- Iwakura Taro
+- J.Yogaraj 94-777-315206 yogaraj.ubuntu@gmail.com
+- JD Isaacks
+- Jacob Middag
+- Jakub ADAMEC
+- Jakub Szwacz
+- Jakub Tesinsky
+- James McKinney
+- Jamshid
+- Jan
+- Jan (aso824)
+- Janis Eglitis (janiseglitis)
+- Janne Warén
+- Janus Bahs Jacquet (kokoshneta)
+- Jason Katz-Brown
+- Jawish Hameed
+- Jaycee Mariano (alohajaycee)
+- Jens Herlevsen
+- JeroenG
+- Jimmie Johansson
+- John Corrigan
+- John Eyðstein Johannesen (mashema)
+- John MacAslan
+- Jon Ashdown
+- Jor Teron    bug-glibc-locales@gnu.org
+- Jordi Mallach jordi@gnu.org
+- Jorge Y. Castillo
+- Josh Soref
+- Joshua Brooks
+- Jozef Fulop
+- João Magalhães
+- Juanito Fatas
+- Junho Kim
+- Juris Sudmalis
+- Justas Palumickas
+- Justinas (Gamesh)
+- Justinas Bolys
+- Juwon Kim
+- Jørn Ølmheim
+- KID
+- Kamusi Project Martin Benjamin locales@kamusi.org
+- Karag2006
+- Karamell
+- Karel Sommer (calvera)
+- Kaspars Bankovskis
+- Kaushik Thanki
+- Kawan Pshtiwan
+- Kevin Huang
+- Kevin Valdek
+- Kirill Chalkin
+- Konstantin Konev
+- Kristian Sakarisson
+- Kristján Ingi Geirsson
+- Kristoffer Snabb
+- Kruy Vanna
+- Kunal Marwaha
+- LONGMAN
+- Lasha Dolidze
+- Laurynas Butkus
+- Levan Velijanashvili (Stichoza)
+- Lovro Tramšek (Lovro1107)
+- Lucas Macedo
+- Lukas Svoboda
+- Luke McGregor
+- Luo Ning
+- MLTDev
+- MOHAN M U
+- Maithili Computing Research Center, Pune, India    rajeshkajha@yahoo.com,akhilesh.k@samusng.com
+- Maksat Meredow (isadma)
+- Malinda Weerasinghe (MalindaWMD)
+- Marc Ordinas i Llopis
+- Marco Perrando
+- Marek (marast78)
+- Marek Adamický
+- Marko Seppae
+- Marlon Maxwel
+- Mart Karu
+- Martin McWhorter
+- Martin Suja
+- Mashrab Kuvatov Mashrab Kuvatov, Pablo Saratxaga kmashrab@uni-bremen.de, pablo@mandrakesoft.com
+- Massimiliano Caniparoli
+- Matt Johnson
+- Matt Pope
+- Matthias Dieter Wallno:fer libc-locales@sourceware.org
+- Max Datsenko (datsenko-md)
+- Max Kovpak
+- Max Melentiev
+- Max Mykhailenko
+- Maxime VALY
+- Mayank Badola
+- MegaXLR
+- Mehshan
+- Mia Nordentoft
+- Michael Hohl
+- Michael Kessler
+- Miha Rebernik
+- Mihkel
+- Milos Sakovic
+- Miroslav Matkovic (mikki021)
+- Mohamed Sabil (mohamedsabil83)
+- MonkeyPhysics
+- Mousa Moradi mousamk@gmail.com
+- Muhammad Nasir Rahimi
+- Murat Yüksel
+- Nafies Luthfi
+- Namoshek
+- Narain Sagar
+- Nasser Ghiasi
+- Nassim Nasibullah (spinzar)
+- Nate Whittaker
+- Nay Lin Aung
+- NehaGautam
+- Neskie Manuel    bug-glibc-locales@gnu.org
+- Nicolai Davies
+- Nicolás Hock Isaza
+- Nightpine
+- Nikola Zeravcic
+- Nikos Timiopulos
+- Nizar Jouini
+- Nj Subedi
+- Noureddine LOUAHEDJ
+- Novruz Rahimov
+- Nusret Parlak
+- Ochirkhuyag
+- Oleh
+- Orif N. Jr
+- Orxan
+- Pablo Saratxaga pablo@mandrakesoft.com
+- Pablo Saratxaga pablo@mandriva.com
+- Paul
+- Paulo Freitas
+- Pavel Skripkin (psxx)
+- Pere Orga
+- PeshSajSoft Ltd. Vyacheslav Kileev slavakileev@yandex.ru
+- Pete Scopes (pdscopes)
+- Peter (UnrulyNatives)
+- Peter Kundis
+- Petr Kadlec
+- Petri Kivikangas
+- Petteri (powergrip)
+- Philippe Vaucher
+- Pierre du Plessis
+- Prodis
+- Propaganistas
+- Pular-Fulfulde.org Ibrahima Sarr admin@pulaar-fulfulde.org
+- Punjab
+- Qrzysio
+- Quentin PAGÈS
+- Quentí
+- RAP    bug-glibc-locales@gnu.org
+- RAP    libc-alpha@sourceware.org
+- RFC 2319    bug-glibc-locales@gnu.org
+- RM87
+- RO'KAISAKKON
+- ROKAISAKKON
+- Rafael Raupp
+- Raju
+- Raphael Amorim
+- Rasulbek
+- Raymundus Jati Primanda (mundusjp)
+- Red Hat Pune    bug-glibc-locales@gnu.org
+- Red Hat Pune    libc-alpha@sourceware.org
+- Red Hat, Pune    bug-glibc-locales@gnu.org
+- Rene Torres Rene Torres, Pablo Saratxaga rgtorre@rocketmail.com, pablo@mandrakesoft.com
+- Reshat Sabiq tatar.iqtelif.i18n@gmail.com
+- Reşat SABIQ tilde.birlik@gmail.com
+- Rik de Groot (hwdegroot)
+- RikSomers
+- Rinat Norkin Pablo Saratxaga, Rinat Norkin pablo@mandrakesoft.com, rinat@taif.ru
+- Ričardas
+- Robert Bjarnason
+- RockET Systems Emani Fakaotimanava-Lui emani@niue.nu
+- Rolandas
+- RomeroMsk
+- Roope Salmi
+- Roy
+- Rune Mønnike
+- Rwanda Steve Murphy murf@e-tools.com
+- Saiful Islam
+- Saiph Muhammad
+- Sam Axe
+- Sami Haahtinen
+- Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com
+- Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com & maninder1.s@samsung.com
+- Samsung Electronics Co., Ltd.    alexey.merzlyakov@samsung.com
+- Sardinian Translators Team Massimeddu Cireddu massimeddu@gmail.com
+- Sashko Todorov
+- Satheez
+- Sawood Alam
+- Sebastian Thierer
+- Selami (selamialtin)
+- Seokjun Kim
+- Sereysethy Touch
+- Sergey Danilchenko
+- Serhan Apaydın
+- Shakib Hossain
+- Sherubtse College    bug-glibc@gnu.org
+- Sigurd Gartmann
+- Simon Hürlimann (CyT)
+- Simon Lelorrain (slelorrain)
+- Simone Carletti
+- Siomkin Alexander
+- SobakaSlava
+- Softaragones Jordi Mallach Pérez, Juan Pablo Martínez bug-glibc-locales@gnu.org, softaragones@softaragones.org
+- Sovichet Tep
+- Stephan
+- Steven Heinrich
+- Stjepan Majdak
+- Sugar Labs // OLPC sugarlabs.org libc-alpha@sourceware.org
+- SuperManPHP
+- Sven Fuchs
+- Sverri Mohr Olsen
+- Swara Mohammed
+- Takuya Sawada
+- Talat Uspanov
+- Teemu Leisti
+- TeomanBey
+- The Debian Project Christian Perrier bubulle@debian.org
+- The Debian Project modified by GNU//Linux Malagasy Rado Ramarotafika,Do-Risika RAFIEFERANTSIARONJY rado@linuxmg.org,dourix@free.fr
+- The Debian project Christian Perrier bubulle@debian.org
+- Tim Fish
+- Timo
+- Tizianoz93
+- Tlapi
+- Toleugazy Kali
+- Tom Hughes
+- Tomi Atanasoski
+- Tomi Mynttinen (Pikseli)
+- Tornike Razmadze
+- Tsutomu Kuroda
+- Ubuntu René Manassé GALEKWA renemanasse@gmail.com
+- Ulrik McArdle (mcardle)
+- Unicode, Inc.
+- Usman Zahid
+- Vadym Ievsieiev
+- Valentin Ivaşcu (oriceon)
+- Valery Timiriliyev Valery Timiriliyev timiriliyev@gmail.com
+- Vanja Retkovac (vr00)
+- Viesturs Kavacs (Kavacky)
+- Vikram-enyota
+- Vitalii Khustochka
+- Vitauts Stočka
+- Vladislav UnsealedOne
+- Václav Pávek
+- Víctor Díaz
+- Wacław Jacek
+- Walser Translation Team ml@translate-wae.ch
+- William Yang (williamyang233)
+- Xavi
+- XueWei
+- Yaakov Dahan (yakidahan)
+- Yazan Alnugnugh (yazan-alnugnugh)
+- Yoav Amit
+- Zahhar Kirillov
+- Zaid Akram
+- Zeno Zeng
+- Zhan Tong Zhang
+- Zolzaya Erdenebaatar
+- Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za
+- a-wip0
+- aarkhipov
+- abhimanyu003
+- acutexyz
+- adriaanzon
+- alecrabbit
+- andrey-helldar
+- atakigawa
+- balping
+- belkacem77@gmail.com
+- bhashaghar@googlegroups.com
+- bokideckonja
+- bug-glibc-locales@gnu.org
+- burut13
+- bustta
+- codenhagen
+- csb_PL locale Michal Ostrowski bug-glibc-locales@gnu.org
+- damlys
+- dan-nl
+- danijel
+- dennisoderwald
+- diankur313
+- digitalfrost
+- dima-bzz
+- diverpl
+- dmilisic
+- du
+- epaminond
+- felipeleite1
+- felixthemagnificent
+- gam04
+- hafezdivandari
+- harpreetkhalsagtbit
+- http://www.uyip.org/ Pablo Saratxaga pablo@mandrakesoft.com
+- information from Kenneth Christiansen Kenneth Christiansen, Pablo Saratxaga kenneth@gnu.org, pablo@mandrakesoft.com
+- information from Kenneth Christiansen Kenneth Christiansen, Pablo Saratxaga kenneth@gnu.org, pablo@mandriva.com
+- information from native speaker Pablo Saratxaga pablo@mandrakesoft.com
+- jofi
+- kc
+- kostas
+- ks-gnome-trans-commits@lists.code.indlinux.net
+- leyluj
+- lucifer-crybaby
+- meghrajsuthar03@gmail.com
+- mestremuten
+- mhamlet
+- monkeycon
+- newman101
+- nimamo
+- nithisa
+- nootanghimire
+- pablo@mandriva.com
+- pirminis
+- proclame
+- qcardona
+- quinterocesar
+- rajeevnaikte
+- runasimipi.org    libc-alpha@sourceware.org
+- ryanhart2
+- sebastian de castelberg
+- shaishavgandhi05
+- shankesgk2
+- sheriffmarley
+- somosazucar.org    libc-alpha@sourceware.org
+- sr_YU, sr_CS locale Danilo Segan bug-glibc-locales@gnu.org
+- swalker
+- sycuato
+- szl_PL locale Przemyslaw Buczkowski libc-alpha@sourceware.org
+- tarunvelli
+- tgfjt
+- tjku
+- tomhorvat
+- tommaskraus
+- toyama satoshi
+- ubuntu Myanmar LoCo Team https://ubuntu-mm.net Bone Pyae Sone bone.burma@mail.com
+- valdas406
+- victortobias
+- vsn4ik
+- vystepanenko
+- xuri
+- yasinn
+- yiannisdesp
+- zakse
+- Øystein
+- Şəhriyar İmanov
+- Коренберг Марк (imac)
+- Нурлан Рахимжанов
+- Томица Кораћ
+
+Is someone missing? [Please tell us](https://github.com/briannesbitt/Carbon/issues/new).

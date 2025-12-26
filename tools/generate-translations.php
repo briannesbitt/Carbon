@@ -2,6 +2,8 @@
 declare(strict_types=1);
 use Carbon\Carbon;
 use Carbon\Language;
+use Carbon\Translator;
+
 require __DIR__ . '/../vendor/autoload.php';
 $destination_base = __DIR__ . '/../docs/public/data';
 
@@ -131,3 +133,33 @@ function get_translations()
 
 file_put_contents("{$destination_base}/languages.json", json_encode(get_languages(), JSON_UNESCAPED_SLASHES));
 get_translations();
+
+$authors = array_keys(array_reduce(glob(Translator::get()->getDirectories()[0] . '/*.php'), static function ($authors, $file) {
+    if (preg_match('/\* Authors:([\s\S]+)\*\//U', file_get_contents($file), $match)) {
+        foreach (explode('* -', $match[1]) as $line) {
+            $line = trim($line);
+
+            if ($line !== '') {
+                $authors[$line] = true;
+            }
+        }
+    }
+
+    return $authors;
+}, []));
+sort($authors);
+
+file_put_contents(__DIR__ . '/../docs/develop/translations/translators.md', "---
+outline: false
+aside: false
+prev: false
+next: false
+---
+# Translators
+
+Thanks to people helping us to translate Carbon in so many languages.
+
+- " . implode("\n- ", $authors) . "
+
+Is someone missing? [Please tell us](https://github.com/briannesbitt/Carbon/issues/new).
+");
