@@ -2,7 +2,7 @@
 
 `Carbon` `diff()` and `diffAsCarbonInterval()` methods return a `CarbonInterval` (since Carbon v3, while it returned `DateInterval` in the previous versions).
 
-Check [CarbonInterval chapter](#api-interval) for more information.
+Check [CarbonInterval chapter](../specialized-use/carbon-interval.html) for more information.
 
 We also provide `diffAsDateInterval()` act like `diff()` but returns a `DateInterval` instance.
 

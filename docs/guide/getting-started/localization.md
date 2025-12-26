@@ -59,7 +59,7 @@ In the example above, it will try to find translations in "xx" in priority, then
 
 Note that you can also use an other translator with `Carbon::setTranslator($custom)` as long as the given translator implements [`Symfony\Component\Translation\TranslatorInterface`](https://symfony.com/doc/current/translation.html). And you can get the global default translator using `Carbon::getTranslator()` (and `Carbon::setFallbackLocale($custom)` and `Carbon::getFallbackLocale()` for the fallback locale, setFallbackLocale can be called multiple times to get multiple fallback locales) but as those method will change the behavior globally (including third-party libraries you may have in your app), it might cause unexpected results. You should rather customize translation using custom locales as in the example above.
 
-Carbon embed a default translator that extends Symfony\\Component\\Translation\\Translator You can [check here the methods we added to it](#symfony-translator-details).
+Carbon embed a default translator that extends `Symfony\\Component\\Translation\\Translator` You can [check here the methods we added to it](#symfony-translator-details).
 
 You can check what's supported with the following methods:
 
@@ -128,7 +128,7 @@ echo $notificationForJohn;
 
 You can call any static Carbon method on a factory (make, now, yesterday, tomorrow, parse, create, etc.) Factory (and FactoryImmutable that generates CarbonImmutable instances) are the best way to keep things organized and isolated. As often as possible we recommend you to work with UTC dates, then apply locally (or with a factory) the timezone and the language before displaying dates to the user.
 
-What factory actually do is using the method name as static constructor then call `settings()` method which is a way to group in one call settings of locale, timezone, months/year overflow, etc. ([See references for complete list.](#doc-method-Carbon-settings))
+What factory actually do is using the method name as static constructor then call `settings()` method which is a way to group in one call settings of locale, timezone, months/year overflow, etc. ([See references for complete list.](../../develop/reference.html#carbon-settings))
 
 ```php
 $factory = new Factory([
@@ -563,7 +563,7 @@ echo $translator->getMessages('en')['from_now'];
 
 ```
 
-`setMessages` is equivalent to `setTranslations` but you can omit the locale as it will use the current one, so we recommend to use it when you can as in [this previous example](#custom-translations).
+`setMessages` is equivalent to `setTranslations` but you can omit the locale as it will use the current one, so we recommend to use it when you can as in [this previous example](#localization).
 
 ### Supported Locales
 <!--@include: @/parts/localization/supported-locales.md-->

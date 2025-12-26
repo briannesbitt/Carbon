@@ -32,7 +32,11 @@ Note that the closure is preceded by `static` and uses `self::this()` (available
 
 By following this pattern you ensure other developers of you team (and future you) can rely safely on the assertion: `Carbon::anyMacro()` is equivalent to `Carbon::now()->anyMacro()`. This makes the usage of macros consistent and predictable and ensures developers that any macro can be called safely either statically or dynamically.
 
+<div id="macro-cli"><!-- Link anchor --></div>
+
 The sad part is IDE will not natively your macro method (no auto-completion for the method `diffFromYear` in the example above). But it's no longer a problem thanks to our CLI tool: [carbon-cli](https://github.com/kylekatarnls/carbon-cli) that allows you to generate IDE helper files for your mixins and macros.
+
+<div id="user-settings"><!-- Link anchor --></div>
 
 Macros are the perfect tool to output dates with some settings or user preferences.
 
@@ -206,7 +210,7 @@ Carbon::resetMacros(); // resetMacros remove all macros and generic macro declar
 
 ```
 
-And guess what? all macro methods are also available on [`CarbonInterval`](#api-interval) and [`CarbonPeriod`](#api-period) classes.
+And guess what? all macro methods are also available on [`CarbonInterval`](../specialized-use/carbon-interval.html) and [`CarbonPeriod`](../specialized-use/carbon-period.html) classes.
 
 ```php
 

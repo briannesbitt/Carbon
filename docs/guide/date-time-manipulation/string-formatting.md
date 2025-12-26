@@ -57,4 +57,4 @@ echo $dt;
 
 ```
 
-Note: For localization support see the [Localization](#api-localization) section.
+Note: For localization support see the [Localization](../getting-started/localization.html) section.

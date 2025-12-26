@@ -62,7 +62,7 @@ echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::c
 
 ```
 
-You can also change the locale of the string using `$date->locale('fr')` before the diffForHumans() call. See the [localization](#api-localization) section for more detail.
+You can also change the locale of the string using `$date->locale('fr')` before the diffForHumans() call. See the [localization](../getting-started/localization.html) section for more detail.
 
 <div id="diff-for-humans-options"><!-- Link anchor --></div>
 

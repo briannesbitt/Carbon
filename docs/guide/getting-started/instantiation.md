@@ -154,7 +154,7 @@ Note 1: 2018-02-29 also throws an exception while 2020-02-29 does not since 2020
 
 Note 2: `Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')` also produces an exception as this time is in an hour skipped by the daylight saving time.
 
-Note 3: The PHP native API allow to consider there is a year `0` between `-1` and `1` even if it doesn't regarding Gregorian calendar. That's why years lower than 1 will throw an exception using `createSafe`. Check [isValid()](#doc-method-Carbon-isValid) for year-0 detection.
+Note 3: The PHP native API allow to consider there is a year `0` between `-1` and `1` even if it doesn't regarding Gregorian calendar. That's why years lower than 1 will throw an exception using `createSafe`. Check [isValid()](../../develop/reference.html#carbon-isvalid) for year-0 detection.
 
 ```php{no-render}
 Carbon::createFromFormat($format, $time, $tz);
@@ -243,7 +243,10 @@ echo $carbon->toDateTimeString();
 
 ```
 
-Carbon 2 (requiring PHP >= 7.1) perfectly supports microseconds. But if you use Carbon 1 and PHP < 7.1, read our [section about partial microseconds support](#partial-microseconds-support).
+<details>
+<summary>
+Carbon 2 (requiring PHP >= 7.1) perfectly supports microseconds. But if you use Carbon 1 and PHP < 7.1, [click here to read our section about partial microseconds support](#partial-microseconds-support).
+</summary>
 
 ### Partial microseconds support
 Before PHP 7.1 DateTime microseconds are not added to `"now"` instances and cannot be changed afterward, this means:
@@ -279,3 +282,5 @@ var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
 echo Carbon::now()->micro; // microtime in all PHP version
 
 ```
+
+</details>
