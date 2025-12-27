@@ -56,9 +56,9 @@ class LocalizationTest extends AbstractTestCase
     public function testSetLocaleToAuto()
     {
         $currentLocale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
-        }
+
+        $this->setLocaleOrSkip('fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr');
+
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -67,10 +67,12 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('fr', $locale === 'fr_FR' ? 'fr' : $locale);
         $this->assertSame('il y a 2 secondes', $diff);
 
-        if (setlocale(LC_ALL, 'ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need ar_AE.UTF-8.');
-        }
+        $this->setLocaleOrSkip('ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar');
+
         rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php');
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -80,9 +82,11 @@ class LocalizationTest extends AbstractTestCase
         $this->assertStringStartsWith('ar', $locale);
         $this->assertSame('منذ ثانيتين', $diff);
 
-        if (setlocale(LC_ALL, 'sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need sr_ME.UTF-8.');
-        }
+        $this->setLocaleOrSkip('sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr');
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -91,9 +95,11 @@ class LocalizationTest extends AbstractTestCase
         $this->assertStringStartsWith('sr', $locale);
         $this->assertSame('pre 2 sekunde', str_replace('prije', 'pre', $diff));
 
-        if (setlocale(LC_ALL, 'zh_TW.UTF-8', 'zh_TW.utf8', 'zh_TW', 'zh') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need zh_TW.UTF-8.');
-        }
+        $this->setLocaleOrSkip('zh_TW.UTF-8', 'zh_TW.utf8', 'zh_TW', 'zh');
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -123,9 +129,12 @@ class LocalizationTest extends AbstractTestCase
         }
 
         $currentLocale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
-        }
+
+        $this->setLocaleOrSkip('fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr');
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -134,9 +143,11 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('fr', $locale);
         $this->assertSame('il y a 2 secondes', $diff);
 
-        if (setlocale(LC_ALL, 'zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need zh_CN.UTF-8.');
-        }
+        $this->setLocaleOrSkip('zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh');
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -145,9 +156,11 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('zh', $locale);
         $this->assertSame('2秒前', $diff);
 
-        if (setlocale(LC_ALL, 'yo_NG.UTF-8', 'yo_NG.utf8', 'yo_NG', 'yo') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need yo_NG.UTF-8.');
-        }
+        $this->setLocaleOrSkip('yo_NG.UTF-8', 'yo_NG.utf8', 'yo_NG', 'yo');
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         Carbon::setLocale('en');
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
@@ -893,5 +906,12 @@ class LocalizationTest extends AbstractTestCase
     public function testTranslateMonthsEitherStandaloneOrNot(string $ru, string $en)
     {
         $this->assertSame($en, \Carbon\Carbon::translateTimeString($ru, 'ru', 'en'));
+    }
+
+    private function setLocaleOrSkip(string ...$locales): void
+    {
+        if (setlocale(LC_ALL, ...$locales) === false) {
+            $this->markTestSkipped("testSetLocaleToAuto test need $locales[0].");
+        }
     }
 }
