@@ -921,5 +921,14 @@ class LocalizationTest extends AbstractTestCase
         if (setlocale(LC_ALL, ...$locales) === false) {
             $this->markTestSkipped("testSetLocaleToAuto test need $locales[0].");
         }
+
+        $currentLocale = setlocale(LC_TIME, '0');
+
+        if (!\in_array($currentLocale, $locales, true)) {
+            throw new LogicException(
+                'setlocale(LC_ALL, "' . implode('", "', $locales) . '") failed, '.
+                'current locale is unexpected: '.$currentLocale,
+            );
+        }
     }
 }
