@@ -202,12 +202,9 @@ abstract class AbstractTranslator extends SymfonyTranslator
         $files = [];
 
         foreach ($this->getDirectories() as $directory) {
-            $directory = rtrim($directory, '\\/');
-
-            foreach (self::getPhpFilesInDirectory($directory, $prefix) as $file) {
+            foreach (self::getPhpFilesInDirectory(rtrim($directory, '\\/'), $prefix) as $file) {
                 $files[] = $file;
             }
-
         }
 
         return array_unique($files);
@@ -351,7 +348,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
 
             usort($locales, static fn ($first, $second) => $getScore($second) <=> $getScore($first));
 
-            $locale = $locales[0];
+            $locale = $locales[0] ?? 'en';
         }
 
         if (isset($this->aliases[$locale])) {
@@ -362,8 +359,8 @@ abstract class AbstractTranslator extends SymfonyTranslator
         // and the tag contains a region (ex: en_CA), then
         // first load the macro (ex: en) to have a fallback
         if (
-            !\in_array($locale, self::getInternallySupportedLocales(), true)
-            && str_contains($locale, '_')
+            str_contains($locale, '_')
+            && !\in_array($locale, self::getInternallySupportedLocales(), true)
             && $this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))
         ) {
             parent::setLocale($macroLocale);
@@ -473,7 +470,6 @@ abstract class AbstractTranslator extends SymfonyTranslator
     private static function getInternallySupportedLocales(): array
     {
         return [
-
             'aa',
             'aa_DJ',
             'aa_ER',

@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\Language;
 use Carbon\Translator;
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -69,15 +70,21 @@ class LocalizationTest extends AbstractTestCase
 
         $this->setLocaleOrSkip('ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar');
 
-        rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php');
-        /** @var Translator $translator */
-        $translator = Carbon::getTranslator();
-        $translator->resetMessages();
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
-        rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
+        if (!rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php')) {
+            throw new LogicException('Unable to move ar_AE.php for the test');
+        }
+
+        try {
+            /** @var Translator $translator */
+            $translator = Carbon::getTranslator();
+            $translator->resetMessages();
+            Carbon::setLocale('auto');
+            $locale = Carbon::getLocale();
+            $diff = Carbon::now()->subSeconds(2)->diffForHumans();
+            setlocale(LC_ALL, $currentLocale);
+        } finally {
+            rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
+        }
 
         $this->assertStringStartsWith('ar', $locale);
         $this->assertSame('منذ ثانيتين', $diff);
@@ -118,6 +125,7 @@ class LocalizationTest extends AbstractTestCase
         $translator->setDirectories([$directory]);
 
         $files = [
+            'en',
             'zh_Hans',
             'zh',
             'fr',
