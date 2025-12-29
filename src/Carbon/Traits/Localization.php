@@ -587,7 +587,7 @@ trait Localization
      *
      * @return array
      */
-    public static function getAvailableLocales()
+    public static function getAvailableLocales(): array
     {
         $translator = static::getLocaleAwareTranslator();
 
@@ -602,9 +602,10 @@ trait Localization
      *
      * @return Language[]
      */
-    public static function getAvailableLocalesInfo()
+    public static function getAvailableLocalesInfo(): array
     {
         $languages = [];
+
         foreach (static::getAvailableLocales() as $id) {
             $languages[$id] = new Language($id);
         }

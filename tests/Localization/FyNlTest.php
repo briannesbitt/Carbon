@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 #[Group('localization')]
 class FyNlTest extends LocalizationTestCase
 {
-    public const LOCALE = 'fy_NL'; // WesternFrisian
+    public const LOCALE = 'fy_NL'; // Western Frisian
 
     public const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

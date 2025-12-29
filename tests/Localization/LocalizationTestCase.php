@@ -365,11 +365,16 @@ abstract class LocalizationTestCase extends AbstractTestCase
                     $expected = static::CASES[$index];
                     $locale = static::LOCALE;
                     $key = preg_replace('/^([^_]+)_.*$/', '$1', static::LOCALE);
+
                     if (isset(static::LOCALES[$key])) {
                         $locale = static::LOCALES[$key].' ('.$locale.')';
                     }
 
-                    $this->assertSame($expected, $result, 'In '.$locale.', '.str_replace('Carbon\\', '', $test).' should return '.$expected);
+                    $this->assertSame(
+                        $expected,
+                        $result,
+                        'In '.$locale.', '.str_replace('Carbon\\', '', $test).' should return '.$expected,
+                    );
                 }
             }
         });

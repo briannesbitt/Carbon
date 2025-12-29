@@ -22,6 +22,4 @@ return array_replace_recursive(require __DIR__.'/fy.php', [
     'weekdays' => ['Snein', 'Moandei', 'Tiisdei', 'Woansdei', 'Tongersdei', 'Freed', 'Sneon'],
     'weekdays_short' => ['Sn', 'Mo', 'Ti', 'Wo', 'To', 'Fr', 'Sn'],
     'weekdays_min' => ['Sn', 'Mo', 'Ti', 'Wo', 'To', 'Fr', 'Sn'],
-    'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 4,
 ]);
