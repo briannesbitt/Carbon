@@ -18,7 +18,6 @@ use Carbon\CarbonInterval;
 use Carbon\Language;
 use Carbon\Translator;
 use InvalidArgumentException;
-use LogicException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -54,66 +53,44 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('en', $t->getLocale());
     }
 
-    public function testSetLocaleToAuto()
+    #[TestWith([
+        'fr',
+        ['fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr'],
+        'il y a 2 secondes',
+    ])]
+    #[TestWith([
+        'sr',
+        ['sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr'],
+        ['pre 2 sekunde' /* sr */, 'prije 2 sekunde' /* sr_ME */],
+    ])]
+    #[TestWith([
+        'zh',
+        ['zh_TW.UTF-8', 'zh_TW.utf8', 'zh_TW', 'zh'],
+        '2秒前',
+    ])]
+    public function testSetLocaleToAutoFromSupportedLocale(string $language, array $locales, array|string $twoSecondsAgo)
     {
         $currentLocale = setlocale(LC_ALL, '0');
 
-        $this->setLocaleOrSkip('fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr');
-
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
-
-        $this->assertSame('fr', $locale === 'fr_FR' ? 'fr' : $locale);
-        $this->assertSame('il y a 2 secondes', $diff);
-
-        $this->setLocaleOrSkip('ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar');
-
-        if (!rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php')) {
-            throw new LogicException('Unable to move ar_AE.php for the test');
-        }
+        $this->setLocaleOrSkip(...$locales);
 
         try {
-            /** @var Translator $translator */
-            $translator = Carbon::getTranslator();
-            $translator->resetMessages();
             Carbon::setLocale('auto');
             $locale = Carbon::getLocale();
             $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-            setlocale(LC_ALL, $currentLocale);
         } finally {
-            rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
+            setlocale(LC_ALL, $currentLocale);
         }
 
-        $this->assertStringStartsWith('ar', $locale);
-        $this->assertSame('منذ ثانيتين', $diff);
+        $this->assertStringStartsWith($language, $locale);
+        $this->assertContains($diff, (array) $twoSecondsAgo);
+    }
 
-        $this->setLocaleOrSkip('sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr');
+    public function testSetLocaleToAutoFromUnsupportedLocale()
+    {
+        $currentLocale = setlocale(LC_ALL, '0');
 
-        /** @var Translator $translator */
-        $translator = Carbon::getTranslator();
-        $translator->resetMessages();
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
-
-        $this->assertStringStartsWith('sr', $locale);
-        $this->assertSame('pre 2 sekunde', str_replace('prije', 'pre', $diff));
-
-        $this->setLocaleOrSkip('zh_TW.UTF-8', 'zh_TW.utf8', 'zh_TW', 'zh');
-
-        /** @var Translator $translator */
-        $translator = Carbon::getTranslator();
-        $translator->resetMessages();
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
-
-        $this->assertStringStartsWith('zh', $locale);
-        $this->assertSame('2秒前', $diff);
+        $this->setLocaleOrSkip('ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar');
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -122,69 +99,100 @@ class LocalizationTest extends AbstractTestCase
         $directories = $translator->getDirectories();
         $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
         mkdir($directory);
-        $translator->setDirectories([$directory]);
 
-        $files = [
-            'en',
-            'zh_Hans',
-            'zh',
-            'fr',
-            'fr_CA',
-        ];
-
-        foreach ($files as $file) {
-            copy(__DIR__."/../../src/Carbon/Lang/$file.php", "$directory/$file.php");
+        foreach (glob(__DIR__.'/../../src/Carbon/Lang/*.php') as $file) {
+            copy($file, "$directory/".basename($file));
         }
 
+        try {
+            $translator->setDirectories([$directory]);
+            Carbon::setLocale('auto');
+            $locale = Carbon::getLocale();
+            $diff = Carbon::now()->subSeconds(2)->diffForHumans();
+        } finally {
+            $translator->setDirectories([$directory]);
+            setlocale(LC_ALL, $currentLocale);
+            $this->remove($directory);
+            $translator->setDirectories($directories);
+        }
+
+        $this->assertStringStartsWith('ar', $locale);
+        $this->assertSame('منذ ثانيتين', $diff);
+    }
+
+    public function testSetLocaleToAutoFallback()
+    {
         $currentLocale = setlocale(LC_ALL, '0');
 
-        $this->setLocaleOrSkip('fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr');
-
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
         $translator->resetMessages();
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
 
-        $this->assertSame('fr', $locale);
-        $this->assertSame('il y a 2 secondes', $diff);
+        $translator->setLocale('en');
+        $directories = $translator->getDirectories();
+        $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
 
-        $this->setLocaleOrSkip('zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh');
+        try {
+            $this->setLocaleOrSkip('fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr');
 
-        /** @var Translator $translator */
-        $translator = Carbon::getTranslator();
-        $translator->resetMessages();
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+            mkdir($directory);
 
-        $this->assertSame('zh', $locale);
-        $this->assertSame('2秒前', $diff);
+            $files = [
+                'en',
+                'zh_Hans',
+                'zh',
+                'fr',
+                'fr_CA',
+            ];
 
-        $this->setLocaleOrSkip('yo_NG.UTF-8', 'yo_NG.utf8', 'yo_NG', 'yo');
+            foreach ($files as $file) {
+                copy(__DIR__."/../../src/Carbon/Lang/$file.php", "$directory/$file.php");
+            }
 
-        /** @var Translator $translator */
-        $translator = Carbon::getTranslator();
-        $translator->resetMessages();
-        Carbon::setLocale('en');
-        Carbon::setLocale('auto');
-        $locale = Carbon::getLocale();
-        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+            $translator->setDirectories([$directory]);
 
-        $this->assertSame('en', $locale);
-        $this->assertSame('2 seconds ago', $diff);
+            /** @var Translator $translator */
+            $translator = Carbon::getTranslator();
+            $translator->resetMessages();
+            Carbon::setLocale('auto');
+            $locale = Carbon::getLocale();
+            $diff = Carbon::now()->subSeconds(2)->diffForHumans();
+            setlocale(LC_ALL, $currentLocale);
 
-        $translator->setDirectories($directories);
+            $this->assertSame('fr', $locale);
+            $this->assertSame('il y a 2 secondes', $diff);
 
-        foreach ($files as $file) {
-            unlink("$directory/$file.php");
+            $this->setLocaleOrSkip('zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh');
+
+            /** @var Translator $translator */
+            $translator = Carbon::getTranslator();
+            $translator->resetMessages();
+            Carbon::setLocale('auto');
+            $locale = Carbon::getLocale();
+            $diff = Carbon::now()->subSeconds(2)->diffForHumans();
+            setlocale(LC_ALL, $currentLocale);
+
+            $this->assertSame('zh', $locale);
+            $this->assertSame('2秒前', $diff);
+
+            $this->setLocaleOrSkip('yo_NG.UTF-8', 'yo_NG.utf8', 'yo_NG', 'yo');
+
+            /** @var Translator $translator */
+            $translator = Carbon::getTranslator();
+            $translator->resetMessages();
+            Carbon::setLocale('en');
+            Carbon::setLocale('auto');
+            $locale = Carbon::getLocale();
+            $diff = Carbon::now()->subSeconds(2)->diffForHumans();
+            setlocale(LC_ALL, $currentLocale);
+
+            $this->assertSame('en', $locale);
+            $this->assertSame('2 seconds ago', $diff);
+        } finally {
+            setlocale(LC_ALL, $currentLocale);
+            $translator->setDirectories($directories);
+            $this->remove($directory);
         }
-
-        rmdir($directory);
     }
 
     /**
@@ -914,21 +922,5 @@ class LocalizationTest extends AbstractTestCase
     public function testTranslateMonthsEitherStandaloneOrNot(string $ru, string $en)
     {
         $this->assertSame($en, \Carbon\Carbon::translateTimeString($ru, 'ru', 'en'));
-    }
-
-    private function setLocaleOrSkip(string ...$locales): void
-    {
-        if (setlocale(LC_ALL, ...$locales) === false) {
-            $this->markTestSkipped("testSetLocaleToAuto test need $locales[0].");
-        }
-
-        $currentLocale = setlocale(LC_TIME, '0');
-
-        if (!\in_array($currentLocale, $locales, true)) {
-            throw new LogicException(
-                'setlocale(LC_ALL, "' . implode('", "', $locales) . '") failed, '.
-                'current locale is unexpected: '.$currentLocale,
-            );
-        }
     }
 }

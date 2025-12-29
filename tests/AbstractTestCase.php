@@ -24,8 +24,11 @@ use Carbon\Translator;
 use Closure;
 use DateTime;
 use ErrorException;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\Version;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use ReflectionProperty;
 use Tests\PHPUnit\AssertObjectHasPropertyTrait;
 use Throwable;
@@ -415,6 +418,42 @@ abstract class AbstractTestCase extends TestCase
         $expected = $this->acceptClosuresFrom($expected, $actual);
 
         $this->assertSame($expected, $actual);
+    }
+
+    protected function setLocaleOrSkip(string ...$locales): void
+    {
+        if (setlocale(LC_ALL, ...$locales) === false) {
+            $this->markTestSkipped("testSetLocaleToAuto test need $locales[0].");
+        }
+
+        $currentLocale = setlocale(LC_TIME, '0');
+
+        if (!\in_array($currentLocale, $locales, true)) {
+            throw new LogicException(
+                'setlocale(LC_ALL, "' . implode('", "', $locales) . '") failed, '.
+                'current locale is unexpected: '.$currentLocale,
+            );
+        }
+    }
+
+    protected function remove(string $path): void
+    {
+        if (is_file($path)) {
+            unlink($path);
+
+            return;
+        }
+
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($files as $fileinfo) {
+            ($fileinfo->isDir() ? rmdir(...) : unlink(...))($fileinfo->getRealPath());
+        }
+
+        rmdir($path);
     }
 
     private function acceptClosuresFrom(array $destination, array $source): array
