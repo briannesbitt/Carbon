@@ -430,7 +430,7 @@ abstract class AbstractTestCase extends TestCase
 
         if (!\in_array($currentLocale, $locales, true)) {
             throw new LogicException(
-                'setlocale(LC_ALL, "' . implode('", "', $locales) . '") failed, '.
+                'setlocale(LC_ALL, "'.implode('", "', $locales).'") failed, '.
                 'current locale is unexpected: '.$currentLocale,
             );
         }
