@@ -19,8 +19,8 @@ require __DIR__.'/../tools/methods.php';
 $documentation = implode("\n", array_map(
     file_get_contents(...),
     [
-        ...glob(__DIR__ . '/../docs/guide/**/*.md'),
-        ...glob(__DIR__ . '/../docs/parts/**/*.md'),
+        ...glob(__DIR__.'/../docs/guide/**/*.md'),
+        ...glob(__DIR__.'/../docs/parts/**/*.md'),
     ],
 ));
 

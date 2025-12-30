@@ -269,7 +269,7 @@ function methods(bool $excludeNatives = false, bool $excludeMixins = true): Gene
                     method_exists(CarbonImmutable::class, $method)
                         ? (new ReflectionMethod(CarbonImmutable::class, $method))->getDocComment()
                         : null
-                    )
+                )
             ) ?: null;
 
             $docReturn = preg_match('/@return (\S+)/', $docComment ?? '', $returnMatch)
