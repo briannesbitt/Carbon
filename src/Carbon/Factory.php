@@ -641,12 +641,13 @@ class Factory
      */
     public function withTestNow(mixed $testNow, callable $callback): mixed
     {
+        $previousTestNow = $this->getTestNow();
         $this->setTestNow($testNow);
 
         try {
             $result = $callback();
         } finally {
-            $this->setTestNow();
+            $this->setTestNow($previousTestNow);
         }
 
         return $result;

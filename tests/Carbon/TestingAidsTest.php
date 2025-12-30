@@ -362,6 +362,19 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertNotSame($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
 
+    public function testWithTestNowRestoresPreviousTestNow()
+    {
+        Carbon::setTestNow('2024-01-01 12:00:00');
+
+        Carbon::withTestNow('2024-06-15 10:00:00', function () {
+            $this->assertEquals('2024-06-15', Carbon::now()->format('Y-m-d'));
+        });
+
+        $this->assertEquals('2024-01-01', Carbon::now()->format('Y-m-d'));
+
+        Carbon::setTestNow();
+    }
+
     public function testWithTestNowWithException()
     {
         $testNow = '2020-09-16 10:20:00';
