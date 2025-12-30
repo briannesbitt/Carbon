@@ -43,7 +43,7 @@ jobs:
           max_attempts: 3
           command: composer update --prefer-dist --no-progress --prefer-stable
 
-      - name: Update sponsors on readme.md
+      - name: Update documentation
         run: composer build
 
       - name: Create Pull Request
