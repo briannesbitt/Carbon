@@ -2,1276 +2,1276 @@
     {
         "tag_name": "3.11.0",
         "created_at": "2025-12-02T21:04:28Z",
-        "body": "3.11.0"
+        "body": "* Allow symfony 8 by @Chris53897 in [CarbonPHP\/carbon#73](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/73)\n* Micro-optimization for standalone months translation by @kylekatarnls in [CarbonPHP\/carbon#68](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/68)\n* Support passing Unit enums to sub method and update type-hints by @hackel in [briannesbitt\/Carbon#3250](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3250)\n* Align Bangla locale files with English reference strings by @imhayatunnabi in [briannesbitt\/Carbon#3257](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3257)\n* Comprehensive Yiddish (yi_US) locale update by @BenyominMandel in [briannesbitt\/Carbon#3267](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3267)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.10.3...3.11.0)\n\nNew contributors:\n* @imhayatunnabi made their first contribution in [briannesbitt\/Carbon#3257](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3257)\n* @BenyominMandel made their first contribution in [briannesbitt\/Carbon#3267](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3267)\n"
     },
     {
         "tag_name": "3.10.3",
         "created_at": "2025-09-06T13:39:36Z",
-        "body": "3.10.3"
+        "body": "* Fix grammar mistakes in lt.php localization by @sammyaxe in [briannesbitt\/Carbon#3215](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3215)\n* Fix resetMessages memory consumption by @kylekatarnls in [CarbonPHP\/carbon#58](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/58)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.10.2...3.10.3)\n\nNew contributors:\n* @sammyaxe made their first contribution in [briannesbitt\/Carbon#3215](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3215)\n"
     },
     {
         "tag_name": "3.10.2",
         "created_at": "2025-08-02T09:36:06Z",
-        "body": "3.10.2"
+        "body": "* Replace `]1,Inf[` with `[-Inf,Inf]` generic catch-all (fallback) by @kylekatarnls in [CarbonPHP\/carbon#54](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/54)\n* Change `?self` return type to `?static` in Creator Trait by @Disservin in [briannesbitt\/Carbon#3213](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3213)\n* Fix 0 second diff edge case in translations by @Joeb454 in [briannesbitt\/Carbon#3218](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3218)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.10.1...3.10.2)\n\nNew contributors:\n* @Disservin made their first contribution in [briannesbitt\/Carbon#3213](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3213)\n* @Joeb454 made their first contribution in [briannesbitt\/Carbon#3218](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3218)\n"
     },
     {
         "tag_name": "3.10.1",
         "created_at": "2025-06-21T15:19:35Z",
-        "body": "3.10.1"
+        "body": "* Fix rounding issue in `CarbonInterval::make()` by @kylekatarnls in [CarbonPHP\/carbon#51](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/51)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.10.0...3.10.1)\n"
     },
     {
         "tag_name": "3.10.0",
         "created_at": "2025-06-12T10:24:28Z",
-        "body": "3.10.0"
+        "body": "* Allow passing `$options` to `fromSerialized()` by @kylekatarnls in [CarbonPHP\/carbon#33](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/33)\n* Limit the number of recurrences by @kylekatarnls in [CarbonPHP\/carbon#34](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/34)\n* Make CarbonPeriod serialization compatible with v2 by @kylekatarnls in [CarbonPHP\/carbon#37](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/37)\n* fix: add dynamic return type for `tz()` by @nesl247 in [CarbonPHP\/carbon#42](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/42)\n* Simplify period unserialization process by @kylekatarnls in [CarbonPHP\/carbon#44](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/44)\n* Use serialization to set days property on intervals by @kylekatarnls in [CarbonPHP\/carbon#43](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/43)\n* Fix undefined constant self::DEFAULT_LOCALE error by @aavtukhovich in [CarbonPHP\/carbon#45](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/45)\n* Update Divehi months by @kylekatarnls in [CarbonPHP\/carbon#46](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/46)\n* Prioritize timezones matching ->format('T') for getAbbreviatedName() by @kylekatarnls in [CarbonPHP\/carbon#47](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/47)\n* Update month abbreviation for Latin Serbian by @kylekatarnls in [CarbonPHP\/carbon#49](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/49)\n* Fix plural for Urdu, Sindhi and Arab Panjabi by @kylekatarnls in [briannesbitt\/Carbon#3201](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3201)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.9.1...3.10.0)\n\nNew contributors:\n* @nesl247 made their first contribution in [CarbonPHP\/carbon#42](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/42)\n* @aavtukhovich made their first contribution in [CarbonPHP\/carbon#45](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/45)\n"
     },
     {
         "tag_name": "3.9.1",
         "created_at": "2025-05-01T19:51:51Z",
-        "body": "3.9.1"
+        "body": "* Localization: added milliseconds and microseconds to Russian locale by @daniser in [briannesbitt\/Carbon#3169](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3169)\n* Fix overflow issue for is-month by @kylekatarnls in [briannesbitt\/Carbon#3170](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3170)\n* Fix ->is('02-29') by @kylekatarnls in [briannesbitt\/Carbon#3171](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3171)\n* Fix Incorrect Type Inference when Declaring Macros by @liamduckett in [briannesbitt\/Carbon#3174](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3174)\n* feat: Apply Laravel fallback locale by @daniser in [briannesbitt\/Carbon#3168](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3168)\n* Add missing @param-closure-this by @kylekatarnls in [briannesbitt\/Carbon#3175](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3175)\n* Add missing type for method parameter by @riesjart in [briannesbitt\/Carbon#3176](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3176)\n* Update sponsors by @github-actions in [briannesbitt\/Carbon#3177](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3177)\n* [Danish] 2-letter day abbreviations + 3-letter abbreviation of \u2018May\u2019 by @kokoshneta in [briannesbitt\/Carbon#3183](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3183)\n* Update sponsors by @github-actions in [briannesbitt\/Carbon#3186](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3186)\n* Reduce segfault risk in PHP 8.3.20 by @kylekatarnls in [briannesbitt\/Carbon#3187](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3187)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.9.0...3.9.1)\n\nNew contributors:\n* @daniser made their first contribution in [briannesbitt\/Carbon#3169](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3169)\n* @liamduckett made their first contribution in [briannesbitt\/Carbon#3174](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3174)\n* @riesjart made their first contribution in [briannesbitt\/Carbon#3176](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3176)\n"
     },
     {
         "tag_name": "3.9.0",
         "created_at": "2025-03-27T12:57:33Z",
-        "body": "3.9.0"
+        "body": "* Add `isNowOrFuture()` and `isNowOrPast()` methods by @AndrewMast in [CarbonPHP\/carbon#27](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/27)\n* Add ReturnTypeWillChange to createFromTimestamp by @cdburgess in [CarbonPHP\/carbon#22](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/22)\n\n[Complete commits list](https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.8.6...3.9.0)\n\nNew contributors:\n* @cdburgess made their first contribution in [CarbonPHP\/carbon#22](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/22)\n* @AndrewMast made their first contribution in [CarbonPHP\/carbon#27](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/27)\n"
     },
     {
         "tag_name": "3.8.6",
         "created_at": "2025-02-20T17:33:38Z",
-        "body": "3.8.6"
+        "body": "* Fix Turkmen week day name order by @kylekatarnls in [briannesbitt\/Carbon#3152](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3152)\n* Test Laravel ongoing v13 by @kylekatarnls in [briannesbitt\/Carbon#3155](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3155)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.8.5...3.8.6)\n"
     },
     {
         "tag_name": "3.8.5",
         "created_at": "2025-02-11T16:28:45Z",
-        "body": "3.8.5"
+        "body": "* Fix CarbonInterval PHPDoc by @kylekatarnls in [briannesbitt\/Carbon#3130](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3130)\n* Fix time unit abbreviations and format mismatches for Azerbaijani translation by @novruzrhmv in [briannesbitt\/Carbon#3144](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3144)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.8.4...3.8.5)\n\nNew contributors:\n* @novruzrhmv made their first contribution in [briannesbitt\/Carbon#3144](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3144)\n"
     },
     {
         "tag_name": "2.73.0",
         "created_at": "2025-01-08T20:10:23Z",
-        "body": "2.73.0"
+        "body": "* Support PHP 8.4 [CarbonPHP\/carbon#13](https:\/\/github.com\/CarbonPHP\/carbon\/pull\/13)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.6...2.73.0)\n"
     },
     {
         "tag_name": "3.8.4",
         "created_at": "2024-12-27T09:25:35Z",
-        "body": "3.8.4"
+        "body": "- Validate locale earlier\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.8.3...3.8.4)\n"
     },
     {
         "tag_name": "2.72.6",
         "created_at": "2024-12-27T09:28:11Z",
-        "body": "2.72.6"
+        "body": "- Validate locale earlier\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.5...2.72.6)\n"
     },
     {
         "tag_name": "3.8.3",
         "created_at": "2024-12-21T18:03:19Z",
-        "body": "3.8.3"
+        "body": "* Fix month abbreviations for fr_BE\/fr_LU by @c-Rolland in [briannesbitt\/Carbon#3110](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3110)\n* Update Occitan locale: small correction by @Mejans in [briannesbitt\/Carbon#3115](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3115)\n* Fix month names by @koprivan in [briannesbitt\/Carbon#3122](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3122)\n* Add Psalm config by @kylekatarnls in [briannesbitt\/Carbon#3125](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3125)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.8.2...3.8.3)\n\nNew contributors:\n* @c-Rolland made their first contribution in [briannesbitt\/Carbon#3110](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3110)\n* @Mejans made their first contribution in [briannesbitt\/Carbon#3115](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3115)\n* @koprivan made their first contribution in [briannesbitt\/Carbon#3122](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3122)\n"
     },
     {
         "tag_name": "3.8.2",
         "created_at": "2024-11-07T17:46:48Z",
-        "body": "3.8.2"
+        "body": "* Fix immutable return for `setUnitNoOverflow` by @kylekatarnls in [briannesbitt\/Carbon#3103](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3103)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.8.1...3.8.2)\n"
     },
     {
         "tag_name": "3.8.1",
         "created_at": "2024-11-03T16:02:24Z",
-        "body": "3.8.1"
+        "body": "* Consider absolute flag when comparing intervals by @kylekatarnls in [briannesbitt\/Carbon#3073](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3073)\n* Optimize `setUnitNoOverflow()` by @takaram in [briannesbitt\/Carbon#3071](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3071)\n* Fix timezone issue when add\/sub with overflow by @kylekatarnls in [briannesbitt\/Carbon#3074](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3074)\n* Automate documentation update by @kylekatarnls in [briannesbitt\/Carbon#3079](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3079)\n* Parse microseconds as integer when making from specs by @kylekatarnls in [briannesbitt\/Carbon#3098](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3098)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.8.0...3.8.1)\n"
     },
     {
         "tag_name": "3.8.0",
         "created_at": "2024-08-19T06:22:39Z",
-        "body": "3.8.0"
+        "body": "* Accept Unit enum in `startOf` and `endOf` by @kylekatarnls in [briannesbitt\/Carbon#3052](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3052)\n* Add test for German period translation by @kylekatarnls in [briannesbitt\/Carbon#3054](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3054)\n* Add tests for `CarbonInterval` and `CarbonPeriod` by @kylekatarnls in [briannesbitt\/Carbon#3055](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3055)\n* Add generic methods `isStartOfUnit` and `isEndOfUnit` by @kylekatarnls in [briannesbitt\/Carbon#3053](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3053)\n* Implement `isStartOf*` and `isEndOf*` for all units by @kylekatarnls in [briannesbitt\/Carbon#3056](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3056)\n* Update Spanish translations by @DannyJJK in [briannesbitt\/Carbon#3060](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3060)\n* Optimize `getIntervalDayDiff` by @kylekatarnls in [briannesbitt\/Carbon#3061](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3061)\n* Optimize `diffInDays` by @kylekatarnls in [briannesbitt\/Carbon#3062](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3062)\n* Use arrow functions to `getIsoUnits` by @kylekatarnls in [briannesbitt\/Carbon#3064](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3064)\n* Simplify PHPStan extension by @ondrejmirtes in [briannesbitt\/Carbon#3065](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3065)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.7.0...3.8.0)\n\nNew contributors:\n* @DannyJJK made their first contribution in [briannesbitt\/Carbon#3060](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3060)\n"
     },
     {
         "tag_name": "3.7.0",
         "created_at": "2024-07-16T22:29:20Z",
-        "body": "3.7.0"
+        "body": "* Use static instead of `CarbonInterface` return type in doclocks by @philbates35 in [briannesbitt\/Carbon#3047](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3047)\n* Added period German translations by @marcheffels in [briannesbitt\/Carbon#3045](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3045)\n* Use pro rata to calculate decimal part of month\/year diffs by @kylekatarnls in [briannesbitt\/Carbon#3051](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3051)\n* Add more `between()` \/ `isBetween()` tests by @faissaloux in [briannesbitt\/Carbon#3043](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3043)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.6.0...3.7.0)\n\nNew contributors:\n* @faissaloux made their first contribution in [briannesbitt\/Carbon#3043](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3043)\n* @philbates35 made their first contribution in [briannesbitt\/Carbon#3047](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3047)\n* @marcheffels made their first contribution in [briannesbitt\/Carbon#3045](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3045)\n"
     },
     {
         "tag_name": "3.6.0",
         "created_at": "2024-06-20T15:52:59Z",
-        "body": "3.6.0"
+        "body": "* Add support for `Month` and `WeekDay` enums in `is()` method @kylekatarnls #3036\n* Build period with given timezone @kylekatarnls #3041\n* Unserialize carbon interval created by v2 @kylekatarnls #3042\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.5.0...3.6.0)\n"
     },
     {
         "tag_name": "3.5.0",
         "created_at": "2024-06-03T17:25:54Z",
-        "body": "3.5.0"
+        "body": "* Fix New Zealand daylight saving time format to pass hasFormat v3 @Luoti #3031\n* Split CarbonPeriod construction into multiple steps @kylekatarnls #3024\n* Make CarbonPeriod compatible with PHP 8.4 @kylekatarnls #3023\n* Fix diffInDays DST bug @kylekatarnls #3026\n* Fix issue with is month check @kylekatarnls #3033\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.4.0...3.5.0)\n\nNew contributors:\n* @Luoti made their first contribution in #3031\n"
     },
     {
         "tag_name": "2.72.5",
         "created_at": "2024-06-03T19:18:41Z",
-        "body": "2.72.5"
+        "body": "* Fix PHP 7.4 compatibility #3034\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.4...2.72.5)\n"
     },
     {
         "tag_name": "2.72.4",
         "created_at": "2024-06-03T15:00:23Z",
-        "body": "2.72.4"
+        "body": "* Fix New Zealand daylight saving time format to pass `hasFormat` @Luoti #3030\n* Fix `is` method bug giving wrong result when checking 30-days month name on a 31st date @kylekatarnls #3033\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.3...2.72.4)\n\nNew contributors:\n* @Luoti made their first contribution in #3030\n"
     },
     {
         "tag_name": "3.4.0",
         "created_at": "2024-05-24T14:26:34Z",
-        "body": "3.4.0"
+        "body": "* Unserialize `CarbonInterval` from v2 @kylekatarnls #3016\n* Remove overridden `EXCLUDE_START_DATE` constant @iluuu1994 #3022\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.3.1...3.4.0)\n\nNew contributors:\n* @iluuu1994 made their first contribution in #3022\n"
     },
     {
         "tag_name": "3.3.1",
         "created_at": "2024-05-01T06:54:22Z",
-        "body": "3.3.1"
+        "body": "* Fix days for `diffForHumans` for slovak @edvordo #3007\n* Support `%a` format #3013\n* Fix translator and interval serialization #3005\n* Fallback to default timezone for mocked now #3014\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.3.0...3.3.1)\n\nNew contributors:\n* @edvordo made their first contribution in #3007\n"
     },
     {
         "tag_name": "3.3.0",
         "created_at": "2024-04-18T16:35:06Z",
-        "body": "3.3.0"
+        "body": "* Create a dedicated method for each step of the magic `__call` process #2992\n* Update Bosnian translations #2994\n* Handle `null` in `canBeCreatedFromFormat` #2997\n* Allow carbon instance to be rounded by a `CarbonInterval`, which is not in default language @kohlerdominik #2999\n* Update Slovak translations @pkundis #2995\n* Add `locale` and `translator` options to `forHumans` and `diffForHumans` #3001\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.2.4...3.3.0)\n\nNew contributors:\n* @kohlerdominik made their first contribution in #2999\n* @pkundis made their first contribution in #2995\n"
     },
     {
         "tag_name": "3.2.4",
         "created_at": "2024-04-05T09:58:10Z",
-        "body": "3.2.4"
+        "body": "* Re-allow macro with names starting with diff #2991\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.2.3...3.2.4)\n"
     },
     {
         "tag_name": "3.2.3",
         "created_at": "2024-03-30T18:22:00Z",
-        "body": "3.2.3"
+        "body": "* Update Docs for `diffIn` methods that return float @Nathanjms #2988\n* Fix deprecation notice for diffInReal* (prefer diffInUTC*, or for any unit smaller than day, simply diffIn*)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.2.2...3.2.3)\n"
     },
     {
         "tag_name": "3.2.2",
         "created_at": "2024-03-28T12:59:49Z",
-        "body": "3.2.2"
+        "body": "* Fallback to default parameters if period construction fails #2987\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.2.1...3.2.2)\n"
     },
     {
         "tag_name": "3.2.1",
         "created_at": "2024-03-27T21:37:24Z",
-        "body": "3.2.1"
+        "body": "* Make start and end period properties correct at creation #2984\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.2.0...3.2.1)\n"
     },
     {
         "tag_name": "3.2.0",
         "created_at": "2024-03-27T18:14:36Z",
-        "body": "3.2.0"
+        "body": "* Fix PHP 8.4 implicit nullability deprecation @Ayesh #2969\n* Use current timezone if identical to compared value for diff #2972\n* Correction of Months' Names In CKB language #2973\n* Stop using start\/end on interval if they are changed after creation #2981\n* Deprecate Real diff in favor of UTC diff #2975\n* Allow integer in createFromFormat() #2983\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.1.1...3.2.0)\n\nNew contributors:\n* @kawan97 made their first contribution in #2973\n"
     },
     {
         "tag_name": "3.1.1",
         "created_at": "2024-03-13T12:42:37Z",
-        "body": "3.1.1"
+        "body": "* Fixed Persian translation for before and after #2963\n* Cleaned up region list and add warranty notice on methods relying on it #2964\n* Fixed incomplete type for create method PHPDoc #2962\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.1.0...3.1.1)\n\nNew contributors:\n* @shane-zeng made their first contribution in #2962\n"
     },
     {
         "tag_name": "3.1.0",
         "created_at": "2024-03-06T17:26:51Z",
-        "body": "3.1.0"
+        "body": "* Fixed Persian translation for before and after #2941\n* Allowed to pass Unit enum for unit name #2944\n* Updated PHPDoc #2946\n* Removed suffix to Taiwan name  #2957\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.2...3.1.0)\n\nNew contributors:\n* @azim-kordpour made their first contribution in #2941\n"
     },
     {
         "tag_name": "3.0.2",
         "created_at": "2024-02-06T09:28:31Z",
-        "body": "3.0.2"
+        "body": "* Fixed PHP 8.1 issue \"Enum case value must be compile-time evaluatable\": Use static values for enums until dropping PHP 8.1 #2938\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.1...3.0.2)\n"
     },
     {
         "tag_name": "3.0.1",
         "created_at": "2024-02-05T18:22:18Z",
-        "body": "3.0.1"
+        "body": "* Allowed to remove macro by passing `null` value #2935 #2936 #2937\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.0...3.0.1)\n"
     },
     {
         "tag_name": "3.0.0",
         "created_at": "2024-01-31T20:20:32Z",
-        "body": "3.0.0"
+        "body": "- Dropped PHP < 8.1 #2810 #2385 #2346\n- Dropped Symfony < 4.4 #2070\n- Added enums for week days, months and units #2701\n- Added generic `unitOfUnit` and `unitsInUnit` getters #2885\n- \u26a0 Changed `diffIn*` methods to return `float` and relative diff (`$absolute = false` by default) #2119\n  - diffIn* will use the floatDiffInReal* behavior, all other variants will be removed\n- Changed `CarbonPeriod` to extend `DatePeriod` #1752\n- Changed `create*` method to return `null` instead of `false` #2340\n- Changed `forHumans()` to show `0 seconds` y default for empty intervals #2035\n- Changed `CarbonInterval` to be empty by default #2079\n- Changed week methods to work with current global locale #1967\n- Allowed to add and subtract decimal numbers of any unit #2347 #2519\n- Changed factories to have isolated settings, locale, testNow, macros and default timezone #2345\n- Changed `$tz` with `$timezone` for named argument #2925\n- Changed `parse()` return type to non-nullable `static` #2931 \u2014 @jnoordsij\n- Fixed short year Ukrainian plural #2923 \n- Fixed `resolve*` method return type so to allow sub-classes to take other sub-classes as parameters\n- Fixed fallback from setter to macro #2922\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.2...3.0.0)\n"
     },
     {
         "tag_name": "3.0.0-rc.3",
         "created_at": "2024-01-31T20:20:32Z",
-        "body": "3.0.0-rc.3"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.0-rc.1...3.0.0-rc.3)\n"
     },
     {
         "tag_name": "3.0.0-rc.1",
         "created_at": "2024-01-26T22:34:54Z",
-        "body": "3.0.0-rc.1"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.0-beta.3...3.0.0-rc.1)\n"
     },
     {
         "tag_name": "2.72.3",
         "created_at": "2024-01-25T10:35:09Z",
-        "body": "2.72.3"
+        "body": "* Fixed #2920 typos in documentation \u2014 @szepeviktor\n* Fixed #2918 Short year Ukrainian plural \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.2...2.72.3)\n"
     },
     {
         "tag_name": "3.0.0-beta.3",
         "created_at": "2024-01-24T09:02:00Z",
-        "body": "3.0.0-beta.3"
+        "body": "- Fixed fallback from setter to macro #2922\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.0-beta.2...3.0.0-beta.3)\n"
     },
     {
         "tag_name": "3.0.0-beta.2",
         "created_at": "2024-01-23T23:28:55Z",
-        "body": "3.0.0-beta.2"
+        "body": "- Fixed `resolve*` method return type so to allow sub-classes to take other sub-classes as parameters\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/3.0.0-beta.1...3.0.0-beta.2)\n"
     },
     {
         "tag_name": "3.0.0-beta.1",
         "created_at": "2024-01-22T07:05:06Z",
-        "body": "3.0.0-beta.1"
+        "body": "- Dropped PHP < 8.1 #2810 #2385 #2346\n- Dropped Symfony < 4.4 #2070\n- Added enums for week days, months and units #2701\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.2...3.0.0-beta.1)\n"
     },
     {
         "tag_name": "2.72.2",
         "created_at": "2024-01-19T00:21:53Z",
-        "body": "2.72.2"
+        "body": "* Fixed #2908 typo of day name in Slovak language \u2014 @richardDobron\n* Fixed #2918 Use febr. as Hungarian abbreviation for febru\u00e1r (February) \u2014 @dvidke\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.1...2.72.2)\n\nNew contributors:\n* @richardDobron made their first contribution in [briannesbitt\/Carbon#2908](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2908)\n* @dvidke made their first contribution in [briannesbitt\/Carbon#2918](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2918)\n"
     },
     {
         "tag_name": "2.72.1",
         "created_at": "2023-12-08T23:47:49Z",
-        "body": "2.72.1"
+        "body": "* Fixed #2899 setConfigCacheFactory compatibility \u2014 @kylekatarnls\n* Updated #2896 phpcs version \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.72.0...2.72.1)\n"
     },
     {
         "tag_name": "2.72.0",
         "created_at": "2023-11-28T10:13:25Z",
-        "body": "2.72.0"
+        "body": "* Fixed #2872 Slovak translations \u2014 @s4muel\n* Fixed #2884 Use relevant class to synchronize CarbonPeriod mock \u2014 @kylekatarnls\n* Fixed #2890 Apply rounding changes to result before applying unit \u2014 @Sjoertjuh\n* Fixed #2879 Narrow phpstan types in assertInstanceOf* AbstractTestCase methods \u2014 @staabm\n* Fixed #2864 Cleanup PHPDoc \u2014 @kylekatarnls\n* Added #2848 Dependabot \u2014 @juherr\n* Changed #2859 Externalize doctrine types \u2014 @kylekatarnls \n* Changed #2862 Bump actions\/checkout from 3 to 4 \u2014 @dependabot\n* Changed #2886 Use new timezone names in tests \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.71.0...2.72.0)\n\nNew contributors:\n* @juherr made their first contribution in [briannesbitt\/Carbon#2848](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2848)\n* @dependabot made their first contribution in [briannesbitt\/Carbon#2862](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2862)\n* @s4muel made their first contribution in [briannesbitt\/Carbon#2872](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2872)\n* @staabm made their first contribution in [briannesbitt\/Carbon#2879](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2879)\n* @Sjoertjuh made their first contribution in [briannesbitt\/Carbon#2890](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2890)\n"
     },
     {
         "tag_name": "2.71.0",
         "created_at": "2023-09-25T11:31:05Z",
-        "body": "2.71.0"
+        "body": "* Added #2857 `var_export()` support for `CarbonInterval` \u2014 @hettiger\n* Fixed #2852 UnknownGetterException error on serialization \u2014 @gjespo85\n* Fixed #2854 Allow to set options at least one per construction \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.70.0...2.71.0)\n\nNew contributors:\n* @gjespo85 made their first contribution in #2852\n* @hettiger made their first contribution in #2857\n"
     },
     {
         "tag_name": "2.70.0",
         "created_at": "2023-09-07T16:43:50Z",
-        "body": "2.70.0"
+        "body": "* Added #2838 #2839 Allow float in interval units \u2014 @kylekatarnls\n* Added #2840 `T` modifier for translation \u2014 @nicko170\n* Fixed #2842 Upgrade codecov V1 => V3 and switch to pcov \u2014 @Chris53897\n* Fixed #2837 Use env var to pass composer cache config in GitHub Actions \u2014 @Chris53897\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.69.0...2.70.0)\n\nNew contributors:\n* @Chris53897 made their first contribution in #2837\n* @nicko170 made their first contribution in #2840\n"
     },
     {
         "tag_name": "2.69.0",
         "created_at": "2023-08-03T09:00:52Z",
-        "body": "2.69.0"
+        "body": "* Added #2813 Implement `Psr\\Clock\\ClockInterface` \u2014 @kylekatarnls\n* Fixed #2823 Make createFromFormat work the same with mocked time \u2014 @kylekatarnls\n* Fixed #2822 Exclude locale from `getSetting()` if set by default \u2014 @kylekatarnls\n* Fixed #2819 Carbon constructor mutates passed DateTime argument \u2014 @kylekatarnls\n* Fixed #2829 Fix dual for month in Slovenian language \u2014 @alesf\n* Fixed #2825 Change before Malay translation to \"sebelum\" \u2014 @kylekatarnls\n* Fixed #2155 #2160 Dedupe the diff methods set \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.68.1...2.69.0)\n"
     },
     {
         "tag_name": "2.68.1",
         "created_at": "2023-06-20T18:29:04Z",
-        "body": "2.68.1"
+        "body": "- Fixed bug mutating the parameter of `diffInWeekdays()` and `diffInWeekendDays()`\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.68.0...2.68.1)\n"
     },
     {
         "tag_name": "2.68.0",
         "created_at": "2023-06-15T15:10:15Z",
-        "body": "2.68.0"
+        "body": "* Added #2802 Support named arguments for mixins \u2014 @kylekatarnls\n* Fixed #2806 Fix `CarbonPeriod` method signatures \u2014 @axlon\n* Fixed #2801 Use `CarbonImmutable` when creating `CarbonPeriodImmutable` \u2014 @kylekatarnls\n* Fixed #2799 Fix `diffInWeekdays` and `diffInWeekendDays` with partial days \u2014 @kylekatarnls\n* Fixed #2781 Change `@method shiftTimezone()` return to `static` \u2014 @kylekatarnls\n* Fixed #2804 Restore type of mixin results using $this \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.67.0...2.68.0)\n"
     },
     {
         "tag_name": "2.67.0",
         "created_at": "2023-05-25T22:09:47Z",
-        "body": "2.67.0"
+        "body": "* Fixed #2770 PHP 8.3 compatibility \u2014 @kylekatarnls\n* Fixed #2767 Allow `false` in `createFromFormat()` timezone parameter \u2014 @kylekatarnls\n* Fixed #2781 Change `@method shiftTimezone()` return to `static` \u2014 @ondrejmirtes\n* Updated #2789 en_CH formats \u2014 @Seeow\n* Improved #2769 `withTestNow()` signature \u2014 @takaram\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.66.0...2.67.0)\n\nNew contributors:\n* @takaram made their first contribution in [briannesbitt\/Carbon#2769](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2769)\n* @Seeow made their first contribution in [briannesbitt\/Carbon#2789](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2789)\n"
     },
     {
         "tag_name": "2.66.0",
         "created_at": "2023-01-29T18:53:47Z",
-        "body": "2.66.0"
+        "body": "* Added #2761 CarbonPeriodImmutable class \u2014 @kylekatarnls\n* Added #2760 Eastern Arabic numerals to all locales of the Mashriq countries \u2014 @Abdullah-Alhariri\n* Fixed #2762 Handle rounding with cascade factors \u2014 @kylekatarnls\n* Fixed #2752 is() output when giving a month name only \u2014 @kylekatarnls\n* Fixed #2753 unit tests \u2014 @rgson\n* Improved #2754 Enable PHPMD on tests code \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.65.0...2.66.0)\n\nNew contributors:\n* @Abdullah-Alhariri made their first contribution in [briannesbitt\/Carbon#2760](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2760)\n"
     },
     {
         "tag_name": "2.65.0",
         "created_at": "2023-01-06T15:55:01Z",
-        "body": "2.65.0"
+        "body": "* Added #2712 getDaysFromStartOfWeek and setDaysFromStartOfWeek methods \u2014@kylekatarnls\n* Added #2731 Provide basic completion assistance in PhpStorm \u2014@wbars\n* Added #2750 Add `isLongIsoYear()` method \u2014@kylekatarnls\n* Fixed #2742 Updated Polish translation \u2014 @maciek-szn\n* Fixed #2740 Fix Serbian pluralization \u2014 @kylekatarnls\n* Fixed #2729 Add allowed type to create method \u2014 @driesvints\n* Fixed #2727 Fix docs of milliseconds field (`CarbonInterval`) \u2014 @scrummer\n* Fixed #2718 Fix doc-block \u2014 @aivchen\n* Fixed #2721 Update PHPDoc for magic methods \u2014 @kylekatarnls\n* Fixed #2719 Translate escaped word in `createFromLocaleFormat()` \u2014 @kylekatarnls\n* Fixed #2745 Enforce `$skip` array type \u2014 @kylekatarnls\n* Improved #2735 Update Serbian tests \u2014 @perisicnikola37\n* Improved #2726 Add cast test for `addRealHours()` \u2014@kylekatarnls\n* Improved #2729 Add allowed type to create method \u2014 @driesvints\n* Improved #2734 Add PHP 8.3 to GitHub Actions \u2014@kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.64.1...2.65.0)\n\nNew contributors:\n* @aivchen made their first contribution in [briannesbitt\/Carbon#2718](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2718)\n* @scrummer made their first contribution in [briannesbitt\/Carbon#2727](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2727)\n* @wbars made their first contribution in [briannesbitt\/Carbon#2731](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2731)\n* @perisicnikola37 made their first contribution in [briannesbitt\/Carbon#2735](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2735)\n* @maciek-szn made their first contribution in [briannesbitt\/Carbon#2742](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2742)\n"
     },
     {
         "tag_name": "2.64.1",
         "created_at": "2023-01-01T23:17:36Z",
-        "body": "2.64.1"
+        "body": "## What's Changed\n- Fixed #2744 passing `$skip`parameter as string in `diffForHumans()`\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.64.0...2.64.1)\n"
     },
     {
         "tag_name": "2.64.0",
         "created_at": "2022-11-26T17:36:00Z",
-        "body": "2.64.0"
+        "body": "* Added #2712 getDaysFromStartOfWeek and setDaysFromStartOfWeek methods \u2014@kylekatarnls\n* Added #2709 Allow named parameters in magic calls \u2014@kylekatarnls\n* Improved #2697 diffInMonths calculation \u2014 @kylekatarnls\n* Fixed #2704 Use static reflection to determine whether class is `CarbonInstance` \u2014 @axlon\n* Fixed #2705 DBAL dependency vulnerability CVE-2021-43608 \u2014 @allanlaal\n* Fixed #2707 Keep days interval from diff \u2014 @kylekatarnls\n* Fixed #2711 Fix docblock \u2014 @michaelnabil230\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.63.0...2.64.0)\n\nNew contributors:\n* @axlon made their first contribution in [briannesbitt\/Carbon#2704](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2704)\n* @allanlaal made their first contribution in [briannesbitt\/Carbon#2705](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2705)\n* @michaelnabil230 made their first contribution in [briannesbitt\/Carbon#2711](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2711)\n"
     },
     {
         "tag_name": "2.63.0",
         "created_at": "2022-10-30T18:34:28Z",
-        "body": "2.63.0"
+        "body": "* Added #2682 Added case 'yr', 'yrs' and 'mos' alias in CarbonInterval string parser \u2014 @OmnibladeZ\n* Added #2693 Translate ordinal word when parsing \n* Improved #2677 Print original params in Carbon\\Traits\\Units::addUnit error message \u2014 @costasovo\n* Fixed #2689 Update SL language (\"2 years ago\" translation) \u2014 @Mihc3\n* Fixed #2683 Allow lowercase macro-format per-language customization\n* Fixed #2665 Prevent floor overflow\n* Fixed #2667 Prevent ceil precision loss\n* Fixed #2669 Harmonize toStringFormat config\n* Fixed #2670 Distinguish months and months_standalone in Latvian\n* Fixed #2681 Fix float unit tests\n* Fixed #2687 Fix weekday setter\n* Fixed #2688 Fix PHPStan macro arguments check\n* Fixed #2684 Update Laravel compatibility GH workflow\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.62.1...2.63.0)\n\nNew contributors:\n* @costasovo made their first contribution in [briannesbitt\/Carbon#2677](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2677)\n* @OmnibladeZ made their first contribution in [briannesbitt\/Carbon#2682](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2682)\n* @Mihc3 made their first contribution in [briannesbitt\/Carbon#2689](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2689)\n* @gam04 made their first contribution in [briannesbitt\/Carbon#2693](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2693)\n"
     },
     {
         "tag_name": "2.62.1",
         "created_at": "2022-09-02T07:48:13Z",
-        "body": "2.62.1"
+        "body": "## What's Changed\n- Fixed #2663 PHP 8.2 issue with false for lastErrors \u2014 @driesvints\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.62.0...2.62.1)\n"
     },
     {
         "tag_name": "2.62.0",
         "created_at": "2022-08-28T19:48:05Z",
-        "body": "2.62.0"
+        "body": "* Added #2653 toFormattedDayDateString() 'Day, Month Day, Year' \u2014 @Axum25\n* Added #2655 Allow float numbers in cascade factors \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.61.0...2.62.0)\n\nNew contributors:\n* @Axum25 made their first contribution in [briannesbitt\/Carbon#2653](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2653)\n"
     },
     {
         "tag_name": "2.61.0",
         "created_at": "2022-08-06T12:41:24Z",
-        "body": "2.61.0"
+        "body": "* Added #2651 options for microseconds on `getDateIntervalSpec()` \u2014 @Nakatox\n* Added #2649 Allow comparison with strings \u2014 @kylekatarnls\n* Added #2644 PHP 8.2 support \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.60.0...2.61.0)\n\nNew contributors:\n* @Nakatox made their first contribution in [briannesbitt\/Carbon#2651](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2651)\n"
     },
     {
         "tag_name": "2.60.0",
         "created_at": "2022-07-27T15:57:48Z",
-        "body": "2.60.0"
+        "body": "* Updated #2647 Sorani language (ckb locale) \u2014 @swarakaka\n* Updated #2646 Align Kurmanji language with CLDR data (ku locale) \u2014 Unicode\n* Fixed #2640 Fixes updating locale when app instance changes in Octane \u2014 @nunomaduro\n* Fixed #2645 Make Laravel ServiceProvider more resilient \u2014 @kylekatarnls\n* Removed #2641 false positives fixed by PHPStan \u2014 @kylekatarnls\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.59.1...2.60.0)\n\nNew contributors:\n* @nunomaduro made their first contribution in [briannesbitt\/Carbon#2640](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2640)\n"
     },
     {
         "tag_name": "2.59.1",
         "created_at": "2022-06-29T21:43:55Z",
-        "body": "2.59.1"
+        "body": "* Fixed #2632 Php 8.2 utf8_encode deprecation \u2014 @erikn69\n* Fixed #2635 regression for MacroExtension \u2014 @evertharmeling\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.59.0...2.59.1)\n\nNew contributors:\n* @erikn69 made their first contribution in [briannesbitt\/Carbon#2632](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2632)\n* @evertharmeling made their first contribution in [briannesbitt\/Carbon#2635](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2635)\n"
     },
     {
         "tag_name": "2.59.0",
         "created_at": "2022-06-26T20:26:59Z",
-        "body": "2.59.0"
+        "body": "- Added #2631 Support for PHPStan 1.7.14 \u2014 @kylekatarnls\n- Added #2616 Exception for endless periods \u2014 @kylekatarnls\n- Fixed #2595 Update Slovak translations \u2014 @AlterwebStudio\n- Fixed #2614 Months translations in Czech \u2014 @waclaw66\n- Fixed #2607 Improved typehint for year of `CarbonInterval` \u2014 @kang8\n- Fixed #2622 Replaced deprecated `${var}` string interpolation patterns (PHP 8.2) \u2014 @jnoordsij\n- Refactored #2612 Simplify some regex \u2014 @lucasmichot\n- Refactored #2608 Use expectExceptionObject assertion for consistency \u2014 @lucasmichot\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.58.0...2.59.0)\n\nNew contributors:\n* @kang8 made their first contribution in [briannesbitt\/Carbon#2607](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2607)\n* @waclaw66 made their first contribution in [briannesbitt\/Carbon#2614](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2614)\n* @jnoordsij made their first contribution in [briannesbitt\/Carbon#2622](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2622)\n"
     },
     {
         "tag_name": "2.58.0",
         "created_at": "2022-04-25T19:31:17Z",
-        "body": "2.58.0"
+        "body": "- Added #2573 `QUARTERS_PER_YEAR` constant\n- Added #2571 Kurdish (sorani) language\n- Added #2578 property getters for exceptions\n- Added #2590 support for `DateTime` and `DateTimeImmutable` in `setTestNow()`\n- Fixed #2581 `floorMonth()` for last day of month\n- Fixed #2557 Week declension in Mongolian for \"ago\"\n- Fixed #2584 Danish translations\n- Fixed #2588 Allow plus prefix for numeric timezone\n- Fixed #2536 Compatibility with Symfony hybrid setup\n- Fixed #2561 Exceptions handling in `withTestNow()`\n- Fixed #2549 #2551 PHP 8.1 incompatibility and deprecations\n- Refactor #2564 #2574 #2577 #2597 #2596 #2601 #2598 #2599\n- Improved tests #2560 #2563 #2575 #2592\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.57.0...2.58.0)\n\nNew contributors:\n\ud83c\udf89\n* @sumonst21 made their first contribution in [briannesbitt\/Carbon#2554](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2554)\n* @rogervila made their first contribution in [briannesbitt\/Carbon#2573](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2573)\n* @swara-mohammed made their first contribution in [briannesbitt\/Carbon#2571](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2571)\n* @kokoshneta made their first contribution in [briannesbitt\/Carbon#2585](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2585)\n* @yuraplohov made their first contribution in [briannesbitt\/Carbon#2590](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2590)\n"
     },
     {
         "tag_name": "2.57.0",
         "created_at": "2022-02-13T18:13:33Z",
-        "body": "2.57.0"
+        "body": "- Fixed #2547 ceil() diff with short month\n- Fixed #2531 Invalid floatDiffInDays() calculate\n- Fixed #2548 Use unmodified English for period conversion\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.56.0...2.57.0)\n"
     },
     {
         "tag_name": "2.56.0",
         "created_at": "2022-01-21T17:08:38Z",
-        "body": "2.56.0"
+        "body": "- Added #2528 CarbonPeriod Handle infinite recurrences when parsing period string by @dbohn\n- Added #2537 Allow precision 0 in Carbon DBAL types by @kdaniel95\n- Added #2507 Support for PHPStan 1.*\n- Fixed #2520 Replace Polish ending in grouped units\n- Fixed #2529 Allow strings in comparison methods\n  \u26a0\ufe0f Breaking change: `null` now fallback to `\"now\"`, as it's still ambigus, we highly encourage you not to compare `null` to date\/Carbon instances and do null-check before comparison.\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.55.2...2.56.0)\n"
     },
     {
         "tag_name": "2.55.2",
         "created_at": "2021-12-03T14:59:52Z",
-        "body": "2.55.2"
+        "body": "- Fixed #2514 Support classmap-authoritative composer option (thanks to @andriesreitsma)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.55.1...2.55.2)\n"
     },
     {
         "tag_name": "2.55.1",
         "created_at": "2021-12-03T13:47:17Z",
-        "body": "2.55.1"
+        "body": "- Fixed #2512 Move translator definition outside autoload\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.55.0...2.55.1)\n"
     },
     {
         "tag_name": "2.55.0",
         "created_at": "2021-12-02T16:53:55Z",
-        "body": "2.55.0"
+        "body": "- Added #2488 \"skip\" option in `forHumans()` and `diffForHumans()`\n- Added #2509 Symfony 6 support\n- Added #2497 composer docs section (thanks to @lucasmichot)\n- Fixed #2492 Past declensions in Polish\n- Fixed #2506 nds_DE translation\n- Fixed #2490 Documentation (thanks to @Jo-chana)\n- Fixed #2452 Throw exception on wrong unit added\n- Fixed #2503 Remove work-around for PHP bug 81458\n- Changed #2501 Throw exception on invalid timezone ID in `setTestNowAndTimezone()`\n- Improved code style #2487 (thanks to @lucasmichot)\n- Improved tests #2494 #2495 #2496 (thanks to @lucasmichot)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.54.0...2.55.0)\n"
     },
     {
         "tag_name": "2.54.0",
         "created_at": "2021-11-01T21:22:20Z",
-        "body": "2.54.0"
+        "body": "- Fixed #2481 Make time handling with `setTestNow()` closest to real time behavior\n  - \u26a0\ufe0f see BC notice for this change https:\/\/github.com\/briannesbitt\/Carbon\/issues\/2481#issuecomment-956645309 the BC only changes the way to mock time in tests (which will no longer fake the timezone by default) behavior outside testing env is not impacted.\n- Fixed #2433 Fix Malay meridiem\n- Fixed #2478 Fix Latvian short name for months\n- Fixed #2479 Fix month plural for Gujarati\n- Fixed #2452 Throw exception on wrong unit added\n- Added #2484 `setTestNowAndTimezone()`\n- Refactored tests and CI (thanks to @lucasmichot)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.53.1...2.54.0)\n\nNew contributors:\n\ud83c\udf89 \n* @wouterj made their first contribution in [briannesbitt\/Carbon#2453](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2453)\n* @ozldmezot made their first contribution in [briannesbitt\/Carbon#2478](https:\/\/github.com\/briannesbitt\/Carbon\/pull\/2478)\n"
     },
     {
         "tag_name": "2.53.1",
         "created_at": "2021-09-06T09:29:23Z",
-        "body": "2.53.1"
+        "body": "- Allow PHP 8.1 return types for Countable\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.53.0...2.53.1)\n"
     },
     {
         "tag_name": "2.53.0",
         "created_at": "2021-09-06T07:30:54Z",
-        "body": "2.53.0"
+        "body": "- Fixed #2439 PHP 8.1 compatibility\n- Added #2424 unit test for PHP bug 80974\n- Removed #2419 work-around for bug 81106 fixed in PHP 8.1 beta 3\n- Refactored #2427 Use null coalescing operator when possible\n- Optimized #2428 RegExp\n- Upgraded #2426 friendsofphp\/php-cs-fixer to ^3\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.52.0...2.53.0)\n"
     },
     {
         "tag_name": "2.52.0",
         "created_at": "2021-08-14T19:10:52Z",
-        "body": "2.52.0"
+        "body": "- Fixed #2416 Improve factory timezone handling\n- Fixed #2395 Overflow with plural unit\n- Fixed #2397 Remove period from \"min\" (minute) in Polish\n- Refactored unit tests #2412 #2407 #2404 #2402 #2401\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.51.1...2.52.0)\n"
     },
     {
         "tag_name": "2.51.1",
         "created_at": "2021-07-28T13:16:28Z",
-        "body": "2.51.1"
+        "body": "- Restored #2400 PHPStan extension config in package\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.51.0...2.51.1)\n"
     },
     {
         "tag_name": "2.51.0",
         "created_at": "2021-07-28T08:28:41Z",
-        "body": "2.51.0"
+        "body": "- Added #2299 support for msgpack\n- Fixed #2398 compatibility issue with symfony\/translation v4.4.27\n- Fixed #2383 Georgian (KA) month names\n- Refactored #2393 #2391 #2390 #2387 #2388 #2389\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.50.0...2.51.0)\n"
     },
     {
         "tag_name": "2.50.0",
         "created_at": "2021-06-28T22:38:45Z",
-        "body": "2.50.0"
+        "body": "- Added #2353 Use the return value from callback in `withTestNow()`\n- Added #2351 `avoidMutation()` method to copy an instance only if mutable\n- Fixed #2349 polish translation causing a runtime error\n- Fixed PHP 8.1 compatibility #2319 #2364\n- Fixed #2368 Precision bug when converting float with leading zero in decimal part of a timestamp\n- Refactored typing #2367 #2366 #2365 #2359 #2360\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.49.0...2.50.0)\n"
     },
     {
         "tag_name": "2.49.0",
         "created_at": "2021-06-02T07:31:40Z",
-        "body": "2.49.0"
+        "body": "- Added #2332 instantiation method `Carbon::createStrict()`\n- Added #2344 Doctrine Types Annotations\n- Fixed #2336 Belarusian translation\n- Fixed #2337 passing null to non-nullable arguments\n- \u26a0\ufe0f Changed ac6f8dd negative interval strings (such as `-30 minutes`) used in `CarbonPeriod` constructor are now considered as the step of the period and no longer as the start\/end date (previously referring to `now - interval`)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.48.1...2.49.0)\n"
     },
     {
         "tag_name": "2.48.1",
         "created_at": "2021-05-26T22:08:38Z",
-        "body": "2.48.1"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.48.0...2.48.1)\n"
     },
     {
         "tag_name": "2.47.1",
         "created_at": "2021-05-26T22:09:12Z",
-        "body": "2.47.1"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.47.0...2.47.1)\n"
     },
     {
         "tag_name": "2.48.0",
         "created_at": "2021-05-07T10:08:30Z",
-        "body": "2.48.0"
+        "body": "- Fixed #2322 Allow numeric locales such as `es_419` to use dash (e.g. `es-419`)\n  - Fixed #2324 Optimize period end calculation and allow infinite recurrences\n  - Fixed #2326 handle `p` format in `canBeCreatedFromFormat()`\n  - Fixed #2328 Add Estonian unit abbreviations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.47.0...2.48.0)\n"
     },
     {
         "tag_name": "2.47.0",
         "created_at": "2021-04-13T21:54:02Z",
-        "body": "2.47.0"
+        "body": "- Fixed #2308 Compare dates in UTC to get real diff in days and above units\n  - Fixed #2301 Ukrainian translation for \"a few seconds\"\n  - Fixed #2313 Malaysian hour ranges\n  - Fixed #2314 Optimize `make()` method\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.46.0...2.47.0)\n"
     },
     {
         "tag_name": "2.46.0",
         "created_at": "2021-02-24T17:30:44Z",
-        "body": "2.46.0"
+        "body": "- Fixed #2288 Makes PHPDoc consistent\n  - Fixed #2293 Properly fallback static macro if errors are not converted into exceptions\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.45.1...2.46.0)\n"
     },
     {
         "tag_name": "2.45.1",
         "created_at": "2021-02-11T18:30:17Z",
-        "body": "2.45.1"
+        "body": "- Fixed #2285 `ceilMonth()` returns incorrect year when overflowing\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.45.0...2.45.1)\n"
     },
     {
         "tag_name": "2.45.0",
         "created_at": "2021-02-07T21:35:59Z",
-        "body": "2.45.0"
+        "body": "- Fixed #2268 rounding with month overflow\n  - Fixed #2270 croatian date format\n  - Fixed #2217 use *debugger-friendly* property retrieving method\n  - Fixed #2275 implement `CarbonPeriod::get()` method\n  - Fixed #2091 latvian declensions\n  - Fixed #2089 provide non-ambiguous add\/sub methods for interval\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.44.0...2.45.0)\n"
     },
     {
         "tag_name": "2.44.0",
         "created_at": "2021-01-26T20:46:41Z",
-        "body": "2.44.0"
+        "body": "- Added #2263 Handle trailing zero in `hasFormat()` with `\"W\"` format \n  - Fixed #2261 Setting a timezone such as +5:30 using `utcOffset(330)`\n  - Fixed #2265 Russian parsing for today, tomorrow and yesterday\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.43.0...2.44.0)\n"
     },
     {
         "tag_name": "2.43.0",
         "created_at": "2020-12-17T20:55:32Z",
-        "body": "2.43.0"
+        "body": "- Added #2250 `context()` method available from inside macros and mixins\n  - Fixed #2255 `floatDiffInDays()` calculation\n  - \u26a0\ufe0f Changed #2243 callable constants of `CarbonPeriod` changed from `\"Class::method\"` syntax to `[\"Class\", \"method\"]`\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.42.0...2.43.0)\n"
     },
     {
         "tag_name": "2.42.0",
         "created_at": "2020-11-28T14:25:28Z",
-        "body": "2.42.0"
+        "body": "- Fixed #2240 Occitan ordinal rule\n - Fixed #2238 Replace \"antier\" with \"anteayer\" in Spanish (except for Mexico)\n - Fixed #2232 Use 4-digits years for L format in nl_NL (Dutch in Netherlands)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.41.5...2.42.0)\n"
     },
     {
         "tag_name": "2.41.5",
         "created_at": "2020-10-23T06:02:30Z",
-        "body": "2.41.5"
+        "body": "- Fixed #2229 infinite loop in ceiling intervals in `forHumans()`\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.41.4...2.41.5)\n"
     },
     {
         "tag_name": "2.41.4",
         "created_at": "2020-10-22T07:28:05Z",
-        "body": "2.41.4"
+        "body": "- Fixed #2226 Swap Lithuanian before and from_now translations\n - Improved performances using Zend optimization with native function invocation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.41.3...2.41.4)\n"
     },
     {
         "tag_name": "2.41.3",
         "created_at": "2020-10-12T20:36:09Z",
-        "body": "2.41.3"
+        "body": "- Fixed #2221 Carbon::parse('YYYYMMDDHHMMSS')\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.41.2...2.41.3)\n"
     },
     {
         "tag_name": "2.41.2",
         "created_at": "2020-10-10T23:35:06Z",
-        "body": "2.41.2"
+        "body": "- Allow null dates in hasFormat()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.41.1...2.41.2)\n"
     },
     {
         "tag_name": "2.41.1",
         "created_at": "2020-10-10T11:06:56Z",
-        "body": "2.41.1"
+        "body": "- #2214 Fixed YYYYMMDD support for parse()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.41.0...2.41.1)\n"
     },
     {
         "tag_name": "2.41.0",
         "created_at": "2020-10-04T09:11:05Z",
-        "body": "2.41.0"
+        "body": "- #2194 Added getters to access CarbonPeriod like a DatePeriod object\n  - #2191 Added withTestNow() method\n  - #2195 Fixed Norwegian Nynorsk translations\n  - #2201 Fixed exception occurring with PHP < 7.4 and xDebug when inspecting Carbon instance before creation\n  - #2199 Added microsecond-precision timestamps support while creating new instances\n  - #2198 Added hasFormatWithModifiers() method\n  - #2213 Improved Malay translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.40.1...2.41.0)\n"
     },
     {
         "tag_name": "2.40.1",
         "created_at": "2020-09-23T08:17:37Z",
-        "body": "2.40.1"
+        "body": "Allow `Carbon::createFromFormat('c')` with string matching the `c` format\nFix for https:\/\/github.com\/laravel\/framework\/issues\/34474\nWork-around for https:\/\/bugs.php.net\/bug.php?id=80141\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.40.0...2.40.1)\n"
     },
     {
         "tag_name": "2.40.0",
         "created_at": "2020-09-11T19:00:58Z",
-        "body": "2.40.0"
+        "body": "- #2175 Added floatDiffInWeeks() method\n  - #2177 Fixed auto-fill timezone argument in factory methods bug\n  - #2186 Fixed Greenlandic translations\n  - #2187 Fixed Luxembourgish translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.39.2...2.40.0)\n"
     },
     {
         "tag_name": "2.39.2",
         "created_at": "2020-09-10T12:16:42Z",
-        "body": "2.39.2"
+        "body": "- #2185 Fix hasFormat() with RegExp characters\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.39.1...2.39.2)\n"
     },
     {
         "tag_name": "2.39.1",
         "created_at": "2020-09-04T13:11:37Z",
-        "body": "2.39.1"
+        "body": "- #2180 Fix hasFormat() with slashes in formats and add canBeCreatedFromFormat() method\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.39.0...2.39.1)\n"
     },
     {
         "tag_name": "2.39.0",
         "created_at": "2020-08-24T12:35:58Z",
-        "body": "2.39.0"
+        "body": "- #2146 Added shorthand for DateTimeInterface::RFC3339_EXTENDED\n  - #2150 Fixed Asturian units\n  - #2154 Added Hebrew abbreviations\n  - #2164 Fixed Estonian date formats\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.38.0...2.39.0)\n"
     },
     {
         "tag_name": "2.38.0",
         "created_at": "2020-08-04T19:12:46Z",
-        "body": "2.38.0"
+        "body": "- #2144 Fixed total() result and total* properties when the interval contains negative values\n  - #2144 Fixed cascade() result and  when the interval contains negative values\n  - #2144 Added daysExcludedWeeks setter\n  - #2144 Added support for negative values in unit constructors such as CarbonInterval::years(), CarbonInterval::months() etc.\n  - #2144 Allowed getFactor() to get multiple-steps factors\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.37.0...2.38.0)\n"
     },
     {
         "tag_name": "2.37.0",
         "created_at": "2020-07-28T06:04:54Z",
-        "body": "2.37.0"
+        "body": "- #2129 Improved Panjabi translations\n  - #2132 Improved Kurdish translations\n  - #2138 Implemented standalone months for Lithuanian language\n  - #2137 Allowed false in `setTestNow()`\n  - #2136 Fixed rounding result with inverted interval (or `diffForHumans` with future dates)\n  - #2126 Fixed `CarbonInterval::cascade()` calculation\n  - #2126 Fixed `->total()` method and `->total*` properties `invert` flag handling\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.36.1...2.37.0)\n"
     },
     {
         "tag_name": "2.36.1",
         "created_at": "2020-07-04T12:29:56Z",
-        "body": "2.36.1"
+        "body": "- Added #2127 constants for months\n  - Fixed #2128 PHPStan macro method detection\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.36.0...2.36.1)\n"
     },
     {
         "tag_name": "2.36.0",
         "created_at": "2020-06-25T20:20:01Z",
-        "body": "2.36.0"
+        "body": "- Added #2116 dynamic intervals\n  - Added #2115 microsecond as possible diff minimum unit\n  - Added #2106 complete Somali translations \n  - Added #1916 PHPStan extension for macros\n  - Fixed #2104 #2125 PHPDoc typing annotations\n  - Fixed #2117 Doctrine default precision\n  - Improved #2101 allow to find more timezones with CarbonTimeZone::toRegionName()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.35.0...2.36.0)\n"
     },
     {
         "tag_name": "2.35.0",
         "created_at": "2020-05-24T18:27:52Z",
-        "body": "2.35.0"
+        "body": "- Added #1967 auto mode to start\/end week using current locale\n  - Added #2095 Make locale default to current global locale in parseFromLocale()\n  - Added #2096 #2094 #2092 Support today, yesterday and tomorrow in Carbon::parseFromLocale()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.34.2...2.35.0)\n"
     },
     {
         "tag_name": "2.34.2",
         "created_at": "2020-05-19T22:14:16Z",
-        "body": "2.34.2"
+        "body": "- Optimized start and end of week calculation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.33.1...2.34.2)\n"
     },
     {
         "tag_name": "2.34.1",
         "created_at": "2020-05-19T21:15:11Z",
-        "body": "2.34.1"
+        "body": "- Enhanced exception message about TranslatorInterface\n- Updated PHPDoc\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.33.0...2.34.1)\n"
     },
     {
         "tag_name": "2.34.0",
         "created_at": "2020-05-12T19:53:34Z",
-        "body": "2.34.0"
+        "body": "- Fixed #2081 Ukrainian parsing\n  - Fixed #2076 Sinhala translations\n  - Improved #2078 Georgian translations\n  - Improved #2050 ORM Carbon type\n  - Improved #2085 Type exceptions to catch them more easily\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.33.0...2.34.0)\n"
     },
     {
         "tag_name": "2.33.0",
         "created_at": "2020-04-20T15:05:43Z",
-        "body": "2.33.0"
+        "body": "- Added #2058 Option to add milliseconds in diffForHumans()\n  - Added #2063 Util methods to get CarbonTimeZone objects or offset string from hour\/minutes shift number\n  - Added #2056 symfony\/polyfill-mbstring requirement to work without mbstring extension\n  - Fixed #2059 Timezone offset name for not full hour\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.32.2...2.33.0)\n"
     },
     {
         "tag_name": "2.32.2",
         "created_at": "2020-03-31T13:43:19Z",
-        "body": "2.32.2"
+        "body": "- Fixed #2049 doctrine ORM Carbon type inheritance\n  - Fixed #2046 Uzbek Cyrillic translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.32.1...2.32.2)\n"
     },
     {
         "tag_name": "2.32.1",
         "created_at": "2020-03-26T13:04:10Z",
-        "body": "2.32.1"
+        "body": "- Fixed #2045 Doctrine ORM Carbon type plateform compatibility\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.32.0...2.32.1)\n"
     },
     {
         "tag_name": "2.32.0",
         "created_at": "2020-03-24T16:01:47Z",
-        "body": "2.32.0"
+        "body": "- Added #2041 Provide Doctrine ORM Carbon types\n  - Fixed #2036 Short and long month January translation in de_AT\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.31.0...2.32.0)\n"
     },
     {
         "tag_name": "2.31.0",
         "created_at": "2020-03-01T11:11:58Z",
-        "body": "2.31.0"
+        "body": "- Added #2012 ->betweenIncluded() method\n  - Added #2023 ->diffInQuarters() method\n  - Fixed #1963 compliance of translations with CLDR database (second step, deeper check)\n  - Fixed #2024 month termination of isoFormat('LLL')\n  - Fixed #2027 Catalan short months declension\n  - Fixed #2022 absolute diff translation declensions\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.30.0...2.31.0)\n"
     },
     {
         "tag_name": "2.30.0",
         "created_at": "2020-02-07T15:25:46Z",
-        "body": "2.30.0"
+        "body": "- Added #1986 DateTime\/DateTimeImmutable\/DateInterval\/DatePeriod support in constructors\n- Added #2005 toStringFormat support for CarbonInterval\n- Fixed #2007 ->total* calculation\n- Fixed #2003 Allow to construct with invalid timezones when safe mode is off\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.29.1...2.30.0)\n"
     },
     {
         "tag_name": "2.29.1",
         "created_at": "2020-01-21T09:36:43Z",
-        "body": "2.29.1"
+        "body": "- Fixed #1997 Updated typing\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.29.0...2.29.1)\n"
     },
     {
         "tag_name": "2.29.0",
         "created_at": "2020-01-21T07:29:55Z",
-        "body": "2.29.0"
+        "body": "- Fixed #1969 OPCache pre-loading compatibility\n  - Fixed #1971 Improve performances (bottleneck in loading translations files).\n  - Fixed #1980 CarbonPeriod no longer set default locale to iterated date\n  - Fixed #1989 Allow local setter\/getter macros\n  - Fixed #1988 Creation of Carbon instances using reflection\n"
     },
     {
         "tag_name": "2.28.0",
         "created_at": "2019-12-16T16:30:25Z",
-        "body": "2.28.0"
+        "body": "- Fixed #1951 createFromTimestamp() incorrect timezone shown during DST change\n  - Fixed #1949 Timezone abbreviation case\n  - Fixed #1871 Improve compliance of translations with CLDR database (first step)\n  - Fixed #1958 Timezone integer input consistency\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.27.0...2.28.0)\n"
     },
     {
         "tag_name": "2.28.0-beta.1",
         "created_at": "2019-12-12T22:14:18Z",
-        "body": "2.28.0-beta.1"
+        "body": "- Fixed #1951 createFromTimestamp() incorrect timezone shown during DST change\n  - Fixed #1949 Timezone abbreviation case\n  - Fixed #1871 Improve compliance of translations with CLDR database (first step)\n  - Fixed #1958 Timezone integer input consistency\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.27.0...2.28.0-beta.1)\n"
     },
     {
         "tag_name": "2.27.0",
         "created_at": "2019-11-20T06:59:06Z",
-        "body": "2.27.0"
+        "body": "- Added #1937 Allow Symfony 5\n  - Added #1930 Options for rounding in forHumans\n  - Added #1918 CarbonInterval::createFromFormat() static method\n  - Added #1918 CarbonInterval methods: toArray() getNonZeroValues() and getValuesSequence()\n  - Added #1928 Russian diff translation\n  - Improved #1927 Finnish translation\n  - Improved #1929 Indonesian translation\n  - Improved #1908 Korean translation\n  - Changed #1941 Set \"me\" and \"scr\" locales as aliases\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.26.0...2.27.0)\n"
     },
     {
         "tag_name": "2.26.0",
         "created_at": "2019-10-21T21:32:25Z",
-        "body": "2.26.0"
+        "body": "- Added #356 precision parameter for methods toDateTimeLocalString, toTimeString, toDateTimeString and toIso8601ZuluString\n  - Improved #1914 typings for better IDE auto-completion\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.25.3...2.26.0)\n"
     },
     {
         "tag_name": "2.25.3",
         "created_at": "2019-10-20T11:05:44Z",
-        "body": "2.25.3"
+        "body": "- Improved typing\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.25.2...2.25.3)\n"
     },
     {
         "tag_name": "2.25.2",
         "created_at": "2019-10-14T14:18:59Z",
-        "body": "2.25.2"
+        "body": "- Fixed #1904 Replaced $this with CarbonInterface in PHPDoc\n  - Fixed #1910 seconds Serbo-Croatian translation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.25.1...2.25.2)\n"
     },
     {
         "tag_name": "1.39.1",
         "created_at": "2019-10-14T05:51:36Z",
-        "body": "1.39.1"
+        "body": "- #1909 Fixed validateCurrentDate return type annotation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.39.0...1.39.1)\n"
     },
     {
         "tag_name": "2.25.1",
         "created_at": "2019-10-05T15:52:23Z",
-        "body": "2.25.1"
+        "body": "- #1902 Fixed Croatian Bosnian translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.25.0...2.25.1)\n"
     },
     {
         "tag_name": "2.25.0",
         "created_at": "2019-09-30T16:22:22Z",
-        "body": "2.25.0"
+        "body": "- #1889 Fixed Ukrainian units translation\n  - #1893 Fixed Belarussian units translation\n  - #1886 Fix slashes support in hasFormat()\n  - Added recurrences support in Carbon::toPeriod()\n  - #1877 Added support for timezone short offset format\n  - #1874 Provided easy way to create macros that can be both static and dynamic\n  - #1814 Handled PHP changes in static closure binding\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.24.0...2.25.0)\n"
     },
     {
         "tag_name": "2.25.0-beta.3",
         "created_at": "2019-09-30T16:22:22Z",
-        "body": "2.25.0-beta.3"
+        "body": "- #1889 Fixed Ukrainian units translation\n  - #1893 Fixed Belarussian units translation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.25.0-beta.2...2.25.0-beta.3)\n"
     },
     {
         "tag_name": "2.25.0-beta.2",
         "created_at": "2019-09-13T20:03:07Z",
-        "body": "2.25.0-beta.2"
+        "body": "- #1886 Fix slashes support in hasFormat()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.25.0-beta.1...2.25.0-beta.2)\n"
     },
     {
         "tag_name": "2.25.0-beta.1",
         "created_at": "2019-09-09T15:56:37Z",
-        "body": "2.25.0-beta.1"
+        "body": "- Added recurrences support in Carbon::toPeriod()\n  - #1877 Added support for timezone short offset format\n  - #1874 Provided easy way to create macros that can be both static and dynamic\n  - #1814 Handled PHP changes in static closure binding\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.24.0...2.25.0-beta.1)\n"
     },
     {
         "tag_name": "2.24.0",
         "created_at": "2019-08-31T16:37:55Z",
-        "body": "2.24.0"
+        "body": "- Improved period\/interval string detection in Carbon::make()\n  - #1857 Fixed static methods typing auto-completion\n  - #1856 Added string arguments support in isSame* methods\n  - #1861 Added aUnit option in Thai\n  - #1860 Allowed Closure in setTestNow()\n  - Synchronized CarbonPeriod and CarbonInterval with Laravel locale\n  - #1847 Added period\/diff translation in Arabic\n  - #1824 Improved Chinese translations and spacing\n  - #1800 Fixed Lithuanian declensions and added calendar and ordinal translations\n  - #1842 Fixed Latvian declensions and added aUnit and short units\n  - #1849 Fixed Slovenian declensions and added short units\n  - #1849 Fixed Hungarian declensions\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.23.1...2.24.0)\n"
     },
     {
         "tag_name": "2.24.0-beta.4",
         "created_at": "2019-08-31T16:37:55Z",
-        "body": "2.24.0-beta.4"
+        "body": "- #1800 Fixed Lithuanian declensions and added calendar and ordinal translations\n  - #1857 Fixed static methods typing auto-completion\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.24.0-beta.3...2.24.0-beta.4)\n"
     },
     {
         "tag_name": "2.24.0-beta.3",
         "created_at": "2019-08-28T14:47:42Z",
-        "body": "2.24.0-beta.3"
+        "body": "- #1842 Fixed Latvian declensions and added aUnit and short units\n  - #1849 Fixed Slovenian declensions and added short units\n  - #1849 Fixed Hungarian declensions\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.24.0-beta.2...2.24.0-beta.3)\n"
     },
     {
         "tag_name": "2.24.0-beta.2",
         "created_at": "2019-08-27T13:28:22Z",
-        "body": "2.24.0-beta.2"
+        "body": "- Improved Chinese translations and spacing\n  - Improved period\/interval string detection in Carbon::make()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.24.0-beta.1...2.24.0-beta.2)\n"
     },
     {
         "tag_name": "2.24.0-beta.1",
         "created_at": "2019-08-23T06:11:49Z",
-        "body": "2.24.0-beta.1"
+        "body": "- #1847 Added period\/diff translation in Arabic\n  - #1856 Added string arguments support in isSame* methods\n  - #1861 Added aUnit option in Thai\n  - #1860 Allowed Closure in setTestNow()\n  - Synchronized CarbonPeriod and CarbonInterval with Laravel locale\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.23.1...2.24.0-beta.1)\n"
     },
     {
         "tag_name": "2.23.1",
         "created_at": "2019-08-17T13:57:34Z",
-        "body": "2.23.1"
+        "body": "Fixed #1851 Update all Carbon classes on Laravel locale change"
     },
     {
         "tag_name": "2.23.0",
         "created_at": "2019-08-12T17:19:41Z",
-        "body": "2.23.0"
+        "body": "- #1841 Made Carbon compatible with new PHP 8 signatures of DateTime\n  - #1840 Added short form or year for year in Turkish\n  - #1837 Fixed Finnish translation\n  - Fixed alternate numbers in hours\n  - #1817 Use alternative numbers in translated duration strings\n  - #1831 Fixed global translator caching\n  - #1834 Fixed language detection in Lumen\n  - #1833 Improved cast() methods: now they can handle native PHP date classes and sub-classes\n  - Added Carbon::toDateTimeImmutable(), CarbonInterval::toDateInterval(), CarbonPeriod::toDatePeriod()\n  - Fixed recurrences count for CarbonPeriod created from DatePeriod\n  - #1822 Changed short units in Polish\n  - #1774 Added CarbonPeriod methods: starts(At\/After\/Before), ends(At\/After\/Before)\n  - #1826 Added cast() method and traits mixins to CarbonInterval and CarbonPeriod\n  - #1825 Added floor\/ceil\/round methods on CarbonInterval and CarbonPeriod\n  - #1829 Improved CarbonPeriod JSON serialization\n  - #1830 Added contains() in CarbonPeriod\n  - Added getIncludedStartDate() and getIncludedEndDate() in CarbonPeriod\n  - Added follows(), isFollowedBy() and isConsecutiveWith() in CarbonPeriod\n  - #1822 Fix Polish short units\n  - #1814 Allow to use mixins and macros with PHP 7.4 and 8\n  - Fixed equalTo\/notEqualTo in CarbonPeriod to ignore mutability of start\/end dates\n  - #1774 Added CarbonPeriod methods: starts(At\/After\/Before), ends(At\/After\/Before)\n  - #1826 Added cast() method and traits mixins to CarbonInterval and CarbonPeriod\n  - #1825 Added floor\/ceil\/round methods on CarbonInterval and CarbonPeriod\n  - #1782 Fixed from_now Chinese translation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.22.3...2.23.0)\n"
     },
     {
         "tag_name": "2.23.0-beta.4",
         "created_at": "2019-08-12T17:19:41Z",
-        "body": "2.23.0-beta.4"
+        "body": "- #1841 Made Carbon compatible with new PHP 8 signatures of DateTime\n  - #1840 Added short form or year for year in Turkish\n  - #1837 Fixed Finnish translation\n  - Fixed alternate numbers in hours\n  - #1817 Use alternative numbers in translated duration strings\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.23.0-beta.3...2.23.0-beta.4)\n"
     },
     {
         "tag_name": "2.23.0-beta.3",
         "created_at": "2019-08-07T11:45:07Z",
-        "body": "2.23.0-beta.3"
+        "body": "- #1831 Fixed global translator caching\n  - #1834 Fixed language detection in Lumen\n  - #1833 Improved cast() methods: now they can handle native PHP date classes and sub-classes\n  - Added Carbon::toDateTimeImmutable(), CarbonInterval::toDateInterval(), CarbonPeriod::toDatePeriod()\n  - Fixed recurrences count for CarbonPeriod created from DatePeriod\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.23.0-beta.2...2.23.0-beta.3)\n"
     },
     {
         "tag_name": "2.22.3",
         "created_at": "2019-08-07T12:36:44Z",
-        "body": "2.22.3"
+        "body": "Fixed #1834 language detection in Lumen\r\n\r\nCommit: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.22.1...2.22.3"
     },
     {
         "tag_name": "2.22.1",
         "created_at": "2019-08-06T18:57:53Z",
-        "body": "2.22.1"
+        "body": "Fixed #1831 resolve cache inconsistent with `setLocale('xx')` and `->locale('en')`\r\n\r\nCommit: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.22.0...2.22.1"
     },
     {
         "tag_name": "2.23.0-beta.2",
         "created_at": "2019-08-04T18:05:52Z",
-        "body": "2.23.0-beta.2"
+        "body": "- #1822 Changed short units in Polish\n  - #1774 Added CarbonPeriod methods: starts(At\/After\/Before), ends(At\/After\/Before)\n  - #1826 Added cast() method and traits mixins to CarbonInterval and CarbonPeriod\n  - #1825 Added floor\/ceil\/round methods on CarbonInterval and CarbonPeriod\n  - #1829 Improved CarbonPeriod JSON serialization\n  - #1830 Added contains() in CarbonPeriod\n  - Added getIncludedStartDate() and getIncludedEndDate() in CarbonPeriod\n  - Added follows(), isFollowedBy() and isConsecutiveWith() in CarbonPeriod\n  - #1822 Fix Polish short units\n  - #1814 Allow to use mixins and macros with PHP 7.4 and 8\n  - Fixed equalTo\/notEqualTo in CarbonPeriod to ignore mutability of start\/end dates\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.23.0-beta.1...2.23.0-beta.2)\n"
     },
     {
         "tag_name": "2.23.0-beta.1",
         "created_at": "2019-08-03T22:35:28Z",
-        "body": "2.23.0-beta.1"
+        "body": "- #1774 Added CarbonPeriod methods: starts(At\/After\/Before), ends(At\/After\/Before)\n  - #1826 Added cast() method and traits mixins to CarbonInterval and CarbonPeriod\n  - #1825 Added floor\/ceil\/round methods on CarbonInterval and CarbonPeriod\n  - #1782 Fixed from_now Chinese translation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.22.0...2.23.0-beta.1)\n"
     },
     {
         "tag_name": "2.22.0",
         "created_at": "2019-07-28T09:02:12Z",
-        "body": "2.22.0"
+        "body": "- #1778 Added `CarbonPeriod` methods: `copy()`, `make()`, `instance()`, `forEach()`, `map()`\n  - #1775 Added `equalTo()` to `CarbonInterval` and `CarbonPeriod`\n  - #1797 Added `notEqualTo()` to `CarbonInterval` and `CarbonPeriod`\n  - #1796 Added `CarbonInterval` comparison methods\n  - #1803 Fixed Swedish translation\n  - #1802 Fixed Catalan translation\n  - #1808 Allowed `mixin()` to load traits\n  - #1807 Fixed Croatian translation\n  - #1811 Added a_unit for Polish\n  - #1809 Added betweenExcluded method and between methods for intervals\n  - Fixed macros in PHP 8\n  - #1818 Fixed Persian translation of a_hour\/second\/from_now\n  - #1816 Fixed from_now translation in Chinese\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.21.3...2.22.0)\n"
     },
     {
         "tag_name": "2.22.0-beta.3",
         "created_at": "2019-07-28T09:02:12Z",
-        "body": "2.22.0-beta.3"
+        "body": "- #1818 Fixed Persian translation of a_hour\/second\/from_now\n  - #1816 Fixed from_now translation in Chinese\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.22.0-beta.2...2.22.0-beta.3)\n"
     },
     {
         "tag_name": "2.22.0-beta.2",
         "created_at": "2019-07-25T15:13:48Z",
-        "body": "2.22.0-beta.2"
+        "body": "- #1811 Added a_unit for Polish\n  - #1809 Added betweenExcluded method and between methods for intervals\n  - Fixed macros in PHP 8\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.22.0-beta.1...2.22.0-beta.2)\n"
     },
     {
         "tag_name": "2.22.0-beta.1",
         "created_at": "2019-07-19T20:42:30Z",
-        "body": "2.22.0-beta.1"
+        "body": "- #1778 Added `CarbonPeriod` methods: `copy()`, `make()`, `instance()`, `forEach()`, `map()`\n  - #1775 Added `equalTo()` to `CarbonInterval` and `CarbonPeriod`\n  - #1797 Added `notEqualTo()` to `CarbonInterval` and `CarbonPeriod`\n  - #1796 Added `CarbonInterval` comparison methods\n  - #1803 Fixed Swedish translation\n  - #1802 Fixed Catalan translation\n  - #1808 Allowed `mixin()` to load traits\n  - #1807 Fixed Croatian translation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.21.3...2.22.0-beta.1)\n"
     },
     {
         "tag_name": "2.21.3",
         "created_at": "2019-07-18T18:47:28Z",
-        "body": "2.21.3"
+        "body": "- #1790 Fixed  diff in seconds\/microseconds calculation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.21.2...2.21.3)\n"
     },
     {
         "tag_name": "2.21.2",
         "created_at": "2019-07-17T07:49:05Z",
-        "body": "2.21.2"
+        "body": "- #1790 Fixed unexpected diffInSeconds\/Microseconds output\n- #1783 Added Marathi after\/before translations\n- #1792 Added Lithuanian short units and fixed correct case of months\/weekdays\n- #1799 Fixed day names in Pashto\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.21.0...2.21.2)\n"
     },
     {
         "tag_name": "2.21.0",
         "created_at": "2019-07-14T17:06:46Z",
-        "body": "2.21.0"
+        "body": "- #1786 Added CLI program\n- #1779 Optimized Laravel booting\n- #1771 Fixed Filipino translations for units\n- #1769 Allowed strings and DateTime instances in between() parameters\n- #1756 Added parseFromLocale() method in the CarbonInterval class\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.20.0...2.21.0)\n"
     },
     {
         "tag_name": "2.20.0",
         "created_at": "2019-06-25T10:00:57Z",
-        "body": "2.20.0"
+        "body": "- #1745 CarbonPeriod::overlaps() method and method to create CarbonPeriod from Carbon\/CarbonImmutable instances\n- #1746 More generic methods is, next, previous getting strings such as \"sunday\", \"1 July\" and automatically isXyz(), nextXyz() and previousXyz() if it matches the given string.\n- #1748 Support Laravel event dispatcher's contract thanks to @lorisleiva\n- #1753 Implement CarbonInterval::shares (like times but to divide) and multiply\/divide method that return precise and cascaded results.\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.19.1...2.20.0)\n"
     },
     {
         "tag_name": "1.39.0",
         "created_at": "2019-06-11T09:07:59Z",
-        "body": "1.39.0"
+        "body": "Port simple methods from Carbon 2 to Carbon 1.39\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.38.4...1.39.0"
     },
     {
         "tag_name": "2.19.2",
         "created_at": "2019-06-07T09:56:45Z",
-        "body": "2.19.2"
+        "body": "Fixed #1749 Greek year abbreviation\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.19.1...2.19.2"
     },
     {
         "tag_name": "2.19.1",
         "created_at": "2019-06-04T20:07:46Z",
-        "body": "2.19.1"
+        "body": "- Improved #1716 Georgian translations\n- Improved  #1740 #1742 #1741 Czech translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.19.0...2.19.1)\n"
     },
     {
         "tag_name": "1.38.4",
         "created_at": "2019-06-03T15:41:40Z",
-        "body": "1.38.4"
+        "body": "Truncate deprecation notice if output is not verbose\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.38.2...1.38.4"
     },
     {
         "tag_name": "1.26.6",
         "created_at": "2019-06-03T15:42:58Z",
-        "body": "1.26.6"
+        "body": "Truncate deprecation notice if output is not verbose\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.5...1.26.6"
     },
     {
         "tag_name": "1.25.3",
         "created_at": "2019-06-03T17:56:44Z",
-        "body": "1.25.3"
+        "body": "Truncate deprecation notice if output is not verbose\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.25.1...1.25.3"
     },
     {
         "tag_name": "1.25.1",
         "created_at": "2019-05-31T11:38:01Z",
-        "body": "1.25.1"
+        "body": "Added #1685 upgrade helper from 1.x to 2.x\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.25.0...1.25.1"
     },
     {
         "tag_name": "2.19.0",
         "created_at": "2019-05-30T10:15:05Z",
-        "body": "2.19.0"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.18.0...2.19.0)\n"
     },
     {
         "tag_name": "1.38.2",
         "created_at": "2019-05-30T22:56:55Z",
-        "body": "1.38.2"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.38.1...1.38.2)\n"
     },
     {
         "tag_name": "1.38.1",
         "created_at": "2019-05-30T21:35:57Z",
-        "body": "1.38.1"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.38.0...1.38.1)\n"
     },
     {
         "tag_name": "1.38.0",
         "created_at": "2019-05-30T08:57:38Z",
-        "body": "1.38.0"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.37.1...1.38.0)\n"
     },
     {
         "tag_name": "1.26.5",
         "created_at": "2019-05-30T23:00:05Z",
-        "body": "1.26.5"
+        "body": "Added #1685 upgrade helper from 1.x to 2.x\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.4...1.26.5"
     },
     {
         "tag_name": "2.18.0",
         "created_at": "2019-05-16T18:44:35Z",
-        "body": "2.18.0"
+        "body": "- Added #1703 Danish short month and short day\n- Fixed #1726 Swedish Thursday short notation\n- Fixed #1714 Indonesian before\/after wording\n- Added Polish language genitive for months\n- Added Chinese missing before\/after in CN\/MO regions\n- Added explicit typing to help usages with strict_types=1\n- Fixed #1706 Allow mixins to have constructor arguments\n- Added SEQUENTIAL_PARTS_ONLY option for diffForHumans\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.17.1...2.18.0)\n"
     },
     {
         "tag_name": "2.17.1",
         "created_at": "2019-04-27T18:04:27Z",
-        "body": "2.17.1"
+        "body": "- Fixed #1703 Danish short month and short day\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.17.0...2.17.1)\n"
     },
     {
         "tag_name": "1.37.1",
         "created_at": "2019-04-19T10:27:42Z",
-        "body": "1.37.1"
+        "body": "Fixed #1698 $ofTheSameYear parameter in isCurrentMonth"
     },
     {
         "tag_name": "2.17.0",
         "created_at": "2019-04-17T08:51:36Z",
-        "body": "2.17.0"
+        "body": "- Improved #1690 floatDiffInDays() result precision\n- Added #1691 __debugInfo() method to ease var_dump\n- Fixed #1682 short days in Arabic\n- Added #1697 short units in Turkish\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.16.3...2.17.0)\n"
     },
     {
         "tag_name": "2.16.3",
         "created_at": "2019-04-06T17:09:23Z",
-        "body": "2.16.3"
+        "body": "- Fixed #1679 day abbreviated in Danish\n- Added #1682 \"a few second\" translation in Arabic\n- Added diff translations in Albanian\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.16.2...2.16.3)\n"
     },
     {
         "tag_name": "2.16.2",
         "created_at": "2019-03-29T12:23:12Z",
-        "body": "2.16.2"
+        "body": "- Added #1673 Polish few seconds translation\n- Added #1674 Russian minute declension\n- Fixed #1678 Dutch month short unit\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.16.1...2.16.2)\n"
     },
     {
         "tag_name": "2.16.1",
         "created_at": "2019-03-20T12:20:01Z",
-        "body": "2.16.1"
+        "body": "- Fixed #1656 #1657 Russian and Ukrainian declensions\n- Added #1658 Bengali numbers\n- Fixed #1663 Czech LLL format\n- Added #1664 Turkmen ago\/from now\/before\/after translations\n- Added #1665 Add Standard Moroccan Tamazight translations\n- Fixed #1667 createFromFormat() to match native implementation when using test now\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.16.0...2.16.1)\n"
     },
     {
         "tag_name": "2.16.0",
         "created_at": "2019-03-12T09:31:40Z",
-        "body": "2.16.0"
+        "body": "- Added ago() alias\n- Added timespan() method\n- Added createFromIsoFormat() (like createFromFormat but with format of ->isoFormat() method)\n- Added createFromLocaleFormat() (like createFromFormat but with string in any language)\n- Added createFromLocaleIsoFormat (like createFromFormat but with format of ->isoFormat() method and string in any language)\n- Updated locale() can now take fallback locales as rest parameters\n- Added parseFromLocale() translate a string from a given language to English then parse it to create a date\n- Added rawFormat() always call the native PHP DateTime format() method\n- Updated format() can now be customized at object level via settings() or globally by sub-class\n- Added rawParse() always call the native PHP DateTime parse() method\n- Updated parse() can now be customized by sub-class\n- Added rawCreateFromFormat() always call the native PHP DateTime createFromFormat() method\n- Updated createFromFormat () can now be customized by sub-class\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.15.0...2.16.0)\n"
     },
     {
         "tag_name": "2.15.0",
         "created_at": "2019-03-07T21:57:49Z",
-        "body": "2.15.0"
+        "body": "- Added languages and regions: af_NA, agq, ar_DJ, ar_EH, ar_ER, ar_IL, ar_KM, ar_MR, ar_PS, ar_SO, ar_TD, asa, az_Cyrl, az_Latn, bas, bez, bo_IN, bs_Cyrl, bs_Latn, ca_AD, ca_ES_Valencia, ca_FR, ca_IT, ccp, ccp_IN, cgg, cu, da_GL, dav, de_LI, dje, dua, dyo, ebu, ee, ee_TG, en_001, en_150, en_AI, en_AS, en_AT, en_BB, en_BE, en_BI, en_BM, en_BS, en_BW, en_BZ, en_CC, en_CH, en_CK, en_CM, en_CX, en_DE, en_DG, en_DM, en_ER, en_FI, en_FJ, en_FK, en_FM, en_GD, en_GG, en_GH, en_GI, en_GM, en_GU, en_GY, en_IM, en_IO, en_ISO, en_JE, en_JM, en_KE, en_KI, en_KN, en_KY, en_LC, en_LR, en_LS, en_MG, en_MH, en_MO, en_MP, en_MS, en_MT, en_MU, en_MW, en_MY, en_NA, en_NF, en_NL, en_NR, en_NU, en_PG, en_PK, en_PN, en_PR, en_PW, en_RW, en_SB, en_SC, en_SD, en_SE, en_SH, en_SI, en_SL, en_SS, en_SX, en_SZ, en_TC, en_TK, en_TO, en_TT, en_TV, en_TZ, en_UG, en_UM, en_US_Posix, en_VC, en_VG, en_VI, en_VU, en_WS, en_ZW, es_BR, es_BZ, es_CU, es_EA, es_GQ, es_IC, es_PH, ewo, fa_AF, ff_CM, ff_GN, ff_MR, fo_DK, fr_BF, fr_BI, fr_BJ, fr_BL, fr_CD, fr_CF, fr_CG, fr_CI, fr_CM, fr_DJ, fr_DZ, fr_GA, fr_GF, fr_GN, fr_GP, fr_GQ, fr_HT, fr_KM, fr_MA, fr_MC, fr_MF, fr_MG, fr_ML, fr_MQ, fr_MR, fr_MU, fr_NC, fr_NE, fr_PF, fr_PM, fr_RE, fr_RW, fr_SC, fr_SN, fr_SY, fr_TD, fr_TG, fr_TN, fr_VU, fr_WF, fr_YT, gsw, gsw_FR, gsw_LI, guz, ha_GH, ha_NE, haw, hr_BA, ii, in, it_SM, it_VA, iw, jgo, jmc, kam, kde, kea, khq, ki, kkj, kln, ko_KP, ksb, ksf, ksh, lag, lkt, ln_AO, ln_CF, ln_CG, lrc, lrc_IQ, lu, luo, luy, mas, mas_TZ, mer, mgh, mgo, mo, ms_BN, ms_SG, mua, mzn, naq, nb_SJ, nd, ne_IN, nl_BQ, nl_CW, nl_SR, nl_SX, nmg, nnh, nus, nyn, om_KE, pa_Arab, pa_Guru, prg, pt_AO, pt_CH, pt_CV, pt_GQ, pt_GW, pt_LU, pt_MO, pt_MZ, pt_ST, pt_TL, qu, qu_BO, qu_EC, rn, ro_MD, rof, ru_BY, ru_KG, ru_KZ, ru_MD, rwk, saq, sbp, se_FI, se_SE, seh, ses, sg, shi, shi_Latn, shi_Tfng, smn, sn, sq_MK, sq_XK, sr_Cyrl_BA, sr_Cyrl_XK, sr_Latn, sr_Latn_BA, sr_Latn_XK, sv_AX, sw_CD, sw_UG, ta_MY, ta_SG, teo, teo_KE, tr_CY, twq, uz_Arab, uz_Cyrl, vai, vai_Latn, vai_Vaii, vo, vun, xog, yav, yo_BJ, yue_Hans, yue_Hant, zgh, zh_Hans, zh_Hans_HK, zh_Hans_MO, zh_Hans_SG, zh_Hant, zh_Hant_HK, zh_Hant_MO\n- Fixed #1635 before\/after translation in Portuguese \n- Fixed languages inheritance from language to regions\n- Fixed #1636 translate few seconds in German\n- Fixed #1638 abbreviated words in Russian\n- Fixed #1640 add short unit and meridiem for Spannish\n- Fixed #1641 Unify de and de_AT\n- Fixed #1642 Lowercase days in Portuguese\n- Fixed #1642 Lowercase days in Uzbek\n- Added #1639 Italian period translations\n- Fixed #1652 Italian short day unit\n- Fixed ISO week methods\n- Fixed #1650 addRealMicrosecond() with low float precision\n- Fixed #1651 Milliseconds handling in total()\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.14.2...2.15.0)\n"
     },
     {
         "tag_name": "2.14.2",
         "created_at": "2019-02-28T09:07:12Z",
-        "body": "2.14.2"
+        "body": "- Fixed #1632 and #1634 don't use shorten units in Vietnamese\n- Fixed #1630 Italian short units\n- Fixed #1624 Russian short units\n- Fixed #1629 Monday \u0627\u0644\u0627\u062b\u0646\u064a\u0646 Hamza waslia\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.14.1...2.14.2)\n"
     },
     {
         "tag_name": "2.14.1",
         "created_at": "2019-02-27T13:59:59Z",
-        "body": "2.14.1"
+        "body": "- Fixed #1616 Support aUnit option for Ukrainian language\n- Fixed #1617 minute abbreviation in Dutch\n- Fixed #1615 Work around PHP bug https:\/\/bugs.php.net\/bug.php?id=75577\n- Fixed #1620 prefer een over \u00e9\u00e9n in Dutch\n- Fixed #1621 Singular for \"segundo\" in Spannish\n- Fixed #1623 Fix Russian short months\n- Added #1624 aUnit option for Russian\n- Added #1625 aUnit option for Chinese\n- Fixed #1627 and #1628 duration translation in Hebrew\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.14.0...2.14.1)\n"
     },
     {
         "tag_name": "2.14.0",
         "created_at": "2019-02-25T20:57:37Z",
-        "body": "2.14.0"
+        "body": "- Fixed #1600 pt_BR \"a few seconds\" is \"alguns segundos\"\n- Fixed #1606 Add spaces in short syntax\n- Fixed #1602 Use consistent short months notation\n- Fixed #1603 Add aUnit option for seconds in Japanese\n- Fixed #1604 use the scientist unit when possible\n- Implemented #1598 Handle alternative digits\n- Fixed #1612 Add en_SG\n- Fixed formats and unit translations\n- Added new locales\/regions from glibc and rails-i18n: aa, aa_DJ, aa_ER, aa_ER@saaho, aa_ET, af, af_ZA, agr, agr_PE, ak, ak_GH, am, am_ET, an, an_ES, anp, anp_IN, ar, ar_AE, ar_BH, ar_DZ, ar_EG, ar_IN, ar_IQ, ar_JO, ar_KW, ar_LB, ar_LY, ar_MA, ar_OM, ar_QA, ar_SA, ar_SD, ar_SS, ar_SY, ar_Shakl, ar_TN, ar_YE, as, as_IN, ast, ast_ES, ayc, ayc_PE, az, az_AZ, az_IR, be, be_BY, be_BY@latin, bem, bem_ZM, ber, ber_DZ, ber_MA, bg, bg_BG, bhb, bhb_IN, bho, bho_IN, bi, bi_VU, bm, bn, bn_BD, bn_IN, bo, bo_CN, br, br_FR, brx, brx_IN, bs, bs_BA, byn, byn_ER, ca, ca_ES, ce, ce_RU, chr, chr_US, cmn, cmn_TW, crh, crh_UA, cs, cs_CZ, csb, csb_PL, cv, cv_RU, cy, cy_GB, da, da_DK, de, de_AT, de_BE, de_CH, de_DE, de_IT, de_LU, doi, doi_IN, dsb, dsb_DE, dv, dv_MV, dz, dz_BT, el, el_CY, el_GR, en, en_AG, en_AU, en_CA, en_CY, en_DK, en_GB, en_HK, en_IE, en_IL, en_IN, en_NG, en_NZ, en_PH, en_SG, en_US, en_ZA, en_ZM, eo, es, es_419, es_AR, es_BO, es_CL, es_CO, es_CR, es_DO, es_EC, es_ES, es_GT, es_HN, es_MX, es_NI, es_PA, es_PE, es_PR, es_PY, es_SV, es_US, es_UY, es_VE, et, et_EE, eu, eu_ES, fa, fa_IR, ff, ff_SN, fi, fi_FI, fil, fil_PH, fo, fo_FO, fr, fr_BE, fr_CA, fr_CH, fr_FR, fr_LU, fur, fur_IT, fy, fy_DE, fy_NL, ga, ga_IE, gd, gd_GB, gez, gez_ER, gez_ET, gl, gl_ES, gom, gom_Latn, gsw_CH, gu, gu_IN, gv, gv_GB, ha, ha_NG, hak, hak_TW, he, he_IL, hi, hi_IN, hif, hif_FJ, hne, hne_IN, hr, hr_HR, hsb, hsb_DE, ht, ht_HT, hu, hu_HU, hy, hy_AM, i18n, ia, ia_FR, id, id_ID, ig, ig_NG, ik, ik_CA, is, is_IS, it, it_CH, it_IT, iu, iu_CA, ja, ja_JP, jv, ka, ka_GE, kab, kab_DZ, kk, kk_KZ, kl, kl_GL, km, km_KH, kn, kn_IN, ko, ko_KR, kok, kok_IN, ks, ks_IN, ks_IN@devanagari, ku, ku_TR, kw, kw_GB, ky, ky_KG, lb, lb_LU, lg, lg_UG, li, li_NL, lij, lij_IT, ln, ln_CD, lo, lo_LA, lt, lt_LT, lv, lv_LV, lzh, lzh_TW, mag, mag_IN, mai, mai_IN, me, mfe, mfe_MU, mg, mg_MG, mhr, mhr_RU, mi, mi_NZ, miq, miq_NI, mjw, mjw_IN, mk, mk_MK, ml, ml_IN, mn, mn_MN, mni, mni_IN, mr, mr_IN, ms, ms_MY, mt, mt_MT, my, my_MM, nan, nan_TW, nan_TW@latin, nb, nb_NO, nds, nds_DE, nds_NL, ne, ne_NP, nhn, nhn_MX, niu, niu_NU, nl, nl_AW, nl_BE, nl_NL, nn, nn_NO, no, nr, nr_ZA, nso, nso_ZA, oc, oc_FR, om, om_ET, or, or_IN, os, os_RU, pa, pa_IN, pa_PK, pap, pap_AW, pap_CW, pl, pl_PL, ps, ps_AF, pt, pt_BR, pt_PT, quz, quz_PE, raj, raj_IN, rm, ro, ro_RO, ru, ru_RU, ru_UA, rw, rw_RW, sa, sa_IN, sah, sah_RU, sat, sat_IN, sc, sc_IT, scr, sd, sd_IN, sd_IN@devanagari, se, se_NO, sgs, sgs_LT, sh, shn, shn_MM, shs, shs_CA, si, si_LK, sid, sid_ET, sk, sk_SK, sl, sl_SI, sm, sm_WS, so, so_DJ, so_ET, so_KE, so_SO, sq, sq_AL, sr, sr_Cyrl, sr_Cyrl_ME, sr_Latn_ME, sr_ME, sr_RS, sr_RS@latin, ss, ss_ZA, st, st_ZA, sv, sv_FI, sv_SE, sw, sw_KE, sw_TZ, szl, szl_PL, ta, ta_IN, ta_LK, tcy, tcy_IN, te, te_IN, tet, tg, tg_TJ, th, th_TH, the, the_NP, ti, ti_ER, ti_ET, tig, tig_ER, tk, tk_TM, tl, tl_PH, tlh, tn, tn_ZA, to, to_TO, tpi, tpi_PG, tr, tr_TR, ts, ts_ZA, tt, tt_RU, tt_RU@iqtelif, tzl, tzm, tzm_Latn, ug, ug_CN, uk, uk_UA, unm, unm_US, ur, ur_IN, ur_PK, uz, uz_Latn, uz_UZ, uz_UZ@cyrillic, ve, ve_ZA, vi, vi_VN, wa, wa_BE, wae, wae_CH, wal, wal_ET, wo, wo_SN, xh, xh_ZA, yi, yi_US, yo, yo_NG, yue, yue_HK, yuw, yuw_PG, zh, zh_CN, zh_HK, zh_MO, zh_SG, zh_TW, zh_YUE, zu, zu_ZA\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.13.0...2.14.0)\n"
     },
     {
         "tag_name": "2.13.0",
         "created_at": "2019-02-20T20:39:03Z",
-        "body": "2.13.0"
+        "body": "- Added regional aliases: af_ZA, bg_BG, bo_CN, br_FR, ca_ES, cs_CZ, cv_RU, cy_GB, da_DK, et_EE, eu_ES, fa_IR, fi_FI, fo_FO, ga_IE, gd_GB, gl_ES, gu_IN, he_IL, hi_IN, hr_HR, hu_HU, id_ID, is_IS, ja_JP, ka_GE, kk_KZ, km_KH, kn_IN, ko_KR, ku_TR, ky_KG, lb_LU, lo_LA, lt_LT, lv_LV, mi_NZ, mk_MK, ml_IN, mn_MN, mr_IN, mt_MT, my_MM, nb_NO, ne_NP, nn_NO, oc_FR, pl_PL, ps_AF, ro_RO, se_NO, si_LK, sk_SK, sl_SI, sq_AL, ss_ZA, te_IN, tg_TJ, th_TH, tr_TR, uk_UA, vi_VN, yo_NG\n- Allowed PHP 8\n- Fixed Breton formats and Norwegian mistakes\n- Added zh_MO, ga and it_CH locales\n- Added \"aUnit\" option for differences (`forHumans`\/`diffForHumans`\/`from`\/`to`\/`fromNow`\/`toNow`\/`until`\/`since`) (to prefer \"an hour\" over \"1 hour\" if available in the current language and unit)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.12.0...2.13.0)\n"
     },
     {
         "tag_name": "2.12.0",
         "created_at": "2019-02-06T21:23:55Z",
-        "body": "2.12.0"
+        "body": "- Added NL period language definitions and elk\/elke variation\n- Added SK short units\n- Added list join in interval dump through period dump\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.11.0...2.12.0)\n"
     },
     {
         "tag_name": "2.11.0",
         "created_at": "2019-01-29T16:35:35Z",
-        "body": "2.11.0"
+        "body": "- Added support for symfony\/translation ^3.4\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.10.1...2.11.0)\n"
     },
     {
         "tag_name": "2.10.1",
         "created_at": "2019-01-14T09:25:45Z",
-        "body": "2.10.1"
+        "body": "- Added getAvailableLocalesInfo() and Carbon\\Language class\n- Fixed duplicate methods in PHPDoc\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.10.0...2.10.1)\n"
     },
     {
         "tag_name": "2.10.0",
         "created_at": "2019-01-02T21:35:25Z",
-        "body": "2.10.0"
+        "body": "- Allowed numeric (hour\/minute offset) timezone as names\n- Added timezone conversions tools\n- Fixed isSameWeek and isCurrentWeek: now return true for a week containing a year change\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.9.1...2.10.0)\n"
     },
     {
         "tag_name": "1.36.2",
         "created_at": "2018-12-28T10:07:33Z",
-        "body": "1.36.2"
+        "body": "Fixed hours adjustment in differences with microseconds gaps\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.36.1...1.36.2"
     },
     {
         "tag_name": "2.9.1",
         "created_at": "2018-12-25T17:37:52Z",
-        "body": "2.9.1"
+        "body": "- Fixed microseconds buggy gaps hour filler\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.9.0...2.9.1)\n"
     },
     {
         "tag_name": "2.9.0",
         "created_at": "2018-12-25T13:09:51Z",
-        "body": "2.9.0"
+        "body": "- Added join syntax in diff for humans such as \"1 hour, 32 minutes and 45 seconds\" (with customization and translated in the supported languages)\n- Added array-syntax for parameters in diff for humans methods\n- Added easy way to modify\/add custom translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.8.0...2.9.0)\n"
     },
     {
         "tag_name": "2.8.0",
         "created_at": "2018-12-18T10:35:13Z",
-        "body": "2.8.0"
+        "body": "- Updated Norwegian translation\n- Added cast() method\n- Prepared symfony\/translation transChoice deprecation using a single translation entry point\n- Fixed string ordinal translations\n- Fixed plural file syntax and include 0 in translations ranges\n- Propagated settings through instance() method\n- Propagated microseconds through shiftTimezone() method\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.7.0...2.8.0)\n"
     },
     {
         "tag_name": "2.7.0",
         "created_at": "2018-12-02T10:14:51Z",
-        "body": "2.7.0"
+        "body": "- Fixed character escaping in hasFormat\n- Fixed IDEs autodocumentation\n- Added Occitan translations for days, months and calendar\n- Updated cascade method to solve mixed unit signs\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.6.1...2.7.0)\n"
     },
     {
         "tag_name": "2.6.1",
         "created_at": "2018-11-22T16:45:03Z",
-        "body": "2.6.1"
+        "body": "Fixed sign addition to a negative interval\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.6.0...2.6.1"
     },
     {
         "tag_name": "1.36.1",
         "created_at": "2018-11-22T18:23:02Z",
-        "body": "1.36.1"
+        "body": "Fixed sign addition to a negative interval\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.36.0...1.36.1"
     },
     {
         "tag_name": "2.6.0",
         "created_at": "2018-11-19T19:58:55Z",
-        "body": "2.6.0"
+        "body": "- Increased precision (to microsecond) for closest\/farthest\/average\n- Updated Croatian, Estonian and Portuguese  languages\n- Add methods to add and subtract milliseconds\n- Add diffInMilliseconds\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.5.4...2.6.0)\n"
     },
     {
         "tag_name": "1.36.0",
         "created_at": "2018-11-16T11:47:11Z",
-        "body": "1.36.0"
+        "body": "\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.35.1...1.36.0)\n"
     },
     {
         "tag_name": "2.5.4",
         "created_at": "2018-11-15T06:40:11Z",
-        "body": "2.5.4"
+        "body": "Fixed compatibility with PHP 7.1.12 for diffIn(Seconds\/Minutes\/Hours) and diffAsCarbonInterval\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.5.3...2.5.4"
     },
     {
         "tag_name": "1.35.1",
         "created_at": "2018-11-14T21:55:58Z",
-        "body": "1.35.1"
+        "body": "Fixed compatibility with PHP 7.1.12 for diffIn(Seconds\/Minutes\/Hours) and diffAsCarbonInterval\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.35.0...1.35.1"
     },
     {
         "tag_name": "1.35.0",
         "created_at": "2018-11-14T12:39:51Z",
-        "body": "1.35.0"
+        "body": "- Allowed to keep with Carbon::diffAsCarbonInterval setting new parameter $trimMicroseconds to false\n- Allowed to keep with CarbonInterval::instance setting new parameter $trimMicroseconds to false\n- Fixed PHP behavior divergences calculating differences below 1 second\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.34.4...1.35.0)\n"
     },
     {
         "tag_name": "2.5.3",
         "created_at": "2018-11-13T14:41:34Z",
-        "body": "2.5.3"
+        "body": "Fixed PHP bug 77145 https:\/\/bugs.php.net\/bug.php?id=77145 via diffForCarbonInterval\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.5.2...2.5.3"
     },
     {
         "tag_name": "1.34.4",
         "created_at": "2018-11-13T08:26:10Z",
-        "body": "1.34.4"
+        "body": "Fixed compatibility with PHP 7.1.0 to 7.1.7 linked to PHP bug 74852 fixed in 7.1.8: https:\/\/bugs.php.net\/bug.php?id=74852\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.34.3...1.34.4"
     },
     {
         "tag_name": "1.34.3",
         "created_at": "2018-11-13T07:01:46Z",
-        "body": "1.34.3"
+        "body": "Fixed compatibility with PHP 7.0.0 to 7.0.21 linked to PHP bug 74852 fixed in 7.0.22: https:\/\/bugs.php.net\/bug.php?id=74852\r\n\r\n\/!\\ Compatibility warning: if you use\/support PHP 7.1.0 to 7.1.7, use 1.34.4 instead\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.34.2...1.34.3"
     },
     {
         "tag_name": "2.5.2",
         "created_at": "2018-11-12T21:46:13Z",
-        "body": "2.5.2"
+        "body": "Fixed PHP bug 77007, handle negative microseconds in diffIn(Seconds\/Minutes\/Hours) and diffAsCarbonInterval\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.5.1...2.5.2"
     },
     {
         "tag_name": "1.34.2",
         "created_at": "2018-11-12T22:45:42Z",
-        "body": "1.34.2"
+        "body": "Fixed PHP bug 77007, handle negative microseconds in diffIn(Seconds\/Minutes\/Hours)\r\n\r\n\/!\\ Compatibility warning: if you use\/support PHP 7.0.0 to 7.0.21 and 7.1.0 to 7.1.7, use 1.34.4 instead\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.34.1...1.34.2"
     },
     {
         "tag_name": "2.5.1",
         "created_at": "2018-11-08T13:33:56Z",
-        "body": "2.5.1"
+        "body": "Fixed hasFormat full-year detection to disallow less than 4 digits\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.5.0...2.5.1"
     },
     {
         "tag_name": "1.34.1",
         "created_at": "2018-11-08T13:33:47Z",
-        "body": "1.34.1"
+        "body": "Fixed hasFormat full-year detection to disallow less than 4 digits\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.34.0...1.34.1"
     },
     {
         "tag_name": "2.5.0",
         "created_at": "2018-10-26T20:15:03Z",
-        "body": "2.5.0"
+        "body": "- Fixed short time format for id lang\n- Fixed total milliseconds\/microseconds in intervals\n- Fixed microseconds in intervals add, instance and create\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.4.1...2.5.0)\n"
     },
     {
         "tag_name": "2.4.1",
         "created_at": "2018-10-17T10:02:04Z",
-        "body": "2.4.1"
+        "body": "Fixed italian last day translation\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.4.0...2.4.1"
     },
     {
         "tag_name": "2.3.1",
         "created_at": "2018-10-17T10:01:53Z",
-        "body": "2.3.1"
+        "body": "Fixed italian last day translation\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.3.0...2.3.1"
     },
     {
         "tag_name": "2.2.1",
         "created_at": "2018-10-17T10:01:44Z",
-        "body": "2.2.1"
+        "body": "Fix italian last day translation\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.2.0...2.2.1"
     },
     {
         "tag_name": "2.1.1",
         "created_at": "2018-10-17T10:01:36Z",
-        "body": "2.1.1"
+        "body": "Fix italian last day translation\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.1.0...2.1.1"
     },
     {
         "tag_name": "2.0.1",
         "created_at": "2018-10-17T13:35:24Z",
-        "body": "2.0.1"
+        "body": "Fix italian last day translation\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0...2.0.1"
     },
     {
         "tag_name": "2.4.0",
         "created_at": "2018-10-16T13:07:21Z",
-        "body": "2.4.0"
+        "body": "- Added lithuanian translations for: differences, period, months and day names\n- Added czech translations for: months and day names\n- Dropped support for PHP without JSON extension: removed JsonSerializable interface polyfill and require ext-json in composer\n- Added PHPDoc comments and auto-completion hints\n- Added translation methods to handle multiple forms of days and months names: getTranslatedDayName, getTranslatedMinDayName, getTranslatedShortDayName, getTranslatedMonthName, getTranslatedShortMonthName\n- Allowed Laravel to run with Carbon without registering the Carbon service\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.3.0...2.4.0)\n"
     },
     {
         "tag_name": "2.3.0",
         "created_at": "2018-09-27T07:39:41Z",
-        "body": "2.3.0"
+        "body": "- Propagated locale from CarbonPeriod to iterated dates\n- Added getSettings method to get options applied with settings method\n- Added missing new methods to CarbonInterface (genericMacro, getSettings, resetMacros and toDateTimeLocalString)\n- Added shiftTimezone to CarbonInterval and CarbonPeriod to allow timezone transmission via settings\n- Added locale readonly property to CarbonInterval to get locale from local translator settings\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.2.0...2.3.0)\n"
     },
     {
         "tag_name": "2.2.0",
         "created_at": "2018-09-20T07:48:42Z",
-        "body": "2.2.0"
+        "body": "- Added ru abbreviated units\n- Added PHPDoc aliases\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.1.0...2.2.0)\n"
     },
     {
         "tag_name": "1.34.0",
         "created_at": "2018-09-20T19:36:25Z",
-        "body": "1.34.0"
+        "body": "- Added ru abbreviated units\n- Checked for interface to exist before declare it\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.33.0...1.34.0)\n"
     },
     {
         "tag_name": "2.1.0",
         "created_at": "2018-09-03T13:49:24Z",
-        "body": "2.1.0"
+        "body": "- Added generic macros\n- Added toDateTimeLocalString\n- Updated sl locale\n- Fixed conflict on JsonSerializable interface\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0...2.1.0)\n"
     },
     {
         "tag_name": "2.0.0",
         "created_at": "2018-08-23T16:45:38Z",
-        "body": "2.0.0"
+        "body": "Release version 2 as stable"
     },
     {
         "tag_name": "2.0.0-beta.6",
         "created_at": "2018-08-23T16:45:38Z",
-        "body": "2.0.0-beta.6"
+        "body": "Allowed factories methods that return mixed values\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0-beta.5...2.0.0-beta.6"
     },
     {
         "tag_name": "2.0.0-beta.5",
         "created_at": "2018-08-23T14:23:28Z",
-        "body": "2.0.0-beta.5"
+        "body": "Allowed to change properties on factories\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0-beta.4...2.0.0-beta.5"
     },
     {
         "tag_name": "2.0.0-beta.4",
         "created_at": "2018-08-23T09:05:40Z",
-        "body": "2.0.0-beta.4"
+        "body": "Added settings: toStringFormat, toJsonFormat, macros\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0-beta.3...2.0.0-beta.4"
     },
     {
         "tag_name": "2.0.0-beta.3",
         "created_at": "2018-08-20T15:41:39Z",
-        "body": "2.0.0-beta.3"
+        "body": "Fixed ISO formats.\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0-beta.2...2.0.0-beta.3"
     },
     {
         "tag_name": "2.0.0-beta.2",
         "created_at": "2018-08-13T11:25:28Z",
-        "body": "2.0.0-beta.2"
+        "body": "Introduced factories\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/2.0.0-beta.1...2.0.0-beta.2"
     },
     {
         "tag_name": "2.0.0-beta.1",
         "created_at": "2018-08-08T05:36:26Z",
-        "body": "2.0.0-beta.1"
+        "body": ""
     },
     {
         "tag_name": "1.33.0",
         "created_at": "2018-08-07T08:39:47Z",
-        "body": "1.33.0"
+        "body": "- Added startOfSecond() method\n- Added endOfSecond() method\n- Added translations for az, bn, ca, es\n- Fixed sh plural\n- Fixed typing exception messages\n- Added support for closures in setToStringFormat\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.32.0...1.33.0)\n"
     },
     {
         "tag_name": "1.32.0",
         "created_at": "2018-07-05T06:59:26Z",
-        "body": "1.32.0"
+        "body": "- Thrown an exception if start\/end of week set to a value out of range\n- Added short units for pt_BR translation\n- Added one\/two days diff wording for uk translation\n- Added period wording for uk, ca and oc translation\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.31.1...1.32.0)\n"
     },
     {
         "tag_name": "1.31.1",
         "created_at": "2018-06-25T13:15:16Z",
-        "body": "1.31.1"
+        "body": "Complete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.31.0...1.31.1\r\n\r\nDisabled locale auto-update with symfony\/translation < 4"
     },
     {
         "tag_name": "1.31.0",
         "created_at": "2018-06-24T14:32:22Z",
-        "body": "1.31.0"
+        "body": "- Added executeWithLocale method\n- Added localization support checking methods: getAvailableLocales, localeHasShortUnits, localeHasDiffSyntax, localeHasDiffOneDayWords, localeHasDiffTwoDayWords, localeHasPeriodSyntax\n- Added automated synchronization with Laravel locale\n- Added\/updated translations for my, fr, pt_BR\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.30.0...1.31.0)\n"
     },
     {
         "tag_name": "1.30.0",
         "created_at": "2018-06-15T11:52:26Z",
-        "body": "1.30.0"
+        "body": "- Added CarbonPeriod skip method\n- Added calculated read-only properties englishDayOfWeek, shortEnglishDayOfWeek, englishMonth, shortEnglishMonth, localeDayOfWeek, shortLocaleDayOfWeek, localeMonth, shortLocaleMonth\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.29.2...1.30.0)\n"
     },
     {
         "tag_name": "1.29.2",
         "created_at": "2018-05-29T15:23:46Z",
-        "body": "1.29.2"
+        "body": "Complete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.29.1...1.29.2\r\n\r\nAdded german now\/tomorrow\/yesterday translations"
     },
     {
         "tag_name": "1.29.1",
         "created_at": "2018-05-24T16:44:37Z",
-        "body": "1.29.1"
+        "body": "Complete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.29.0...1.29.1\r\n\r\nFixed #1314: allowed to configure is(Same|Current)(Month|Quarter) behavior"
     },
     {
         "tag_name": "1.29.0",
         "created_at": "2018-05-24T13:09:20Z",
-        "body": "1.29.0"
+        "body": "Complete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.28.0...1.29.0\r\n\r\nAdded CarbonPeriod and related methods in Carbon and CarbonInterval"
     },
     {
         "tag_name": "1.28.0",
         "created_at": "2018-05-18T15:26:18Z",
-        "body": "1.28.0"
+        "body": "- Added isStartOfDay, isEndOfDay, isMidnight, isMidday methods\n- Added locales bs_BA, hi, is, ne, oc, sh, sw\n- Added diff translations for ca, es, nl, no, pl, sl, sr*\n- Fixed ko, pl translations\n- Fixed createFromFormat with partial format and mock now instance\n- Added make methods to Carbon and CarbonInterval\n- Added getCascadeFactors, setCascadeFactors, getFactor, getDaysPerWeek, getHoursPerDay, - getMinutesPerHours, getSecondsPerMinutes, cascade, total methods and total getters to CarbonInterval\n- Added $short argument to CarbonInterval::forHumans to display short formats\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.27.0...1.28.0)\n"
     },
     {
         "tag_name": "1.27.0",
         "created_at": "2018-04-23T09:02:57Z",
-        "body": "1.27.0"
+        "body": "- Added `isSameQuarter`, `isCurrentQuarter`, `isNextQuarter` and `isLastQuarter` methods\n- Added `isSameHour`, `isSameMinute`, `isSameSecond`, `isCurrentHour`, `isCurrentMinute` and `isCurrentSecond` methods\n- Added `CarbonInterval::times` method\n- Added italian translation for diff words\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.4...1.27.0)\n"
     },
     {
         "tag_name": "1.26.4",
         "created_at": "2018-04-17T15:35:42Z",
-        "body": "1.26.4"
+        "body": "Always pass $self at its position even if previous arguments miss\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.3...1.26.4"
     },
     {
         "tag_name": "1.26.3",
         "created_at": "2018-04-16T14:54:26Z",
-        "body": "1.26.3"
+        "body": "Macro: restrict $self (PHP 5.3 helper) to this explicit name only\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.2...1.26.3"
     },
     {
         "tag_name": "1.26.2",
         "created_at": "2018-04-16T14:06:36Z",
-        "body": "1.26.2"
+        "body": "Change macros variable name to coexist with Laravel's one\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.1...1.26.2"
     },
     {
         "tag_name": "1.26.1",
         "created_at": "2018-04-16T08:58:42Z",
-        "body": "1.26.1"
+        "body": "Change macros variable name to coexist with Laravel's one\r\n\r\nhttps:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.26.0...1.26.1"
     },
     {
         "tag_name": "1.26.0",
         "created_at": "2018-04-16T08:58:42Z",
-        "body": "1.26.0"
+        "body": "- Added `setDateFrom` and `setTimeFrom` methods\n- Allowed `DateTimeInterface` in `instance` method\n- Added `macro`, `hasMacro` and `mixin` methods\n- Added welsh language\n- Added CarbonInterval::getDateIntervalSpec (similar to CarbonInterval::spec but static and able to take any DateInterval instance as argument)\n- Added options for `diffForHumans` to support now\/yesterday\/tomorrow (#1240)\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.25.0...1.26.0)\n"
     },
     {
         "tag_name": "1.25.0",
         "created_at": "2018-03-19T15:50:49Z",
-        "body": "1.25.0"
+        "body": "- Allowed date\/time strings in diffIn* and diffForHumans methods\n- Added addRealHours()\/addRealHour()\/subRealHours()\/subRealHour() method\n- Added addRealMinutes()\/addRealMinute()\/subRealMinutes()\/subRealMinute() method\n- Added addRealSeconds()\/addRealSecond()\/subRealSeconds()\/subRealSecond() method\n- Added diffInRealHours() method\n- Added diffInRealMinutes() method\n- Added diffInRealSeconds() method\n- Added Carbon::createFromTimeString() method\n- Added CarbonInterval::fromString() method\n- Allowed spec string as CarbonInterval constructor and in CarbonInterval::parse()\n- Added Carbon::useMicrosecondsFallback() and Carbon::isMicrosecondsFallbackEnabled() to handle microseconds work-around in PHP < 7.1\n- Added dayOfWeekIso property\n- Allowed editing\/adding languages and translations\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.24.2...1.25.0)\n"
     },
     {
         "tag_name": "1.24.2",
         "created_at": "2018-03-10T10:10:14Z",
-        "body": "1.24.2"
+        "body": "Prevent from negative values in microtime\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.24.1...1.24.2"
     },
     {
         "tag_name": "1.24.1",
         "created_at": "2018-03-09T15:49:34Z",
-        "body": "1.24.1"
+        "body": "Re-align __set_state on DateTime method to ease Laravel compatibility\r\n\r\nComplete commits list: https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.24.0...1.24.1"
     },
     {
         "tag_name": "1.24.0",
         "created_at": "2018-03-09T12:52:49Z",
-        "body": "1.24.0"
+        "body": "- Added createMidnightDate() method\n- Added isLastOfMonth() method\n- Added isDayOfWeek() method\n- Added toRfc7231String() method\n- Added toIso8601ZuluString() method\n- Added hasFormat() method\n- Added toArray() method\n- Added startOfHour() method\n- Added endOfHour() method\n- Added startOfMinute() method\n- Added endOfMinute() method\n- Added midDay() dynamic method, and getMidDayAt, setMidDayAt static methods\n- Added nowWithSameTz() method\n- Added CarbonInterval::compare() method\n- Added year overflow support (addYearsNoOverflow, addYearNoOverflow, addYearsWithOverflow, addYearWithOverflow, subYearNoOverflow, subYearsNoOverflow, subYearWithOverflow, subYearsWithOverflow dynamic methods and useYearsOverflow, resetYearsOverflow, shouldOverflowYears static methods)\n- Added microseconds on calling <strong>now<\/strong> with PHP < 7.1 (PHP >= 7.1 still support it natively)\n- Fixed hasRelativeKeywords() that no longer guess if the string is relative but test if it really produces a relative date, making it more accurate\n- Fixed createSafe(), now throws an exception with PHP >= 5.4 if the time is in a hour skipped by daylight saving time\n- Allowed DateTime and DateTimeInterface in diff methods\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.23.0...1.24.0)\n"
     },
     {
         "tag_name": "1.23.0",
         "created_at": "2018-02-28T09:22:05Z",
-        "body": "1.23.0"
+        "body": "- Add ->weekNumberInMonth property\n- Add $parts arguments to diffForHumans() to allow components diff like \"1 week 2 days 11 hours\"\n- Add createFromTimestampMs method to create from timestamp in milliseconds\n- Fix\/complete translations: ar, az, bg, el, fr, hy (arm), ja, pl, sk, sr, th, uk, uz, zh\n- Add translations: ar_shakl, dv_MV, kk, mn, ps, sr_Cyrl\n- Add Carbon::getDays() returning week days codes\n- getLastErrors() now works also on construct\n- Add workaround for setTimezone bug: https:\/\/bugs.php.net\/bug.php?id=72338\n- Now Carbon instances can be exported via `var_export` and recreated with the produced code\n- Compatible with Symfony 4\n- Dates can be mocked now with microseconds\n- Workaround for the coma decimal separator PHP bug https:\/\/bugs.php.net\/bug.php?id=67127\n- Allow formatLocalized no matter if a custom toStringFormat has been set\n- isSame*() methods now also accept DateTime instances\n- Handle daylight saving time in a better way\n\n[Complete commits list](https:\/\/github.com\/briannesbitt\/Carbon\/compare\/1.22.1...1.23.0)\n"
     },
     {
         "tag_name": "1.22.1",
         "created_at": "2017-01-16T08:02:15Z",
-        "body": "1.22.1"
+        "body": ""
     },
     {
         "tag_name": "1.22.0",
         "created_at": "2017-01-15T14:49:01Z",
-        "body": "1.22.0"
+        "body": ""
     },
     {
         "tag_name": "1.21.0",
         "created_at": "2015-11-04T20:07:17Z",
-        "body": "1.21.0"
+        "body": ""
     },
     {
         "tag_name": "1.20.0",
         "created_at": "2015-06-25T04:19:39Z",
-        "body": "1.20.0"
+        "body": ""
     },
     {
         "tag_name": "1.19.0",
         "created_at": "2015-05-09T03:23:44Z",
-        "body": "1.19.0"
+        "body": ""
     },
     {
         "tag_name": "1.18.0",
         "created_at": "2015-03-26T03:05:57Z",
-        "body": "1.18.0"
+        "body": ""
     },
     {
         "tag_name": "1.17.0",
         "created_at": "2015-03-08T14:05:44Z",
-        "body": "1.17.0"
+        "body": ""
     },
     {
         "tag_name": "1.16.0",
         "created_at": "2015-03-04T04:50:11Z",
-        "body": "1.16.0"
+        "body": ""
     },
     {
         "tag_name": "1.15.0",
         "created_at": "2015-03-03T03:24:43Z",
-        "body": "1.15.0"
+        "body": ""
     },
     {
         "tag_name": "1.14.0",
         "created_at": "2015-02-06T05:07:29Z",
-        "body": "1.14.0"
+        "body": ""
     },
     {
         "tag_name": "1.13.0",
         "created_at": "2014-09-26T02:52:02Z",
-        "body": "1.13.0"
+        "body": ""
     },
     {
         "tag_name": "1.12.0",
         "created_at": "2014-09-10T03:26:33Z",
-        "body": "1.12.0"
+        "body": ""
     },
     {
         "tag_name": "1.11.0",
         "created_at": "2014-08-26T03:18:44Z",
-        "body": "1.11.0"
+        "body": ""
     },
     {
         "tag_name": "1.10.0",
         "created_at": "2014-07-18T03:44:47Z",
-        "body": "1.10.0"
+        "body": ""
     },
     {
         "tag_name": "1.9.0",
         "created_at": "2014-05-13T02:29:30Z",
-        "body": "1.9.0"
+        "body": ""
     },
     {
         "tag_name": "1.8.0",
         "created_at": "2014-01-07T05:10:44Z",
-        "body": "1.8.0"
+        "body": ""
     },
     {
         "tag_name": "1.7.0",
         "created_at": "2013-12-05T04:13:29Z",
-        "body": "1.7.0"
+        "body": ""
     },
     {
         "tag_name": "1.6.0",
         "created_at": "2013-11-23T15:22:05Z",
-        "body": "1.6.0"
+        "body": ""
     },
     {
         "tag_name": "1.5.0",
         "created_at": "2013-11-21T21:09:53Z",
-        "body": "1.5.0"
+        "body": ""
     },
     {
         "tag_name": "1.4.0",
         "created_at": "2013-09-09T02:39:19Z",
-        "body": "1.4.0"
+        "body": ""
     },
     {
         "tag_name": "1.3.0",
         "created_at": "2013-08-21T04:36:40Z",
-        "body": "1.3.0"
+        "body": ""
     },
     {
         "tag_name": "1.2.0",
         "created_at": "2012-10-15T00:41:18Z",
-        "body": "1.2.0"
+        "body": ""
     },
     {
         "tag_name": "1.1.0",
         "created_at": "2012-09-17T02:04:24Z",
-        "body": "1.1.0"
+        "body": ""
     },
     {
         "tag_name": "1.0.1",
         "created_at": "2012-09-11T03:37:22Z",
-        "body": "1.0.1"
+        "body": ""
     },
     {
         "tag_name": "1.0.0",
         "created_at": "2012-09-11T02:21:48Z",
-        "body": "1.0.0"
+        "body": ""
     }
 ]
