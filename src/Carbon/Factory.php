@@ -641,12 +641,13 @@ class Factory
      */
     public function withTestNow(mixed $testNow, callable $callback): mixed
     {
+        $previousTestNow = $this->getTestNow();
         $this->setTestNow($testNow);
 
         try {
             $result = $callback();
         } finally {
-            $this->setTestNow();
+            $this->setTestNow($previousTestNow);
         }
 
         return $result;
@@ -688,9 +689,9 @@ class Factory
                 $type = \is_object($testNow) ? $testNow::class : \gettype($testNow);
 
                 throw new RuntimeException(
-                    'The test closure defined in '.$function->getFileName().
-                    ' at line '.$function->getStartLine().' returned '.$type.
-                    '; expected '.CarbonInterface::class.'|null',
+                    'The test closure defined in ' . $function->getFileName() .
+                    ' at line ' . $function->getStartLine() . ' returned ' . $type .
+                    '; expected ' . CarbonInterface::class . '|null',
                 );
             }
 
@@ -810,8 +811,8 @@ class Factory
         $regex = str_replace('\\\\', '\\', $format);
         // Replace not-escaped letters
         $regex = preg_replace_callback(
-            '/(?<!\\\\)((?:\\\\{2})*)(['.implode('', array_keys($replacements)).'])/',
-            static fn ($match) => $match[1].strtr($match[2], $replacements),
+            '/(?<!\\\\)((?:\\\\{2})*)([' . implode('', array_keys($replacements)) . '])/',
+            static fn($match) => $match[1] . strtr($match[2], $replacements),
             $regex,
         );
         // Replace escaped letters by the letter itself
@@ -819,7 +820,7 @@ class Factory
         // Escape not escaped slashes
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date);
+        return (bool) @preg_match('/^' . $regex . '$/', $date);
     }
 
     private function setDefaultTimezone(string $timezone, ?DateTimeInterface $date = null): void
@@ -837,10 +838,10 @@ class Factory
             $suggestion = @CarbonTimeZone::create($timezone)->toRegionName($date);
 
             throw new InvalidArgumentException(
-                "Timezone ID '$timezone' is invalid".
-                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.')."\n".
-                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
-                'For the record, hours/minutes offset are relevant only for a particular moment, '.
+                "Timezone ID '$timezone' is invalid" .
+                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.') . "\n" .
+                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n" .
+                'For the record, hours/minutes offset are relevant only for a particular moment, ' .
                 'but not as a default timezone.',
                 0,
                 $previous

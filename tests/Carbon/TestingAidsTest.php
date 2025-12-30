@@ -207,8 +207,8 @@ class TestingAidsTest extends AbstractTestCase
     public function testSetTestNowAndTimezoneWithBadTimezone(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Timezone ID '-05:00' is invalid, did you mean 'America/Chicago'?\n".
-            "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
+            "Timezone ID '-05:00' is invalid, did you mean 'America/Chicago'?\n" .
+            "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n" .
             'For the record, hours/minutes offset are relevant only for a particular moment, but not as a default timezone.'
         ));
 
@@ -218,8 +218,8 @@ class TestingAidsTest extends AbstractTestCase
     public function testSetTestNowAndTimezoneWithBadTimezoneWithErrorAsException(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException(
-            "Timezone ID '-05:00' is invalid, did you mean 'America/Chicago'?\n".
-            "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
+            "Timezone ID '-05:00' is invalid, did you mean 'America/Chicago'?\n" .
+            "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n" .
             'For the record, hours/minutes offset are relevant only for a particular moment, but not as a default timezone.'
         ));
 
@@ -292,7 +292,7 @@ class TestingAidsTest extends AbstractTestCase
         // Escaped epoch resets.
         $this->assertSame('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\|', '|')->toIso8601String());
         $this->assertSame('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\!', '!')->toIso8601String());
-        $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', $kyiv.' !')->toIso8601String());
+        $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', $kyiv . ' !')->toIso8601String());
     }
 
     public function testCreateFromPartialFormatWithMicroseconds()
@@ -334,7 +334,7 @@ class TestingAidsTest extends AbstractTestCase
 
     public function testSetTestNowGlobally(): void
     {
-        require_once __DIR__.'/../Fixtures/SubCarbon.php';
+        require_once __DIR__ . '/../Fixtures/SubCarbon.php';
 
         SubCarbon::setTestNow('2018-05-06 05:10:15.123456');
 
@@ -362,6 +362,19 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertNotSame($testNow, $currentTime->format('Y-m-d H:i:s'));
     }
 
+    public function testWithTestNowRestoresPreviousTestNow()
+    {
+        Carbon::setTestNow('2024-01-01 12:00:00');
+
+        Carbon::withTestNow('2024-06-15 10:00:00', function () {
+            $this->assertEquals('2024-06-15', Carbon::now()->format('Y-m-d'));
+        });
+
+        $this->assertEquals('2024-01-01', Carbon::now()->format('Y-m-d'));
+
+        Carbon::setTestNow();
+    }
+
     public function testWithTestNowWithException()
     {
         $testNow = '2020-09-16 10:20:00';
@@ -380,7 +393,7 @@ class TestingAidsTest extends AbstractTestCase
 
     public function testWithModifyReturningDateTime()
     {
-        Carbon::setTestNowAndTimezone(new class('2000-01-01 00:00 UTC') extends Carbon {
+        Carbon::setTestNowAndTimezone(new class ('2000-01-01 00:00 UTC') extends Carbon {
             public function modify($modify)
             {
                 return $this->toDateTimeImmutable()->modify($modify);
