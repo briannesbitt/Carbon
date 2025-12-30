@@ -11,7 +11,7 @@
 [Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.10.2...3.10.3)
 
 New contributors:
-* @sammyaxe made their first contribution in https://github.com/briannesbitt/Carbon/pull/3215
+* @sammyaxe made their first contribution in [briannesbitt/Carbon#3215](https://github.com/briannesbitt/Carbon/pull/3215)
 
 
 #### 3.10.3 (2 August 2025)
@@ -22,8 +22,8 @@ New contributors:
 [Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.10.1...3.10.2)
 
 New contributors:
-* @Disservin made their first contribution in https://github.com/briannesbitt/Carbon/pull/3213
-* @Joeb454 made their first contribution in https://github.com/briannesbitt/Carbon/pull/3218
+* @Disservin made their first contribution in [briannesbitt/Carbon#3213](https://github.com/briannesbitt/Carbon/pull/3213)
+* @Joeb454 made their first contribution in [briannesbitt/Carbon#3218](https://github.com/briannesbitt/Carbon/pull/3218)
 
 
 #### 3.10.2 (21 June 2025)
@@ -48,8 +48,8 @@ New contributors:
 [Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.9.1...3.10.0)
 
 New contributors:
-* @nesl247 made their first contribution in https://github.com/CarbonPHP/carbon/pull/42
-* @aavtukhovich made their first contribution in https://github.com/CarbonPHP/carbon/pull/45
+* @nesl247 made their first contribution in [CarbonPHP/carbon#42](https://github.com/CarbonPHP/carbon/pull/42)
+* @aavtukhovich made their first contribution in [CarbonPHP/carbon#45](https://github.com/CarbonPHP/carbon/pull/45)
 
 
 #### 3.10.0 (1 May 2025)
@@ -68,9 +68,9 @@ New contributors:
 [Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.9.0...3.9.1)
 
 New contributors:
-* @daniser made their first contribution in https://github.com/briannesbitt/Carbon/pull/3169
-* @liamduckett made their first contribution in https://github.com/briannesbitt/Carbon/pull/3174
-* @riesjart made their first contribution in https://github.com/briannesbitt/Carbon/pull/3176
+* @daniser made their first contribution in [briannesbitt/Carbon#3169](https://github.com/briannesbitt/Carbon/pull/3169)
+* @liamduckett made their first contribution in [briannesbitt/Carbon#3174](https://github.com/briannesbitt/Carbon/pull/3174)
+* @riesjart made their first contribution in [briannesbitt/Carbon#3176](https://github.com/briannesbitt/Carbon/pull/3176)
 
 
 #### 3.9.1 (27 March 2025)
@@ -80,8 +80,8 @@ New contributors:
 [Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.8.6...3.9.0)
 
 New contributors:
-* @cdburgess made their first contribution in https://github.com/CarbonPHP/carbon/pull/22
-* @AndrewMast made their first contribution in https://github.com/CarbonPHP/carbon/pull/27
+* @cdburgess made their first contribution in [CarbonPHP/carbon#22](https://github.com/CarbonPHP/carbon/pull/22)
+* @AndrewMast made their first contribution in [CarbonPHP/carbon#27](https://github.com/CarbonPHP/carbon/pull/27)
 
 
 #### 3.9.0 (20 February 2025)
@@ -98,7 +98,7 @@ New contributors:
 [Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.4...3.8.5)
 
 New contributors:
-* @novruzrhmv made their first contribution in https://github.com/briannesbitt/Carbon/pull/3144
+* @novruzrhmv made their first contribution in [briannesbitt/Carbon#3144](https://github.com/briannesbitt/Carbon/pull/3144)
 
 
 #### 3.8.5 (27 December 2024)
@@ -116,9 +116,9 @@ New contributors:
 [Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.8.2...3.8.3)
 
 New contributors:
-* @c-Rolland made their first contribution in https://github.com/briannesbitt/Carbon/pull/3110
-* @Mejans made their first contribution in https://github.com/briannesbitt/Carbon/pull/3115
-* @koprivan made their first contribution in https://github.com/briannesbitt/Carbon/pull/3122
+* @c-Rolland made their first contribution in [briannesbitt/Carbon#3110](https://github.com/briannesbitt/Carbon/pull/3110)
+* @Mejans made their first contribution in [briannesbitt/Carbon#3115](https://github.com/briannesbitt/Carbon/pull/3115)
+* @koprivan made their first contribution in [briannesbitt/Carbon#3122](https://github.com/briannesbitt/Carbon/pull/3122)
 
 
 #### 3.8.3 (7 November 2024)
@@ -152,7 +152,7 @@ New contributors:
 [Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.7.0...3.8.0)
 
 New contributors:
-* @DannyJJK made their first contribution in https://github.com/briannesbitt/Carbon/pull/3060
+* @DannyJJK made their first contribution in [briannesbitt/Carbon#3060](https://github.com/briannesbitt/Carbon/pull/3060)
 
 
 #### 3.8.0 (16 July 2024)
@@ -164,9 +164,9 @@ New contributors:
 [Complete commits list](https://github.com/briannesbitt/Carbon/compare/3.6.0...3.7.0)
 
 New contributors:
-* @faissaloux made their first contribution in https://github.com/briannesbitt/Carbon/pull/3043
-* @philbates35 made their first contribution in https://github.com/briannesbitt/Carbon/pull/3047
-* @marcheffels made their first contribution in https://github.com/briannesbitt/Carbon/pull/3045
+* @faissaloux made their first contribution in [briannesbitt/Carbon#3043](https://github.com/briannesbitt/Carbon/pull/3043)
+* @philbates35 made their first contribution in [briannesbitt/Carbon#3047](https://github.com/briannesbitt/Carbon/pull/3047)
+* @marcheffels made their first contribution in [briannesbitt/Carbon#3045](https://github.com/briannesbitt/Carbon/pull/3045)
 
 
 #### 3.7.0 (20 June 2024)
