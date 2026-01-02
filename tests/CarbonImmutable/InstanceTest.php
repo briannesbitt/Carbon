@@ -107,7 +107,7 @@ class InstanceTest extends AbstractTestCase
         $copy = $carbon->toImmutable();
 
         $this->assertEquals($copy, $carbon);
-        $this->assertNotSame($copy, $carbon);
+        $this->assertSame($copy, $carbon);
         $this->assertSame('en_CA', $copy->locale());
         $this->assertInstanceOf(CarbonImmutable::class, $copy);
         $this->assertTrue($copy->isImmutable());
