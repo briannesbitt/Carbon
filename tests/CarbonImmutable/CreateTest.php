@@ -328,4 +328,16 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame('2018-07-24 08:34', $date->format('Y-m-d H:i'));
     }
+
+    public function testStartOfTime()
+    {
+        $this->assertTrue(Carbon::startOfTime()->isStartOfTime());
+        $this->assertTrue(Carbon::startOfTime()->toImmutable()->isStartOfTime());
+    }
+
+    public function testEndOfTime()
+    {
+        $this->assertTrue(Carbon::endOfTime()->isEndOfTime());
+        $this->assertTrue(Carbon::endOfTime()->toImmutable()->isEndOfTime());
+    }
 }
