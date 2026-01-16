@@ -26,6 +26,12 @@ const vitePressOptions: UserConfig = {
 				href: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
 			},
 		],
+		[
+			'script', {
+				'async': true,
+				src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
+			},
+		],
 	],
 	themeConfig: {
 		// https://vitepress.dev/reference/default-theme-config
