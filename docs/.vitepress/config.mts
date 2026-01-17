@@ -67,9 +67,6 @@ const vitePressOptions: UserConfig = {
 		outline: {
 			level: [2, 4],
 		},
-		footer: {
-			message: '<div data-ea-publisher="carbon" data-ea-type="text"></div>',
-		},
 	},
 	markdown: {
 		preConfig(md) {
