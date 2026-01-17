@@ -11,7 +11,9 @@ export default {
 	Layout: () => {
 		return h(DefaultTheme.Layout, null, {
 			// https://vitepress.dev/guide/extending-default-theme#layout-slots
-			'layout-bottom': <div data-ea-publisher="carbon" data-ea-type="text"></div>,
+			'layout-bottom': <>
+				<div data-ea-publisher="carbon" data-ea-type="text"></div>
+			</>,
 		});
 	},
 	enhanceApp({ app, router, siteData }) {
