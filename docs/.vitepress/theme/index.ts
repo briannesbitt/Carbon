@@ -3,6 +3,7 @@ import { h } from 'vue';
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import './style.css';
+import EthicalAds from './components/EthicalAds.vue';
 import Sponsors from './components/Sponsors.vue';
 import AllAvailableTranslations from './components/AllAvailableTranslations.vue';
 import UpsertLanguage from './components/UpsertLanguage.vue';
@@ -11,10 +12,11 @@ export default {
 	Layout: () => {
 		return h(DefaultTheme.Layout, null, {
 			// https://vitepress.dev/guide/extending-default-theme#layout-slots
-			'layout-bottom': () => h('<div data-ea-publisher="carbon" data-ea-type="text"></div>'),
+			'layout-bottom': () => h(EthicalAds),
 		});
 	},
 	enhanceApp({ app, router, siteData }) {
+		app.component('EthicalAds', EthicalAds);
 		app.component('Sponsors', Sponsors);
 		app.component('AllAvailableTranslations', AllAvailableTranslations);
 		app.component('UpsertLanguage', UpsertLanguage);
