@@ -184,3 +184,24 @@
     }
   }
 }
+
+.bottom-text,
+.side-image {
+    > * {
+        z-index: 50;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 46px;
+        background: color-mix(in srgb, var(--vp-c-bg) 20%, var(--vp-c-bg-soft) 80%);
+
+        .ea-body {
+            color: var(--vp-c-text-1);
+        }
+
+        &[data-ea-publisher].loaded .ea-content {
+            margin: 0;
+        }
+    }
+}

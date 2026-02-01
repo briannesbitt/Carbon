@@ -4,6 +4,20 @@
 
 ## Version 3.x
 
+#### 3.11.1 (2 December 2025)
+* Allow symfony 8 by @Chris53897 in [CarbonPHP/carbon#73](https://github.com/CarbonPHP/carbon/pull/73)
+* Micro-optimization for standalone months translation by @kylekatarnls in [CarbonPHP/carbon#68](https://github.com/CarbonPHP/carbon/pull/68)
+* Support passing Unit enums to sub method and update type-hints by @hackel in [briannesbitt/Carbon#3250](https://github.com/briannesbitt/Carbon/pull/3250)
+* Align Bangla locale files with English reference strings by @imhayatunnabi in [briannesbitt/Carbon#3257](https://github.com/briannesbitt/Carbon/pull/3257)
+* Comprehensive Yiddish (yi_US) locale update by @BenyominMandel in [briannesbitt/Carbon#3267](https://github.com/briannesbitt/Carbon/pull/3267)
+
+[Complete commits list](https://github.com/CarbonPHP/carbon/compare/3.10.3...3.11.0)
+
+New contributors:
+* @imhayatunnabi made their first contribution in [briannesbitt/Carbon#3257](https://github.com/briannesbitt/Carbon/pull/3257)
+* @BenyominMandel made their first contribution in [briannesbitt/Carbon#3267](https://github.com/briannesbitt/Carbon/pull/3267)
+
+
 #### 3.11.0 (6 September 2025)
 * Fix grammar mistakes in lt.php localization by @sammyaxe in [briannesbitt/Carbon#3215](https://github.com/briannesbitt/Carbon/pull/3215)
 * Fix resetMessages memory consumption by @kylekatarnls in [CarbonPHP/carbon#58](https://github.com/CarbonPHP/carbon/pull/58)

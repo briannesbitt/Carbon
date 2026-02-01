@@ -6,7 +6,7 @@
 		"cmixin/business-time": "dev-master",
 		"cmixin/season": "dev-main",
 		"kylekatarnls/carbonite": "dev-master",
-		"nesbot/carbon": "dev-master as 3.11.0",
+		"nesbot/carbon": "dev-master as 3.11.1",
 		"nikic/php-parser": "^5.7",
 		"eftec/bladeone": "^4.19",
 		"phpdocumentor/reflection-docblock": "^5.6",
