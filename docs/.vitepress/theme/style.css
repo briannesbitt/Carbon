@@ -185,8 +185,12 @@
   }
 }
 
-.bottom-text,
 .side-image {
+    background: color-mix(in srgb, var(--vp-c-bg) 20%, var(--vp-c-bg-soft) 80%);
+    min-height: 50px;
+}
+
+.bottom-text {
     > * {
         z-index: 50;
         position: fixed;
