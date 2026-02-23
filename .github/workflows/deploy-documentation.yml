@@ -49,7 +49,7 @@ jobs:
           cache: pnpm
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Install dependencies
         run: pnpm install
