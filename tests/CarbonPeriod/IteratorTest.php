@@ -309,6 +309,24 @@ class IteratorTest extends AbstractTestCase
         );
     }
 
+    public function testMonthlyCarbonIntervalCanDisableMonthOverflow()
+    {
+        $periodClass = static::$periodClass;
+        $overflowPeriod = $periodClass::create('2024-01-31', new CarbonInterval('P1M'), 5);
+        $noOverflowPeriod = $periodClass::create('2024-01-31', new CarbonInterval('P1M'), 5)
+            ->settings(['monthOverflow' => false]);
+
+        $this->assertSame(
+            $this->standardizeDates(['2024-01-31', '2024-03-02', '2024-04-02', '2024-05-02', '2024-06-02']),
+            $this->standardizeDates($overflowPeriod),
+        );
+
+        $this->assertSame(
+            $this->standardizeDates(['2024-01-31', '2024-02-29', '2024-03-29', '2024-04-29', '2024-05-29']),
+            $this->standardizeDates($noOverflowPeriod),
+        );
+    }
+
     public function testValidateOncePerIteration()
     {
         $period = CarbonPeriodFactory::withCounter(static::$periodClass, $counter);

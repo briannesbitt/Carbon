@@ -187,6 +187,13 @@ class AddTest extends AbstractTestCase
         $this->assertSame('2024-01-18 10:00:00', $result->format('Y-m-d H:i:s'));
     }
 
+    public function testConvertDateCanDisableMonthOverflow()
+    {
+        $date = Carbon::parse('2020-01-31')->settings(['monthOverflow' => false]);
+
+        $this->assertSame('2020-02-29', CarbonInterval::month()->convertDate($date)->toDateString());
+    }
+
     public function testMagicAddAndSubMethods()
     {
         $this->assertCarbonInterval(CarbonInterval::days(3)->addWeeks(2), 0, 0, 17, 0, 0, 0);
