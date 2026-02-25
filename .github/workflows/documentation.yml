@@ -5,6 +5,9 @@ on:
     - cron: '0 0 15 * *'
     - cron: '0 0 2 * *'
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   sponsors:
     name: Update documentation
