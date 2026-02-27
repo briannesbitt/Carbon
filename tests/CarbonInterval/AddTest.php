@@ -194,6 +194,13 @@ class AddTest extends AbstractTestCase
         $this->assertSame('2020-02-29', CarbonInterval::month()->convertDate($date)->toDateString());
     }
 
+    public function testIntervalStepWithMicroseconds()
+    {
+        $date = Carbon::parse('2020-01-31 01:23:45.678912');
+
+        $this->assertSame('2020-01-31 01:23:45.678936', CarbonInterval::microseconds(24)->convertDate($date)->format('Y-m-d H:i:s.u'));
+    }
+
     public function testMagicAddAndSubMethods()
     {
         $this->assertCarbonInterval(CarbonInterval::days(3)->addWeeks(2), 0, 0, 17, 0, 0, 0);
