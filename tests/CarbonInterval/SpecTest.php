@@ -97,6 +97,38 @@ class SpecTest extends AbstractTestCase
         $this->assertSame('P1Y2M3DT4H5M6S', $ci->spec());
     }
 
+    public function testNegativeWeeksInterval()
+    {
+        $ci = CarbonInterval::weeks(-2);
+        $this->assertSame('-P14D', $ci->spec());
+    }
+
+    public function testNegativeDaysInterval()
+    {
+        $ci = CarbonInterval::days(-5);
+        $this->assertSame('-P5D', $ci->spec());
+    }
+
+    public function testNegativeHoursInterval()
+    {
+        $ci = CarbonInterval::hours(-3);
+        $this->assertSame('-PT3H', $ci->spec());
+    }
+
+    public function testNegativeMixedDateAndTimeInterval()
+    {
+        $ci = CarbonInterval::create(-1, -2, 0, -3, -4, -5, -6);
+        $this->assertSame('-P1Y2M3DT4H5M6S', $ci->spec());
+    }
+
+    public function testInvertedIntervalSpecDoesNotIncludeSign()
+    {
+        // invert flag is handled separately by consumers, spec() should not include the sign
+        $ci = CarbonInterval::days(5);
+        $ci->invert = 1;
+        $this->assertSame('P5D', $ci->spec());
+    }
+
     public function testCreatingInstanceEquals()
     {
         $ci = new CarbonInterval(1, 2, 0, 3, 4, 5, 6);
