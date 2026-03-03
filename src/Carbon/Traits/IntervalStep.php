@@ -73,11 +73,28 @@ trait IntervalStep
             return $carbonDate->modify(($this->step)($carbonDate, $negated)->format('Y-m-d H:i:s.u e O'));
         }
 
-        if ($negated) {
-            return $carbonDate->rawSub($this);
+        $sign = (($this->invert === 1) !== $negated) ? -1 : 1;
+
+        foreach ([
+            ['y', 'year'],
+            ['m', 'month'],
+            ['d', 'day'],
+            ['h', 'hour'],
+            ['i', 'minute'],
+            ['s', 'second'],
+        ] as [$property, $unit]) {
+            if ($this->$property !== 0) {
+                $carbonDate = $carbonDate->addUnit($unit, $this->$property * $sign);
+            }
         }
 
-        return $carbonDate->rawAdd($this);
+        $microseconds = (int) round($this->f * CarbonInterface::MICROSECONDS_PER_SECOND);
+
+        if ($microseconds !== 0) {
+            $carbonDate = $carbonDate->addUnit('microsecond', $microseconds * $sign);
+        }
+
+        return $carbonDate;
     }
 
     /**
