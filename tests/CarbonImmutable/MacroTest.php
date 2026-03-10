@@ -176,7 +176,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testLazyMixinMethodCall()
     {
-        $test = new class () {
+        $test = new class() {
             public static array $calledMethods = [];
 
             public function __construct()
