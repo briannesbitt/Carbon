@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use BadMethodCallException;
 use Carbon\CarbonImmutable as Carbon;
 use CarbonTimezoneTrait;
+use Closure;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use SubCarbonImmutable;
 use Tests\AbstractTestCaseWithOldNow;
@@ -171,5 +172,96 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame(2, $subCarbon->diffInDecades('2049-01-24 00:00'));
 
         SubCarbonImmutable::resetMacros();
+    }
+
+    public function testLazyMixinMethodCall()
+    {
+        $test = new class () {
+            public static array $calledMethods = [];
+
+            public function __construct()
+            {
+                self::$calledMethods[] = __METHOD__;
+            }
+
+            public function __destruct()
+            {
+                self::$calledMethods[] = __METHOD__;
+            }
+
+            public static function noReturnType()
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return static fn () => 'foo';
+            }
+
+            public static function returnVoid(): void
+            {
+                self::$calledMethods[] = __METHOD__;
+            }
+
+            public static function returnArray(): array
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return [];
+            }
+
+            public static function returnObject(): object
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return (object) [];
+            }
+
+            public static function returnClosure(): Closure
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return static fn () => 'foo';
+            }
+
+            public static function returnMixed(): mixed
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return static fn () => 'foo';
+            }
+
+            public static function returnOtherBuiltIn(): bool
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return true;
+            }
+
+            public static function returnUnion(): bool|array
+            {
+                self::$calledMethods[] = __METHOD__;
+
+                return true;
+            }
+
+            public static function getCalledMethods(): array
+            {
+                return self::$calledMethods;
+            }
+        };
+
+        Carbon::mixin($test);
+        Carbon::resetMacros();
+
+        $this->assertSame([
+            '__construct', // Only happening because of $test = new class()... but none from Carbon::mixin()
+            'noReturnType',
+            'returnArray',
+            'returnObject',
+            'returnMixed',
+            'returnUnion',
+        ], array_map(
+            static fn (string $name) => explode('::', $name, 2)[1],
+            $test::getCalledMethods(),
+        ));
     }
 }
