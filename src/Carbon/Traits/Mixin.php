@@ -115,7 +115,7 @@ trait Mixin
 
             // If it returns a non-invokable object, it cannot be a mixin method
             if (class_exists($returnedTypeName)) {
-                return !\is_callable([$returnedTypeName, '__invoke']);
+                return !is_a($returnedTypeName, Closure::class, true) && !\is_callable([$returnedTypeName, '__invoke']);
             }
         }
 

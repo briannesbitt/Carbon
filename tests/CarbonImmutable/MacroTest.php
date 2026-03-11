@@ -257,6 +257,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
             'noReturnType',
             'returnArray',
             'returnObject',
+            'returnClosure',
             'returnMixed',
             'returnUnion',
         ], array_map(
