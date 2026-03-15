@@ -4,6 +4,35 @@
 
 ## Version 3.x
 
+#### 3.11.3 (10 March 2026)
+## What's Changed
+* Lazy loading of mixin class methods by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/91
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.11.1...3.11.2
+
+#### 3.11.2 (29 January 2026)
+## What's Changed
+* Get last errors to return false by @MizouziE in https://github.com/CarbonPHP/carbon/pull/70
+* Remove "ς" for singular Greek year and month accusative form by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/75
+* Create dedicated interfaces for constants by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/76
+* Fix: isoFormat('MMMM') for sl_SI not working by @hoRacy in https://github.com/CarbonPHP/carbon/pull/65
+* Add test for parse 0 and empty string by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/62
+* Drop (dead) code for PHP 7 by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/59
+* Fix month/week/unit translation using fallback locale while main locale has it set by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/77
+* Fix English meridiem when another locale is used as fallback by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/78
+* Don't clone when casting from immutable to immutable by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/85
+* Fix Yiddish translation for time difference by @yisraeldov in https://github.com/briannesbitt/Carbon/pull/3273
+* Fix `withTestNow()` to restore previous test state instead of clearing it by @kyryl-bogach in https://github.com/briannesbitt/Carbon/pull/3283
+
+## New Contributors
+* @MizouziE made their first contribution in https://github.com/CarbonPHP/carbon/pull/70
+* @hoRacy made their first contribution in https://github.com/CarbonPHP/carbon/pull/65
+* @yisraeldov made their first contribution in https://github.com/briannesbitt/Carbon/pull/3273
+* @kyryl-bogach made their first contribution in https://github.com/briannesbitt/Carbon/pull/3283
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.11.0...3.11.1
+
 #### 3.11.1 (2 December 2025)
 * Allow symfony 8 by @Chris53897 in [CarbonPHP/carbon#73](https://github.com/CarbonPHP/carbon/pull/73)
 * Micro-optimization for standalone months translation by @kylekatarnls in [CarbonPHP/carbon#68](https://github.com/CarbonPHP/carbon/pull/68)
