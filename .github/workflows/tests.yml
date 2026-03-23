@@ -100,7 +100,7 @@ jobs:
         # https://github.com/symfony/symfony/commit/f4118e110a46de3ffb799e7d79bf15128d1646ea
 
       - name: Install dependencies
-        uses: nick-fields/retry@v3
+        uses: nick-fields/retry@v4
         if: steps.composer-cache.outputs.cache-hit != 'true'
         with:
           timeout_minutes: 10
