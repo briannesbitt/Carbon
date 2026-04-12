@@ -98,6 +98,11 @@ Since Carbon 3, it's no longer allowed to call `isSame*` methods (such as `isSam
 
 Since Carbon 3, `Carbon::minValue()` and `Carbon::maxValue()` have been removed, use `CarbonImmutable::startOfTime()` and `CarbonImmutable::endOfTime()` instead. While the old methods depended on the system and were available on mutable objects, the new ones are arbitrary dates `0001-01-01 00:00:00` and `9999-12-31 23:59:59.999999` only available on `CarbonImmutable`, and you can check a date is at such end using `->isStartOfTime()` and `->isEndOfTime()`.
 
+### setTestNow copies passed date
+
+Since Carbon 3, `Carbon::setTestNow($date)` will copy `$date` if it's an instance of `Carbon` which means if you call `$date->addDay()` or any kind of modification, it will no longer be applied to the mocked time (`testNow)`.
+
+However, you can use `Carbon::setTestNow(fn () => $date)` to force Carbon to always use `$date` latest value.
 
 ## Migrate to Carbon 2
 
