@@ -576,7 +576,7 @@ class Factory
     public function setTestNow(mixed $testNow = null): void
     {
         $this->useTimezoneFromTestNow = false;
-        $this->testNow = $testNow instanceof self || $testNow instanceof Closure
+        $this->testNow = $testNow instanceof Closure
             ? $testNow
             : $this->make($testNow);
     }

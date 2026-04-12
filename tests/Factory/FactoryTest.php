@@ -19,6 +19,7 @@ use Carbon\CarbonInterface;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\TestWith;
 use Psr\Clock\ClockInterface;
 use ReflectionFunction;
 use RuntimeException;
@@ -150,6 +151,23 @@ class FactoryTest extends AbstractTestCase
 
         $date = $factory->make('2021-08-01 08:00:00 Europe/Paris');
         $this->assertSame('2021-08-01T08:00:00+02:00', $date->format('c'));
+    }
+
+    #[TestWith([13, false])]
+    #[TestWith([14, true])]
+    public function testKeepOriginal(int $day, bool $keepOriginal): void
+    {
+        $initial = Carbon::parse('2026-04-13 08:00:00 UTC');
+        $factory = new FactoryImmutable();
+        $factory->setTestNow(
+            $keepOriginal
+                ? (static fn () => $initial)
+                : $initial,
+        );
+
+        $initial->addDay();
+
+        $this->assertSame($day, $factory->now()->day);
     }
 
     public function testPsrClock()
