@@ -40,7 +40,7 @@ jobs:
         run: composer run build
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
 
       - name: Setup Node
         uses: actions/setup-node@v6
