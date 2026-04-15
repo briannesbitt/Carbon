@@ -4,6 +4,13 @@
 
 ## Version 3.x
 
+#### 3.11.4 (11 March 2026)
+## What's Changed
+* Allow Closure type for mixin by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/93
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.11.2...3.11.3
+
 #### 3.11.3 (10 March 2026)
 ## What's Changed
 * Lazy loading of mixin class methods by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/91
