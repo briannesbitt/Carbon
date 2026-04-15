@@ -91,6 +91,26 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1, Carbon::createFromDate(1975, 5, 31)->addDay()->day);
     }
 
+    public function testAddFloatDays()
+    {
+        $this->assertSame(
+            '2026-04-15 14:45:35.763456 UTC',
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(0.0001)->format('Y-m-d H:i:s.u T'),
+        );
+        $this->assertSame(
+            '2026-04-15 14:45:27.987456 UTC',
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(0.00001)->format('Y-m-d H:i:s.u T'),
+        );
+        $this->assertSame(
+            '2026-04-15 14:45:31.570875 UTC',
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(5.147476E-5)->format('Y-m-d H:i:s.u T'),
+        );
+        $this->assertSame(
+            '2026-04-15 14:45:31.922976 UTC',
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(5.555E-5)->format('Y-m-d H:i:s.u T'),
+        );
+    }
+
     public function testAddOverflow()
     {
         $this->assertSame(

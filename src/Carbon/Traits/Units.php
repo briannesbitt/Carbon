@@ -458,15 +458,33 @@ trait Units
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
     {
         try {
+            $absoluteValue = abs($value);
+
             return $date->rawAdd(
-                CarbonInterval::fromString(abs($value)." $unit")->invert($value < 0),
+                CarbonInterval::fromString(self::getNumberAsString($absoluteValue) . " $unit")
+                    ->invert($value < 0),
             );
         } catch (InvalidIntervalException $exception) {
             try {
-                return $date->modify("$value $unit");
+                return $date->modify(self::getNumberAsString($value) . " $unit");
             } catch (InvalidFormatException) {
                 throw new UnsupportedUnitException($unit, previous: $exception);
             }
         }
+    }
+
+    private static function getNumberAsString(int|float $value): string
+    {
+        $stringValue = (string) $value;
+
+        if ($value < -1 || $value > 1) {
+            return $stringValue;
+        }
+
+        if (str_contains($stringValue, 'E')) {
+            return number_format($value, 14);
+        }
+
+        return $stringValue;
     }
 }
