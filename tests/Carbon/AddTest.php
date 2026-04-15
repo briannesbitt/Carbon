@@ -95,19 +95,67 @@ class AddTest extends AbstractTestCase
     {
         $this->assertSame(
             '2026-04-15 14:45:35.763456 UTC',
-            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(0.0001)->format('Y-m-d H:i:s.u T'),
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')
+                ->addDays(0.0001)
+                ->format('Y-m-d H:i:s.u T'),
         );
         $this->assertSame(
             '2026-04-15 14:45:27.987456 UTC',
-            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(0.00001)->format('Y-m-d H:i:s.u T'),
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')
+                ->addDays(0.00001)
+                ->format('Y-m-d H:i:s.u T'),
         );
         $this->assertSame(
             '2026-04-15 14:45:31.570875 UTC',
-            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(5.147476E-5)->format('Y-m-d H:i:s.u T'),
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')
+                ->addDays(5.147476E-5)
+                ->format('Y-m-d H:i:s.u T'),
         );
         $this->assertSame(
             '2026-04-15 14:45:31.922976 UTC',
-            Carbon::parse('2026-04-15 14:45:27.123456 UTC')->addDays(5.555E-5)->format('Y-m-d H:i:s.u T'),
+            Carbon::parse('2026-04-15 14:45:27.123456 UTC')
+                ->addDays(5.555E-5)
+                ->format('Y-m-d H:i:s.u T'),
+        );
+    }
+
+    public function testAddBigNumbers()
+    {
+        $this->assertSame(
+            '2027-04-15 14:45:27.123456 UTC',
+            Carbon::parse('2025-04-15 14:45:27.123456 UTC')
+                ->addMicroseconds(2 * 365 * 24 * 3600 * 1_000_000)
+                ->format('Y-m-d H:i:s.u T'),
+        );
+
+        $this->assertSame(
+            '2027-04-15 14:45:27.123456 UTC',
+            Carbon::parse('2025-04-15 14:45:27.123456 UTC')
+                ->addMinutes(2 * 365 * 24 * 60)
+                ->format('Y-m-d H:i:s.u T'),
+        );
+
+        $this->assertSame(
+            '2027-04-15 14:45:27.123456 UTC',
+            Carbon::parse('2025-04-15 14:45:27.123456 UTC')
+                ->addMicroseconds(2.0 * 365 * 24 * 3600 * 1_000_000)
+                ->format('Y-m-d H:i:s.u T'),
+        );
+
+        $this->assertSame(
+            '2027-04-15 14:45:27.123456 UTC',
+            Carbon::parse('2025-04-15 14:45:27.123456 UTC')
+                ->addMinutes(2.0 * 365 * 24 * 60)
+                ->format('Y-m-d H:i:s.u T'),
+        );
+
+        $daysInTwoNextMillennia = 2000 * 365.25 - 15;
+
+        $this->assertSame(
+            '4025-04-15 14:45:27.123456 UTC',
+            Carbon::parse('2025-04-15 14:45:27.123456 UTC')
+                ->addMicroseconds($daysInTwoNextMillennia * 24 * 3600 * 1_000_000)
+                ->format('Y-m-d H:i:s.u T'),
         );
     }
 

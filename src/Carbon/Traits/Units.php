@@ -461,12 +461,12 @@ trait Units
             $absoluteValue = abs($value);
 
             return $date->rawAdd(
-                CarbonInterval::fromString(self::getNumberAsString($absoluteValue) . " $unit")
+                CarbonInterval::fromString(self::getNumberAsString($absoluteValue)." $unit")
                     ->invert($value < 0),
             );
         } catch (InvalidIntervalException $exception) {
             try {
-                return $date->modify(self::getNumberAsString($value) . " $unit");
+                return $date->modify(self::getNumberAsString($value)." $unit");
             } catch (InvalidFormatException) {
                 throw new UnsupportedUnitException($unit, previous: $exception);
             }
@@ -478,11 +478,15 @@ trait Units
         $stringValue = (string) $value;
 
         if ($value < -1 || $value > 1) {
+            if (str_contains($stringValue, 'E')) {
+                return number_format($value, 0, '.', '');
+            }
+
             return $stringValue;
         }
 
         if (str_contains($stringValue, 'E')) {
-            return number_format($value, 14);
+            return number_format($value, 14, '.', '');
         }
 
         return $stringValue;
