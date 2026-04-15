@@ -1,5 +1,10 @@
 [
     {
+        "tag_name": "3.11.4",
+        "created_at": "2026-04-07T09:57:54Z",
+        "body": "## What's Changed\r\n* Help PHPStan discover UnprotectedDatePeriod by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/100\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.11.3...3.11.4"
+    },
+    {
         "tag_name": "3.11.3",
         "created_at": "2026-03-11T17:23:39Z",
         "body": "## What's Changed\r\n* Allow Closure type for mixin by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/93\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.11.2...3.11.3"
