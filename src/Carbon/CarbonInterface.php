@@ -3765,7 +3765,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
 
     /**
      * Set a Carbon instance (real or mock) to be returned when a "now"
-     * instance is created.  The provided instance will be returned
+     * instance is created. The provided instance will be returned
      * specifically under the following conditions:
      *   - A call to the static now() method, ex. Carbon::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
@@ -3789,7 +3789,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
 
     /**
      * Set a Carbon instance (real or mock) to be returned when a "now"
-     * instance is created.  The provided instance will be returned
+     * instance is created. The provided instance will be returned
      * specifically under the following conditions:
      *   - A call to the static now() method, ex. Carbon::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
