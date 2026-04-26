@@ -763,6 +763,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         return $instance;
     }
 
+    public static function monthWithAnchorDay(int $day): static
+    {
+        return new static(function (CarbonInterface $date, bool $negated) use ($day) {
+            $next = $date->day(1)->addMonths($negated ? -1 : 1);
+
+            return $next->day(min($day, $next->daysInMonth));
+        });
+    }
+
     /**
      * Return the original source used to create the current interval.
      *
