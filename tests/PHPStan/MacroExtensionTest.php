@@ -29,7 +29,7 @@ use PHPUnit\Framework\Attributes\RequiresPhp;
  *
  * Disabling this test for PHP 8.5 until the patch is out.
  */
-#[RequiresPhp('< 8.5')]
+#[RequiresPhp('<8.5')]
 class MacroExtensionTest extends PHPStanTestCase
 {
     private ReflectionProvider $reflectionProvider;
