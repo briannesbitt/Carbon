@@ -135,7 +135,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($mockedDate->micro === 0, $nativeDate->micro === 0);
     }
 
-    #[RequiresPhp('>=8.2')]
+    #[RequiresPhp('>=8.2.0')]
     public function testCreateLastErrorsCanBeAccessedByExtendingClass()
     {
         $this->assertFalse(MyCarbon::getLastErrors());
@@ -150,7 +150,7 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
     }
 
-    #[RequiresPhp('>=8.2')]
+    #[RequiresPhp('>=8.2.0')]
     public function testCreateFromFormatResetLastErrors()
     {
         $carbon = Carbon::createFromFormat('d/m/Y', '41/02/1900');
