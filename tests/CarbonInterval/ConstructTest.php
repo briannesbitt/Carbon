@@ -551,4 +551,73 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(2, $interval->m);
         $this->assertSame(5.4e-5, $interval->f);
     }
+
+    public function testMonthWithAnchorDay()
+    {
+        $interval = CarbonInterval::monthWithAnchorDay(30);
+        $a = Carbon::parse('2020-01-30 12:34');
+        $b = $a->copy()->add($interval);
+        $c = $b->copy()->add($interval);
+
+        $this->assertSame('2020-02-29 12:34', $b->format('Y-m-d H:i'));
+        $this->assertSame('2020-03-30 12:34', $c->format('Y-m-d H:i'));
+
+        $d = Carbon::parse('2021-01-30 12:34')->add($interval);
+
+        $this->assertSame('2021-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $interval = CarbonInterval::monthWithAnchorDay(31);
+
+        $d->add($interval);
+
+        $this->assertSame('2021-03-31 12:34', $d->format('Y-m-d H:i'));
+
+        $d->add($interval);
+
+        $this->assertSame('2021-04-30 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2021-03-31 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2021-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2021-01-31 12:34', $d->format('Y-m-d H:i'));
+    }
+
+    public function testMonthNoOverflow()
+    {
+        $d = Carbon::parse('2021-01-31 12:34');
+
+        $interval = CarbonInterval::monthNoOverflow();
+
+        $d->add($interval);
+
+        $this->assertSame('2021-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->add($interval);
+
+        $this->assertSame('2021-03-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->add($interval);
+
+        $this->assertSame('2021-04-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d = Carbon::parse('2021-03-31 12:34');
+        $d->sub($interval);
+
+        $this->assertSame('2021-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2021-01-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2020-12-28 12:34', $d->format('Y-m-d H:i'));
+    }
 }

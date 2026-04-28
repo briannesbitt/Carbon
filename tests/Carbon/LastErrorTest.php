@@ -43,7 +43,7 @@ class LastErrorTest extends AbstractTestCase
         ];
     }
 
-    #[RequiresPhp('>=8.2')]
+    #[RequiresPhp('>=8.2.0')]
     public function testCreateHandlesLastErrors()
     {
         $carbon = new Carbon('2017-02-30');
