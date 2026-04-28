@@ -465,11 +465,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 MonthlyMode::AnchorDay => CarbonInterval::monthWithAnchorDay(
                     $anchorDay ?? $start->day,
                 ),
-                MonthlyMode::NoOverflow => static function (CarbonInterface $date, bool $negated) {
-                    return $negated
-                        ? $date->subMonthNoOverflow()
-                        : $date->addMonthNoOverflow();
-                },
+                MonthlyMode::NoOverflow => CarbonInterval::monthNoOverflow(),
                 MonthlyMode::Overflow => CarbonInterval::month(),
             },
             $end ?? $recurrences,

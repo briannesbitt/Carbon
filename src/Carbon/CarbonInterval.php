@@ -772,6 +772,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         });
     }
 
+    public static function monthNoOverflow(): static
+    {
+        return new static(static function (CarbonInterface $date, bool $negated) {
+            return $negated
+                ? $date->subMonthNoOverflow()
+                : $date->addMonthNoOverflow();
+        });
+    }
+
     /**
      * Return the original source used to create the current interval.
      *
