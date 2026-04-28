@@ -166,6 +166,48 @@ class MonthlyTest extends AbstractTestCase
         ], $this->getDates($period, expectedDateClass: Carbon::class));
     }
 
+    public function testMonthlyWithTimestamps()
+    {
+        $period = CarbonPeriod::monthly(
+            start: strtotime('2019-10-31 09:52:46.321654 UTC'),
+            end: strtotime('2020-02-29 09:52:46.321654 UTC'),
+        );
+
+        $this->assertEquals(CarbonImmutable::parse('2020-02-29 09:52:46.000000 UTC'), $period->getEndDate());
+        $this->assertTrue($period->isEndIncluded());
+        $this->assertFalse($period->isEndExcluded());
+        $this->assertNull($period->getRecurrences());
+        $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
+        $this->assertSame([
+            '2019-10-31 09:52:46.000000',
+            '2019-11-30 09:52:46.000000',
+            '2019-12-31 09:52:46.000000',
+            '2020-01-31 09:52:46.000000',
+            '2020-02-29 09:52:46.000000',
+        ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
+    }
+
+    public function testMonthlyWithStrings()
+    {
+        $period = CarbonPeriod::monthly(
+            start: '2019-10-31 09:52:46.321654 UTC',
+            end: '2020-02-29 09:52:46.321654 UTC',
+        );
+
+        $this->assertEquals(CarbonImmutable::parse('2020-02-29 09:52:46.321654 UTC'), $period->getEndDate());
+        $this->assertTrue($period->isEndIncluded());
+        $this->assertFalse($period->isEndExcluded());
+        $this->assertNull($period->getRecurrences());
+        $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
+        $this->assertSame([
+            '2019-10-31 09:52:46.321654',
+            '2019-11-30 09:52:46.321654',
+            '2019-12-31 09:52:46.321654',
+            '2020-01-31 09:52:46.321654',
+            '2020-02-29 09:52:46.321654',
+        ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
+    }
+
     public function testMonthlyWithEndDateAndRecurrences()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
