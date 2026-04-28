@@ -24,6 +24,7 @@ use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
+use Carbon\Period\MonthlyMode;
 use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\LocalFactory;
@@ -424,6 +425,55 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     public static function createFromISO8601String(string $iso, ?int $options = null): static
     {
         return self::createFromIso($iso, $options);
+    }
+
+    public static function monthly(
+        DateTimeInterface|string|int|null $start = null,
+        DateTimeInterface|string|int|null $end = null,
+        ?int $recurrences = null,
+        ?int $anchorDay = null,
+        MonthlyMode $mode = MonthlyMode::AnchorDay,
+        ?int $options = null,
+    ): static {
+        if ($anchorDay !== null && $mode !== MonthlyMode::AnchorDay) {
+            throw new InvalidArgumentException(
+                '$anchorDay parameter must not be set for $mode MonthlyMode::'.$mode->name,
+            );
+        }
+
+        if ($end !== null && $recurrences !== null) {
+            throw new InvalidArgumentException(
+                'You must specify $end or $recurrences but not both',
+            );
+        }
+
+        if (\is_int($start)) {
+            $start = CarbonImmutable::createFromTimestamp($start);
+        } elseif (\is_string($start)) {
+            $start = CarbonImmutable::parse($start);
+        }
+
+        $start ??= CarbonImmutable::now();
+
+        if (\is_int($end)) {
+            $end = CarbonImmutable::createFromTimestamp($end);
+        }
+
+        return (new static(
+            $start,
+            match ($mode) {
+                MonthlyMode::AnchorDay => CarbonInterval::monthWithAnchorDay(
+                    $anchorDay ?? $start->day,
+                ),
+                MonthlyMode::NoOverflow => static function (CarbonInterface $date, bool $negated) {
+                    return $negated
+                        ? $date->subMonthNoOverflow()
+                        : $date->addMonthNoOverflow();
+                },
+                MonthlyMode::Overflow => CarbonInterval::month(),
+            },
+            $end ?? $recurrences,
+        ))->setOptions($options ?? self::IMMUTABLE);
     }
 
     /**
