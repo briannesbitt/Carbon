@@ -35,6 +35,21 @@ function getHtmlAttribute($rawValue): string
     );
 }
 
+function formatAsTable(array $cells, int $width): string
+{
+    $rows = array_chunk($cells, $width);
+    $numberOfRows = \count($rows);
+
+    if ($numberOfRows > 1 && \count($rows[$numberOfRows - 1]) < $width) {
+        $rows[$numberOfRows - 1] = array_pad($rows[$numberOfRows - 1], $width, '');
+    }
+
+    return "\n<table>\n".implode('', array_map(
+        static fn (array $row) => "<tr>\n<td>".implode("</td>\n<td>", $row)."</td>\n</tr>\n",
+        $rows,
+    ))."</table>\n";
+}
+
 function getOpenCollectiveSponsors(): string
 {
     $customSponsorOverride = [
@@ -192,8 +207,8 @@ function getOpenCollectiveSponsors(): string
     });
 
     $membersByUrl = [];
-    $output = '';
-    $extra = '';
+    $output = [];
+    $extra = [];
 
     foreach ($list as $member) {
         $url = $member['website'] ?? $member['profile'];
@@ -233,17 +248,17 @@ function getOpenCollectiveSponsors(): string
             $height *= 1.5;
         }
 
-        $link = "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
+        $link = '<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
             '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
             '</a>';
 
         if ($member['rank'] >= 5) {
-            $output .= $link;
+            $output[] = $link;
 
             continue;
         }
 
-        $extra .= $link;
+        $extra[] = $link;
     }
 
     $github = [
@@ -251,12 +266,12 @@ function getOpenCollectiveSponsors(): string
     ];
 
     foreach ($github as $avatar => $user) {
-        $extra .= "\n".'<a title="'.$user.'" href="https://github.com/'.$user.'" target="_blank">'.
+        $extra[] = '<a title="'.$user.'" href="https://github.com/'.$user.'" target="_blank">'.
             '<img alt="'.$user.'" src="https://avatars.githubusercontent.com/u/'.$avatar.'?s=128&v=4" width="42" height="42">'.
             '</a>';
     }
 
-    return $output.'<details><summary>See more</summary>'.$extra.'</details>';
+    return formatAsTable($output, 8).'<details><summary>See more</summary>'.formatAsTable($extra, 12).'</details>';
 }
 
 file_put_contents('readme.md', preg_replace_callback(
