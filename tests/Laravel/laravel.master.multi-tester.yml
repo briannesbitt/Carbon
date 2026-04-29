@@ -9,9 +9,7 @@ projects:
       reference: master
       success_only: true
     install:
-      - composer config version "12.x-dev"
-      - composer require --no-update --dev "phpunit/phpunit:~12.4.0" "symfony/translation:^7.0|^8.0" --prefer-dist --no-interaction --prefer-stable
-      - composer require --no-update "orchestra/testbench-core:^10" "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^7.0|^8.0" "symfony/polyfill-mbstring:^1.0" --prefer-dist --no-interaction --prefer-stable
+      - composer require --no-update "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^7.0|^8.0" "symfony/polyfill-mbstring:^1.0" --prefer-dist --no-interaction --prefer-stable
       - composer update --prefer-dist --no-interaction --prefer-stable
     script:
       # Disable trigger_deprecation() in console/Application.php until Laravel fix the deprecation
