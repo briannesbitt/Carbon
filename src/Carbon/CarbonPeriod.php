@@ -24,7 +24,6 @@ use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
-use Carbon\Period\MonthlyMode;
 use Carbon\Traits\DeprecatedPeriodProperties;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\LocalFactory;
@@ -432,10 +431,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         DateTimeInterface|string|int|null $end = null,
         ?int $recurrences = null,
         ?int $anchorDay = null,
-        MonthlyMode $mode = MonthlyMode::AnchorDay,
+        OverflowMode $mode = OverflowMode::AnchorDay,
         ?int $options = null,
     ): static {
-        if ($anchorDay !== null && $mode !== MonthlyMode::AnchorDay) {
+        if ($anchorDay !== null && $mode !== OverflowMode::AnchorDay) {
             throw new InvalidArgumentException(
                 '$anchorDay parameter must not be set for $mode MonthlyMode::'.$mode->name,
             );
@@ -462,11 +461,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return (new static(
             $start,
             match ($mode) {
-                MonthlyMode::AnchorDay => CarbonInterval::monthWithAnchorDay(
+                OverflowMode::AnchorDay => CarbonInterval::monthWithAnchorDay(
                     $anchorDay ?? $start->day,
                 ),
-                MonthlyMode::NoOverflow => CarbonInterval::monthNoOverflow(),
-                MonthlyMode::Overflow => CarbonInterval::month(),
+                OverflowMode::NoOverflow => CarbonInterval::monthNoOverflow(),
+                OverflowMode::Overflow => CarbonInterval::month(),
             },
             $end ?? $recurrences,
         ))->setOptions($options ?? self::IMMUTABLE);

@@ -1698,8 +1698,9 @@ trait Date
      * @param string $valueUnit    unit name to modify
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
+     * @param ?int   $anchorDay    set day to this value after modification
      */
-    public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static
+    public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static
     {
         try {
             $start = $this->avoidMutation()->startOf($overflowUnit);
@@ -1708,10 +1709,18 @@ trait Date
             $date = $this->$valueUnit($value);
 
             if ($date < $start) {
+                if ($anchorDay !== null) {
+                    return $this->day(1)->$valueUnit($value)->day($anchorDay);
+                }
+
                 return $date->mutateIfMutable($start);
             }
 
             if ($date > $end) {
+                if ($anchorDay !== null) {
+                    return $this->day(1)->$valueUnit($value)->day($anchorDay);
+                }
+
                 return $date->mutateIfMutable($end);
             }
 
@@ -1727,10 +1736,11 @@ trait Date
      * @param string $valueUnit    unit name to modify
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
+     * @param ?int   $anchorDay    set day to this value after modification
      */
-    public function addUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static
+    public function addUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static
     {
-        return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit + $value, $overflowUnit);
+        return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit + $value, $overflowUnit, $anchorDay);
     }
 
     /**
@@ -1739,10 +1749,11 @@ trait Date
      * @param string $valueUnit    unit name to modify
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
+     * @param ?int   $anchorDay    set day to this value after modification
      */
-    public function subUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static
+    public function subUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static
     {
-        return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit - $value, $overflowUnit);
+        return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit - $value, $overflowUnit, $anchorDay);
     }
 
     /**
