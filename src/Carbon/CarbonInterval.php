@@ -2521,7 +2521,27 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             static::PERIOD_SECONDS => $seconds,
         ]);
 
-        $specString = static::PERIOD_PREFIX;
+        // Determine if the interval is negative based on individual negative values
+        // Note: $interval->invert is not checked here as it is the standard PHP mechanism
+        // and consumers (e.g. format()) typically handle it separately.
+        $negative = false;
+        $values = [$interval->y, $interval->m, $interval->d, $interval->h, $interval->i, $interval->s];
+        $hasNegative = false;
+        $hasPositive = false;
+
+        foreach ($values as $value) {
+            if ($value < 0) {
+                $hasNegative = true;
+            } elseif ($value > 0) {
+                $hasPositive = true;
+            }
+        }
+
+        if ($hasNegative && !$hasPositive) {
+            $negative = true;
+        }
+
+        $specString = ($negative ? '-' : '').static::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
             $specString .= $value.$key;
@@ -2534,7 +2554,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             }
         }
 
-        return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
+        return $specString === static::PERIOD_PREFIX || $specString === '-'.static::PERIOD_PREFIX ? 'PT0S' : $specString;
     }
 
     /**
