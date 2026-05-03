@@ -282,7 +282,7 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit((string) $unit, $value, $overflow);
+        return $this->addUnit((string) $unit, $value, $overflow, $anchorDay);
     }
 
     /**

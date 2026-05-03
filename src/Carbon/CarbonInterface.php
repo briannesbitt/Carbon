@@ -958,12 +958,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
      * @param Unit|int|float|string                                         $value
-     * @param bool|null                                                     $overflow
+     * @param OverflowMode|bool|null                                        $overflow
+     * @param int|null                                                      $anchorDay
      *
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, ?bool $overflow = null): static;
+    public function add($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static;
 
     /**
      * @deprecated Prefer to use add addUTCUnit() which more accurately defines what it's doing.
@@ -992,7 +993,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Add given units to the current instance.
      */
-    public function addUnit(Unit|string $unit, $value = 1, ?bool $overflow = null): static;
+    public function addUnit(Unit|string $unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static;
 
     /**
      * Add any unit to a new value without overflowing current other unit given.
@@ -1000,8 +1001,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @param string $valueUnit    unit name to modify
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
+     * @param ?int   $anchorDay    set day to this value after modification
      */
-    public function addUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static;
+    public function addUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static;
 
     /**
      * Get the difference in a human readable format in the current locale from an other
@@ -2073,7 +2075,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      *
      * @return array
      */
-    public static function getAvailableLocales();
+    public static function getAvailableLocales(): array;
 
     /**
      * Returns list of Language object for each available locale. This object allow you to get the ISO name, native
@@ -2081,7 +2083,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      *
      * @return Language[]
      */
-    public static function getAvailableLocalesInfo();
+    public static function getAvailableLocalesInfo(): array;
 
     /**
      * Returns list of calendar formats for ISO formatting.
@@ -3874,8 +3876,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @param string $valueUnit    unit name to modify
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
+     * @param ?int   $anchorDay    set day to this value after modification
      */
-    public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static;
+    public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4120,12 +4123,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
      * @param Unit|int|float|string                                         $value
-     * @param bool|null                                                     $overflow
+     * @param OverflowMode|bool|null                                        $overflow
+     * @param int|null                                                      $anchorDay
      *
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, ?bool $overflow = null): static;
+    public function sub($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static;
 
     /**
      * @deprecated Prefer to use add subUTCUnit() which more accurately defines what it's doing.
@@ -4154,7 +4158,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Subtract given units to the current instance.
      */
-    public function subUnit(Unit|string $unit, $value = 1, ?bool $overflow = null): static;
+    public function subUnit(Unit|string $unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static;
 
     /**
      * Subtract any unit to a new value without overflowing current other unit given.
@@ -4162,8 +4166,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @param string $valueUnit    unit name to modify
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
+     * @param ?int   $anchorDay    set day to this value after modification
      */
-    public function subUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit): static;
+    public function subUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static;
 
     /**
      * Subtract given units or interval to the current instance.
@@ -4387,11 +4392,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     public function toISOString(bool $keepOffset = false): ?string;
 
     /**
-     * Return a immutable copy of the instance.
-     *
-     * @return CarbonImmutable
+     * Return an immutable copy of the instance.
      */
-    public function toImmutable();
+    public function toImmutable(): CarbonImmutable;
 
     /**
      * Format the instance as ISO8601
@@ -4425,10 +4428,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
 
     /**
      * Return a mutable copy of the instance.
-     *
-     * @return Carbon
      */
-    public function toMutable();
+    public function toMutable(): Carbon;
 
     /**
      * Get the difference in a human readable format in the current locale from an other
