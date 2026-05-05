@@ -25,6 +25,7 @@ use Carbon\Unit;
 use Closure;
 use DateInterval;
 use DateMalformedStringException;
+use InvalidArgumentException;
 use ReturnTypeWillChange;
 
 /**
@@ -296,6 +297,16 @@ trait Units
     ): static {
         $unit = Unit::toName($unit);
 
+        if ($anchorDay !== null) {
+            $overflow ??= OverflowMode::AnchorDay;
+
+            if ($overflow !== OverflowMode::AnchorDay) {
+                throw new InvalidArgumentException(
+                    '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
+                );
+            }
+        }
+
         $originalArgs = \func_get_args();
 
         $date = $this;
@@ -315,6 +326,11 @@ trait Units
         if (isset($metaUnits[$unit])) {
             [$factor, $unit] = $metaUnits[$unit];
             $value *= $factor;
+        }
+
+        if ($overflow === OverflowMode::AnchorDay) {
+            $anchorDay ??= $date->day;
+            $overflow = false;
         }
 
         if ($unit === 'weekday') {
@@ -343,7 +359,7 @@ trait Units
         } elseif ($canOverflow = (\in_array($unit, [
                 'month',
                 'year',
-            ]) && ($overflow === false || (
+            ]) && ($overflow === false || $overflow === OverflowMode::NoOverflow || (
                 $overflow === null &&
                 ($ucUnit = ucfirst($unit).'s') &&
                 !($this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}())
@@ -361,10 +377,16 @@ trait Units
         try {
             $date = self::rawAddUnit($date, $unit, $value);
 
-            if (isset($timeString)) {
-                $date = $date?->setTimeFromTimeString($timeString);
-            } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
-                $date = $date?->modify('last day of previous month');
+            if ($date !== null) {
+                if (isset($timeString)) {
+                    $date = $date->setTimeFromTimeString($timeString);
+                } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date->day) {
+                    $date = $date->modify('last day of previous month');
+                }
+
+                if ($anchorDay !== null) {
+                    $date = $date->day(min($anchorDay, $date->daysInMonth));
+                }
             }
         } catch (DateMalformedStringException|InvalidFormatException|UnsupportedUnitException $exception) {
             $date = null;

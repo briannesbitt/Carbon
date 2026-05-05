@@ -28,6 +28,7 @@ use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
 use Carbon\FactoryImmutable;
 use Carbon\Month;
+use Carbon\OverflowMode;
 use Carbon\Translator;
 use Carbon\Unit;
 use Carbon\WeekDay;
@@ -373,46 +374,46 @@ use Throwable;
  * @method        CarbonInterface  microsecond(int $value)                                                            Set current instance microsecond to the given value.
  * @method        CarbonInterface  setMicroseconds(int $value)                                                        Set current instance microsecond to the given value.
  * @method        self             setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
- * @method        CarbonInterface  addYears(int|float $value = 1)                                                     Add years (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  addYear()                                                                          Add one year to the instance (using date interval).
- * @method        CarbonInterface  subYears(int|float $value = 1)                                                     Sub years (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  subYear()                                                                          Sub one year to the instance (using date interval).
- * @method        CarbonInterface  addYearsWithOverflow(int|float $value = 1)                                         Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addYearWithOverflow()                                                              Add one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subYearsWithOverflow(int|float $value = 1)                                         Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subYearWithOverflow()                                                              Sub one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addYearsWithoutOverflow(int|float $value = 1)                                      Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addYearWithoutOverflow()                                                           Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subYearsWithoutOverflow(int|float $value = 1)                                      Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subYearWithoutOverflow()                                                           Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addYearsWithNoOverflow(int|float $value = 1)                                       Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addYearWithNoOverflow()                                                            Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subYearsWithNoOverflow(int|float $value = 1)                                       Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subYearWithNoOverflow()                                                            Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addYearsNoOverflow(int|float $value = 1)                                           Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addYearNoOverflow()                                                                Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subYearsNoOverflow(int|float $value = 1)                                           Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subYearNoOverflow()                                                                Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMonths(int|float $value = 1)                                                    Add months (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  addMonth()                                                                         Add one month to the instance (using date interval).
- * @method        CarbonInterface  subMonths(int|float $value = 1)                                                    Sub months (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  subMonth()                                                                         Sub one month to the instance (using date interval).
- * @method        CarbonInterface  addMonthsWithOverflow(int|float $value = 1)                                        Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addMonthWithOverflow()                                                             Add one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subMonthsWithOverflow(int|float $value = 1)                                        Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subMonthWithOverflow()                                                             Sub one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addMonthsWithoutOverflow(int|float $value = 1)                                     Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMonthWithoutOverflow()                                                          Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMonthsWithoutOverflow(int|float $value = 1)                                     Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMonthWithoutOverflow()                                                          Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMonthsWithNoOverflow(int|float $value = 1)                                      Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMonthWithNoOverflow()                                                           Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMonthsWithNoOverflow(int|float $value = 1)                                      Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMonthWithNoOverflow()                                                           Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMonthsNoOverflow(int|float $value = 1)                                          Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMonthNoOverflow()                                                               Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMonthsNoOverflow(int|float $value = 1)                                          Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMonthNoOverflow()                                                               Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addYears(int|float $value = 1, ?int $anchorDay = null)                             Add years (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  addYear(?int $anchorDay = null)                                                    Add one year to the instance (using date interval).
+ * @method        CarbonInterface  subYears(int|float $value = 1, ?int $anchorDay = null)                             Sub years (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  subYear(?int $anchorDay = null)                                                    Sub one year to the instance (using date interval).
+ * @method        CarbonInterface  addYearsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                 Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addYearWithOverflow(?int $anchorDay = null)                                        Add one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subYearsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                 Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subYearWithOverflow(?int $anchorDay = null)                                        Sub one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addYearsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)              Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addYearWithoutOverflow(?int $anchorDay = null)                                     Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subYearsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)              Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subYearWithoutOverflow(?int $anchorDay = null)                                     Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addYearsWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)               Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addYearWithNoOverflow(?int $anchorDay = null)                                      Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subYearsWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)               Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subYearWithNoOverflow(?int $anchorDay = null)                                      Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addYearsNoOverflow(int|float $value = 1, ?int $anchorDay = null)                   Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addYearNoOverflow(?int $anchorDay = null)                                          Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subYearsNoOverflow(int|float $value = 1, ?int $anchorDay = null)                   Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subYearNoOverflow(?int $anchorDay = null)                                          Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMonths(int|float $value = 1, ?int $anchorDay = null)                            Add months (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  addMonth(?int $anchorDay = null)                                                   Add one month to the instance (using date interval).
+ * @method        CarbonInterface  subMonths(int|float $value = 1, ?int $anchorDay = null)                            Sub months (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  subMonth(?int $anchorDay = null)                                                   Sub one month to the instance (using date interval).
+ * @method        CarbonInterface  addMonthsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addMonthWithOverflow(?int $anchorDay = null)                                       Add one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subMonthsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subMonthWithOverflow(?int $anchorDay = null)                                       Sub one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addMonthsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)             Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMonthWithoutOverflow(?int $anchorDay = null)                                    Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMonthsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMonthWithoutOverflow(?int $anchorDay = null)                                    Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMonthsWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)              Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMonthWithNoOverflow(?int $anchorDay = null)                                     Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMonthsWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)              Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMonthWithNoOverflow(?int $anchorDay = null)                                     Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMonthsNoOverflow(int|float $value = 1, ?int $anchorDay = null)                  Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMonthNoOverflow(?int $anchorDay = null)                                         Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMonthsNoOverflow(int|float $value = 1, ?int $anchorDay = null)                  Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMonthNoOverflow(?int $anchorDay = null)                                         Sub one month to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonInterface  addDays(int|float $value = 1)                                                      Add days (the $value count passed in) to the instance (using date interval).
  * @method        CarbonInterface  addDay()                                                                           Add one day to the instance (using date interval).
  * @method        CarbonInterface  subDays(int|float $value = 1)                                                      Sub days (the $value count passed in) to the instance (using date interval).
@@ -445,86 +446,86 @@ use Throwable;
  * @method        CarbonInterface  addMicrosecond()                                                                   Add one microsecond to the instance (using date interval).
  * @method        CarbonInterface  subMicroseconds(int|float $value = 1)                                              Sub microseconds (the $value count passed in) to the instance (using date interval).
  * @method        CarbonInterface  subMicrosecond()                                                                   Sub one microsecond to the instance (using date interval).
- * @method        CarbonInterface  addMillennia(int|float $value = 1)                                                 Add millennia (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  addMillennium()                                                                    Add one millennium to the instance (using date interval).
- * @method        CarbonInterface  subMillennia(int|float $value = 1)                                                 Sub millennia (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  subMillennium()                                                                    Sub one millennium to the instance (using date interval).
- * @method        CarbonInterface  addMillenniaWithOverflow(int|float $value = 1)                                     Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addMillenniumWithOverflow()                                                        Add one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subMillenniaWithOverflow(int|float $value = 1)                                     Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subMillenniumWithOverflow()                                                        Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addMillenniaWithoutOverflow(int|float $value = 1)                                  Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMillenniumWithoutOverflow()                                                     Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMillenniaWithoutOverflow(int|float $value = 1)                                  Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMillenniumWithoutOverflow()                                                     Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMillenniaWithNoOverflow(int|float $value = 1)                                   Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMillenniumWithNoOverflow()                                                      Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMillenniaWithNoOverflow(int|float $value = 1)                                   Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMillenniumWithNoOverflow()                                                      Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMillenniaNoOverflow(int|float $value = 1)                                       Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addMillenniumNoOverflow()                                                          Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMillenniaNoOverflow(int|float $value = 1)                                       Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subMillenniumNoOverflow()                                                          Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addCenturies(int|float $value = 1)                                                 Add centuries (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  addCentury()                                                                       Add one century to the instance (using date interval).
- * @method        CarbonInterface  subCenturies(int|float $value = 1)                                                 Sub centuries (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  subCentury()                                                                       Sub one century to the instance (using date interval).
- * @method        CarbonInterface  addCenturiesWithOverflow(int|float $value = 1)                                     Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addCenturyWithOverflow()                                                           Add one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subCenturiesWithOverflow(int|float $value = 1)                                     Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subCenturyWithOverflow()                                                           Sub one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addCenturiesWithoutOverflow(int|float $value = 1)                                  Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addCenturyWithoutOverflow()                                                        Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subCenturiesWithoutOverflow(int|float $value = 1)                                  Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subCenturyWithoutOverflow()                                                        Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addCenturiesWithNoOverflow(int|float $value = 1)                                   Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addCenturyWithNoOverflow()                                                         Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subCenturiesWithNoOverflow(int|float $value = 1)                                   Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subCenturyWithNoOverflow()                                                         Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addCenturiesNoOverflow(int|float $value = 1)                                       Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addCenturyNoOverflow()                                                             Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subCenturiesNoOverflow(int|float $value = 1)                                       Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subCenturyNoOverflow()                                                             Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addDecades(int|float $value = 1)                                                   Add decades (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  addDecade()                                                                        Add one decade to the instance (using date interval).
- * @method        CarbonInterface  subDecades(int|float $value = 1)                                                   Sub decades (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  subDecade()                                                                        Sub one decade to the instance (using date interval).
- * @method        CarbonInterface  addDecadesWithOverflow(int|float $value = 1)                                       Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addDecadeWithOverflow()                                                            Add one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subDecadesWithOverflow(int|float $value = 1)                                       Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subDecadeWithOverflow()                                                            Sub one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addDecadesWithoutOverflow(int|float $value = 1)                                    Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addDecadeWithoutOverflow()                                                         Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subDecadesWithoutOverflow(int|float $value = 1)                                    Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subDecadeWithoutOverflow()                                                         Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addDecadesWithNoOverflow(int|float $value = 1)                                     Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addDecadeWithNoOverflow()                                                          Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subDecadesWithNoOverflow(int|float $value = 1)                                     Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subDecadeWithNoOverflow()                                                          Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addDecadesNoOverflow(int|float $value = 1)                                         Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addDecadeNoOverflow()                                                              Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subDecadesNoOverflow(int|float $value = 1)                                         Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subDecadeNoOverflow()                                                              Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addQuarters(int|float $value = 1)                                                  Add quarters (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  addQuarter()                                                                       Add one quarter to the instance (using date interval).
- * @method        CarbonInterface  subQuarters(int|float $value = 1)                                                  Sub quarters (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface  subQuarter()                                                                       Sub one quarter to the instance (using date interval).
- * @method        CarbonInterface  addQuartersWithOverflow(int|float $value = 1)                                      Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addQuarterWithOverflow()                                                           Add one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subQuartersWithOverflow(int|float $value = 1)                                      Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  subQuarterWithOverflow()                                                           Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface  addQuartersWithoutOverflow(int|float $value = 1)                                   Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addQuarterWithoutOverflow()                                                        Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subQuartersWithoutOverflow(int|float $value = 1)                                   Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subQuarterWithoutOverflow()                                                        Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addQuartersWithNoOverflow(int|float $value = 1)                                    Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addQuarterWithNoOverflow()                                                         Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subQuartersWithNoOverflow(int|float $value = 1)                                    Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subQuarterWithNoOverflow()                                                         Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addQuartersNoOverflow(int|float $value = 1)                                        Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  addQuarterNoOverflow()                                                             Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subQuartersNoOverflow(int|float $value = 1)                                        Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface  subQuarterNoOverflow()                                                             Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMillennia(int|float $value = 1, ?int $anchorDay = null)                         Add millennia (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  addMillennium(?int $anchorDay = null)                                              Add one millennium to the instance (using date interval).
+ * @method        CarbonInterface  subMillennia(int|float $value = 1, ?int $anchorDay = null)                         Sub millennia (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  subMillennium(?int $anchorDay = null)                                              Sub one millennium to the instance (using date interval).
+ * @method        CarbonInterface  addMillenniaWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addMillenniumWithOverflow(?int $anchorDay = null)                                  Add one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subMillenniaWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subMillenniumWithOverflow(?int $anchorDay = null)                                  Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addMillenniaWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMillenniumWithoutOverflow(?int $anchorDay = null)                               Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMillenniaWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMillenniumWithoutOverflow(?int $anchorDay = null)                               Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMillenniaWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)           Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMillenniumWithNoOverflow(?int $anchorDay = null)                                Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMillenniaWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)           Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMillenniumWithNoOverflow(?int $anchorDay = null)                                Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMillenniaNoOverflow(int|float $value = 1, ?int $anchorDay = null)               Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addMillenniumNoOverflow(?int $anchorDay = null)                                    Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMillenniaNoOverflow(int|float $value = 1, ?int $anchorDay = null)               Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subMillenniumNoOverflow(?int $anchorDay = null)                                    Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addCenturies(int|float $value = 1, ?int $anchorDay = null)                         Add centuries (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  addCentury(?int $anchorDay = null)                                                 Add one century to the instance (using date interval).
+ * @method        CarbonInterface  subCenturies(int|float $value = 1, ?int $anchorDay = null)                         Sub centuries (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  subCentury(?int $anchorDay = null)                                                 Sub one century to the instance (using date interval).
+ * @method        CarbonInterface  addCenturiesWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addCenturyWithOverflow(?int $anchorDay = null)                                     Add one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subCenturiesWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subCenturyWithOverflow(?int $anchorDay = null)                                     Sub one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addCenturiesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addCenturyWithoutOverflow(?int $anchorDay = null)                                  Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subCenturiesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subCenturyWithoutOverflow(?int $anchorDay = null)                                  Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addCenturiesWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)           Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addCenturyWithNoOverflow(?int $anchorDay = null)                                   Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subCenturiesWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)           Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subCenturyWithNoOverflow(?int $anchorDay = null)                                   Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addCenturiesNoOverflow(int|float $value = 1, ?int $anchorDay = null)               Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addCenturyNoOverflow(?int $anchorDay = null)                                       Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subCenturiesNoOverflow(int|float $value = 1, ?int $anchorDay = null)               Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subCenturyNoOverflow(?int $anchorDay = null)                                       Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addDecades(int|float $value = 1, ?int $anchorDay = null)                           Add decades (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  addDecade(?int $anchorDay = null)                                                  Add one decade to the instance (using date interval).
+ * @method        CarbonInterface  subDecades(int|float $value = 1, ?int $anchorDay = null)                           Sub decades (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  subDecade(?int $anchorDay = null)                                                  Sub one decade to the instance (using date interval).
+ * @method        CarbonInterface  addDecadesWithOverflow(int|float $value = 1, ?int $anchorDay = null)               Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addDecadeWithOverflow(?int $anchorDay = null)                                      Add one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subDecadesWithOverflow(int|float $value = 1, ?int $anchorDay = null)               Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subDecadeWithOverflow(?int $anchorDay = null)                                      Sub one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addDecadesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)            Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addDecadeWithoutOverflow(?int $anchorDay = null)                                   Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subDecadesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)            Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subDecadeWithoutOverflow(?int $anchorDay = null)                                   Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addDecadesWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)             Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addDecadeWithNoOverflow(?int $anchorDay = null)                                    Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subDecadesWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subDecadeWithNoOverflow(?int $anchorDay = null)                                    Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addDecadesNoOverflow(int|float $value = 1, ?int $anchorDay = null)                 Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addDecadeNoOverflow(?int $anchorDay = null)                                        Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subDecadesNoOverflow(int|float $value = 1, ?int $anchorDay = null)                 Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subDecadeNoOverflow(?int $anchorDay = null)                                        Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addQuarters(int|float $value = 1, ?int $anchorDay = null)                          Add quarters (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  addQuarter(?int $anchorDay = null)                                                 Add one quarter to the instance (using date interval).
+ * @method        CarbonInterface  subQuarters(int|float $value = 1, ?int $anchorDay = null)                          Sub quarters (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface  subQuarter(?int $anchorDay = null)                                                 Sub one quarter to the instance (using date interval).
+ * @method        CarbonInterface  addQuartersWithOverflow(int|float $value = 1, ?int $anchorDay = null)              Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addQuarterWithOverflow(?int $anchorDay = null)                                     Add one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subQuartersWithOverflow(int|float $value = 1, ?int $anchorDay = null)              Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  subQuarterWithOverflow(?int $anchorDay = null)                                     Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface  addQuartersWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)           Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addQuarterWithoutOverflow(?int $anchorDay = null)                                  Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subQuartersWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)           Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subQuarterWithoutOverflow(?int $anchorDay = null)                                  Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addQuartersWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)            Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addQuarterWithNoOverflow(?int $anchorDay = null)                                   Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subQuartersWithNoOverflow(int|float $value = 1, ?int $anchorDay = null)            Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subQuarterWithNoOverflow(?int $anchorDay = null)                                   Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addQuartersNoOverflow(int|float $value = 1, ?int $anchorDay = null)                Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  addQuarterNoOverflow(?int $anchorDay = null)                                       Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subQuartersNoOverflow(int|float $value = 1, ?int $anchorDay = null)                Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface  subQuarterNoOverflow(?int $anchorDay = null)                                       Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonInterface  addWeeks(int|float $value = 1)                                                     Add weeks (the $value count passed in) to the instance (using date interval).
  * @method        CarbonInterface  addWeek()                                                                          Add one week to the instance (using date interval).
  * @method        CarbonInterface  subWeeks(int|float $value = 1)                                                     Sub weeks (the $value count passed in) to the instance (using date interval).
@@ -2913,7 +2914,14 @@ trait Date
         }
 
         if (static::isModifiableUnit($unit)) {
-            return $this->{"{$action}Unit"}($unit, $this->getMagicParameter($parameters, 0, 'value', 1), $overflow);
+            $anchorDay = $this->getMagicParameter($parameters, 1, 'anchorDay', null);
+
+            return $this->{"{$action}Unit"}(
+                $unit,
+                $this->getMagicParameter($parameters, 0, 'value', 1),
+                $anchorDay === null ? $overflow : OverflowMode::AnchorDay,
+                $anchorDay,
+            );
         }
 
         return null;

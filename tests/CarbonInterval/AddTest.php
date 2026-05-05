@@ -16,6 +16,8 @@ namespace Tests\CarbonInterval;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
+use Carbon\OverflowMode;
+use Carbon\Unit;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
@@ -32,7 +34,7 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 6, 4, 54, 30, 43, 55);
     }
 
-    public function testAddMonthWithAnchorDay()
+    public function testAddMonthIntervalWithAnchorDay()
     {
         $this->assertSame(
             '2020-03-31 12:34:56.987654',
@@ -44,6 +46,40 @@ class AddTest extends AbstractTestCase
             '2020-04-30 12:34:56.987654',
             Carbon::parse('2020-03-31 12:34:56.987654')
                 ->add(CarbonInterval::monthWithAnchorDay(31))
+                ->format('Y-m-d H:i:s.u')
+        );
+    }
+
+    public function testAddMonthWithAnchorDay()
+    {
+        $this->assertSame(
+            '2020-03-31 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->add(Unit::Month, 1, OverflowMode::AnchorDay, 31)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2020-04-30 12:34:56.987654',
+            Carbon::parse('2020-03-31 12:34:56.987654')
+                ->add('month', anchorDay: 31)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2020-04-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->add(2, 'months', anchorDay: 31)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2020-04-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->addMonthsNoOverflow(2, 31)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2020-04-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->addMonths(2, anchorDay: 31)
                 ->format('Y-m-d H:i:s.u')
         );
     }
