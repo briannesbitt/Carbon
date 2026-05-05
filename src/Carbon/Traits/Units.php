@@ -486,7 +486,7 @@ trait Units
             $unit = CarbonInterval::make($unit, [], true);
         }
 
-        return $this->sub($unit, $value, $overflow);
+        return $this->sub($unit, $value, $overflow, $anchorDay);
     }
 
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
