@@ -1696,13 +1696,20 @@ trait Date
     /**
      * Set any unit to a new value without overflowing current other unit given.
      *
-     * @param string $valueUnit    unit name to modify
-     * @param int    $value        new value for the input unit
-     * @param string $overflowUnit unit name to not overflow
-     * @param ?int   $anchorDay    set day to this value after modification
+     * @param Unit|string $valueUnit    unit name to modify
+     * @param int         $value        new value for the input unit
+     * @param Unit|string $overflowUnit unit name to not overflow
+     * @param ?int        $anchorDay    set day to this value after modification
      */
-    public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static
-    {
+    public function setUnitNoOverflow(
+        Unit|string $valueUnit,
+        int $value,
+        Unit|string $overflowUnit,
+        ?int $anchorDay = null,
+    ): static {
+        $valueUnit = Unit::toName($valueUnit);
+        $overflowUnit = Unit::toName($overflowUnit);
+
         try {
             $start = $this->avoidMutation()->startOf($overflowUnit);
             $end = $this->avoidMutation()->endOf($overflowUnit);
@@ -1710,22 +1717,14 @@ trait Date
             $date = $this->$valueUnit($value);
 
             if ($date < $start) {
-                if ($anchorDay !== null) {
-                    return $this->day(1)->$valueUnit($value)->day($anchorDay);
-                }
-
-                return $date->mutateIfMutable($start);
+                return $date->mutateIfMutable($start)->setAnchorDayIfNotNull($anchorDay);
             }
 
             if ($date > $end) {
-                if ($anchorDay !== null) {
-                    return $this->day(1)->$valueUnit($value)->day($anchorDay);
-                }
-
-                return $date->mutateIfMutable($end);
+                return $date->mutateIfMutable($end)->setAnchorDayIfNotNull($anchorDay);
             }
 
-            return $date;
+            return $date->setAnchorDayIfNotNull($anchorDay);
         } catch (BadMethodCallException | ReflectionException $exception) {
             throw new UnknownUnitException($valueUnit, 0, $exception);
         }
@@ -1734,26 +1733,38 @@ trait Date
     /**
      * Add any unit to a new value without overflowing current other unit given.
      *
-     * @param string $valueUnit    unit name to modify
-     * @param int    $value        amount to add to the input unit
-     * @param string $overflowUnit unit name to not overflow
-     * @param ?int   $anchorDay    set day to this value after modification
+     * @param Unit|string $valueUnit    unit name to modify
+     * @param int         $value        amount to add to the input unit
+     * @param Unit|string $overflowUnit unit name to not overflow
+     * @param ?int        $anchorDay    set day to this value after modification
      */
-    public function addUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static
-    {
+    public function addUnitNoOverflow(
+        Unit|string $valueUnit,
+        int $value,
+        Unit|string $overflowUnit,
+        ?int $anchorDay = null,
+    ): static {
+        $valueUnit = Unit::toName($valueUnit);
+
         return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit + $value, $overflowUnit, $anchorDay);
     }
 
     /**
      * Subtract any unit to a new value without overflowing current other unit given.
      *
-     * @param string $valueUnit    unit name to modify
-     * @param int    $value        amount to subtract to the input unit
-     * @param string $overflowUnit unit name to not overflow
-     * @param ?int   $anchorDay    set day to this value after modification
+     * @param Unit|string $valueUnit    unit name to modify
+     * @param int         $value        amount to subtract to the input unit
+     * @param Unit|string $overflowUnit unit name to not overflow
+     * @param ?int        $anchorDay    set day to this value after modification
      */
-    public function subUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static
-    {
+    public function subUnitNoOverflow(
+        Unit|string $valueUnit,
+        int $value,
+        Unit|string $overflowUnit,
+        ?int $anchorDay = null,
+    ): static {
+        $valueUnit = Unit::toName($valueUnit);
+
         return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit - $value, $overflowUnit, $anchorDay);
     }
 
@@ -2988,5 +2999,10 @@ trait Date
         return $this instanceof DateTimeImmutable
             ? $date
             : $this->modify('@'.$date->rawFormat('U.u'))->setTimezone($date->getTimezone());
+    }
+
+    private function setAnchorDayIfNotNull(?int $anchorDay): static
+    {
+        return $anchorDay === null ? $this : $this->setAnchorDay($anchorDay);
     }
 }

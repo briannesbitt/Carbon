@@ -385,7 +385,7 @@ trait Units
                 }
 
                 if ($anchorDay !== null) {
-                    $date = $date->day(min($anchorDay, $date->daysInMonth));
+                    $date = $date->setAnchorDay($anchorDay);
                 }
             }
         } catch (DateMalformedStringException|InvalidFormatException|UnsupportedUnitException $exception) {
@@ -524,5 +524,18 @@ trait Units
         }
 
         return $stringValue;
+    }
+
+    /**
+     * Set current day of the instance to the passed value if it exits in the
+     * current month, else set current day to the last day of the month.
+     */
+    public function setAnchorDay(int $anchorDay): static
+    {
+        if ($anchorDay < 1) {
+            throw new InvalidArgumentException('$anchorDay must be greater than 0');
+        }
+
+        return $this->day(min($anchorDay, $this->daysInMonth));
     }
 }

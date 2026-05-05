@@ -82,6 +82,31 @@ class AddTest extends AbstractTestCase
                 ->addMonths(2, anchorDay: 31)
                 ->format('Y-m-d H:i:s.u')
         );
+        $this->assertSame(
+            '2020-05-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->addMonths(3, anchorDay: 30)
+                ->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2020-04-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->addUnitNoOverflow(Unit::Month, 2, Unit::Year, 31)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2020-04-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->addUnitNoOverflow(Unit::Month, 2, Unit::Year, 31)
+                ->format('Y-m-d H:i:s.u')
+        );
+        $this->assertSame(
+            '2020-05-30 12:34:56.987654',
+            Carbon::parse('2020-02-29 12:34:56.987654')
+                ->addUnitNoOverflow(Unit::Month, 3, Unit::Year, 30)
+                ->format('Y-m-d H:i:s.u')
+        );
     }
 
     public function testNamedParameters()

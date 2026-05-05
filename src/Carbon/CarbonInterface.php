@@ -998,12 +998,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Add any unit to a new value without overflowing current other unit given.
      *
-     * @param string $valueUnit    unit name to modify
-     * @param int    $value        amount to add to the input unit
-     * @param string $overflowUnit unit name to not overflow
-     * @param ?int   $anchorDay    set day to this value after modification
+     * @param Unit|string $valueUnit    unit name to modify
+     * @param int         $value        amount to add to the input unit
+     * @param Unit|string $overflowUnit unit name to not overflow
+     * @param ?int        $anchorDay    set day to this value after modification
      */
-    public function addUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static;
+    public function addUnitNoOverflow(Unit|string $valueUnit, int $value, Unit|string $overflowUnit, ?int $anchorDay = null): static;
 
     /**
      * Get the difference in a human readable format in the current locale from an other
@@ -3873,12 +3873,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Set any unit to a new value without overflowing current other unit given.
      *
-     * @param string $valueUnit    unit name to modify
-     * @param int    $value        new value for the input unit
-     * @param string $overflowUnit unit name to not overflow
-     * @param ?int   $anchorDay    set day to this value after modification
+     * @param Unit|string $valueUnit    unit name to modify
+     * @param int         $value        new value for the input unit
+     * @param Unit|string $overflowUnit unit name to not overflow
+     * @param ?int        $anchorDay    set day to this value after modification
      */
-    public function setUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static;
+    public function setUnitNoOverflow(Unit|string $valueUnit, int $value, Unit|string $overflowUnit, ?int $anchorDay = null): static;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -4163,12 +4163,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Subtract any unit to a new value without overflowing current other unit given.
      *
-     * @param string $valueUnit    unit name to modify
-     * @param int    $value        amount to subtract to the input unit
-     * @param string $overflowUnit unit name to not overflow
-     * @param ?int   $anchorDay    set day to this value after modification
+     * @param Unit|string $valueUnit    unit name to modify
+     * @param int         $value        amount to subtract to the input unit
+     * @param Unit|string $overflowUnit unit name to not overflow
+     * @param ?int        $anchorDay    set day to this value after modification
      */
-    public function subUnitNoOverflow(string $valueUnit, int $value, string $overflowUnit, ?int $anchorDay = null): static;
+    public function subUnitNoOverflow(Unit|string $valueUnit, int $value, Unit|string $overflowUnit, ?int $anchorDay = null): static;
 
     /**
      * Subtract given units or interval to the current instance.
