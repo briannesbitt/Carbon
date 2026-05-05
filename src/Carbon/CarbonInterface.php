@@ -4177,11 +4177,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      *
      * @param Unit|int|string|DateInterval $unit
      * @param Unit|int|float|string        $value
-     * @param bool|null                    $overflow
+     * @param OverflowMode|bool|null       $overflow
+     * @param int|null                     $anchorDay
      *
      * @return static
      */
-    public function subtract($unit, $value = 1, ?bool $overflow = null): static;
+    public function subtract($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static;
 
     /**
      * Get the difference in a human-readable format in the current locale from current instance to another

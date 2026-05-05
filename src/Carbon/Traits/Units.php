@@ -475,11 +475,12 @@ trait Units
      *
      * @param Unit|int|string|DateInterval $unit
      * @param Unit|int|float|string        $value
-     * @param bool|null                    $overflow
+     * @param OverflowMode|bool|null       $overflow
+     * @param int|null                     $anchorDay
      *
      * @return static
      */
-    public function subtract($unit, $value = 1, ?bool $overflow = null): static
+    public function subtract($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit, [], true);
