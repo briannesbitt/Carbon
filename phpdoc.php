@@ -369,7 +369,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'self',
-                            'add'.ucFirst($plUnit).'WithOverflow(int|float $value = 1, ?int $anchorDay = null)',
+                            'add'.ucFirst($plUnit).'WithOverflow(int|float $value = 1)',
                             "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
@@ -381,7 +381,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'self',
-                            'sub'.ucFirst($plUnit).'WithOverflow(int|float $value = 1, ?int $anchorDay = null)',
+                            'sub'.ucFirst($plUnit).'WithOverflow(int|float $value = 1)',
                             "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [

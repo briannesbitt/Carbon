@@ -295,4 +295,65 @@ class ModifyTest extends AbstractTestCase
             Carbon::parse('2000-01-25')->addRealUnit('millisecond', '7')->format('Y-m-d H:i:s.u')
         );
     }
+
+    public function testAnchorDay(): void
+    {
+        $this->assertSame(
+            '2023-03-31 00:00:00',
+            Carbon::parse('2023-02-28')->addMonths(1, anchorDay: 31)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2023-04-30 00:00:00',
+            Carbon::parse('2023-02-28')->addMonths(2, anchorDay: 31)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2023-03-31 00:00:00',
+            Carbon::parse('2023-02-28')->addMonthsNoOverflow(1, anchorDay: 31)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2023-04-30 00:00:00',
+            Carbon::parse('2023-02-28')->addMonthsNoOverflow(2, anchorDay: 31)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2024-02-29 00:00:00',
+            Carbon::parse('2023-02-28')->addYears(1, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2025-02-28 00:00:00',
+            Carbon::parse('2023-02-28')->addYears(2, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2024-02-29 00:00:00',
+            Carbon::parse('2023-02-28')->addYearsNoOverflow(1, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2025-02-28 00:00:00',
+            Carbon::parse('2023-02-28')->addYearsNoOverflow(2, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2024-02-29 00:00:00',
+            Carbon::parse('2023-02-28')->addYearsWithNoOverflow(1, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2025-02-28 00:00:00',
+            Carbon::parse('2023-02-28')->addYearsWithNoOverflow(2, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2024-02-29 00:00:00',
+            Carbon::parse('2023-02-28')->addYearsWithoutOverflow(1, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+        $this->assertSame(
+            '2025-02-28 00:00:00',
+            Carbon::parse('2023-02-28')->addYearsWithoutOverflow(2, anchorDay: 29)->format('Y-m-d H:i:s'),
+        );
+    }
+
+    public function testAnchorDayIsIncompatibleWithOverflow(): void
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            '$anchorDay is not compatible with overflow',
+        ));
+
+        Carbon::parse('2023-02-28')->addYearsWithOverflow(2, anchorDay: 29);
+    }
 }

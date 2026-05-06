@@ -350,9 +350,9 @@ use DateTimeInterface;
  * @method        $this            addYear()                                                                          Add one year to the instance (using date interval).
  * @method        $this            subYears(int|float $value = 1, ?int $anchorDay = null)                             Sub years (the $value count passed in) to the instance (using date interval).
  * @method        $this            subYear()                                                                          Sub one year to the instance (using date interval).
- * @method        $this            addYearsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                 Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            addYearsWithOverflow(int|float $value = 1)                                         Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addYearWithOverflow()                                                              Add one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        $this            subYearsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                 Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            subYearsWithOverflow(int|float $value = 1)                                         Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            subYearWithOverflow()                                                              Sub one year to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addYearsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)              Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        $this            addYearWithoutOverflow()                                                           Add one year to the instance (using date interval) with overflow explicitly forbidden.
@@ -370,9 +370,9 @@ use DateTimeInterface;
  * @method        $this            addMonth()                                                                         Add one month to the instance (using date interval).
  * @method        $this            subMonths(int|float $value = 1, ?int $anchorDay = null)                            Sub months (the $value count passed in) to the instance (using date interval).
  * @method        $this            subMonth()                                                                         Sub one month to the instance (using date interval).
- * @method        $this            addMonthsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            addMonthsWithOverflow(int|float $value = 1)                                        Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addMonthWithOverflow()                                                             Add one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        $this            subMonthsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            subMonthsWithOverflow(int|float $value = 1)                                        Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            subMonthWithOverflow()                                                             Sub one month to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addMonthsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)             Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        $this            addMonthWithoutOverflow()                                                          Add one month to the instance (using date interval) with overflow explicitly forbidden.
@@ -422,9 +422,9 @@ use DateTimeInterface;
  * @method        $this            addMillennium()                                                                    Add one millennium to the instance (using date interval).
  * @method        $this            subMillennia(int|float $value = 1, ?int $anchorDay = null)                         Sub millennia (the $value count passed in) to the instance (using date interval).
  * @method        $this            subMillennium()                                                                    Sub one millennium to the instance (using date interval).
- * @method        $this            addMillenniaWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            addMillenniaWithOverflow(int|float $value = 1)                                     Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addMillenniumWithOverflow()                                                        Add one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        $this            subMillenniaWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            subMillenniaWithOverflow(int|float $value = 1)                                     Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            subMillenniumWithOverflow()                                                        Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addMillenniaWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        $this            addMillenniumWithoutOverflow()                                                     Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
@@ -442,9 +442,9 @@ use DateTimeInterface;
  * @method        $this            addCentury()                                                                       Add one century to the instance (using date interval).
  * @method        $this            subCenturies(int|float $value = 1, ?int $anchorDay = null)                         Sub centuries (the $value count passed in) to the instance (using date interval).
  * @method        $this            subCentury()                                                                       Sub one century to the instance (using date interval).
- * @method        $this            addCenturiesWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            addCenturiesWithOverflow(int|float $value = 1)                                     Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addCenturyWithOverflow()                                                           Add one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        $this            subCenturiesWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            subCenturiesWithOverflow(int|float $value = 1)                                     Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            subCenturyWithOverflow()                                                           Sub one century to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addCenturiesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        $this            addCenturyWithoutOverflow()                                                        Add one century to the instance (using date interval) with overflow explicitly forbidden.
@@ -462,9 +462,9 @@ use DateTimeInterface;
  * @method        $this            addDecade()                                                                        Add one decade to the instance (using date interval).
  * @method        $this            subDecades(int|float $value = 1, ?int $anchorDay = null)                           Sub decades (the $value count passed in) to the instance (using date interval).
  * @method        $this            subDecade()                                                                        Sub one decade to the instance (using date interval).
- * @method        $this            addDecadesWithOverflow(int|float $value = 1, ?int $anchorDay = null)               Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            addDecadesWithOverflow(int|float $value = 1)                                       Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addDecadeWithOverflow()                                                            Add one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        $this            subDecadesWithOverflow(int|float $value = 1, ?int $anchorDay = null)               Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            subDecadesWithOverflow(int|float $value = 1)                                       Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            subDecadeWithOverflow()                                                            Sub one decade to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addDecadesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)            Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        $this            addDecadeWithoutOverflow()                                                         Add one decade to the instance (using date interval) with overflow explicitly forbidden.
@@ -482,9 +482,9 @@ use DateTimeInterface;
  * @method        $this            addQuarter()                                                                       Add one quarter to the instance (using date interval).
  * @method        $this            subQuarters(int|float $value = 1, ?int $anchorDay = null)                          Sub quarters (the $value count passed in) to the instance (using date interval).
  * @method        $this            subQuarter()                                                                       Sub one quarter to the instance (using date interval).
- * @method        $this            addQuartersWithOverflow(int|float $value = 1, ?int $anchorDay = null)              Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            addQuartersWithOverflow(int|float $value = 1)                                      Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addQuarterWithOverflow()                                                           Add one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        $this            subQuartersWithOverflow(int|float $value = 1, ?int $anchorDay = null)              Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        $this            subQuartersWithOverflow(int|float $value = 1)                                      Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            subQuarterWithOverflow()                                                           Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
  * @method        $this            addQuartersWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)           Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        $this            addQuarterWithoutOverflow()                                                        Add one quarter to the instance (using date interval) with overflow explicitly forbidden.

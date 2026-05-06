@@ -350,9 +350,9 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addYear()                                                                          Add one year to the instance (using date interval).
  * @method        CarbonImmutable  subYears(int|float $value = 1, ?int $anchorDay = null)                             Sub years (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subYear()                                                                          Sub one year to the instance (using date interval).
- * @method        CarbonImmutable  addYearsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                 Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  addYearsWithOverflow(int|float $value = 1)                                         Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addYearWithOverflow()                                                              Add one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonImmutable  subYearsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                 Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  subYearsWithOverflow(int|float $value = 1)                                         Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  subYearWithOverflow()                                                              Sub one year to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addYearsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)              Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonImmutable  addYearWithoutOverflow()                                                           Add one year to the instance (using date interval) with overflow explicitly forbidden.
@@ -370,9 +370,9 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addMonth()                                                                         Add one month to the instance (using date interval).
  * @method        CarbonImmutable  subMonths(int|float $value = 1, ?int $anchorDay = null)                            Sub months (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subMonth()                                                                         Sub one month to the instance (using date interval).
- * @method        CarbonImmutable  addMonthsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  addMonthsWithOverflow(int|float $value = 1)                                        Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addMonthWithOverflow()                                                             Add one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonImmutable  subMonthsWithOverflow(int|float $value = 1, ?int $anchorDay = null)                Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  subMonthsWithOverflow(int|float $value = 1)                                        Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  subMonthWithOverflow()                                                             Sub one month to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addMonthsWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)             Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonImmutable  addMonthWithoutOverflow()                                                          Add one month to the instance (using date interval) with overflow explicitly forbidden.
@@ -422,9 +422,9 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addMillennium()                                                                    Add one millennium to the instance (using date interval).
  * @method        CarbonImmutable  subMillennia(int|float $value = 1, ?int $anchorDay = null)                         Sub millennia (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subMillennium()                                                                    Sub one millennium to the instance (using date interval).
- * @method        CarbonImmutable  addMillenniaWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  addMillenniaWithOverflow(int|float $value = 1)                                     Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addMillenniumWithOverflow()                                                        Add one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonImmutable  subMillenniaWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  subMillenniaWithOverflow(int|float $value = 1)                                     Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  subMillenniumWithOverflow()                                                        Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addMillenniaWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonImmutable  addMillenniumWithoutOverflow()                                                     Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
@@ -442,9 +442,9 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addCentury()                                                                       Add one century to the instance (using date interval).
  * @method        CarbonImmutable  subCenturies(int|float $value = 1, ?int $anchorDay = null)                         Sub centuries (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subCentury()                                                                       Sub one century to the instance (using date interval).
- * @method        CarbonImmutable  addCenturiesWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  addCenturiesWithOverflow(int|float $value = 1)                                     Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addCenturyWithOverflow()                                                           Add one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonImmutable  subCenturiesWithOverflow(int|float $value = 1, ?int $anchorDay = null)             Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  subCenturiesWithOverflow(int|float $value = 1)                                     Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  subCenturyWithOverflow()                                                           Sub one century to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addCenturiesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)          Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonImmutable  addCenturyWithoutOverflow()                                                        Add one century to the instance (using date interval) with overflow explicitly forbidden.
@@ -462,9 +462,9 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addDecade()                                                                        Add one decade to the instance (using date interval).
  * @method        CarbonImmutable  subDecades(int|float $value = 1, ?int $anchorDay = null)                           Sub decades (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subDecade()                                                                        Sub one decade to the instance (using date interval).
- * @method        CarbonImmutable  addDecadesWithOverflow(int|float $value = 1, ?int $anchorDay = null)               Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  addDecadesWithOverflow(int|float $value = 1)                                       Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addDecadeWithOverflow()                                                            Add one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonImmutable  subDecadesWithOverflow(int|float $value = 1, ?int $anchorDay = null)               Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  subDecadesWithOverflow(int|float $value = 1)                                       Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  subDecadeWithOverflow()                                                            Sub one decade to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addDecadesWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)            Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonImmutable  addDecadeWithoutOverflow()                                                         Add one decade to the instance (using date interval) with overflow explicitly forbidden.
@@ -482,9 +482,9 @@ use DateTimeInterface;
  * @method        CarbonImmutable  addQuarter()                                                                       Add one quarter to the instance (using date interval).
  * @method        CarbonImmutable  subQuarters(int|float $value = 1, ?int $anchorDay = null)                          Sub quarters (the $value count passed in) to the instance (using date interval).
  * @method        CarbonImmutable  subQuarter()                                                                       Sub one quarter to the instance (using date interval).
- * @method        CarbonImmutable  addQuartersWithOverflow(int|float $value = 1, ?int $anchorDay = null)              Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  addQuartersWithOverflow(int|float $value = 1)                                      Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addQuarterWithOverflow()                                                           Add one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonImmutable  subQuartersWithOverflow(int|float $value = 1, ?int $anchorDay = null)              Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonImmutable  subQuartersWithOverflow(int|float $value = 1)                                      Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  subQuarterWithOverflow()                                                           Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
  * @method        CarbonImmutable  addQuartersWithoutOverflow(int|float $value = 1, ?int $anchorDay = null)           Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
  * @method        CarbonImmutable  addQuarterWithoutOverflow()                                                        Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
