@@ -331,10 +331,19 @@ foreach ($tags as $tag) {
                     $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
                     $plUnitName = pluralize($unitName);
+                    $monthOrBigger = \in_array($unit, [
+                        'month',
+                        'quarter',
+                        'year',
+                        'decade',
+                        'century',
+                        'millennium',
+                    ]);
+                    $commaAnchorDay = $monthOrBigger ? ', ?int $anchorDay = null' : '';
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'add'.ucFirst($plUnit).'(int|float $value = 1)',
+                        'add'.ucFirst($plUnit).'(int|float $value = 1'.$commaAnchorDay.')',
                         "Add $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
@@ -346,7 +355,7 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'sub'.ucFirst($plUnit).'(int|float $value = 1)',
+                        'sub'.ucFirst($plUnit).'(int|float $value = 1'.$commaAnchorDay.')',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
@@ -356,14 +365,7 @@ foreach ($tags as $tag) {
                         "Sub one $unitName to the instance (using date interval).",
                     ];
 
-                    if (\in_array($unit, [
-                        'month',
-                        'quarter',
-                        'year',
-                        'decade',
-                        'century',
-                        'millennium',
-                    ])) {
+                    if ($monthOrBigger) {
                         $autoDocLines[] = [
                             '@method',
                             'self',
@@ -393,7 +395,7 @@ foreach ($tags as $tag) {
                             $autoDocLines[] = [
                                 '@method',
                                 'self',
-                                'add'.ucFirst($plUnit)."$alias(int|float \$value = 1)",
+                                'add'.ucFirst($plUnit)."$alias(int|float \$value = 1, ?int \$anchorDay = null)",
                                 "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
@@ -405,7 +407,7 @@ foreach ($tags as $tag) {
                             $autoDocLines[] = [
                                 '@method',
                                 'self',
-                                'sub'.ucFirst($plUnit)."$alias(int|float \$value = 1)",
+                                'sub'.ucFirst($plUnit)."$alias(int|float \$value = 1, ?int \$anchorDay = null)",
                                 "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [

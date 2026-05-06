@@ -20,6 +20,7 @@ use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnsupportedUnitException;
 use Carbon\Month;
+use Carbon\OverflowMode;
 use Carbon\Unit;
 use DateInterval;
 use DateTimeZone;
@@ -784,6 +785,24 @@ class SettersTest extends AbstractTestCase
 
         $date = Carbon::parse('2021-09-13');
         @$date->addUnit('foobar', 1);
+    }
+
+    public function testAddUnitInvalidOverflowMode()
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
+        ));
+
+        Carbon::parse('2021-11-30')->addUnit('month', 1, OverflowMode::Overflow, 31);
+    }
+
+    public function testSetAnchorDay()
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            '$anchorDay must be greater than 0',
+        ));
+
+        Carbon::parse('2021-10-30')->setAnchorDay(0);
     }
 
     public function testUnsupportedUnitException()

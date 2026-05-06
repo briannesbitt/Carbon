@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Carbon\Traits;
 
+use BadMethodCallException;
 use Carbon\Callback;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -28,12 +29,12 @@ trait IntervalStep
      *
      * @var Closure|null
      */
-    protected $step;
+    protected ?Closure $step = null;
 
     /**
      * Get the dynamic step in use.
      *
-     * @return Closure
+     * @return Closure|null
      */
     public function getStep(): ?Closure
     {
@@ -90,5 +91,17 @@ trait IntervalStep
         }
 
         return Carbon::instance($dateTime);
+    }
+
+    private function checkNoStepIsDefined(string $method): void
+    {
+        if ($this->step !== null) {
+            $chunks = explode('::', $method, 2);
+            $method = $chunks[1] ?? $method;
+
+            throw new BadMethodCallException(
+                "->$method() cannot be called on an interval with a step",
+            );
+        }
     }
 }

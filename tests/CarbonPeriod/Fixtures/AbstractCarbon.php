@@ -15,6 +15,7 @@ namespace Tests\CarbonPeriod\Fixtures;
 
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\OverflowMode;
 use DateTime;
 use ReturnTypeWillChange;
 
@@ -31,13 +32,13 @@ abstract class AbstractCarbon extends DateTime implements CarbonInterface
     }
 
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, ?bool $overflow = null): static
+    public function add($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {
         return parent::add($unit);
     }
 
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, ?bool $overflow = null): static
+    public function sub($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {
         return parent::sub($unit);
     }

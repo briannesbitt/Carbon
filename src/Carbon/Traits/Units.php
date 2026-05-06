@@ -20,10 +20,12 @@ use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnsupportedUnitException;
+use Carbon\OverflowMode;
 use Carbon\Unit;
 use Closure;
 use DateInterval;
 use DateMalformedStringException;
+use InvalidArgumentException;
 use ReturnTypeWillChange;
 
 /**
@@ -244,12 +246,13 @@ trait Units
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
      * @param Unit|int|float|string                                         $value
-     * @param bool|null                                                     $overflow
+     * @param OverflowMode|bool|null                                        $overflow
+     * @param int|null                                                      $anchorDay
      *
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function add($unit, $value = 1, ?bool $overflow = null): static
+    public function add($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {
         $unit = Unit::toNameIfUnit($unit);
         $value = Unit::toNameIfUnit($value);
@@ -280,15 +283,29 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit((string) $unit, $value, $overflow);
+        return $this->addUnit((string) $unit, $value, $overflow, $anchorDay);
     }
 
     /**
      * Add given units to the current instance.
      */
-    public function addUnit(Unit|string $unit, $value = 1, ?bool $overflow = null): static
-    {
+    public function addUnit(
+        Unit|string $unit,
+        $value = 1,
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
+    ): static {
         $unit = Unit::toName($unit);
+
+        if ($anchorDay !== null) {
+            $overflow ??= OverflowMode::AnchorDay;
+
+            if ($overflow !== OverflowMode::AnchorDay) {
+                throw new InvalidArgumentException(
+                    '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
+                );
+            }
+        }
 
         $originalArgs = \func_get_args();
 
@@ -309,6 +326,11 @@ trait Units
         if (isset($metaUnits[$unit])) {
             [$factor, $unit] = $metaUnits[$unit];
             $value *= $factor;
+        }
+
+        if ($overflow === OverflowMode::AnchorDay) {
+            $anchorDay ??= $date->day;
+            $overflow = false;
         }
 
         if ($unit === 'weekday') {
@@ -337,7 +359,7 @@ trait Units
         } elseif ($canOverflow = (\in_array($unit, [
                 'month',
                 'year',
-            ]) && ($overflow === false || (
+            ]) && ($overflow === false || $overflow === OverflowMode::NoOverflow || (
                 $overflow === null &&
                 ($ucUnit = ucfirst($unit).'s') &&
                 !($this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}())
@@ -355,10 +377,16 @@ trait Units
         try {
             $date = self::rawAddUnit($date, $unit, $value);
 
-            if (isset($timeString)) {
-                $date = $date?->setTimeFromTimeString($timeString);
-            } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date?->day) {
-                $date = $date?->modify('last day of previous month');
+            if ($date !== null) {
+                if (isset($timeString)) {
+                    $date = $date->setTimeFromTimeString($timeString);
+                } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date->day) {
+                    $date = $date->modify('last day of previous month');
+                }
+
+                if ($anchorDay !== null) {
+                    $date = $date->setAnchorDay($anchorDay);
+                }
             }
         } catch (DateMalformedStringException|InvalidFormatException|UnsupportedUnitException $exception) {
             $date = null;
@@ -374,9 +402,13 @@ trait Units
     /**
      * Subtract given units to the current instance.
      */
-    public function subUnit(Unit|string $unit, $value = 1, ?bool $overflow = null): static
-    {
-        return $this->addUnit($unit, -$value, $overflow);
+    public function subUnit(
+        Unit|string $unit,
+        $value = 1,
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
+    ): static {
+        return $this->addUnit($unit, -$value, $overflow, $anchorDay);
     }
 
     /**
@@ -396,12 +428,13 @@ trait Units
      *
      * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
      * @param Unit|int|float|string                                         $value
-     * @param bool|null                                                     $overflow
+     * @param OverflowMode|bool|null                                        $overflow
+     * @param int|null                                                      $anchorDay
      *
      * @return static
      */
     #[ReturnTypeWillChange]
-    public function sub($unit, $value = 1, ?bool $overflow = null): static
+    public function sub($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {
         $unit = Unit::toNameIfUnit($unit);
         $value = Unit::toNameIfUnit($value);
@@ -432,7 +465,7 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit((string) $unit, -(float) $value, $overflow);
+        return $this->addUnit((string) $unit, -(float) $value, $overflow, $anchorDay);
     }
 
     /**
@@ -442,17 +475,18 @@ trait Units
      *
      * @param Unit|int|string|DateInterval $unit
      * @param Unit|int|float|string        $value
-     * @param bool|null                    $overflow
+     * @param OverflowMode|bool|null       $overflow
+     * @param int|null                     $anchorDay
      *
      * @return static
      */
-    public function subtract($unit, $value = 1, ?bool $overflow = null): static
+    public function subtract($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {
         if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit, [], true);
         }
 
-        return $this->sub($unit, $value, $overflow);
+        return $this->sub($unit, $value, $overflow, $anchorDay);
     }
 
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
@@ -490,5 +524,18 @@ trait Units
         }
 
         return $stringValue;
+    }
+
+    /**
+     * Set current day of the instance to the passed value if it exits in the
+     * current month, else set current day to the last day of the month.
+     */
+    public function setAnchorDay(int $anchorDay): static
+    {
+        if ($anchorDay < 1) {
+            throw new InvalidArgumentException('$anchorDay must be greater than 0');
+        }
+
+        return $this->day(min($anchorDay, $this->daysInMonth));
     }
 }

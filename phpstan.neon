@@ -103,6 +103,11 @@ parameters:
             message: '#^Access to protected property Carbon\\CarbonPeriod::\$dateInterval\.#'
             paths:
                 - tests/CarbonPeriod/CreateTest.php
+        -
+            message: '#^Unknown parameter \$anchorDay in call to method Carbon\\Carbon(Immutable)?::addYearsWithOverflow\(\)\.#'
+            paths:
+                - tests/Carbon/ModifyTest.php
+                - tests/CarbonImmutable/ModifyTest.php
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'

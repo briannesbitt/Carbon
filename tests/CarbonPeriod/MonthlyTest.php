@@ -16,7 +16,7 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
-use Carbon\Period\MonthlyMode;
+use Carbon\OverflowMode;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -134,7 +134,7 @@ class MonthlyTest extends AbstractTestCase
         $period = CarbonPeriod::monthly(
             Carbon::parse('2019-12-31 09:52:46.321654'),
             recurrences: 4,
-            mode: MonthlyMode::NoOverflow,
+            mode: OverflowMode::NoOverflow,
             options: 0,
         );
 
@@ -151,7 +151,7 @@ class MonthlyTest extends AbstractTestCase
         $period = CarbonPeriod::monthly(
             Carbon::parse('2019-12-31 09:52:46.321654'),
             recurrences: 4,
-            mode: MonthlyMode::Overflow,
+            mode: OverflowMode::Overflow,
             options: 0,
         );
 
@@ -229,7 +229,7 @@ class MonthlyTest extends AbstractTestCase
         CarbonPeriod::monthly(
             end: Carbon::parse('2019-12-27 09:52:46.321654'),
             anchorDay: 3,
-            mode: MonthlyMode::NoOverflow,
+            mode: OverflowMode::NoOverflow,
         );
     }
 

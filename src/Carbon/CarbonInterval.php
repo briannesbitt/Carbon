@@ -2243,13 +2243,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Add the passed interval to the current instance.
      *
-     * @param string|DateInterval $unit
-     * @param int|float           $value
+     * @param Unit|string|DateInterval $unit
+     * @param int|float                $value
      *
      * @return $this
      */
     public function add($unit, $value = 1): static
     {
+        $this->checkNoStepIsDefined(__METHOD__);
+
         if (is_numeric($unit)) {
             [$value, $unit] = [$unit, $value];
         }
@@ -2286,13 +2288,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Subtract the passed interval to the current instance.
      *
-     * @param string|DateInterval $unit
-     * @param int|float           $value
+     * @param Unit|string|DateInterval $unit
+     * @param int|float                $value
      *
      * @return $this
      */
     public function sub($unit, $value = 1): static
     {
+        $this->checkNoStepIsDefined(__METHOD__);
+
         if (is_numeric($unit)) {
             [$value, $unit] = [$unit, $value];
         }
@@ -2390,6 +2394,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public function times($factor): static
     {
+        $this->checkNoStepIsDefined(__METHOD__);
+
         if ($factor < 0) {
             $this->invert = $this->invert ? 0 : 1;
             $factor = -$factor;
@@ -2452,6 +2458,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public function multiply($factor): static
     {
+        $this->checkNoStepIsDefined(__METHOD__);
+
         if ($factor < 0) {
             $this->invert = $this->invert ? 0 : 1;
             $factor = -$factor;

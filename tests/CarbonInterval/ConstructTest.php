@@ -589,6 +589,33 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame('2021-01-31 12:34', $d->format('Y-m-d H:i'));
     }
 
+    public function testMonthWithAnchorDayIsNotCompatibleWithTimes()
+    {
+        $this->expectExceptionObject(new BadMethodCallException(
+            '->times() cannot be called on an interval with a step',
+        ));
+
+        CarbonInterval::monthWithAnchorDay(31)->times(2);
+    }
+
+    public function testMonthWithAnchorDayIsNotCompatibleWithAdd()
+    {
+        $this->expectExceptionObject(new BadMethodCallException(
+            '->add() cannot be called on an interval with a step',
+        ));
+
+        CarbonInterval::monthWithAnchorDay(31)->add(Unit::Day);
+    }
+
+    public function testMonthWithAnchorDayIsNotCompatibleWithSub()
+    {
+        $this->expectExceptionObject(new BadMethodCallException(
+            '->sub() cannot be called on an interval with a step',
+        ));
+
+        CarbonInterval::monthWithAnchorDay(31)->sub(Unit::Day);
+    }
+
     public function testMonthNoOverflow()
     {
         $d = Carbon::parse('2021-01-31 12:34');
