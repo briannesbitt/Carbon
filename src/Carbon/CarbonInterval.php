@@ -437,6 +437,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         $spec = $years;
         $isStringSpec = (\is_string($spec) && !preg_match('/^[\d.]/', $spec));
+        $inverted = false;
 
         if (!$isStringSpec || (float) $years) {
             $spec = static::PERIOD_PREFIX;
@@ -463,8 +464,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             }
         }
 
+        if ($isStringSpec && str_starts_with($spec, '-')) {
+            $inverted = true;
+            $spec = substr($spec, 1);
+        }
+
         try {
             parent::__construct($spec);
+
+            if ($inverted) {
+                $this->invert = 1;
+            }
         } catch (Throwable $exception) {
             try {
                 parent::__construct('PT0S');
@@ -548,8 +558,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         }
 
         foreach (['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'] as $unit) {
-            if ($$unit < 0) {
-                $this->set($unit, $$unit);
+            $value = $$unit;
+
+            if (
+                (
+                    \is_int($value)
+                    || \is_float($value)
+                    || (\is_string($value) && preg_match('/^[\d.-]+$/', $value))
+                )
+                && $value < 0
+            ) {
+                $this->set($unit, $value);
             }
         }
     }
