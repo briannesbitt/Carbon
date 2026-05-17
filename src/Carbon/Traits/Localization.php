@@ -345,7 +345,7 @@ trait Localization
      * @param string|null $locale
      * @param string      ...$fallbackLocales
      *
-     * @return $this|string
+     * @return ($locale is null ? string : static)
      */
     public function locale(?string $locale = null, string ...$fallbackLocales): static|string
     {
