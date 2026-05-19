@@ -437,6 +437,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         $spec = $years;
         $isStringSpec = (\is_string($spec) && !preg_match('/^[\d.]/', $spec));
+        $inverted = false;
 
         if (!$isStringSpec || (float) $years) {
             $spec = static::PERIOD_PREFIX;
@@ -463,8 +464,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             }
         }
 
+        if ($isStringSpec && str_starts_with($spec, '-')) {
+            $inverted = true;
+            $spec = substr($spec, 1);
+        }
+
         try {
             parent::__construct($spec);
+
+            if ($inverted) {
+                $this->invert = 1;
+            }
         } catch (Throwable $exception) {
             try {
                 parent::__construct('PT0S');
@@ -548,8 +558,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         }
 
         foreach (['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'] as $unit) {
-            if ($$unit < 0) {
-                $this->set($unit, $$unit);
+            $value = $$unit;
+
+            if (
+                (
+                    \is_int($value)
+                    || \is_float($value)
+                    || (\is_string($value) && preg_match('/^[\d.-]+$/', $value))
+                )
+                && $value < 0
+            ) {
+                $this->set($unit, $value);
             }
         }
     }
@@ -2498,45 +2517,54 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      *
      * @return string
      */
-    public static function getDateIntervalSpec(DateInterval $interval, bool $microseconds = false, array $skip = []): string
-    {
+    public static function getDateIntervalSpec(
+        DateInterval $interval,
+        bool $microseconds = false,
+        array $skip = [],
+        bool $withNegatives = false,
+    ): string {
         $date = array_filter([
-            static::PERIOD_YEARS => abs($interval->y),
-            static::PERIOD_MONTHS => abs($interval->m),
-            static::PERIOD_DAYS => abs($interval->d),
+            static::PERIOD_YEARS => $withNegatives ? $interval->y : abs($interval->y),
+            static::PERIOD_MONTHS => $withNegatives ? $interval->m : abs($interval->m),
+            static::PERIOD_DAYS => $withNegatives ? $interval->d : abs($interval->d),
         ]);
 
         $skip = array_map([Unit::class, 'toNameIfUnit'], $skip);
+        $days = abs((int) $interval->days);
 
         if (
-            $interval->days >= CarbonInterface::DAYS_PER_WEEK * CarbonInterface::WEEKS_PER_MONTH &&
+            $days >= CarbonInterface::DAYS_PER_WEEK * CarbonInterface::WEEKS_PER_MONTH &&
             (!isset($date[static::PERIOD_YEARS]) || \count(array_intersect(['y', 'year', 'years'], $skip))) &&
             (!isset($date[static::PERIOD_MONTHS]) || \count(array_intersect(['m', 'month', 'months'], $skip)))
         ) {
             $date = [
-                static::PERIOD_DAYS => abs($interval->days),
+                static::PERIOD_DAYS => $withNegatives ? $interval->days : $days,
             ];
         }
 
-        $seconds = abs($interval->s);
-        if ($microseconds && $interval->f > 0) {
-            $seconds = \sprintf('%d.%06d', $seconds, abs($interval->f) * 1000000);
+        $seconds = $withNegatives ? $interval->s : abs($interval->s);
+
+        if ($microseconds && $interval->f !== 0.0) {
+            $seconds = $withNegatives
+                ? number_format($seconds + $interval->f, 6, '.', '')
+                : \sprintf('%d.%06d', $seconds, abs($interval->f) * 1000000);
         }
 
         $time = array_filter([
-            static::PERIOD_HOURS => abs($interval->h),
-            static::PERIOD_MINUTES => abs($interval->i),
+            static::PERIOD_HOURS => $withNegatives ? $interval->h : abs($interval->h),
+            static::PERIOD_MINUTES => $withNegatives ? $interval->i : abs($interval->i),
             static::PERIOD_SECONDS => $seconds,
         ]);
 
-        $specString = static::PERIOD_PREFIX;
+        $specString = ($withNegatives && $interval->invert ? '-' : '').static::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
-            $specString .= $value.$key;
+            $specString .= ($withNegatives && $interval->invert ? '-' : '').$value.$key;
         }
 
         if (\count($time) > 0) {
             $specString .= static::PERIOD_TIME_PREFIX;
+
             foreach ($time as $key => $value) {
                 $specString .= $value.$key;
             }
@@ -2550,9 +2578,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      *
      * @return string
      */
-    public function spec(bool $microseconds = false): string
+    public function spec(bool $microseconds = false, bool $withNegatives = false): string
     {
-        return static::getDateIntervalSpec($this, $microseconds);
+        return static::getDateIntervalSpec($this, $microseconds, [], $withNegatives);
     }
 
     /**

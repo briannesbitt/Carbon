@@ -35,6 +35,7 @@ class ConstructTest extends AbstractTestCase
         $this->assertInstanceOf(DateInterval::class, $ci);
         $this->assertSame('PT0S', $ci->spec());
         $ci = new CarbonInterval('P1Y2M3D');
+        $this->assertSame(0, $ci->invert);
         $this->assertSame('P1Y2M3D', $ci->spec());
         $ci = CarbonInterval::create('PT0S');
         $this->assertSame('PT0S', $ci->spec());
@@ -48,6 +49,21 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame('PT9H85M', $ci->spec());
         $ci = CarbonInterval::create('PT1999999999999.5H+85M');
         $this->assertSame('PT1999999999999H115M', $ci->spec());
+    }
+
+    public function testConstructWithNegativeValues(): void
+    {
+        $ci = CarbonInterval::create('-P1Y2M3D');
+        $this->assertSame('P1Y2M3D', $ci->spec());
+        $this->assertSame(1, $ci->invert);
+
+        $ci = CarbonInterval::create('P1Y-2M3DT-1H30M');
+        $this->assertSame(1, $ci->y);
+        $this->assertSame(-2, $ci->m);
+        $this->assertSame(3, $ci->d);
+        $this->assertSame(-1, $ci->hours);
+        $this->assertSame(30, $ci->minutes);
+        $this->assertSame(0, $ci->invert);
     }
 
     public function testConstructWithDateInterval()
