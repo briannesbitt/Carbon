@@ -2544,11 +2544,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         $seconds = $withNegatives ? $interval->s : abs($interval->s);
 
-        if ($microseconds && $interval->f > 0) {
-            $seconds = \sprintf('%d.%06d', $seconds, abs($interval->f) * 1000000);
-        } elseif ($withNegatives && $interval->f !== 0.0) {
-            $seconds += $interval->f;
-            $seconds = number_format($seconds, 6, '.', '');
+        if ($microseconds && $interval->f !== 0.0) {
+            $seconds = $withNegatives
+                ? number_format($seconds + $interval->f, 6, '.', '')
+                : \sprintf('%d.%06d', $seconds, abs($interval->f) * 1000000);
         }
 
         $time = array_filter([

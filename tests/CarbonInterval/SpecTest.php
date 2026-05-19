@@ -115,8 +115,16 @@ class SpecTest extends AbstractTestCase
         $this->assertSame('-PT-1H', $ci->spec(withNegatives: true));
 
         /** @var CarbonInterval $ci */
-        $ci = CarbonInterval::createFromDateString('1 hour')->invert();
+        $ci = CarbonInterval::createFromDateString('1 hour');
+        $ci->invert();
         $this->assertSame('PT1H', $ci->spec());
         $this->assertSame('-PT1H', $ci->spec(withNegatives: true));
+
+        /** @var CarbonInterval $ci */
+        $ci = CarbonInterval::createFromDateString('-15 second -321654 microseconds');
+        $this->assertSame('PT15S', $ci->spec());
+        $this->assertSame('PT-15S', $ci->spec(withNegatives: true));
+        $this->assertSame('PT15.321654S', $ci->spec(microseconds: true));
+        $this->assertSame('PT-15.321654S', $ci->spec(microseconds: true, withNegatives: true));
     }
 }
