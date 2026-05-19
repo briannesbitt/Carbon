@@ -2559,7 +2559,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         $specString = ($withNegatives && $interval->invert ? '-' : '').static::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
-            $specString .= ($withNegatives && $interval->invert ? '-' : '').$value.$key;
+            $specString .= $value.$key;
         }
 
         if (\count($time) > 0) {
