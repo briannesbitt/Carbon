@@ -67,10 +67,6 @@ parameters:
             paths:
                 - tests/CarbonPeriod/GettersTest.php
         -
-            message: '#^Cannot access property \$locale on Carbon\\CarbonPeriod\|string\.$#'
-            paths:
-                - tests/CarbonPeriod/GettersTest.php
-        -
             message: '#^Access to protected property Carbon\\CarbonPeriod::\$startDate\.$#'
             paths:
                 - tests/CarbonPeriod/GettersTest.php

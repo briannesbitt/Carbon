@@ -1428,15 +1428,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Get/set the day of year.
      *
-     * @template T of int|null
-     *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @psalm-param T $value
-     *
-     * @return static|int
-     *
-     * @psalm-return (T is int ? static : int)
+     * @return ($value is null ? int : static)
      */
     public function dayOfYear(?int $value = null): static|int;
 
@@ -3079,6 +3073,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
      *
      * @param WeekDay|int|null $value new value for weekday if using as setter.
+     *
+     * @return ($value is null ? int : static)
      */
     public function isoWeekday(WeekDay|int|null $value = null): static|int;
 
@@ -3165,7 +3161,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @param string|null $locale
      * @param string      ...$fallbackLocales
      *
-     * @return $this|string
+     * @return ($locale is null ? string : static)
      */
     public function locale(?string $locale = null, string ...$fallbackLocales): static|string;
 
@@ -4776,6 +4772,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
 
     /**
      * Returns the minutes offset to UTC if no arguments passed, else set the timezone with given minutes shift passed.
+     *
+     * @return ($minuteOffset is null ? int : static)
      */
     public function utcOffset(?int $minuteOffset = null): static|int;
 
@@ -4816,6 +4814,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Get/set the weekday from 0 (Sunday) to 6 (Saturday).
      *
      * @param WeekDay|int|null $value new value for weekday if using as setter.
+     *
+     * @return ($value is null ? int : static)
      */
     public function weekday(WeekDay|int|null $value = null): static|int;
 
