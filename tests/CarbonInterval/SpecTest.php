@@ -105,6 +105,14 @@ class SpecTest extends AbstractTestCase
 
     public function testSpecWithNegatives()
     {
+        $this->assertSame('P14D', CarbonInterval::weeks(-2)->spec());
+        $this->assertSame('P-14D', CarbonInterval::weeks(-2)->spec(withNegatives: true));
+        $this->assertSame('-P14D', CarbonInterval::weeks(2)->invert()->spec(withNegatives: true));
+        $this->assertSame(
+            'P-2Y5M-8D',
+            CarbonInterval::years(-2)->months(5)->days(-8)->spec(withNegatives: true),
+        );
+
         /** @var CarbonInterval $ci */
         $ci = CarbonInterval::createFromDateString('-1 hour');
         $this->assertSame('PT1H', $ci->spec());
