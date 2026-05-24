@@ -1313,6 +1313,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $self = $self->toggleOptions(static::EXCLUDE_START_DATE, !$inclusive);
         }
 
+        $self->syncNativePeriod();
         return $self;
     }
 
@@ -1332,11 +1333,15 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
+        $self = $this->copyIfImmutable();
+
         if (!$date) {
-            return $this->removeFilter(static::END_DATE_FILTER);
+            $self = $self->removeFilter(static::END_DATE_FILTER);
+            $self->syncNativePeriod();
+
+            return $self;
         }
 
-        $self = $this->copyIfImmutable();
         $self->endDate = $date;
 
         if ($inclusive !== null) {
@@ -1344,10 +1349,12 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         if (!$self->hasFilter(static::END_DATE_FILTER)) {
-            return $self->addFilter(static::END_DATE_FILTER);
+            $self = $self->addFilter(static::END_DATE_FILTER);
+        } else {
+            $self->handleChangedParameters();
         }
 
-        $self->handleChangedParameters();
+        $self->syncNativePeriod();
 
         return $self;
     }
@@ -2470,6 +2477,29 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         $this->validationResult = null;
     }
+
+    /**
+     * Synchronize the native DatePeriod properties with the current state.
+     */
+    protected function syncNativePeriod(): void
+    {
+        if (\PHP_VERSION_ID < 80200) {
+            return;
+        }
+
+        // Default interval if not set (matches __construct logic)
+        $interval = $this->dateInterval ?? \Carbon\CarbonInterval::day();
+
+        // Reinitialize the parent DatePeriod to update $start, $end, etc.
+        // This mirrors the logic in __construct and initializeSerialization.
+        parent::__construct(
+            $this->startDate,
+            $interval,
+            $this->endDate ?? max(1, min(2147483639, $this->recurrences ?? 1)),
+            $this->options ?? 0,
+        );
+    }
+
 
     /**
      * Validate current date and stop iteration when necessary.
