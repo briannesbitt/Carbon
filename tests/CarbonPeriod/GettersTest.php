@@ -443,14 +443,12 @@ class GettersTest extends AbstractTestCase
     public function testEndPropertySyncsAfterSetEndDate()
     {
         $periodClass = static::$periodClass;
-
         $period = $periodClass::create('2024-09-01/3 days/2024-09-30');
-        $period->setEndDate('2025-06-15');
+        $period = $period->setEndDate('2025-06-15');
         $this->assertSame('2025-06-15 00:00:00', $period->end->format('Y-m-d H:i:s'));
         $this->assertSame('2025-06-15 00:00:00', $period->getEndDate()->format('Y-m-d H:i:s'));
-
         $period2 = $periodClass::between('2024-01-01', '2024-12-31');
-        $period2->setEndDate('2026-03-01');
+        $period2 = $period2->setEndDate('2026-03-01');
         $this->assertSame('2026-03-01 00:00:00', $period2->end->format('Y-m-d H:i:s'));
     }
 
