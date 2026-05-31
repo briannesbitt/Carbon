@@ -112,16 +112,16 @@ We will review it within a few days. And we thank you in advance for your help.
 
 As a developer, you must understand every change is a breaking change. What is a bug for someone
 is expected in someone else's workflow. The consequence of a change strongly depends on the usage.
-[Semantic Versioning](https://semver.org/) relies to public API. In PHP, the public API of a class is its public
-methods. However, if you extend a class, you can access protected methods, then if you use reflexion, you can
+[Semantic Versioning](https://semver.org/) relies on public API. In PHP, the public API of a class is its public
+methods. However, if you extend a class, you can access protected methods, then if you use reflection, you can
 access private methods. So anything can become a public API if you force it to be. That doesn't mean we should handle
 any possible usage, else we would have to publish a major release for each change and it would no longer make sense.
 
-So before any complain about a breaking change, be warned, we do not guarantee a strict Semantic Versioning as you
+So before any complaint about a breaking change, be warned, we do not guarantee a strict Semantic Versioning as you
 may expect, we're following a pragmatic interpretation of Semantic Versioning that allows the software to evolve in a
 reliable way with reasonable maintenance effort.
 
-Concretely, we consider a change as breaking if it makes fail one of our unit test. We will do our best to avoid
+Concretely, we consider a change as breaking if it makes one of our unit tests fail. We will do our best to avoid
 incompatibilities with libraries that extends Carbon classes (such as Laravel that is continuously tested thanks to
 Travis CI, [see the compatibility matrix](https://github.com/kylekatarnls/carbon-laravel/tree/master#carbon-1-dev-version-1next)).
 
@@ -139,14 +139,14 @@ that occurs in the date/time API of PHP. We watch new PHP versions and handle th
 when detected, but as PHP does not follow the semantic versioning pattern, it basically means any releases (including
 patches) can have unexpected consequences on Carbon methods results.
 
-### Long term support
+### Long-term support
 
-To benefit the better support, require Carbon using major version range (`^1` or `^2`). By requiring `1.26.*`,
+To benefit from better support, require Carbon using a major version range (`^1` or `^2`). By requiring `1.26.*`,
 `~1.26.0` or limited range such as `>=1.20 <1.33`, you fall to low priority support (only security and critical issues
 will be fixed), our prior support goes to next minor releases of each major version. It applies to bug fixes and
 low-cost features. Other new features will only be added in the last stable release. At the opposite, we recommend you
 to restrain to a major number, as there is no compatibility guarantee from a major version to the next. It means
-requiring `>=2`, as it allows any newer version, will probably leads to errors on releasing our next major version.
+requiring `>=2`, as it allows any newer version, will probably lead to errors on releasing our next major version.
 
 Open milestones can be patched if a minor bug is detected while if you're on a closed milestone, we'll more likely
 ask you to update first to an open one. See currently open milestones: 
