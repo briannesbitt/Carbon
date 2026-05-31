@@ -1314,6 +1314,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         }
 
         $self->syncNativePeriod();
+
         return $self;
     }
 
@@ -2484,7 +2485,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     protected function syncNativePeriod(): void
     {
         if (\PHP_VERSION_ID < 80200) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         // Default interval if not set (matches __construct logic)
@@ -2499,7 +2500,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $this->options ?? 0,
         );
     }
-
 
     /**
      * Validate current date and stop iteration when necessary.
