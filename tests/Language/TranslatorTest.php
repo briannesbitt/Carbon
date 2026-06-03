@@ -82,7 +82,7 @@ class TranslatorTest extends AbstractTestCase
     public function testTranslatorImmutable()
     {
         $this->expectExceptionObject(
-            new ImmutableException('setTranslations not allowed on '.TranslatorImmutable::class)
+            ImmutableException::fromMethod(TranslatorImmutable::class, 'setTranslations'),
         );
         TranslatorImmutable::get('en')->setTranslations([]);
     }

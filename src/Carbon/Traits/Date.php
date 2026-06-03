@@ -1381,6 +1381,10 @@ trait Date
     public function __set($name, $value)
     {
         if ($this->constructedObjectId === spl_object_hash($this)) {
+            if ($this->isImmutable()) {
+                throw ImmutableException::fromClass(static::class);
+            }
+
             $this->set($name, $value);
 
             return;
@@ -1390,24 +1394,22 @@ trait Date
     }
 
     /**
-     * Set a part of the Carbon object.
+     * Set one or multiple components of the Carbon object.
      *
      * @throws ImmutableException|UnknownSetterException
      *
-     * @return $this
+     * @return static
      */
     public function set(Unit|array|string $name, DateTimeZone|Month|string|int|float|null $value = null): static
     {
-        if ($this->isImmutable()) {
-            throw new ImmutableException(\sprintf('%s class', static::class));
-        }
+        $result = $this;
 
         if (\is_array($name)) {
             foreach ($name as $key => $value) {
-                $this->set($key, $value);
+                $result = $result->set($key, $value);
             }
 
-            return $this;
+            return $result;
         }
 
         $name = Unit::toName($name);
@@ -1424,16 +1426,16 @@ trait Date
                 }
 
                 while ($value < 0) {
-                    $this->subSecond();
+                    $result = $result->subSecond();
                     $value += static::MICROSECONDS_PER_SECOND;
                 }
 
                 while ($value >= static::MICROSECONDS_PER_SECOND) {
-                    $this->addSecond();
+                    $result = $result->addSecond();
                     $value -= static::MICROSECONDS_PER_SECOND;
                 }
 
-                $this->modify($this->rawFormat('H:i:s.').str_pad((string) round($value), 6, '0', STR_PAD_LEFT));
+                $result = $result->modify($this->rawFormat('H:i:s.').str_pad((string) round($value), 6, '0', STR_PAD_LEFT));
 
                 break;
 
@@ -1445,68 +1447,68 @@ trait Date
             case 'second':
                 [$year, $month, $day, $hour, $minute, $second] = array_map('intval', explode('-', $this->rawFormat('Y-n-j-G-i-s')));
                 $$name = self::monthToInt($value, $name);
-                $this->setDateTime($year, $month, $day, $hour, $minute, $second);
+                $result = $result->setDateTime($year, $month, $day, $hour, $minute, $second);
 
                 break;
 
             case 'week':
-                $this->week($value);
+                $result = $result->week($value);
 
                 break;
 
             case 'isoWeek':
-                $this->isoWeek($value);
+                $result = $result->isoWeek($value);
 
                 break;
 
             case 'weekYear':
-                $this->weekYear($value);
+                $result = $result->weekYear($value);
 
                 break;
 
             case 'isoWeekYear':
-                $this->isoWeekYear($value);
+                $result = $result->isoWeekYear($value);
 
                 break;
 
             case 'dayOfYear':
-                $this->addDays($value - $this->dayOfYear);
+                $result = $result->addDays($value - $this->dayOfYear);
 
                 break;
 
             case 'dayOfWeek':
-                $this->addDays($value - $this->dayOfWeek);
+                $result = $result->addDays($value - $this->dayOfWeek);
 
                 break;
 
             case 'dayOfWeekIso':
-                $this->addDays($value - $this->dayOfWeekIso);
+                $result = $result->addDays($value - $this->dayOfWeekIso);
 
                 break;
 
             case 'timestamp':
-                $this->setTimestamp($value);
+                $result = $result->setTimestamp($value);
 
                 break;
 
             case 'offset':
-                $this->setTimezone(static::safeCreateDateTimeZone($value / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR));
+                $result = $result->setTimezone(static::safeCreateDateTimeZone($value / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR));
 
                 break;
 
             case 'offsetMinutes':
-                $this->setTimezone(static::safeCreateDateTimeZone($value / static::MINUTES_PER_HOUR));
+                $result = $result->setTimezone(static::safeCreateDateTimeZone($value / static::MINUTES_PER_HOUR));
 
                 break;
 
             case 'offsetHours':
-                $this->setTimezone(static::safeCreateDateTimeZone($value));
+                $result = $result->setTimezone(static::safeCreateDateTimeZone($value));
 
                 break;
 
             case 'timezone':
             case 'tz':
-                $this->setTimezone($value);
+                $result = $result->setTimezone($value);
 
                 break;
 
@@ -1522,14 +1524,14 @@ trait Date
                             'week',
                             'month',
                             'quarter',
-                        ], true) ? 1 : 0) + (int) floor($start->diffInUnit($firstUnit, $this));
+                        ], true) ? 1 : 0) + (int) floor($start->diffInUnit($firstUnit, $result));
 
                         // We check $value a posteriori to give precedence to UnknownUnitException
                         if (!\is_int($value)) {
                             throw new UnitException("->$name expects integer value");
                         }
 
-                        $this->addUnit($firstUnit, $value - $currentValue);
+                        $result = $result->addUnit($firstUnit, $value - $currentValue);
 
                         break;
                     } catch (UnknownUnitException) {
@@ -1540,7 +1542,7 @@ trait Date
                 $macro = $this->getLocalMacro('set'.ucfirst($name));
 
                 if ($macro) {
-                    $this->executeCallableWithContext($macro, $value);
+                    $result = $result->executeCallableWithContext($macro, $value) ?? $this;
 
                     break;
                 }
@@ -1549,10 +1551,10 @@ trait Date
                     throw new UnknownSetterException($name);
                 }
 
-                $this->$name = $value;
+                $result->$name = $value;
         }
 
-        return $this;
+        return $result;
     }
 
     /**
