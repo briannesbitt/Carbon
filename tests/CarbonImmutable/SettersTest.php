@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Month;
 use DateTimeZone;
@@ -26,7 +27,7 @@ class SettersTest extends AbstractTestCase
 {
     public function testYearSetter()
     {
-        $this->expectExceptionObject(new RuntimeException(
+        $this->expectExceptionObject(new ImmutableException(
             'Carbon\CarbonImmutable class is immutable.',
         ));
 

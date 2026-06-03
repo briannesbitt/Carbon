@@ -1158,6 +1158,18 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(5305.0 + $hours, $diffInHours);
     }
 
+    public function testDayFluentSetters()
+    {
+        $this->assertSame(
+            '2026-05-03T04:00:00.000000Z',
+            Carbon::parse('2026-05-30')->day(3)->toISOString(),
+        );
+        $this->assertSame(
+            '2026-05-27T04:00:00.000000Z',
+            Carbon::parse('2026-05-30')->dayOfWeek(3)->toISOString(),
+        );
+    }
+
     private function getOffsetChangeOfTheDay(Carbon $date): int
     {
         return (int) ($date->copy()->startOfDay()->format('O') - $date->copy()->endOfDay()->format('O'));
