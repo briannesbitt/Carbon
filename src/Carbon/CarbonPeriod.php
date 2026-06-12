@@ -1281,13 +1281,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $self = $this->copyIfImmutable();
         $self->carbonRecurrences = $recurrences === INF ? INF : (int) $recurrences;
 
-        if (!$self->hasFilter(static::RECURRENCES_FILTER)) {
-            return $self->addFilter(static::RECURRENCES_FILTER);
-        }
-
-        $self->handleChangedParameters();
-
-        return $self;
+        return self::addFilterOrHandleChangedParameters($self, static::RECURRENCES_FILTER);
     }
 
     /**
@@ -1349,11 +1343,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $self = $self->toggleOptions(static::EXCLUDE_END_DATE, !$inclusive);
         }
 
-        if (!$self->hasFilter(static::END_DATE_FILTER)) {
-            $self = $self->addFilter(static::END_DATE_FILTER);
-        } else {
-            $self->handleChangedParameters();
-        }
+        $self = self::addFilterOrHandleChangedParameters($self, static::END_DATE_FILTER);
 
         $self->syncNativePeriod();
 
@@ -2778,5 +2768,16 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
         );
         // @codeCoverageIgnoreEnd
+    }
+
+    private static function addFilterOrHandleChangedParameters(CarbonPeriod $period, callable|string $filter): CarbonPeriod
+    {
+        if (!$period->hasFilter($filter)) {
+            return $period->addFilter($filter);
+        }
+
+        $period->handleChangedParameters();
+
+        return $period;
     }
 }
