@@ -3043,6 +3043,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             )->invert($inverted)->cascade());
         }
 
+        $initiallyInverted = (bool) $this->invert;
+
+        if ($initiallyInverted) {
+            $this->invert();
+        }
+
         $base = CarbonImmutable::parse('2000-01-01 00:00:00', 'UTC')
             ->roundUnit($unit, $precision, $function);
         $next = $base->add($this);
@@ -3058,7 +3064,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 ->diff($base),
         );
 
-        return $this->invert($inverted);
+        return $this->invert($initiallyInverted xor $inverted);
     }
 
     /**

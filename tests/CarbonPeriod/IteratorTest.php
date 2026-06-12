@@ -615,4 +615,70 @@ class IteratorTest extends AbstractTestCase
             '2024-09-06',
         ], $dates);
     }
+
+    public function testBackAndForthWithRecurrences()
+    {
+        $period = CarbonPeriod::create('2025-06-01', 14);
+
+        $dates = [];
+        $counter = 0;
+
+        foreach ($period as $date) {
+            ++$counter;
+
+            if ($counter === 6 || $counter === 9) {
+                $period->invert();
+            }
+
+            $dates[] = $date->toDateString();
+        }
+
+        $this->assertSame([
+            '2025-06-01',
+            '2025-06-02',
+            '2025-06-03',
+            '2025-06-04',
+            '2025-06-05',
+            '2025-06-06',
+            // First inversion
+            '2025-06-05',
+            '2025-06-04',
+            '2025-06-03',
+            // Second inversion
+            '2025-06-04',
+            '2025-06-05',
+            '2025-06-06',
+            '2025-06-07',
+            '2025-06-08',
+        ], $dates);
+    }
+
+    public function testInvertWithEndDate()
+    {
+        $period = CarbonPeriod::create('2025-06-01', '2025-06-10');
+
+        $dates = [];
+        $counter = 0;
+
+        foreach ($period as $date) {
+            ++$counter;
+
+            if ($counter === 6) {
+                // Stop iteration as end (2025-06-10) is considered exceeded
+                // when current date is 2025-06-06 and interval is -1 day
+                $period->invert();
+            }
+
+            $dates[] = $date->toDateString();
+        }
+
+        $this->assertSame([
+            '2025-06-01',
+            '2025-06-02',
+            '2025-06-03',
+            '2025-06-04',
+            '2025-06-05',
+            '2025-06-06',
+        ], $dates);
+    }
 }

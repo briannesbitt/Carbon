@@ -1328,6 +1328,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
+        // ::make() is responsible for converting strings to DateTimeInterface objects
+        \assert(!\is_string($date));
+
         $self = $this->copyIfImmutable();
 
         if (!$date) {
@@ -1337,7 +1340,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return $self;
         }
 
+        \assert($date instanceof DateTimeInterface);
+
         $self->endDate = $date;
+
+        if (
+            $self->startDate !== null
+            && $self->dateInterval !== null
+            && !$self->dateInterval->invert
+            && $self->startDate > $self->endDate
+        ) {
+            $self->dateInterval->invert = 1;
+        }
 
         if ($inclusive !== null) {
             $self = $self->toggleOptions(static::EXCLUDE_END_DATE, !$inclusive);
@@ -2563,7 +2577,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         do {
             $this->carbonCurrent = $this->carbonCurrent->add(
                 $this->dateInterval,
-                $this->dateInterval->invert ? -1 : 1,
+                $this->dateInterval->getStep() && $this->dateInterval->invert ? -1 : 1,
             );
 
             $this->validationResult = null;
@@ -2770,8 +2784,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         // @codeCoverageIgnoreEnd
     }
 
-    private static function addFilterOrHandleChangedParameters(CarbonPeriod $period, callable|string $filter): CarbonPeriod
-    {
+    private static function addFilterOrHandleChangedParameters(
+        self $period,
+        array|callable|string $filter,
+    ): self {
         if (!$period->hasFilter($filter)) {
             return $period->addFilter($filter);
         }
