@@ -266,10 +266,14 @@ trait Units
         }
 
         if ($unit instanceof Closure) {
-            $result = $this->resolveCarbon($unit($this, false));
+            $inverted = ($value < 0);
 
-            if ($this !== $result && $this->isMutable()) {
-                return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
+            for ($i = abs($value); $i > 0; $i--) {
+                $result = $this->resolveCarbon($unit($this, $inverted));
+
+                if ($this !== $result && $this->isMutable()) {
+                    $result = $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
+                }
             }
 
             return $result;

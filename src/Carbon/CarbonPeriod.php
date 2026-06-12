@@ -2571,7 +2571,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $attempts = 0;
 
         do {
-            $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
+            $this->carbonCurrent = $this->carbonCurrent->add(
+                $this->dateInterval,
+                $this->dateInterval->invert ? -1 : 1,
+            );
 
             $this->validationResult = null;
 
