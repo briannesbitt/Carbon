@@ -539,4 +539,58 @@ class TestingAidsTest extends AbstractTestCase
             'Original date should not be mutated',
         );
     }
+
+    public function testSetTestNowTimezoneWithString()
+    {
+        Carbon::setTestNow();
+        date_default_timezone_set('UTC');
+
+        Carbon::setTestNowWithDefaultTimezone(
+            '2025-10-24T00:30:00+0200',
+        );
+
+        $this->assertSame(
+            '22:30 UTC',
+            Carbon::now()->format('H:i e'),
+        );
+        $this->assertSame(
+            '15:13 UTC',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        date_default_timezone_set('America/Edmonton');
+
+        $this->assertSame(
+            '16:30 America/Edmonton',
+            Carbon::now()->format('H:i e'),
+        );
+        $this->assertSame(
+            '15:13 America/Edmonton',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        Carbon::setTestNow(
+            '2025-10-24T00:30:00+0200',
+        );
+
+        $this->assertSame(
+            '15:13 +02:00',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        $factory = new Factory();
+        $factory->setTestNow('2025-09-18 14:00:00 Pacific/Auckland');
+
+        $this->assertSame(
+            '15:13 Pacific/Auckland',
+            $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        $factory->setTestNowWithDefaultTimezone('2025-09-18 14:00:00 Pacific/Auckland');
+
+        $this->assertSame(
+            '15:13 America/Edmonton',
+            $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+    }
 }
