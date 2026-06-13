@@ -509,12 +509,12 @@ trait Units
     public function plus(
         int $years = 0,
         int $months = 0,
-        int|float $weeks = 0,
-        int|float $days = 0,
-        int|float $hours = 0,
-        int|float $minutes = 0,
-        int|float $seconds = 0,
-        int|float $microseconds = 0,
+        int $weeks = 0,
+        int $days = 0,
+        int $hours = 0,
+        int $minutes = 0,
+        int $seconds = 0,
+        int $microseconds = 0,
         ?bool $overflow = null,
     ): static {
         return $this->add('years', $years, $overflow)
@@ -531,12 +531,12 @@ trait Units
     public function minus(
         int $years = 0,
         int $months = 0,
-        int|float $weeks = 0,
-        int|float $days = 0,
-        int|float $hours = 0,
-        int|float $minutes = 0,
-        int|float $seconds = 0,
-        int|float $microseconds = 0,
+        int $weeks = 0,
+        int $days = 0,
+        int $hours = 0,
+        int $minutes = 0,
+        int $seconds = 0,
+        int $microseconds = 0,
         ?bool $overflow = null,
     ): static {
         return $this->sub('years', $years, $overflow)

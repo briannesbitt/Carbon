@@ -3335,7 +3335,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Subtract given amount of time to the current date.
      */
-    public function minus(int $years = 0, int $months = 0, int|float $weeks = 0, int|float $days = 0, int|float $hours = 0, int|float $minutes = 0, int|float $seconds = 0, int|float $microseconds = 0): static;
+    public function minus(int $years = 0, int $months = 0, int $weeks = 0, int $days = 0, int $hours = 0, int $minutes = 0, int $seconds = 0, int $microseconds = 0, ?bool $overflow = null): static;
 
     /**
      * Mix another object into the class.
@@ -3515,7 +3515,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Add given amount of time to the current date.
      */
-    public function plus(int $years = 0, int $months = 0, int|float $weeks = 0, int|float $days = 0, int|float $hours = 0, int|float $minutes = 0, int|float $seconds = 0, int|float $microseconds = 0): static;
+    public function plus(int $years = 0, int $months = 0, int $weeks = 0, int $days = 0, int $hours = 0, int $minutes = 0, int $seconds = 0, int $microseconds = 0, ?bool $overflow = null): static;
 
     /**
      * Modify to the previous occurrence of a given modifier such as a day of
