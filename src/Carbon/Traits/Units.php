@@ -269,6 +269,8 @@ trait Units
             $inverted = ($value < 0);
             $result = $this;
 
+            self::disallowDecimalPart($value);
+
             for ($i = abs($value); $i > 0; $i--) {
                 $result = $result->resolveCarbon($unit($result, $inverted));
             }
@@ -456,6 +458,8 @@ trait Units
             $inverted = ($value < 0);
             $result = $this;
 
+            self::disallowDecimalPart($value);
+
             for ($i = abs($value); $i > 0; $i--) {
                 $result = $result->resolveCarbon($unit($result, !$inverted));
             }
@@ -547,5 +551,14 @@ trait Units
         }
 
         return $this->day(min($anchorDay, $this->daysInMonth));
+    }
+
+    private static function disallowDecimalPart(mixed $value): void
+    {
+        if (((float) $value) !== ((float) (int) $value)) {
+            throw new InvalidArgumentException(
+                'Interval objects cannot be multiplied by a non-integer value.',
+            );
+        }
     }
 }
