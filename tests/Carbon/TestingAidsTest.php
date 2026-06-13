@@ -15,6 +15,8 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\Factory;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
@@ -446,6 +448,95 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame(
             5,
             (int) round(10 * ((float) $after->format('U.u') - ((float) $before->format('U.u')))),
+        );
+    }
+
+    public function testSetTestNowTimezone()
+    {
+        Carbon::setTestNow();
+        date_default_timezone_set('UTC');
+
+        Carbon::setTestNowWithDefaultTimezone(
+            Carbon::create(2025, 9, 18, 15, 34, timezone: new DateTimeZone('Europe/London')),
+        );
+
+        $this->assertSame(
+            '14:34 UTC',
+            Carbon::now()->format('H:i e'),
+        );
+        $this->assertSame(
+            '15:13 UTC',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        date_default_timezone_set('America/Edmonton');
+
+        $this->assertSame(
+            '08:34 America/Edmonton',
+            Carbon::now()->format('H:i e'),
+        );
+        $this->assertSame(
+            '15:13 America/Edmonton',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        Carbon::setTestNow(
+            Carbon::create(2025, 9, 18, 15, 34, timezone: new DateTimeZone('America/Edmonton')),
+        );
+
+        $this->assertSame(
+            '15:13 America/Edmonton',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        Carbon::setTestNow(
+            Carbon::create(2025, 9, 18, 15, 34, timezone: new DateTimeZone('Europe/London')),
+        );
+
+        $this->assertSame(
+            '15:13 Europe/London',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        Carbon::setTestNow(
+            static fn () => new DateTime('2025-09-18 14:00:00', new DateTimeZone('Europe/Berlin')),
+        );
+
+        $this->assertSame(
+            '15:13 Europe/Berlin',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        Carbon::setTestNow(
+            new DateTime('2025-09-18 14:00:00', new DateTimeZone('America/New_York')),
+        );
+
+        $this->assertSame(
+            '15:13 America/New_York',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        $factory = new Factory();
+        $factory->setTestNow(
+            new DateTime('2025-09-18 14:00:00', new DateTimeZone('Pacific/Auckland')),
+        );
+
+        $this->assertSame(
+            '15:13 Pacific/Auckland',
+            $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        $date = new DateTime('2025-09-18 14:00:00', new DateTimeZone('Pacific/Auckland'));
+        $factory->setTestNowWithDefaultTimezone($date);
+
+        $this->assertSame(
+            '15:13 America/Edmonton',
+            $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+        $this->assertSame(
+            '14:00 Pacific/Auckland',
+            $date->format('H:i e'),
+            'Original date should not be mutated',
         );
     }
 }

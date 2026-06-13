@@ -2375,7 +2375,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     }
 
     /**
-     * Add given parameters to the current interval.
+     * Subtract given parameters to the current interval.
      *
      * @param int       $years
      * @param int       $months
