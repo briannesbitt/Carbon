@@ -589,17 +589,14 @@ class Factory
             @trigger_error(
                 "Since nesbot/carbon 3.12.0, it's deprecated to call setTestNow() with date object ".
                 "having a timezone different from date_default_timezone_get().\n".
-                'You can also now call setTestNowWithDefaultTimezone($date) to use a date while '.
-                'continuing to use the default timezone.',
+                'You can also now call setTestNowWithDefaultTimezone() to use a date while '.
+                'continuing to use the default timezone, or setTestNowAndTimezone() to set both '.
+                'date and timezone.',
                 \E_USER_DEPRECATED,
             );
         }
 
-        $this->useTimezoneFromTestNow = false;
-        $this->useDefaultTimezone = $useDefaultTimezone;
-        $this->testNow = $testNow instanceof Closure
-            ? $testNow
-            : $this->make($testNow);
+        $this->applyTestNow($testNow, $useDefaultTimezone);
     }
 
     /**
@@ -623,7 +620,7 @@ class Factory
      */
     public function setTestNowWithDefaultTimezone(mixed $testNow = null): void
     {
-        $this->setTestNow($testNow, true);
+        $this->applyTestNow($testNow, true);
     }
 
     /**
@@ -657,7 +654,7 @@ class Factory
             $this->setDefaultTimezone($testNow->getTimezone()->getName(), $testNow);
         }
 
-        $this->setTestNow($testNow);
+        $this->applyTestNow($testNow, false);
         $this->useDefaultTimezone = false;
         $this->useTimezoneFromTestNow = ($timezone === null && $testNow instanceof Closure);
 
@@ -688,12 +685,12 @@ class Factory
     public function withTestNow(mixed $testNow, callable $callback): mixed
     {
         $previousTestNow = $this->getTestNow();
-        $this->setTestNow($testNow);
+        $this->applyTestNow($testNow, false);
 
         try {
             $result = $callback();
         } finally {
-            $this->setTestNow($previousTestNow);
+            $this->applyTestNow($previousTestNow, false);
         }
 
         return $result;
@@ -905,5 +902,14 @@ class Factory
                 $previous
             );
         }
+    }
+
+    private function applyTestNow(mixed $testNow, bool $useDefaultTimezone): void
+    {
+        $this->useTimezoneFromTestNow = false;
+        $this->useDefaultTimezone = $useDefaultTimezone;
+        $this->testNow = $testNow instanceof Closure
+            ? $testNow
+            : $this->make($testNow);
     }
 }
