@@ -17,6 +17,7 @@ use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterval;
 use Carbon\Unit;
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class AddTest extends AbstractTestCase
@@ -72,11 +73,23 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'years')->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add(CarbonInterval::years(2))->year);
+        $this->assertSame(1979, Carbon::createFromDate(1975)->add(CarbonInterval::years(2), 2)->year);
+        $this->assertSame(1981, Carbon::createFromDate(1975)->add(CarbonInterval::years(2), 3.0)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->add(CarbonInterval::years(2), -1)->year);
     }
 
     public function testAddDaysPositive()
     {
         $this->assertSame(1, Carbon::createFromDate(1975, 5, 31)->addDays(1)->day);
+    }
+
+    public function testAddFloatNumber()
+    {
+        $this->expectExceptionObject(new InvalidArgumentException(
+            'Interval objects cannot be multiplied by a non-integer value.',
+        ));
+
+        Carbon::createFromDate(1975)->add(CarbonInterval::years(2), 2.5);
     }
 
     public function testAddDaysZero()

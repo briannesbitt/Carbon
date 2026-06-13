@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class AliasTest extends AbstractTestCase
@@ -268,18 +269,22 @@ class AliasTest extends AbstractTestCase
         $this->assertSame('P2Y3M4DT5H6M7S', $period->getDateInterval()->spec());
     }
 
-    public function testChainAliases()
+    #[TestWith([true])]
+    #[TestWith([false])]
+    public function testChainAliases(bool $inverted)
     {
         $periodClass = static::$periodClass;
         Carbon::setTestNow('2018-05-15');
-        $period = $periodClass::days(3)->hours(5)->invert()
-            ->sinceNow()->until(Carbon::now()->subDays(10))
+        $period = $periodClass::days(3)->hours(5);
+        $period = $inverted ? $period->invert() : $period;
+        $period = $period->sinceNow()->until(Carbon::now()->subDays(10))
             ->options($periodClass::EXCLUDE_START_DATE)
             ->times(2);
 
         $this->assertSame(
             $this->standardizeDates([
-                Carbon::now()->subDays(3)->subHours(5), Carbon::now()->subDays(6)->subHours(10),
+                Carbon::now()->subDays(3)->subHours(5),
+                Carbon::now()->subDays(6)->subHours(10),
             ]),
             $this->standardizeDates($period),
         );

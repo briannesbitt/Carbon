@@ -1281,13 +1281,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $self = $this->copyIfImmutable();
         $self->carbonRecurrences = $recurrences === INF ? INF : (int) $recurrences;
 
-        if (!$self->hasFilter(static::RECURRENCES_FILTER)) {
-            return $self->addFilter(static::RECURRENCES_FILTER);
-        }
-
-        $self->handleChangedParameters();
-
-        return $self;
+        return self::addFilterOrHandleChangedParameters($self, static::RECURRENCES_FILTER);
     }
 
     /**
@@ -1334,6 +1328,9 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
+        // ::make() is responsible for converting strings to DateTimeInterface objects
+        \assert(!\is_string($date));
+
         $self = $this->copyIfImmutable();
 
         if (!$date) {
@@ -1343,17 +1340,24 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return $self;
         }
 
+        \assert($date instanceof DateTimeInterface);
+
         $self->endDate = $date;
+
+        if (
+            $self->startDate !== null
+            && $self->dateInterval !== null
+            && !$self->dateInterval->invert
+            && $self->startDate > $self->endDate
+        ) {
+            $self->dateInterval->invert = 1;
+        }
 
         if ($inclusive !== null) {
             $self = $self->toggleOptions(static::EXCLUDE_END_DATE, !$inclusive);
         }
 
-        if (!$self->hasFilter(static::END_DATE_FILTER)) {
-            $self = $self->addFilter(static::END_DATE_FILTER);
-        } else {
-            $self->handleChangedParameters();
-        }
+        $self = self::addFilterOrHandleChangedParameters($self, static::END_DATE_FILTER);
 
         $self->syncNativePeriod();
 
@@ -2448,7 +2452,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return true;
         }
 
-        if ($this->dateInterval->invert ? $current > $this->endDate : $current < $this->endDate) {
+        if ($this->dateInterval->invert ? ($current > $this->endDate) : ($current < $this->endDate)) {
             return true;
         }
 
@@ -2571,7 +2575,10 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $attempts = 0;
 
         do {
-            $this->carbonCurrent = $this->carbonCurrent->add($this->dateInterval);
+            $this->carbonCurrent = $this->carbonCurrent->add(
+                $this->dateInterval,
+                $this->dateInterval->getStep() && $this->dateInterval->invert ? -1 : 1,
+            );
 
             $this->validationResult = null;
 
@@ -2775,5 +2782,18 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             ($excludeStart ? self::EXCLUDE_START_DATE : 0) | ($includeEnd && \defined('DatePeriod::INCLUDE_END_DATE') ? self::INCLUDE_END_DATE : 0),
         );
         // @codeCoverageIgnoreEnd
+    }
+
+    private static function addFilterOrHandleChangedParameters(
+        self $period,
+        array|callable|string $filter,
+    ): self {
+        if (!$period->hasFilter($filter)) {
+            return $period->addFilter($filter);
+        }
+
+        $period->handleChangedParameters();
+
+        return $period;
     }
 }

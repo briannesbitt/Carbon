@@ -2196,6 +2196,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         $class = ($params[0] ?? null) instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
 
+        if ($this->step) {
+            $dates = array_filter($params, static fn (mixed $param) => $param instanceof DateTimeInterface);
+
+            if (\count($dates) >= 2 && $dates[0] > $dates[1]) {
+                $this->invert();
+            }
+        }
+
         return $class::create($this, ...$params);
     }
 
@@ -3035,6 +3043,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             )->invert($inverted)->cascade());
         }
 
+        $initiallyInverted = (bool) $this->invert;
+
+        if ($initiallyInverted) {
+            $this->invert();
+        }
+
         $base = CarbonImmutable::parse('2000-01-01 00:00:00', 'UTC')
             ->roundUnit($unit, $precision, $function);
         $next = $base->add($this);
@@ -3050,7 +3064,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 ->diff($base),
         );
 
-        return $this->invert($inverted);
+        return $this->invert($initiallyInverted xor $inverted);
     }
 
     /**

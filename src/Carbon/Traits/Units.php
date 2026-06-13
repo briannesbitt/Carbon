@@ -266,7 +266,14 @@ trait Units
         }
 
         if ($unit instanceof Closure) {
-            $result = $this->resolveCarbon($unit($this, false));
+            $inverted = ($value < 0);
+            $result = $this;
+
+            self::disallowDecimalPart($value);
+
+            for ($i = abs($value); $i > 0; $i--) {
+                $result = $result->resolveCarbon($unit($result, $inverted));
+            }
 
             if ($this !== $result && $this->isMutable()) {
                 return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
@@ -448,7 +455,14 @@ trait Units
         }
 
         if ($unit instanceof Closure) {
-            $result = $this->resolveCarbon($unit($this, true));
+            $inverted = ($value < 0);
+            $result = $this;
+
+            self::disallowDecimalPart($value);
+
+            for ($i = abs($value); $i > 0; $i--) {
+                $result = $result->resolveCarbon($unit($result, !$inverted));
+            }
 
             if ($this !== $result && $this->isMutable()) {
                 return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
@@ -537,5 +551,14 @@ trait Units
         }
 
         return $this->day(min($anchorDay, $this->daysInMonth));
+    }
+
+    private static function disallowDecimalPart(mixed $value): void
+    {
+        if (((float) $value) !== ((float) (int) $value)) {
+            throw new InvalidArgumentException(
+                'Interval objects cannot be multiplied by a non-integer value.',
+            );
+        }
     }
 }
