@@ -2329,11 +2329,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     'options' => $this->setOptions(...),
                     'recurrences' => $this->setRecurrences(...),
                     'current' => function (mixed $current): void {
-                        if (!($current instanceof CarbonInterface)) {
-                            $current = $this->resolveCarbon($current);
-                        }
-
-                        $this->carbonCurrent = $current;
+                        $this->carbonCurrent = $this->carbonOrResolve($current);
                     },
                     'start' => 'startDate',
                     'interval' => $this->setDateInterval(...),
@@ -2629,6 +2625,13 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         return $period instanceof DatePeriod
             ? static::instance($period)
             : static::create($period, ...$arguments);
+    }
+
+    private function carbonOrResolve(mixed $dateTime): CarbonInterface
+    {
+        return $dateTime instanceof CarbonInterface
+            ? $dateTime
+            : $this->resolveCarbon($dateTime);
     }
 
     private function orderCouple($first, $second): array

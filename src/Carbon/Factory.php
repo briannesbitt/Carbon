@@ -561,11 +561,8 @@ class Factory
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *   - When a string containing the desired time is passed to Carbon::parse().
      *
-     * If you pass a string, only the moment is mocked, the timezone will still be the one passed
+     * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
      * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
-     *
-     * If you pass a date object, the timezone of it will override date_default_timezone_get(),
-     * to avoid this behavior, use setTestNowWithDefaultTimezone() instead or useDefaultTimezone: true.
      *
      * To clear the test instance call this method using the default
      * parameter of null.

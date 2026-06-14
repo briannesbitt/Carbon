@@ -49,7 +49,7 @@ trait Test
      */
     public static function setTestNow(mixed $testNow = null): void
     {
-        FactoryImmutable::getDefaultInstance()->setTestNow($testNow, false);
+        FactoryImmutable::getDefaultInstance()->setTestNow($testNow);
     }
 
     /**
