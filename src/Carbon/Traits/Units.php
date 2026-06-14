@@ -503,6 +503,48 @@ trait Units
         return $this->sub($unit, $value, $overflow, $anchorDay);
     }
 
+    /**
+     * Add given amount of time to the current date.
+     */
+    public function plus(
+        int $years = 0,
+        int $months = 0,
+        int $weeks = 0,
+        int $days = 0,
+        int $hours = 0,
+        int $minutes = 0,
+        int $seconds = 0,
+        int $microseconds = 0,
+    ): static {
+        return $this->addUnit(Unit::Year, $years)
+            ->addUnit(Unit::Month, $months)
+            ->add("
+                $weeks weeks $days days
+                $hours hours $minutes minutes $seconds seconds $microseconds microseconds
+            ");
+    }
+
+    /**
+     * Subtract given amount of time to the current date.
+     */
+    public function minus(
+        int $years = 0,
+        int $months = 0,
+        int $weeks = 0,
+        int $days = 0,
+        int $hours = 0,
+        int $minutes = 0,
+        int $seconds = 0,
+        int $microseconds = 0,
+    ): static {
+        return $this->subUnit(Unit::Year, $years)
+            ->subUnit(Unit::Month, $months)
+            ->sub("
+                $weeks weeks $days days
+                $hours hours $minutes minutes $seconds seconds $microseconds microseconds
+            ");
+    }
+
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
     {
         try {
