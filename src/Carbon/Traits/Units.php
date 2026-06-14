@@ -505,19 +505,23 @@ trait Units
 
     /**
      * Add given amount of time to the current date.
+     *
+     * @SuppressWarnings(ExcessiveParameterList)
      */
-    public function plus(
+    private function doPlus(
         int $years = 0,
         int $months = 0,
-        int $weeks = 0,
-        int $days = 0,
-        int $hours = 0,
-        int $minutes = 0,
-        int $seconds = 0,
-        int $microseconds = 0,
+        int|float $weeks = 0,
+        int|float $days = 0,
+        int|float $hours = 0,
+        int|float $minutes = 0,
+        int|float $seconds = 0,
+        int|float $microseconds = 0,
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
     ): static {
-        return $this->addUnit(Unit::Year, $years)
-            ->addUnit(Unit::Month, $months)
+        return $this->addUnit(Unit::Year, $years, $overflow, $anchorDay)
+            ->addUnit(Unit::Month, $months, $overflow, $anchorDay)
             ->add("
                 $weeks weeks $days days
                 $hours hours $minutes minutes $seconds seconds $microseconds microseconds
@@ -526,23 +530,36 @@ trait Units
 
     /**
      * Subtract given amount of time to the current date.
+     *
+     * @SuppressWarnings(ExcessiveParameterList)
      */
-    public function minus(
+    private function doMinus(
         int $years = 0,
         int $months = 0,
-        int $weeks = 0,
-        int $days = 0,
-        int $hours = 0,
-        int $minutes = 0,
-        int $seconds = 0,
-        int $microseconds = 0,
+        int|float $weeks = 0,
+        int|float $days = 0,
+        int|float $hours = 0,
+        int|float $minutes = 0,
+        int|float $seconds = 0,
+        int|float $microseconds = 0,
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
     ): static {
-        return $this->subUnit(Unit::Year, $years)
-            ->subUnit(Unit::Month, $months)
+        return $this->subUnit(Unit::Year, $years, $overflow, $anchorDay)
+            ->subUnit(Unit::Month, $months, $overflow, $anchorDay)
             ->sub("
                 $weeks weeks $days days
                 $hours hours $minutes minutes $seconds seconds $microseconds microseconds
             ");
+    }
+
+    private function callPlusOrMinus(string $method, array $parameters): ?static
+    {
+        return match ($method) {
+            'plus' => $this->doPlus(...$parameters),
+            'minus' => $this->doMinus(...$parameters),
+            default => null,
+        };
     }
 
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static

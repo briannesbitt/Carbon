@@ -14,6 +14,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
+use Carbon\Traits\Units;
 
 $tags = [
     'property',
@@ -639,6 +640,38 @@ ksort($unitOfUnit);
 
 array_push($autoDocLines, ...array_values(array_filter($unitOfUnit)));
 
+function cleanupDocComment(string $methodDocBlock): string
+{
+    $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
+
+    return preg_replace('/^\s*\*\s?/m', '', $doc);
+}
+
+function getMethodDocumentation(
+    string $name,
+    ReflectionMethod $method,
+): array {
+    return [
+        '@method',
+        'static',
+        $name.'('.implode(', ', array_map(
+            static fn (ReflectionParameter $parameter): string => dumpParameter($name, $parameter),
+            $method->getParameters(),
+        )).')',
+        cleanupDocComment($method->getDocComment()),
+    ];
+}
+
+$autoDocLines[] = getMethodDocumentation(
+    'plus',
+    new ReflectionMethod(Units::class, 'doPlus'),
+);
+
+$autoDocLines[] = getMethodDocumentation(
+    'minus',
+    new ReflectionMethod(Units::class, 'doMinus'),
+);
+
 $propertyTemplate = '
     /**
      * %description%
@@ -758,8 +791,7 @@ foreach ($carbonMethods as $method) {
     $methodDocBlock = $function->getDocComment() ?: '';
 
     if (!str_starts_with($method, '__') && $function->isStatic()) {
-        $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
-        $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
+        $doc = cleanupDocComment($methodDocBlock);
         $doc = explode("\n@", $doc, 2);
         $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
         $returnType = $function->getReturnType();
