@@ -3786,11 +3786,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *   - When a string containing the desired time is passed to Carbon::parse().
      *
-     * If you pass a string, only the moment is mocked, the timezone will still be the one passed
+     * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
      * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
-     *
-     * If you pass a date object, the timezone of it will override date_default_timezone_get(),
-     * to avoid this behavior, use setTestNowWithDefaultTimezone() instead.
      *
      * To clear the test instance call this method using the default
      * parameter of null.
@@ -3821,27 +3818,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
      */
     public static function setTestNowAndTimezone($testNow = null, $timezone = null): void;
-
-    /**
-     * Set a Carbon instance (real or mock) to be returned when a "now"
-     * instance is created. The provided instance will be returned
-     * specifically under the following conditions:
-     *   - A call to the static now() method, ex. Carbon::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
-     *   - When a string containing the desired time is passed to Carbon::parse().
-     *
-     * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
-     * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
-     *
-     * To clear the test instance call this method using the default
-     * parameter of null.
-     *
-     * /!\ Use this method for unit tests only.
-     *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
-     */
-    public static function setTestNowWithDefaultTimezone(mixed $testNow = null): void;
 
     /**
      * Resets the current time of the DateTime object to a different time.

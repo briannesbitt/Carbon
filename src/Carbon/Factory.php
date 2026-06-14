@@ -157,11 +157,6 @@ class Factory
     protected bool $useTimezoneFromTestNow = false;
 
     /**
-     * Is true when test-now is generated with date_default_timezone_get() as timezone.
-     */
-    protected bool $useDefaultTimezone = false;
-
-    /**
      * Default translator.
      */
     protected TranslatorInterface $translator;
@@ -579,48 +574,12 @@ class Factory
      *
      * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
      */
-    public function setTestNow(mixed $testNow = null, bool $useDefaultTimezone = false): void
+    public function setTestNow(mixed $testNow = null): void
     {
-        if (
-            !$useDefaultTimezone
-            && $testNow instanceof DateTimeInterface
-            && $testNow->getTimezone()->getName() !== date_default_timezone_get()
-        ) {
-            @trigger_error(
-                "Since nesbot/carbon 3.12.0, it's deprecated to call setTestNow() with date object ".
-                "having a timezone different from date_default_timezone_get().\n".
-                'You can also now call setTestNowWithDefaultTimezone() to use a date while '.
-                'continuing to use the default timezone, or setTestNowAndTimezone() to set both '.
-                'date and timezone.',
-                \E_USER_DEPRECATED,
-            );
-        }
-
-        $this->applyTestNow($testNow, $useDefaultTimezone);
-    }
-
-    /**
-     * Set a Carbon instance (real or mock) to be returned when a "now"
-     * instance is created. The provided instance will be returned
-     * specifically under the following conditions:
-     *   - A call to the static now() method, ex. Carbon::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
-     *   - When a string containing the desired time is passed to Carbon::parse().
-     *
-     * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
-     * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
-     *
-     * To clear the test instance call this method using the default
-     * parameter of null.
-     *
-     * /!\ Use this method for unit tests only.
-     *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
-     */
-    public function setTestNowWithDefaultTimezone(mixed $testNow = null): void
-    {
-        $this->applyTestNow($testNow, true);
+        $this->useTimezoneFromTestNow = false;
+        $this->testNow = $testNow instanceof Closure
+            ? $testNow
+            : $this->make($testNow);
     }
 
     /**
@@ -654,8 +613,7 @@ class Factory
             $this->setDefaultTimezone($testNow->getTimezone()->getName(), $testNow);
         }
 
-        $this->applyTestNow($testNow, false);
-        $this->useDefaultTimezone = false;
+        $this->setTestNow($testNow);
         $this->useTimezoneFromTestNow = ($timezone === null && $testNow instanceof Closure);
 
         if (!$useDateInstanceTimezone) {
@@ -685,12 +643,12 @@ class Factory
     public function withTestNow(mixed $testNow, callable $callback): mixed
     {
         $previousTestNow = $this->getTestNow();
-        $this->applyTestNow($testNow, false);
+        $this->setTestNow($testNow);
 
         try {
             $result = $callback();
         } finally {
-            $this->applyTestNow($previousTestNow, false);
+            $this->setTestNow($previousTestNow);
         }
 
         return $result;
@@ -739,16 +697,14 @@ class Factory
             }
 
             if (!($testNow instanceof CarbonInterface)) {
-                $timezone ??= match (true) {
-                    $this->useDefaultTimezone => new CarbonTimeZone(date_default_timezone_get()),
-                    $this->useTimezoneFromTestNow => $testNow->getTimezone(),
-                    default => null,
-                };
+                $timezone ??= $this->useTimezoneFromTestNow
+                    ? $testNow->getTimezone()
+                    : new CarbonTimeZone(date_default_timezone_get());
                 $testNow = $this->__call('instance', [$testNow, $timezone]);
             }
         }
 
-        if ($timezone === null && $this->useDefaultTimezone) {
+        if ($testNow !== null && $timezone === null) {
             if ($testNow instanceof DateTime) {
                 $testNow = clone $testNow;
             }
@@ -902,14 +858,5 @@ class Factory
                 $previous
             );
         }
-    }
-
-    private function applyTestNow(mixed $testNow, bool $useDefaultTimezone): void
-    {
-        $this->useTimezoneFromTestNow = false;
-        $this->useDefaultTimezone = $useDefaultTimezone;
-        $this->testNow = $testNow instanceof Closure
-            ? $testNow
-            : $this->make($testNow);
     }
 }
