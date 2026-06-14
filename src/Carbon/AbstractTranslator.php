@@ -49,6 +49,13 @@ abstract class AbstractTranslator extends SymfonyTranslator
     protected array $directories = [];
 
     /**
+     * Cache for language files.
+     *
+     * @var array<string, array>
+     */
+    protected array $fileCache = [];
+
+    /**
      * Set to true while constructing.
      */
     protected bool $initializing = false;
@@ -171,7 +178,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
 
         foreach ($this->getDirectories() as $directory) {
             $file = \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
-            $data = @include $file;
+            $data = ($this->fileCache[$file] ??= @include $file);
 
             if ($data !== false) {
                 $this->messages[$locale] = $data;
