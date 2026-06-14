@@ -407,7 +407,16 @@ trait Localization
         $translator = static::getTranslator();
 
         if (method_exists($translator, 'setFallbackLocales')) {
-            $translator->setFallbackLocales([$locale]);
+            $fallbackLocales = [$locale];
+
+            if (
+                method_exists($translator, 'getFallbackLocales')
+                && $fallbackLocales === $translator->getFallbackLocales()
+            ) {
+                return;
+            }
+
+            $translator->setFallbackLocales($fallbackLocales);
 
             if ($translator instanceof Translator) {
                 $preferredLocale = $translator->getLocale();
