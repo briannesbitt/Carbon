@@ -110,6 +110,11 @@ echo $dt->subMonths(2);
 
 This will apply for methods `addMonth(s)`, `subMonth(s)`, `add($x, 'month')`, `sub($x, 'month')` and equivalent quarter methods. But it won't apply for intervals objects or strings like `add(CarbonInterval::month())` or `add('1 month')`.
 
+Note that `CarbonInterval::monthNoOverflow()` is available to produce an interval of 1 month
+that does not overflow. `CarbonInterval::monthWithAnchorDay()` is also available and allow you
+to specify an anchor day (after stepping to the next month it will try to go up to the given
+anchor day if available, else it will go to the last day of the month).
+
 Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version 1 of Carbon, [check the overflow static helpers section](../date-time-manipulation/addition-and-subtraction.html#overflow-static-helpers)
 
 <div id="overflow-static-helpers"><!-- Link anchor --></div>

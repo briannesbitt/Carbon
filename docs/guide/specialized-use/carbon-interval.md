@@ -354,7 +354,6 @@ $halfDay = CarbonInterval::hours(12);
 $oneDay = CarbonInterval::day();
 $twoDay = CarbonInterval::days(2);
 
-
 echo CarbonInterval::compareDateIntervals($oneDay, $oneDay);
 echo $oneDay->compare($oneDay);
 echo CarbonInterval::compareDateIntervals($oneDay, $halfDay);
@@ -362,10 +361,8 @@ echo $oneDay->compare($halfDay);
 echo CarbonInterval::compareDateIntervals($oneDay, $twoDay);
 echo $oneDay->compare($twoDay);
 
-
 $list = [$twoDay, $halfDay, $oneDay];
 usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
-
 
 echo implode(', ', $list);
 ```
@@ -379,7 +376,6 @@ $weekDayInterval = new CarbonInterval(function (CarbonInterface $date, bool $neg
 		? $date->subWeekday()
 		: $date->addWeekday();
 });
-
 
 echo Carbon::parse('Wednesday')->sub($weekDayInterval)->dayName;
 echo "\n";
@@ -412,7 +408,6 @@ Dump interval values as an array with:
 ```php
 $interval = CarbonInterval::months(2)->addHours(12)->addSeconds(50);
 
-
 // All the values:
 print_r($interval->toArray());
 
@@ -426,3 +421,43 @@ print_r($interval->getNonZeroValues());
 Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling `toPeriod()` with complementary arguments.
 
 I hear you ask what is a CarbonPeriod instance. Oh! Perfect transition to our next chapter.
+
+### Month
+
+By default, when adding `CarbonInterval::month()` to a date such as `2026-03-31`,
+it will try to go to `2026-04-31`, which does not exist, so it overflows to `2026-05-01`.
+
+```php
+echo Carbon::parse('2026-01-31')->add(CarbonInterval::month());
+echo "\n";
+echo Carbon::parse('2026-03-31')->add(CarbonInterval::month());
+```
+
+This behavior is inherited from PHP (`new \DateTime('2026-03-31')->add(new \DateInterval('P1M'))`
+produces the same result).
+
+But with `CarbonInterval` you can create special month intervals that don't overflow:
+
+```php
+echo Carbon::parse('2026-01-31')->add(CarbonInterval::monthNoOverflow());
+echo "\n";
+echo Carbon::parse('2026-03-31')->add(CarbonInterval::monthNoOverflow());
+```
+
+For subscription cycles and the like, it can also be convenient to set an anchor day
+(typically to the day of the month of the first payment):
+
+```php
+$firstPayment = Carbon::parse('2025-06-30');
+$firstPaymentDay = $firstPayment->day; // anchor day
+
+// We can jump from a payment to the next while
+// going as far as possible close the initial day
+// but if month is too short, exceptionally it will
+// be earlier
+echo Carbon::parse('2026-01-30')->add(CarbonInterval::monthWithAnchorDay($firstPaymentDay));
+echo "\n";
+echo Carbon::parse('2026-02-28')->add(CarbonInterval::monthWithAnchorDay($firstPaymentDay));
+echo "\n";
+echo Carbon::parse('2026-03-30')->add(CarbonInterval::monthWithAnchorDay($firstPaymentDay));
+```
