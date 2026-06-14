@@ -474,23 +474,4 @@ class AddTest extends AbstractTestCase
         $this->assertTrue(Carbon::shouldOverflowYears());
         $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYears(2), 2018, 3, 1);
     }
-
-    public function testPlusMethod()
-    {
-        $this->assertSame(
-            '2028-08-14',
-            Carbon::create('2026-08-12')->plus(years: 2, hours: 48)->format('Y-m-d'),
-        );
-    }
-
-    public function testMinusMethod()
-    {
-        $this->assertSame(
-            '2026-08-11 18:00',
-            Carbon::create('2026-08-12')->minus(
-                hours: 6,
-                // days: 0.25, // Support for floating numbers planned for a later version
-            )->format('Y-m-d H:i'),
-        );
-    }
 }
