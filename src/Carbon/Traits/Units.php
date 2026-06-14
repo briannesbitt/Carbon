@@ -341,7 +341,7 @@ trait Units
         }
 
         if ($unit === 'weekday') {
-            $weekendDays = $this->transmitFactory(static fn () => static::getWeekendDays());
+            $weekendDays = $this->transmitFactory(static::getWeekendDays(...));
 
             if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
                 $absoluteValue = abs($value);
