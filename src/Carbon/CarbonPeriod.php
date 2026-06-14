@@ -471,6 +471,51 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         ))->setOptions($options ?? self::IMMUTABLE);
     }
 
+    public static function yearly(
+        DateTimeInterface|string|int|null $start = null,
+        DateTimeInterface|string|int|null $end = null,
+        ?int $recurrences = null,
+        ?int $anchorDay = null,
+        OverflowMode $mode = OverflowMode::AnchorDay,
+        ?int $options = null,
+    ): static {
+        if ($anchorDay !== null && $mode !== OverflowMode::AnchorDay) {
+            throw new InvalidArgumentException(
+                '$anchorDay parameter must not be set for $mode MonthlyMode::'.$mode->name,
+            );
+        }
+
+        if ($end !== null && $recurrences !== null) {
+            throw new InvalidArgumentException(
+                'You must specify $end or $recurrences but not both',
+            );
+        }
+
+        if (\is_int($start)) {
+            $start = CarbonImmutable::createFromTimestamp($start);
+        } elseif (\is_string($start)) {
+            $start = CarbonImmutable::parse($start);
+        }
+
+        $start ??= CarbonImmutable::now();
+
+        if (\is_int($end)) {
+            $end = CarbonImmutable::createFromTimestamp($end);
+        }
+
+        return (new static(
+            $start,
+            match ($mode) {
+                OverflowMode::AnchorDay => CarbonInterval::yearWithAnchorDay(
+                    $anchorDay ?? $start->day,
+                ),
+                OverflowMode::NoOverflow => CarbonInterval::yearNoOverflow(),
+                OverflowMode::Overflow => CarbonInterval::month(),
+            },
+            $end ?? $recurrences,
+        ))->setOptions($options ?? self::IMMUTABLE);
+    }
+
     /**
      * Return whether the given interval contains non-zero value of any time unit.
      */

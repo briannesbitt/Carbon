@@ -800,6 +800,24 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         });
     }
 
+    public static function yearWithAnchorDay(int $day): static
+    {
+        return new static(function (CarbonInterface $date, bool $negated) use ($day) {
+            $next = $date->day(1)->addYears($negated ? -1 : 1);
+
+            return $next->day(min($day, $next->daysInMonth));
+        });
+    }
+
+    public static function yearNoOverflow(): static
+    {
+        return new static(static function (CarbonInterface $date, bool $negated) {
+            return $negated
+                ? $date->subYearNoOverflow()
+                : $date->addYearNoOverflow();
+        });
+    }
+
     /**
      * Return the original source used to create the current interval.
      *
