@@ -159,24 +159,18 @@ function write_markdown()
                 $markdown .= "- $tag (".Carbon::parse($release['created_at'])->format('j F Y').")\n";
                 $progress_bar->advance();
             }
+
             continue;
         }
 
         foreach ($release_group as $release) {
             $tag = $release['tag_name'];
-
-            if (empty($previous_tag)) {
-                $previous_tag = $tag;
-                continue;
-            }
-
-            $end = $previous_tag;
             $date = Carbon::parse($release['created_at'])->format('j F Y');
-            $markdown .= "#### $end ($date)\n{$release['body']}\n\n";
+            $markdown .= "#### $tag ($date)\n{$release['body']}\n\n";
             $progress_bar->advance();
-            $previous_tag = $tag;
         }
     }
+
     $progress_bar->finish();
 
     file_put_contents($destination_file, $markdown);

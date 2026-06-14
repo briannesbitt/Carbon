@@ -54,7 +54,7 @@ $dt->set('year', 2003);
 echo $dt->get('year');
 echo "\n";
 
-// these methods exist for every units even for calculated properties such as:
+// these methods exist for every unit even for calculated properties such as:
 echo $dt->dayOfYear(35)->format('Y-m-d');
 ```
 
@@ -71,5 +71,4 @@ echo "\n";
 // it will set current day to the given number if it exists in the current month,
 // else it will set it to the last day of the month
 echo Carbon::parse('2026-06-14')->setAnchorDay(31);
-echo "\n";
 ```
