@@ -481,6 +481,14 @@ class AddTest extends AbstractTestCase
             '2028-08-14',
             Carbon::create('2026-08-12')->plus(years: 2, hours: 48)->format('Y-m-d'),
         );
+        $this->assertSame(
+            '2026-03-31',
+            Carbon::create('2026-02-28')->plus(months: 1, anchorDay: 31)->format('Y-m-d'),
+        );
+        $this->assertSame(
+            '2026-04-30',
+            Carbon::create('2026-02-28')->plus(months: 2, anchorDay: 31)->format('Y-m-d'),
+        );
     }
 
     public function testMinusMethod()
@@ -489,7 +497,12 @@ class AddTest extends AbstractTestCase
             '2026-08-11 18:00',
             Carbon::create('2026-08-12')->minus(
                 hours: 6,
-                // days: 0.25, // Support for floating numbers planned for a later version
+            )->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2026-08-11 18:00',
+            Carbon::create('2026-08-12')->minus(
+                days: 0.25,
             )->format('Y-m-d H:i'),
         );
     }
