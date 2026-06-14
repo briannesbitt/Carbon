@@ -517,8 +517,8 @@ trait Units
         int $microseconds = 0,
         ?bool $overflow = null,
     ): static {
-        return $this->add('years', $years, $overflow)
-            ->add('months', $months, $overflow)
+        return $this->addUnit(Unit::Year, $years, $overflow)
+            ->addUnit(Unit::Month, $months, $overflow)
             ->add("
                 $weeks weeks $days days
                 $hours hours $minutes minutes $seconds seconds $microseconds microseconds
@@ -539,8 +539,8 @@ trait Units
         int $microseconds = 0,
         ?bool $overflow = null,
     ): static {
-        return $this->sub('years', $years, $overflow)
-            ->sub('months', $months, $overflow)
+        return $this->subUnit(Unit::Year, $years, $overflow)
+            ->subUnit(Unit::Month, $months, $overflow)
             ->sub("
                 $weeks weeks $days days
                 $hours hours $minutes minutes $seconds seconds $microseconds microseconds
