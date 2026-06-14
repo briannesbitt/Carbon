@@ -65,8 +65,7 @@ trait IntervalStep
      */
     public function convertDate(DateTimeInterface $dateTime, bool $negated = false): CarbonInterface
     {
-        /** @var CarbonInterface $carbonDate */
-        $carbonDate = $dateTime instanceof CarbonInterface ? $dateTime : $this->resolveCarbon($dateTime);
+        $carbonDate = $this->carbonOrResolve($dateTime);
 
         if ($this->step) {
             $carbonDate = Callback::parameter($this->step, $carbonDate->avoidMutation());
@@ -91,6 +90,13 @@ trait IntervalStep
         }
 
         return Carbon::instance($dateTime);
+    }
+
+    private function carbonOrResolve(mixed $dateTime): CarbonInterface
+    {
+        return $dateTime instanceof CarbonInterface
+            ? $dateTime
+            : $this->resolveCarbon($dateTime);
     }
 
     private function checkNoStepIsDefined(string $method): void

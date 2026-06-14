@@ -456,7 +456,7 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNow();
         date_default_timezone_set('UTC');
 
-        Carbon::setTestNowWithDefaultTimezone(
+        Carbon::setTestNow(
             Carbon::create(2025, 9, 18, 15, 34, timezone: new DateTimeZone('Europe/London')),
         );
 
@@ -466,6 +466,17 @@ class TestingAidsTest extends AbstractTestCase
         );
         $this->assertSame(
             '15:13 UTC',
+            Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        date_default_timezone_set('America/Toronto');
+
+        $this->assertSame(
+            '10:34 America/Toronto',
+            Carbon::now()->format('H:i e'),
+        );
+        $this->assertSame(
+            '15:13 America/Toronto',
             Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
 
@@ -494,7 +505,7 @@ class TestingAidsTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            '15:13 Europe/London',
+            '15:13 America/Edmonton',
             Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
 
@@ -507,7 +518,7 @@ class TestingAidsTest extends AbstractTestCase
             Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
 
-        Carbon::setTestNow(
+        Carbon::setTestNowAndTimezone(
             new DateTime('2025-09-18 14:00:00', new DateTimeZone('America/New_York')),
         );
 
@@ -517,20 +528,24 @@ class TestingAidsTest extends AbstractTestCase
         );
 
         $factory = new Factory();
-        $factory->setTestNow(
-            new DateTime('2025-09-18 14:00:00', new DateTimeZone('Pacific/Auckland')),
-        );
+        $date = new DateTime('2025-09-18 14:00:00', new DateTimeZone('Pacific/Auckland'));
+        $factory->setTestNow($date);
 
         $this->assertSame(
-            '15:13 Pacific/Auckland',
+            '15:13 America/New_York',
             $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+        $this->assertSame(
+            '14:00 Pacific/Auckland',
+            $date->format('H:i e'),
+            'Original date should not be mutated',
         );
 
         $date = new DateTime('2025-09-18 14:00:00', new DateTimeZone('Pacific/Auckland'));
-        $factory->setTestNowWithDefaultTimezone($date);
+        $factory->setTestNowAndTimezone($date);
 
         $this->assertSame(
-            '15:13 America/Edmonton',
+            '15:13 Pacific/Auckland',
             $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
         $this->assertSame(
@@ -545,7 +560,7 @@ class TestingAidsTest extends AbstractTestCase
         Carbon::setTestNow();
         date_default_timezone_set('UTC');
 
-        Carbon::setTestNowWithDefaultTimezone(
+        Carbon::setTestNow(
             '2025-10-24T00:30:00+0200',
         );
 
@@ -574,7 +589,7 @@ class TestingAidsTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            '15:13 +02:00',
+            '15:13 America/Edmonton',
             Carbon::createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
 
@@ -582,14 +597,21 @@ class TestingAidsTest extends AbstractTestCase
         $factory->setTestNow('2025-09-18 14:00:00 Pacific/Auckland');
 
         $this->assertSame(
-            '15:13 Pacific/Auckland',
+            '15:13 America/Edmonton',
             $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
 
-        $factory->setTestNowWithDefaultTimezone('2025-09-18 14:00:00 Pacific/Auckland');
+        $factory->setTestNowAndTimezone('2025-09-18 14:00:00 Pacific/Auckland');
 
         $this->assertSame(
             '15:13 America/Edmonton',
+            $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
+        );
+
+        $factory->setTestNowAndTimezone('2025-09-18 14:00:00', 'Pacific/Auckland');
+
+        $this->assertSame(
+            '15:13 Pacific/Auckland',
             $factory->createFromFormat('Y-m-d H:i:s', '2025-09-18 15:13:00')->format('H:i e'),
         );
     }

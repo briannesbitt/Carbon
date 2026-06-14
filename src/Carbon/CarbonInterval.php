@@ -1154,8 +1154,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function diff($start, $end = null, bool $absolute = false, array $skip = []): static
     {
-        $start = $start instanceof CarbonInterface ? $start : Carbon::make($start);
-        $end = $end instanceof CarbonInterface ? $end : Carbon::make($end);
+        $start = self::carbonOrMake($start);
+        $end = self::carbonOrMake($end);
         $rawInterval = $start->diffAsDateInterval($end, $absolute);
         $interval = static::instance($rawInterval, $skip);
 
@@ -3580,6 +3580,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 // Drop unknown settings
                 return $this;
         }
+    }
+
+    private static function carbonOrMake(mixed $dateTime): CarbonInterface
+    {
+        return $dateTime instanceof CarbonInterface
+            ? $dateTime
+            : Carbon::make($dateTime);
     }
 
     private static function incrementUnit(DateInterval $instance, string $unit, int $value): void
