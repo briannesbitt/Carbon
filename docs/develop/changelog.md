@@ -4,6 +4,13 @@
 
 ## Version 3.x
 
+#### 3.12.0 (7 April 2026)
+## What's Changed
+* Help PHPStan discover UnprotectedDatePeriod by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/100
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.11.3...3.11.4
+
 #### 3.11.4 (11 March 2026)
 ## What's Changed
 * Allow Closure type for mixin by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/93

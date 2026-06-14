@@ -278,6 +278,15 @@ echo $dt->addUnitNoOverflow('hour', 14, 'month');
 echo "\n";
 echo $dt->addUnitNoOverflow('hour', 48, 'month');
 
+echo "\n-------\n";
+
+// An anchor day can be passed so try to go up to
+// this day if it exists in the current month
+echo $dt->addUnitNoOverflow(Unit::Month, 2, Unit::Year, 31);
+echo "\n";
+echo $dt->subUnitNoOverflow(Unit::Month, 2, Unit::Year, 31);
+echo "\n";
+echo $dt->setUnitNoOverflow(Unit::Month, 9, Unit::Year, 31);
 ```
 
 Any modifiable unit can be passed as argument of those methods:
@@ -287,7 +296,6 @@ $units = [];
 foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week', 'weekday', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'] as $unit) {
 	$units[$unit] = Carbon::isModifiableUnit($unit);
 }
-
 
 echo json_encode($units, JSON_PRETTY_PRINT);
 ```

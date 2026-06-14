@@ -8,13 +8,11 @@ class CarbonInterval extends \DateInterval
 {
 	// code here
 }
-
 ```
 
 You can create an instance in the following ways:
 
 ```php
-
 echo CarbonInterval::createFromFormat('H:i:s', '10:20:00');
 echo "\n";
 
@@ -32,13 +30,11 @@ echo "\n";
 echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7, 123);
 echo "\n";
 echo CarbonInterval::createFromDateString('3 months');
-
 ```
 
 Be careful, Carbon 2 accepts only integer unit values by default, which means: `CarbonInterval::days(3.5)` produces a \[3 days and 0 hours\] interval. In Carbon 3, it will cascade decimal part to smaller units. To enable this behavior in Carbon 2, you can call `CarbonInterval::enableFloatSetters();`.
 
 ```php
-
 // Allow decimal numbers
 CarbonInterval::enableFloatSetters();
 echo CarbonInterval::days(3.5);
@@ -47,45 +43,36 @@ echo "\n";
 // Disallow decimal numbers
 CarbonInterval::enableFloatSetters(false);
 echo CarbonInterval::days(3.5);
-
 ```
 
 You can add/sub any unit to a given existing interval:
 
 ```php
-
 $interval = CarbonInterval::months(3);
 echo $interval;
 echo "\n";
-
 
 $interval->subMonths(1);
 echo $interval;
 echo "\n";
 
-
 $interval->addDays(15);
 echo $interval;
-
 ```
 
 We also provide `plus()` and `minus()` method that expect numbers for each unit in the same order than `create()` and can be used in a convenient way with PHP 8:
 
 ```php
-
 $interval = CarbonInterval::months(3);
 echo $interval;
 echo "\n";
-
 
 $interval->minus(months: 1);
 echo $interval;
 echo "\n";
 
-
 $interval->plus(days: 15, hours: 20);
 echo $interval;
-
 ```
 
 If you find yourself inheriting a `\DateInterval` instance from another library, fear not! You can create a `CarbonInterval` instance via a friendly `instance()` function.
@@ -107,7 +94,6 @@ var_dump($ci3 === $ci);
 // the same option is available on make()
 $ci4 = CarbonInterval::make($ci, skipCopy: true);
 var_dump($ci4 === $ci);
-
 ```
 
 And as the opposite you can extract a raw `DateInterval` from `CarbonInterval` and even cast it in any class that extends `DateInterval`
@@ -124,7 +110,6 @@ class CustomDateInterval extends \DateInterval {}
 $di = $ci->cast(CustomDateInterval::class);
 echo get_class($di);
 echo $di->d;
-
 ```
 
 You can compare intervals the same way than Carbon objects, using `equalTo()`, `notEqualTo()` `lessThan()`, `lessThanOrEqualTo()`, `greaterThan()`, `greaterThanOrEqualTo()`, `between()`, `betweenExcluded()`, etc.
@@ -132,7 +117,6 @@ You can compare intervals the same way than Carbon objects, using `equalTo()`, `
 Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved. Weeks are calculated based on the total days of the current instance.
 
 ```php
-
 echo CarbonInterval::year()->years;
 echo CarbonInterval::year()->dayz;
 echo CarbonInterval::days(24)->dayz;
@@ -141,7 +125,6 @@ echo CarbonInterval::weeks(3)->days(14)->weeks;  // <-- days setter overwrites t
 echo CarbonInterval::weeks(3)->addDays(14)->weeks;
 echo CarbonInterval::weeks(3)->weeks;
 echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);
-
 ```
 
 CarbonInterval extends DateInterval and you can create both using [ISO-8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations):
@@ -151,7 +134,6 @@ $ci = CarbonInterval::create('P1Y2M3D');
 var_dump($ci->isEmpty());
 $ci = new CarbonInterval('PT0S');
 var_dump($ci->isEmpty());
-
 ```
 
 Carbon intervals can be created from human-friendly strings thanks to `fromString()` method.
@@ -159,7 +141,6 @@ Carbon intervals can be created from human-friendly strings thanks to `fromStrin
 ```php
 CarbonInterval::fromString('2 minutes 15 seconds');
 CarbonInterval::fromString('2m 15s'); // or abbreviated
-
 ```
 
 Or create it from an other `DateInterval` / `CarbonInterval` object.
@@ -167,7 +148,6 @@ Or create it from an other `DateInterval` / `CarbonInterval` object.
 ```php
 $ci = new CarbonInterval(new \DateInterval('P1Y2M3D'));
 var_dump($ci->isEmpty());
-
 ```
 
 Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.
@@ -175,12 +155,10 @@ Note that month abbreviate "mo" to distinguish from minutes and the whole syntax
 It also has a handy `forHumans()`, which is mapped as the `__toString()` implementation, that prints the interval for humans.
 
 ```php
-
 CarbonInterval::setLocale('fr');
 echo CarbonInterval::create(2, 1)->forHumans();
 echo CarbonInterval::hour()->addSeconds(3);
 CarbonInterval::setLocale('en');
-
 ```
 
 `forHumans($syntax, $short, $parts, $options)` allow the same option arguments as `Carbon::diffForHumans()` except `$parts` is set to -1 (no limit) by default. [See `Carbon::diffForHumans()` options.](../date-time-manipulation/difference-for-humans.html#diff-for-humans-options)
@@ -190,7 +168,6 @@ As you can see, you can change the locale of the string using `CarbonInterval::s
 As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or strings:
 
 ```php
-
 $dateInterval = new \DateInterval('P2D');
 $carbonInterval = CarbonInterval::month();
 
@@ -252,13 +229,11 @@ echo CarbonInterval::days(2)->forHumans([
 // Before version 2.9.0, parameters could only be passed sequentially:
 // $interval->forHumans($syntax, $short, $parts, $options)
 // and join parameter was not available
-
 ```
 
 The add, sub (or subtract), times, shares, multiply and divide methods allow to do proceed intervals calculations:
 
 ```php
-
 $interval = CarbonInterval::make('7h 55m');
 $interval->add(CarbonInterval::make('17h 35m'));
 $interval->subtract(10, 'minutes');
@@ -278,7 +253,6 @@ echo "\n";
 echo CarbonInterval::make('19h 55m')->multiply(3)->forHumans();
 echo "\n";
 echo CarbonInterval::make('19h 55m')->divide(3)->forHumans();
-
 ```
 
 You get pure calculation from your input unit by unit. To cascade minutes into hours, hours into days etc. Use the cascade method:
@@ -287,7 +261,6 @@ You get pure calculation from your input unit by unit. To cascade minutes into h
 $interval = CarbonInterval::make('7h 55m');
 echo $interval->forHumans();
 echo $interval->cascade()->forHumans();
-
 ```
 
 Default factors are:
@@ -302,7 +275,6 @@ Default factors are:
 CarbonIntervals do not carry context so they cannot be more precise (no DST, no leap year, no real month length or year length consideration). But you can completely customize those factors. For example to deal with work time logs:
 
 ```php
-
 $cascades = CarbonInterval::getCascadeFactors(); // save initial factors
 
 CarbonInterval::setCascadeFactors([
@@ -312,7 +284,6 @@ CarbonInterval::setCascadeFactors([
 	'week' => [5, 'days'],
 	// in this example the cascade won't go farther than week unit
 ]);
-
 
 echo CarbonInterval::fromString('20h')->cascade()->forHumans();
 echo CarbonInterval::fromString('10d')->cascade()->forHumans();
@@ -330,10 +301,7 @@ echo CarbonInterval::getSecondsPerMinute();
 echo CarbonInterval::getMillisecondsPerSecond();
 echo CarbonInterval::getMicrosecondsPerMillisecond();
 
-
 CarbonInterval::setCascadeFactors($cascades); // restore original factors
-
-
 ```
 
 Is it possible to convert an interval into a given unit (using provided cascade factors).
@@ -343,7 +311,6 @@ echo CarbonInterval::days(3)->addHours(5)->total('hours');
 echo CarbonInterval::days(3)->addHours(5)->totalHours;
 echo CarbonInterval::months(6)->totalWeeks;
 echo CarbonInterval::year()->totalDays;
-
 ```
 
 `->total` method and properties need cascaded intervals, if your interval can have overflow, cascade them before calling these feature:
@@ -351,7 +318,6 @@ echo CarbonInterval::year()->totalDays;
 ```php
 echo CarbonInterval::minutes(1200)->cascade()->total('hours');
 echo CarbonInterval::minutes(1200)->cascade()->totalHours;
-
 ```
 
 You can also get the ISO 8601 spec of the inverval with `spec()`
@@ -362,20 +328,28 @@ echo CarbonInterval::days(3)->addHours(5)->spec();
 echo CarbonInterval::days(3)->addSeconds(5)->addMicroseconds(987654)->spec();
 // But you can explicitly add them:
 echo CarbonInterval::days(3)->addSeconds(5)->addMicroseconds(987654)->spec(true);
+```
 
+By default `spec()` ignore signs, but you can specify `withNegatives: true`
+to display minus signs:
+
+```php
+echo CarbonInterval::hours(-5)->spec();
+echo CarbonInterval::hours(5)->invert()->spec();
+
+echo CarbonInterval::hours(-5)->spec(withNegatives: true);
+echo CarbonInterval::hours(5)->invert()->spec(withNegatives: true);
 ```
 
 It's also possible to get it from a DateInterval object since to the static helper:
 
 ```php
 echo CarbonInterval::getDateIntervalSpec(new \DateInterval('P3DT6M10S'));
-
 ```
 
 List of date intervals can be sorted thanks to the `compare()` and `compareDateIntervals()` methods:
 
 ```php
-
 $halfDay = CarbonInterval::hours(12);
 $oneDay = CarbonInterval::day();
 $twoDay = CarbonInterval::days(2);
@@ -394,7 +368,6 @@ usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 
 
 echo implode(', ', $list);
-
 ```
 
 Alternatively to fixed intervals, Dynamic intervals can be described with a function to step from a date to an other date:
@@ -417,8 +390,6 @@ foreach (Carbon::parse('2020-06-01')->range('2020-06-17', $weekDayInterval) as $
 	// every week day
 	echo ' '.$date->day;
 }
-
-
 ```
 
 You can access and modify the closure step definition using `getStep()` and `setStep()` (the setter can take `null` to remove it so it becomes a simple fixed interval. And as long as the interval has a step, it will take the precedence over all fixed units it contains.
@@ -434,13 +405,11 @@ $weekDayInterval = new CarbonInterval(function (CarbonInterface $date, bool $neg
 });
 echo $weekDayInterval->convertDate(new \DateTime('Wednesday'), true)->dayName;
 echo $weekDayInterval->convertDate(new \DateTime('Friday'))->dayName;
-
 ```
 
 Dump interval values as an array with:
 
 ```php
-
 $interval = CarbonInterval::months(2)->addHours(12)->addSeconds(50);
 
 
@@ -452,7 +421,6 @@ print_r($interval->getValuesSequence());
 
 // Non-zero values:
 print_r($interval->getNonZeroValues());
-
 ```
 
 Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling `toPeriod()` with complementary arguments.

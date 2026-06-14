@@ -7,7 +7,6 @@ order: 2
 The following setters are implemented via PHP's `__set()` method. Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance. Specifically, setting the timestamp will not set the corresponding timezone to UTC.
 
 ```php
-
 $dt = Carbon::now();
 
 $dt->year = 1975;
@@ -57,5 +56,20 @@ echo "\n";
 
 // these methods exist for every units even for calculated properties such as:
 echo $dt->dayOfYear(35)->format('Y-m-d');
+```
 
+Be careful that setters will overflow:
+
+```php
+echo Carbon::parse('2026-06-14')->setHours(25);
+echo "\n";
+
+// This can be especially annoying with days overflowing month:
+echo Carbon::parse('2026-06-14')->setDay(31);
+echo "\n";
+// So setAnchorDay is available to work around this issue,
+// it will set current day to the given number if it exists in the current month,
+// else it will set it to the last day of the month
+echo Carbon::parse('2026-06-14')->setAnchorDay(31);
+echo "\n";
 ```

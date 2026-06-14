@@ -111,5 +111,4 @@ var_dump(Carbon::now()->get($unit));
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));
 var_dump(Carbon::pluralUnit('millennium'));
-
 ```

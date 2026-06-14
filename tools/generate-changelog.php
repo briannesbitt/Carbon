@@ -57,15 +57,13 @@ function get_data(string $url)
 
     if (!is_string($json)) {
         echo curl_errno($handler).': '.curl_error($handler)."\n";
-        curl_close($handler);
         exit(1);
     }
-
-    curl_close($handler);
 
     // get headers
     $headers = curl_getinfo($handler);
     $response_code = $headers['http_code'] ?? 0;
+
     if ($response_code !== 200) {
         throw new RuntimeException("\nGitHub API returned response code $response_code");
     }
