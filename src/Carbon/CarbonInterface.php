@@ -3333,6 +3333,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     public function minimum($date = null);
 
     /**
+     * Subtract given amount of time to the current date.
+     */
+    public function minus(int $years = 0, int $months = 0, int $weeks = 0, int $days = 0, int $hours = 0, int $minutes = 0, int $seconds = 0, int $microseconds = 0): static;
+
+    /**
      * Mix another object into the class.
      *
      * @example
@@ -3506,6 +3511,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Returns standardized plural of a given singular/plural unit name (in English).
      */
     public static function pluralUnit(string $unit): string;
+
+    /**
+     * Add given amount of time to the current date.
+     */
+    public function plus(int $years = 0, int $months = 0, int $weeks = 0, int $days = 0, int $hours = 0, int $minutes = 0, int $seconds = 0, int $microseconds = 0): static;
 
     /**
      * Modify to the previous occurrence of a given modifier such as a day of
