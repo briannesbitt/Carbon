@@ -4,6 +4,30 @@
 
 ## Version 3.x
 
+#### 3.12.3 (14 June 2026)
+## What's Changed
+* Improve `plus()` and `minus()` method by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/126
+  - Add `$anchorDay` parameter and `OverflowMode` for `$overflow` parameter
+  - Add float support for `$weeks`, `$days`, `$hours`, `$minutes`, `$seconds` and `$microseconds`
+  - Use `__call` so sub-classes are allowed to override those methods with divergent signatures
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.12.2...3.12.3
+
+#### 3.12.2 (14 June 2026)
+## What's Changed
+* Add `plus()` and `minus()` methods by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/124
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.12.1...3.12.2
+
+#### 3.12.1 (14 June 2026)
+## What's Changed
+* Remove `plus()` and `minus()` methods by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/123
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.12.0...3.12.1
+
 #### 3.12.0 (14 June 2026)
 ## What's Changed
 * Add `plus()` and `minus()` methods by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/120
