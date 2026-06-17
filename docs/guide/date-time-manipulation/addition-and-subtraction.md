@@ -3,7 +3,7 @@
 The default DateTime provides a couple of different methods for easily adding and subtracting time. There is `modify()`, `add()` and `sub()`. `change()` is an enhanced version of `modify()` that can take _magical_ date/time format string, `'last day of next month'`, that it parses and applies the modification while `add()` and `sub()` can take the same the same kind of string, intervals (`DateInterval` or `CarbonInterval`) or count+unit parameters. But you can still access the native methods of `DateTime` class using `rawAdd()` and `rawSub()`.
 
 ```php
-$dt = Carbon::create(2012, 1, 31, 0);
+$dt = CarbonImmutable::create(2012, 1, 15, 0);
 
 echo $dt->toDateTimeString();
 
@@ -76,6 +76,19 @@ echo $dt->sub('1 day');
 echo $dt->add(CarbonInterval::months(2));
 echo $dt->subtract(new \DateInterval('PT1H'));
 
+// You can also add or subtract multiple units at once with:
+echo $dt->plus(days: 2, hours: 12, minutes: 30);
+echo $dt->minus(years: 1, seconds: 120);
+// plus() and minus() can take float numbers for any unit except month and years:
+echo $dt->plus(days: 0.5);
+// And it can take an overflow mode:
+echo CarbonImmutable::create(2012, 1, 31)->plus(months: 1, overflow: OverflowMode::NoOverflow);
+// (overflow: false is a shortcut for overflow: OverflowMode::NoOverflow)
+
+// And it can take an anchorDay:
+echo CarbonImmutable::create(2012, 2, 28)->plus(months: 1, anchorDay: 30);
+// Meaning that after adding months/years, it will try to set current day to this number
+// if it exists in the current month, else it will go to the last day of the month 
 ```
 
 For fun you can also pass negative values to `addXXX()`, in fact that's how `subXXX()` is implemented.
@@ -90,7 +103,6 @@ $dt = CarbonImmutable::create(2017, 1, 31, 0);
 echo $dt->addMonth();
 echo "\n";
 echo $dt->subMonths(2);
-
 ```
 
 Since Carbon 2, you can set a local overflow behavior for each instance:
@@ -105,7 +117,6 @@ $dt->settings([
 echo $dt->addMonth();
 echo "\n";
 echo $dt->subMonths(2);
-
 ```
 
 This will apply for methods `addMonth(s)`, `subMonth(s)`, `add($x, 'month')`, `sub($x, 'month')` and equivalent quarter methods. But it won't apply for intervals objects or strings like `add(CarbonInterval::month())` or `add('1 month')`.
