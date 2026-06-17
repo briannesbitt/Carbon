@@ -80,24 +80,12 @@ echo $dt->subtract(new \DateInterval('PT1H'));
 echo $dt->plus(days: 2, hours: 12, minutes: 30);
 echo $dt->minus(years: 1, seconds: 120);
 // plus() and minus() can take float numbers for any unit except month and years:
-echo $dt->plus(days: 0.5);
-// And it can take an overflow mode:
-echo CarbonImmutable::create(2012, 1, 31)->plus(
-    months: 1,
-    overflow: OverflowMode::NoOverflow,
-);
-// (overflow: false is a shortcut for overflow: OverflowMode::NoOverflow)
-
-// And it can take an anchorDay:
-echo CarbonImmutable::create(2012, 2, 28)
-    ->plus(months: 1, anchorDay: 30);
-// Meaning that after adding months/years, it will try to set current day to this number
-// if it exists in the current month, else it will go to the last day of the month 
+echo $dt->plus(days: 0.5); 
 ```
 
-For fun you can also pass negative values to `addXXX()`, in fact that's how `subXXX()` is implemented.
+You can also pass negative values to `addXXX()`, in fact that's how `subXXX()` is implemented.
 
-P.S. Don't worry if you forget and use `addDay(5)` or `subYear(3)`, I have your back ;)
+P.S. Don't worry if you forget and use `addDay(5)` or `subYear(3)` (singular), I have your back ;)
 
 By default, Carbon relies on the underlying parent class PHP DateTime behavior. As a result adding or subtracting months can overflow, example:
 
@@ -117,7 +105,6 @@ $dt->settings([
 	'monthOverflow' => false,
 ]);
 
-
 echo $dt->addMonth();
 echo "\n";
 echo $dt->subMonths(2);
@@ -130,99 +117,24 @@ that does not overflow. `CarbonInterval::monthWithAnchorDay()` is also available
 to specify an anchor day (after stepping to the next month it will try to go up to the given
 anchor day if available, else it will go to the last day of the month).
 
-Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version 1 of Carbon, [check the overflow static helpers section](../date-time-manipulation/addition-and-subtraction.html#overflow-static-helpers)
-
-<div id="overflow-static-helpers"><!-- Link anchor --></div>
-
-You can prevent the overflow with `Carbon::useMonthsOverflow(false)`
-
+Same overflow mode are available with `plus()` and `minus()`:
 ```php
-Carbon::useMonthsOverflow(false);
+// It can take an overflow mode:
+echo CarbonImmutable::create(2012, 1, 31)->plus(
+    months: 1,
+    overflow: OverflowMode::NoOverflow,
+);
+// (overflow: false is a shortcut for overflow: OverflowMode::NoOverflow)
 
-$dt = Carbon::createMidnightDate(2017, 1, 31);
-
-echo $dt->copy()->addMonth();
-echo "\n";
-echo $dt->copy()->subMonths(2);
-
-// Call the method with true to allow overflow again
-Carbon::resetMonthsOverflow(); // same as Carbon::useMonthsOverflow(true);
-
+// Or it can take an anchorDay:
+echo CarbonImmutable::create(2012, 2, 28)
+    ->plus(months: 1, anchorDay: 30);
+// Meaning that after adding months/years, it will try to set current day to this number
+// if it exists in the current month, else it will go to the last day of the month 
 ```
 
-The method `Carbon::shouldOverflowMonths()` allows you to know if the overflow is currently enabled.
-
-```php
-Carbon::useMonthsOverflow(false);
-
-$dt = Carbon::createMidnightDate(2017, 1, 31);
-
-echo $dt->copy()->addMonthWithOverflow();
-// plural addMonthsWithOverflow() method is also available
-echo $dt->copy()->subMonthsWithOverflow(2);
-// singular subMonthWithOverflow() method is also available
-echo $dt->copy()->addMonthNoOverflow();
-// plural addMonthsNoOverflow() method is also available
-echo $dt->copy()->subMonthsNoOverflow(2);
-// singular subMonthNoOverflow() method is also available
-
-echo $dt->copy()->addMonth();
-echo $dt->copy()->subMonths(2);
-
-Carbon::useMonthsOverflow(true);
-
-$dt = Carbon::createMidnightDate(2017, 1, 31);
-
-echo $dt->copy()->addMonthWithOverflow();
-echo $dt->copy()->subMonthsWithOverflow(2);
-echo $dt->copy()->addMonthNoOverflow();
-echo $dt->copy()->subMonthsNoOverflow(2);
-
-echo $dt->copy()->addMonth();
-echo $dt->copy()->subMonths(2);
-
-Carbon::resetMonthsOverflow();
-
-```
-
-From version 1.23.0, overflow control is also available on years:
-
-```php
-Carbon::useYearsOverflow(false);
-
-$dt = Carbon::createMidnightDate(2020, 2, 29);
-
-var_dump(Carbon::shouldOverflowYears());
-
-echo $dt->copy()->addYearWithOverflow();
-// plural addYearsWithOverflow() method is also available
-echo $dt->copy()->subYearsWithOverflow(2);
-// singular subYearWithOverflow() method is also available
-echo $dt->copy()->addYearNoOverflow();
-// plural addYearsNoOverflow() method is also available
-echo $dt->copy()->subYearsNoOverflow(2);
-// singular subYearNoOverflow() method is also available
-
-echo $dt->copy()->addYear();
-echo $dt->copy()->subYears(2);
-
-Carbon::useYearsOverflow(true);
-
-$dt = Carbon::createMidnightDate(2020, 2, 29);
-
-var_dump(Carbon::shouldOverflowYears());
-
-echo $dt->copy()->addYearWithOverflow();
-echo $dt->copy()->subYearsWithOverflow(2);
-echo $dt->copy()->addYearNoOverflow();
-echo $dt->copy()->subYearsNoOverflow(2);
-
-echo $dt->copy()->addYear();
-echo $dt->copy()->subYears(2);
-
-Carbon::resetYearsOverflow();
-
-```
+If `overflow` is set to `OverflowMode::AnchorDay` without specifying `anchorDay`
+it will use the day of the initial date.
 
 You also can use `->addMonthsNoOverflow`, `->subMonthsNoOverflow`, `->addMonthsWithOverflow` and `->subMonthsWithOverflow` (or the singular methods with no `s` to "month") to explicitly add/sub months with or without overflow no matter the current mode and the same for any bigger unit (quarter, year, decade, century, millennium).
 
@@ -254,7 +166,6 @@ echo $dt->copy()->subMonthsNoOverflow(2);
 
 echo $dt->copy()->addMonth();
 echo $dt->copy()->subMonths(2);
-
 ```
 
 The same is available for years.
@@ -319,3 +230,96 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 
 echo json_encode($units, JSON_PRETTY_PRINT);
 ```
+
+Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version 1 of Carbon, check the section below:
+
+<details>
+<summary>Overflow static helpers</summary>
+You can prevent the overflow with `Carbon::useMonthsOverflow(false)`
+
+```php
+Carbon::useMonthsOverflow(false);
+
+$dt = Carbon::createMidnightDate(2017, 1, 31);
+
+echo $dt->copy()->addMonth();
+echo "\n";
+echo $dt->copy()->subMonths(2);
+
+// Call the method with true to allow overflow again
+Carbon::resetMonthsOverflow(); // same as Carbon::useMonthsOverflow(true);
+
+```
+
+The method `Carbon::shouldOverflowMonths()` allows you to know if the overflow is currently enabled.
+
+```php
+Carbon::useMonthsOverflow(false);
+
+$dt = Carbon::createMidnightDate(2017, 1, 31);
+
+echo $dt->copy()->addMonthWithOverflow();
+// plural addMonthsWithOverflow() method is also available
+echo $dt->copy()->subMonthsWithOverflow(2);
+// singular subMonthWithOverflow() method is also available
+echo $dt->copy()->addMonthNoOverflow();
+// plural addMonthsNoOverflow() method is also available
+echo $dt->copy()->subMonthsNoOverflow(2);
+// singular subMonthNoOverflow() method is also available
+
+echo $dt->copy()->addMonth();
+echo $dt->copy()->subMonths(2);
+
+Carbon::useMonthsOverflow(true);
+
+$dt = Carbon::createMidnightDate(2017, 1, 31);
+
+echo $dt->copy()->addMonthWithOverflow();
+echo $dt->copy()->subMonthsWithOverflow(2);
+echo $dt->copy()->addMonthNoOverflow();
+echo $dt->copy()->subMonthsNoOverflow(2);
+
+echo $dt->copy()->addMonth();
+echo $dt->copy()->subMonths(2);
+
+Carbon::resetMonthsOverflow();
+```
+
+From version 1.23.0, overflow control is also available on years:
+
+```php
+Carbon::useYearsOverflow(false);
+
+$dt = Carbon::createMidnightDate(2020, 2, 29);
+
+var_dump(Carbon::shouldOverflowYears());
+
+echo $dt->copy()->addYearWithOverflow();
+// plural addYearsWithOverflow() method is also available
+echo $dt->copy()->subYearsWithOverflow(2);
+// singular subYearWithOverflow() method is also available
+echo $dt->copy()->addYearNoOverflow();
+// plural addYearsNoOverflow() method is also available
+echo $dt->copy()->subYearsNoOverflow(2);
+// singular subYearNoOverflow() method is also available
+
+echo $dt->copy()->addYear();
+echo $dt->copy()->subYears(2);
+
+Carbon::useYearsOverflow(true);
+
+$dt = Carbon::createMidnightDate(2020, 2, 29);
+
+var_dump(Carbon::shouldOverflowYears());
+
+echo $dt->copy()->addYearWithOverflow();
+echo $dt->copy()->subYearsWithOverflow(2);
+echo $dt->copy()->addYearNoOverflow();
+echo $dt->copy()->subYearsNoOverflow(2);
+
+echo $dt->copy()->addYear();
+echo $dt->copy()->subYears(2);
+
+Carbon::resetYearsOverflow();
+```
+</details>
