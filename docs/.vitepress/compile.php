@@ -12,6 +12,10 @@ use PhpParser\ParserFactory;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
+set_error_handler(static function ($num, $str, $file, $line) {
+    throw new ErrorException($str, 0, $num, $file, $line);
+});
+
 Carbon::macro('getAvailableMacroLocales', static function () {
     $locales = [];
 
