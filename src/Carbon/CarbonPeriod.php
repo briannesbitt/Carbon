@@ -436,7 +436,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     ): static {
         if ($anchorDay !== null && $mode !== OverflowMode::AnchorDay) {
             throw new InvalidArgumentException(
-                '$anchorDay parameter must not be set for $mode MonthlyMode::'.$mode->name,
+                '$anchorDay parameter must not be set for $mode OverflowMode::'.$mode->name,
             );
         }
 
@@ -481,7 +481,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     ): static {
         if ($anchorDay !== null && $mode !== OverflowMode::AnchorDay) {
             throw new InvalidArgumentException(
-                '$anchorDay parameter must not be set for $mode MonthlyMode::'.$mode->name,
+                '$anchorDay parameter must not be set for $mode OverflowMode::'.$mode->name,
             );
         }
 
