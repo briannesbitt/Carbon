@@ -235,6 +235,7 @@ Static helpers exist but are deprecated. If you're sure to need to apply global 
 
 <details>
 <summary>Overflow static helpers</summary>
+
 You can prevent the overflow with `Carbon::useMonthsOverflow(false)`
 
 ```php

@@ -119,6 +119,7 @@ $uses = [
 	'Carbon\Factory',
 	'Carbon\CarbonTimeZone',
     'Carbon\OverflowMode',
+    'Carbon\Unit',
 ];
 
 if ($is_inline) {
