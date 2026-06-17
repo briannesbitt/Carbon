@@ -82,11 +82,15 @@ echo $dt->minus(years: 1, seconds: 120);
 // plus() and minus() can take float numbers for any unit except month and years:
 echo $dt->plus(days: 0.5);
 // And it can take an overflow mode:
-echo CarbonImmutable::create(2012, 1, 31)->plus(months: 1, overflow: OverflowMode::NoOverflow);
+echo CarbonImmutable::create(2012, 1, 31)->plus(
+    months: 1,
+    overflow: OverflowMode::NoOverflow,
+);
 // (overflow: false is a shortcut for overflow: OverflowMode::NoOverflow)
 
 // And it can take an anchorDay:
-echo CarbonImmutable::create(2012, 2, 28)->plus(months: 1, anchorDay: 30);
+echo CarbonImmutable::create(2012, 2, 28)
+    ->plus(months: 1, anchorDay: 30);
 // Meaning that after adding months/years, it will try to set current day to this number
 // if it exists in the current month, else it will go to the last day of the month 
 ```
