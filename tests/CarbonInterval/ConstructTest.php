@@ -663,4 +663,35 @@ class ConstructTest extends AbstractTestCase
 
         $this->assertSame('2020-12-28 12:34', $d->format('Y-m-d H:i'));
     }
+
+    public function testYearNoOverflow()
+    {
+        $d = Carbon::parse('2020-02-29 12:34');
+
+        $interval = CarbonInterval::yearNoOverflow();
+
+        $d->add($interval);
+
+        $this->assertSame('2021-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->add($interval);
+
+        $this->assertSame('2022-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->add($interval);
+
+        $this->assertSame('2023-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2022-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2021-02-28 12:34', $d->format('Y-m-d H:i'));
+
+        $d->sub($interval);
+
+        $this->assertSame('2020-02-28 12:34', $d->format('Y-m-d H:i'));
+    }
 }

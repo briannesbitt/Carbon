@@ -20,48 +20,48 @@ use Carbon\OverflowMode;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
-class MonthlyTest extends AbstractTestCase
+class YearlyTest extends AbstractTestCase
 {
-    public function testMonthlyWithoutParameters()
+    public function testYearlyWithoutParameters()
     {
-        Carbon::setTestNow(Carbon::parse('2020-01-31 09:52:46.321654'));
-        $period = CarbonPeriod::monthly();
+        Carbon::setTestNow(Carbon::parse('2020-02-29 09:52:46.321654'));
+        $period = CarbonPeriod::yearly();
 
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
         $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
         $this->assertSame([
-            '2020-01-31 09:52:46.321654',
             '2020-02-29 09:52:46.321654',
-            '2020-03-31 09:52:46.321654',
-            '2020-04-30 09:52:46.321654',
-            '2020-05-31 09:52:46.321654',
-            '2020-06-30 09:52:46.321654',
-            '2020-07-31 09:52:46.321654',
-            '2020-08-31 09:52:46.321654',
-            '2020-09-30 09:52:46.321654',
-            '2020-10-31 09:52:46.321654',
-            '2020-11-30 09:52:46.321654',
-            '2020-12-31 09:52:46.321654',
-            '2021-01-31 09:52:46.321654',
             '2021-02-28 09:52:46.321654',
-            '2021-03-31 09:52:46.321654',
-            '2021-04-30 09:52:46.321654',
-            '2021-05-31 09:52:46.321654',
-            '2021-06-30 09:52:46.321654',
-            '2021-07-31 09:52:46.321654',
-            '2021-08-31 09:52:46.321654',
-            '2021-09-30 09:52:46.321654',
-            '2021-10-31 09:52:46.321654',
-            '2021-11-30 09:52:46.321654',
+            '2022-02-28 09:52:46.321654',
+            '2023-02-28 09:52:46.321654',
+            '2024-02-29 09:52:46.321654',
+            '2025-02-28 09:52:46.321654',
+            '2026-02-28 09:52:46.321654',
+            '2027-02-28 09:52:46.321654',
+            '2028-02-29 09:52:46.321654',
+            '2029-02-28 09:52:46.321654',
+            '2030-02-28 09:52:46.321654',
+            '2031-02-28 09:52:46.321654',
+            '2032-02-29 09:52:46.321654',
+            '2033-02-28 09:52:46.321654',
+            '2034-02-28 09:52:46.321654',
+            '2035-02-28 09:52:46.321654',
+            '2036-02-29 09:52:46.321654',
+            '2037-02-28 09:52:46.321654',
+            '2038-02-28 09:52:46.321654',
+            '2039-02-28 09:52:46.321654',
+            '2040-02-29 09:52:46.321654',
+            '2041-02-28 09:52:46.321654',
+            '2042-02-28 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
     }
 
-    public function testMonthlyWithStartDate()
+    public function testYearlyWithStartDate()
     {
         Carbon::setTestNow(Carbon::parse('2020-01-31 09:52:46.321654'));
 
-        $period = CarbonPeriod::monthly(
+        $period = CarbonPeriod::yearly(
             Carbon::parse('2019-12-27 09:52:46.321654'),
         );
 
@@ -70,36 +70,36 @@ class MonthlyTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
         $this->assertSame([
             '2019-12-27 09:52:46.321654',
-            '2020-01-27 09:52:46.321654',
-            '2020-02-27 09:52:46.321654',
-            '2020-03-27 09:52:46.321654',
-            '2020-04-27 09:52:46.321654',
-            '2020-05-27 09:52:46.321654',
-            '2020-06-27 09:52:46.321654',
-            '2020-07-27 09:52:46.321654',
-            '2020-08-27 09:52:46.321654',
-            '2020-09-27 09:52:46.321654',
-            '2020-10-27 09:52:46.321654',
-            '2020-11-27 09:52:46.321654',
             '2020-12-27 09:52:46.321654',
-            '2021-01-27 09:52:46.321654',
-            '2021-02-27 09:52:46.321654',
-            '2021-03-27 09:52:46.321654',
-            '2021-04-27 09:52:46.321654',
-            '2021-05-27 09:52:46.321654',
-            '2021-06-27 09:52:46.321654',
-            '2021-07-27 09:52:46.321654',
-            '2021-08-27 09:52:46.321654',
-            '2021-09-27 09:52:46.321654',
-            '2021-10-27 09:52:46.321654',
+            '2021-12-27 09:52:46.321654',
+            '2022-12-27 09:52:46.321654',
+            '2023-12-27 09:52:46.321654',
+            '2024-12-27 09:52:46.321654',
+            '2025-12-27 09:52:46.321654',
+            '2026-12-27 09:52:46.321654',
+            '2027-12-27 09:52:46.321654',
+            '2028-12-27 09:52:46.321654',
+            '2029-12-27 09:52:46.321654',
+            '2030-12-27 09:52:46.321654',
+            '2031-12-27 09:52:46.321654',
+            '2032-12-27 09:52:46.321654',
+            '2033-12-27 09:52:46.321654',
+            '2034-12-27 09:52:46.321654',
+            '2035-12-27 09:52:46.321654',
+            '2036-12-27 09:52:46.321654',
+            '2037-12-27 09:52:46.321654',
+            '2038-12-27 09:52:46.321654',
+            '2039-12-27 09:52:46.321654',
+            '2040-12-27 09:52:46.321654',
+            '2041-12-27 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
     }
 
-    public function testMonthlyWithStartDateAndRecurrences()
+    public function testYearlyWithStartDateAndRecurrences()
     {
         Carbon::setTestNow(Carbon::parse('2020-01-31 09:52:46.321654'));
 
-        $period = CarbonPeriod::monthly(
+        $period = CarbonPeriod::yearly(
             Carbon::parse('2019-12-27 09:52:46.321654'),
             recurrences: 3,
             options: 0,
@@ -110,45 +110,53 @@ class MonthlyTest extends AbstractTestCase
         $this->assertSame(0, $period->getOptions());
         $this->assertSame([
             '2019-12-27 09:52:46.321654',
-            '2020-01-27 09:52:46.321654',
-            '2020-02-27 09:52:46.321654',
+            '2020-12-27 09:52:46.321654',
+            '2021-12-27 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: Carbon::class));
 
-        $period = CarbonPeriod::monthly(
-            Carbon::parse('2019-12-27 09:52:46.321654'),
-            recurrences: 4,
-            anchorDay: 31,
+        $period = CarbonPeriod::yearly(
+            Carbon::parse('2019-02-28 09:52:46.321654'),
+            recurrences: 8,
+            anchorDay: 29,
             options: 0,
         );
 
         $this->assertNull($period->getEndDate());
-        $this->assertSame(4, $period->getRecurrences());
+        $this->assertSame(8, $period->getRecurrences());
         $this->assertSame(0, $period->getOptions());
         $this->assertSame([
-            '2019-12-27 09:52:46.321654',
-            '2020-01-31 09:52:46.321654',
+            '2019-02-28 09:52:46.321654',
             '2020-02-29 09:52:46.321654',
-            '2020-03-31 09:52:46.321654',
+            '2021-02-28 09:52:46.321654',
+            '2022-02-28 09:52:46.321654',
+            '2023-02-28 09:52:46.321654',
+            '2024-02-29 09:52:46.321654',
+            '2025-02-28 09:52:46.321654',
+            '2026-02-28 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: Carbon::class));
 
-        $period = CarbonPeriod::monthly(
-            Carbon::parse('2019-12-31 09:52:46.321654'),
-            recurrences: 4,
+        $period = CarbonPeriod::yearly(
+            Carbon::parse('2020-02-29 09:52:46.321654'),
+            recurrences: 8,
             mode: OverflowMode::NoOverflow,
             options: 0,
         );
 
         $this->assertNull($period->getEndDate());
-        $this->assertSame(4, $period->getRecurrences());
+        $this->assertSame(8, $period->getRecurrences());
         $this->assertSame(0, $period->getOptions());
         $this->assertSame([
-            '2019-12-31 09:52:46.321654',
-            '2020-01-31 09:52:46.321654',
             '2020-02-29 09:52:46.321654',
-            '2020-03-29 09:52:46.321654',
+            '2021-02-28 09:52:46.321654',
+            '2022-02-28 09:52:46.321654',
+            '2023-02-28 09:52:46.321654',
+            '2024-02-28 09:52:46.321654',
+            '2025-02-28 09:52:46.321654',
+            '2026-02-28 09:52:46.321654',
+            '2027-02-28 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: Carbon::class));
 
-        $period = CarbonPeriod::monthly(
+        $period = CarbonPeriod::yearly(
             Carbon::parse('2019-12-31 09:52:46.321654'),
             recurrences: 4,
             mode: OverflowMode::Overflow,
@@ -166,55 +174,59 @@ class MonthlyTest extends AbstractTestCase
         ], $this->getDates($period, expectedDateClass: Carbon::class));
     }
 
-    public function testMonthlyWithTimestamps()
+    public function testYearlyWithTimestamps()
     {
-        $period = CarbonPeriod::monthly(
-            start: strtotime('2019-10-31 09:52:46.321654 UTC'),
-            end: strtotime('2020-02-29 09:52:46.321654 UTC'),
+        $period = CarbonPeriod::yearly(
+            start: strtotime('2020-02-29 09:52:46.321654 UTC'),
+            end: strtotime('2026-02-28 09:52:46.321654 UTC'),
         );
 
-        $this->assertEquals(CarbonImmutable::parse('2020-02-29 09:52:46.000000 UTC'), $period->getEndDate());
+        $this->assertEquals(CarbonImmutable::parse('2026-02-28T09:52:46.000000 UTC'), $period->getEndDate());
         $this->assertTrue($period->isEndIncluded());
         $this->assertFalse($period->isEndExcluded());
         $this->assertNull($period->getRecurrences());
         $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
         $this->assertSame([
-            '2019-10-31 09:52:46.000000',
-            '2019-11-30 09:52:46.000000',
-            '2019-12-31 09:52:46.000000',
-            '2020-01-31 09:52:46.000000',
             '2020-02-29 09:52:46.000000',
+            '2021-02-28 09:52:46.000000',
+            '2022-02-28 09:52:46.000000',
+            '2023-02-28 09:52:46.000000',
+            '2024-02-29 09:52:46.000000',
+            '2025-02-28 09:52:46.000000',
+            '2026-02-28 09:52:46.000000',
         ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
     }
 
-    public function testMonthlyWithStrings()
+    public function testYearlyWithStrings()
     {
-        $period = CarbonPeriod::monthly(
-            start: '2019-10-31 09:52:46.321654 UTC',
-            end: '2020-02-29 09:52:46.321654 UTC',
+        $period = CarbonPeriod::yearly(
+            start: '2020-02-29 09:52:46.321654 UTC',
+            end: '2026-02-28 09:52:46.321654 UTC',
         );
 
-        $this->assertEquals(CarbonImmutable::parse('2020-02-29 09:52:46.321654 UTC'), $period->getEndDate());
+        $this->assertEquals(CarbonImmutable::parse('2026-02-28T09:52:46.321654 UTC'), $period->getEndDate());
         $this->assertTrue($period->isEndIncluded());
         $this->assertFalse($period->isEndExcluded());
         $this->assertNull($period->getRecurrences());
         $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
         $this->assertSame([
-            '2019-10-31 09:52:46.321654',
-            '2019-11-30 09:52:46.321654',
-            '2019-12-31 09:52:46.321654',
-            '2020-01-31 09:52:46.321654',
             '2020-02-29 09:52:46.321654',
+            '2021-02-28 09:52:46.321654',
+            '2022-02-28 09:52:46.321654',
+            '2023-02-28 09:52:46.321654',
+            '2024-02-29 09:52:46.321654',
+            '2025-02-28 09:52:46.321654',
+            '2026-02-28 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
     }
 
-    public function testMonthlyWithEndDateAndRecurrences()
+    public function testYearlyWithEndDateAndRecurrences()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
             'You must specify $end or $recurrences but not both',
         ));
 
-        CarbonPeriod::monthly(
+        CarbonPeriod::yearly(
             end: Carbon::parse('2019-12-27 09:52:46.321654'),
             recurrences: 3,
         );
@@ -226,7 +238,7 @@ class MonthlyTest extends AbstractTestCase
             '$anchorDay parameter must not be set for $mode OverflowMode::NoOverflow',
         ));
 
-        CarbonPeriod::monthly(
+        CarbonPeriod::yearly(
             end: Carbon::parse('2019-12-27 09:52:46.321654'),
             anchorDay: 3,
             mode: OverflowMode::NoOverflow,
