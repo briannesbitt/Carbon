@@ -117,6 +117,10 @@ that does not overflow. `CarbonInterval::monthWithAnchorDay()` is also available
 to specify an anchor day (after stepping to the next month it will try to go up to the given
 anchor day if available, else it will go to the last day of the month).
 
+Because the same can also happen when adding/subtracting year(s) starting from a February 29th
+(leap year), then there also exist `CarbonInterval::yearNoOverflow()` and
+`CarbonInterval::yearWithAnchorDay()`.
+
 Same overflow mode are available with `plus()` and `minus()`:
 ```php
 // It can take an overflow mode:

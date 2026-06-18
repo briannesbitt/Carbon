@@ -110,6 +110,8 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
         $argumentsCount = 1;
     } elseif ($method === 'diffAsCarbonInterval' && $argumentsCount === 3) {
         $argumentsCount = 2;
+    } elseif ($method === 'yearly' && $argumentsCount === 6) {
+        $argumentsCount = 1;
     }
 
     if ($argumentsCount) {

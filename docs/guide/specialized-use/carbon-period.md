@@ -192,8 +192,9 @@ echo implode(', ', $dates);
 
 In many cases, what is desired is to anchor on the start date
 (go for each iteration to the last day of the month if the 31
-(the day of the first date) does not exist), for this purpose,
-there is a `monthly()` method:
+(the day of the first date) does not exist), subscription cycles
+are commonly handled that way, for this purpose, there is a
+`monthly()` method:
 
 ```php
 $period = CarbonPeriod::monthly('2026-01-31', recurrences: 4);
@@ -233,6 +234,24 @@ foreach ($period as $date) {
 
 echo implode(', ', $dates);
 ```
+
+### Yearly periods
+
+Because of February 29th on leap years, yearly intervals can also overflow,
+hence why there are the same [tools as for months](#monthly-periods):
+
+```php
+$period = CarbonPeriod::yearly('2020-02-29', recurrences: 6);
+$dates = [];
+foreach ($period as $date) {
+    $dates[] = $date->format('Y-m-d');
+}
+
+echo implode(', ', $dates);
+```
+
+As for months, you can use the different type of overflow modes and
+anchor day.
 
 ### Modify an existing period
 

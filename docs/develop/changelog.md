@@ -4,6 +4,15 @@
 
 ## Version 3.x
 
+#### 3.13.0 (18 June 2026)
+## What's Changed
+* Add year interval/period with overflow modes by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/127
+* Allow to load custom locales even when mute-operator is bypassed by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/128
+* Implement `overflow` and `anchorDay` parameters for `month()`, `setMonth()`, `year()` and `setYear()` by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/129
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.12.3...3.13.0
+
 #### 3.12.3 (14 June 2026)
 ## What's Changed
 * Improve `plus()` and `minus()` method by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/126

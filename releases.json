@@ -1,5 +1,10 @@
 [
     {
+        "tag_name": "3.13.0",
+        "created_at": "2026-06-18T13:49:15Z",
+        "body": "## What's Changed\r\n* Add year interval\/period with overflow modes by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/127\r\n* Allow to load custom locales even when mute-operator is bypassed by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/128\r\n* Implement `overflow` and `anchorDay` parameters for `month()`, `setMonth()`, `year()` and `setYear()` by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/129\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.12.3...3.13.0"
+    },
+    {
         "tag_name": "3.12.3",
         "created_at": "2026-06-14T20:41:42Z",
         "body": "## What's Changed\r\n* Improve `plus()` and `minus()` method by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/126\r\n  - Add `$anchorDay` parameter and `OverflowMode` for `$overflow` parameter\r\n  - Add float support for `$weeks`, `$days`, `$hours`, `$minutes`, `$seconds` and `$microseconds`\r\n  - Use `__call` so sub-classes are allowed to override those methods with divergent signatures\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.12.2...3.12.3"
