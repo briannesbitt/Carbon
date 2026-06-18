@@ -318,4 +318,133 @@ class FluidSettersTest extends AbstractTestCase
             Carbon::parse('2021-02-28 23:00:00')->setMonths(Month::July, anchorDay: 31)->format('Y-m-d H:i'),
         );
     }
+
+    public function testYearOverflow()
+    {
+        Carbon::resetYearsOverflow();
+
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->year(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->setYear(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->years(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->setYears(2021)->format('Y-m-d H:i'),
+        );
+
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => false])
+                ->year(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => false])
+                ->setYear(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => false])
+                ->years(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => false])
+                ->setYears(2021)->format('Y-m-d H:i'),
+        );
+
+        Carbon::useYearsOverflow(false);
+
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->year(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->setYear(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->years(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-02-28 23:00',
+            Carbon::parse('2020-02-29 23:00:00')->setYears(2021)->format('Y-m-d H:i'),
+        );
+
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => true])
+                ->year(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => true])
+                ->setYear(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => true])
+                ->years(2021)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2021-03-01 23:00',
+            Carbon::parse('2020-02-29 23:00:00')
+                ->settings(['yearOverflow' => true])
+                ->setYears(2021)->format('Y-m-d H:i'),
+        );
+
+        Carbon::resetYearsOverflow();
+
+        foreach ([false, OverflowMode::NoOverflow, OverflowMode::AnchorDay] as $overflow) {
+            $this->assertSame(
+                '2021-02-28 23:00',
+                Carbon::parse('2020-02-29 23:00:00')->year(2021, overflow: $overflow)->format('Y-m-d H:i'),
+            );
+            $this->assertSame(
+                '2021-02-28 23:00',
+                Carbon::parse('2020-02-29 23:00:00')->setYear(2021, overflow: $overflow)->format('Y-m-d H:i'),
+            );
+            $this->assertSame(
+                '2021-02-28 23:00',
+                Carbon::parse('2020-02-29 23:00:00')->years(2021, overflow: $overflow)->format('Y-m-d H:i'),
+            );
+            $this->assertSame(
+                '2021-02-28 23:00',
+                Carbon::parse('2020-02-29 23:00:00')->setYears(2021, overflow: $overflow)->format('Y-m-d H:i'),
+            );
+        }
+
+        $this->assertSame(
+            '2020-02-29 23:00',
+            Carbon::parse('2021-02-28 23:00:00')->year(2020, anchorDay: 31)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2020-02-29 23:00',
+            Carbon::parse('2021-02-28 23:00:00')->setYear(2020, anchorDay: 31)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2020-02-29 23:00',
+            Carbon::parse('2021-02-28 23:00:00')->years(2020, anchorDay: 31)->format('Y-m-d H:i'),
+        );
+        $this->assertSame(
+            '2020-02-29 23:00',
+            Carbon::parse('2021-02-28 23:00:00')->setYears(2020, anchorDay: 31)->format('Y-m-d H:i'),
+        );
+    }
 }
