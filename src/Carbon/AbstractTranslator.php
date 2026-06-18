@@ -178,7 +178,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
 
         foreach ($this->getDirectories() as $directory) {
             $file = \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
-            $data = ($this->fileCache[$file] ??= @include $file);
+            $data = ($this->fileCache[$file] ??= self::loadFile($file));
 
             if ($data !== false) {
                 $this->messages[$locale] = $data;
@@ -418,7 +418,12 @@ abstract class AbstractTranslator extends SymfonyTranslator
         $this->initializing = false;
     }
 
-    private static function compareChunkLists($referenceChunks, $chunks)
+    private function loadFile(string $file): array|false
+    {
+        return file_exists($file) ? (include $file) : false;
+    }
+
+    private static function compareChunkLists(array $referenceChunks, array $chunks): int
     {
         $score = 0;
 
