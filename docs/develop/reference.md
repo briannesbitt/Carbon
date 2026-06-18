@@ -3831,9 +3831,9 @@ the types of objects that can be built, for instance:
 returns `static`
 
 ##### Examples
-```php
+```php {no-render}
 $object = Carbon::fromSerialized($value, ['allowed_classes' => [Carbon::class, CarbonImmutable::class]]);
-```php
+```
 
 | History           | Version | Description                   |
 |:----------------- | ------- | ----------------------------- |

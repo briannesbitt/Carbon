@@ -39,10 +39,17 @@ const shouldRenderInline = function(attributes: Array<[string, string]>): boolea
 const render = function(content: string, type: 'block' | 'inline' | 'blade' = 'block'): string {
 	// write to a temporary file and execute it
 	writeFileSync(`${currentDirectory}/temp.php`, content, { encoding: 'utf8' });
-	const process = execSync(`php ${currentDirectory}/compile.php ${type}`, {
-		encoding: 'utf8',
-	});
-	return process.toString();
+
+	try {
+		const process = execSync(`php ${currentDirectory}/compile.php ${type}`, {
+			encoding: 'utf8',
+		});
+		return process.toString();
+	} catch (error) {
+		console.log(error);
+
+		throw error;
+	}
 };
 
 const compileCode = (md: MarkdownItAsync) => {

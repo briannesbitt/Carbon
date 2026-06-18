@@ -12,8 +12,18 @@ use PhpParser\ParserFactory;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-set_error_handler(static function ($num, $str, $file, $line) {
-    throw new ErrorException($str, 0, $num, $file, $line);
+error_reporting(-1);
+ini_set('display_errors', 1);
+set_error_handler(static function ($severity, $message, $file, $line) {
+    if (str_contains($message, 'bind an instance')) {
+        return;
+    }
+
+    if ($severity & (E_DEPRECATED | E_USER_DEPRECATED)) {
+        return;
+    }
+
+    throw new ErrorException($message, 0, $severity, $file, $line);
 });
 
 Carbon::macro('getAvailableMacroLocales', static function () {
@@ -116,6 +126,7 @@ $uses = [
 	'Carbon\CarbonImmutable',
 	'Carbon\CarbonInterval',
 	'Carbon\CarbonPeriod',
+    'Carbon\CarbonPeriodImmutable',
 	'Carbon\Carbonite',
 	'Carbon\Translator',
 	'Carbon\CarbonInterface',
@@ -136,7 +147,14 @@ if ($is_inline) {
 
 		echo ob_get_clean();
 	} catch (Throwable $error) {
+        $t = new DateTimeImmutable();
+        file_put_contents(
+            __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
+            "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$code",
+        );
+        ob_end_clean();
 		echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$code";
+        exit(1);
 	}
 
 	return;
@@ -152,9 +170,13 @@ if ($is_blade) {
 	try {
 		$output = $blade->runString($string);
 	} catch (Throwable $error) {
+        $t = new DateTimeImmutable();
+        file_put_contents(
+            __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
+            "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$code",
+        );
 		echo "\n\nError during Blade rendering: " . $error->getMessage() . "\n";
-
-		return;
+        exit(1);
 	}
 
 	echo $output;
@@ -170,9 +192,13 @@ $parser = $parser_factory->createForNewestSupportedVersion();
 try {
 	$ast = $parser->parse($code);
 } catch (Error $error) {
+    $t = new DateTimeImmutable();
+    file_put_contents(
+        __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
+        "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$code",
+    );
 	echo "Parse error: {$error->getMessage()}\n";
-
-	return;
+    exit(1);
 }
 
 $nodeVisitor = new class extends NodeVisitorAbstract {
@@ -264,7 +290,13 @@ foreach ($statements as $stmt) {
 			$last_offset += strlen($comment);
 		}
 	} catch (Throwable $error) {
+        $t = new DateTimeImmutable();
+        file_put_contents(
+            __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
+            "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$statement",
+        );
 		echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$statement";
+        exit(1);
 	}
 }
 
