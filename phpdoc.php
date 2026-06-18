@@ -300,28 +300,31 @@ foreach ($tags as $tag) {
                     $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
                     $enums = $unitName === 'month' ? 'Month|' : '';
+                    $extraParameters = \in_array($unitName, ['month', 'year'])
+                        ? ', OverflowMode|bool|null $overflow = null, ?int $anchorDay = null'
+                        : '';
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        "$plUnit({$enums}int \$value)",
+                        "$plUnit({$enums}int \$value$extraParameters)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        "$unit({$enums}int \$value)",
+                        "$unit({$enums}int \$value$extraParameters)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'set'.ucfirst($plUnit)."({$enums}int \$value)",
+                        'set'.ucfirst($plUnit)."({$enums}int \$value$extraParameters)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'set'.ucfirst($unit)."({$enums}int \$value)",
+                        'set'.ucfirst($unit)."({$enums}int \$value$extraParameters)",
                         "Set current instance $unitName to the given value.",
                     ];
 
@@ -642,7 +645,8 @@ array_push($autoDocLines, ...array_values(array_filter($unitOfUnit)));
 
 function cleanupDocComment(string $methodDocBlock): string
 {
-    $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
+    $doc = preg_replace('/^\s*\*\s*@SuppressWarnings\(.*$/m', '', $methodDocBlock);
+    $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $doc);
 
     return preg_replace('/^\s*\*\s?/m', '', $doc);
 }

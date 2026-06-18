@@ -304,15 +304,7 @@ trait Units
     ): static {
         $unit = Unit::toName($unit);
 
-        if ($anchorDay !== null) {
-            $overflow ??= OverflowMode::AnchorDay;
-
-            if ($overflow !== OverflowMode::AnchorDay) {
-                throw new InvalidArgumentException(
-                    '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
-                );
-            }
-        }
+        $overflow = $this->getOverflowMode($overflow, $anchorDay);
 
         $originalArgs = \func_get_args();
 
@@ -337,7 +329,7 @@ trait Units
 
         if ($overflow === OverflowMode::AnchorDay) {
             $anchorDay ??= $date->day;
-            $overflow = false;
+            $overflow = OverflowMode::NoOverflow;
         }
 
         if ($unit === 'weekday') {
@@ -366,10 +358,9 @@ trait Units
         } elseif ($canOverflow = (\in_array($unit, [
                 'month',
                 'year',
-            ]) && ($overflow === false || $overflow === OverflowMode::NoOverflow || (
+            ]) && ($overflow === OverflowMode::NoOverflow || (
                 $overflow === null &&
-                ($ucUnit = ucfirst($unit).'s') &&
-                !($this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}())
+                !$this->shouldUnitOverflow($unit)
             )))) {
             $day = $date->day;
         }
@@ -619,5 +610,33 @@ trait Units
                 'Interval objects cannot be multiplied by a non-integer value.',
             );
         }
+    }
+
+    private function getOverflowMode(
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
+    ): ?OverflowMode {
+        if ($anchorDay !== null) {
+            $overflow ??= OverflowMode::AnchorDay;
+
+            if ($overflow !== OverflowMode::AnchorDay) {
+                throw new InvalidArgumentException(
+                    '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
+                );
+            }
+        }
+
+        return match ($overflow) {
+            true => OverflowMode::Overflow,
+            false => OverflowMode::NoOverflow,
+            default => $overflow,
+        };
+    }
+
+    private function shouldUnitOverflow(string $unit): bool
+    {
+        $ucUnit = ucfirst($unit).'s';
+
+        return $this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}();
     }
 }
