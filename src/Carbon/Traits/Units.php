@@ -161,7 +161,7 @@ trait Units
 
         $seconds = (int) $value;
         $microseconds = (int) round(
-            (abs($value) - abs($seconds)) * ($value < 0 ? -1 : 1) * static::MICROSECONDS_PER_SECOND,
+            (abs((float) $value) - abs($seconds)) * ($value < 0 ? -1 : 1) * static::MICROSECONDS_PER_SECOND,
         );
         $date = $this->setTimestamp($this->getTimestamp() + $seconds);
 
