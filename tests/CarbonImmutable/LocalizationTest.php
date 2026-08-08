@@ -943,4 +943,24 @@ class LocalizationTest extends AbstractTestCase
             Carbon::translateTimeString("mié. 17 Jun '26 20:00", 'es', 'en'),
         );
     }
+
+    public function testTranslateCanGuessWhenMarIsNotAMonth()
+    {
+        $this->assertSame(
+            "Tue 4 Aug '26 00:00",
+            Carbon::translateTimeString('mar 4 ago \'26 00:00', 'es', 'en'),
+        );
+        $this->assertSame(
+            "Tue 4 Aug '26 00:00",
+            Carbon::translateTimeString('mar. 4 ago. \'26 00:00', 'es', 'en'),
+        );
+        $this->assertSame(
+            "Tue 21 Apr '26 00:00",
+            Carbon::translateTimeString('mar 21 avr \'26 00:00', 'fr', 'en'),
+        );
+        $this->assertSame(
+            "Tue 21 Apr '26 00:00",
+            Carbon::translateTimeString('mar. 21 avr. \'26 00:00', 'fr', 'en'),
+        );
+    }
 }
