@@ -317,6 +317,7 @@ class TestingAidsTest extends AbstractTestCase
     {
         Carbon::setTestNow(null);
         $n1 = Carbon::now();
+        usleep(1);
         $n2 = Carbon::now();
 
         $this->assertTrue($n2 > $n1);
