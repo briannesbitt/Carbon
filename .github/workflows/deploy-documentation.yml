@@ -36,7 +36,7 @@ jobs:
         run: composer run build
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.0.9
+        uses: pnpm/action-setup@v6.0.10
 
       - name: Setup Node
         uses: actions/setup-node@v7
