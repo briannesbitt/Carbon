@@ -1,5 +1,10 @@
 [
     {
+        "tag_name": "3.13.2",
+        "created_at": "2026-08-08T11:40:35Z",
+        "body": "## What's Changed\r\n* Prioritize day names over month names when translating string before the first number occurs in the string by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/139\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.13.1...3.13.2"
+    },
+    {
         "tag_name": "3.13.1",
         "created_at": "2026-07-09T18:23:49Z",
         "body": "## What's Changed\r\n* Implement `CarbonPeriod::quarterly()` by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/130\r\n* Fix translation spacing by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/135\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.13.0...3.13.1"
