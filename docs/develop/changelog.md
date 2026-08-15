@@ -4,6 +4,13 @@
 
 ## Version 3.x
 
+#### 3.13.2 (8 August 2026)
+## What's Changed
+* Prioritize day names over month names when translating string before the first number occurs in the string by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/139
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.13.1...3.13.2
+
 #### 3.13.1 (9 July 2026)
 ## What's Changed
 * Implement `CarbonPeriod::quarterly()` by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/130
