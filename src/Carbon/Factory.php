@@ -815,20 +815,42 @@ class Factory
      */
     private function matchFormatPattern(string $date, string $format, array $replacements): bool
     {
+        // Null bytes would collide with the fragment sentinels used below.
+        $format = str_replace("\0", '', $format);
         // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
         $regex = str_replace('\\\\', '\\', $format);
-        // Replace not-escaped letters
+        // Replace not-escaped letters, wrapping each generated fragment between
+        // null-byte sentinels so the generic quoting below leaves them intact.
         $regex = preg_replace_callback(
             '/(?<!\\\\)((?:\\\\{2})*)(['.implode('', array_keys($replacements)).'])/',
-            static fn ($match) => $match[1].strtr($match[2], $replacements),
+            static fn ($match) => "\0{$match[1]}".strtr($match[2], $replacements)."\0",
             $regex,
         );
         // Replace escaped letters by the letter itself
         $regex = preg_replace('/(?<!\\\\)((?:\\\\{2})*)\\\\(\w)/', '$1$2', $regex);
-        // Escape not escaped slashes
-        $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
-        return (bool) @preg_match('/^'.$regex.'$/', $date);
+        $chunks = explode("\0", $regex);
+
+        foreach ($chunks as $index => &$chunk) {
+            if ($index % 2) {
+                continue;
+            }
+
+            // Quote every character that did not come from a format token:
+            // backslash escapes resolve to their quoted literal target, any
+            // other byte (including dangling backslashes) is quoted as-is.
+            $chunks[$index] = preg_replace_callback(
+                '/\\\\.|./s',
+                static fn ($match) => preg_quote(
+                    $match[0][0] === '\\' && isset($match[0][1]) ? $match[0][1] : $match[0],
+                    '/',
+                ),
+                $chunk,
+            );
+        }
+        unset($chunk);
+
+        return (bool) @preg_match('/^'.implode('', $chunks).'$/', $date);
     }
 
     private function setDefaultTimezone(string $timezone, ?DateTimeInterface $date = null): void
