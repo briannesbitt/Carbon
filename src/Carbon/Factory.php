@@ -823,7 +823,7 @@ class Factory
         // null-byte sentinels so the generic quoting below leaves them intact.
         $regex = preg_replace_callback(
             '/(?<!\\\\)((?:\\\\{2})*)(['.implode('', array_keys($replacements)).'])/',
-            static fn ($match) => "\0{$match[1]}".strtr($match[2], $replacements)."\0",
+            static fn ($match) => "\0".$match[1].strtr($match[2], $replacements)."\0",
             $regex,
         );
         // Replace escaped letters by the letter itself
@@ -831,7 +831,7 @@ class Factory
 
         $chunks = explode("\0", $regex);
 
-        foreach ($chunks as $index => &$chunk) {
+        foreach ($chunks as $index => $chunk) {
             if ($index % 2) {
                 continue;
             }
@@ -848,7 +848,6 @@ class Factory
                 $chunk,
             );
         }
-        unset($chunk);
 
         return (bool) @preg_match('/^'.implode('', $chunks).'$/', $date);
     }
