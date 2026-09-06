@@ -70,6 +70,24 @@ trait Rounding
 
         $precision *= $factor;
 
+        // A numeric precision is in seconds, so once it spans the next coarser
+        // unit it must be re-targeted there, like "week" -> "day" above.
+        if ($normalizedUnit === 'second' && (\is_int($precision) || \is_float($precision))) {
+            $secondsPerHour = static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+            $secondsPerDay = static::HOURS_PER_DAY * $secondsPerHour;
+
+            if ($precision >= $secondsPerDay) {
+                $normalizedUnit = 'day';
+                $precision /= $secondsPerDay;
+            } elseif ($precision >= $secondsPerHour) {
+                $normalizedUnit = 'hour';
+                $precision /= $secondsPerHour;
+            } elseif ($precision >= static::SECONDS_PER_MINUTE) {
+                $normalizedUnit = 'minute';
+                $precision /= static::SECONDS_PER_MINUTE;
+            }
+        }
+
         if (!isset($ranges[$normalizedUnit])) {
             throw new UnknownUnitException($unit);
         }
