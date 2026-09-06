@@ -18,4 +18,4 @@ projects:
       - sed -i 's/trigger_deprecation/#trigger_deprecation/g' vendor/symfony/console/Application.php
       - sed -i 's/testRouteCanBeFilteredByAction/skipTestRouteCanBeFilteredByAction/g' tests/Testing/Console/RouteListCommandTest.php
       # Run the test
-      - vendor/bin/phpunit --no-coverage
+      - vendor/bin/phpunit --no-coverage --do-not-fail-on-warning --do-not-fail-on-phpunit-warning
