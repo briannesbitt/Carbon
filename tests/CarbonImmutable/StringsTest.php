@@ -17,6 +17,8 @@ use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Carbon\FactoryImmutable;
 use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 use Tests\CarbonImmutable\Fixtures\BadIsoCarbon;
@@ -259,5 +261,26 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('1er', Carbon::parse('01-01-01')->locale('fr')->translatedFormat('jS'));
         $this->assertSame('31 мая', Carbon::parse('2019-05-15')->locale('ru')->translatedFormat('t F'));
         $this->assertSame('5 май', Carbon::parse('2019-05-15')->locale('ru')->translatedFormat('n F'));
+    }
+
+    public function testTranslatedFormatMatchesRawFormatForUntranslatableCharacters()
+    {
+        $zone = 'America/New_York';
+        $date = Carbon::parse('2024-03-15 14:30:45.123456', $zone)->locale('en');
+        $native = new DateTimeImmutable('2024-03-15 14:30:45.123456', new DateTimeZone($zone));
+
+        // Every character documented for date() must produce the same output as
+        // date() itself when nothing in it can be translated.
+        foreach (str_split('dDjlNSwzWFmMntLoXxYyaABgGhHisuveIOPpTZcrU') as $character) {
+            $this->assertSame(
+                $native->format($character),
+                $date->translatedFormat($character),
+                "translatedFormat('$character') should match format('$character')",
+            );
+        }
+
+        $this->assertSame('America/New_York', $date->translatedFormat('e'));
+        $this->assertSame('-04:00', $date->translatedFormat('p'));
+        $this->assertSame('Z', Carbon::parse('2024-03-15 14:30:45', 'UTC')->translatedFormat('p'));
     }
 }
