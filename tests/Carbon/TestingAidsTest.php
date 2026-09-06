@@ -324,12 +324,14 @@ class TestingAidsTest extends AbstractTestCase
 
         Carbon::setTestNow('2013-09-01 10:20:30.654321');
         $n1 = Carbon::now();
+        usleep(1);
         $n2 = Carbon::now();
 
         $this->assertFalse($n2 > $n1);
 
         Carbon::setTestNow(false);
         $n1 = Carbon::now();
+        usleep(1);
         $n2 = Carbon::now();
 
         $this->assertTrue($n2 > $n1);
