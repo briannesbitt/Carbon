@@ -99,6 +99,11 @@ jobs:
         run: composer require --no-update --no-interaction "symfony/translation:^5.4.35||^6.3.12||^7.0.3||^8.0.0" "symfony/contracts:^2.5.3||>=3.4.2" "sebastian/exporter:>5.1.2"
         # https://github.com/symfony/symfony/commit/f4118e110a46de3ffb799e7d79bf15128d1646ea
 
+      - name: Updgrade carbonphp/carbon-doctrine-types
+        if: matrix.php >= 8.6
+        shell: bash
+        run: composer require --no-update --no-interaction "carbonphp/carbon-doctrine-types:^1.0.1||^2.1.1||>=3.2.1"
+
       - name: Install dependencies
         uses: nick-fields/retry@v4
         if: steps.composer-cache.outputs.cache-hit != 'true'
