@@ -4,6 +4,30 @@
 
 ## Version 3.x
 
+#### 3.14.0 (12 September 2026)
+* Prevent unintended injection of unsafe filters or non-date classes during period unserialization by @kylekatarnls and @iliaal in https://github.com/CarbonPHP/carbon/pull/145
+
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.13.3...3.14.0
+
+
+⚠️ If you unserialize `CarbonPeriod` objects that may have custom filters or custom dateClass, you might experience breaking change in some specific edge cases starting with this version
+
+#### 3.13.3 (6 September 2026)
+* Fix: abs(): Argument #1 ($num) must be of type int|float, string given by @hbh112233abc in https://github.com/CarbonPHP/carbon/pull/136
+* Fix Yoruba (yo) locale: correct "second" unit spelling to "aayá" by @oluwatosinolamilekan in https://github.com/CarbonPHP/carbon/pull/140
+* Add `e`, `p`, `X` and x to the `translatedFormat()` replacement map - #3357 by @dylanpulver in https://github.com/briannesbitt/Carbon/pull/3357
+* Replace `spl_object_hash` with `spl_object_id` by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/142
+* Quote non-token characters in `matchFormatPattern` by @iliaal in https://github.com/CarbonPHP/carbon/pull/141
+
+## New Contributors
+* @dylanpulver made their first contribution in https://github.com/briannesbitt/Carbon/pull/3357
+* @hbh112233abc made their first contribution in https://github.com/CarbonPHP/carbon/pull/136
+* @oluwatosinolamilekan made their first contribution in https://github.com/CarbonPHP/carbon/pull/140
+* @iliaal made their first contribution in https://github.com/CarbonPHP/carbon/pull/141
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.13.2...3.13.3
+
 #### 3.13.2 (8 August 2026)
 * Prioritize day names over month names when translating string before the first number occurs in the string by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/139
 
