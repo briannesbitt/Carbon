@@ -1,5 +1,15 @@
 [
     {
+        "tag_name": "3.14.0",
+        "created_at": "2026-09-12T20:45:19Z",
+        "body": "## What's Changed\r\n* Prevent unintended injection of unsafe filters or non-date classes during period unserialization by @kylekatarnls and @iliaal in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/145\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.13.3...3.14.0\r\n\r\n\r\n\u26a0\ufe0f If you unserialize `CarbonPeriod` objects that may have custom filters or custom dateClass, you might experience breaking change in some specific edge cases starting with this version"
+    },
+    {
+        "tag_name": "3.13.3",
+        "created_at": "2026-09-06T15:10:42Z",
+        "body": "## What's Changed\r\n* Fix: abs(): Argument #1 ($num) must be of type int|float, string given by @hbh112233abc in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/136\r\n* Fix Yoruba (yo) locale: correct \"second\" unit spelling to \"aay\u00e1\" by @oluwatosinolamilekan in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/140\r\n* Add `e`, `p`, `X` and x to the `translatedFormat()` replacement map - #3357 by @dylanpulver in https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3357\r\n* Replace `spl_object_hash` with `spl_object_id` by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/142\r\n* Quote non-token characters in `matchFormatPattern` by @iliaal in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/141\r\n\r\n## New Contributors\r\n* @dylanpulver made their first contribution in https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3357\r\n* @hbh112233abc made their first contribution in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/136\r\n* @oluwatosinolamilekan made their first contribution in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/140\r\n* @iliaal made their first contribution in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/141\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.13.2...3.13.3"
+    },
+    {
         "tag_name": "3.13.2",
         "created_at": "2026-08-08T11:40:35Z",
         "body": "## What's Changed\r\n* Prioritize day names over month names when translating string before the first number occurs in the string by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/139\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.13.1...3.13.2"
