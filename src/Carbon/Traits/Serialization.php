@@ -73,7 +73,18 @@ trait Serialization
     /**
      * Create an instance from a serialized string.
      *
-     * If $value is not from a trusted source, consider using the allowed_classes option to limit
+     * Unserializing object can lead to arbitrary execution of period filters, and assignation
+     * of unvalidated values to properties.
+     *
+     * You should never unserialize a value from not from a trusted source. Ensure you unserialize
+     * only strings coming from storage no unauthorized party can read nor write, prefer to exchange
+     * data with other systems via static formats such as JSON.
+     *
+     * If the data has to transit via untrusted systems before unserialization, then you should
+     * sign it cryptographically (with HMAC or OpenSSL for example), and verify the signature
+     * before unserializing it.
+     *
+     * If the content of $value is unknown, consider using the allowed_classes option to limit
      * the types of objects that can be built, for instance:
      *
      * @example

@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\Exceptions\NotACarbonClassException;
+use Carbon\Exceptions\PeriodFilterSafetyException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
@@ -217,6 +219,122 @@ class SerializationTest extends AbstractTestCase
         $this->assertNull($periodCopy->getEndDate());
         $this->assertSame(4, $periodCopy->getRecurrences());
         $this->assertIntervalDuration('1 week', $periodCopy->getDateInterval());
+    }
+
+    public function testFiltersSafetyProtectionOn(): void
+    {
+        $this->expectException(PeriodFilterSafetyException::class);
+        $this->expectExceptionMessage(
+            "For safety reason, unserializing CarbonPeriod objects with custom filters is disallowed.\n".
+            "If your serialized string is fully safe and you're sure you want to allow them, wrap the ".
+            'unseritalization into $result = PeriodFilterSafetyException::allow(static fn () => unserialize($data))',
+        );
+
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        $p->setFilters([
+            ['foo'],
+        ]);
+
+        unserialize(serialize($p));
+    }
+
+    public function testFiltersSafetyProtectionForNonDateObjects(): void
+    {
+        $this->expectException(PeriodFilterSafetyException::class);
+        $this->expectExceptionMessage(
+            "For safety reason, unserializing CarbonPeriod objects with filters not referring to date method is disallowed.\n".
+            "If your serialized string is fully safe and you're sure you want to allow them, wrap the ".
+            'unseritalization into $result = PeriodFilterSafetyException::allow(static fn () => unserialize($data))',
+        );
+
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        $p->setFilters([
+            [[PeriodFilterSafetyException::class, 'allow'], null],
+        ]);
+
+        unserialize(serialize($p));
+    }
+
+    public function testFiltersSafetyProtectionOff(): void
+    {
+        $filters = [
+            ['foo'],
+        ];
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        $p->setFilters($filters);
+        $string = serialize($p);
+
+        $p2 = PeriodFilterSafetyException::allow(static fn () => unserialize($string));
+
+        $this->assertSame($filters, $p2->getFilters());
+    }
+
+    public function testFiltersSafetyProtectionOnlyAffectFilters(): void
+    {
+        $this->expectException(NotACarbonClassException::class);
+        $this->expectExceptionMessage(
+            "Given class does not implement Carbon\\CarbonInterface: DateTime\n".
+            "Behavior can be unpredictable and unsecure (in particular if you are unserializing data from a source you can't fully trust)\n".
+            "But if you're sure you want to allow it use \$result = NotACarbonClassException::allow(static fn () => ...)",
+        );
+
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        NotACarbonClassException::allow(static function () use ($p) {
+            $p->setDateClass(DateTime::class);
+        });
+        $string = serialize($p);
+
+        $p2 = PeriodFilterSafetyException::allow(static fn () => unserialize($string));
+
+        $this->assertSame([], $p2->getFilters());
+    }
+
+    public function testNotACarbonClassExceptionOn(): void
+    {
+        $this->expectException(NotACarbonClassException::class);
+        $this->expectExceptionMessage(
+            "Given class does not implement Carbon\\CarbonInterface: DateTime\n".
+            "Behavior can be unpredictable and unsecure (in particular if you are unserializing data from a source you can't fully trust)\n".
+            "But if you're sure you want to allow it use \$result = NotACarbonClassException::allow(static fn () => ...)",
+        );
+
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        NotACarbonClassException::allow(static function () use ($p) {
+            $p->setDateClass(DateTime::class);
+        });
+
+        unserialize(serialize($p));
+    }
+
+    public function testNotACarbonClassExceptionOff(): void
+    {
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        NotACarbonClassException::allow(static function () use ($p) {
+            $p->setDateClass(DateTime::class);
+        });
+        $string = serialize($p);
+
+        $p2 = NotACarbonClassException::allow(static fn () => unserialize($string));
+
+        $this->assertSame(DateTime::class, $p2->getDateClass());
+    }
+
+    public function testNotACarbonClassExceptionForNonStringValue(): void
+    {
+        $this->expectException(NotACarbonClassException::class);
+        $this->expectExceptionMessage(
+            "Given class does not implement Carbon\\CarbonInterface: integer\n".
+            "Behavior can be unpredictable and unsecure (in particular if you are unserializing data from a source you can't fully trust)\n".
+            "But if you're sure you want to allow it use \$result = NotACarbonClassException::allow(static fn () => ...)",
+        );
+
+        $p = CarbonPeriod::create('2026-09-01', '2026-09-20');
+        NotACarbonClassException::allow(static function () use ($p) {
+            $p->setDateClass(DateTime::class);
+        });
+        $string = str_replace('s:8:"DateTime"', 'i:0', serialize($p));
+
+        unserialize($string);
     }
 
     private function assertIntervalDuration(string $duration, mixed $interval): void
