@@ -14,11 +14,14 @@ declare(strict_types=1);
 namespace Carbon\Exceptions;
 
 use Carbon\CarbonInterface;
+use Carbon\Traits\TogglableDetection;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Throwable;
 
 class NotACarbonClassException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
+    use TogglableDetection;
+
     /**
      * The className.
      *
@@ -37,11 +40,33 @@ class NotACarbonClassException extends BaseInvalidArgumentException implements I
     {
         $this->className = $className;
 
-        parent::__construct(\sprintf(
-            'Given class does not implement %s: %s',
-            CarbonInterface::class,
-            $className,
-        ), $code, $previous);
+        parent::__construct(
+            \sprintf(
+                'Given class does not implement %s: %s',
+                CarbonInterface::class,
+                $className,
+            )."\nBehavior can be unpredictable and unsecure ".
+            "(in particular if you are unserializing data from a source you can't fully trust)\n".
+            "But if you're sure you want to allow it use \$result = ".
+            'NotACarbonClassException::allow(static fn () => ...)',
+            $code,
+            $previous,
+        );
+    }
+
+    public static function expectCarbonInterface(mixed $className): void
+    {
+        if (!self::$detectionEnabled) {
+            return;
+        }
+
+        if (!\is_string($className)) {
+            throw new self(\gettype($className));
+        }
+
+        if (!is_a($className, CarbonInterface::class, true)) {
+            throw new self($className);
+        }
     }
 
     /**

@@ -21,6 +21,7 @@ use Carbon\Exceptions\InvalidPeriodDateException;
 use Carbon\Exceptions\InvalidPeriodParameterException;
 use Carbon\Exceptions\NotACarbonClassException;
 use Carbon\Exceptions\NotAPeriodException;
+use Carbon\Exceptions\PeriodFilterSafetyException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnreachableException;
@@ -940,9 +941,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      */
     public function setDateClass(string $dateClass)
     {
-        if (!is_a($dateClass, CarbonInterface::class, true)) {
-            throw new NotACarbonClassException($dateClass);
-        }
+        NotACarbonClassException::expectCarbonInterface($dateClass);
 
         $self = $this->copyIfImmutable();
         $self->dateClass = $dateClass;
@@ -2386,6 +2385,36 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                 $data,
             );
 
+            if (isset($values['dateClass'])) {
+                NotACarbonClassException::expectCarbonInterface($values['dateClass']);
+            }
+
+            if (
+                isset($values['filters'])
+                // Non-array filters are not an issue as they will be rejected before being read with:
+                // Cannot assign X to property Carbon\CarbonPeriod::$filters of type array
+                && \is_array($values['filters'])
+                && PeriodFilterSafetyException::isDetectionEnabled()
+            ) {
+                foreach ($values['filters'] as $tuple) {
+                    if (\is_array($tuple[0])) {
+                        $subject = $tuple[0][0];
+
+                        if (
+                            is_a($subject, DatePeriod::class, true)
+                            || is_a($subject, DateInterval::class, true)
+                            || is_a($subject, DateTimeInterface::class, true)
+                        ) {
+                            continue;
+                        }
+
+                        throw new PeriodFilterSafetyException('filters not referring to date method');
+                    }
+
+                    throw new PeriodFilterSafetyException('custom filters');
+                }
+            }
+
             $this->initializeSerialization($values);
 
             foreach ($values as $key => $value) {
@@ -2443,7 +2472,11 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             }
         } catch (Throwable $e) {
             // @codeCoverageIgnoreStart
-            if (!method_exists(parent::class, '__unserialize')) {
+            if (
+                $e instanceof PeriodFilterSafetyException
+                || $e instanceof NotACarbonClassException
+                || !method_exists(parent::class, '__unserialize')
+            ) {
                 throw $e;
             }
 
