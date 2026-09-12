@@ -167,7 +167,8 @@ function write_markdown()
             $tag = $release['tag_name'];
             $date = Carbon::parse($release['created_at'])->format('j F Y');
             $body = trim(str_replace("## What's Changed", '', $release['body']));
-            $markdown .= "#### $tag ($date)\n$body\n\n";
+            $body = preg_replace('/^##/m', '####', $body);
+            $markdown .= "### $tag ($date)\n$body\n\n";
             $progress_bar->advance();
         }
     }
