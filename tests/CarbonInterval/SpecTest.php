@@ -85,6 +85,28 @@ class SpecTest extends AbstractTestCase
         $this->assertSame('PT0.012300S', $ci->spec(true));
     }
 
+    public function testMicrosecondsIntervalWithFractionOfOneSecondOrMore()
+    {
+        // CarbonInterval::milliseconds() stores the whole magnitude in
+        // DateInterval::$f, so it can hold one second or more.
+        $ci = CarbonInterval::milliseconds(10500);
+
+        $this->assertSame('PT10.500000S', $ci->spec(true));
+        $this->assertSame(
+            $ci->totalSeconds,
+            CarbonInterval::make($ci->spec(true))->totalSeconds,
+        );
+
+        $this->assertSame('PT90.000000S', CarbonInterval::milliseconds(90000)->spec(true));
+        $this->assertSame('PT1.114000S', CarbonInterval::milliseconds(1114)->spec(true));
+        $this->assertSame('PT10.500000S', CarbonInterval::microseconds(10500000)->spec(true));
+
+        // Intervals whose fraction is already below one second are unaffected.
+        $this->assertSame('PT10.500000S', CarbonInterval::make('PT10.5S')->spec(true));
+        $this->assertSame('PT1M30.500000S', CarbonInterval::make('PT1M30.5S')->spec(true));
+        $this->assertSame('PT10.500000S', CarbonInterval::seconds(10)->milliseconds(500)->spec(true));
+    }
+
     public function testMixedTimeInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 1, 2, 3);
