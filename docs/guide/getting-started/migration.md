@@ -33,6 +33,31 @@ This is: `double(-1.999508)` in Carbon 3
 
 In Carbon 3, using `(int) $after->diffInSeconds($before, true)` or `(int) abs($after->diffInSeconds($before))` allows to get explicitly an absolute and truncated value, so the same result as in v2.
 
+### Real methods
+
+In Carbon 3, `addReal*`, `subReal*` and `diffInReal*` have been replaced in PHPDoc by `addUTC*`, `subUTC*` and `diffInUTC*`. The old names still work through dynamic method calls, but your IDE may no longer recognize them. The `diffInReal*` methods are deprecated and planned for removal in the next major version.
+
+With Carbon 3 and PHP 8.4 or later, you can use `addSeconds()` and `diffInSeconds()` instead of `addRealSeconds()` and `diffInRealSeconds()`. The same applies to hours, minutes, milliseconds and microseconds: the PHP bugs that required separate timestamp-based methods have been fixed. On older PHP versions, use the `UTC` methods if you need timestamp-based behavior.
+
+For days, choose based on what you need:
+
+*   Use `addDays()` for calendar days in the local timezone, and `diffInDays()` to compare dates in that same timezone.
+*   Use `addUTCDays()` and `diffInUTCDays()` if you used the `Real` methods to ignore daylight saving time (DST) and treat a day as 24 hours.
+
+For example, March 30, 2025 lasts 23 hours in Berlin:
+
+```php
+$date = CarbonImmutable::parse('2025-03-30 00:00:00', 'Europe/Berlin');
+$nextDay = $date->addDay();
+
+echo $nextDay->format('Y-m-d H:i');
+echo $date->addUTCDay()->format('Y-m-d H:i');
+echo $date->diffInDays($nextDay);
+echo $date->diffInUTCDays($nextDay);
+```
+
+The choice between local time and UTC also matters for larger units, such as weeks and months. Do not drop `Real` from every method name without checking the intended behavior.
+
 ### Strong typing
 
 Strong typing added in many method parameters will disallow so usages that was never meant to be supported such as `bool` or `null` in comparison methods.
