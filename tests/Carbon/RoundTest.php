@@ -205,4 +205,59 @@ class RoundTest extends AbstractTestCase
 
         Carbon::now()->roundUnit('foobar');
     }
+
+    public function testRoundWithNumericPrecisionCarry()
+    {
+        // A numeric precision >= 60s must carry, like the equivalent string unit.
+        $dt = Carbon::create(2026, 1, 1, 14, 21, 37);
+
+        $this->assertCarbon($dt->copy()->round(3600), 2026, 1, 1, 14, 0, 0, 0);
+        $this->assertTrue($dt->copy()->round(3600)->eq($dt->copy()->round('hour')));
+
+        $this->assertCarbon($dt->copy()->round(120), 2026, 1, 1, 14, 22, 0, 0);
+        $this->assertTrue($dt->copy()->round(120)->eq($dt->copy()->round('2 minutes')));
+
+        $this->assertCarbon($dt->copy()->round(86400), 2026, 1, 2, 0, 0, 0, 0);
+        $this->assertTrue($dt->copy()->round(86400)->eq($dt->copy()->round('day')));
+
+        // floor() with numeric precision must also carry, not just clamp within the minute.
+        $almostNextHour = Carbon::create(2026, 1, 1, 14, 59, 59);
+        $this->assertCarbon($almostNextHour->copy()->floor(3600), 2026, 1, 1, 14, 0, 0, 0);
+        $this->assertTrue($almostNextHour->copy()->floor(3600)->eq($almostNextHour->copy()->floor('hour')));
+
+        // ceil() with numeric precision must carry across the hour boundary.
+        $halfPastHour = Carbon::create(2026, 1, 1, 14, 30, 0);
+        $this->assertCarbon($halfPastHour->copy()->ceil(3600), 2026, 1, 1, 15, 0, 0, 0);
+        $this->assertTrue($halfPastHour->copy()->ceil(3600)->eq($halfPastHour->copy()->ceil('hour')));
+
+        // Carry across a month boundary via a day-level numeric precision.
+        $monthEnd = Carbon::create(2026, 1, 31, 20, 0, 0);
+        $this->assertCarbon($monthEnd->copy()->round(86400), 2026, 2, 1, 0, 0, 0, 0);
+
+        // Sub-minute numeric precision must keep rounding within the second field, unchanged.
+        $this->assertCarbon($dt->copy()->round(30), 2026, 1, 1, 14, 21, 30, 0);
+    }
+
+    public function testNumericPrecisionCarryFromAnyUnit(): void
+    {
+        $dt = Carbon::parse('2026-01-01 14:21:03');
+
+        // A precision counting minutes spans a whole day just as one counting
+        // seconds does, so it has to carry the same way.
+        $this->assertCarbon($dt->copy()->roundMinutes(24 * 60), 2026, 1, 2, 0, 0, 0, 0);
+        $this->assertTrue($dt->copy()->roundMinutes(24 * 60)->eq($dt->copy()->round('day')));
+
+        $this->assertCarbon($dt->copy()->roundHours(24), 2026, 1, 2, 0, 0, 0, 0);
+        $this->assertTrue($dt->copy()->roundHours(24)->eq($dt->copy()->round('day')));
+
+        $this->assertCarbon($dt->copy()->roundMinutes(60), 2026, 1, 1, 14, 0, 0, 0);
+        $this->assertTrue($dt->copy()->roundMinutes(60)->eq($dt->copy()->round('hour')));
+
+        $this->assertCarbon(Carbon::parse('2026-08-20')->roundMonths(12), 2027, 1, 1, 0, 0, 0, 0);
+        $this->assertTrue(Carbon::parse('2026-08-20')->roundMonths(12)->eq(Carbon::parse('2026-08-20')->round('year')));
+
+        // A precision that stays inside its own unit is untouched.
+        $this->assertCarbon($dt->copy()->roundMinutes(30), 2026, 1, 1, 14, 30, 0, 0);
+        $this->assertCarbon($dt->copy()->roundSeconds(30), 2026, 1, 1, 14, 21, 0, 0);
+    }
 }
