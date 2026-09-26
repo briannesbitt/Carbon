@@ -487,7 +487,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                     $anchorDay ?? $start->day,
                 ),
                 OverflowMode::NoOverflow => CarbonInterval::yearNoOverflow(),
-                OverflowMode::Overflow => CarbonInterval::month(),
+                OverflowMode::Overflow => CarbonInterval::year(),
             },
             $end ?? $recurrences,
         ))->setOptions($options ?? self::IMMUTABLE);

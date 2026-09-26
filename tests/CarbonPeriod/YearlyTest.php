@@ -168,9 +168,9 @@ class YearlyTest extends AbstractTestCase
         $this->assertSame(0, $period->getOptions());
         $this->assertSame([
             '2019-12-31 09:52:46.321654',
-            '2020-01-31 09:52:46.321654',
-            '2020-03-02 09:52:46.321654',
-            '2020-04-02 09:52:46.321654',
+            '2020-12-31 09:52:46.321654',
+            '2021-12-31 09:52:46.321654',
+            '2022-12-31 09:52:46.321654',
         ], $this->getDates($period, expectedDateClass: Carbon::class));
     }
 
@@ -217,6 +217,26 @@ class YearlyTest extends AbstractTestCase
             '2024-02-29 09:52:46.321654',
             '2025-02-28 09:52:46.321654',
             '2026-02-28 09:52:46.321654',
+        ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
+    }
+
+    public function testYearlyWithOverflow()
+    {
+        $period = CarbonPeriod::yearly(
+            '2020-02-29',
+            recurrences: 3,
+            mode: OverflowMode::Overflow,
+        );
+
+        $this->assertNull($period->getEndDate());
+        $this->assertTrue($period->isEndIncluded());
+        $this->assertFalse($period->isEndExcluded());
+        $this->assertSame(3, $period->getRecurrences());
+        $this->assertSame(CarbonPeriod::IMMUTABLE, $period->getOptions());
+        $this->assertSame([
+            '2020-02-29 00:00:00.000000',
+            '2021-03-01 00:00:00.000000',
+            '2022-03-01 00:00:00.000000',
         ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
     }
 

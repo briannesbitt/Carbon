@@ -6,12 +6,10 @@ projects:
     source:
       type: git
       url: https://github.com/laravel/framework.git
-      reference: master
+      reference: 5f8cb4cd6488af1219a4360fd9c84fb1e404899d
       success_only: true
     install:
-      - composer require --no-update "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^7.0|^8.0" "symfony/polyfill-mbstring:^1.0" --prefer-dist --no-interaction --prefer-stable
-      # Skip laravel/serializable-closure 2.0.16 which triggers a test failure, and hope for it to be solved in next version
-      - composer require --no-update "laravel/serializable-closure:2.0.15||^2.0.17"
+      - composer require --no-update "orchestra/testbench-core:12.x-dev#7bcccbd" "carbonphp/carbon-doctrine-types:*" "psr/clock:^1.0" "symfony/clock:^7.0|^8.0" "symfony/polyfill-mbstring:^1.0" --prefer-dist --no-interaction --prefer-stable
       - composer update --prefer-dist --no-interaction --prefer-stable
     script:
       # Disable trigger_deprecation() in console/Application.php until Laravel fix the deprecation
