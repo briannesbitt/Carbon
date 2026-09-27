@@ -333,11 +333,28 @@ trait Units
         }
 
         if ($unit === 'weekday') {
+            $absoluteValue = abs($value);
+            $sign = $value < 0 ? -1 : 1;
+            $intAbsoluteValue = (int) $absoluteValue;
+            $remaining = ((float) $absoluteValue - (float) $intAbsoluteValue);
+
+            if ($remaining !== 0.0) {
+                if ($intAbsoluteValue !== 0) {
+                    $date = $date->addUnit($unit, $sign * $intAbsoluteValue);
+                }
+
+                $date = $date->addDays($sign * $remaining);
+
+                while ($date->isWeekend()) {
+                    $date = $date->addDays($sign);
+                }
+
+                return $date;
+            }
+
             $weekendDays = $this->transmitFactory(static::getWeekendDays(...));
 
             if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
-                $absoluteValue = abs($value);
-                $sign = $value / max(1, $absoluteValue);
                 $weekDaysCount = static::DAYS_PER_WEEK - min(static::DAYS_PER_WEEK - 1, \count(array_unique($weekendDays)));
                 $weeks = floor($absoluteValue / $weekDaysCount);
 

@@ -135,6 +135,40 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1, $dt->second);
     }
 
+    public function testAddWeekdaysFloat()
+    {
+        $dt = Carbon::create('2026-09-23 10:00:00')->addDays(3.5);
+        $this->assertSame('2026-09-26 22:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-23 10:00:00')->addWeekdays(3.5);
+        $this->assertSame('2026-09-28 22:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-23 10:00:00')->addWeekdays(2.5);
+        $this->assertSame('2026-09-25 22:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-23 10:00:00')->addWeekdays(2.75);
+        $this->assertSame('2026-09-28 04:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-25 10:00:00')->addWeekdays(0.75);
+        $this->assertSame('2026-09-28 04:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-25 16:00:00')->addWeekdays(0.5);
+        $this->assertSame('2026-09-28 04:00:00', $dt->format('Y-m-d H:i:s'));
+    }
+
+    public function testSubWeekdaysFloat()
+    {
+        $dt = Carbon::create('2026-09-28 04:00:00')->subDays(0.75);
+        $this->assertSame('2026-09-27 10:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-28 04:00:00')->subDays(0.5);
+        $this->assertSame('2026-09-27 16:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-28 22:00:00')->subWeekdays(3.5);
+        $this->assertSame('2026-09-23 10:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-25 22:00:00')->subWeekdays(2.5);
+        $this->assertSame('2026-09-23 10:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-28 04:00:00')->subWeekdays(2.75);
+        $this->assertSame('2026-09-23 10:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-28 04:00:00')->subWeekdays(0.75);
+        $this->assertSame('2026-09-25 10:00:00', $dt->format('Y-m-d H:i:s'));
+        $dt = Carbon::create('2026-09-28 04:00:00')->subWeekdays(0.5);
+        $this->assertSame('2026-09-25 16:00:00', $dt->format('Y-m-d H:i:s'));
+    }
+
     public function testAddWeekdaysZero()
     {
         $this->assertSame(4, Carbon::createFromDate(2012, 1, 4)->addWeekdays(0)->day);
