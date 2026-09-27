@@ -1,5 +1,10 @@
 [
     {
+        "tag_name": "3.14.1",
+        "created_at": "2026-09-27T12:07:26Z",
+        "body": "## What's Changed\r\n* Fix #146 yearly overflow by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/149\r\n* Allow to use `float` timestamps and `DateTimeInterface` in `monthly()`, `quarterly()` and `yearly()` by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/150\r\n* Fix support for decimal number in `addWeekdays()` and `subWeekdays()` by @kylekatarnls in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/151\r\n* Fix `CarbonInterval::spec()` when the fraction holds a second or more by @t1gor in https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3366\r\n* Fix numeric `round()`\/`floor()`\/`ceil()` precision >= 60 seconds does not carry into minute\/hour\/day by @dualfroz in https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3359\r\n\r\n## New Contributors\r\n* @t1gor made their first contribution in https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3366\r\n* @dualfroz made their first contribution in https:\/\/github.com\/briannesbitt\/Carbon\/pull\/3359\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.14.0...3.14.1"
+    },
+    {
         "tag_name": "3.14.0",
         "created_at": "2026-09-12T20:45:19Z",
         "body": "## What's Changed\r\n* Prevent unintended injection of unsafe filters or non-date classes during period unserialization by @kylekatarnls and @iliaal in https:\/\/github.com\/CarbonPHP\/carbon\/pull\/145\r\n\r\n\r\n**Full Changelog**: https:\/\/github.com\/CarbonPHP\/carbon\/compare\/3.13.3...3.14.0\r\n\r\n\r\n\u26a0\ufe0f If you unserialize `CarbonPeriod` objects that may have custom filters or custom dateClass, you might experience breaking change in some specific edge cases starting with this version"
