@@ -4,6 +4,19 @@
 
 ## Version 3.x
 
+### 3.14.1 (27 September 2026)
+* Fix #146 yearly overflow by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/149
+* Allow to use `float` timestamps and `DateTimeInterface` in `monthly()`, `quarterly()` and `yearly()` by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/150
+* Fix support for decimal number in `addWeekdays()` and `subWeekdays()` by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/151
+* Fix `CarbonInterval::spec()` when the fraction holds a second or more by @t1gor in https://github.com/briannesbitt/Carbon/pull/3366
+* Fix numeric `round()`/`floor()`/`ceil()` precision >= 60 seconds does not carry into minute/hour/day by @dualfroz in https://github.com/briannesbitt/Carbon/pull/3359
+
+#### New Contributors
+* @t1gor made their first contribution in https://github.com/briannesbitt/Carbon/pull/3366
+* @dualfroz made their first contribution in https://github.com/briannesbitt/Carbon/pull/3359
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.14.0...3.14.1
+
 ### 3.14.0 (12 September 2026)
 * Prevent unintended injection of unsafe filters or non-date classes during period unserialization by @kylekatarnls and @iliaal in https://github.com/CarbonPHP/carbon/pull/145
 
