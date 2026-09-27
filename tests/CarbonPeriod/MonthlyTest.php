@@ -17,7 +17,11 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Carbon\OverflowMode;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\AbstractTestCase;
 
 class MonthlyTest extends AbstractTestCase
@@ -187,11 +191,25 @@ class MonthlyTest extends AbstractTestCase
         ], $this->getDates($period, expectedDateClass: CarbonImmutable::class));
     }
 
-    public function testMonthlyWithStrings()
-    {
+    #[TestWith([
+        '2019-10-31 09:52:46.321654 UTC',
+        '2020-02-29 09:52:46.321654 UTC',
+    ])]
+    #[TestWith([
+        1572515566.321654,
+        1582969966.321654,
+    ])]
+    #[TestWith([
+        new DateTime('2019-10-31 09:52:46.321654 UTC'),
+        new DateTimeImmutable('2020-02-29 09:52:46.321654 UTC'),
+    ])]
+    public function testMonthlyWithOtherDateRepresentations(
+        DateTimeInterface|string|float $start,
+        DateTimeInterface|string|float $end,
+    ) {
         $period = CarbonPeriod::monthly(
-            start: '2019-10-31 09:52:46.321654 UTC',
-            end: '2020-02-29 09:52:46.321654 UTC',
+            start: $start,
+            end: $end,
         );
 
         $this->assertEquals(CarbonImmutable::parse('2020-02-29 09:52:46.321654 UTC'), $period->getEndDate());
