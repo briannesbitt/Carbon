@@ -53,7 +53,7 @@
         "doctrine/orm": "^2.15.2 || ^3.0",
         "friendsofphp/php-cs-fixer": "^v3.87.1",
         "kylekatarnls/multi-tester": "^2.5.3",
-        "phpmd/phpmd": "^2.15.0",
+        "phpmd/phpmd": "^3.0@dev",
         "phpstan/extension-installer": "^1.4.3",
         "phpstan/phpstan": "^2.1.22",
         "phpunit/phpunit": "^10.5.53",
@@ -107,8 +107,8 @@
     "scripts": {
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpdoc": "php phpdoc.php",
-        "phpmd": "phpmd src text /phpmd.xml",
-        "phpmd-test": "phpmd tests text /tests/phpmd-test.xml",
+        "phpmd": "phpmd analyze src --format=text --ruleset=/phpmd.yml",
+        "phpmd-test": "phpmd analyze tests --format=text --ruleset=/tests/phpmd-test.yml",
         "phpstan": "phpstan analyse --configuration phpstan.neon --memory-limit 1024M",
         "phpunit": "phpunit",
         "style-check": [
