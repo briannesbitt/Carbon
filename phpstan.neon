@@ -103,6 +103,10 @@ parameters:
             paths:
                 - tests/Carbon/ModifyTest.php
                 - tests/CarbonImmutable/ModifyTest.php
+        -
+            message: '#^Cannot unset property Carbon\\CarbonInterval::\$[A-Za-z]+ because it might have hooks in a subclass\.#'
+            paths:
+                - src/Carbon/CarbonInterval.php
     excludePaths:
         - '*/src/Carbon/CarbonPeriod.php'
         - '*/src/Carbon/Laravel/ServiceProvider.php'

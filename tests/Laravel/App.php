@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Laravel;
 
 use ArrayAccess;
+use ReturnTypeWillChange;
 use Symfony\Component\Translation\Translator;
 
 class App implements ArrayAccess
@@ -104,25 +105,25 @@ class App implements ArrayAccess
         return isset($this->{$service});
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->$offset);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->$offset;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         // noop
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         // noop

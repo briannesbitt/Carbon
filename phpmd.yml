@@ -1,0 +1,46 @@
+# PHPMD configuration, see https://phpmd.org/documentation/creating-a-ruleset.html
+name: 'Mess detection rules for Carbon'
+description: 'Mess detection rules for Carbon'
+rules:
+  - ref: rulesets/codesize.xml
+    exclude:
+      - CyclomaticComplexity
+      - NPathComplexity
+      - ExcessiveMethodLength
+      - ExcessiveClassLength
+      - ExcessivePublicCount
+      - TooManyMethods
+      - TooManyPublicMethods
+      - ExcessiveClassComplexity
+  - ref: rulesets/cleancode.xml
+    exclude:
+      - BooleanArgumentFlag
+      - StaticAccess
+      - IfStatementAssignment
+      - UndefinedVariable
+      - ErrorControlOperator
+  - ref: rulesets/controversial.xml
+  - ref: rulesets/design.xml
+    exclude:
+      - EvalExpression
+      - CouplingBetweenObjects
+      - CountInLoopExpression
+      - DevelopmentCodeFragment
+  - ref: rulesets/design.xml/DevelopmentCodeFragment
+    properties:
+      ignore-namespaces: 'true'
+  - ref: rulesets/naming.xml
+    exclude:
+      - ShortVariable
+      - LongVariable
+      - ShortMethodName
+  - ref: rulesets/naming.xml/ShortVariable
+    properties:
+      exceptions: 'ci,id,to,tz'
+  - ref: rulesets/naming.xml/LongVariable
+    properties:
+      subtract-suffixes: 'Enabled,Function,Factory,Timezone,FloorEnd,DiffOptions,FromTestNow'
+  - ref: rulesets/naming.xml/ShortMethodName
+    properties:
+      exceptions: 'eq,gt,is,lt,ne,to,tz'
+  - ref: rulesets/unusedcode.xml

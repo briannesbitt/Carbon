@@ -1,0 +1,25 @@
+# PHPMD configuration, see https://phpmd.org/documentation/creating-a-ruleset.html
+name: 'Mess detection rules for Carbon'
+description: 'Mess detection rules for Carbon'
+rules:
+  - ref: rulesets/cleancode.xml
+    exclude:
+      - BooleanArgumentFlag
+      - StaticAccess
+      - IfStatementAssignment
+      - UndefinedVariable
+      - ErrorControlOperator
+  - ref: rulesets/controversial.xml
+  - ref: rulesets/design.xml
+    exclude:
+      - EvalExpression
+      - CouplingBetweenObjects
+      - CountInLoopExpression
+      - DevelopmentCodeFragment
+  - ref: rulesets/design.xml/DevelopmentCodeFragment
+    properties:
+      ignore-namespaces: 'true'
+  - ref: rulesets/unusedcode.xml
+    exclude:
+      - UnusedLocalVariable
+      - UnusedFormalParameter
