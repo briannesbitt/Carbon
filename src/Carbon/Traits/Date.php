@@ -2257,6 +2257,8 @@ trait Date
         $inEscaped = false;
         $formats = null;
         $units = null;
+        $macroIndex = -1;
+        $macroDepth = 0;
 
         for ($i = 0; $i < $length; $i++) {
             $char = mb_substr($format, $i, 1);
@@ -2287,7 +2289,10 @@ trait Date
 
             $input = mb_substr($format, $i);
 
-            if (preg_match('/^(LTS|LT|l{1,4}|L{1,4})/', $input, $match)) {
+            // Like moment.js, allow up to 5 nested macro expansions at the same position
+            $macroDepth = $i === $macroIndex ? $macroDepth + 1 : 0;
+
+            if ($macroDepth < 5 && preg_match('/^(LTS|LT|l{1,4}|L{1,4})/', $input, $match)) {
                 if ($formats === null) {
                     $formats = $this->getIsoFormats();
                 }
@@ -2298,10 +2303,14 @@ trait Date
                     static fn ($code) => mb_substr($code[0], 1),
                     $formats[strtoupper($code)] ?? '',
                 );
-                $rest = mb_substr($format, $i + mb_strlen($code));
-                $format = mb_substr($format, 0, $i).$sequence.$rest;
+                $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
                 $length = mb_strlen($format);
-                $input = $sequence.$rest;
+                $macroIndex = $i;
+                // Read the expanded sequence again from its first character,
+                // it may start with literal text, an escape or another macro
+                $i--;
+
+                continue;
             }
 
             if (preg_match('/^'.CarbonInterface::ISO_FORMAT_REGEXP.'/', $input, $match)) {
