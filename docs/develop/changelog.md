@@ -4,6 +4,17 @@
 
 ## Version 3.x
 
+### 3.14.2 (2 October 2026)
+* Fix first character after macro expansion in isoFormat() by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3369
+* Fix CLDR pattern letters left in locale formats by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3370
+* Add Thai digits (alt_numbers) to th locale by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3375
+* Upgrade PHPMD to v3 by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/152
+
+#### New Contributors
+* @kamthorn made their first contribution in https://github.com/briannesbitt/Carbon/pull/3369
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.14.1...3.14.2
+
 ### 3.14.1 (27 September 2026)
 * Fix #146 yearly overflow by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/149
 * Allow to use `float` timestamps and `DateTimeInterface` in `monthly()`, `quarterly()` and `yearly()` by @kylekatarnls in https://github.com/CarbonPHP/carbon/pull/150

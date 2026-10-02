@@ -197,6 +197,7 @@ Thanks to people helping us to translate Carbon in so many languages.
 - Juwon Kim
 - Jørn Ølmheim
 - KID
+- Kamthorn Krairaksa
 - Kamusi Project Martin Benjamin locales@kamusi.org
 - Karag2006
 - Karamell
