@@ -12,15 +12,16 @@
 /*
  * Authors:
  * - Pablo Saratxaga pablo@mandrakesoft.com
+ * - Kamthorn Krairaksa
  */
 return [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
         'L' => 'DD. MM. YY',
-        'LL' => 'DD di MMMM dal YYYY',
-        'LLL' => 'DD di MMM HH:mm',
-        'LLLL' => 'DD di MMMM dal YYYY HH:mm',
+        'LL' => 'DD [di] MMMM [dal] YYYY',
+        'LLL' => 'DD [di] MMM HH:mm',
+        'LLLL' => 'DD [di] MMMM [dal] YYYY HH:mm',
     ],
     'months' => ['zenâr', 'fevrâr', 'març', 'avrîl', 'mai', 'jugn', 'lui', 'avost', 'setembar', 'otubar', 'novembar', 'dicembar'],
     'months_short' => ['zen', 'fev', 'mar', 'avr', 'mai', 'jug', 'lui', 'avo', 'set', 'otu', 'nov', 'dic'],

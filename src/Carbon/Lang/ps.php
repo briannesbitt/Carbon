@@ -13,6 +13,7 @@
  * Authors:
  * - Muhammad Nasir Rahimi
  * - Nassim Nasibullah (spinzar)
+ * - Kamthorn Krairaksa
  */
 return [
     'year' => ':count کال|:count کاله',
@@ -47,7 +48,7 @@ return [
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',
-        'L' => 'YYYY/M/d',
+        'L' => 'YYYY/M/D',
         'LL' => 'YYYY MMM D',
         'LLL' => 'د YYYY د MMMM D H:mm',
         'LLLL' => 'dddd د YYYY د MMMM D H:mm',

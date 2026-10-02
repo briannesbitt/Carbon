@@ -20,8 +20,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
         'L' => 'D/M/YYYY',
-        'LL' => 'd [de] MMM [de] YYYY',
-        'LLL' => 'd [de] MMMM [de] YYYY HH:mm',
-        'LLLL' => 'dddd, d [de] MMMM [de] YYYY HH:mm',
+        'LL' => 'D [de] MMM [de] YYYY',
+        'LLL' => 'D [de] MMMM [de] YYYY HH:mm',
+        'LLLL' => 'dddd, D [de] MMMM [de] YYYY HH:mm',
     ],
 ]);

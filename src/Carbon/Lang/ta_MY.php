@@ -13,7 +13,7 @@ return array_replace_recursive(require __DIR__.'/ta.php', [
     'formats' => [
         'LT' => 'a h:mm',
         'LTS' => 'a h:mm:ss',
-        'L' => 'D/M/yy',
+        'L' => 'D/M/YY',
         'LL' => 'D MMM, YYYY',
         'LLL' => 'D MMMM, YYYY, a h:mm',
         'LLLL' => 'dddd, D MMMM, YYYY, a h:mm',
