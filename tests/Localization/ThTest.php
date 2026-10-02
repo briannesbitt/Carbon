@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('localization')]
@@ -433,4 +435,16 @@ class ThTest extends LocalizationTestCase
         // '1d 3h',
         '1 วัน 3 ชั่วโมง',
     ];
+
+    public function testThaiDigits()
+    {
+        $date = Carbon::parse('2026-01-05 09:07:30')->locale('th');
+
+        $this->assertSame('๐๕ ๐๑ ๒๐๒๖ ๐๙ ๐๗ ๓๐', $date->isoFormat('OD OM OY OH Om Os'));
+        $this->assertSame('๒๐๒๖', $date->getAltNumber('year'));
+        $this->assertSame('๒๐๐๕', Carbon::parse('2005-01-01')->locale('th')->getAltNumber('year'));
+        $this->assertSame('๒๐๐๐', Carbon::parse('2000-01-01')->locale('th')->getAltNumber('year'));
+        $this->assertSame('๒๖ ชั่วโมง', CarbonInterval::hours(26)->locale('th')->forHumans(['altNumbers' => true]));
+        $this->assertSame('๐๑ ชั่วโมง', CarbonInterval::hour()->locale('th')->forHumans(['altNumbers' => true]));
+    }
 }
