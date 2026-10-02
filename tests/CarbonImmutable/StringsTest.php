@@ -16,6 +16,7 @@ namespace Tests\CarbonImmutable;
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Carbon\FactoryImmutable;
+use Carbon\Translator;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -253,6 +254,49 @@ class StringsTest extends AbstractTestCase
         $d = BadIsoCarbon::parse('midnight');
 
         $this->assertSame('', $d->isoFormat('MMM'));
+    }
+
+    public function testIsoFormatMacroStartingWithLiteral()
+    {
+        $d = Carbon::parse('2026-09-30 14:05');
+
+        $this->assertSame('วันพุธที่ 30 กันยายน 2026 เวลา 14:05', $d->locale('th')->isoFormat('LLLL'));
+        $this->assertSame('วันพุธที่ 30 ก.ย. 2026 เวลา 14:05', $d->locale('th')->isoFormat('llll'));
+        $this->assertSame('พุธ วันพุธที่ 30 กันยายน 2026 เวลา 14:05', $d->locale('th')->isoFormat('dddd LLLL'));
+        $this->assertSame('ວັນພຸດ 30 ກັນຍາ 2026 14:05', $d->locale('lo')->isoFormat('LLLL'));
+        $this->assertSame('པསྱི་ལོ26ཟལ09ཚེས30', $d->locale('dz')->isoFormat('L'));
+        $this->assertSame('د 2026 د سېپتمبر 30 14:05', $d->locale('ps')->isoFormat('LLL'));
+
+        $translator = Translator::get('en_Macro');
+        $translator->setTranslations([
+            'formats' => [
+                'LT' => 'H:mm',
+                'L' => '[Day] D',
+                'LL' => '\\DD',
+                'LLL' => 'L [at] LT',
+            ],
+        ]);
+        $d = $d->locale('en_Macro');
+
+        $this->assertSame('Day 30', $d->isoFormat('L'));
+        $this->assertSame('Day 30', $d->isoFormat('l'));
+        $this->assertSame('D30', $d->isoFormat('LL'));
+        $this->assertSame('Day 30 at 14:05', $d->isoFormat('LLL'));
+        $this->assertSame('x Day 30', $d->isoFormat('[x] L'));
+
+        $translator->resetMessages();
+
+        $translator = Translator::get('en_SelfMacro');
+        $translator->setTranslations([
+            'formats' => [
+                'L' => 'L',
+            ],
+        ]);
+
+        // A macro expanding to itself is output as-is instead of looping forever
+        $this->assertSame('L', $d->locale('en_SelfMacro')->isoFormat('L'));
+
+        $translator->resetMessages();
     }
 
     public function testTranslatedFormat()
