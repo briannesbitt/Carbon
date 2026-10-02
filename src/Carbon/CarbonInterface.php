@@ -1880,6 +1880,30 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     public function equalTo(DateTimeInterface|string $date): bool;
 
     /**
+     * Return the abbreviated name of the era the current date is in, according to the "eras" of the current locale
+     * (empty string if the date is in none of them).
+     */
+    public function eraAbbr(): string;
+
+    /**
+     * Return the full name of the era the current date is in, according to the "eras" of the current locale
+     * (empty string if the date is in none of them).
+     */
+    public function eraName(): string;
+
+    /**
+     * Return the narrow name of the era the current date is in, according to the "eras" of the current locale
+     * (empty string if the date is in none of them).
+     */
+    public function eraNarrow(): string;
+
+    /**
+     * Return the year of the era the current date is in, according to the "eras" of the current locale
+     * (the calendar year if the date is in none of them).
+     */
+    public function eraYear(): int;
+
+    /**
      * Set the current locale to the given, execute the passed function, reset the locale to previous one,
      * then return the result of the closure (or null if the closure was void).
      *

@@ -41,8 +41,8 @@ class LocaleFormatsTest extends AbstractTestCase
                 // Letters inside [...] or after \ are literal text
                 $tokens = preg_replace('/\[[^\]]*]|\\\\./u', '', $format);
 
-                // y and N are CLDR pattern letters (year, era), not isoFormat() tokens,
-                // so they are printed as-is and would change meaning if such tokens were added
+                // y and N are CLDR pattern letters (year, era) and isoFormat() era tokens:
+                // they are left out of locale defaults, which stay in the calendar year
                 if (preg_match('/[yN]/', $tokens)) {
                     $invalid[] = "$locale $key: $format";
                 }
