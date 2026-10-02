@@ -313,6 +313,131 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('', $d->isoFormat('MMM'));
     }
 
+    public function testIsoFormatEras()
+    {
+        $th = Carbon::parse('2026-09-30')->locale('th');
+
+        $this->assertSame('30 กันยายน พ.ศ. 2569', $th->isoFormat('D MMMM N y'));
+        $this->assertSame('พ.ศ. พ.ศ. พ.ศ. พุทธศักราช พ.ศ.', $th->isoFormat('N NN NNN NNNN NNNNN'));
+        $this->assertSame('2569 2569 2569 2569 2569', $th->isoFormat('y yy yyy yyyy yo'));
+        $this->assertSame('พ.ศ.', $th->eraAbbr());
+        $this->assertSame('พุทธศักราช', $th->eraName());
+        $this->assertSame('พ.ศ.', $th->eraNarrow());
+        $this->assertSame(2569, $th->eraYear());
+        $this->assertSame('29/02/2567', Carbon::parse('2024-02-29')->locale('th_TH')->isoFormat('DD/MM/y'));
+        $this->assertSame('544 0544', Carbon::parse('0001-01-01')->locale('th')->isoFormat('y yyyy'));
+
+        // Before the first day of the Buddhist Era, no era applies
+        $this->assertSame('| -600', Carbon::create(-600)->locale('th')->isoFormat('N| y'));
+
+        $en = Carbon::parse('2026-09-30')->locale('en');
+
+        // yy..yyyy zero-pad the era year to a minimum length, unlike YY they never truncate it
+        $this->assertSame('AD Anno Domini AD 2026 2026 2026th', $en->isoFormat('N NNNN NNNNN y yy yo'));
+        $this->assertSame('AD 1', Carbon::create(1, 1, 1)->locale('en')->isoFormat('N y'));
+        $this->assertSame('BC 1 01 001 0001 1st', Carbon::create(0, 12, 31)->locale('en')->isoFormat('N y yy yyy yyyy yo'));
+        $this->assertSame('BC 100', Carbon::create(-99, 6, 1)->locale('en')->isoFormat('N y'));
+
+        // Locales without eras use AD/BC like in moment.js
+        $this->assertSame('AD 2026', $en->locale('fr')->isoFormat('N y'));
+
+        // Escaped era tokens stay as-is
+        $this->assertSame('N y Ny', $th->isoFormat('[N y] \N\y'));
+
+        // Defaults are unchanged, the Buddhist Era can be opted in by overriding the locale formats
+        $this->assertSame('30/09/2026', $th->isoFormat('L'));
+        $translator = Translator::get('th');
+        $translator->setTranslations([
+            'formats' => [
+                'L' => 'D MMMM N y',
+            ],
+        ]);
+        $this->assertSame('30 กันยายน พ.ศ. 2569', $th->isoFormat('L'));
+        $translator->resetMessages();
+    }
+
+    public function testIsoFormatCustomEras()
+    {
+        $translator = Translator::get('en_Eras');
+        $translator->setTranslations([
+            'formats' => [
+                'L' => 'N y',
+            ],
+            'eras' => [
+                [
+                    'since' => '2019-05-01',
+                    'until' => INF,
+                    'offset' => 1,
+                    'name' => 'Reiwa',
+                    'narrow' => 'R',
+                    'abbr' => 'R.',
+                ],
+                [
+                    'since' => '1989-01-08',
+                    'until' => '2019-04-30',
+                    'offset' => 1,
+                    'name' => 'Heisei',
+                    'abbr' => 'H.',
+                ],
+            ],
+        ]);
+
+        $this->assertSame('H. 31', Carbon::parse('2019-04-30 23:59')->locale('en_Eras')->isoFormat('L'));
+        $this->assertSame('R. 1', Carbon::parse('2019-05-01')->locale('en_Eras')->isoFormat('L'));
+        $this->assertSame('Reiwa R 8', Carbon::parse('2026-09-30')->locale('en_Eras')->isoFormat('NNNN NNNNN y'));
+        // Missing narrow name stays empty
+        $this->assertSame('Heisei | 1', Carbon::parse('1989-01-08')->locale('en_Eras')->isoFormat('NNNN |NNNNN y'));
+        // Outside of all eras: no name, calendar year
+        $this->assertSame('|1988', Carbon::parse('1988-12-31')->locale('en_Eras')->isoFormat('N|y'));
+
+        $translator->resetMessages();
+    }
+
+    public function testErasAreNotMixedWithFallbackLocale()
+    {
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->setLocale('de');
+        $translator->setTranslations([
+            'eras' => [
+                ['since' => '2010-01-01', 'until' => INF, 'offset' => 1, 'abbr' => 'Y'],
+                ['since' => '1000-01-01', 'until' => '1999-12-31', 'offset' => 1, 'abbr' => 'Z'],
+            ],
+        ]);
+        $translator->setLocale('fr');
+        $translator->setTranslations([
+            'eras' => [
+                ['since' => '2000-01-01', 'until' => INF, 'offset' => 1, 'abbr' => 'X'],
+            ],
+        ]);
+        $translator->setFallbackLocales(['de']);
+
+        // Key by key, the fallback would provide a second era
+        $this->assertSame('Z', Carbon::parse('1500-01-01')->getTranslationMessage('eras.1.abbr'));
+
+        $this->assertSame('X 27', Carbon::parse('2026-09-30')->isoFormat('N y'));
+        // But eras are taken as a whole from fr, so 1500 is in no era
+        $this->assertSame('|1500', Carbon::parse('1500-01-01')->isoFormat('N|y'));
+    }
+
+    public function testInvalidEraDate()
+    {
+        $translator = Translator::get('en_BadEra');
+        $translator->setTranslations([
+            'eras' => [
+                ['since' => '2019/05/01', 'until' => INF, 'offset' => 1, 'abbr' => 'X'],
+            ],
+        ]);
+
+        try {
+            $this->expectExceptionObject(new InvalidArgumentException("Invalid era date '2019/05/01', expected YYYY-MM-DD."));
+
+            Carbon::parse('2026-09-30')->locale('en_BadEra')->eraAbbr();
+        } finally {
+            $translator->resetMessages();
+        }
+    }
+
     public function testIsoFormatMacroStartingWithLiteral()
     {
         $d = Carbon::parse('2026-09-30 14:05');
