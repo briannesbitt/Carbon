@@ -117,7 +117,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         /** @var mixed $date */
         $date = Carbon::now();
-        $date->nonExistingMacro();
+        $date = $date->nonExistingMacro();
     }
 
     public function testTraitMixin()

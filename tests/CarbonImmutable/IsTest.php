@@ -413,9 +413,9 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now()));
         $dt = Carbon::now();
         for ($year = 1990; $year < Carbon::now()->year; $year++) {
-            $dt->modify($year.$dt->format('-m-').'01');
+            $dt = $dt->modify($year.$dt->format('-m-').'01');
             $this->assertTrue(Carbon::now()->isSameMonth($dt, false));
-            $dt->modify($year.$dt->format('-m-').'28');
+            $dt = $dt->modify($year.$dt->format('-m-').'28');
             $this->assertTrue(Carbon::now()->isSameMonth($dt, false));
         }
     }
