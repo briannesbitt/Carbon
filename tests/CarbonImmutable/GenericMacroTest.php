@@ -55,7 +55,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $message = null;
 
         try {
-            $now->barBiz();
+            $now = $now->barBiz();
         } catch (BadMethodCallException $exception) {
             $message = $exception->getMessage();
         }

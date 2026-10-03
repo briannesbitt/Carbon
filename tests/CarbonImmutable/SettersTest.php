@@ -52,7 +52,7 @@ class SettersTest extends AbstractTestCase
         ));
 
         $d = Carbon::now();
-        $d->setHours(Month::February);
+        $d = $d->setHours(Month::February);
     }
 
     public function testMonthEnum()
@@ -74,7 +74,7 @@ class SettersTest extends AbstractTestCase
         ));
 
         $d = Carbon::parse('2023-10-25 21:14:51');
-        $d->setMonth(2.5);
+        $d = $d->setMonth(2.5);
     }
 
     public function testMonthFloatPassWithZeroDecimalPart()
@@ -254,7 +254,7 @@ class SettersTest extends AbstractTestCase
         ));
 
         $d = Carbon::now();
-        $d->setTimezone('sdf');
+        $d = $d->setTimezone('sdf');
     }
 
     public function testTimezoneWithInvalidTimezone()

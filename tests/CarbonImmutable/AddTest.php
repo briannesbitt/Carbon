@@ -89,7 +89,7 @@ class AddTest extends AbstractTestCase
             'Interval objects cannot be multiplied by a non-integer value.',
         ));
 
-        Carbon::createFromDate(1975)->add(CarbonInterval::years(2), 2.5);
+        $date = Carbon::createFromDate(1975)->add(CarbonInterval::years(2), 2.5);
     }
 
     public function testAddDaysZero()

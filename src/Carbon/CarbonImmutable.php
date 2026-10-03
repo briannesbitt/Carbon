@@ -14,8 +14,13 @@ declare(strict_types=1);
 namespace Carbon;
 
 use Carbon\Traits\Date;
+use Closure;
+use DateInterval;
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
+use NoDiscard;
+use ReturnTypeWillChange;
 
 /**
  * A simple API extension for DateTimeImmutable.
@@ -839,6 +844,17 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
 {
     use Date {
         __clone as dateTraitClone;
+        __call as dateTraitCall;
+        modify as dateTraitModify;
+        add as dateTraitAdd;
+        sub as dateTraitSub;
+        setDate as dateTraitSetDate;
+        setISODate as dateTraitSetISODate;
+        setTime as dateTraitSetTime;
+        setTimestamp as dateTraitSetTimestamp;
+        setTimezone as dateTraitSetTimezone;
+        next as dateTraitNext;
+        previous as dateTraitPrevious;
     }
 
     public function __clone(): void
@@ -846,6 +862,128 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
         $this->dateTraitClone();
         $this->endOfTime = false;
         $this->startOfTime = false;
+    }
+
+    /*
+     * The methods below only forward to the Date trait. They are re-declared so that they
+     * carry the #[NoDiscard] attribute (PHP >= 8.5) as their DateTimeImmutable
+     * counterparts do: as the instance is never modified, ignoring the result is
+     * most likely a mistake.
+     */
+
+    #[NoDiscard]
+    public function __call(string $method, array $parameters): mixed
+    {
+        return $this->dateTraitCall($method, $parameters);
+    }
+
+    /**
+     * @see Date::modify()
+     *
+     * @return static
+     */
+    #[NoDiscard]
+    #[ReturnTypeWillChange]
+    public function modify($modify)
+    {
+        return $this->dateTraitModify($modify);
+    }
+
+    /**
+     * @see Date::add()
+     *
+     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
+     * @param Unit|int|float|string                                         $value
+     */
+    #[NoDiscard]
+    #[ReturnTypeWillChange]
+    public function add($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
+    {
+        return $this->dateTraitAdd(...\func_get_args());
+    }
+
+    /**
+     * @see Date::sub()
+     *
+     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
+     * @param Unit|int|float|string                                         $value
+     */
+    #[NoDiscard]
+    #[ReturnTypeWillChange]
+    public function sub($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
+    {
+        return $this->dateTraitSub(...\func_get_args());
+    }
+
+    /**
+     * @see Date::setDate()
+     */
+    #[NoDiscard]
+    public function setDate(int $year, int $month, int $day): static
+    {
+        return $this->dateTraitSetDate($year, $month, $day);
+    }
+
+    /**
+     * @see Date::setISODate()
+     */
+    #[NoDiscard]
+    public function setISODate(int $year, int $week, int $day = 1): static
+    {
+        return $this->dateTraitSetISODate($year, $week, $day);
+    }
+
+    /**
+     * @see Date::setTime()
+     */
+    #[NoDiscard]
+    public function setTime(int $hour, int $minute, int $second = 0, int $microseconds = 0): static
+    {
+        return $this->dateTraitSetTime($hour, $minute, $second, $microseconds);
+    }
+
+    /**
+     * @see Date::setTimestamp()
+     */
+    #[NoDiscard]
+    public function setTimestamp(float|int|string $timestamp): static
+    {
+        return $this->dateTraitSetTimestamp($timestamp);
+    }
+
+    /**
+     * @see Date::setTimezone()
+     */
+    #[NoDiscard]
+    public function setTimezone(DateTimeZone|string|int $timeZone): static
+    {
+        return $this->dateTraitSetTimezone($timeZone);
+    }
+
+    /**
+     * @see Date::next()
+     *
+     * @param string|int|null $modifier
+     *
+     * @return static
+     */
+    #[NoDiscard]
+    public function next($modifier = null)
+    {
+        return $this->dateTraitNext($modifier);
+    }
+
+    /**
+     * @see Date::previous()
+     *
+     * @param string|int|null $modifier
+     *
+     * @return static
+     */
+    #[NoDiscard]
+    public function previous($modifier = null)
+    {
+        return $this->dateTraitPrevious($modifier);
     }
 
     /**
