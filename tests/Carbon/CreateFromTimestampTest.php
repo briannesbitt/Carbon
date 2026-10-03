@@ -96,6 +96,27 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1969, 12, 31, 23, 59, 59, 999960);
     }
 
+    public function testCreateFromTimestampMsBeforeEpoch()
+    {
+        $d = Carbon::createFromTimestampMsUTC(-1000);
+        $this->assertCarbon($d, 1969, 12, 31, 23, 59, 59, 0);
+
+        $d = Carbon::createFromTimestampMsUTC(-1500);
+        $this->assertCarbon($d, 1969, 12, 31, 23, 59, 58, 500000);
+
+        $d = Carbon::createFromTimestampMsUTC(-1.5);
+        $this->assertCarbon($d, 1969, 12, 31, 23, 59, 59, 998500);
+
+        $d = Carbon::createFromTimestampMsUTC(-1787007362690);
+        $this->assertCarbon($d, 1913, 5, 17, 1, 3, 57, 310000);
+
+        $d = Carbon::createFromTimestampMsUTC('-1787007362690.5');
+        $this->assertCarbon($d, 1913, 5, 17, 1, 3, 57, 309500);
+
+        $d = Carbon::createFromTimestampMs(-1500, 'Europe/Paris');
+        $this->assertSame('1969-12-31 23:59:58.500000', $d->utc()->format('Y-m-d H:i:s.u'));
+    }
+
     public function testComaDecimalSeparatorLocale()
     {
         $date = new Carbon('2017-07-29T13:57:27.123456Z');
