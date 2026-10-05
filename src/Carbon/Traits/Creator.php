@@ -715,8 +715,14 @@ trait Creator
             );
         }, $format);
 
-        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*('.CarbonInterface::ISO_FORMAT_REGEXP.'|[A-Za-z])/', function ($match) {
+        $dayOfYearUsed = false;
+        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*('.CarbonInterface::ISO_FORMAT_REGEXP.'|[A-Za-z])/', function ($match) use (&$dayOfYearUsed) {
             [$code] = $match;
+
+            // ISO day of year starts at 1 while the native "z" starts at 0
+            if ($code === 'DDD' || $code === 'DDDD' || $code === 'DDDo') {
+                $dayOfYearUsed = true;
+            }
 
             static $replacements = null;
 
@@ -812,7 +818,13 @@ trait Creator
             return $format;
         }, $format);
 
-        return static::rawCreateFromFormat($format, $time, $timezone);
+        $date = static::rawCreateFromFormat($format, $time, $timezone);
+
+        if ($dayOfYearUsed && $date) {
+            $date = $date->subDay();
+        }
+
+        return $date;
     }
 
     /**
