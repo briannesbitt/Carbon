@@ -120,7 +120,7 @@ trait Timestamp
      */
     public function getPreciseTimestamp($precision = 6): float
     {
-        $microseconds = $this->getTimestamp() * static::MICROSECONDS_PER_SECOND + (int) $this->rawFormat('u');
+        $microseconds = (float) $this->getTimestamp() * static::MICROSECONDS_PER_SECOND + (float) $this->rawFormat('u');
 
         return round($microseconds / pow(10, 6 - $precision));
     }
