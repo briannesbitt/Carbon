@@ -1058,9 +1058,22 @@ trait Creator
      */
     public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null): ?static
     {
-        $time = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+        $translatedTime = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
 
-        return static::createFromIsoFormat($format, $time, $timezone, $locale);
+        try {
+            return static::createFromIsoFormat($format, $translatedTime, $timezone, $locale);
+        } catch (InvalidFormatException $exception) {
+            // Show the given string in error messages rather than its translation to English
+            if ($translatedTime === $time || !str_contains($exception->getMessage(), "'$translatedTime'")) {
+                throw $exception;
+            }
+
+            throw new InvalidFormatException(
+                str_replace("'$translatedTime'", "'$time'", $exception->getMessage()),
+                $exception->getCode(),
+                $exception,
+            );
+        }
     }
 
     /**

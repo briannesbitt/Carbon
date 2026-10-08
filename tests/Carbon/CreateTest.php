@@ -447,11 +447,12 @@ class CreateTest extends AbstractTestCase
     public static function dataForInvalidEras(): array
     {
         return [
-            'unknown era' => ['D MMMM N y', 'th', '1 มกราคม ค.ศ. 2500', "Unknown era 'ค.ศ.' for locale 'th' in '1 January ค.ศ. 2500'."],
+            'unknown era' => ['D MMMM N y', 'th', '1 มกราคม ค.ศ. 2500', "Unknown era 'ค.ศ.' for locale 'th' in '1 มกราคม ค.ศ. 2500'."],
             'before the first year of the era' => ['D MMMM N y', 'th', '1 มกราคม พ.ศ. 0', "Year 0 is out of the era 'พ.ศ.'."],
             'no year before Anno Domini' => ['y N', 'en', '0 AD', "Year 0 is out of the era 'AD'."],
             'Gregorian year out of range' => ['y N', 'th', '12000 พ.ศ.', "Year 12000 of the era 'พ.ศ.' is Gregorian year 11457, only years from 0 to 9999 can be created."],
             'not matching' => ['D MMMM N y', 'th', 'xx', "Could not parse 'xx' with format 'D MMMM N y'."],
+            'not matching, translated' => ['D MMMM N y', 'th', '29 กุมภาพันธ์ x', "Could not parse '29 กุมภาพันธ์ x' with format 'D MMMM N y'."],
         ];
     }
 
