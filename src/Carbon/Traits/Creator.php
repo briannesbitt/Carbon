@@ -978,7 +978,8 @@ trait Creator
             }
         }
 
-        throw new InvalidFormatException("Unknown era '$name'.");
+        // The pattern only matches the names of these eras
+        throw new InvalidFormatException("Unknown era '$name'."); // @codeCoverageIgnore
     }
 
     private static function getEraField(string $token): string
