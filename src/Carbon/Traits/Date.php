@@ -21,6 +21,7 @@ use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\BadComparisonUnitException;
 use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\InvalidTimeZoneException;
+use Carbon\Exceptions\InvalidTypeException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
@@ -43,6 +44,8 @@ use Generator;
 use InvalidArgumentException;
 use ReflectionException;
 use Symfony\Component\Clock\NativeClock;
+use Symfony\Component\Translation\TranslatorBagInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Throwable;
 
 /**
@@ -2160,6 +2163,26 @@ trait Date
             'YYYYY' => ['getPaddedUnit', ['year', 5]],
             'YYYYYY' => static fn (CarbonInterface $date) => ($date->year < 0 ? '' : '+').
                 $date->getPaddedUnit('year', 6),
+            'N' => ['eraAbbr', []],
+            'NN' => ['eraAbbr', []],
+            'NNN' => ['eraAbbr', []],
+            'NNNN' => ['eraName', []],
+            'NNNNN' => ['eraNarrow', []],
+            'y' => static fn (CarbonInterface $date) => (string) $date->eraYear(),
+            'yy' => static fn (CarbonInterface $date) => self::zeroPadSigned($date->eraYear(), 2),
+            'yyy' => static fn (CarbonInterface $date) => self::zeroPadSigned($date->eraYear(), 3),
+            'yyyy' => static fn (CarbonInterface $date) => self::zeroPadSigned($date->eraYear(), 4),
+            'yo' => static function (CarbonInterface $date) {
+                $year = $date->eraYear();
+
+                try {
+                    $result = $date->translate('ordinal', [':number' => $year, ':period' => 'y']);
+
+                    return $result === 'ordinal' ? (string) $year : $result;
+                } catch (InvalidTypeException) {
+                    return (string) $year;
+                }
+            },
             'z' => ['rawFormat', ['T']],
             'zz' => 'tzName',
             'Z' => ['getOffsetString', []],
@@ -2194,6 +2217,169 @@ trait Date
         ]);
 
         return (string) ($result === 'ordinal' ? $number : $result);
+    }
+
+    /**
+     * Return the abbreviated name of the era the current date is in, according to the "eras" of the current locale
+     * (empty string if the date is in none of them).
+     */
+    public function eraAbbr(): string
+    {
+        return (string) ($this->getEra()['abbr'] ?? '');
+    }
+
+    /**
+     * Return the full name of the era the current date is in, according to the "eras" of the current locale
+     * (empty string if the date is in none of them).
+     */
+    public function eraName(): string
+    {
+        return (string) ($this->getEra()['name'] ?? '');
+    }
+
+    /**
+     * Return the narrow name of the era the current date is in, according to the "eras" of the current locale
+     * (empty string if the date is in none of them).
+     */
+    public function eraNarrow(): string
+    {
+        return (string) ($this->getEra()['narrow'] ?? '');
+    }
+
+    /**
+     * Return the year of the era the current date is in, according to the "eras" of the current locale
+     * (the calendar year if the date is in none of them).
+     */
+    public function eraYear(): int
+    {
+        $era = $this->getEra();
+
+        if ($era === null) {
+            return $this->year;
+        }
+
+        return ($this->year - $era['sinceYear']) * $era['direction'] + $era['offset'];
+    }
+
+    /**
+     * Return the era of the current locale the current date is in (null if none).
+     *
+     * Eras follow moment.js: a list of ['since', 'until', 'offset', 'name', 'narrow', 'abbr'] where since
+     * and until are 'YYYY-MM-DD' dates (or INF/-INF for until) and since may be after until for eras counting
+     * years backward (such as BC).
+     *
+     * @return array{name: string|null, narrow: string|null, abbr: string|null, offset: int, sinceYear: int, direction: int}|null
+     */
+    private function getEra(): ?array
+    {
+        $date = $this->year * 10000 + $this->month * 100 + $this->day;
+
+        foreach ($this->getEras() as $era) {
+            [$sinceYear, $since] = self::parseEraDate($era['since']);
+            [, $until] = self::parseEraDate($era['until'] ?? INF);
+
+            if (($since <= $date && $date <= $until) || ($until <= $date && $date <= $since)) {
+                return [
+                    'name' => $era['name'] ?? null,
+                    'narrow' => $era['narrow'] ?? null,
+                    'abbr' => $era['abbr'] ?? null,
+                    'offset' => (int) ($era['offset'] ?? 1),
+                    'sinceYear' => $sinceYear,
+                    'direction' => $since <= $until ? 1 : -1,
+                ];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Return the "eras" of the current locale, taken as a whole from the first locale of the fallback chain
+     * defining them, so a locale with fewer eras does not get the extra ones of its fallback.
+     * Like in moment.js, Anno Domini / Before Christ are used if no locale defines eras.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function getEras(): array
+    {
+        $translator = $this->getLocalTranslator();
+
+        if (!($translator instanceof TranslatorBagInterface)) {
+            return self::getDefaultEras();
+        }
+
+        $locale = $translator instanceof LocaleAwareInterface ? $translator->getLocale() : null;
+
+        for ($catalogue = $translator->getCatalogue($locale); $catalogue; $catalogue = $catalogue->getFallbackCatalogue()) {
+            if (!$catalogue->defines('eras.0.since')) {
+                continue;
+            }
+
+            $eras = [];
+
+            for ($index = 0; $catalogue->defines("eras.$index.since"); $index++) {
+                $era = [];
+
+                foreach (['since', 'until', 'offset', 'name', 'narrow', 'abbr'] as $field) {
+                    $key = "eras.$index.$field";
+
+                    if ($catalogue->defines($key)) {
+                        $era[$field] = self::getFromCatalogue($translator, $catalogue, $key);
+                    }
+                }
+
+                $eras[] = $era;
+            }
+
+            return $eras;
+        }
+
+        return self::getDefaultEras();
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private static function getDefaultEras(): array
+    {
+        return [
+            [
+                'since' => '0001-01-01',
+                'until' => INF,
+                'offset' => 1,
+                'name' => 'Anno Domini',
+                'narrow' => 'AD',
+                'abbr' => 'AD',
+            ],
+            [
+                'since' => '0000-12-31',
+                'until' => -INF,
+                'offset' => 1,
+                'name' => 'Before Christ',
+                'narrow' => 'BC',
+                'abbr' => 'BC',
+            ],
+        ];
+    }
+
+    /**
+     * Parse an era limit ('YYYY-MM-DD', the year may be negative, or INF/-INF) into its year and a sortable value.
+     *
+     * @return array{0: int|float, 1: int|float}
+     */
+    private static function parseEraDate(mixed $date): array
+    {
+        if (\is_float($date) || \is_int($date)) {
+            return [$date, $date];
+        }
+
+        if (!preg_match('/^([+-]?\d+)-(\d{1,2})-(\d{1,2})$/', (string) $date, $match)) {
+            throw new InvalidArgumentException("Invalid era date '$date', expected YYYY-MM-DD.");
+        }
+
+        $year = (int) $match[1];
+
+        return [$year, $year * 10000 + (int) $match[2] * 100 + (int) $match[3]];
     }
 
     /**
@@ -3037,6 +3223,11 @@ trait Date
     private static function floorZeroPad(int|float $value, int $length): string
     {
         return str_pad((string) floor($value), $length, '0', STR_PAD_LEFT);
+    }
+
+    private static function zeroPadSigned(int $value, int $length): string
+    {
+        return ($value < 0 ? '-' : '').str_pad((string) abs($value), $length, '0', STR_PAD_LEFT);
     }
 
     /**

@@ -314,6 +314,13 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('Thursday, April 4, 2019 12:00 AM America/Toronto', $date->isoFormat('LLLL zz'));
     }
 
+    public function testCreateFromIsoFormatWithEraLetters()
+    {
+        // Era tokens are not parsed yet: as before they were tokens, each letter matches one character
+        $this->assertSame('2026-01-01', Carbon::createFromIsoFormat('!Y NNNN yy', '2026 NNNN 55')->format('Y-m-d'));
+        $this->assertSame('2026-01-01', Carbon::createFromIsoFormat('!Y N y yo', '2026 x 5 ab')->format('Y-m-d'));
+    }
+
     public function testCreateFromIsoFormatWithDayOfYear()
     {
         $this->assertSame('2019-01-01', Carbon::createFromIsoFormat('!YYYY DDDD', '2019 001')->format('Y-m-d'));
