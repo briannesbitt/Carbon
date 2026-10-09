@@ -352,6 +352,8 @@ foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::cre
 
 _Credit: [reinink](https://github.com/reinink) ([#132](https://github.com/briannesbitt/Carbon/pull/132))._
 
+Since Carbon 3.15.0, the Buddhist Era is also available without a macro using the era tokens of `isoFormat()` with the `th` locale, see [Eras](/guide/getting-started/localization#eras).
+
 ```php
 
 Carbon::macro('formatBuddhist', static function (string $format): string {
