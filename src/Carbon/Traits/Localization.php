@@ -350,7 +350,8 @@ trait Localization
         return substr(preg_replace_callback(
             '/(?<=[\d\s+.\/,_-])('.implode('|', $fromTranslations).')(?=[\d\s+.\/,_-])/iu',
             function ($match) use ($fromTranslations, $toTranslations, $monthNameCount, $firstNumberOffset) {
-                [[$chunk, $offset]] = $match;
+                /* @var list<list{int, string}> $match */
+                [[$chunk, $offset]] = $match; // @phpstan-ignore offsetAccess.nonArray
 
                 $indexes = self::getMatchingWordIndexes($fromTranslations, $chunk);
 
