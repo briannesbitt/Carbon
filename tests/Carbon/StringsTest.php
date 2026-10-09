@@ -21,6 +21,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use InvalidArgumentException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\BadIsoCarbon;
 use Tests\Carbon\Fixtures\MyCarbon;
@@ -335,6 +336,9 @@ class StringsTest extends AbstractTestCase
         // yy..yyyy zero-pad the era year to a minimum length, unlike YY they never truncate it
         $this->assertSame('AD Anno Domini AD 2026 2026 2026th', $en->isoFormat('N NNNN NNNNN y yy yo'));
         $this->assertSame('AD 1', Carbon::create(1, 1, 1)->locale('en')->isoFormat('N y'));
+        $this->assertSame('AD', $en->eraAbbr());
+        $this->assertSame('Anno Domini', $en->eraName());
+        $this->assertSame('AD', $en->eraNarrow());
         $this->assertSame('BC 1 01 001 0001 1st', Carbon::create(0, 12, 31)->locale('en')->isoFormat('N y yy yyy yyyy yo'));
         $this->assertSame('BC 100', Carbon::create(-99, 6, 1)->locale('en')->isoFormat('N y'));
 
@@ -354,6 +358,17 @@ class StringsTest extends AbstractTestCase
         ]);
         $this->assertSame('30 กันยายน พ.ศ. 2569', $th->isoFormat('L'));
         $translator->resetMessages();
+
+        $en = Carbon::parse('2026-09-30')->setLocalTranslator(
+            $this->createStub(TranslatorInterface::class),
+        );
+        $this->assertSame('AD Anno Domini AD 2026 2026 2026', $en->isoFormat('N NNNN NNNNN y yy yo'));
+        $this->assertSame('AD 1', Carbon::create(1, 1, 1)->locale('en')->isoFormat('N y'));
+        $this->assertSame('AD', $en->eraAbbr());
+        $this->assertSame('Anno Domini', $en->eraName());
+        $this->assertSame('AD', $en->eraNarrow());
+        $this->assertSame('BC 1 01 001 0001 1st', Carbon::create(0, 12, 31)->locale('en')->isoFormat('N y yy yyy yyyy yo'));
+        $this->assertSame('BC 100', Carbon::create(-99, 6, 1)->locale('en')->isoFormat('N y'));
     }
 
     public function testIsoFormatCustomEras()

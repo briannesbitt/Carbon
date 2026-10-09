@@ -21,6 +21,7 @@ use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\BadComparisonUnitException;
 use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\InvalidTimeZoneException;
+use Carbon\Exceptions\InvalidTypeException;
 use Carbon\Exceptions\UnitException;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
@@ -2173,9 +2174,14 @@ trait Date
             'yyyy' => static fn (CarbonInterface $date) => self::zeroPadSigned($date->eraYear(), 4),
             'yo' => static function (CarbonInterface $date) {
                 $year = $date->eraYear();
-                $result = $date->translate('ordinal', [':number' => $year, ':period' => 'y']);
 
-                return $result === 'ordinal' ? (string) $year : $result;
+                try {
+                    $result = $date->translate('ordinal', [':number' => $year, ':period' => 'y']);
+
+                    return $result === 'ordinal' ? (string) $year : $result;
+                } catch (InvalidTypeException) {
+                    return (string) $year;
+                }
             },
             'z' => ['rawFormat', ['T']],
             'zz' => 'tzName',
