@@ -314,6 +314,17 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('Thursday, April 4, 2019 12:00 AM America/Toronto', $date->isoFormat('LLLL zz'));
     }
 
+    public function testCreateFromIsoFormatWithDayOfYear()
+    {
+        $this->assertSame('2019-01-01', Carbon::createFromIsoFormat('!YYYY DDDD', '2019 001')->format('Y-m-d'));
+        $this->assertSame('2019-01-01', Carbon::createFromIsoFormat('!YYYY DDD', '2019 1')->format('Y-m-d'));
+        $this->assertSame('2019-04-04', Carbon::createFromIsoFormat('!YYYY DDDD', '2019 094')->format('Y-m-d'));
+        $this->assertSame('2020-12-31', Carbon::createFromIsoFormat('!YYYY DDDD', '2020 366')->format('Y-m-d'));
+
+        $date = Carbon::parse('2019-04-04 13:45');
+        $this->assertSame('2019-04-04 13:45', Carbon::createFromIsoFormat('YYYY-DDDD HH:mm', $date->isoFormat('YYYY-DDDD HH:mm'))->format('Y-m-d H:i'));
+    }
+
     public function testCreateFromIsoFormatException()
     {
         $this->expectExceptionObject(new InvalidArgumentException(
