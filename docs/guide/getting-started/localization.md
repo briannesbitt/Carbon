@@ -271,6 +271,60 @@ echo $date->isoFormat('M/D/YY HH:mm');
 
 ```
 
+### Eras
+
+Since Carbon 3.15.0, `isoFormat()` supports the era tokens of moment.js: `N` to `NNNNN` for the era name and `y` to `yyyy` (or `yo`) for the year of the era. Eras are locale data, and AD/BC is used when the locale doesn't define any. For instance, the `th` locale uses the Buddhist Era (พ.ศ.):
+
+```php
+$date = Carbon::parse('2024-02-29');
+echo $date->isoFormat('N y');
+echo "\n";
+echo $date->isoFormat('NNNN y');
+echo "\n";
+echo $date->locale('th')->isoFormat('D MMMM N y');
+echo "\n";
+echo $date->locale('th')->isoFormat('NNNN y');
+echo "\n";
+echo $date->locale('th')->eraYear();
+echo "\n";
+echo $date->locale('th')->eraAbbr();
+echo "\n";
+echo $date->locale('th')->eraName();
+echo "\n";
+echo $date->locale('th')->eraNarrow();
+
+```
+
+Locales keep their default macro-formats (`L`, `LL`, etc.), but you can override them to display the year of the era:
+
+```php
+Translator::get('th')->setTranslations([
+	'formats' => [
+		'LL' => 'D MMMM N y',
+	],
+]);
+
+echo Carbon::parse('2024-02-29')->locale('th')->isoFormat('LL');
+Translator::get('th')->resetMessages();
+
+```
+
+You can also define eras in a custom locale. Like in moment.js, each era has a `since` date, an `until` date (or `INF`/`-INF`), an `offset` (the year of the era on the `since` date) and its names:
+
+```php
+Translator::get('en_Japan')->setTranslations([
+	'eras' => [
+		['since' => '2019-05-01', 'until' => INF, 'offset' => 1, 'name' => 'Reiwa', 'narrow' => 'R', 'abbr' => 'R'],
+		['since' => '1989-01-08', 'until' => '2019-04-30', 'offset' => 1, 'name' => 'Heisei', 'narrow' => 'H', 'abbr' => 'H'],
+	],
+]);
+
+echo Carbon::parse('2019-04-30')->locale('en_Japan')->isoFormat('NNNN y');
+echo "\n";
+echo Carbon::parse('2026-09-30')->locale('en_Japan')->isoFormat('NNNN y');
+
+```
+
 Another usefull translated method is `calendar($referenceTime = null, array $formats = []): string`:
 
 ```php
