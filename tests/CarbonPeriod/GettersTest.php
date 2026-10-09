@@ -90,7 +90,7 @@ class GettersTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd(static::$periodClass);
 
-        $period->getStartDate()->subDays(3);
+        $date = $period->getStartDate()->subDays(3);
 
         $this->assertSame('2012-07-01', $period->getStartDate()->format('Y-m-d'));
     }
@@ -99,7 +99,7 @@ class GettersTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withStartIntervalEnd(static::$periodClass);
 
-        $period->getEndDate()->addDays(3);
+        $date = $period->getEndDate()->addDays(3);
 
         $this->assertSame('2012-07-15', $period->getEndDate()->format('Y-m-d'));
     }

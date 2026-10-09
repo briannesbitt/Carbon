@@ -1686,7 +1686,7 @@ class DiffTest extends AbstractTestCase
     {
         $from = Carbon::parse('2021-03-27 20:00 Europe/Warsaw');
         $to = Carbon::parse('2021-03-27 20:00 Europe/London');
-        $from->floatDiffInRealDays($to);
+        $this->assertIsFloat($from->floatDiffInRealDays($to));
 
         $this->assertSame('2021-03-27 20:00:00 Europe/Warsaw', $from->format('Y-m-d H:i:s e'));
         $this->assertSame('2021-03-27 20:00:00 Europe/London', $to->format('Y-m-d H:i:s e'));
@@ -1751,7 +1751,7 @@ class DiffTest extends AbstractTestCase
     {
         $from = Carbon::parse('2021-03-27 20:00 Europe/Warsaw');
         $to = Carbon::parse('2021-03-27 20:00 Europe/London');
-        $from->floatDiffInUtcDays($to);
+        $this->assertIsFloat($from->floatDiffInUtcDays($to));
 
         $this->assertSame('2021-03-27 20:00:00 Europe/Warsaw', $from->format('Y-m-d H:i:s e'));
         $this->assertSame('2021-03-27 20:00:00 Europe/London', $to->format('Y-m-d H:i:s e'));

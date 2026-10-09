@@ -249,6 +249,6 @@ class ModifyTest extends AbstractTestCase
             '$anchorDay is not compatible with overflow',
         ));
 
-        Carbon::parse('2023-02-28')->addYearsWithOverflow(2, anchorDay: 29);
+        $date = Carbon::parse('2023-02-28')->addYearsWithOverflow(2, anchorDay: 29);
     }
 }
