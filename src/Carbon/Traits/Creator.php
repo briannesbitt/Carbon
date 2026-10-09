@@ -673,6 +673,10 @@ trait Creator
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
      *
+     * Era tokens (N to NNNNN, y, yy, yyy, yyyy, yo) are read with the "eras" of $locale: the era name gives the
+     * era and the year is the year of this era, so 'D MMMM N y' with 'th' reads '29 กุมภาพันธ์ พ.ศ. 2567' as
+     * 2024-02-29. Without any N token, the era of today's date in this locale is used.
+     *
      * @param string                       $format     Datetime format
      * @param string                       $time
      * @param DateTimeZone|string|int|null $timezone   optional timezone
@@ -714,6 +718,8 @@ trait Creator
                 $formats[strtoupper($code)] ?? '',
             );
         }, $format);
+
+        [$format, $time] = self::resolveIsoFormatEras($format, $time, $locale, $translator);
 
         $dayOfYearUsed = false;
         $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*('.CarbonInterface::ISO_FORMAT_REGEXP.'|[A-Za-z])/', function ($match) use (&$dayOfYearUsed) {
@@ -802,17 +808,6 @@ trait Creator
                     'YYYY' => 'Y',
                     'YYYYY' => 'Y',
                     'YYYYYY' => 'Y',
-                    // Era tokens are not parsed yet, they match any characters, one per letter as before they were tokens
-                    'N' => '?',
-                    'NN' => '??',
-                    'NNN' => '???',
-                    'NNNN' => '????',
-                    'NNNNN' => '?????',
-                    'y' => '?',
-                    'yy' => '??',
-                    'yyy' => '???',
-                    'yyyy' => '????',
-                    'yo' => '??',
                     'z' => 'e',
                     'zz' => 'e',
                     'Z' => 'e',
@@ -836,6 +831,188 @@ trait Creator
         }
 
         return $date;
+    }
+
+    /**
+     * Replace the era tokens of an ISO format (and what they match in $time) by a Gregorian year, so the result
+     * can be parsed by rawCreateFromFormat(). The era year is converted before parsing so a leap day is checked
+     * against the right year (BE 2567-02-29 is valid, but CE 2567-02-29 is not).
+     *
+     * @throws InvalidFormatException
+     *
+     * @return array{0: string, 1: string} format and time without era tokens
+     */
+    private static function resolveIsoFormatEras(string $format, string $time, ?string $locale, ?TranslatorInterface $translator): array
+    {
+        if (strpbrk($format, 'Ny') === false
+            || !preg_match_all('/\\\\.|'.CarbonInterface::ISO_FORMAT_REGEXP.'|./su', $format, $matches)
+        ) {
+            return [$format, $time];
+        }
+
+        $tokens = $matches[0];
+        $isEraToken = static fn (string $token): bool => $token[0] === 'N' || $token[0] === 'y';
+
+        if (!array_filter($tokens, $isEraToken)) {
+            return [$format, $time];
+        }
+
+        $date = static::now()->setLocalTranslator($translator ?? Translator::get($locale));
+        $eras = array_map(self::describeEra(...), $date->getEras());
+        $pattern = '';
+        $generic = '';
+        $eraTokens = [];
+
+        foreach ($tokens as $index => $token) {
+            if ($isEraToken($token)) {
+                $eraTokens[$index] = $token;
+                $eraPattern = $token[0] === 'N' ? self::getEraNamesPattern($eras, $token) : ($token === 'yo' ? '\\d+\\p{L}*' : '\\d+');
+                $pattern .= "($eraPattern)";
+                $generic .= $token[0] === 'N' ? '(.+?)' : '(\\d+\\p{L}*)';
+
+                continue;
+            }
+
+            $part = self::getIsoTokenPattern($token);
+            $pattern .= $part;
+            $generic .= $part;
+        }
+
+        $captures = [];
+
+        if (!preg_match("/^$pattern\$/siu", $time, $captures, \PREG_OFFSET_CAPTURE)) {
+            if (preg_match("/^$generic\$/siu", $time, $captures)) {
+                foreach (array_keys($eraTokens) as $position => $index) {
+                    if ($tokens[$index][0] === 'N') {
+                        throw new InvalidFormatException(
+                            "Unknown era '".$captures[$position + 1]."' for locale '".$date->locale."' in '$time'.",
+                        );
+                    }
+                }
+            }
+
+            throw new InvalidFormatException("Could not parse '$time' with format '$format'.");
+        }
+
+        $era = null;
+        $position = 1;
+
+        foreach ($eraTokens as $token) {
+            $text = $captures[$position++][0];
+
+            if ($token[0] === 'N') {
+                $era ??= self::findEraByName($eras, $token, $text);
+            }
+        }
+
+        $era ??= $date->getEra() ?? throw new InvalidFormatException("No era found today in locale '{$date->locale}'.");
+        $replacements = [];
+        $position = 1;
+
+        foreach ($eraTokens as $index => $token) {
+            [$text, $offset] = $captures[$position++];
+
+            if ($token[0] === 'N') {
+                $replacements[$offset] = [\strlen($text), ''];
+
+                continue;
+            }
+
+            $eraYear = (int) $text;
+            $year = $era['sinceYear'] + ($eraYear - $era['offset']) * $era['direction'];
+
+            if (($year - $era['sinceYear']) * $era['direction'] < 0
+                || (\is_int($era['untilYear']) && ($year - $era['untilYear']) * $era['direction'] > 0)
+            ) {
+                throw new InvalidFormatException("Year $eraYear is out of the era '".($era['abbr'] ?? $era['name'] ?? '')."'.");
+            }
+
+            if ($year < 0 || $year > 9999) {
+                throw new InvalidFormatException("Year $eraYear of the era '".($era['abbr'] ?? $era['name'] ?? '')."' is Gregorian year $year, only years from 0 to 9999 can be created.");
+            }
+
+            $replacements[$offset] = [\strlen($text), \sprintf('%04d', $year)];
+            $tokens[$index] = 'YYYY';
+        }
+
+        krsort($replacements);
+
+        foreach ($replacements as $offset => [$length, $replacement]) {
+            $time = substr_replace($time, $replacement, $offset, $length);
+        }
+
+        foreach ($eraTokens as $index => $token) {
+            if ($token[0] === 'N') {
+                $tokens[$index] = '';
+            }
+        }
+
+        return [implode('', $tokens), $time];
+    }
+
+    /**
+     * Pattern matching the era names (or abbreviations, or narrow names depending on the token) of the given eras.
+     *
+     * @param array<int, array<string, mixed>> $eras
+     */
+    private static function getEraNamesPattern(array $eras, string $token): string
+    {
+        $names = array_unique(array_filter(array_column($eras, self::getEraField($token)), 'is_string'));
+        usort($names, static fn (string $first, string $second) => \strlen($second) <=> \strlen($first));
+
+        return $names ? implode('|', array_map(static fn (string $name) => preg_quote($name, '/'), $names)) : '(?!)';
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $eras
+     *
+     * @return array<string, mixed>
+     */
+    private static function findEraByName(array $eras, string $token, string $name): array
+    {
+        $field = self::getEraField($token);
+
+        foreach ($eras as $era) {
+            if (\is_string($era[$field]) && mb_strtolower($era[$field]) === mb_strtolower($name)) {
+                return $era;
+            }
+        }
+
+        // The pattern only matches the names of these eras
+        throw new InvalidFormatException("Unknown era '$name'."); // @codeCoverageIgnore
+    }
+
+    private static function getEraField(string $token): string
+    {
+        return match (\strlen($token)) {
+            4 => 'name',
+            5 => 'narrow',
+            default => 'abbr',
+        };
+    }
+
+    /**
+     * Pattern used to locate the era in a string, only to read what is around the era tokens (PHP does the parsing).
+     */
+    private static function getIsoTokenPattern(string $token): string
+    {
+        if ($token[0] === '\\') {
+            return preg_quote(substr($token, 1), '/');
+        }
+
+        return match (true) {
+            $token === 'YY' => '\d{2}',
+            (bool) preg_match('/^(?:Y+|x|X)$/', $token) => '[+-]?\d+',
+            (bool) preg_match('/^(?:DDD[Do]?|[Hh]mm(?:ss)?|S+|O[YMDHhms])$/', $token) => '\d+',
+            (bool) preg_match('/^(?:[DMHhkms]{1,2}|[MD]o)$/', $token) => '\d{1,2}',
+            $token === ' ' => '\s',
+            $token === '?' => '.',
+            $token === '!' || $token === '|' => '',
+            $token === '+' => '.*',
+            $token === '*' => '.*?',
+            \strlen($token) === 1 && !ctype_alpha($token) => preg_quote($token, '/'),
+            default => '.+?',
+        };
     }
 
     /**
@@ -882,9 +1059,22 @@ trait Creator
      */
     public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null): ?static
     {
-        $time = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+        $translatedTime = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
 
-        return static::createFromIsoFormat($format, $time, $timezone, $locale);
+        try {
+            return static::createFromIsoFormat($format, $translatedTime, $timezone, $locale);
+        } catch (InvalidFormatException $exception) {
+            // Show the given string in error messages rather than its translation to English
+            if ($translatedTime === $time || !str_contains($exception->getMessage(), "'$translatedTime'")) {
+                throw $exception;
+            }
+
+            throw new InvalidFormatException(
+                str_replace("'$translatedTime'", "'$time'", $exception->getMessage()),
+                $exception->getCode(),
+                $exception,
+            );
+        }
     }
 
     /**

@@ -2268,29 +2268,46 @@ trait Date
      * and until are 'YYYY-MM-DD' dates (or INF/-INF for until) and since may be after until for eras counting
      * years backward (such as BC).
      *
-     * @return array{name: string|null, narrow: string|null, abbr: string|null, offset: int, sinceYear: int, direction: int}|null
+     * @return array{name: string|null, narrow: string|null, abbr: string|null, offset: int, sinceYear: int, untilYear: int|float, direction: int}|null
      */
     private function getEra(): ?array
     {
         $date = $this->year * 10000 + $this->month * 100 + $this->day;
 
         foreach ($this->getEras() as $era) {
-            [$sinceYear, $since] = self::parseEraDate($era['since']);
-            [, $until] = self::parseEraDate($era['until'] ?? INF);
+            $description = self::describeEra($era);
 
-            if (($since <= $date && $date <= $until) || ($until <= $date && $date <= $since)) {
-                return [
-                    'name' => $era['name'] ?? null,
-                    'narrow' => $era['narrow'] ?? null,
-                    'abbr' => $era['abbr'] ?? null,
-                    'offset' => (int) ($era['offset'] ?? 1),
-                    'sinceYear' => $sinceYear,
-                    'direction' => $since <= $until ? 1 : -1,
-                ];
+            if (($description['since'] <= $date && $date <= $description['until']) || ($description['until'] <= $date && $date <= $description['since'])) {
+                unset($description['since'], $description['until']);
+
+                return $description;
             }
         }
 
         return null;
+    }
+
+    /**
+     * @param array<string, mixed> $era
+     *
+     * @return array{name: string|null, narrow: string|null, abbr: string|null, offset: int, sinceYear: int, untilYear: int|float, direction: int, since: int|float, until: int|float}
+     */
+    private static function describeEra(array $era): array
+    {
+        [$sinceYear, $since] = self::parseEraDate($era['since']);
+        [$untilYear, $until] = self::parseEraDate($era['until'] ?? INF);
+
+        return [
+            'name' => $era['name'] ?? null,
+            'narrow' => $era['narrow'] ?? null,
+            'abbr' => $era['abbr'] ?? null,
+            'offset' => (int) ($era['offset'] ?? 1),
+            'sinceYear' => $sinceYear,
+            'untilYear' => $untilYear,
+            'direction' => $since <= $until ? 1 : -1,
+            'since' => $since,
+            'until' => $until,
+        ];
     }
 
     /**
