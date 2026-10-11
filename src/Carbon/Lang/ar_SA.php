@@ -60,7 +60,7 @@ return [
     'diff_tomorrow_regexp' => 'غدا(?:\\s+على)?(?:\\s+الساعة)?',
     'diff_before_yesterday' => 'قبل الأمس',
     'diff_after_tomorrow' => 'بعد غد',
-    'period_recurrences' => implode('|', ['{0}مرة', '{1}مرة', '{2}:count مرتين', ']2,11[:count مرات', ']10,Inf[:count مرة']),
+    'period_recurrences' => implode('|', ['{0}:count مرة', '{1}مرة', '{2}مرتين', ']2,11[:count مرات', ']10,Inf[:count مرة']),
     'period_interval' => 'كل :interval',
     'period_start_date' => 'من :date',
     'period_end_date' => 'إلى :date',
