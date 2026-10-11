@@ -2392,6 +2392,16 @@ trait Date
         $hour = $this->hour;
         $index = $hour < static::HOURS_PER_DAY / 2 ? 0 : 1;
 
+        // A locale that computes its meridiem (zh_CN, bn...) has no meridiem.0/meridiem.1 of its own,
+        // so the indexed lookup below would fall through to the fallback locale (e.g. en "PM").
+        if ($this->getTranslationMessage('meridiem') instanceof Closure) {
+            return $this->translate('meridiem', [
+                ':hour' => $this->hour,
+                ':minute' => $this->minute,
+                ':isLower' => $isLower,
+            ]);
+        }
+
         if ($isLower) {
             $key = 'meridiem.'.($index + 2);
             $result = $this->translate($key);
