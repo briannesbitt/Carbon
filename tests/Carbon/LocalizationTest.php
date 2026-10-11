@@ -893,7 +893,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testCallableMeridiemIsNotMaskedByFallbackLocale()
     {
-        // zh_CN and bn define "meridiem" as a callable; en defines meridiem.0/meridiem.1.
+        // zh_CN, zh_TW (via zh_Hant) and bn define "meridiem" as a callable; en defines meridiem.0/meridiem.1.
         // With en as fallback, the indexed lookup must not win over the locale's callable.
         Carbon::setLocale('zh_CN');
         Carbon::setFallbackLocale('en');
@@ -903,6 +903,12 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('下午', $date->meridiem());
         $this->assertSame('2026年10月11日下午2点24分', $date->isoFormat('lll'));
         $this->assertSame('上午', $date->copy()->setTime(9, 0)->meridiem());
+
+        Carbon::setLocale('zh_TW');
+
+        $this->assertSame('上午', $date->copy()->setTime(9, 5)->meridiem());
+        $this->assertSame('下午', $date->meridiem());
+        $this->assertSame('8:00 晚上', $date->copy()->setTime(20, 0)->isoFormat('h:mm A'));
 
         Carbon::setLocale('bn');
 
