@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
+use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('localization')]
@@ -228,4 +229,20 @@ class ArTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         'يوم 3 ساعات',
     ];
+
+    public function testPeriod()
+    {
+        $this->assertSame(
+            'مرة كل أسبوع من 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R1/2012-07-01T12:00:00/P7D')),
+        );
+        $this->assertSame(
+            'مرتين كل أسبوع من 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R2/2012-07-01T12:00:00/P7D')),
+        );
+        $this->assertSame(
+            '3 مرات كل أسبوع من 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R3/2012-07-01T12:00:00/P7D')),
+        );
+    }
 }

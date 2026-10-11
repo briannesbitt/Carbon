@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
+use Carbon\Carbon;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('localization')]
@@ -228,4 +229,12 @@ class ArKwTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         'يوم 3 ساعات',
     ];
+
+    public function testMonthNames()
+    {
+        $this->assertSame(
+            ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+            array_map(static fn (int $month) => Carbon::create(2018, $month)->isoFormat('MMMM'), range(1, 12)),
+        );
+    }
 }
