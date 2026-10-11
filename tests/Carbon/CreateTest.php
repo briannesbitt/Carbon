@@ -404,6 +404,8 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('1999-12-31', Carbon::createFromIsoFormat('yo N MM DD', '1999th ad 12 31')->format('Y-m-d'));
         // Day of year counted in the era year (BE 2567 is a leap year)
         $this->assertSame('2024-02-29', Carbon::createFromLocaleIsoFormat('y N DDD', 'th', '2567 พ.ศ. 60')->format('Y-m-d'));
+        // A format which is not valid UTF-8 is not searched for era tokens: each letter matches one character
+        $this->assertSame('2024-01-01', Carbon::createFromIsoFormat("!YYYY N \xff", "2024 x \xff")->format('Y-m-d'));
         // Escaped letters are not era tokens
         $this->assertSame('2024-01-01', Carbon::createFromIsoFormat('!YYYY \\N\\y', '2024 Ny')->format('Y-m-d'));
         $this->assertSame('2024-01-01', Carbon::createFromIsoFormat('!y \\N N', '2024 N AD')->format('Y-m-d'));

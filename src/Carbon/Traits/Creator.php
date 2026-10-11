@@ -844,11 +844,12 @@ trait Creator
      */
     private static function resolveIsoFormatEras(string $format, string $time, ?string $locale, ?TranslatorInterface $translator): array
     {
-        if (strpbrk($format, 'Ny') === false
-            || !preg_match_all('/\\\\.|'.CarbonInterface::ISO_FORMAT_REGEXP.'|./su', $format, $matches)
-        ) {
+        // The "u" modifier below would fail with a format that is not valid UTF-8, it's left as before era tokens
+        if (strpbrk($format, 'Ny') === false || !preg_match('//u', $format)) {
             return [$format, $time];
         }
+
+        preg_match_all('/\\\\.|'.CarbonInterface::ISO_FORMAT_REGEXP.'|./su', $format, $matches);
 
         $tokens = $matches[0];
         $isEraToken = static fn (string $token): bool => $token[0] === 'N' || $token[0] === 'y';
