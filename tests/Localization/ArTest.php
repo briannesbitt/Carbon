@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -244,5 +245,35 @@ class ArTest extends LocalizationTestCase
             '3 مرات كل أسبوع من 2012-07-01 12:00:00',
             (string) (CarbonPeriod::create('R3/2012-07-01T12:00:00/P7D')),
         );
+    }
+
+    public function testParseTomorrowFromAllArabicLocales()
+    {
+        Carbon::setTestNow('2018-05-15 20:49:13');
+
+        $locales = array_filter(
+            Carbon::getAvailableLocales(),
+            static fn (string $locale) => $locale === 'ar' || str_starts_with($locale, 'ar_'),
+        );
+
+        foreach ($locales as $locale) {
+            $tomorrow = Carbon::now()->locale($locale)->translate('diff_tomorrow');
+
+            foreach (array_unique([$tomorrow, 'غداً', 'غدًا', 'غدا']) as $word) {
+                $this->assertSame(
+                    '2018-05-16',
+                    Carbon::parseFromLocale($word, $locale)->format('Y-m-d'),
+                    "Parsing '$word' in $locale",
+                );
+            }
+
+            $calendar = Carbon::now()->addDay()->locale($locale)->calendar();
+
+            $this->assertSame(
+                '2018-05-16 20:49',
+                Carbon::parseFromLocale($calendar, $locale)->format('Y-m-d H:i'),
+                "Parsing '$calendar' in $locale",
+            );
+        }
     }
 }

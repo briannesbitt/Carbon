@@ -14,6 +14,7 @@
  * - Atef Ben Ali (atefBB)
  * - Ibrahim AshShohail
  * - MLTDev
+ * - Mousab Salah (123mousab)
  */
 
 $months = [
@@ -56,7 +57,7 @@ return [
     'diff_yesterday' => 'أمس',
     'diff_yesterday_regexp' => 'أمس(?:\\s+عند)?(?:\\s+الساعة)?',
     'diff_tomorrow' => 'غداً',
-    'diff_tomorrow_regexp' => 'غدًا(?:\\s+عند)?(?:\\s+الساعة)?',
+    'diff_tomorrow_regexp' => 'غدً?اً?(?:\\s+عند)?(?:\\s+الساعة)?',
     'diff_before_yesterday' => 'قبل الأمس',
     'diff_after_tomorrow' => 'بعد غد',
     'period_recurrences' => implode('|', [':count مرة', 'مرة', 'مرتين', ':count مرات', ':count مرة', ':count مرة']),
