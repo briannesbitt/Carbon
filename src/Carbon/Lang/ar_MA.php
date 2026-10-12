@@ -15,6 +15,7 @@
  * - JD Isaacks
  * - Atef Ben Ali (atefBB)
  * - Mohamed Sabil (mohamedsabil83)
+ * - Mousab Salah (123mousab)
  */
 $months = [
     'يناير',
@@ -56,7 +57,7 @@ return [
     'diff_yesterday' => 'أمس',
     'diff_yesterday_regexp' => 'أمس(?:\\s+على)?(?:\\s+الساعة)?',
     'diff_tomorrow' => 'غداً',
-    'diff_tomorrow_regexp' => 'غدا(?:\\s+على)?(?:\\s+الساعة)?',
+    'diff_tomorrow_regexp' => 'غدً?اً?(?:\\s+على)?(?:\\s+الساعة)?',
     'diff_before_yesterday' => 'قبل الأمس',
     'diff_after_tomorrow' => 'بعد غد',
     'period_recurrences' => implode('|', ['{0}:count مرة', '{1}مرة', '{2}مرتين', ']2,11[:count مرات', ']10,Inf[:count مرة']),
