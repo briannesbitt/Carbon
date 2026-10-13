@@ -2590,17 +2590,23 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return; // @codeCoverageIgnore
         }
 
-        // Default interval if not set (matches __construct logic)
-        $interval = $this->dateInterval ?? \Carbon\CarbonInterval::day();
+        // During construction, the parent DatePeriod is initialized once at the end of __construct().
+        if (!$this->constructed) {
+            return;
+        }
 
-        // Reinitialize the parent DatePeriod to update $start, $end, etc.
-        // This mirrors the logic in __construct and initializeSerialization.
-        parent::__construct(
+        // Calling parent::__construct() again on an already initialized DatePeriod leaks its previous
+        // start, end and interval in PHP, so the native properties are refreshed through
+        // DatePeriod::__unserialize() instead, which releases them.
+        // The same native state is then computed as with parent::__construct() so both stay in sync.
+        $native = new DatePeriod(
             $this->startDate,
-            $interval,
+            $this->dateInterval ?? CarbonInterval::day(),
             $this->endDate ?? max(1, min(2147483639, $this->recurrences ?? 1)),
             $this->options ?? 0,
         );
+
+        parent::__unserialize($native->__serialize());
     }
 
     /**
