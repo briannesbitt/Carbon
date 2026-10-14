@@ -673,6 +673,10 @@ trait Creator
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
      *
+     * Era tokens (N to NNNNN, y, yy, yyy, yyyy, yo) are read with the "eras" of $locale: the era name gives the
+     * era and the year is the year of this era, so 'D MMMM N y' with 'th' reads '29 กุมภาพันธ์ พ.ศ. 2567' as
+     * 2024-02-29. Without any N token, the era of today's date in this locale is used.
+     *
      * @param string                       $format     Datetime format
      * @param string                       $time
      * @param DateTimeZone|string|int|null $timezone   optional timezone
@@ -714,6 +718,8 @@ trait Creator
                 $formats[strtoupper($code)] ?? '',
             );
         }, $format);
+
+        [$format, $time] = self::resolveIsoFormatEras($format, $time, $locale, $translator);
 
         $dayOfYearUsed = false;
         $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*('.CarbonInterface::ISO_FORMAT_REGEXP.'|[A-Za-z])/', function ($match) use (&$dayOfYearUsed) {
@@ -802,17 +808,6 @@ trait Creator
                     'YYYY' => 'Y',
                     'YYYYY' => 'Y',
                     'YYYYYY' => 'Y',
-                    // Era tokens are not parsed yet, they match any characters, one per letter as before they were tokens
-                    'N' => '?',
-                    'NN' => '??',
-                    'NNN' => '???',
-                    'NNNN' => '????',
-                    'NNNNN' => '?????',
-                    'y' => '?',
-                    'yy' => '??',
-                    'yyy' => '???',
-                    'yyyy' => '????',
-                    'yo' => '??',
                     'z' => 'e',
                     'zz' => 'e',
                     'Z' => 'e',
@@ -882,9 +877,22 @@ trait Creator
      */
     public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null): ?static
     {
-        $time = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+        $translatedTime = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
 
-        return static::createFromIsoFormat($format, $time, $timezone, $locale);
+        try {
+            return static::createFromIsoFormat($format, $translatedTime, $timezone, $locale);
+        } catch (InvalidFormatException $exception) {
+            // Show the given string in error messages rather than its translation to English
+            if ($translatedTime === $time || !str_contains($exception->getMessage(), "'$translatedTime'")) {
+                throw $exception;
+            }
+
+            throw new InvalidFormatException(
+                str_replace("'$translatedTime'", "'$time'", $exception->getMessage()),
+                $exception->getCode(),
+                $exception,
+            );
+        }
     }
 
     /**
