@@ -325,6 +325,19 @@ echo Carbon::parse('2026-09-30')->locale('en_Japan')->isoFormat('NNNN y');
 
 ```
 
+The same tokens can be used to create dates with `createFromIsoFormat()` and `createFromLocaleIsoFormat()`. The year of the era is converted to a Gregorian year before the string is parsed, so February 29 is checked against the right year. Without an `N` token, the era of the current date in the locale is used:
+
+```php
+echo Carbon::createFromLocaleIsoFormat('D MMMM N y', 'th', '29 กุมภาพันธ์ พ.ศ. 2567')->format('Y-m-d');
+echo "\n";
+echo Carbon::createFromLocaleIsoFormat('D/M/y', 'th', '30/9/2569')->format('Y-m-d');
+echo "\n";
+echo Carbon::createFromIsoFormat('!y-MM-DD N', '1-01-01 BC')->format('Y-m-d');
+
+```
+
+An era name the locale doesn't know, or a year outside its era, throws an `InvalidFormatException`. Only Gregorian years from 0 to 9999 can be created this way.
+
 Another usefull translated method is `calendar($referenceTime = null, array $formats = []): string`:
 
 ```php
