@@ -44,6 +44,7 @@ use ReturnTypeWillChange;
 use RuntimeException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
+use Time\Duration;
 
 /**
  * A simple API extension for DateInterval.
@@ -2191,6 +2192,87 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     public function toDateInterval(): DateInterval
     {
         return self::castIntervalToClass($this, DateInterval::class);
+    }
+
+    /**
+     * Convert the current instance to a native {@link Duration} object (PHP >= 8.6).
+     *
+     * Only the time part (hours, minutes, seconds and fractions of second) can be
+     * represented as a "stop-watch" duration. Nanoseconds below the microsecond
+     * precision of CarbonInterval are truncated. An InvalidIntervalException is
+     * thrown if the interval bears any date unit (years, months, weeks or days)
+     * because such units cannot be unambiguously converted to elapsed time.
+     *
+     * @example
+     * ```
+     * var_dump(CarbonInterval::hours(2)->toDuration());
+     * ```
+     *
+     * @throws InvalidIntervalException when the interval contains date units
+     *
+     * @return Duration
+     */
+    public function toDuration(): Duration
+    {
+        if ($this->years || $this->months || $this->weeks || $this->dayz) {
+            throw new InvalidIntervalException(
+                'Date units (years, months, weeks and days) cannot be converted to '.Duration::class.
+                ' because they cannot be unambiguously converted to elapsed time.'
+            );
+        }
+
+        $microseconds = $this->hours * 3600000000
+            + $this->minutes * 60000000
+            + $this->seconds * 1000000
+            + (int) $this->microseconds;
+
+        if ($this->invert) {
+            $microseconds = -$microseconds;
+        }
+
+        $negative = $microseconds < 0;
+        $microseconds = abs($microseconds);
+
+        $duration = Duration::fromSeconds(
+            intdiv($microseconds, 1000000),
+            ($microseconds % 1000000) * 1000
+        );
+
+        return $negative ? $duration->negate() : $duration;
+    }
+
+    /**
+     * Create a CarbonInterval instance from a native {@link Duration} object (PHP >= 8.6).
+     *
+     * Nanoseconds below the microsecond precision of CarbonInterval are truncated.
+     * A negative duration produces an interval with negative time components.
+     *
+     * @example
+     * ```
+     * var_dump(CarbonInterval::fromDuration(Time\Duration::fromMinutes(5)));
+     * ```
+     *
+     * @param Duration $duration
+     *
+     * @return static
+     */
+    public static function fromDuration(Duration $duration): static
+    {
+        $microseconds = $duration->seconds * 1000000 + intdiv($duration->nanoseconds, 1000);
+
+        if ($duration->negative) {
+            $microseconds = -$microseconds;
+        }
+
+        $hours = intdiv($microseconds, 3600000000);
+        $microseconds %= 3600000000;
+        $minutes = intdiv($microseconds, 60000000);
+        $microseconds %= 60000000;
+        $seconds = intdiv($microseconds, 1000000);
+        $microseconds %= 1000000;
+
+        return static::create(0, 0, 0, 0, $hours, $minutes, $seconds)
+            ->microseconds($microseconds);
     }
 
     /**
