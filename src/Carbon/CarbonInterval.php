@@ -1219,7 +1219,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Cast the current instance into the given class.
      *
-     * @template T of DateInterval
+     * @template T of DateInterval|Duration
      *
      * @psalm-param class-string<T> $className The $className::instance() method will be called to cast the current object.
      *
@@ -2233,12 +2233,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function fromDuration(Duration $duration): static
     {
-        $microseconds = intdiv($duration->nanoseconds, 1000);
-        $seconds = $duration->seconds;
-        $minutes = intdiv($seconds, UnitValue::SECONDS_PER_MINUTE);
-        $seconds %= UnitValue::SECONDS_PER_MINUTE;
-        $hours = intdiv($minutes, UnitValue::MINUTES_PER_HOUR);
-        $minutes %= UnitValue::MINUTES_PER_HOUR;
+        [$hours, $minutes, $seconds, $microseconds] = DurationConverter::getDurationUnits($duration);
 
         return new static(0, 0, 0, 0, $hours, $minutes, $seconds, $microseconds, $duration->negative);
     }
@@ -3321,7 +3316,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      *
      * @return T
      */
-    private static function castIntervalToClass(DateInterval|Duration $interval, string $className, array $skip = []): object
+    private static function castIntervalToClass(DateInterval|Duration $interval, string $className, array $skip = []): DateInterval|Duration
     {
         $mainClass = DateInterval::class;
 
@@ -3336,7 +3331,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         [$microseconds, $instance] = $interval instanceof Duration
             ? [
                 $interval->nanoseconds / 1_000_000_000,
-                new $className('PT'.$interval->seconds.'S'),
+                new $className(DurationConverter::getDurationIsoSpec($interval)),
             ]
             : [$interval->f, self::buildInstance($interval, $className, $skip)];
 

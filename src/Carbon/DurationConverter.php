@@ -21,6 +21,25 @@ use Time\Duration;
 /** @internal */
 final class DurationConverter
 {
+    public static function getDurationUnits(Duration $duration): array
+    {
+        $microseconds = intdiv($duration->nanoseconds, 1000);
+        $seconds = $duration->seconds;
+        $minutes = intdiv($seconds, UnitValue::SECONDS_PER_MINUTE);
+        $seconds %= UnitValue::SECONDS_PER_MINUTE;
+        $hours = intdiv($minutes, UnitValue::MINUTES_PER_HOUR);
+        $minutes %= UnitValue::MINUTES_PER_HOUR;
+
+        return [$hours, $minutes, $seconds, $microseconds];
+    }
+
+    public static function getDurationIsoSpec(Duration $duration): string
+    {
+        [$hours, $minutes, $seconds] = self::getDurationUnits($duration);
+
+        return "PT{$hours}H{$minutes}M{$seconds}S";
+    }
+
     public static function createDurationFromInterval(DateInterval|Duration $interval): Duration
     {
         if ($interval instanceof Duration) {
