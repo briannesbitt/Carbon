@@ -260,6 +260,7 @@ Thanks to people helping us to translate Carbon in so many languages.
 - Mohamed Sabil (mohamedsabil83)
 - MonkeyPhysics
 - Mousa Moradi mousamk@gmail.com
+- Mousab Salah (123mousab)
 - Muhammad Nasir Rahimi
 - Murat Yüksel
 - Nafies Luthfi
