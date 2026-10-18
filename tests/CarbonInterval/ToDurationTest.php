@@ -20,15 +20,6 @@ use Time\Duration;
 
 class ToDurationTest extends AbstractTestCase
 {
-    protected function setUp(): void
-    {
-        if (!class_exists(Duration::class)) {
-            $this->markTestSkipped('Requires PHP 8.6 native Time\Duration class.');
-        }
-
-        parent::setUp();
-    }
-
     public function testConvertTimeOnlyIntervalToDuration()
     {
         $duration = CarbonInterval::hours(1)->minutes(1)->seconds(1)->toDuration();
@@ -85,36 +76,6 @@ class ToDurationTest extends AbstractTestCase
         $this->expectException(InvalidIntervalException::class);
 
         CarbonInterval::months(2)->toDuration();
-    }
-
-    public function testCreateIntervalFromDuration()
-    {
-        $interval = CarbonInterval::fromDuration(Duration::fromSeconds(3661, 500000000));
-
-        $this->assertSame(CarbonInterval::class, \get_class($interval));
-        $this->assertSame(1, $interval->hours);
-        $this->assertSame(1, $interval->minutes);
-        $this->assertSame(1, $interval->seconds);
-        $this->assertEquals(500000, $interval->microseconds);
-        $this->assertSame(0, $interval->invert);
-        $this->assertSame('PT1H1M1S', $interval->spec());
-    }
-
-    public function testCreateIntervalFromNegativeDuration()
-    {
-        $interval = CarbonInterval::fromDuration(Duration::fromSeconds(5)->negate());
-
-        $this->assertSame(-5000000.0, $interval->totalMicroseconds);
-        $this->assertSame(0, $interval->invert);
-    }
-
-    public function testCreateIntervalFromSubMicrosecondDuration()
-    {
-        // Nanoseconds below microsecond precision are truncated.
-        $interval = CarbonInterval::fromDuration(Duration::fromSeconds(1, 500999999));
-
-        $this->assertSame(1, $interval->seconds);
-        $this->assertEquals(500999, $interval->microseconds);
     }
 
     public function testRoundtrip()

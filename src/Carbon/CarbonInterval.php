@@ -419,7 +419,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      *
      * @throws Exception when the interval_spec (passed as $years) cannot be parsed as an interval.
      */
-    public function __construct($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
+    public function __construct($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null, $inverted = false)
     {
         $this->originalInput = \func_num_args() === 1 ? $years : \func_get_args();
 
@@ -438,7 +438,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         $spec = $years;
         $isStringSpec = (\is_string($spec) && !preg_match('/^[\d.]/', $spec));
-        $inverted = false;
 
         if (!$isStringSpec || (float) $years) {
             $spec = static::PERIOD_PREFIX;
@@ -466,7 +465,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         }
 
         if ($isStringSpec && str_starts_with($spec, '-')) {
-            $inverted = true;
+            $inverted = !$inverted;
             $spec = substr($spec, 1);
         }
 
@@ -525,9 +524,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 $this->h = (int) $hours;
                 $this->i = (int) $minutes;
                 $this->s = (int) $seconds;
-                $secondFloatPart = (float) ($microseconds / CarbonInterface::MICROSECONDS_PER_SECOND);
+                $secondFloatPart = (float) ($microseconds / UnitValue::MICROSECONDS_PER_SECOND);
                 $this->f = $secondFloatPart;
-                $intervalMicroseconds = (int) ($this->f * CarbonInterface::MICROSECONDS_PER_SECOND);
+                $intervalMicroseconds = (int) ($this->f * UnitValue::MICROSECONDS_PER_SECOND);
                 $intervalSeconds = $seconds - $secondFloatPart;
 
                 if (
@@ -555,7 +554,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         }
 
         if ($microseconds !== null) {
-            $this->f = $microseconds / CarbonInterface::MICROSECONDS_PER_SECOND;
+            $this->f = $microseconds / UnitValue::MICROSECONDS_PER_SECOND;
         }
 
         foreach (['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'] as $unit) {
@@ -619,14 +618,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         }
 
         static $defaults = [
-            'month' => ['year' => Carbon::MONTHS_PER_YEAR],
-            'week' => ['month' => Carbon::WEEKS_PER_MONTH],
-            'day' => ['week' => Carbon::DAYS_PER_WEEK],
-            'hour' => ['day' => Carbon::HOURS_PER_DAY],
-            'minute' => ['hour' => Carbon::MINUTES_PER_HOUR],
-            'second' => ['minute' => Carbon::SECONDS_PER_MINUTE],
-            'millisecond' => ['second' => Carbon::MILLISECONDS_PER_SECOND],
-            'microsecond' => ['millisecond' => Carbon::MICROSECONDS_PER_MILLISECOND],
+            'month' => ['year' => UnitValue::MONTHS_PER_YEAR],
+            'week' => ['month' => UnitValue::WEEKS_PER_MONTH],
+            'day' => ['week' => UnitValue::DAYS_PER_WEEK],
+            'hour' => ['day' => UnitValue::HOURS_PER_DAY],
+            'minute' => ['hour' => UnitValue::MINUTES_PER_HOUR],
+            'second' => ['minute' => UnitValue::SECONDS_PER_MINUTE],
+            'millisecond' => ['second' => UnitValue::MILLISECONDS_PER_SECOND],
+            'microsecond' => ['millisecond' => UnitValue::MICROSECONDS_PER_MILLISECOND],
         ];
 
         return $defaults[$source][$target] ?? null;
@@ -639,7 +638,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function getDaysPerWeek()
     {
-        return static::getFactor('dayz', 'weeks') ?: Carbon::DAYS_PER_WEEK;
+        return static::getFactor('dayz', 'weeks') ?: UnitValue::DAYS_PER_WEEK;
     }
 
     /**
@@ -649,7 +648,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function getHoursPerDay()
     {
-        return static::getFactor('hours', 'dayz') ?: Carbon::HOURS_PER_DAY;
+        return static::getFactor('hours', 'dayz') ?: UnitValue::HOURS_PER_DAY;
     }
 
     /**
@@ -659,7 +658,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function getMinutesPerHour()
     {
-        return static::getFactor('minutes', 'hours') ?: Carbon::MINUTES_PER_HOUR;
+        return static::getFactor('minutes', 'hours') ?: UnitValue::MINUTES_PER_HOUR;
     }
 
     /**
@@ -669,7 +668,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function getSecondsPerMinute()
     {
-        return static::getFactor('seconds', 'minutes') ?: Carbon::SECONDS_PER_MINUTE;
+        return static::getFactor('seconds', 'minutes') ?: UnitValue::SECONDS_PER_MINUTE;
     }
 
     /**
@@ -679,7 +678,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function getMillisecondsPerSecond()
     {
-        return static::getFactor('milliseconds', 'seconds') ?: Carbon::MILLISECONDS_PER_SECOND;
+        return static::getFactor('milliseconds', 'seconds') ?: UnitValue::MILLISECONDS_PER_SECOND;
     }
 
     /**
@@ -689,7 +688,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function getMicrosecondsPerMillisecond()
     {
-        return static::getFactor('microseconds', 'milliseconds') ?: Carbon::MICROSECONDS_PER_MILLISECOND;
+        return static::getFactor('microseconds', 'milliseconds') ?: UnitValue::MICROSECONDS_PER_MILLISECOND;
     }
 
     /**
@@ -711,9 +710,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      *
      * @return static
      */
-    public static function create($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
+    public static function create($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null, $inverted = false)
     {
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds, $inverted);
     }
 
     /**
@@ -1145,7 +1144,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         }
 
         return self::withOriginal(
-            new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * Carbon::MICROSECONDS_PER_MILLISECOND + $microseconds),
+            new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * UnitValue::MICROSECONDS_PER_MILLISECOND + $microseconds),
             $intervalDefinition,
         );
     }
@@ -1387,11 +1386,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             'hour' => $this->h,
             'minute' => $this->i,
             'second' => $this->s,
-            'milli', 'millisecond' => (int) (round($this->f * Carbon::MICROSECONDS_PER_SECOND) /
-                Carbon::MICROSECONDS_PER_MILLISECOND),
-            'micro', 'microsecond' => (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND),
-            'microexcludemilli' => (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND) %
-                Carbon::MICROSECONDS_PER_MILLISECOND,
+            'milli', 'millisecond' => (int) (round($this->f * UnitValue::MICROSECONDS_PER_SECOND) /
+                UnitValue::MICROSECONDS_PER_MILLISECOND),
+            'micro', 'microsecond' => (int) round($this->f * UnitValue::MICROSECONDS_PER_SECOND),
+            'microexcludemilli' => (int) round($this->f * UnitValue::MICROSECONDS_PER_SECOND) %
+                UnitValue::MICROSECONDS_PER_MILLISECOND,
             'week' => (int) ($this->d / (int) static::getDaysPerWeek()),
             'daysexcludeweek', 'dayzexcludeweek' => $this->d % (int) static::getDaysPerWeek(),
             'locale' => $this->getTranslatorLocale(),
@@ -1490,13 +1489,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
                 case 'milli':
                 case 'millisecond':
-                    $this->microseconds = $value * Carbon::MICROSECONDS_PER_MILLISECOND + $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND;
+                    $this->microseconds = $value * UnitValue::MICROSECONDS_PER_MILLISECOND + $this->microseconds % UnitValue::MICROSECONDS_PER_MILLISECOND;
 
                     break;
 
                 case 'micro':
                 case 'microsecond':
-                    $this->f = $value / Carbon::MICROSECONDS_PER_SECOND;
+                    $this->f = $value / UnitValue::MICROSECONDS_PER_SECOND;
 
                     break;
 
@@ -2258,21 +2257,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function fromDuration(Duration $duration): static
     {
-        $microseconds = $duration->seconds * 1000000 + intdiv($duration->nanoseconds, 1000);
+        $microseconds = intdiv($duration->nanoseconds, 1000);
+        $seconds = $duration->seconds;
+        $minutes = intdiv($seconds, UnitValue::SECONDS_PER_MINUTE);
+        $seconds %= UnitValue::SECONDS_PER_MINUTE;
+        $hours = intdiv($minutes, UnitValue::MINUTES_PER_HOUR);
+        $minutes %= UnitValue::MINUTES_PER_HOUR;
 
-        if ($duration->negative) {
-            $microseconds = -$microseconds;
-        }
-
-        $hours = intdiv($microseconds, 3600000000);
-        $microseconds %= 3600000000;
-        $minutes = intdiv($microseconds, 60000000);
-        $microseconds %= 60000000;
-        $seconds = intdiv($microseconds, 1000000);
-        $microseconds %= 1000000;
-
-        return static::create(0, 0, 0, 0, $hours, $minutes, $seconds)
-            ->microseconds($microseconds);
+        return new static(0, 0, 0, 0, $hours, $minutes, $seconds, $microseconds, $duration->negative);
     }
 
     /**
@@ -2796,8 +2788,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             'hours' => $this->hours,
             'minutes' => $this->minutes,
             'seconds' => $this->seconds,
-            'milliseconds' => (int) ($this->microseconds / Carbon::MICROSECONDS_PER_MILLISECOND),
-            'microseconds' => $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND,
+            'milliseconds' => (int) ($this->microseconds / UnitValue::MICROSECONDS_PER_MILLISECOND),
+            'microseconds' => $this->microseconds % UnitValue::MICROSECONDS_PER_MILLISECOND,
         ];
 
         if (isset($factors['dayz']) && $factors['dayz'][0] !== 'weeks') {
