@@ -987,7 +987,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             $unit = $unit->name;
         }
 
-        if (!$interval = CarbonInterval::make($interval, $unit)) {
+        if (!$interval = self::makeCarbonInterval($interval, $unit)) {
             throw new InvalidIntervalException('Invalid interval.');
         }
 
@@ -2908,5 +2908,14 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
         $period->handleChangedParameters();
 
         return $period;
+    }
+
+    private static function makeCarbonInterval(mixed $interval, Unit|string|null $unit = null): ?CarbonInterval
+    {
+        if ($unit === null && $interval instanceof CarbonInterval) {
+            return clone $interval;
+        }
+
+        return CarbonInterval::make($interval, $unit);
     }
 }

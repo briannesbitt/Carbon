@@ -884,7 +884,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public function copy(): static
     {
-        $date = new static(0);
+        $date = self::withOriginal(new static(0), $this->originalInput);
         $date->copyProperties($this);
         $date->step = $this->step;
 
@@ -2244,7 +2244,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     {
         [$hours, $minutes, $seconds, $microseconds] = DurationConverter::getDurationUnits($duration);
 
-        return new static(0, 0, 0, 0, $hours, $minutes, $seconds, $microseconds, $duration->negative);
+        return self::withOriginal(
+            new static(0, 0, 0, 0, $hours, $minutes, $seconds, $microseconds, $duration->negative),
+            $duration,
+        );
     }
 
     /**
@@ -3355,7 +3358,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         if ($interval instanceof Duration) {
             $instance->invert = (int) $interval->negative;
 
-            return $instance;
+            return self::withOriginal($instance, $interval);
         }
 
         if ($interval instanceof self && is_a($className, self::class, true)) {
