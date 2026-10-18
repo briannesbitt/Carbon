@@ -60,10 +60,15 @@ final class DurationConverter
             );
         }
 
-        $inverted = (bool) $interval->invert;
-        $seconds = (($interval->h * UnitValue::MINUTES_PER_HOUR) + $interval->i) * UnitValue::SECONDS_PER_MINUTE + $interval->s;
-        $nanoseconds = (int) ($interval->f * 1_000_000_000);
+        return self::createDurationFromSeconds(
+            (($interval->h * UnitValue::MINUTES_PER_HOUR) + $interval->i) * UnitValue::SECONDS_PER_MINUTE + $interval->s,
+            (int) ($interval->f * 1_000_000_000),
+            (bool) $interval->invert,
+        );
+    }
 
+    public static function createDurationFromSeconds(int $seconds, int $nanoseconds = 0, bool $inverted = false): Duration
+    {
         if ($seconds < 0) {
             $seconds = abs($seconds);
             $inverted = !$inverted;

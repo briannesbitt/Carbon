@@ -18,11 +18,13 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\DurationConverter;
 use Carbon\Exceptions\UnknownUnitException;
 use Carbon\Unit;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
+use Time\Duration;
 
 /**
  * Trait Difference.
@@ -58,6 +60,36 @@ trait Difference
         }
 
         return parent::diff($other, $absolute);
+    }
+
+    /**
+     * Get the difference as a \Time\Duration instance.
+     * Return relative interval (negative if $absolute flag is not set to true and the given date is before
+     * current one).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return Duration
+     */
+    public function diffAsDuration($date = null, bool $absolute = false): Duration
+    {
+        $other = $this->resolveCarbon($date);
+
+        // Work-around for https://bugs.php.net/bug.php?id=81458
+        // It was initially introduced for https://bugs.php.net/bug.php?id=80998
+        // The very specific case of 80998 was fixed in PHP 8.1beta3, but it introduced 81458
+        // So we still need to keep this for now
+        if ($other->tz !== $this->tz) {
+            $other = $other->avoidMutation()->setTimezone($this->tz);
+        }
+
+        $duration = DurationConverter::createDurationFromSeconds(
+            $other->getTimestamp() - $this->getTimestamp(),
+            ($other->microsecond - $this->microsecond) * 1000,
+        );
+
+        return $absolute && $duration->negative ? $duration->negate() : $duration;
     }
 
     /**

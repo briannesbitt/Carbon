@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Carbon;
 
+use Carbon\Constants\UnitValue;
 use Carbon\Exceptions\InvalidCastException;
 use Carbon\Exceptions\InvalidTimeZoneException;
 use Carbon\Traits\LocalFactory;
@@ -288,7 +289,7 @@ class CarbonTimeZone extends DateTimeZone
      */
     public static function createFromHourOffset(float $hourOffset)
     {
-        return static::createFromMinuteOffset($hourOffset * Carbon::MINUTES_PER_HOUR);
+        return static::createFromMinuteOffset($hourOffset * UnitValue::MINUTES_PER_HOUR);
     }
 
     /**
