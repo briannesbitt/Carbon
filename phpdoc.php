@@ -171,6 +171,7 @@ function dumpParameter(string $method, ReflectionParameter $parameter): string
 }
 
 $deprecated = [];
+$scanned = [];
 
 foreach ($tags as $tag) {
     if (\is_array($tag)) {
@@ -475,10 +476,17 @@ foreach ($tags as $tag) {
                     $unit = $vars->name;
                     $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
+                    $method = 'round'.ucfirst($unit);
+
+                    if (isset($scanned[$method])) {
+                        break;
+                    }
+
+                    $scanned[$method] = true;
                     $autoDocLines[] = [
                         '@method',
                         'self',
-                        'round'.ucfirst($unit).'(float $precision = 1, string $function = "round")',
+                        $method.'(float $precision = 1, string $function = "round")',
                         "Round the current instance $unitName with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
@@ -782,11 +790,13 @@ function getMethodReturnType(ReflectionMethod $method): string
 foreach ($carbonMethods as $method) {
     if (!method_exists(CarbonImmutable::class, $method) ||
         method_exists(DateTimeInterface::class, $method) ||
-        \in_array($method, ['diff', 'createFromInterface'], true)
+        \in_array($method, ['diff', 'createFromInterface'], true) ||
+        isset($scanned[$method])
     ) {
         continue;
     }
 
+    $scanned[$method] = true;
     $function = new ReflectionMethod(Carbon::class, $method);
     $static = $function->isStatic() ? ' static' : '';
     $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {

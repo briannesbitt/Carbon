@@ -19,6 +19,7 @@ use Carbon\Unit;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
+use Time\Duration;
 
 class AddTest extends AbstractTestCase
 {
@@ -538,6 +539,32 @@ class AddTest extends AbstractTestCase
             Carbon::create('2026-08-12')->minus(
                 days: 0.25,
             )->format('Y-m-d H:i'),
+        );
+    }
+
+    public function testAddDuration()
+    {
+        $duration = Duration::fromSeconds(
+            2_678_396,
+            666_667_000,
+        );
+
+        $this->assertSame(
+            '2019-02-23 12:00:00.123456',
+            Carbon::make('2019-01-23 12:00:03.456789')->add($duration)->format('Y-m-d H:i:s.u'),
+        );
+        $this->assertSame(
+            '2019-01-23 12:00:03.456789',
+            Carbon::make('2019-02-23 12:00:00.123456')->add($duration->negate())->format('Y-m-d H:i:s.u'),
+        );
+
+        $this->assertSame(
+            '2019-02-23 12:00:00.123456',
+            Carbon::make('2019-01-23 12:00:03.456789')->sub($duration->negate())->format('Y-m-d H:i:s.u'),
+        );
+        $this->assertSame(
+            '2019-01-23 12:00:03.456789',
+            Carbon::make('2019-02-23 12:00:00.123456')->sub($duration)->format('Y-m-d H:i:s.u'),
         );
     }
 }
