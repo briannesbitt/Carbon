@@ -36,6 +36,7 @@ use ReflectionException;
 use ReturnTypeWillChange;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
+use Time\Duration;
 
 /**
  * Common interface for Carbon and CarbonImmutable.
