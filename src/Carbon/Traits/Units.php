@@ -448,10 +448,10 @@ trait Units
      * @example $date->sub(15, 'days')
      * @example $date->sub(CarbonInterval::days(4))
      *
-     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param Unit|int|float|string                                         $value
-     * @param OverflowMode|bool|null                                        $overflow
-     * @param int|null                                                      $anchorDay
+     * @param Unit|int|string|DateInterval|Duration|Closure|CarbonConverterInterface $unit
+     * @param Unit|int|float|string                                                  $value
+     * @param OverflowMode|bool|null                                                 $overflow
+     * @param int|null                                                               $anchorDay
      *
      * @return static
      */
@@ -508,10 +508,10 @@ trait Units
      *
      * @see sub()
      *
-     * @param Unit|int|string|DateInterval $unit
-     * @param Unit|int|float|string        $value
-     * @param OverflowMode|bool|null       $overflow
-     * @param int|null                     $anchorDay
+     * @param Unit|int|string|DateInterval|Duration $unit
+     * @param Unit|int|float|string                 $value
+     * @param OverflowMode|bool|null                $overflow
+     * @param int|null                              $anchorDay
      *
      * @return static
      */

@@ -32,6 +32,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\AbstractTestCase;
+use Time\Duration;
 
 class CreateTest extends AbstractTestCase
 {
@@ -957,5 +958,21 @@ class CreateTest extends AbstractTestCase
 
         $periodClass = static::$periodClass;
         new $periodClass('2024-09-01', '3 days', '2024-09-30', 'America/Tokyo');
+    }
+
+    public function testCreateCarbonPeriodWithDuration()
+    {
+        $duration = Duration::fromSeconds(300);
+        $period = new CarbonPeriod('2012-07-01', $duration, 3);
+        $interval = $period->getDateInterval();
+
+        $this->assertSame('2012-07-01 00:00:00', $period->getStartDate()->format('Y-m-d H:i:s'));
+        $this->assertInstanceOfCarbonInterval($interval);
+        $this->assertSame(5, $interval->minutes);
+        $this->assertSame(3, $period->getRecurrences());
+        $this->assertSame($duration, $interval->original());
+
+        $period->next();
+        $this->assertSame('2012-07-01 00:05:00', $period->current()->format('Y-m-d H:i:s'));
     }
 }

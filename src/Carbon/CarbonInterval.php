@@ -408,14 +408,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Create a new CarbonInterval instance.
      *
-     * @param Closure|DateInterval|string|int|null $years
-     * @param int|float|null                       $months
-     * @param int|float|null                       $weeks
-     * @param int|float|null                       $days
-     * @param int|float|null                       $hours
-     * @param int|float|null                       $minutes
-     * @param int|float|null                       $seconds
-     * @param int|float|null                       $microseconds
+     * @param Closure|DateInterval|Duration|string|int|null $years
+     * @param int|float|null                                $months
+     * @param int|float|null                                $weeks
+     * @param int|float|null                                $days
+     * @param int|float|null                                $hours
+     * @param int|float|null                                $minutes
+     * @param int|float|null                                $seconds
+     * @param int|float|null                                $microseconds
      *
      * @throws Exception when the interval_spec (passed as $years) cannot be parsed as an interval.
      */
@@ -830,7 +830,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Return the original source used to create the current interval.
      *
-     * @return array|int|string|DateInterval|mixed|null
+     * @return array|int|string|Closure|DateInterval|Duration|mixed|null
      */
     public function original()
     {
@@ -884,7 +884,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public function copy(): static
     {
-        $date = new static(0);
+        $date = self::withOriginal(new static(0), $this->originalInput);
         $date->copyProperties($this);
         $date->step = $this->step;
 
@@ -2244,7 +2244,10 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     {
         [$hours, $minutes, $seconds, $microseconds] = DurationConverter::getDurationUnits($duration);
 
-        return new static(0, 0, 0, 0, $hours, $minutes, $seconds, $microseconds, $duration->negative);
+        return self::withOriginal(
+            new static(0, 0, 0, 0, $hours, $minutes, $seconds, $microseconds, $duration->negative),
+            $duration,
+        );
     }
 
     /**
@@ -2282,8 +2285,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Decompose the current interval into
      *
-     * @param mixed|int|DateInterval|string|Closure|Unit|null $interval interval or number of the given $unit
-     * @param Unit|string|null                                $unit     if specified, $interval must be an integer
+     * @param DateInterval|Duration|Closure|Unit|mixed|int|string|null $interval interval or number of the given $unit
+     * @param Unit|string|null                                         $unit     if specified, $interval must be an integer
      *
      * @return CarbonPeriod
      */
@@ -2342,8 +2345,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Add the passed interval to the current instance.
      *
-     * @param Unit|string|DateInterval $unit
-     * @param int|float                $value
+     * @param Unit|DateInterval|Duration|string $unit
+     * @param int|float                         $value
      *
      * @return $this
      */
@@ -2387,8 +2390,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Subtract the passed interval to the current instance.
      *
-     * @param Unit|string|DateInterval $unit
-     * @param int|float                $value
+     * @param Unit|DateInterval|Duration|string $unit
+     * @param int|float                         $value
      *
      * @return $this
      */
@@ -2406,8 +2409,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     /**
      * Subtract the passed interval to the current instance.
      *
-     * @param string|DateInterval $unit
-     * @param int|float           $value
+     * @param Unit|DateInterval|Duration|string $unit
+     * @param int|float                         $value
      *
      * @return $this
      */
@@ -3355,7 +3358,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         if ($interval instanceof Duration) {
             $instance->invert = (int) $interval->negative;
 
-            return $instance;
+            return self::withOriginal($instance, $interval);
         }
 
         if ($interval instanceof self && is_a($className, self::class, true)) {
