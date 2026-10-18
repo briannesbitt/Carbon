@@ -1235,14 +1235,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
-     * @param DateInterval $interval
-     * @param bool         $skipCopy set to true to return the passed object
-     *                               (without copying it) if it's already of the
-     *                               current class
+     * @param DateInterval|Duration $interval
+     * @param bool                  $skipCopy set to true to return the passed object
+     *                                        (without copying it) if it's already of the
+     *                                        current class
      *
      * @return static
      */
-    public static function instance(DateInterval $interval, array $skip = [], bool $skipCopy = false): static
+    public static function instance(DateInterval|Duration $interval, array $skip = [], bool $skipCopy = false): static
     {
         if ($skipCopy && $interval instanceof static) {
             return $interval;
@@ -2213,31 +2213,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public function toDuration(): Duration
     {
-        if ($this->years || $this->months || $this->weeks || $this->dayz) {
-            throw new InvalidIntervalException(
-                'Date units (years, months, weeks and days) cannot be converted to '.Duration::class.
-                ' because they cannot be unambiguously converted to elapsed time.'
-            );
-        }
-
-        $microseconds = $this->hours * 3600000000
-            + $this->minutes * 60000000
-            + $this->seconds * 1000000
-            + (int) $this->microseconds;
-
-        if ($this->invert) {
-            $microseconds = -$microseconds;
-        }
-
-        $negative = $microseconds < 0;
-        $microseconds = abs($microseconds);
-
-        $duration = Duration::fromSeconds(
-            intdiv($microseconds, 1000000),
-            ($microseconds % 1000000) * 1000
-        );
-
-        return $negative ? $duration->negate() : $duration;
+        return DurationConverter::createDurationFromInterval($this);
     }
 
     /**
@@ -3337,24 +3313,32 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     }
 
     /**
-     * @template T of DateInterval
+     * @template T of DateInterval|Duration
      *
-     * @param DateInterval $interval
+     * @param DateInterval|Duration $interval
      *
      * @psalm-param class-string<T> $className
      *
      * @return T
      */
-    private static function castIntervalToClass(DateInterval $interval, string $className, array $skip = []): object
+    private static function castIntervalToClass(DateInterval|Duration $interval, string $className, array $skip = []): object
     {
         $mainClass = DateInterval::class;
+
+        if ($className === Duration::class) {
+            return DurationConverter::createDurationFromInterval($interval);
+        }
 
         if (!is_a($className, $mainClass, true)) {
             throw new InvalidCastException("$className is not a sub-class of $mainClass.");
         }
 
-        $microseconds = $interval->f;
-        $instance = self::buildInstance($interval, $className, $skip);
+        [$microseconds, $instance] = $interval instanceof Duration
+            ? [
+                $interval->nanoseconds / 1_000_000_000,
+                new $className('PT'.$interval->seconds.'S'),
+            ]
+            : [$interval->f, self::buildInstance($interval, $className, $skip)];
 
         if ($instance instanceof self) {
             $instance->originalInput = $interval;
@@ -3362,6 +3346,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         if ($microseconds) {
             $instance->f = $microseconds;
+        }
+
+        if ($interval instanceof Duration) {
+            $instance->invert = (int) $interval->negative;
+
+            return $instance;
         }
 
         if ($interval instanceof self && is_a($className, self::class, true)) {

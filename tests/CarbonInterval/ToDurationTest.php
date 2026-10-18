@@ -56,9 +56,32 @@ class ToDurationTest extends AbstractTestCase
         $this->assertSame(5, $duration->seconds);
     }
 
+    public function testConvertNegativeMillisecondsIntervalToDuration()
+    {
+        $duration = CarbonInterval::create(seconds: -5, microseconds: -300_000)->toDuration();
+
+        $this->assertTrue($duration->negative);
+        $this->assertSame(5, $duration->seconds);
+        $this->assertSame(300_000_000, $duration->nanoseconds);
+
+        $duration = CarbonInterval::create(seconds: -5, microseconds: 300_000)->toDuration();
+
+        $this->assertTrue($duration->negative);
+        $this->assertSame(4, $duration->seconds);
+        $this->assertSame(700_000_000, $duration->nanoseconds);
+    }
+
     public function testConvertInvertedIntervalToDuration()
     {
         $duration = CarbonInterval::minutes(3)->invert()->toDuration();
+
+        $this->assertTrue($duration->negative);
+        $this->assertSame(180, $duration->seconds);
+    }
+
+    public function testCastIntervalToDuration()
+    {
+        $duration = CarbonInterval::minutes(3)->invert()->cast(Duration::class);
 
         $this->assertTrue($duration->negative);
         $this->assertSame(180, $duration->seconds);
@@ -76,6 +99,13 @@ class ToDurationTest extends AbstractTestCase
         $this->expectException(InvalidIntervalException::class);
 
         CarbonInterval::months(2)->toDuration();
+    }
+
+    public function testMaximumMicrosedondsForConversion()
+    {
+        $this->expectException(InvalidIntervalException::class);
+
+        CarbonInterval::create(seconds: -5, microseconds: 1_300_000)->toDuration();
     }
 
     public function testRoundtrip()

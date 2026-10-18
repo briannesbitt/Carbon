@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 
 use Carbon\CarbonInterval;
-use Carbon\Exceptions\InvalidIntervalException;
 use Tests\AbstractTestCase;
 use Time\Duration;
 
