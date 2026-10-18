@@ -111,7 +111,7 @@ trait Difference
     /**
      * @alias diffAsCarbonInterval
      *
-     * Get the difference as a DateInterval instance.
+     * Get the difference as a CarbonInterval instance.
      * Return relative interval (negative if $absolute flag is not set to true and the given date is before
      * current one).
      *

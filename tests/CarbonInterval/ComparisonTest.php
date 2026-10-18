@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\Exceptions\InvalidFormatException;
 use DateInterval;
 use Tests\AbstractTestCase;
+use Time\Duration;
 
 class ComparisonTest extends AbstractTestCase
 {
@@ -38,6 +39,7 @@ class ComparisonTest extends AbstractTestCase
             return $date->nextWeekday();
         };
         $this->assertTrue(CarbonInterval::create($nextWeekday)->eq(CarbonInterval::create($nextWeekday)));
+        $this->assertTrue(CarbonInterval::minutes(3)->eq(Duration::fromSeconds(180)));
     }
 
     public function testEqualToFalse()

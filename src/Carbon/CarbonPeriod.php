@@ -46,6 +46,7 @@ use ReflectionException;
 use ReturnTypeWillChange;
 use RuntimeException;
 use Throwable;
+use Time\Duration;
 
 // @codeCoverageIgnoreStart
 require PHP_VERSION < 8.2
@@ -782,6 +783,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
                         $argument,
                     )) ||
                     $argument instanceof DateInterval ||
+                    $argument instanceof Duration ||
                     $argument instanceof Closure ||
                     $argument instanceof Unit
                 ) &&
@@ -968,8 +970,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
     /**
      * Change the period date interval.
      *
-     * @param DateInterval|Unit|string|int $interval
-     * @param Unit|string                  $unit     the unit of $interval if it's a number
+     * @param DateInterval|Duration|Unit|string|int $interval
+     * @param Unit|string                           $unit     the unit of $interval if it's a number
      *
      * @throws InvalidIntervalException
      *
@@ -2712,7 +2714,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
-     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\Time\Duration|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
      *
      * @return \Carbon\CarbonInterface
      */
