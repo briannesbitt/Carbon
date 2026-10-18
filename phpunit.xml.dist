@@ -18,6 +18,9 @@
     <testsuite name="interval">
       <directory>tests/CarbonInterval</directory>
     </testsuite>
+    <testsuite name="duration">
+      <directory>tests/DurationConverter</directory>
+    </testsuite>
     <testsuite name="period">
       <directory>tests/CarbonPeriod</directory>
     </testsuite>
