@@ -21,6 +21,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use NoDiscard;
 use ReturnTypeWillChange;
+use Time\Duration;
 
 /**
  * A simple API extension for DateTimeImmutable.
@@ -892,8 +893,8 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
     /**
      * @see Date::add()
      *
-     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param Unit|int|float|string                                         $value
+     * @param Unit|int|string|DateInterval|Duration|Closure|CarbonConverterInterface $unit
+     * @param Unit|int|float|string                                                  $value
      */
     #[NoDiscard]
     #[ReturnTypeWillChange]
@@ -905,8 +906,8 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
     /**
      * @see Date::sub()
      *
-     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param Unit|int|float|string                                         $value
+     * @param Unit|int|string|DateInterval|Duration|Closure|CarbonConverterInterface $unit
+     * @param Unit|int|float|string                                                  $value
      */
     #[NoDiscard]
     #[ReturnTypeWillChange]

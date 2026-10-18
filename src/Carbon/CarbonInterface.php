@@ -36,6 +36,7 @@ use ReflectionException;
 use ReturnTypeWillChange;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
+use Time\Duration;
 
 /**
  * Common interface for Carbon and CarbonImmutable.
@@ -958,10 +959,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @example $date->add(15, 'days')
      * @example $date->add(CarbonInterval::days(4))
      *
-     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param Unit|int|float|string                                         $value
-     * @param OverflowMode|bool|null                                        $overflow
-     * @param int|null                                                      $anchorDay
+     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface|Duration $unit
+     * @param Unit|int|float|string                                                  $value
+     * @param OverflowMode|bool|null                                                 $overflow
+     * @param int|null                                                               $anchorDay
      *
      * @return static
      */
@@ -1154,7 +1155,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Ceil the current instance at the given unit with given precision if specified.
      */
-    public function ceilUnit(string $unit, DateInterval|string|int|float $precision = 1): static;
+    public function ceilUnit(string $unit, DateInterval|\Time\Duration|string|int|float $precision = 1): static;
 
     /**
      * Ceil the current instance week.
@@ -1270,6 +1271,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
 
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
+     *
+     * Era tokens (N to NNNNN, y, yy, yyy, yyyy, yo) are read with the "eras" of $locale: the era name gives the
+     * era and the year is the year of this era, so 'D MMMM N y' with 'th' reads '29 กุมภาพันธ์ พ.ศ. 2567' as
+     * 2024-02-29. Without any N token, the era of today's date in this locale is used.
      *
      * @param string                       $format     Datetime format
      * @param string                       $time
@@ -1459,6 +1464,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * @return DateInterval
      */
     public function diffAsDateInterval($date = null, bool $absolute = false): DateInterval;
+
+    /**
+     * Get the difference as a \Time\Duration instance.
+     * Return relative interval (negative if $absolute flag is not set to true and the given date is before
+     * current one).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return Duration
+     */
+    public function diffAsDuration($date = null, bool $absolute = false): \Time\Duration;
 
     /**
      * Get the difference by the given interval using a filter closure.
@@ -1968,7 +1985,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Truncate the current instance at the given unit with given precision if specified.
      */
-    public function floorUnit(string $unit, DateInterval|string|int|float $precision = 1): static;
+    public function floorUnit(string $unit, DateInterval|\Time\Duration|string|int|float $precision = 1): static;
 
     /**
      * Truncate the current instance week.
@@ -2046,7 +2063,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Create an instance from a serialized string.
      *
-     * If $value is not from a trusted source, consider using the allowed_classes option to limit
+     * Unserializing object can lead to arbitrary execution of period filters, and assignation
+     * of unvalidated values to properties.
+     *
+     * You should never unserialize a value from not from a trusted source. Ensure you unserialize
+     * only strings coming from storage no unauthorized party can read nor write, prefer to exchange
+     * data with other systems via static formats such as JSON.
+     *
+     * If the data has to transit via untrusted systems before unserialization, then you should
+     * sign it cryptographically (with HMAC or OpenSSL for example), and verify the signature
+     * before unserializing it.
+     *
+     * If the content of $value is unknown, consider using the allowed_classes option to limit
      * the types of objects that can be built, for instance:
      *
      * @example
@@ -2585,7 +2613,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Determines if the instance is end of century (last day by default but interval can be customized).
      */
-    public function isEndOfCentury(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfCentury(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Check if the instance is end of day.
@@ -2601,53 +2629,53 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false
      * ```
      *
-     * @param bool                                                           $checkMicroseconds check time at microseconds precision
-     * @param Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval          if an interval is specified it will be used as precision
-     *                                                                                          for instance with "15 minutes", it checks if current date-time
-     *                                                                                          is in the last 15 minutes of the day, with Unit::Hour, it
-     *                                                                                          checks if it's in the last hour of the day.
+     * @param bool                                                                    $checkMicroseconds check time at microseconds precision
+     * @param Unit|DateInterval|Closure|CarbonConverterInterface|Duration|string|null $interval          if an interval is specified it will be used as precision
+     *                                                                                                   for instance with "15 minutes", it checks if current date-time
+     *                                                                                                   is in the last 15 minutes of the day, with Unit::Hour, it
+     *                                                                                                   checks if it's in the last hour of the day.
      */
-    public function isEndOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of decade (last day by default but interval can be customized).
      */
-    public function isEndOfDecade(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfDecade(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of hour (last microsecond by default but interval can be customized).
      */
-    public function isEndOfHour(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfHour(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of millennium (last day by default but interval can be customized).
      */
-    public function isEndOfMillennium(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfMillennium(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of millisecond (last microsecond by default but interval can be customized).
      */
-    public function isEndOfMillisecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfMillisecond(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of minute (last microsecond by default but interval can be customized).
      */
-    public function isEndOfMinute(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfMinute(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of month (last day by default but interval can be customized).
      */
-    public function isEndOfMonth(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfMonth(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of quarter (last day by default but interval can be customized).
      */
-    public function isEndOfQuarter(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfQuarter(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is end of second (last microsecond by default but interval can be customized).
      */
-    public function isEndOfSecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfSecond(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Returns true if the date was created using CarbonImmutable::endOfTime()
@@ -2665,7 +2693,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Carbon::parse('2019-02-28 20:13:00')->isEndOfUnit(Unit::Hour, '15 minutes'); // false
      * ```
      */
-    public function isEndOfUnit(Unit $unit, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null, mixed ...$params): bool;
+    public function isEndOfUnit(Unit $unit, Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null, mixed ...$params): bool;
 
     /**
      * Determines if the instance is end of week (last day by default but interval can be customized).
@@ -2676,12 +2704,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Carbon::parse('2024-08-31')->isEndOfWeek(); // false
      * ```
      */
-    public function isEndOfWeek(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null, WeekDay|int|null $weekEndsAt = null): bool;
+    public function isEndOfWeek(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null, WeekDay|int|null $weekEndsAt = null): bool;
 
     /**
      * Determines if the instance is end of year (last day by default but interval can be customized).
      */
-    public function isEndOfYear(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isEndOfYear(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is in the future, ie. greater (after) than now.
@@ -2903,7 +2931,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Determines if the instance is start of century (first day by default but interval can be customized).
      */
-    public function isStartOfCentury(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfCentury(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Check if the instance is start of day / midnight.
@@ -2917,53 +2945,53 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false
      * ```
      *
-     * @param bool                                                           $checkMicroseconds check time at microseconds precision
-     * @param Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval          if an interval is specified it will be used as precision
-     *                                                                                          for instance with "15 minutes", it checks if current date-time
-     *                                                                                          is in the last 15 minutes of the day, with Unit::Hour, it
-     *                                                                                          checks if it's in the last hour of the day.
+     * @param bool                                                                    $checkMicroseconds check time at microseconds precision
+     * @param Unit|DateInterval|Closure|CarbonConverterInterface|Duration|string|null $interval          if an interval is specified it will be used as precision
+     *                                                                                                   for instance with "15 minutes", it checks if current date-time
+     *                                                                                                   is in the last 15 minutes of the day, with Unit::Hour, it
+     *                                                                                                   checks if it's in the last hour of the day.
      */
-    public function isStartOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfDay(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|bool $checkMicroseconds = false, Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of decade (first day by default but interval can be customized).
      */
-    public function isStartOfDecade(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfDecade(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of hour (first microsecond by default but interval can be customized).
      */
-    public function isStartOfHour(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfHour(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of millennium (first day by default but interval can be customized).
      */
-    public function isStartOfMillennium(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfMillennium(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of millisecond (first microsecond by default but interval can be customized).
      */
-    public function isStartOfMillisecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfMillisecond(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of minute (first microsecond by default but interval can be customized).
      */
-    public function isStartOfMinute(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfMinute(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of month (first day by default but interval can be customized).
      */
-    public function isStartOfMonth(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfMonth(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of quarter (first day by default but interval can be customized).
      */
-    public function isStartOfQuarter(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfQuarter(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Determines if the instance is start of second (first microsecond by default but interval can be customized).
      */
-    public function isStartOfSecond(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfSecond(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Returns true if the date was created using CarbonImmutable::startOfTime()
@@ -2981,7 +3009,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Carbon::parse('2019-02-28 20:13:00')->isStartOfUnit(Unit::Hour, '15 minutes'); // true
      * ```
      */
-    public function isStartOfUnit(Unit $unit, Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null, mixed ...$params): bool;
+    public function isStartOfUnit(Unit $unit, Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null, mixed ...$params): bool;
 
     /**
      * Determines if the instance is start of week (first day by default but interval can be customized).
@@ -2992,12 +3020,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
      * Carbon::parse('2024-08-31')->isStartOfWeek(); // false
      * ```
      */
-    public function isStartOfWeek(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null, WeekDay|int|null $weekStartsAt = null): bool;
+    public function isStartOfWeek(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null, WeekDay|int|null $weekStartsAt = null): bool;
 
     /**
      * Determines if the instance is start of year (first day by default but interval can be customized).
      */
-    public function isStartOfYear(Unit|DateInterval|Closure|CarbonConverterInterface|string|null $interval = null): bool;
+    public function isStartOfYear(Unit|DateInterval|Closure|CarbonConverterInterface|\Time\Duration|string|null $interval = null): bool;
 
     /**
      * Returns true if the strict mode is globally in use, false else.
@@ -3657,7 +3685,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable, DiffOptio
     /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      */
-    public function roundUnit(string $unit, DateInterval|string|int|float $precision = 1, callable|string $function = 'round'): static;
+    public function roundUnit(string $unit, DateInterval|\Time\Duration|string|int|float $precision = 1, callable|string $function = 'round'): static;
 
     /**
      * Round the current instance week.

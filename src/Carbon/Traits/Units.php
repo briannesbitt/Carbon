@@ -27,6 +27,7 @@ use DateInterval;
 use DateMalformedStringException;
 use InvalidArgumentException;
 use ReturnTypeWillChange;
+use Time\Duration;
 
 /**
  * Trait Units.
@@ -244,10 +245,10 @@ trait Units
      * @example $date->add(15, 'days')
      * @example $date->add(CarbonInterval::days(4))
      *
-     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface $unit
-     * @param Unit|int|float|string                                         $value
-     * @param OverflowMode|bool|null                                        $overflow
-     * @param int|null                                                      $anchorDay
+     * @param Unit|int|string|DateInterval|Closure|CarbonConverterInterface|Duration $unit
+     * @param Unit|int|float|string                                                  $value
+     * @param OverflowMode|bool|null                                                 $overflow
+     * @param int|null                                                               $anchorDay
      *
      * @return static
      */
@@ -284,6 +285,12 @@ trait Units
 
         if ($unit instanceof DateInterval) {
             return parent::add($unit);
+        }
+
+        if ($unit instanceof Duration) {
+            return $this
+                ->addUnit(Unit::Second, ($unit->negative ? -1 : 1) * $unit->seconds)
+                ->addUnit(Unit::Microsecond, ($unit->negative ? -0.001 : 0.001) * $unit->nanoseconds);
         }
 
         if (is_numeric($unit)) {
@@ -481,6 +488,12 @@ trait Units
 
         if ($unit instanceof DateInterval) {
             return parent::sub($unit);
+        }
+
+        if ($unit instanceof Duration) {
+            return $this
+                ->addUnit(Unit::Second, ($unit->negative ? 1 : -1) * $unit->seconds)
+                ->addUnit(Unit::Microsecond, ($unit->negative ? 0.001 : -0.001) * $unit->nanoseconds);
         }
 
         if (is_numeric($unit)) {

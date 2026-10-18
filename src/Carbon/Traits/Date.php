@@ -45,6 +45,7 @@ use InvalidArgumentException;
 use ReflectionException;
 use Symfony\Component\Clock\NativeClock;
 use Throwable;
+use Time\Duration;
 
 /**
  * A simple API extension for DateTime.
@@ -1054,7 +1055,7 @@ trait Date
      */
     public function carbonize($date = null)
     {
-        if ($date instanceof DateInterval) {
+        if ($date instanceof DateInterval || $date instanceof Duration) {
             return $this->avoidMutation()->add($date);
         }
 

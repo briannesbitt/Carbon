@@ -23,6 +23,7 @@ use DatePeriod;
 use DateTimeImmutable;
 use DateTimeZone;
 use Tests\AbstractTestCase;
+use Time\Duration;
 
 class CallbackTest extends AbstractTestCase
 {
@@ -97,5 +98,21 @@ class CallbackTest extends AbstractTestCase
 
         $this->assertSame(CarbonInterval::class, $result::class);
         $this->assertSame('1 day', $result->forHumans());
+    }
+
+    public function testDurationParameter(): void
+    {
+        $closure = static function (CarbonInterface $date, Duration $duration): string {
+            return implode(', ', [$date->monthName, $duration->seconds]);
+        };
+
+        $interval = new DateInterval('PT3H30M');
+        /** @var Duration $duration */
+        $duration = Callback::parameter($closure, $interval, 1);
+
+        $this->assertInstanceOf(Duration::class, $duration);
+        $this->assertSame(3 * 3600 + 30 * 60, $duration->seconds);
+        $this->assertSame(0, $duration->nanoseconds);
+        $this->assertFalse($duration->negative);
     }
 }

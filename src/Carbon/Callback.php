@@ -22,6 +22,7 @@ use DateTimeZone;
 use ReflectionFunction;
 use ReflectionNamedType;
 use ReflectionType;
+use Time\Duration;
 
 final class Callback
 {
@@ -72,6 +73,10 @@ final class Callback
 
         if ($class && is_a($name, $class, true)) {
             return $name::instance($value);
+        }
+
+        if ($name === Duration::class && $value instanceof DateInterval) {
+            return DurationConverter::createDurationFromInterval($value);
         }
 
         return $value;

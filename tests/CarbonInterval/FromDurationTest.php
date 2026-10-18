@@ -67,6 +67,24 @@ class FromDurationTest extends AbstractTestCase
         $this->assertSame(15, $interval->seconds);
         $this->assertSame(999_999, $interval->microseconds);
         $this->assertSame(1, $interval->invert);
+
+        $interval = CarbonInterval::make(Duration::fromSeconds(9_223_372_035, 999_999_999)->negate());
+
+        $this->assertSame(-9_223_372_035.999999, $interval->totalSeconds);
+        $this->assertSame(2_562_047, $interval->hours);
+        $this->assertSame(47, $interval->minutes);
+        $this->assertSame(15, $interval->seconds);
+        $this->assertSame(999_999, $interval->microseconds);
+        $this->assertSame(1, $interval->invert);
+
+        $interval = new CarbonInterval(Duration::fromSeconds(9_223_372_035, 999_999_999)->negate());
+
+        $this->assertSame(-9_223_372_035.999999, $interval->totalSeconds);
+        $this->assertSame(2_562_047, $interval->hours);
+        $this->assertSame(47, $interval->minutes);
+        $this->assertSame(15, $interval->seconds);
+        $this->assertSame(999_999, $interval->microseconds);
+        $this->assertSame(1, $interval->invert);
     }
 
     public function testCreateIntervalFromZero()
