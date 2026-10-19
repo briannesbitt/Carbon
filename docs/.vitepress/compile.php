@@ -143,6 +143,7 @@ $uses = [
 	'Carbon\CarbonTimeZone',
     'Carbon\OverflowMode',
     'Carbon\Unit',
+    'Time\Duration',
 ];
 
 if ($is_inline) {
