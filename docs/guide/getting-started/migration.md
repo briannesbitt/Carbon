@@ -42,7 +42,7 @@ With Carbon 3 and PHP 8.4 or later, you can use `addSeconds()` and `diffInSecond
 For days, choose based on what you need:
 
 *   Use `addDays()` for calendar days in the local timezone, and `diffInDays()` to compare dates in that same timezone.
-*   Use `addUTCDays()` and `diffInUTCDays()` if you used the `Real` methods to ignore daylight saving time (DST) and treat a day as 24 hours.
+*   Use `addUTCDays()` and `diffInUTCDays()` if you used the `Real` methods to ignore [daylight saving time (DST)](https://en.wikipedia.org/wiki/Daylight_saving_time) and treat a day as 24 hours.
 
 For example, March 30, 2025 lasts 23 hours in Berlin:
 

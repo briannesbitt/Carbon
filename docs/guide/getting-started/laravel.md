@@ -91,7 +91,7 @@ That's why, in your DB, **every dates** should be stored in the same timezone. T
 
 Many businesses/organizations made the mistake of taking their business or server location as the reference timezone. You should think bigger! Someday you may move your server, become an international company, or you may simply want to reuse a part of your app or your DB. Then the timezone your originally picked will make absolutely no sense, and if you have to merge with an other DB, it will no longer be consistent.
 
-Even worse, if you choose a timezone with DST as reference (USA, Europe, etc.) then you will have calculation errors (for instance, the given flight above will give you 5 or 7 hours instead of 6 when there is a DST change in your reference timezone during the flight).
+Even worse, if you choose a timezone with [DST](https://en.wikipedia.org/wiki/Daylight_saving_time) as reference (USA, Europe, etc.) then you will have calculation errors (for instance, the given flight above will give you 5 or 7 hours instead of 6 when there is a DST change in your reference timezone during the flight).
 
 ### UTC is the reference
 
@@ -101,7 +101,7 @@ This is also the timezone you should choose for your APIs. For instance, in a JS
 
 This actually means you will convert dates to an other timezone server-side very rarely, only if you have to display it in a view.
 
-In the previous example, the timezone could be calculated from airport localization, if you need a fixed timezone but don't have the needed data stored to retrieve it, then you should simply add a `text` column in your DB table to store `"Europe/Paris"` or `"America/New_York"`. Use the city timezones and not the shift (like `UTC+08`) else you won't be able to know which DST rules to apply if you have to modify the date or calculate a new date based on the first one.
+In the previous example, the timezone could be calculated from airport localization, if you need a fixed timezone but don't have the needed data stored to retrieve it, then you should simply add a `text` column in your DB table to store `"Europe/Paris"` or `"America/New_York"`. Use the city timezones and not the shift (like `UTC+08`) else you won't be able to know which [DST rules](https://en.wikipedia.org/wiki/Daylight_saving_time) to apply if you have to modify the date or calculate a new date based on the first one.
 
 Last, you don't need to store a timezone string for each timezone-fixed date, you should apply the logic relation/grouping according to your need. For instance, if you want to send e-mails with dates to your users, you can't access the browsers when sending mails so you have to pick a timezone, you can use the last known timezone of the user (supposing you update some users table field with the browser timezone when a user log in your app). In this case, you obviously don't need to store the timezone for each stored date, you can simply save one and reuse it for every dates in all e-mails for a given user.
 

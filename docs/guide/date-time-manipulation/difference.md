@@ -73,7 +73,7 @@ echo Carbon::parse('2000-02-15 12:00')->floatDiffInYears('2010-03-24 06:00');
 ```
 
 ::: warning
-Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.
+Important note about the [daylight saving times (DST)](https://en.wikipedia.org/wiki/Daylight_saving_time), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.
 :::
 
 ::: warning

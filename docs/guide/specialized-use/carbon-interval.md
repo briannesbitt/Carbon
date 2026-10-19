@@ -112,7 +112,7 @@ echo get_class($di);
 echo $di->d;
 ```
 
-You can compare intervals the same way than Carbon objects, using `equalTo()`, `notEqualTo()` `lessThan()`, `lessThanOrEqualTo()`, `greaterThan()`, `greaterThanOrEqualTo()`, `between()`, `betweenExcluded()`, etc.
+You can compare intervals the same way as Carbon objects, using `equalTo()`, `notEqualTo()` `lessThan()`, `lessThanOrEqualTo()`, `greaterThan()`, `greaterThanOrEqualTo()`, `between()`, `betweenExcluded()`, etc.
 
 Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved. Weeks are calculated based on the total days of the current instance.
 
@@ -162,6 +162,8 @@ CarbonInterval::create(Duration::fromSeconds(300));
 // Or explicitly accepting only Duration objects:
 CarbonInterval::fromDuration(Duration::fromSeconds(300));
 ```
+
+⚠️ *`Duration` is nanosecond-precise, while `CarbonInterval` (and `DateInterval`) only go up to the microsecond.*
 
 It also has a handy `forHumans()`, which is mapped as the `__toString()` implementation, that prints the interval for humans.
 
@@ -283,7 +285,7 @@ Default factors are:
 *   1 month = 4 weeks
 *   1 year = 12 months
 
-CarbonIntervals do not carry context so they cannot be more precise (no DST, no leap year, no real month length or year length consideration). But you can completely customize those factors. For example to deal with work time logs:
+CarbonIntervals do not carry context so they cannot be more precise (no [DST](https://en.wikipedia.org/wiki/Daylight_saving_time), no leap year, no real month length or year length consideration). But you can completely customize those factors. For example to deal with work time logs:
 
 ```php
 $cascades = CarbonInterval::getCascadeFactors(); // save initial factors
@@ -479,4 +481,31 @@ echo "\n";
 echo Carbon::parse('2026-02-28')->add(CarbonInterval::monthWithAnchorDay($firstPaymentDay));
 echo "\n";
 echo Carbon::parse('2026-03-30')->add(CarbonInterval::monthWithAnchorDay($firstPaymentDay));
+```
+
+You can convert a `CarbonInterval` into a [Duration](https://wiki.php.net/rfc/duration_class) object.
+
+```php
+CarbonInterval::hours(2)->minutes(30)->toDuration(); // equivalent to Duration::fromSeconds(2 * 3600 + 30 * 60)
+```
+
+Beware you cannot convert an interval containing day, month or year because those cannot be converted unambiguously
+to seconds (day can last 23 or 25 hours because of [DST](https://en.wikipedia.org/wiki/Daylight_saving_time)),
+months have a variable number of days and years can be leap. So if you still want to convert accepting it will
+be approximated, you can do:
+
+```php
+// Let's assume we have an interval with units bigger than hour and also a bunch of microseconds
+$rawInterval = CarbonInterval::create('P2Y5M12D');
+$rawInterval->f = 0.987_654_321;
+// Note DateInterval can store maximum 6 digits here, so 321 is already lost at this point
+
+
+// Create a second interval that will only contain seconds and microseconds:
+$secondInterval = CarbonInterval::seconds($rawInterval->totalSeconds)->microseconds($rawInterval->microseconds);
+// here it contains s=71193600, f=0.987654
+
+// So it can now be converted to a Duration object:
+$duration = $secondInterval->toDuration();
+// contains seconds=71193600, nanoseconds=987654000, negative=false
 ```
