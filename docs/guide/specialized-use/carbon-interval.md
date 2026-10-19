@@ -143,14 +143,25 @@ CarbonInterval::fromString('2 minutes 15 seconds');
 CarbonInterval::fromString('2m 15s'); // or abbreviated
 ```
 
-Or create it from an other `DateInterval` / `CarbonInterval` object.
+💡*Note that month abbreviates "mo" to distinguish from minutes and the whole syntax is not case-sensitive.*
+
+Or create it from another `DateInterval` / `CarbonInterval` object.
 
 ```php
 $ci = new CarbonInterval(new \DateInterval('P1Y2M3D'));
 var_dump($ci->isEmpty());
 ```
 
-Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.
+You can also create it from a [Duration](https://wiki.php.net/rfc/duration_class) object:
+
+```php
+// From constructors:
+new CarbonInterval(Duration::fromSeconds(300));
+CarbonInterval::create(Duration::fromSeconds(300));
+
+// Or explicitly accepting only Duration objects:
+CarbonInterval::fromDuration(Duration::fromSeconds(300));
+```
 
 It also has a handy `forHumans()`, which is mapped as the `__toString()` implementation, that prints the interval for humans.
 
