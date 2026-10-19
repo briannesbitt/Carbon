@@ -155,6 +155,10 @@ var_dump($ci->isEmpty());
 You can also create it from a [Duration](https://wiki.php.net/rfc/duration_class) object:
 
 ```php
+use Carbon\CarbonInterval;
+use Time\Duration;
+//...
+
 // From constructors:
 new CarbonInterval(Duration::fromSeconds(300));
 CarbonInterval::create(Duration::fromSeconds(300));
@@ -486,7 +490,7 @@ echo Carbon::parse('2026-03-30')->add(CarbonInterval::monthWithAnchorDay($firstP
 You can convert a `CarbonInterval` into a [Duration](https://wiki.php.net/rfc/duration_class) object.
 
 ```php
-CarbonInterval::hours(2)->minutes(30)->toDuration(); // equivalent to Duration::fromSeconds(2 * 3600 + 30 * 60)
+CarbonInterval::hours(2)->minutes(30)->toDuration(); // equivalent to \Time\Duration::fromSeconds(2 * 3600 + 30 * 60)
 ```
 
 Beware you cannot convert an interval containing day, month or year because those cannot be converted unambiguously
