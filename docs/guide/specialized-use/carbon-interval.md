@@ -320,7 +320,15 @@ echo CarbonInterval::minutes(1200)->cascade()->total('hours');
 echo CarbonInterval::minutes(1200)->cascade()->totalHours;
 ```
 
-You can also get the ISO 8601 spec of the inverval with `spec()`
+An interval can be inverted either at creation or afterward:
+
+```php
+// Both below represent -3 months:
+CarbonInterval::create(months: 3, inverted: true);
+CarbonInterval::months(3)->invert();
+```
+
+You can also get the ISO 8601 spec of the interval with `spec()`
 
 ```php
 echo CarbonInterval::days(3)->addHours(5)->spec();
