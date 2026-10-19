@@ -10,6 +10,8 @@ Carbon add diff methods for each unit too, such as `diffInYears()`, `diffInMonth
 
 `diffInUnit()` allow to get a diff for a unit calculated dynamically: `->diffInUnit($unit, $date, $absolute)`
 
+`diffAsDuration()` will return the difference in seconds+nanoseconds represented as a [Duration](https://wiki.php.net/rfc/duration_class) (new class from PHP 8.6, but if you use a lower version of PHP, it will still work thanks to the included polyfill [symfony/polyfill-time](https://packagist.org/packages/symfony/polyfill-time))
+
 All can take 2 optional arguments: date to compare with (if missing, now is used instead), and an absolute boolean option (`false` by default), it returns negative value when the instance the method is called on is greater than the compared date (first argument or now). If set to `true`, that makes the method return an absolute value no matter which date is greater than the other.
 
 ```php
@@ -71,7 +73,7 @@ echo Carbon::parse('2000-02-15 12:00')->floatDiffInYears('2010-03-24 06:00');
 ```
 
 ::: warning
-Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.
+Important note about the [daylight saving times (DST)](https://en.wikipedia.org/wiki/Daylight_saving_time), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.
 :::
 
 ::: warning
