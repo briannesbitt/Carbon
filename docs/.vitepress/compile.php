@@ -130,67 +130,76 @@ $is_blade = in_array('blade', $argv);
 $code = file_get_contents(__DIR__ . '/temp.php');
 
 $uses = [
-	'Carbon\Carbon',
-	'Carbon\CarbonImmutable',
-	'Carbon\CarbonInterval',
-	'Carbon\CarbonPeriod',
+    'Carbon\Carbon',
+    'Carbon\CarbonImmutable',
+    'Carbon\CarbonInterval',
+    'Carbon\CarbonPeriod',
     'Carbon\CarbonPeriodImmutable',
-	'Carbon\Carbonite',
-	'Carbon\Translator',
-	'Carbon\CarbonInterface',
-	'Carbon\Language',
-	'Carbon\Factory',
-	'Carbon\CarbonTimeZone',
+    'Carbon\Carbonite',
+    'Carbon\Translator',
+    'Carbon\CarbonInterface',
+    'Carbon\Language',
+    'Carbon\Factory',
+    'Carbon\CarbonTimeZone',
     'Carbon\OverflowMode',
     'Carbon\Unit',
     'Time\Duration',
 ];
+$formattedUses = array_map(static fn (string $use) => "use $use;", $uses);
+
+function appendUsesToCode(string $code): string
+{
+    global $formattedUses;
+
+    return implode(' ', $formattedUses) . ' ' . preg_replace('#(' . implode('|', array_map(
+        preg_quote(...),
+                $formattedUses,
+    )) . ')#', '', $code);
+}
 
 if ($is_inline) {
-	// execute and return output directly
-	ob_start();
-	$uses_for_inline = array_map(static fn (string $use) => "use $use;", $uses);
+    // execute and return output directly
+    ob_start();
+    try {
+        eval(appendUsesToCode($code));
 
-	try {
-		eval(implode(' ', $uses_for_inline) . " $code");
-
-		echo ob_get_clean();
-	} catch (Throwable $error) {
+        echo ob_get_clean();
+    } catch (Throwable $error) {
         $t = new DateTimeImmutable();
         file_put_contents(
             __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
             "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$code",
         );
         ob_end_clean();
-		echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$code";
+        echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$code";
         exit(1);
-	}
+    }
 
-	return;
+    return;
 }
 
 if ($is_blade) {
-	$blade = new BladeOne();
-	$uses_for_blade = array_map(static fn (string $use) => "@use($use)", $uses);
+    $blade = new BladeOne();
+    $uses_for_blade = array_map(static fn (string $use) => "@use($use)", $uses);
 
-	$uses_string = implode(' ', $uses_for_blade);
-	$string = "$uses_string $code";
+    $uses_string = implode(' ', $uses_for_blade);
+    $string = "$uses_string $code";
 
-	try {
-		$output = $blade->runString($string);
-	} catch (Throwable $error) {
+    try {
+        $output = $blade->runString($string);
+    } catch (Throwable $error) {
         $t = new DateTimeImmutable();
         file_put_contents(
             __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
             "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$code",
         );
-		echo "\n\nError during Blade rendering: " . $error->getMessage() . "\n";
+        echo "\n\nError during Blade rendering: " . $error->getMessage() . "\n";
         exit(1);
-	}
+    }
 
-	echo $output;
+    echo $output;
 
-	return;
+    return;
 }
 
 $code = "<?php $code";
@@ -199,14 +208,14 @@ $parser_factory = new ParserFactory();
 $parser = $parser_factory->createForNewestSupportedVersion();
 
 try {
-	$ast = $parser->parse($code);
+    $ast = $parser->parse($code);
 } catch (Error $error) {
     $t = new DateTimeImmutable();
     file_put_contents(
         __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
         "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$code",
     );
-	echo "Parse error: {$error->getMessage()}\n";
+    echo "Parse error: {$error->getMessage()}\n";
     exit(1);
 }
 
@@ -244,19 +253,19 @@ $statements = $nodeVisitor->getStatements();
 
 function get_longest_length(array $statements): int
 {
-	// get only echo and var_dump statements
-	$statements = array_filter($statements, static fn (array $statement) => in_array(
+    // get only echo and var_dump statements
+    $statements = array_filter($statements, static fn (array $statement) => in_array(
         $statement['type'],
         ['Stmt_Echo', 'Expr_VarDump'],
     ));
 
-	usort($statements, static fn ($a, $b) => $b['length'] <=> $a['length']);
+    usort($statements, static fn ($a, $b) => $b['length'] <=> $a['length']);
 
-	if (empty($statements)) {
-		return 0;
-	}
+    if (empty($statements)) {
+        return 0;
+    }
 
-	return $statements[0]['length'] + 3;
+    return $statements[0]['length'] + 3;
 }
 
 $longest_length = get_longest_length($statements);
@@ -264,49 +273,48 @@ $longest_length = get_longest_length($statements);
 $output = $code;
 $last_offset = 0;
 
-$uses_for_block = array_map(static fn (string $use) => "use $use;", $uses);
 $value = ''; // Some examples that we eval() uses $value
 
 foreach ($statements as $stmt) {
-	ob_start();
-	$statement = substr($code, $stmt['start'], $stmt['length']);
+    ob_start();
+    $statement = substr($code, $stmt['start'], $stmt['length']);
 
-	try {
-		eval(implode(' ', $uses_for_block) . " $statement");
-		$captured_output = ob_get_clean();
+    try {
+        eval(appendUsesToCode($statement));
+        $captured_output = ob_get_clean();
 
-		if (!in_array($stmt['type'], ['Stmt_Echo', 'Expr_StaticCall', 'Expr_FuncCall', 'Stmt_TryCatch', 'Stmt_Foreach', 'Stmt_While'])) {
-			continue;
-		}
+        if (!in_array($stmt['type'], ['Stmt_Echo', 'Expr_StaticCall', 'Expr_FuncCall', 'Stmt_TryCatch', 'Stmt_Foreach', 'Stmt_While'])) {
+            continue;
+        }
 
-		// add value as a comment next to the line in $code if single line
-		// or after the line if multi line
-		$trimmed_output = trim($captured_output);
+        // add value as a comment next to the line in $code if single line
+        // or after the line if multi line
+        $trimmed_output = trim($captured_output);
 
         $comment = str_contains($trimmed_output, "\n")
             ? "\n/*\n$trimmed_output\n*/"
             : " // $trimmed_output";
 
-		$padded_statement = str_pad($statement, $longest_length);
+        $padded_statement = str_pad($statement, $longest_length);
 
-		// replace with padded statement
-		$output = substr_replace($output, $padded_statement, $stmt['start'] + $last_offset, $stmt['length']);
-		$last_offset += strlen($padded_statement) - $stmt['length'];
+        // replace with padded statement
+        $output = substr_replace($output, $padded_statement, $stmt['start'] + $last_offset, $stmt['length']);
+        $last_offset += strlen($padded_statement) - $stmt['length'];
 
-		// insert comment after the statement
-		if ($trimmed_output) {
-			$output = substr_replace($output, $comment, $stmt['end'] + 1 + $last_offset, 0);
-			$last_offset += strlen($comment);
-		}
-	} catch (Throwable $error) {
+        // insert comment after the statement
+        if ($trimmed_output) {
+            $output = substr_replace($output, $comment, $stmt['end'] + 1 + $last_offset, 0);
+            $last_offset += strlen($comment);
+        }
+    } catch (Throwable $error) {
         $t = new DateTimeImmutable();
         file_put_contents(
             __DIR__ . '/../../errors/err-' . $t->format('Y-m-d-m-Y-H-i-s-u') . '.txt',
             "Error during eval: " . $error->getMessage() . "\nFrom the code below:\n$statement",
         );
-		echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$statement";
+        echo "\n\nError during eval: " . $error->getMessage() . "\nFrom the code below:\n$statement";
         exit(1);
-	}
+    }
 }
 
 // remove <?php tag
