@@ -4,6 +4,30 @@
 
 ## Version 3.x
 
+### 3.15.0 (18 October 2026)
+* Fix millisecond timestamps before 1970 by @SulimanAbdulrazzaq in https://github.com/briannesbitt/Carbon/pull/3381
+* Fix day of year parsing in createFromIsoFormat by @kevin9327 in https://github.com/briannesbitt/Carbon/pull/3382
+* Add #[NoDiscard] on CarbonImmutable modifiers by @orcnd in https://github.com/briannesbitt/Carbon/pull/3380
+* Add moment.js era tokens to isoFormat() by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3378
+* Fix Arabic locale data by @123mousab in https://github.com/briannesbitt/Carbon/pull/3386
+* Fix callable meridiem masked by fallback locale by @chengkangzai in https://github.com/briannesbitt/Carbon/pull/3387
+* Fix parsing tomorrow in Arabic locales by @123mousab in https://github.com/briannesbitt/Carbon/pull/3388
+* Parse moment.js era tokens in createFromIsoFormat() by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3384
+* Fix memory leak in CarbonPeriod by @alex-laty in https://github.com/briannesbitt/Carbon/pull/3389
+* Update sponsors by @github-actions[bot] in https://github.com/briannesbitt/Carbon/pull/3391
+* Add CarbonInterval toDuration/fromDuration for Time\Duration (PHP 8.6) by @sergioperezcheco in https://github.com/briannesbitt/Carbon/pull/3392
+
+#### New Contributors
+* @SulimanAbdulrazzaq made their first contribution in https://github.com/briannesbitt/Carbon/pull/3381
+* @kevin9327 made their first contribution in https://github.com/briannesbitt/Carbon/pull/3382
+* @orcnd made their first contribution in https://github.com/briannesbitt/Carbon/pull/3380
+* @123mousab made their first contribution in https://github.com/briannesbitt/Carbon/pull/3386
+* @chengkangzai made their first contribution in https://github.com/briannesbitt/Carbon/pull/3387
+* @alex-laty made their first contribution in https://github.com/briannesbitt/Carbon/pull/3389
+* @sergioperezcheco made their first contribution in https://github.com/briannesbitt/Carbon/pull/3392
+
+**Full Changelog**: https://github.com/briannesbitt/Carbon/compare/3.14.2...3.15.0
+
 ### 3.14.2 (2 October 2026)
 * Fix first character after macro expansion in isoFormat() by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3369
 * Fix CLDR pattern letters left in locale formats by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3370
