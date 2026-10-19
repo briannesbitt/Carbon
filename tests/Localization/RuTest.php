@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Localization;
 
+use Carbon\CarbonInterval;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('localization')]
@@ -228,4 +229,19 @@ class RuTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1 д. 3 ч.',
     ];
+
+    public function testSubSecondPluralForms()
+    {
+        $options = ['minimumUnit' => 'µs'];
+
+        $this->assertSame('1 миллисекунда', CarbonInterval::milliseconds(1)->forHumans($options));
+        $this->assertSame('2 миллисекунды', CarbonInterval::milliseconds(2)->forHumans($options));
+        $this->assertSame('5 миллисекунд', CarbonInterval::milliseconds(5)->forHumans($options));
+        $this->assertSame('21 миллисекунда', CarbonInterval::milliseconds(21)->forHumans($options));
+        $this->assertSame('400 миллисекунд', CarbonInterval::milliseconds(400)->forHumans($options));
+        $this->assertSame('1 микросекунда', CarbonInterval::microseconds(1)->forHumans($options));
+        $this->assertSame('2 микросекунды', CarbonInterval::microseconds(2)->forHumans($options));
+        $this->assertSame('5 микросекунд', CarbonInterval::microseconds(5)->forHumans($options));
+        $this->assertSame('21 микросекунда', CarbonInterval::microseconds(21)->forHumans($options));
+    }
 }
