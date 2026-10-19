@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Localization;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -274,6 +275,33 @@ class ArTest extends LocalizationTestCase
                 Carbon::parseFromLocale($calendar, $locale)->format('Y-m-d H:i'),
                 "Parsing '$calendar' in $locale",
             );
+        }
+    }
+
+    public function testPluralFormsAboveOneHundred()
+    {
+        $this->assertSame('103 سنوات', CarbonInterval::years(103)->forHumans());
+        $this->assertSame('110 دقائق', CarbonInterval::minutes(110)->forHumans());
+        $this->assertSame('111 سنة', CarbonInterval::years(111)->forHumans());
+        $this->assertSame('100 ثانية', CarbonInterval::seconds(100)->forHumans());
+        $this->assertSame(
+            '103 مرات كل أسبوع من 2012-07-01 12:00:00',
+            (string) (CarbonPeriod::create('R103/2012-07-01T12:00:00/P7D')),
+        );
+
+        $locales = array_filter(
+            Carbon::getAvailableLocales(),
+            static fn (string $locale) => $locale === 'ar' || str_starts_with($locale, 'ar_'),
+        );
+
+        foreach ($locales as $locale) {
+            foreach ([3, 10, 11, 99] as $count) {
+                $this->assertSame(
+                    str_replace("$count ", ($count + 100).' ', CarbonInterval::years($count)->locale($locale)->forHumans()),
+                    CarbonInterval::years($count + 100)->locale($locale)->forHumans(),
+                    'Years for '.($count + 100)." in $locale should follow $count",
+                );
+            }
         }
     }
 }
