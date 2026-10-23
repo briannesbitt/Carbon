@@ -387,6 +387,9 @@ class CreateTest extends AbstractTestCase
             'Gregorian year out of range' => ['y N', 'th', '12000 พ.ศ.', "Year 12000 of the era 'พ.ศ.' is Gregorian year 11457, only years from 0 to 9999 can be created."],
             'not matching' => ['D MMMM N y', 'th', 'xx', "Could not parse 'xx' with format 'D MMMM N y'."],
             'not matching, translated' => ['D MMMM N y', 'th', '29 กุมภาพันธ์ x', "Could not parse '29 กุมภาพันธ์ x' with format 'D MMMM N y'."],
+            'Thai digits in the year' => ['D MMMM N y', 'th', '29 กุมภาพันธ์ พ.ศ. ๒๕๖๗', "Could not parse '29 กุมภาพันธ์ พ.ศ. ๒๕๖๗' with format 'D MMMM N y'."],
+            'Arabic-Indic digits in the year' => ['y N', 'en', '٢٠٢٤ AD', "Could not parse '٢٠٢٤ AD' with format 'y N'."],
+            'Thai digits in the day' => ['D MMMM N y', 'th', '๒๙ กุมภาพันธ์ พ.ศ. 2567', "Could not parse '๒๙ กุมภาพันธ์ พ.ศ. 2567' with format 'D MMMM N y'."],
         ];
     }
 
