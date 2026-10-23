@@ -200,9 +200,9 @@ trait Eras
         foreach ($tokens as $index => $token) {
             if ($isEraToken($token)) {
                 $eraTokens[$index] = $token;
-                $eraPattern = $token[0] === 'N' ? self::getEraNamesPattern($eras, $token) : ($token === 'yo' ? '\\d+\\p{L}*' : '\\d+');
+                $eraPattern = $token[0] === 'N' ? self::getEraNamesPattern($eras, $token) : ($token === 'yo' ? '[0-9]+\\p{L}*' : '[0-9]+');
                 $pattern .= "($eraPattern)";
-                $generic .= $token[0] === 'N' ? '(.+?)' : '(\\d+\\p{L}*)';
+                $generic .= $token[0] === 'N' ? '(.+?)' : '([0-9]+\\p{L}*)';
 
                 continue;
             }
@@ -335,10 +335,10 @@ trait Eras
         }
 
         return match (true) {
-            $token === 'YY' => '\d{2}',
-            (bool) preg_match('/^(?:Y+|x|X)$/', $token) => '[+-]?\d+',
-            (bool) preg_match('/^(?:DDD[Do]?|[Hh]mm(?:ss)?|S+|O[YMDHhms])$/', $token) => '\d+',
-            (bool) preg_match('/^(?:[DMHhkms]{1,2}|[MD]o)$/', $token) => '\d{1,2}',
+            $token === 'YY' => '[0-9]{2}',
+            (bool) preg_match('/^(?:Y+|x|X)$/', $token) => '[+-]?[0-9]+',
+            (bool) preg_match('/^(?:DDD[Do]?|[Hh]mm(?:ss)?|S+|O[YMDHhms])$/', $token) => '[0-9]+',
+            (bool) preg_match('/^(?:[DMHhkms]{1,2}|[MD]o)$/', $token) => '[0-9]{1,2}',
             $token === ' ' => '\s',
             $token === '?' => '.',
             $token === '!' || $token === '|' => '',
