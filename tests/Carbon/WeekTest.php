@@ -5410,6 +5410,29 @@ class WeekTest extends AbstractTestCase
         $this->assertSame('2019-01-25', $d->format('Y-m-d'));
     }
 
+    public function testWeekYearSettersKeepTime()
+    {
+        $d = Carbon::parse('2017-01-01 15:42:07.123456')->locale('en_US');
+        $d->weekYear = 2015;
+
+        $this->assertSame('2014-12-28 15:42:07.123456', $d->format('Y-m-d H:i:s.u'));
+
+        $d = Carbon::parse('2017-01-01 15:42:07.123456');
+        $d->isoWeekYear = 2015;
+
+        $this->assertSame('2015-12-27 15:42:07.123456', $d->format('Y-m-d H:i:s.u'));
+
+        $d = Carbon::parse('2020-12-31 23:59:59.999999');
+        $d->isoWeekYear(2015);
+
+        $this->assertSame('2015-12-31 23:59:59.999999', $d->format('Y-m-d H:i:s.u'));
+
+        $d = Carbon::parse('2024-02-29 08:15:30.5')->locale('fr');
+        $d->weekYear(2028);
+
+        $this->assertSame('2028-03-02 08:15:30.500000', $d->format('Y-m-d H:i:s.u'));
+    }
+
     public function testWeekday()
     {
         $d = Carbon::parse('2018-08-08')->locale('en_US');
