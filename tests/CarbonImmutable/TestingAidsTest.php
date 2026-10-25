@@ -226,7 +226,8 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01T10:20:30-07:00', Carbon::createFromFormat('H:i:s', '10:20:30')->toIso8601String());
 
         // Custom timezone.
-        $this->assertSame('2013-09-01T10:20:00+03:00', Carbon::createFromFormat('H:i e', '10:20 Europe/Kiev')->toIso8601String());
+        $kyiv = $this->firstValidTimezoneAmong(['Europe/Kyiv', 'Europe/Kiev'])->getName();
+        $this->assertSame('2013-09-01T10:20:00+03:00', Carbon::createFromFormat('H:i e', '10:20 '.$kyiv)->toIso8601String());
         $this->assertSame('2013-09-01T10:20:00+01:00', Carbon::createFromFormat('H:i', '10:20', 'Europe/London')->toIso8601String());
         $this->assertSame('2013-09-01T11:30:00+07:00', Carbon::createFromFormat('H:i:s e', '11:30:00+07:00')->toIso8601String());
         $this->assertSame('2013-09-01T11:30:00+05:00', Carbon::createFromFormat('H:i:s', '11:30:00', '+05:00')->toIso8601String());
