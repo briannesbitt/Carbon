@@ -4,6 +4,18 @@
 
 ## Version 3.x
 
+### 3.15.1 (25 October 2026)
+* Fix Russian millisecond and microsecond plural forms by @smotim in https://github.com/CarbonPHP/carbon/pull/158
+* Fix Arabic plural forms for counts above 100 by @123mousab in https://github.com/briannesbitt/Carbon/pull/3397
+* Only match ASCII digits when locating era tokens by @kamthorn in https://github.com/briannesbitt/Carbon/pull/3399
+* Keep the time in `weekYear()` and `isoWeekYear()` setters by @mkantautas in https://github.com/briannesbitt/Carbon/pull/3398
+
+#### New Contributors
+* @smotim made their first contribution in https://github.com/CarbonPHP/carbon/pull/158
+* @mkantautas made their first contribution in https://github.com/briannesbitt/Carbon/pull/3398
+
+**Full Changelog**: https://github.com/CarbonPHP/carbon/compare/3.15.0...3.15.1
+
 ### 3.15.0 (18 October 2026)
 * Fix millisecond timestamps before 1970 by @SulimanAbdulrazzaq in https://github.com/briannesbitt/Carbon/pull/3381
 * Fix day of year parsing in createFromIsoFormat by @kevin9327 in https://github.com/briannesbitt/Carbon/pull/3382
