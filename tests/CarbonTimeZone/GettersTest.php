@@ -65,7 +65,8 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('CEST', $tz->getAbbreviatedName(true));
         $this->assertSame('CET', $tz->getAbbreviatedName(false));
 
-        $tz = CarbonTimeZone::create('Canada/Yukon');
+        $whitehorse = $this->firstValidTimezoneAmong(['America/Whitehorse', 'Canada/Yukon'])->getName();
+        $tz = CarbonTimeZone::create($whitehorse);
 
         $this->assertSame('PDT', $tz->getAbbreviatedName(true));
         $this->assertSame('PST', $tz->getAbbreviatedName(false));
