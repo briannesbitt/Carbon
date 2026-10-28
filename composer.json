@@ -52,13 +52,13 @@
     "require-dev": {
         "doctrine/dbal": "^3.6.3 || ^4.0",
         "doctrine/orm": "^2.15.2 || ^3.0",
-        "friendsofphp/php-cs-fixer": "^v3.87.1",
-        "kylekatarnls/multi-tester": "^2.5.3",
-        "phpmd/phpmd": "^3.0@dev",
+        "friendsofphp/php-cs-fixer": "^3.95.27",
+        "kylekatarnls/multi-tester": "^2.6.1",
+        "phpmd/phpmd": "^3.0",
         "phpstan/extension-installer": "^1.4.3",
-        "phpstan/phpstan": "^2.1.22",
-        "phpunit/phpunit": "^10.5.53",
-        "squizlabs/php_codesniffer": "^3.13.4 || ^4.0.0"
+        "phpstan/phpstan": "^2.3.3",
+        "phpunit/phpunit": "^10.5.66",
+        "squizlabs/php_codesniffer": "^4.0.4"
     },
     "provide": {
         "psr/clock-implementation": "1.0"
