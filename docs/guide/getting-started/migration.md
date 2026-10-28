@@ -6,6 +6,10 @@ order: 5
 
 If you plan to migrate from Carbon 2 to Carbon 3, please note the following breaking changes you should take care of.
 
+### PHP 8.1 minimum
+
+Carbon 3 requires PHP 8.1 or later (Carbon 2 supports PHP 7.1.8 and later). If your project runs an older PHP version, Composer will not install Carbon 3, so upgrade PHP first.
+
 ### createFromTimestamp UTC by default
 
 Timezone for `createFromTimestamp` was previously `date_default_timezone_get()` in Carbon 2.
@@ -32,6 +36,23 @@ This was: `int(1)` in Carbon 2
 This is: `double(-1.999508)` in Carbon 3
 
 In Carbon 3, using `(int) $after->diffInSeconds($before, true)` or `(int) abs($after->diffInSeconds($before))` allows to get explicitly an absolute and truncated value, so the same result as in v2.
+
+### floatDiffIn\*
+
+In Carbon 2, `floatDiffIn*` methods (such as `floatDiffInDays`, `floatDiffInHours`) returned an absolute value by default. In Carbon 3 they are deprecated aliases of `diffIn*` (calling them emits an `E_USER_DEPRECATED` notice) and they follow the new `diffIn*` default, so they can now return a negative value:
+
+```php{no-render}
+$after = Carbon::parse('2024-01-02 12:00:00');
+$before = Carbon::parse('2024-01-01 00:00:00');
+
+var_dump($after->floatDiffInDays($before));
+```
+
+This was: `float(1.5)` in Carbon 2
+
+This is: `float(-1.5)` in Carbon 3
+
+Replace them with `$after->diffInDays($before, true)` to keep the absolute value.
 
 ### Real methods
 
@@ -74,6 +95,18 @@ var_dump($date->gt(null)); // true
 ```
 
 In Carbon v3, PHPDoc is moving to real types so any of this will throw a `TypeError`, it expects `DateTimeInterface` or `string` to be passed.
+
+Numeric strings, which you often get from user input or database columns, are also no longer accepted by `add*` methods and unit setters. This throws a `TypeError` in Carbon 3 even if your own file does not use `declare(strict_types=1)`:
+
+```php{no-render}
+$date->addDays('3');      // Carbon 2: adds 3 days, Carbon 3: TypeError
+$date->add('day', '2');   // Carbon 2: adds 2 days, Carbon 3: TypeError
+$date->setYear('2025');   // Carbon 2: sets 2025, Carbon 3: TypeError
+$date->month('3');        // Carbon 2: sets March, Carbon 3: TypeError
+$date->hour = '10';       // Carbon 2: sets 10h, Carbon 3: TypeError
+```
+
+Not every method rejects them (for instance `subDays('2')` and `setTime('10', '30')` still work), so the safest is to cast such values before passing them: `$date->addDays((int) $_GET['days'])`.
 
 ### falsable => nullable
 
@@ -128,6 +161,52 @@ Since Carbon 3, `Carbon::minValue()` and `Carbon::maxValue()` have been removed,
 Since Carbon 3, `Carbon::setTestNow($date)` will copy `$date` if it's an instance of `Carbon` which means if you call `$date->addDay()` or any kind of modification, it will no longer be applied to the mocked time (`testNow)`.
 
 However, you can use `Carbon::setTestNow(fn () => $date)` to force Carbon to always use `$date` latest value.
+
+### Decimal values in add/sub methods
+
+In Carbon 2, the decimal part passed to `add*` and `sub*` methods was dropped: `addDays(1.5)` added 1 day. In Carbon 3, it's applied for weeks and smaller units:
+
+```php
+$date = CarbonImmutable::parse('2024-01-01 00:00:00');
+
+echo $date->addDays(1.5);
+echo $date->addHours(1.5);
+echo $date->subMinutes(0.5);
+```
+
+In Carbon 2, the same code gives `2024-01-02 00:00:00`, `2024-01-01 01:00:00` and `2024-01-01 00:00:00`. Months and years still only use the integer part (`addMonths(1.5)` adds 1 month).
+
+If you relied on the truncation (for instance `addDays($hours / 24)`), cast the value explicitly with `(int)`.
+
+### Empty CarbonInterval by default
+
+`new CarbonInterval()` and `CarbonInterval::create()` without arguments used to create a 1 year interval, they now create an empty interval. And `forHumans()` on an empty interval now gives `0 seconds` instead of `1 second`:
+
+```php
+echo (new CarbonInterval())->spec();
+echo CarbonInterval::create()->forHumans();
+echo CarbonInterval::seconds(0)->forHumans();
+```
+
+In Carbon 2, the same code gives `P1Y`, `1 year` and `1 second`.
+
+### Week start from global locale
+
+In Carbon 2, `startOfWeek()` and `endOfWeek()` only used the locale of the object (set with `->locale()`). The global locale set with `Carbon::setLocale()` was ignored and the week always started on Monday. In Carbon 3, the global locale is used too:
+
+```php{no-render}
+Carbon::setLocale('en_US');
+echo Carbon::parse('2024-01-10')->startOfWeek()->format('D Y-m-d');
+// Carbon 2: Mon 2024-01-08
+// Carbon 3: Sun 2024-01-07
+
+Carbon::setLocale('ar_EG');
+echo Carbon::parse('2024-01-10')->startOfWeek()->format('D Y-m-d');
+// Carbon 2: Mon 2024-01-08
+// Carbon 3: Sat 2024-01-06
+```
+
+Locales such as `en`, `en_GB` or `fr` still start on Monday. If you need a fixed day whatever the locale, pass it explicitly: `->startOfWeek(Carbon::MONDAY)` and `->endOfWeek(Carbon::SUNDAY)`.
 
 ## Migrate to Carbon 2
 
