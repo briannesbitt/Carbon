@@ -39,7 +39,7 @@ In Carbon 3, using `(int) $after->diffInSeconds($before, true)` or `(int) abs($a
 
 ### floatDiffIn\*
 
-In Carbon 2, `floatDiffIn*` methods (such as `floatDiffInDays`, `floatDiffInHours`) returned an absolute value by default. In Carbon 3 they are deprecated aliases of `diffIn*` (calling them emits an `E_USER_DEPRECATED` notice) and they follow the new `diffIn*` default, so they can now return a negative value:
+In Carbon 2, `floatDiffIn*` methods (such as `floatDiffInDays`, `floatDiffInHours`) returned an absolute value by default. In Carbon 3 they are deprecated aliases of `diffIn*` (calling them emits an `E_USER_DEPRECATED` notice) and they follow the new `diffIn*` default, so they can now return a negative value when compared date is older than the current one:
 
 ```php{no-render}
 $after = Carbon::parse('2024-01-02 12:00:00');
@@ -106,7 +106,7 @@ $date->month('3');        // Carbon 2: sets March, Carbon 3: TypeError
 $date->hour = '10';       // Carbon 2: sets 10h, Carbon 3: TypeError
 ```
 
-Not every method rejects them (for instance `subDays('2')` and `setTime('10', '30')` still work), so the safest is to cast such values before passing them: `$date->addDays((int) $_GET['days'])`.
+Cast such values before passing them: `$date->addDays((int) $_GET['days'])`.
 
 ### falsable => nullable
 
