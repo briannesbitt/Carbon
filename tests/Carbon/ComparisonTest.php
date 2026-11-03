@@ -42,7 +42,11 @@ class ComparisonTest extends AbstractTestCase
             foreach ($timezones as $b) {
                 $from = Carbon::createFromDate(2000, 1, 1, $a);
                 $to = Carbon::createFromDate(2000, 1, 1, $b);
-                $diff = $from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst;
+                // Correct for each zone's offset today against its offset in January 2000. That is more than DST:
+                // America/Vancouver has stayed on UTC-7 since November 2026, and was UTC-8 in January 2000.
+                $diff = $from->floatDiffInHours($to, false)
+                    + (Carbon::now($a)->utcOffset() - $from->utcOffset()) / 60
+                    - (Carbon::now($b)->utcOffset() - $to->utcOffset()) / 60;
 
                 $this->assertTrue(\in_array($diff, $a === $b ? [0.0] : [0.0, 24.0, -24.0], true));
             }
@@ -54,7 +58,11 @@ class ComparisonTest extends AbstractTestCase
             foreach ($timezones as $b) {
                 $from = Carbon::createFromDate(2000, 1, 1, $a);
                 $to = Carbon::createFromDate(2000, 1, 1, $b);
-                $diff = $from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst;
+                // Correct for each zone's offset today against its offset in January 2000. That is more than DST:
+                // America/Vancouver has stayed on UTC-7 since November 2026, and was UTC-8 in January 2000.
+                $diff = $from->floatDiffInHours($to, false)
+                    + (Carbon::now($a)->utcOffset() - $from->utcOffset()) / 60
+                    - (Carbon::now($b)->utcOffset() - $to->utcOffset()) / 60;
                 $diff = round($diff * 1800) / 1800; // 2-seconds precision
 
                 $this->assertTrue(\in_array($diff, $a === $b ? [0.0] : [0.0, 24.0, -24.0], true));

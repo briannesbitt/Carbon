@@ -541,7 +541,8 @@ class DiffTest extends AbstractTestCase
     public function testDiffInHoursWithTimezones()
     {
         date_default_timezone_set('Africa/Algiers');
-        Carbon::setTestNow();
+        // A fixed January now, because America/Vancouver has stayed on UTC-7 since November 2026 and was UTC-8 in January 2012.
+        Carbon::setTestNow(Carbon::create(2012, 1, 1, 12, 0, 0, 'UTC'));
 
         $dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
         $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
@@ -636,6 +637,9 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffInSecondsWithTimezones()
     {
+        // A fixed January now, because America/Vancouver has stayed on UTC-7 since November 2026 and was UTC-8 in January 2000.
+        Carbon::setTestNow(Carbon::create(2000, 1, 1, 12, 0, 0, 'UTC'));
+
         $dtOttawa = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $dtVancouver = Carbon::createFromDate(2000, 1, 1, 'America/Vancouver');
         $this->assertSame(0, $dtOttawa->diffInSeconds($dtVancouver) % (24 * 3600));
