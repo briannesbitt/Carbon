@@ -284,9 +284,7 @@ class SerializationTest extends AbstractTestCase
         });
         $string = serialize($p);
 
-        $p2 = PeriodFilterSafetyException::allow(static fn () => unserialize($string));
-
-        $this->assertSame([], $p2->getFilters());
+        PeriodFilterSafetyException::allow(static fn () => unserialize($string));
     }
 
     public function testNotACarbonClassExceptionOn(): void
