@@ -1168,7 +1168,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function parseFromLocale(string $interval, ?string $locale = null): static
     {
-        return static::fromString(Carbon::translateTimeString($interval, $locale ?: static::getLocale(), CarbonInterface::DEFAULT_LOCALE));
+        return static::fromString(Carbon::translateTimeString(
+            $interval,
+            $locale ?: static::getLocale(),
+            CarbonInterface::DEFAULT_LOCALE,
+            CarbonInterface::TRANSLATE_UNITS,
+        ));
     }
 
     /**
