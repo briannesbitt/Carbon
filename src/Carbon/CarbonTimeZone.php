@@ -45,7 +45,7 @@ class CarbonTimeZone extends DateTimeZone
             );
         }
 
-        return ($timezone >= 0 ? '+' : '').ltrim((string) $timezone, '+').':00';
+        return static::getOffsetNameFromMinuteOffset((float) $timezone * UnitValue::MINUTES_PER_HOUR);
     }
 
     protected static function getDateTimeZoneNameFromMixed(string|int|float $timezone): string
