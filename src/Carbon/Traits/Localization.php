@@ -343,17 +343,32 @@ trait Localization
             $fromTranslations,
         );
         $monthNameCount = \count($monthTranslations);
+        $dayNameCount = $mode & CarbonInterface::TRANSLATE_DAYS ? 2 * static::DAYS_PER_WEEK : 0;
         $firstNumberOffset = preg_match('/^\D+\d/', $timeString, $match)
             ? \strlen($match[0]) // -1 to remove the first digit, +1 to add the extra wrapping spaced added just below
             : INF;
 
+        $subject = " $timeString ";
+
         return substr(preg_replace_callback(
             '/(?<=[\d\s+.\/,_-])('.implode('|', $fromTranslations).')(?=[\d\s+.\/,_-])/iu',
-            function ($match) use ($fromTranslations, $toTranslations, $monthNameCount, $firstNumberOffset) {
+            function ($match) use ($fromTranslations, $toTranslations, $monthNameCount, $dayNameCount, $firstNumberOffset, $subject) {
                 /* @var list<list{int, string}> $match */
                 [[$chunk, $offset]] = $match; // @phpstan-ignore offsetAccess.nonArray
 
                 $indexes = self::getMatchingWordIndexes($fromTranslations, $chunk);
+
+                // Right after a number, a word is not a day name: 15日 is the 15th in Japanese, and 日 is also Sunday
+                if ($indexes !== [] && ctype_digit($subject[$offset - 1])) {
+                    $indexes = array_values(array_filter(
+                        $indexes,
+                        static fn ($index) => $index < $monthNameCount || $index >= $monthNameCount + $dayNameCount,
+                    ));
+
+                    if ($indexes === []) {
+                        return $chunk;
+                    }
+                }
 
                 if ($indexes !== []) {
                     // Before the first number in the string, prefer day names over month names
@@ -367,7 +382,7 @@ trait Localization
 
                 return $chunk; // @codeCoverageIgnore
             },
-            " $timeString ",
+            $subject,
             flags: PREG_OFFSET_CAPTURE,
         ), 1, -1);
     }
