@@ -32,6 +32,24 @@ class ConversionsTest extends AbstractTestCaseWithOldNow
         $this->assertSame('Europe/Paris', (string) (new CarbonTimeZone('Europe/Paris')));
     }
 
+    public function testConstructorWithNumericOffsets()
+    {
+        foreach ([
+            [5.5, '+05:30'],
+            [-3.5, '-03:30'],
+            [5.75, '+05:45'],
+            [-0.5, '-00:30'],
+            [0, '+00:00'],
+            [5, '+05:00'],
+            [-3, '-03:00'],
+            ['5.5', '+05:30'],
+            ['+0530', '+05:30'],
+            ['-0330', '-03:30'],
+        ] as [$offset, $expected]) {
+            $this->assertSame($expected, (new CarbonTimeZone($offset))->getName());
+        }
+    }
+
     public function testToRegionName()
     {
         $this->assertSame('America/Chicago', (new CarbonTimeZone(-5))->toRegionName());
