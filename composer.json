@@ -52,12 +52,12 @@
     "require-dev": {
         "doctrine/dbal": "^3.6.3 || ^4.0",
         "doctrine/orm": "^2.15.2 || ^3.0",
-        "friendsofphp/php-cs-fixer": "^3.95.27",
+        "friendsofphp/php-cs-fixer": "^3.95.32",
         "kylekatarnls/multi-tester": "^2.6.1",
-        "phpmd/phpmd": "^3.0",
+        "phpmd/phpmd": "^3.0.0",
         "phpstan/extension-installer": "^1.4.3",
-        "phpstan/phpstan": "^2.3.3",
-        "phpunit/phpunit": "^10.5.66",
+        "phpstan/phpstan": "^2.3.7",
+        "phpunit/phpunit": "^10.5.67",
         "squizlabs/php_codesniffer": "^4.0.4"
     },
     "provide": {

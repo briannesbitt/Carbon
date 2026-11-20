@@ -342,6 +342,53 @@ class CreateTest extends AbstractTestCase
         $this->assertEquals(Carbon::today()->addDays(2), $date);
     }
 
+    public function testCreateFromLocaleFormatWithNumericMonthAndDay()
+    {
+        Carbon::setTestNow('2026-03-15 12:00:00 UTC');
+
+        foreach ([
+            ['Y年n月j日', 'ja', '2026年3月15日'],
+            ['Y年n月j日', 'zh', '2026年3月15日'],
+            ['Y年n月j日', 'zh_TW', '2026年3月15日'],
+            ['Y년 n월 j일', 'ko', '2026년 3월 15일'],
+        ] as [$format, $locale, $time]) {
+            $this->assertSame('2026-03-15', Carbon::createFromLocaleFormat($format, $locale, $time)->format('Y-m-d'), "$locale: $time");
+        }
+
+        // Names are still read when the format asks for them
+        $this->assertSame('2026-03-15', Carbon::createFromLocaleFormat('F j Y', 'ja', '3月 15 2026')->format('Y-m-d'));
+        $this->assertSame('2026-03-15 15:04', Carbon::createFromLocaleFormat('Y-m-d A g:i', 'ko', '2026-03-15 오후 3:04')->format('Y-m-d H:i'));
+        $this->assertSame('2026-03-15', Carbon::createFromLocaleFormat('Y-m-d l', 'ja', '2026-03-15 日曜日')->format('Y-m-d'));
+    }
+
+    public function testCreateFromLocaleIsoFormatWithNumericMonthAndDay()
+    {
+        Carbon::setTestNow('2026-03-15 12:00:00 UTC');
+
+        foreach ([
+            ['YYYY年M月D日', 'ja', '2026年3月15日'],
+            ['YYYY年M月D日', 'zh', '2026年3月15日'],
+            ['YYYY년 M월 D일', 'ko', '2026년 3월 15일'],
+            ['LL', 'ja', '2026年3月15日'],
+            ['LL', 'zh_TW', '2026年3月15日'],
+            ['LL', 'ko', '2026년 3월 15일'],
+            ['LLLL', 'ja', '2026年3月15日 日曜日 15:04'],
+            ['LLLL', 'ko', '2026년 3월 15일 일요일 오후 3:04'],
+            ['\\3\\月 YYYY-MM-DD', 'ja', '3月 2026-03-15'],
+        ] as [$format, $locale, $time]) {
+            $this->assertSame('2026-03-15', Carbon::createFromLocaleIsoFormat($format, $locale, $time)->format('Y-m-d'), "$locale: $time");
+        }
+    }
+
+    public function testParseFromLocaleWithUnitThatLooksLikeDayName()
+    {
+        Carbon::setTestNow('2026-03-15 12:00:00 UTC');
+
+        $this->assertSame('2026-03-18', Carbon::parseFromLocale('+3日', 'ja')->format('Y-m-d'));
+        $this->assertSame('2026-03-18', Carbon::parseFromLocale('+3일', 'ko')->format('Y-m-d'));
+        $this->assertSame('2026-03-22', Carbon::parseFromLocale('日曜日', 'ja', 'UTC')->addWeek()->format('Y-m-d'));
+    }
+
     public function testCreateFromLocaleFormat()
     {
         $date = Carbon::createFromLocaleFormat('Y M d H,i,s', 'zh_CN', '2019 四月 4 12,04,21');

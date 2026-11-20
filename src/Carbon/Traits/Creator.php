@@ -694,30 +694,7 @@ trait Creator
         ?string $locale = CarbonInterface::DEFAULT_LOCALE,
         ?TranslatorInterface $translator = null
     ): ?static {
-        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
-            [$code] = $match;
-
-            static $formats = null;
-
-            if ($formats === null) {
-                $translator ??= Translator::get($locale);
-
-                $formats = [
-                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),
-                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale),
-                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale),
-                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale),
-                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale),
-                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale),
-                ];
-            }
-
-            return $formats[$code] ?? preg_replace_callback(
-                '/MMMM|MM|DD|dddd/',
-                static fn (array $code) => mb_substr($code[0], 1),
-                $formats[strtoupper($code)] ?? '',
-            );
-        }, $format);
+        $format = self::expandIsoLocaleFormats($format, $locale, $translator);
 
         [$format, $time] = self::resolveIsoFormatEras($format, $time, $locale, $translator);
 
@@ -834,6 +811,52 @@ trait Creator
     }
 
     /**
+     * Replace the L, LL, LT... tokens of an ISO format with the formats of the given locale.
+     */
+    private static function expandIsoLocaleFormats(string $format, ?string $locale, ?TranslatorInterface $translator = null): string
+    {
+        return preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
+            [$code] = $match;
+
+            static $formats = null;
+
+            if ($formats === null) {
+                $translator ??= Translator::get($locale);
+
+                $formats = [
+                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),
+                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale),
+                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale),
+                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale),
+                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale),
+                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale),
+                ];
+            }
+
+            return $formats[$code] ?? preg_replace_callback(
+                '/MMMM|MM|DD|dddd/',
+                static fn (array $code) => mb_substr($code[0], 1),
+                $formats[strtoupper($code)] ?? '',
+            );
+        }, $format);
+    }
+
+    /**
+     * The names to translate in a date string read with the given format: a format with no
+     * month name does not read 3月 as a month name, and 日 and 월 are also day names in some locales.
+     *
+     * @param string $tokens format with its escaped text removed
+     * @param string $months regular expression matching a month name token
+     * @param string $days   regular expression matching a day name token
+     */
+    private static function getNamesTranslationMode(string $tokens, string $months, string $days): int
+    {
+        return (preg_match($months, $tokens) ? CarbonInterface::TRANSLATE_MONTHS : 0)
+            | (preg_match($days, $tokens) ? CarbonInterface::TRANSLATE_DAYS : 0)
+            | (preg_match('/[aA]/', $tokens) ? CarbonInterface::TRANSLATE_MERIDIEM : 0);
+    }
+
+    /**
      * Create a Carbon instance from a specific format and a string in a given language.
      *
      * @param string                       $format   Datetime format
@@ -860,7 +883,12 @@ trait Creator
             $format
         );
 
-        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, static::DEFAULT_LOCALE), $timezone);
+        // Text escaped in the format can be any word of the locale, so everything has to be translated
+        $mode = str_contains($format, '\\')
+            ? CarbonInterface::TRANSLATE_ALL
+            : self::getNamesTranslationMode($format, '/[MF]/', '/[Dl]/');
+
+        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, $mode), $timezone);
     }
 
     /**
@@ -877,7 +905,13 @@ trait Creator
      */
     public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null): ?static
     {
-        $translatedTime = static::translateTimeString($time, $locale, static::DEFAULT_LOCALE, CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+        $tokens = preg_replace('/\\\\./su', '', self::expandIsoLocaleFormats($format, $locale));
+        $translatedTime = static::translateTimeString(
+            $time,
+            $locale,
+            static::DEFAULT_LOCALE,
+            self::getNamesTranslationMode($tokens, '/M{3}/', '/d{2}/'),
+        );
 
         try {
             return static::createFromIsoFormat($format, $translatedTime, $timezone, $locale);
