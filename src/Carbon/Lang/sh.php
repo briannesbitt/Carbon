@@ -47,7 +47,7 @@ return [
     'ago' => 'pre :time',
     'from_now' => 'za :time',
     'after' => 'nakon :time',
-    'before' => ':time raniјe',
+    'before' => ':time ranije',
     'weekdays' => ['Nedelja', 'Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota'],
     'weekdays_short' => ['Ned', 'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'],
     'weekdays_min' => ['Ned', 'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'],

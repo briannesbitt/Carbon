@@ -52,6 +52,41 @@ class LocaleFormatsTest extends AbstractTestCase
         $this->assertSame([], $invalid);
     }
 
+    public function testTranslationsDoNotMixAlphabetsInAWord()
+    {
+        $invalid = [];
+
+        foreach (glob(__DIR__.'/../../src/Carbon/Lang/*.php') as $file) {
+            $locale = basename($file, '.php');
+            $translations = include $file;
+
+            array_walk_recursive($translations, static function ($value) use ($locale, &$invalid) {
+                if (!\is_string($value)) {
+                    return;
+                }
+
+                // :count, :time... are placeholders, not words
+                $text = preg_replace('/:[a-z]+/', '', $value);
+
+                foreach (preg_split('/[^\p{L}]+/u', $text, -1, PREG_SPLIT_NO_EMPTY) as $word) {
+                    // Ossetian commonly writes æ with the Latin letter
+                    $letters = str_replace(['æ', 'Æ'], '', $word);
+                    $alphabets = array_filter([
+                        preg_match('/(?![\p{Cyrillic}\p{Greek}])\p{Latin}/u', $letters),
+                        preg_match('/(?![\p{Latin}\p{Greek}])\p{Cyrillic}/u', $letters),
+                        preg_match('/(?![\p{Latin}\p{Cyrillic}])\p{Greek}/u', $letters),
+                    ]);
+
+                    if (\count($alphabets) > 1) {
+                        $invalid[] = "$locale: $word";
+                    }
+                }
+            });
+        }
+
+        $this->assertSame([], array_values(array_unique($invalid)));
+    }
+
     public static function dataForCldrFormats(): array
     {
         return [
