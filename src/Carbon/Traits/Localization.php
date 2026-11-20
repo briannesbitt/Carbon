@@ -762,7 +762,7 @@ trait Localization
      */
     private static function cleanWordFromTranslationString($word)
     {
-        $word = str_replace([':count', '%count', ':time'], '', $word);
+        $word = str_replace([':count', '%count', ':time', ':optional-space'], '', $word);
         $word = strtr($word, ['’' => "'"]);
         $word = preg_replace(
             '/\{(?:-?\d+(?:\.\d+)?|-?Inf)(?:,(?:-?\d+|-?Inf))?}|[\[\]](?:-?\d+(?:\.\d+)?|-?Inf)(?:,(?:-?\d+|-?Inf))?[\[\]]/',

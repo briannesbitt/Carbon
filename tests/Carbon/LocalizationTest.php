@@ -827,6 +827,23 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('vendredi, 5. juillet 2019 00:00', $date->translateTimeStringTo($baseString, 'fr'));
     }
 
+    public function testTranslateTimeStringWithOptionalSpaceInUnits()
+    {
+        $this->assertSame('2 小时', Carbon::translateTimeString('2 hours', 'en', 'zh'));
+        $this->assertSame('3 天', Carbon::translateTimeString('3 days', 'en', 'zh_TW'));
+        $this->assertSame('2hours', Carbon::translateTimeString('2小时', 'zh', 'en'));
+        $this->assertSame('3days', Carbon::translateTimeString('3天', 'zh_TW', 'en'));
+        $this->assertSame('1 年', Carbon::parse('2019-07-05')->translateTimeStringTo('1 year', 'zh'));
+    }
+
+    public function testParseFromLocaleWithOptionalSpaceInUnits()
+    {
+        Carbon::setTestNow('2026-03-15 12:00:00 UTC');
+
+        $this->assertSame('2026-03-18 12:00:00', Carbon::parseFromLocale('+3天', 'zh', 'UTC')->format('Y-m-d H:i:s'));
+        $this->assertSame('2026-03-15 14:00:00', Carbon::parseFromLocale('+2小時', 'zh_TW', 'UTC')->format('Y-m-d H:i:s'));
+    }
+
     public function testFallbackLocales()
     {
         // /!\ Used for backward compatibility, please avoid this method

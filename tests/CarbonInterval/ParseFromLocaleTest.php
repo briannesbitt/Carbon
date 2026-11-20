@@ -46,6 +46,19 @@ class ParseFromLocaleTest extends AbstractTestCase
         yield ['1ms', 'en', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 1000)];
         yield ['1µs', 'en', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 1)];
 
+        // units written with :optional-space in the translations
+        yield ['2小时', 'zh', new CarbonInterval(0, 0, 0, 0, 2)];
+        yield ['2 小时', 'zh', new CarbonInterval(0, 0, 0, 0, 2)];
+        yield ['1年2个月3周4天', 'zh', new CarbonInterval(1, 2, 3, 4)];
+        yield ['1年2個月3週4天', 'zh_TW', new CarbonInterval(1, 2, 3, 4)];
+        yield ['2小時30分鐘', 'zh_Hant', new CarbonInterval(0, 0, 0, 0, 2, 30)];
+
+        // units that look like a short day name (日 and 일 are also Sunday)
+        yield ['3日', 'ja', new CarbonInterval(0, 0, 0, 3)];
+        yield ['1年 2ヶ月 3日', 'ja', new CarbonInterval(1, 2, 0, 3)];
+        yield ['3일', 'ko', new CarbonInterval(0, 0, 0, 3)];
+        yield ['2시간 3일', 'ko', new CarbonInterval(0, 0, 0, 3, 2)];
+
         // single values with space
         yield ['1 y', 'en', new CarbonInterval(1)];
         yield ['1 mo', 'en', new CarbonInterval(0, 1)];
