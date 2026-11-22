@@ -418,9 +418,13 @@ abstract class AbstractTranslator extends SymfonyTranslator
         $this->initializing = false;
     }
 
-    private function loadFile(string $file): array|false
+    private static function loadFile(string $file): array|false
     {
-        return file_exists($file) ? (include $file) : false;
+        // Including a file compiles it again unless OPcache is on, and PHP keeps memory for every closure it
+        // compiles until the request ends. Locale files hold closures, so each file is included once per process.
+        static $files = [];
+
+        return $files[$file] ??= (file_exists($file) ? (include $file) : false);
     }
 
     private static function compareChunkLists(array $referenceChunks, array $chunks): int

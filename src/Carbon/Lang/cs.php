@@ -31,7 +31,7 @@
  * - tommaskraus
  * - Karel Sommer (calvera)
  */
-$za = function ($time) {
+$za = static function ($time) {
     return 'za '.strtr($time, [
         'hodina' => 'hodinu',
         'minuta' => 'minutu',
@@ -39,7 +39,7 @@ $za = function ($time) {
     ]);
 };
 
-$pred = function ($time) {
+$pred = static function ($time) {
     $time = strtr($time, [
         'hodina' => 'hodinou',
         'minuta' => 'minutou',
