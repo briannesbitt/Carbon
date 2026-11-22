@@ -632,6 +632,8 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('1 second', Carbon::create('2019-01-02')->secondsUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame(1.0, Carbon::create('2019-01-02')->millisecondsUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
         $this->assertSame(1.0, Carbon::create('2019-01-02')->microsecondsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
+        $this->assertSame(1.0, Carbon::create('2019-01-02')->millisUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
+        $this->assertSame(1.0, Carbon::create('2019-01-02')->microsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
         $this->assertSame('1 week', Carbon::create('2019-01-02')->weeksUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('1 month', Carbon::create('2019-01-02')->monthsUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('3 months', Carbon::create('2019-01-02')->quartersUntil('2019-02-05')->getDateInterval()->forHumans());

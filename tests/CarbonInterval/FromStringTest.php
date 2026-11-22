@@ -80,6 +80,8 @@ class FromStringTest extends AbstractTestCase
         yield ['55s 45s 1s 2s 3s 4s', new CarbonInterval(0, 0, 0, 0, 0, 0, 110)];
         yield ['1500ms 1623555µs', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 3123555)];
         yield ['430 milli', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 430000)];
+        yield ['430 millis', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 430000)];
+        yield ['430 micros', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 430)];
 
         // multi same values with space
         yield ['1 y 2 y', new CarbonInterval(3)];

@@ -1128,6 +1128,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 case 'millisecond':
                 case 'milliseconds':
                 case 'milli':
+                case 'millis':
                 case 'ms':
                     $milliseconds += $intValue;
 
@@ -1140,6 +1141,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 case 'microsecond':
                 case 'microseconds':
                 case 'micro':
+                case 'micros':
                 case 'µs':
                     $microseconds += $intValue;
 
