@@ -786,7 +786,8 @@ trait Localization
     {
         return array_map(static function ($wordKey) use ($messages, $key) {
             $message = $key === 'from' && isset($messages[$wordKey.'_regexp'])
-                ? $messages[$wordKey.'_regexp']
+                // The pattern is later wrapped in "/" delimiters, so a bare "/" must be escaped
+                ? preg_replace('/(?<!\\\\)((?:\\\\\\\\)*)\//', '$1\\/', $messages[$wordKey.'_regexp'])
                 : ($messages[$wordKey] ?? null);
 
             if (!$message) {

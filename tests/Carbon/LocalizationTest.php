@@ -1115,6 +1115,17 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame($en, Carbon::translateTimeString($ru, 'ru', 'en'));
     }
 
+    public function testTranslateWithSlashInRegExp(): void
+    {
+        // zgh diff_today_regexp contains a bare "/" (ⴰⵙⵙ ⴰ/ⴰⴷ)
+        $this->assertSame('today 10:00', Carbon::translateTimeString('ⴰⵙⵙ ⴰ/ⴰⴷ ⴳ 10:00', 'zgh', 'en'));
+        $this->assertSame('2026-01-01', Carbon::translateTimeString('2026-01-01', 'zgh', 'en'));
+        $this->assertSame(
+            '2026-01-01 00:00:00',
+            Carbon::parseFromLocale('2026-01-01', 'zgh')->format('Y-m-d H:i:s'),
+        );
+    }
+
     public function testTranslateKeepSpacing(): void
     {
         $this->assertSame(
