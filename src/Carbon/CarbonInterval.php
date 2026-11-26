@@ -1952,8 +1952,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      * @param int       $parts   maximum number of parts to display (default value: -1: no limits)
      * @param int       $options human diff options
      *
-     * @throws Exception
-     *
      * @return string
      */
     public function forHumans($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null): string
@@ -2172,8 +2170,6 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
     /**
      * Format the instance as a string using the forHumans() function.
-     *
-     * @throws Exception
      *
      * @return string
      */
