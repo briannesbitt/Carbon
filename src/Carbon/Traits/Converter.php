@@ -425,7 +425,7 @@ trait Converter
      */
     public function toString(): string
     {
-        return $this->avoidMutation()->locale('en')->isoFormat('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+        return $this->rawFormat('D M d Y H:i:s \G\M\TO');
     }
 
     /**
@@ -442,15 +442,28 @@ trait Converter
      */
     public function toISOString(bool $keepOffset = false): ?string
     {
-        if (!$this->isValid()) {
+        $year = (int) $this->rawFormat('Y');
+
+        if ($year === 0) {
             return null;
         }
 
-        $yearFormat = $this->year < 0 || $this->year > 9999 ? 'YYYYYY' : 'YYYY';
-        $timezoneFormat = $keepOffset ? 'Z' : '[Z]';
-        $date = $keepOffset ? $this : $this->avoidMutation()->utc();
+        // Skip cloning and UTC conversion when the instance already has a zero UTC offset
+        $date = $keepOffset || $this->getOffset() === 0
+            ? $this
+            : $this->avoidMutation()->utc();
 
-        return $date->isoFormat("$yearFormat-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat");
+        $dateYear = $date === $this ? $year : (int) $date->rawFormat('Y');
+        $suffix = $keepOffset ? 'P' : '\Z';
+
+        if ($dateYear >= 0 && $dateYear <= 9999) {
+            return $date->rawFormat('Y-m-d\TH:i:s.u'.$suffix);
+        }
+
+        // ISO-8601 expanded 6-digit signed year representation (Moment.js YYYYYY format)
+        return ($dateYear < 0 ? '-' : '+').
+            str_pad((string) abs($dateYear), 6, '0', STR_PAD_LEFT).
+            $date->rawFormat('-m-d\TH:i:s.u'.$suffix);
     }
 
     /**

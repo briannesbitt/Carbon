@@ -38,12 +38,26 @@ class StringsTest extends AbstractTestCase
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu Dec 25 1975 14:15:16 GMT-0500', $d->toString());
+
+        $fr = Carbon::create(2026, 11, 27, 10, 30, 45, 'Europe/Paris')->locale('fr');
+        $this->assertSame('Fri Nov 27 2026 10:30:45 GMT+0100', $fr->toString());
+        $this->assertSame('fr', $fr->locale);
+
+        $smallYear = Carbon::create(5, 6, 7, 8, 9, 10, 'UTC');
+        $this->assertSame('Tue Jun 07 0005 08:09:10 GMT+0000', $smallYear->toString());
+
+        $negYear = Carbon::create(-75, 12, 25, 14, 15, 16, 'UTC');
+        $this->assertSame('Fri Dec 25 -0075 14:15:16 GMT+0000', $negYear->toString());
+
+        $largeYear = Carbon::create(21975, 12, 25, 14, 15, 16, 'UTC');
+        $this->assertSame('Thu Dec 25 21975 14:15:16 GMT+0000', $largeYear->toString());
     }
 
     public function testToISOString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toISOString());
+        $this->assertSame('America/Toronto', $d->timezoneName);
         $d = Carbon::create(21975, 12, 25, 14, 15, 16);
         $this->assertSame('+021975-12-25T19:15:16.000000Z', $d->toISOString());
         $d = Carbon::create(-75, 12, 25, 14, 15, 16);
@@ -62,6 +76,45 @@ class StringsTest extends AbstractTestCase
         $this->assertStringStartsWith('-000075-', $d->toJSON());
         $d = Carbon::create(0);
         $this->assertNull($d->toISOString());
+        $this->assertNull($d->toISOString(true));
+    }
+
+    public function testToISOStringEdgeCasesAndImmutability()
+    {
+        $utcMicro = Carbon::create(2026, 11, 27, 10, 30, 45, 'UTC')->setMicroseconds(5);
+        $this->assertSame('2026-11-27T10:30:45.000005Z', $utcMicro->toISOString());
+        $this->assertSame('2026-11-27T10:30:45.000005+00:00', $utcMicro->toISOString(true));
+
+        // Zero-offset and summer BST non-UTC timezones keep their original timezone unchanged
+        $londonWinter = Carbon::create(2026, 1, 15, 12, 0, 0, 'Europe/London');
+        $this->assertSame('2026-01-15T12:00:00.000000Z', $londonWinter->toISOString());
+        $this->assertSame('Europe/London', $londonWinter->timezoneName);
+
+        $londonSummer = Carbon::create(2026, 7, 15, 12, 0, 0, 'Europe/London');
+        $this->assertSame('2026-07-15T11:00:00.000000Z', $londonSummer->toISOString());
+        $this->assertSame('Europe/London', $londonSummer->timezoneName);
+
+        // Non-UTC timezone conversion does not mutate mutable instance
+        $kolkata = Carbon::create(2026, 11, 27, 10, 30, 45, 'Asia/Kolkata')->locale('fr');
+        $this->assertSame('2026-11-27T05:00:45.000000Z', $kolkata->toISOString());
+        $this->assertSame('2026-11-27T10:30:45.000000+05:30', $kolkata->toISOString(true));
+        $this->assertSame('2026-11-27T05:00:45.000000Z', $kolkata->toJSON());
+        $this->assertSame('Asia/Kolkata', $kolkata->timezoneName);
+        $this->assertSame('fr', $kolkata->locale);
+
+        // Small and negative years, plus year-boundary UTC rollovers
+        $this->assertSame('0005-06-07T08:09:10.000000Z', Carbon::create(5, 6, 7, 8, 9, 10, 'UTC')->toISOString());
+        $this->assertSame('0999-12-31T23:59:59.000000Z', Carbon::create(999, 12, 31, 23, 59, 59, 'UTC')->toISOString());
+        $this->assertSame('-000001-05-10T12:00:00.000000Z', Carbon::create(-1, 5, 10, 12, 0, 0, 'UTC')->toISOString());
+        $this->assertSame('+010000-01-01T01:00:00.000000Z', Carbon::create(9999, 12, 31, 23, 0, 0, '-02:00')->toISOString());
+        $this->assertSame('9999-12-31T22:30:00.000000Z', Carbon::create(10000, 1, 1, 0, 30, 0, '+02:00')->toISOString());
+        $this->assertSame('0000-12-31T22:30:00.000000Z', Carbon::create(1, 1, 1, 0, 30, 0, '+02:00')->toISOString());
+        $this->assertSame('0000-01-01T01:00:00.000000Z', Carbon::create(-1, 12, 31, 23, 0, 0, '-02:00')->toISOString());
+        $this->assertNull(Carbon::create(0, 12, 31, 23, 0, 0, '-02:00')->toISOString());
+
+        // Historical LMT offset
+        $paris1850 = Carbon::create(1850, 1, 1, 12, 0, 0, 'Europe/Paris');
+        $this->assertSame('1850-01-01T12:00:00.000000+00:09', $paris1850->toISOString(true));
     }
 
     public function testSetToStringFormatString()
